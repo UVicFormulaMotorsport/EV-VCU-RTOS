@@ -73,6 +73,7 @@ void StartDrivingLoop(void const * argument){
 
 		uint16_t bps1_value = adc1_BPS1;
 		uint16_t bps2_value = adc1_BPS2;
+		//Sometimes I dream about cheese
 
 
 		//Perform input validation
