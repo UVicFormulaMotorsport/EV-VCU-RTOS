@@ -110,4 +110,13 @@ void IMD_Request_Status(uint8_t Status);
 // Called on startup to initialize IMD checks
 void IMD_Startup(void);
 
+// called on startup @deprecated
+void IMD_Startup();
+
+void initIMD(void* args);
+
 #endif  // __IMD_H__
+
+
+
+

@@ -12,8 +12,44 @@
 
 
 //global variables for all to enjoy
-uvVehicleSettings* uvCurrentSettings = NULL;
+uv_vehicle_settings* current_vehicle_settings = NULL;
 
+#if ENABLE_FLASH_SETTINGS
+enum uv_status_t getSettingsFromFlash(){
+	//if there exists settings in flash somewhere, then get them. Otherwise we use the defaults
+	return UV_ABORTED;
+}
+
+
+bool uvAreCustomSettingsActive(){
+	return false;
+}
+
+uv_status saveSettings(){
+	return UV_ABORTED;
+}
+
+
+#endif
+
+
+/** @brief Function that allocates the neccessary space for all the vehicle settings, and
+ * handles sets all of the settings structs to defaults
+ *
+ */
+void setupDefaultSettings(){
+	//real trap shit
+	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
+}
+
+void nukeSettings(uv_vehicle_settings** settings_to_delete){
+
+
+	uvFree(*settings_to_delete);
+	*settings_to_delete = NULL;
+
+
+}
 
 /** @brief this function does one thing, and one thing only, it checks if we have custom settings, then it attempts to get them.
  * If it fails, then we revert to factory defaults.
@@ -21,11 +57,21 @@ uvVehicleSettings* uvCurrentSettings = NULL;
  */
 enum uv_status_t uvSettingsInit(){
 #if ENABLE_FLASH_SETTINGS
-	if(get_settings_from_flash()!= UV_OK){
-		setup_default_settings();
+	uv_status setting_success = get_settings_from_flash();
+	if(setting_success == UV_ABORTED){
+		setting_success = setupDefaultSettings();
+	} else if(setting_success == UV_ERROR){
+		return UV_ERROR;
 	}
+
+	if(setting_success == UV_OK){
+		return UV_OK;
+	}else{
+		//handle the resulting error, maybe soft reboot ngl
+	}
+
 #else
-	setup_default_settings();
+	setupDefaultSettings();
 #endif
 
 
@@ -33,19 +79,6 @@ enum uv_status_t uvSettingsInit(){
 
 }
 
-enum uv_status_t get_settings_from_flash(){
-	//if there exists settings in flash somewhere, then get them. Otherwise we use the defaults
-	return UV_OK;
-}
-
-void setup_default_settings(){
-	//real trap shit
-	uvCurrentSettings = (uvVehicleSettings*) malloc(sizeof(uvVehicleSettings*));
-}
-
-void nuke_settings(uvVehicleSettings** settings_to_delete){
-
-	//*uvVehicleSettings = NULL;
 
 
-}
+

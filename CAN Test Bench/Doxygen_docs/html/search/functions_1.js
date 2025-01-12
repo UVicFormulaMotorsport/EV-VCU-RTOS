@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['busfault_5fhandler_695',['BusFault_Handler',['../stm32f4xx__it_8h.html#a850cefb17a977292ae5eb4cafa9976c3',1,'BusFault_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#a850cefb17a977292ae5eb4cafa9976c3',1,'BusFault_Handler(void):&#160;stm32f4xx_it.c']]]
+  ['addtasktotaskregister_993',['addTaskToTaskRegister',['../uvfr__state__engine_8c.html#a1fedc882914ef3579d876c512f87506a',1,'uvfr_state_engine.c']]],
+  ['amogus_994',['amogus',['../oled_8h.html#a1e0fecb2ef1515f81a5a1a42c6626551',1,'oled.h']]]
 ];

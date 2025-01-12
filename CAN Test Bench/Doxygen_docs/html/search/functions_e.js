@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vapplicationgetidletaskmemory_783',['vApplicationGetIdleTaskMemory',['../freertos_8c.html#a1988aa923b19fa6f31c93afa7773f793',1,'freertos.c']]]
+  ['refresh_5foled_1095',['refresh_OLED',['../oled_8h.html#a1682d608b1f9752ad8db39d13327fd37',1,'oled.h']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['num_5fdriving_5fmodes_855',['num_driving_modes',['../structdriving_loop_args.html#a4a70a814267fc05c64df368ba060a219',1,'drivingLoopArgs']]]
+  ['length_1229',['length',['../uniondaq__type.html#a9d638d4084286678c8fc2bc5f00eec4c',1,'daq_type']]]
 ];

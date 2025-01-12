@@ -2,6 +2,8 @@
 #include "can.h"
 #include "main.h"
 #include "constants.h"
+
+#include "uvfr_utils.h"
 #include "pdu.h"
 
 // Global Variables
@@ -294,3 +296,209 @@ void IMD_Startup(void) {
     IMD_Request_Status(Max_battery_working_voltage);
     IMD_Request_Status(Uptime_counter);
 }
+
+// -----------------------------------------------------------------------------------
+// These functions could check to see if stuff is safe to touch
+
+void IMD_Check_Safety_Touch_Energy(uint8_t Data[]){
+
+	// I don't really know how to make use of these functions
+
+}
+
+
+void IMD_Check_Safety_Touch_Current(uint8_t Data[]){
+	// TODO
+}
+
+
+
+
+
+
+// ----------------------------------------------------------------------------
+// Data that could be checked on startup to make sure everything is good
+
+void IMD_Check_Max_Battery_Working_Voltage(uint8_t Data[]){
+	uint16_t Max_Battery_Voltage = (Data[1] << 8) | Data[2];
+
+	if (Max_Battery_Voltage != 571){
+		// Max_Battery_Voltage not configured properly
+	}
+
+}
+
+
+// This function checks the part name of the IMD matches expected
+// The part name is split into 4 messages, each of 4 bytes
+// Because it is split over 4 messages, we need to compare only once we have read all messages
+void IMD_Check_Part_Name(uint8_t Data[]){
+	// TODO
+
+	// This function will be called from the CAN msg parser
+	// It will get the array of data bits. We need to check which part name
+	// We then store the 4 bytes in an array of 32 bit int to compare at the end
+
+	switch (Data[0]){
+		case Part_name_0:
+			IMD_Read_Part_Name[0] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Part_Name_0_Set = 1;
+		break;
+		case Part_name_1:
+			IMD_Read_Part_Name[1] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Part_Name_1_Set = 1;
+		break;
+		case Part_name_2:
+			IMD_Read_Part_Name[2] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Part_Name_2_Set = 1;
+		break;
+		case Part_name_3:
+			IMD_Read_Part_Name[3] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Part_Name_3_Set = 1;
+		break;
+	}
+
+	if (IMD_Part_Name_0_Set && IMD_Part_Name_1_Set && IMD_Part_Name_2_Set && IMD_Part_Name_3_Set){
+		IMD_Part_Name_Set = 1;
+	}
+
+	if (IMD_Part_Name_Set){
+		// Check part number matches expected
+		for (int i = 0; i < 4; ++i){
+			if (IMD_Read_Part_Name[0] != IMD_Expected_Part_Name[0]){
+				//error
+			}
+		}
+
+	}
+
+}
+
+void IMD_Check_Version(uint8_t Data[]){
+	// TODO
+
+	// This function will be called from the CAN msg parser
+	// It will get the array of data bits. We need to check which firmware version
+	// We then store the 4 bytes in an array of 32 bit int to compare at the end
+
+	switch (Data[0]){
+		case Version_0:
+			IMD_Read_Version[0] = (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Version_0_Set = 1;
+		break;
+		case Version_1:
+			IMD_Read_Version[1] = (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Version_1_Set = 1;
+		break;
+		case Version_2:
+			IMD_Read_Version[2] = (Data[3] << 16) | (Data[2] << 8) | Data[1];
+			IMD_Version_2_Set = 1;
+		break;
+	}
+
+	if (IMD_Version_0_Set && IMD_Version_1_Set && IMD_Version_2_Set){
+		IMD_Version_Set = 1;
+	}
+
+	if (IMD_Version_Set){
+		// Check part number matches expected
+		for (int i = 0; i < 3; ++i){
+			if (IMD_Read_Version[0] != IMD_Expected_Version[0]){
+				//error
+			}
+		}
+
+	}
+}
+
+// This function checks the serial number of the IMD matches expected
+// The part name is split into 4 messages, each of 4 bytes
+// Because it is split over 4 messages, we need to compare only once we have read all messages
+void IMD_Check_Serial_Number(uint8_t Data[]){
+
+	// This function will be called from the CAN msg parser
+	// It will get the array of data bits. We need to check which serial number
+	// We then store the 4 bytes in an array of 32 bit int to compare at the end
+	// The serial number is found by concatenating 3 - 2 - 1 -0
+
+	switch (Data[0]){
+		case Serial_number_0:
+			IMD_Read_Serial_Number[0] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
+			IMD_Serial_Number_0_Set = 1;
+		break;
+		case Serial_number_1:
+			IMD_Read_Serial_Number[1] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
+			IMD_Serial_Number_1_Set = 1;
+		break;
+		case Serial_number_2:
+			IMD_Read_Serial_Number[2] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
+			IMD_Serial_Number_2_Set = 1;
+		break;
+		case Serial_number_3:
+			IMD_Read_Serial_Number[3] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
+			IMD_Serial_Number_3_Set = 1;
+		break;
+	}
+
+	if (IMD_Serial_Number_0_Set && IMD_Serial_Number_1_Set && IMD_Serial_Number_2_Set && IMD_Serial_Number_3_Set){
+		IMD_Serial_Number_Set = 1;
+	}
+
+	if (IMD_Serial_Number_Set){
+		// Check serial number matches expected
+		for (int i = 0; i < 4; ++i){
+			if (IMD_Read_Serial_Number[i] != IMD_Expected_Serial_Number[i]){
+				//error
+			}
+		}
+	}
+
+}
+
+void IMD_Check_Uptime(uint8_t Data[]){
+	// TODO
+}
+
+void IMD_Startup(){
+	// TODO
+	// Run check for serial number, max voltage, and such
+
+	// The first check is the serial number
+
+	IMD_Request_Status(Serial_number_0);
+	IMD_Request_Status(Serial_number_1);
+	IMD_Request_Status(Serial_number_2);
+	IMD_Request_Status(Serial_number_3);
+
+	IMD_Request_Status(Version_0);
+	IMD_Request_Status(Version_1);
+	IMD_Request_Status(Version_2);
+
+	IMD_Request_Status(Part_name_0);
+	IMD_Request_Status(Part_name_1);
+	IMD_Request_Status(Part_name_2);
+	IMD_Request_Status(Part_name_3);
+
+	IMD_Request_Status(Max_battery_working_voltage);
+	IMD_Request_Status(isolation_state);
+	// Can check further things
+
+}
+
+void initIMD(void* args){
+	uv_init_task_args* params = (uv_init_task_args*) args;
+	uv_init_task_response response = {UV_OK,IMD,0,NULL};
+	vTaskDelay(100); //Pretend to be doing something for now
+
+	if(xQueueSendToBack(params->init_info_queue,&response,100) != pdPASS){
+			//OOPS
+		uvPanic("Failed to enqueue IMD OK Response",0);
+	}
+
+
+	vTaskSuspend(params->meta_task_handle);
+}
+
+
+
+
