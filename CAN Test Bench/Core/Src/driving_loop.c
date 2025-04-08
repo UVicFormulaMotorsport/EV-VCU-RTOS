@@ -22,6 +22,8 @@ extern uint16_t adc1_APPS2;
 extern uint16_t adc1_BPS1;
 extern uint16_t adc1_BPS2;
 
+driving_loop_args default_dl_settings;
+
 enum uv_status_t initDrivingLoop(void *argument){
 	uv_task_info* dl_task = uvCreateTask(); // allocate memory for the task
 

@@ -41,7 +41,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-
+//This line holds the entire program together
 #ifndef HAL_CAN_ERROR_INVALID_CALLBACK
 #define HAL_CAN_ERROR_INVALID_CALLBACK (0x00400000U)
 #endif
@@ -517,22 +517,34 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 
 
 
-	//TODO: CanTxDaemon being inactive will brick this. FIX IT!!
 
 	if(tx_msg == NULL){
 		return UV_ERROR;
 	}
 
+	uint32_t is_isr;
+	//Special precautions need to be taken if you do this from an interrupt
+	__ASM volatile ("MRS %0, ipsr" : "=r" (is_isr) );
+
 
 
 	//BaseType_t higher_priority_task_woken = pdFALSE;
 	if(Tx_msg_queue != NULL){
-		if(xQueueSendToBack(Tx_msg_queue,&tx_msg,0) != pdPASS){
-			uvPanic("couldnt enqueue CAN message",0);
+		if(!is_isr){
+			if(xQueueSendToBack(Tx_msg_queue,&tx_msg,0) != pdPASS){
+				uvPanic("couldnt enqueue CAN message",0);
+			}else{
+				return UV_OK;
+			}
+			return UV_ERROR;
 		}else{
-			return UV_OK;
+			if(xQueueSendToBackFromISR(Tx_msg_queue,&tx_msg,0) != pdPASS){
+					uvPanic("couldnt enqueue CAN message",0);
+			}else{
+				return UV_OK;
+			}
+			return UV_ERROR;
 		}
-		return UV_ERROR;
 	}else{
 		if(__uvCANtxCritSection(tx_msg)!=UV_OK){
 			return UV_ERROR;

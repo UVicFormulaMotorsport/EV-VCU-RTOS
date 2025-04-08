@@ -15,6 +15,10 @@
 #define STM32_F407 1
 #define STM32_H7xx 0
 
+#define FIRMWARE_MAJOR_RELEASE 0
+#define FIRMWARE_MINOR_RELEASE 1
+#define FIRMWARE_PATCH_NUM 0
+
 
 
 //memory management configuration

@@ -79,6 +79,7 @@ void tempMonitorTask(void* args){
 	test_msg.flags = 0x00;
 
 	insertCANMessageHandler(0x86, testfunc);
+	insertCANMessageHandler(0x87, testfunc);
 	insertCANMessageHandler(0x64, testfunc2);
 
 	/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task

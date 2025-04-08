@@ -14,6 +14,13 @@ extern uint8_t               TxData[8];
 
 TaskHandle_t reset_handle = NULL;
 
+const uint8_t data_size[] = {1,1, //UV_UINT8 and UV_INT8
+		2,2, //UV_UINT16 and UV_INT16
+		4,4, //UV_UINT32 and UV_INT32
+		4,8, //UV_FLOAT, UV_DOUBLE
+		8,8, //UV_UINT64, UV_INT64
+		0}; //UV_STRING size indeterminate as we have no idea how long it is. Wait for '/0'.
+
 
 //#define CAN_TRANSMIT_TEST_IN_INIT
 
@@ -75,6 +82,20 @@ void uvInit(void * arguments){
 	 * tasks that will be running.
 	 *
 	 */
+
+	uv_task_info* canTxtask = uvCreateServiceTask();
+		canTxtask->task_function = CANbusTxSvcDaemon;
+		canTxtask->active_states = 0xFFFF;
+		canTxtask->task_name = CAN_TX_DAEMON_NAME;
+
+		uv_task_info* canRxtask = uvCreateServiceTask();
+		canRxtask->task_function = CANbusRxSvcDaemon;
+		canRxtask->active_states = 0xFFFF;
+		canRxtask->task_name = CAN_RX_DAEMON_NAME;
+		//super basic for now, just need something working
+		uint32_t var = 0; //retarded dummy var
+		uvStartTask(&var,canTxtask);
+		uvStartTask(&var,canRxtask);
 
 	/** Now we are going to create a bunch of tasks that will initialize our car's external devices.
 	 * The reason that these are RTOS tasks, is that it takes a buncha time to verify the existance of some devices.

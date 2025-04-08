@@ -10,8 +10,9 @@
 
 #define DEFAULT_BMS_CAN_TIMEOUT ((uv_timespan_ms)200)
 
-typedef struct bms_settings_t{
-	uint32_t mc_CAN_timeout;
+typedef struct bms_settings_t{ //TODO Needs populating
+	uint32_t BMS_CAN_timeout;
+	uint32_t max_temp;
 }bms_settings_t;
 
 void BMS_Init(void* args);

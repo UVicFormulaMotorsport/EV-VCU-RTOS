@@ -53,10 +53,11 @@ typedef struct daq_param_list_node{
 /** @brief This struct holds info of what needs to be logged
  *
  */
-typedef struct daq_datapoint{ //4 bytes, convenient, no?
-	uint16_t can_id; /**< */
-	uint8_t period; /**< */
-	uint8_t type; /**< */
+typedef struct daq_datapoint{ //8 bytes, convenient, no?
+	uint32_t can_id; /**< */
+	uint16_t param;	/**< Which loggable param are we logging boys? */
+	uint8_t period; /**< Time between transmissions in ms*/
+	uint8_t type; /**< Datatype of the data */
 }daq_datapoint; /**< */
 
 typedef struct daq_loop_args{

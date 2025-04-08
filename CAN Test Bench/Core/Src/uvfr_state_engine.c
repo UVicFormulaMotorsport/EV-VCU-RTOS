@@ -203,7 +203,7 @@ uv_status uvStartStateMachine(){
 	svc_task_manager->task_flags |= UV_TASK_MISSION_CRITICAL | UV_TASK_SCD_IGNORE;
 	svc_task_manager->task_function = uvSVCTaskManager;
 	svc_task_manager->stack_size = 256;
-	svc_task_manager->task_period = os_settings->svc_task_manager_period;
+	svc_task_manager->task_period = 100;//os_settings->svc_task_manager_period;
 
 	task_manager->task_name = "taskManager"; //Task info for regular uvTaskManager struct
 	task_manager->task_flags |= UV_TASK_MISSION_CRITICAL | UV_TASK_SCD_IGNORE;
@@ -218,17 +218,17 @@ uv_status uvStartStateMachine(){
 	BaseType_t retval;
 
 	//starting up the terrifying tasks
-	retval = xTaskCreate(svc_task_manager->task_function,svc_task_manager->task_name,svc_task_manager->stack_size,svc_task_manager,4,&(svc_task_manager->task_handle));
-
-	if(retval != pdPASS){
-		return UV_ERROR; //if for whatever god forsaken reason neither of these tasks actually activate
-	}
-
-	retval = xTaskCreate(task_manager->task_function,task_manager->task_name,task_manager->stack_size,task_manager,4,&(task_manager->task_handle));
-
-	if(retval != pdPASS){
-		return UV_ERROR;//very much ++ ungoods
-	}
+//	retval = xTaskCreate(svc_task_manager->task_function,svc_task_manager->task_name,svc_task_manager->stack_size,svc_task_manager,4,&(svc_task_manager->task_handle));
+//
+//	if(retval != pdPASS){
+//		return UV_ERROR; //if for whatever god forsaken reason neither of these tasks actually activate
+//	}
+//
+//	retval = xTaskCreate(task_manager->task_function,task_manager->task_name,task_manager->stack_size,task_manager,4,&(task_manager->task_handle));
+//
+//	if(retval != pdPASS){
+//		return UV_ERROR;//very much ++ ungoods
+//	}
 
 //	state_change_daemon_args* scd_args = uvMalloc(sizeof(state_change_daemon_args));
 //	scd_args->meta_task_handle = NULL;
@@ -1357,19 +1357,7 @@ void uvSVCTaskManager(void* args){
 		__uvInitPanic(); //Double Plus Ungood
 	}
 
-	uv_task_info* canTxtask = uvCreateServiceTask();
-	canTxtask->task_function = CANbusTxSvcDaemon;
-	canTxtask->active_states = 0xFFFF;
-	canTxtask->task_name = CAN_TX_DAEMON_NAME;
 
-	uv_task_info* canRxtask = uvCreateServiceTask();
-	canRxtask->task_function = CANbusRxSvcDaemon;
-	canRxtask->active_states = 0xFFFF;
-	canRxtask->task_name = CAN_RX_DAEMON_NAME;
-	//super basic for now, just need something working
-	uint32_t var = 0; //retarded dummy var
-	uvStartTask(&var,canTxtask);
-	uvStartTask(&var,canRxtask);
 
 	//vTaskSuspend(params->task_handle);
 	//iterate through the list

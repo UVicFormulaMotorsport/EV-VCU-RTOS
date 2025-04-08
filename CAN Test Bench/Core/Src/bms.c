@@ -8,6 +8,11 @@
 #include "tim.h"
 #include "dash.h"
 
+void handleBMSVoltageMsg(uv_CAN_msg* msg){
+
+	return;
+}
+
 void BMS_Init(void* args){
 	uv_init_task_args* params = (uv_init_task_args*) args;
 
