@@ -24,7 +24,20 @@ extern uint16_t adc1_APPS2;
 extern uint16_t adc1_BPS1;
 extern uint16_t adc1_BPS2; // Brake
 
-driving_loop_args default_dl_settings;
+driving_loop_args default_dl_settings;//TODO DECIDE WHAT YOU WANT DEFAULT SETTINGS TO BE
+
+driving_loop_args* driving_args = NULL;
+
+
+
+
+bool is_accelerating = false;
+float T_PREV = 0;
+float T_REQ = 0;
+
+
+float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2);
+bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status);
 
 enum uv_status_t initDrivingLoop(void *argument){
 	uv_task_info* dl_task = uvCreateTask(); // allocate memory for the task
@@ -33,6 +46,8 @@ enum uv_status_t initDrivingLoop(void *argument){
 		//Oh dear lawd if allocation fails return error
 		return UV_ERROR;
 	}
+
+	driving_args = current_vehicle_settings->driving_loop_settings;
 
 
 	//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
@@ -62,6 +77,106 @@ enum uv_status_t initDrivingLoop(void *argument){
 
 	return UV_OK; //
 }
+
+inline static float mapThrottleToTorque(float throttle_percent) {
+		static float T_prev = 0.0f; // Stores the last filtered torque value. for filterting to check if decelearting
+	    //float throttle_percent = calculateThrottlePercentage(apps1, apps2);
+	    if(throttle_percent == 0.0f){
+	    	return 0.0f;
+	      }
+	    double T_MAX = driving_args->absolute_max_motor_torque; // got this from driving_loop.h file
+	    float torque_request_current =  (throttle_percent / 100.0f) * T_MAX;
+	    float torque_request = T_prev;
+	    T_prev = torque_request_current;
+	    return torque_request;
+	    }
+
+#define ACCELERATION 0
+#define AUTOCROSS 1
+#define ENDURANCE 2
+
+
+	inline float getKValue(int raceMode) {
+		float kVal = 0.3; //Default for if racemode Does not exist
+		if(raceMode == ACCELERATION) {
+			return kVal = 0.7;
+		}else if (raceMode == AUTOCROSS){
+			return kVal = 0.4;
+		}else if (raceMode == ENDURANCE) {
+			return kVal = 0.2;
+		}
+		return kVal;
+	}
+
+	float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2) {
+	    // Ensure both sensor values are within the valid range
+	    if (apps1 < driving_args->min_apps1_value || apps1 > driving_args->max_apps1_value || apps2 < driving_args->min_apps2_value || apps2 > driving_args->max_apps2_value) return 0.0f;
+
+	    // Compute throttle percentage using linear interpolation
+	    float throttle_percent = ((float)(apps1 - driving_args->min_apps1_value) / (driving_args->max_apps1_value - driving_args->min_apps1_value)) * 100.0f;
+
+	    // SAFETY CHECK: Verify APPS1 and APPS2 values are within 10% of each other
+	    float apps_diff = fabs((float)apps1 - (float)apps2) / (float)apps1;
+	    if (apps_diff > 0.1f) {
+	        // Sensors are out of sync, return 0% to prevent errors
+	    	printf("WARNING: APPS sensors out of sync! Returning 0%% throttle.\n");
+	    	uvPanic("idek",0);
+	        return 0.0f;
+	    }
+	    //else if (apps_diff <= 0.1f){
+	    	// Next function call calcThrottlePercentage(param)
+	    	 //* OR return something
+	    	// *
+	    return throttle_percent;
+	}
+
+
+	/** Rachan
+	 * @brief  Applies filtering to smooth torque transitions.
+	 *
+	 * @param  T_req: Requested torque before filtering.
+	 * @param  T_prev: Previous filtered torque value.
+	 *
+	 * @return Smoothed torque value.
+	 * */
+
+	inline static float applyTorqueFilter(float T_req, float T_prev, bool is_accelearting) {
+	    // Filtering formula: T_filtered = T_prev + (T_req - T_prev) * k
+	    //return T_prev + (T_req - T_prev) * FILTER_K;
+		// except hehehehhe were gonna create a get_k function based on race modes
+		float FILTER_K = getKValue(0);
+		if (is_accelerating) {
+			FILTER_K = 0.4; // smooth acceleration (adjustable for endurance vs sport mode
+
+		}else{
+			FILTER_K = 1.0; // INSTANT to
+		}
+
+		// Calculate filtered torque
+		float T_filtered =  T_prev + (T_req - T_prev) * FILTER_K;
+
+		// Ensures we do not hold residual torque when stopping
+		if (T_req == 0) {
+			T_filtered = 0; // If stopping, is requested torque
+		}
+		return T_filtered;
+
+	    //if tnext > treq {tnext = treq}
+
+	    //send value to sent
+	}
+
+
+
+	/** Rachan
+	 * @brief  Sends the filtered torque value to the motor controller.
+	 *
+	 * @param  T_filtered: Final torque value after filtering.
+	*/
+	static void sendTorqueToMotorController(float T_filtered) {
+	    // Placeholder function to send torque command to motor controller
+		MotorControllerSpinTest(T_filtered);
+	}
 
 /**@brief  Function implementing the ledTask thread.
  * @param  argument: Not used for now. Will have configuration settings later.
@@ -154,12 +269,13 @@ void StartDrivingLoop(void * argument){
 		}
 
 		if(dl_status == Plausible){
+			//TODO This.
 			//implement motor control logic here
 			// dont have to start as an if statement just idea
 		}
 
 		 // **Determine if accelerating or decelerating**
-		bool is_accelerating = (T_req >= T_prev);
+		is_accelerating = (T_REQ >= T_PREV);
 
 
 		// if vehicle state is equal to drivibg and only oif its equal to dribvibng
@@ -213,102 +329,8 @@ void StartDrivingLoop(void * argument){
 	 */
 
 
-	inline bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status) {
-	//Perform input validation and ensures values are within the expected range
+}
 
-		// Convert APPS values to a 0-1 float scale
-		// This helps us in calculating the percentage difference between the two throttle sensors
-		// can do this as a function call
-		// float apps1_ratio = ((float)(apps1_value - dl_params->min_apps_value)/(dl_params->max_apps_value - dl_params->min_apps_value));
-		// float apps2_ratio = ((float)(apps2_value - dl_params->min_apps_value)/(dl_params->max_apps_value - dl_params->min_apps_value));
-		float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
-
-		// Convert BPS values to a 0-1 float scale
-		float bps1_ratio = ((float)(bps1_value - dl_params->min_BPS_value) / (dl_params->max_BPS_value - dl_params->min_BPS_value));
-		float bps2_ratio = ((float)(bps2_value - dl_params->min_BPS_value) / (dl_params->max_BPS_value - dl_params->min_BPS_value));
-
-		// Compute percentage differences since 2 different spots
-		//float apps_percentage_diff = fabs(apps1_ratio - apps2_ratio) * 100.0f; // APP1 and APP2
-		float bps_percentage_diff = fabs(bps1_ratio - bps2_ratio) * 100.0f; // BPS1 and BPS2
-
-		// Debugging Log Sensor Values
-		//printf("APPS1: %f, APPS2: %f, Diff: %f\n", apps1_ratio, apps2_ratio, apps_percentage_diff);
-		//printf("BPS1: %.2f, BPS2: %.2f, Diff: %.2f%%\n", bps1_ratio, bps2_ratio, bps_percentage_diff);
-
-
-		// Fatal Errors APPS Sensors are out of Range shut down motor
-		if (apps1_value < dl_params->min_apps_value || apps1_value > dl_params->max_apps_value){
-			printf("ERROR: APPS1: out of range! Stopping motor.\n");
-			//stop_commmand();
-			//killself(params);
-			return UV_panic;
-			return false;
-		}
-		if (apps2_value < dl_params->min_apps_value || apps2_value > dl_params->max_apps_value) {
-		    printf("ERROR: APPS2 out of range! Stopping motor.\n");
-		    //stop_command();
-		    //killSelf(params); // combination of these two can be replaced with UV_panic
-		    return UV_panic;
-		    return false;
-		    }
-
-		// Non-fatal Errors : APPS sensors mismatch greater than 10%, suspend task, stop motor
-		if (apps_percentage_diff > 10.0f){
-			//printf("WARNING: APPS sensors out of sync (%.2f%%)! Suspending task. \n", apps_percentage_diff);
-			// output 0 as in no torque request
-			// stop_command();
-			//suspendSelf(params);
-			return UV_panic;
-			return false;
-		}
-
-		// Fatal Errors BPS sensor our of range
-		if (bps1_value < dl_params->min_BPS_value || bps1_value > dl_params->max_BPS_value) { // BPS1
-			//printf("ERROR: BPS1 out of range! Stopping motor.\n");
-			//stop_command();
-			//killself(params);
-			return UV_panic;
-			return false;
-		}
-
-		if (bps2_value < dl_params->min_BPS_value || bps2_value > dl_params->max_BPS_value) { // BPS1
-			printf("ERROR: BPS2 out of range! Stopping motor.\n");
-			//stop_command();
-			//killself(params); // uv_panic
-			return UV_panic;
-			return false;
-		}
-
-		// Non fatal errors: BPS sensors mismatch greater than 5%, suspend tasks, stop motor
-		if (bps_percentage_diff > 5.0f){
-			//printf("WARNING: BPS sensors are out of sync (%.2f%%)! Suspending task.\n", bps_percentage_diff);
-			// output 0 as in no  request
-			//stop_command();
-			//suspendSelf(params);
-			return UV_panic;
-			return false;
-		}
-
-
-		// Brake Plausibility Check: Prevent simultaneous throttle and brake
-		 if ((bps1_value > dl_params->bps_plausibility_check_threshold) && (apps1_value > dl_params->apps_plausibility_check_threshold)) {
-			 printf("WARNING: Brake and accelerator pressed simultaneously! Suspending task.\n");
-		     //stop_command(); // return 0
-		     *dl_status = Implausible;
-		     suspendSelf(params);
-		     return false;
-		    }
-
-
-		 // System Recovery: resume motor if previously in implausible state
-		 if (*dl_status == Implausible) {
-		     *dl_status = Plausible;
-		     printf("INFO: Safety conditions normal. Motor can resume.\n");
-		     //spin_motor(); output torque request to motor_controller
-		     }
-
-		     return true; //All checks passed, motor remains active
-		 }
 
 
 
@@ -412,27 +434,7 @@ void StartDrivingLoop(void * argument){
 	 *
 	 */
 
-	inline static float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2) {
-	    // Ensure both sensor values are within the valid range
-	    if (apps1 < RPM_MIN || apps1 > RPM_MAX || apps2 < RPM_MIN || apps2 > RPM_MAX) return 0.0f;
 
-	    // Compute throttle percentage using linear interpolation
-	    float throttle_percent = ((float)(apps1 - RPM_MIN) / (RPM_MAX - RPM_MIN)) * 100.0f;
-
-	    // SAFETY CHECK: Verify APPS1 and APPS2 values are within 10% of each other
-	    float apps_diff = fabs((float)apps1 - (float)apps2) / (float)apps1;
-	    if (apps_diff > 0.1f) {
-	        // Sensors are out of sync, return 0% to prevent errors
-	    	printf("WARNING: APPS sensors out of sync! Returning 0%% throttle.\n");
-	    	return UV_panic;
-	        return 0.0f;
-	    }
-	    //else if (apps_diff <= 0.1f){
-	    	// Next function call calcThrottlePercentage(param)
-	    	 //* OR return something
-	    	// *
-	    return throttle_percent;
-	}
 	/** AMMAR
 
 	@brief  Maps Throttle Percentage to Torque Request.
@@ -441,80 +443,108 @@ void StartDrivingLoop(void * argument){
 	*
 	@return Requested torque in Nm.
 	*/
-	inline static float mapThrottleToTorque(float throttle_percent) {
-		static float T_prev = 0.0f; // Stores the last filtered torque value. for filterting to check if decelearting
-	    float throttle_percent = calculateThrottlePercentage(apps1, apps2);
-	    if(throttle_percent == 0.0f){
-	    	return 0.0f;
-	      }
-	    double T_MAX = driving_args.absolute_max_motor_torque; // got this from driving_loop.h file
-	    float torque_request_current =  (throttle_percent / 100.0f) * T_MAX;
-	    float torque_request = T_prev;
-	    T_prev = torque_request_current;
-	    return torque_request;
+bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status) {
+//Perform input validation and ensures values are within the expected range
+
+	// Convert APPS values to a 0-1 float scale
+	// This helps us in calculating the percentage difference between the two throttle sensors
+	// can do this as a function call
+	float apps1_ratio = ((float)(apps1_value - dl_params->min_apps1_value)/(dl_params->max_apps1_value - dl_params->min_apps1_value));
+	float apps2_ratio = ((float)(apps2_value - dl_params->min_apps2_value)/(dl_params->max_apps2_value - dl_params->min_apps2_value));
+	float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
+
+	// Convert BPS values to a 0-1 float scale
+	float bps1_ratio = ((float)(bps1_value - dl_params->min_BPS_value) / (dl_params->max_BPS_value - dl_params->min_BPS_value));
+	float bps2_ratio = ((float)(bps2_value - dl_params->min_BPS_value) / (dl_params->max_BPS_value - dl_params->min_BPS_value));
+
+	// Compute percentage differences since 2 different spots
+	float apps_percentage_diff = fabs(apps1_ratio - apps2_ratio) * 100.0f; // APP1 and APP2
+	float bps_percentage_diff = fabs(bps1_ratio - bps2_ratio) * 100.0f; // BPS1 and BPS2
+
+	// Debugging Log Sensor Values
+	//printf("APPS1: %f, APPS2: %f, Diff: %f\n", apps1_ratio, apps2_ratio, apps_percentage_diff);
+	//printf("BPS1: %.2f, BPS2: %.2f, Diff: %.2f%%\n", bps1_ratio, bps2_ratio, bps_percentage_diff);
+
+
+	// Fatal Errors APPS Sensors are out of Range shut down motor
+	if (apps1_value < dl_params->min_apps1_value || apps1_value > dl_params->max_apps2_value){
+		printf("ERROR: APPS1: out of range! Stopping motor.\n");
+		//stop_commmand();
+		//killself(params);
+		uvPanic("idek",0);
+		return false;
+	}
+	if (apps2_value < dl_params->min_apps2_value || apps2_value > dl_params->max_apps2_value) {
+	    printf("ERROR: APPS2 out of range! Stopping motor.\n");
+	    //stop_command();
+	    //killSelf(params); // combination of these two can be replaced with UV_panic
+	    uvPanic("idek",0);
+	    return false;
 	    }
 
-	inline float getKValue(int raceMode) {
-		float kVal;
-		if(raceMode == ACCELARATION) {
-			return kVal = 0.7;
-		}else if (raceMode == AUTOCROSS){
-			return kcal = 0.4;
-		}else if (raceMode == ENDURANCE) {
-			return kVal = 0.2;
-		}
-		return kVal;
+	// Non-fatal Errors : APPS sensors mismatch greater than 10%, suspend task, stop motor
+	if (apps_percentage_diff > 10.0f){
+		//printf("WARNING: APPS sensors out of sync (%.2f%%)! Suspending task. \n", apps_percentage_diff);
+		// output 0 as in no torque request
+		// stop_command();
+		//suspendSelf(params);
+		uvPanic("idek",0);
+		return false;
+	}
+
+	// Fatal Errors BPS sensor our of range
+	if (bps1_value < dl_params->min_BPS_value || bps1_value > dl_params->max_BPS_value) { // BPS1
+		//printf("ERROR: BPS1 out of range! Stopping motor.\n");
+		//stop_command();
+		//killself(params);
+		uvPanic("idek",0);
+		return false;
+	}
+
+	if (bps2_value < dl_params->min_BPS_value || bps2_value > dl_params->max_BPS_value) { // BPS1
+		printf("ERROR: BPS2 out of range! Stopping motor.\n");
+		//stop_command();
+		//killself(params); // uv_panic
+		uvPanic("idek",0);
+		return false;
+	}
+
+	// Non fatal errors: BPS sensors mismatch greater than 5%, suspend tasks, stop motor
+	if (bps_percentage_diff > 5.0f){
+		//printf("WARNING: BPS sensors are out of sync (%.2f%%)! Suspending task.\n", bps_percentage_diff);
+		// output 0 as in no  request
+		//stop_command();
+		//suspendSelf(params);
+		uvPanic("idek",0);
+		return false;
 	}
 
 
-	/** Rachan
-	 * @brief  Applies filtering to smooth torque transitions.
-	 *
-	 * @param  T_req: Requested torque before filtering.
-	 * @param  T_prev: Previous filtered torque value.
-	 *
-	 * @return Smoothed torque value.
-	 * */
-
-	inline static float applyTorqueFilter(float T_req, float T_prev, bool is_accelearting) {
-	    // Filtering formula: T_filtered = T_prev + (T_req - T_prev) * k
-	    //return T_prev + (T_req - T_prev) * FILTER_K;
-		// except hehehehhe were gonna create a get_k function based on race modes
-		float FILTER_K = getKValue();
-		if (is_accelerating) {
-			FILTER_K = 0.4; // smooth acceleration (adjustable for endurance vs sport mode
-
-		}else{
-			FILTER_K = 1.0; // INSTANT to
-		}
-
-		// Calculate filtered torque
-		float T_filtered =  T_prev + (T_req - T_prev) * FILTER_K;
-
-		// Ensures we do not hold residual torque when stopping
-		if (T_req == 0) {
-			T_filtered = 0; // If stopping, is requested torque
-		}
-		return T_filtered;
-
-	    //if tnext > treq {tnext = treq}
-
-	    //send value to sent
-	}
+	// Brake Plausibility Check: Prevent simultaneous throttle and brake
+	 if ((bps1_value > dl_params->bps_plausibility_check_threshold) && (apps1_value > dl_params->apps_plausibility_check_threshold)) {
+		 printf("WARNING: Brake and accelerator pressed simultaneously! Suspending task.\n");
+	     //stop_command(); // return 0
+	     *dl_status = Implausible;
+	     //suspendSelf(params);
+	     return false;
+	    }
 
 
+	 // System Recovery: resume motor if previously in implausible state
+	 if (*dl_status == Implausible) {
+		 if(1){ //NOTE THE RULE ON WHERE THE PEDAL MUST BE FOR THIS TO HAPPEN
+	     *dl_status = Plausible;
+		 }
+	     printf("INFO: Safety conditions normal. Motor can resume.\n");
+	     //spin_motor(); output torque request to motor_controller
+	     }
 
-	/** Rachan
-	 * @brief  Sends the filtered torque value to the motor controller.
-	 *
-	 * @param  T_filtered: Final torque value after filtering.
-	*/
-	static void sendTorqueToMotorController(float T_filtered) {
-	    // Placeholder function to send torque command to motor controller
-		MotorControllerSpinTest(T_filtered);
-	}
+	     return true; //All checks passed, motor remains active
+
 
 
 
 
 }
+
+

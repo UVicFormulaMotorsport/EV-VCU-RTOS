@@ -120,7 +120,10 @@ typedef struct driving_loop_args{
 	uint16_t min_apps_offset; /**<minimum APPS offset */
 	uint16_t max_apps_offset; /**< maximum APPS offset */
 	uint16_t min_apps_value; /**< for detecting disconnects and short circuits*/
-	uint16_t max_apps_value; /**< for detecting disconnects and short circuits*/
+	uint16_t max_apps1_value; /**< for detecting disconnects and short circuits*/
+	uint16_t min_apps1_value; /**< for detecting disconnects and short circuits*/
+	uint16_t min_apps2_value; /**< for detecting disconnects and short circuits*/
+	uint16_t max_apps2_value;
 	uint16_t min_BPS_value; /**< are the brakes valid?*/
 	uint16_t max_BPS_value; /**< are the brakes valid?*/
 
