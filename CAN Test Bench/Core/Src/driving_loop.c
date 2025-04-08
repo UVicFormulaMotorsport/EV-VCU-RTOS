@@ -50,6 +50,7 @@ enum uv_status_t initDrivingLoop(void *argument){
 	dl_task->active_states = UV_DRIVING; // Specifies when the task should be active
 	dl_task->suspension_states = 0x00;
 
+
 	dl_task->deletion_states = UV_INIT|UV_READY | PROGRAMMING | UV_SUSPENDED | UV_LAUNCH_CONTROL | UV_ERROR_STATE;
 
 
@@ -115,9 +116,13 @@ void StartDrivingLoop(void * argument){
 	/**@endcode */
 	for(;;){ // enters infinite loop
 
+
+
+
 		if(params->cmd_data == UV_KILL_CMD){ // to perform task control (suspend/kill)
 
-			killSelf(params); // if UV_KILL_CMD received, terminate the task
+			killSelf(params);
+
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
 			suspendSelf(params); // if _UV_SUSPEND_CMD received pause the task
 		}
