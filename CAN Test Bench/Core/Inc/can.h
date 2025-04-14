@@ -43,6 +43,12 @@ extern CAN_HandleTypeDef hcan2;
 typedef struct uv_CAN_msg uv_CAN_msg;
 typedef enum uv_status_t uv_status;
 
+typedef struct CAN_Message_handle {
+    uint32_t CAN_id;
+    void* function;
+    struct CAN_Message* next;
+}CAN_Message_handle;
+
 /* USER CODE END Private defines */
 
 void MX_CAN2_Init(void);
@@ -56,8 +62,8 @@ uv_status uvSendCanMSG(uv_CAN_msg * msg);
 
 void CANbusTxSvcDaemon(void* args);
 
-int call_function_from_CAN_id(uint32_t CAN_id, uint8_t* data, uint8_t length);
-void insert_CAN_message(CAN_Message message);
+int call_function_from_CAN_id(uv_CAN_Msg);
+void insert_CAN_message(CAN_Message_handle message);
 void nuke_hash_table();
 /* USER CODE END Prototypes */
 

@@ -963,7 +963,7 @@ void uvTaskManager(void* args) PRIVILEGED_FUNCTION{
 
 			break;
 		}
-
+		vTaskSuspend(NULL);
 
 	}
 

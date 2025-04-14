@@ -40,6 +40,21 @@ uv_status saveSettings(){
 void setupDefaultSettings(){
 	//real trap shit
 	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
+
+	 if (!current_vehicle_settings) return;
+
+	    // Motor controller defaults (set from macros)
+	    current_vehicle_settings->mc_settings.can_id_tx              = DEFAULT_CAN_ID_TX;
+	    current_vehicle_settings->mc_settings.can_id_rx              = DEFAULT_CAN_ID_RX;
+	    current_vehicle_settings->mc_settings.mc_CAN_timeout         = DEFAULT_MC_CAN_TIMEOUT;
+	    current_vehicle_settings->mc_settings.proportional_gain      = DEFAULT_PROPORTIONAL_GAIN;
+	    current_vehicle_settings->mc_settings.integral_time_constant = DEFAULT_INTEGRAL_TIME_CONSTANT;
+	    current_vehicle_settings->mc_settings.integral_memory_max    = DEFAULT_INTEGRAL_MEMORY_MAX;
+
+	    current_vehicle_settings->mc_settings.max_speed    = DEFAULT_MAX_SPEED;
+	    current_vehicle_settings->mc_settings.max_current  = DEFAULT_MAX_CURRENT;
+	    current_vehicle_settings->mc_settings.cont_current = DEFAULT_CONT_CURRENT;
+	    current_vehicle_settings->mc_settings.max_torque   = DEFAULT_MAX_TORQUE;
 }
 
 void nukeSettings(uv_vehicle_settings** settings_to_delete){

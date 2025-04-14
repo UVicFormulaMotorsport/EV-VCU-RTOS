@@ -133,7 +133,7 @@ void uvInit(void * arguments){
 	//osThreadDef_t MC_init_thread = {"MC_init",MC_Startup,osPriorityNormal,128,0};
 	uv_init_task_args* MC_init_args = uvMalloc(sizeof(uv_init_task_args));
 	MC_init_args->init_info_queue = init_validation_queue;
-	MC_init_args->specific_args = &(current_vehicle_settings->motor_controller_settings);
+	MC_init_args->specific_args = &(current_vehicle_settings->mc_settings);
 	//MC_init_args->meta_task_handle = osThreadCreate(&MC_init_thread,MC_init_args);
 	//vTaskResume( MC_init_args->meta_task_handle );
 	retval = xTaskCreate(MC_Startup,"MC_init",128,MC_init_args,osPriorityAboveNormal,&(MC_init_args->meta_task_handle));
@@ -217,7 +217,7 @@ void uvInit(void * arguments){
 			}
 
 		}
-
+		ext_devices_status = 0;
 
 
 		if(ext_devices_status == 0){

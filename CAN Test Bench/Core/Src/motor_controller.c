@@ -1,807 +1,361 @@
-//Motor Controller
-// Includes
-#include "motor_controller.h"  // Functions and constants for motor control
-#include "can.h"               // CAN communication functions
-#include "main.h"              // Application-level definitions
-#include "cmsis_os.h"          // RTOS-related functionality
-#include "pdu.h"               // Shutdown circuit interface
+/* motor_controller.c */
 
-// --------------------------------------------
-// External Resources (provided by can.c)
-// --------------------------------------------
-extern QueueHandle_t canRxQueue;             // Queue for CAN receive messages
-extern QueueHandle_t canTxQueue;             // Queue for CAN transmit messages
-//extern SemaphoreHandle_t canResponseSemaphore; // Semaphore for synchronizing CAN responses
+#include "motor_controller.h"
+#include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
+#include "cmsis_os.h"      // For vTaskSuspend
+#include "uvfr_utils.h"    // For uvPanic, etc.
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 
-// --------------------------------------------
-// Motor Controller Constants
-// --------------------------------------------
-const uint32_t MC_Expected_Serial_Number = 0x627E7A01; // Expected serial number
-const uint16_t MC_Expected_FW_Version = 0xDC01;        // Expected firmware version
-const uint32_t max_motor_speed = 3277;                 // Max RPM for speed control
+#include "uvfr_settings.h"
+extern uv_vehicle_settings* current_vehicle_settings;
+extern QueueHandle_t CAN_Rx_Queue;
 
-//uint32_t TxMailbox; //Ensure TxMailbox is defined as a uint32_t variable in your motor_controller.c file or globally in can.c if used across multiple files:
-
-// Motor controller settings with default values
-motor_controller_settings mc_default_settings = {
-    .can_id_tx = 0x200,              // CAN transmit ID
-    .can_id_rx = 0x201,              // CAN receive ID
-    .mc_CAN_timeout = 2,             // CAN timeout in seconds
-    .proportional_gain = 10,         // Proportional gain (Kp)
-    .integral_time_constant = 400,   // Integral time constant (Ti)
-    .integral_memory_max = 0.6       // Max integral memory (60%)
-};
-
-// --------------------------------------------
-// Function Prototypes
-// --------------------------------------------
-static uint32_t Parse_Bamocar_Response(uint8_t *data, uint8_t length);
-static void MotorControllerErrorHandler(uint8_t *data, uint8_t length);
-static uint16_t MotorControllerSpinTest(void);
-static bool WaitFor_CAN_Response(void);
-void MC_Request_Data(uint8_t RegID);
-//void MotorController_Init(void);
-//void MC_Startup(void);
+// Redirect all mc_default_settings.x to actual config struct
+#define mc_default_settings (current_vehicle_settings->mc_settings)
 
 
-// --------------------------------------------
-// Function Definitions
-// --------------------------------------------
-
-
-
-// Spin Motor Test
-/**
- * Commands the motor to spin at a low RPM and validates the motor's response:
- * 1. Sends a spin command via CAN.
- * 2. Waits for the motor to reach the desired speed.
- * 3. Checks the actual speed from the motor controller.
- * 4. Stops the motor after validation.
- * @return 0 if the test is successful, 1 for timeout, or 2 for insufficient speed.
+/* Global default settings variable defined here.
+ * This uses the motor_controller_settings definition from uvfr_settings.h.
  */
-static uint16_t MotorControllerSpinTest(void) {
-    uint8_t spin_command[2] = {0x00, 0x10}; // Command to spin at low RPM
+//motor_controller_settings mc_default_settings = {
+//    .can_id_tx              = 0x201,
+//    .can_id_rx              = 0x181,
+//    .mc_CAN_timeout         = 2,
+//    .proportional_gain      = 10,   // uint8_t
+//    .integral_time_constant = 400,  // uint32_t
+//    .integral_memory_max    = 60    // uint8_t (represents 60%)
+//};
 
-    // Use CAN_TxHeaderTypeDef for message header
-    CAN_TxHeaderTypeDef txHeader;
-    txHeader.StdId = mc_default_settings.can_id_tx;    // Set CAN ID
-    txHeader.IDE = CAN_ID_STD;                // Use standard ID
-    txHeader.RTR = CAN_RTR_DATA;              // Data frame
-    txHeader.DLC = 3;                         // Data length code
 
-    // Transmit the message
-    if (HAL_CAN_AddTxMessage(&hcan2, &txHeader, (uint8_t[]){N_set, spin_command[0], spin_command[1]}, &TxMailbox) != HAL_OK) {
-        return 1; // Transmission error
+/**
+ * @brief Sends a direct torque command to the motor controller.
+ *
+ * This function accepts a float for the desired torque (T_filtered),
+ * clamps it between 0 and 100, converts it to a 16-bit integer, and then
+ * sends it over CAN using uvSendCanMSG.
+ */
+uint16_t MotorControllerSpinTest(float T_filtered)
+{
+    if (T_filtered < 0.0f)
+        T_filtered = 0.0f;
+    if (T_filtered > 100.0f)
+        T_filtered = 100.0f;
+
+    uint16_t torque_cmd = (uint16_t) T_filtered;
+
+    uv_CAN_msg torque_msg;
+    memset(&torque_msg, 0, sizeof(torque_msg));
+
+    torque_msg.msg_id = mc_default_settings.can_id_tx;
+    torque_msg.dlc    = 3;
+    // Use the N_set command (from your enum motor_controller_speed_parameters)
+    torque_msg.data[0] = N_set;
+    // Little-endian: LSB first then MSB
+    torque_msg.data[1] = (uint8_t)(torque_cmd & 0xFF);
+    torque_msg.data[2] = (uint8_t)((torque_cmd >> 8) & 0xFF);
+    torque_msg.flags   = 0;
+
+    if (uvSendCanMSG(&torque_msg) != UV_OK) {
+        uvPanic("Failed to send torque command", 0);
+        return 1;
     }
-
-    vTaskDelay(pdMS_TO_TICKS(500)); // Allow time for the motor to spin
-
-    // Request actual motor speed
-    MC_Request_Data(N_actual);
-    if (!WaitFor_CAN_Response()) {
-        return 2; // Timeout occurred
-    }
-
-    uint16_t actual_speed = (RxData[0] << 8) | RxData[1];
-    if (actual_speed < 0x10) { // If the motor did not reach the expected speed
-        return 3; // Motor failed to spin
-    }
-
-    // Stop the motor
-    uint8_t stop_command[2] = {0x00, 0x00};
-    if (HAL_CAN_AddTxMessage(&hcan2, &txHeader, (uint8_t[]){N_set, stop_command[0], stop_command[1]}, &TxMailbox) != HAL_OK) {
-        return 4; // Transmission error
-    }
-
-    return 0; // Success
+    return 0;
 }
 
-// Parse Bamocar Response
 /**
- * Parses a 32-bit response value from a Bamocar CAN message.
- * Combines the four bytes of the payload into a single 32-bit integer.
- * @param data: Pointer to the CAN message payload.
- * @param length: Length of the data payload (expected to be 4 bytes).
- * @return Parsed 32-bit value.
+ * @brief Sends a CAN request to retrieve a specific register from the motor controller.
+ *
+ * The request message is formatted as: [0x3D, RegID, 0], which should trigger an immediate reply.
  */
-static uint32_t Parse_Bamocar_Response(uint8_t *data, uint8_t length) {
-    return (data[0] << 24) | (data[1] << 16) | (data[2] << 8) | data[3];
-}
+void MC_Request_Data(uint8_t RegID)
+{
+    uv_CAN_msg request_msg;
+    memset(&request_msg, 0, sizeof(request_msg));
 
-// Handle Motor Controller Errors/Warnings
-/**
- * Processes error and warning information from the motor controller.
- * 1. Extracts error and warning flags from the CAN message payload.
- * 2. Logs or triggers a panic if critical errors are detected.
- * @param data: Pointer to the CAN message payload.
- * @param length: Length of the data payload.
- */
-static void MotorControllerErrorHandler(uint8_t *data, uint8_t length) {
-    uint16_t MC_errors = (data[1] << 8) | data[2]; // Low Bytes: error flags
-    uint16_t MC_warnings = (data[3] << 8) | data[4]; // High Bytes: warning flags
+    request_msg.msg_id = mc_default_settings.can_id_tx;
+    request_msg.dlc    = 3;
+    request_msg.data[0] = 0x3D;   // Request command identifier
+    request_msg.data[1] = RegID;    // The register to be requested
+    request_msg.data[2] = 0;
+    request_msg.flags   = 0;
 
-    // Check for errors
-    if (MC_errors & eprom_read_error) {
-        uvPanic("EPROM Read Error", 0);
-    }
-    if (MC_errors & hardware_fault) {
-        uvPanic("Hardware Fault", 0);
-    }
-    if (MC_errors & rotate_field_enable_not_present_run) {
-        uvPanic("Rotating Field Enable Not Present (Run Active)", 0);
-    }
-    if (MC_errors & CAN_timeout_error) {
-        uvPanic("CAN Timeout Error", 0);
-    }
-    if (MC_errors & feedback_signal_error) {
-        uvPanic("Feedback Signal Error", 0);
-    }
-    if (MC_errors & mains_voltage_min_limit) {
-        uvPanic("Mains Voltage Below Minimum Limit", 0);
-    }
-    if (MC_errors & motor_temp_max_limit) {
-        uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
-    }
-    if (MC_errors & IGBT_temp_max_limit) {
-        uvPanic("IGBT Temperature Exceeded Maximum Limit", 0);
-    }
-    if (MC_errors & mains_voltage_max_limit) {
-        uvPanic("Mains Voltage Exceeded Maximum Limit", 0);
-    }
-    if (MC_errors & critical_AC_current) {
-        uvPanic("Critical AC Current Detected", 0);
-    }
-    if (MC_errors & race_away_detected) {
-        uvPanic("Race Away Detected", 0);
-    }
-    if (MC_errors & ecode_timeout_error) {
-        uvPanic("Ecode Timeout Error", 0);
-    }
-    if (MC_errors & watchdog_reset) {
-        uvPanic("Watchdog Reset Occurred", 0);
-    }
-    if (MC_errors & AC_current_offset_fault) {
-        uvPanic("AC Current Offset Fault", 0);
-    }
-    if (MC_errors & internal_hardware_voltage_problem) {
-        uvPanic("Internal Hardware Voltage Problem", 0);
-    }
-    if (MC_errors & bleed_resistor_overload) {
-        uvPanic("Bleed Resistor Overload", 0);
-    }
-
-    // Check for warnings
-    if (MC_warnings & parameter_conflict_detected) {
-        //uvLog("Parameter Conflict Detected");
-    }
-    if (MC_warnings & special_CPU_fault) {
-        //uvLog("Special CPU Fault Detected");
-    }
-    if (MC_warnings & rotate_field_enable_not_present_norun) {
-        //uvLog("Rotating Field Enable Not Present (No Run Active)");
-    }
-    if (MC_warnings & auxiliary_voltage_min_limit) {
-        //uvLog("Auxiliary Voltage Below Minimum Limit");
-    }
-    if (MC_warnings & feedback_signal_problem) {
-       //uvLog("Feedback Signal Problem Detected");
-    }
-    if (MC_warnings & warning_5) {
-        //uvLog("Warning 5 Detected");
-    }
-    if (MC_warnings & motor_temperature_warning) {
-        //uvLog("Motor Temperature Warning (>87%)");
-    }
-    if (MC_warnings & IGBT_temperature_warning) {
-        //uvLog("IGBT Temperature Warning (>87%)");
-    }
-    if (MC_warnings & Vout_saturation_max_limit) {
-        //uvLog("Output Voltage Saturation Reached Maximum Limit");
-    }
-    if (MC_warnings & warning_9) {
-        //uvLog("Warning 9 Detected");
-    }
-    if (MC_warnings & speed_actual_resolution_limit) {
-        //uvLog("Speed Actual Resolution Limit Exceeded");
-    }
-    if (MC_warnings & check_ecode_ID) {
-        //uvLog("Check Ecode ID Warning");
-    }
-    if (MC_warnings & tripzone_glitch_detected) {
-        //uvLog("Tripzone Glitch Detected");
-    }
-    if (MC_warnings & ADC_sequencer_problem) {
-        //uvLog("ADC Sequencer Problem Detected");
-    }
-    if (MC_warnings & ADC_measurement_problem) {
-        //uvLog("ADC Measurement Problem Detected");
-    }
-    if (MC_warnings & bleeder_resistor_warning) {
-        //uvLog("Bleeder Resistor Warning");
-    }
-}
-
-// Request Data from Motor Controller
-/**
- * Sends a CAN request to the motor controller to retrieve a specific register value.
- * Constructs a CAN message with the specified register ID and sends it via the CAN queue.
- * @param RegID: The ID of the register to request data from.
- */
-void MC_Request_Data(uint8_t RegID) {
-    // Define the CAN header
-    CAN_TxHeaderTypeDef txHeader;
-    uint32_t TxMailbox;
-
-    // Set up the CAN message header
-    txHeader.StdId = mc_default_settings.can_id_tx; // Set the standard CAN ID from settings
-    txHeader.IDE = CAN_ID_STD;             // Use standard ID
-    txHeader.RTR = CAN_RTR_DATA;           // Data frame
-    txHeader.DLC = 3;                      // Data length code
-
-    // Define the message payload
-    uint8_t data[3] = {0x3D, RegID, 0};    // Register request format
-
-    // Transmit the CAN message
-    if (HAL_CAN_AddTxMessage(&hcan2, &txHeader, data, &TxMailbox) != HAL_OK) {
-        // Handle transmission error
+    if (uvSendCanMSG(&request_msg) != UV_OK) {
         uvPanic("CAN Request Transmission Failed", 0);
     }
 }
 
-// Wait for CAN Response
+// set parameters
+uv_status MC_Set_Param(uint8_t RegID,uint16_t d){
+    uv_CAN_msg tx_msg;
+    tx_msg.msg_id = mc_default_settings.can_id_tx;
+    tx_msg.dlc = 3; //DLC MUST BE 3
+    tx_msg.data[0] = RegID;
+
+    tx_msg.data[1] = d & 0xFF;
+    tx_msg.data[2] = (d >> 8) & 0xFF;
+    tx_msg.data[3] = 0;
+
+    if(uvSendCanMSG(&tx_msg) != UV_OK){
+        uvPanic("MC_Param set fail", 0);
+        return UV_ERROR;
+    }
+
+    return UV_OK;
+}
+
+//set and verify parameters
+uv_status MC_SetAndVerify_Param(uint8_t reg_id, uint16_t set_val)
+{
+    // Send parameter to be set
+    if (MC_Set_Param(reg_id, set_val) != UV_OK) {
+        uvPanic("Set failed", reg_id);
+        return UV_ERROR;
+    }
+
+    // Short delay to ensure write completes
+    vTaskDelay(pdMS_TO_TICKS(20));
+
+    // Request the same parameter back
+    MC_Request_Data(reg_id);
+
+    // Wait for response to arrive on CAN RX queue
+    uv_CAN_msg rx_msg;
+    TickType_t timeout = pdMS_TO_TICKS(100);  // 100 ms timeout
+    if (xQueueReceive(CAN_Rx_Queue, &rx_msg, timeout) != pdTRUE) {
+        uvPanic("No response from motor controller", reg_id);
+        return UV_ERROR;
+    }
+
+    // Check message is for correct register
+    if (rx_msg.data[0] != reg_id) {
+        uvPanic("Mismatched REGID in response", rx_msg.data[0]);
+        return UV_ERROR;
+    }
+
+    // Parse 16-bit little-endian response
+    uint16_t returned_val = (rx_msg.data[2] << 8) | rx_msg.data[1];
+
+    if (returned_val != set_val) {
+        char err_buf[64];
+        snprintf(err_buf, sizeof(err_buf),
+                 "Mismatch for Reg 0x%02X: set 0x%04X, got 0x%04X",
+                 reg_id, set_val, returned_val);
+        uvPanic(err_buf, 0);
+        return UV_ERROR;
+    }
+
+    return UV_OK;
+}
+
+
 /**
- * Waits for a CAN response from the motor controller.
- * Uses an RTOS semaphore to synchronize and check if a response is received within the timeout period.
- * @return True if a response is received, otherwise false.
+ * @brief Parses a 32-bit value from a CAN message in little-endian format.
+ *
+ * This example assumes that the data bytes are stored as:
+ *   data[0] = LSB, data[3] = MSB.
  */
-static bool WaitFor_CAN_Response(void) {
-   // return xSemaphoreTake(canResponseSemaphore, pdMS_TO_TICKS(mc_default_settings.mc_CAN_timeout)) == pdTRUE;
-}
-//-------------------------------------------------------------------------------------------------------------
-
-//void MC_Parse_Message(int DLC, uint8_t Data[]){
-//	// The first step is to look at the first byte to figure out what we're looking at
-//	// TODO Need to make sure that Data[0] really is the first byte
-//	switch (Data[0]){
-//		// important checks
-//		case motor_controller_errors_warnings:
-//			MC_Check_Error_Warning(Data);
-//		break;
-//
-//		//case N_actual:
-//		// Decode actual motor speed from Data bytes
-//			//uint16_t actual_speed = (Data[1] << 8) | Data[2];
-//		//break;
-//
-//		        // Additional cases for other message types:
-//		        // case motor_temperature:
-//		        // case DC_bus_voltage:
-//		        // etc.
-//
-//		default: // This is a code that is not recognized (bad)
-//			Error_Handler();
-//		break;
-//	}
-//
-//}
-
-//// this function is used to get data from the motor controller
-//void MC_Request_Data(uint8_t RegID){
-//
-//	TxHeader.StdId = MC_CAN_ID_Tx;
-//	TxHeader.DLC = 3;
-//	TxData[0] = 0x3D; // this is the code to request data from MC
-//	TxData[1] = RegID;
-//	TxData[2] = 0;
-//
-//	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK){
-//		/* Transmission request Error */
-//		Error_Handler();
-//	}
-//
-//}
-
-
-
-// We can either send 2 or 4 bytes of data
-// This will correspond to a DLC of 3 or 5, respectively
-// The first byte needs to be the register ID, then either 2 or 4 bytes of data
-// The number size is either 2 or 4 and is very important
-// If the motor controller wants 0x1234, the input to this function should be 0x1234
-//void MC_Send_Data(uint8_t RegID, uint8_t data_to_send[], uint8_t size){
-//
-//	TxHeader.StdId = MC_CAN_ID_Tx;
-//	TxHeader.DLC = size;
-//	TxData[0] = RegID;
-//
-//	switch (size){
-//	case 2:
-//		TxData[1] = data_to_send[2];
-//		TxData[2] = data_to_send[1];
-//	break;
-//
-//	case 4:
-//		TxData[1] = data_to_send[4];
-//		TxData[2] = data_to_send[3];
-//		TxData[3] = data_to_send[2];
-//		TxData[4] = data_to_send[1];
-//	break;
-//
-//	default:
-//		// bad
-//	break;
-//	}
-//
-//	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK){
-//		/* Transmission request Error */
-//		Error_Handler();
-//	}
-//
-//}
-
-// The speed/torque control will either take the ADC value from APPSs then do math and send msg
-// Or we'll do the math in the main and then just send motor controller message
-//void MC_Torque_Control(int todo){
-//	// Need to figure out best way to do this
-//}
-
-//NGL, probably want these in driving loop instead
-//#if 0
-//void MC_Speed_Control(int ADC_value){
-//
-//	// TODO verify endian and deal with source of data
-//	ADC_percentage = ADC_value / (0xFFF);
-//	uint16_t scaled_motor_speed = ADC_percentage*max_motor_speed;
-//
-//	desired_motor_speed[0] = (scaled_motor_speed & 0xff00) >> 8;
-//	desired_motor_speed[1] = scaled_motor_speed & 0x00ff;
-//
-//	MC_Send_Data(N_set, desired_motor_speed, 2);
-//}
-//#endif
-
-
-//void MC_Check_Error_Warning(uint8_t Data[]){
-//
-//	// The motor controller will send a message with 6 bytes of data
-//	// The first byte is the register ID, which in this case is 0x8F
-//	// The second and third byte are low bytes which correspond to errors
-//	// The order of bits in the low bytes is
-//	// 7 6 5 4 3 2 1 0  15 14 13 12 11 10 9 8
-//
-//	// The fourth and fifth bytes are high bytes and correspond to warnings
-//	// The order of bits in the high bytes is
-//	// 23 22 21 20 19 18 17 16   31 30 29 28 27 26 25 24
-//
-//	// We need to and the bytes with the right bitmasks and check for errors
-//
-//
-//	// Split four bytes into 2 high and 2 low bytes
-//
-//	uint16_t MC_errors = (Data[1] << 8) | Data[2];
-//	uint16_t MC_warnings = (Data[3] << 8) | Data[4];
-//
-//	// All the error flags should be zero
-//	if (MC_errors){
-//		// Compare errors to errors bitmask to determine error
-//		if (MC_errors & eprom_read_error){
-//			// bad
-//			uvPanic("Eprom read error", 0);
-//		}
-//		if (MC_errors & hardware_fault){
-//			// bad
-//			uvPanic("Hardware Fault", 0);
-//		}
-//		if (MC_errors & rotate_field_enable_not_present_run){
-//			// bad
-//			uvPanic("Rotating Field Enable Not Present", 0);
-//		}
-//		if (MC_errors & CAN_timeout_error){
-//			// bad
-//			uvPanic("CAN Timeout Error", 0);
-//		}
-//		if (MC_errors & feedback_signal_error){
-//			// bad
-//			uvPanic("Feedback Signal Error", 0);
-//		}
-//		if (MC_errors & mains_voltage_min_limit){
-//			// bad
-//			uvPanic("Mains Voltage Min Limit", 0);
-//		}
-//		if (MC_errors & motor_temp_max_limit){
-//			// bad
-//			uvPanic("Motor Temp Max Limit", 0);
-//		}
-//		if (MC_errors & IGBT_temp_max_limit){
-//			// bad
-//			uvPanic("IGBT Temp Max Limit", 0);
-//		}
-//		if (MC_errors & mains_voltage_max_limit){
-//			// bad
-//			uvPanic("Mains Voltage Max Limit", 0);
-//		}
-//		if (MC_errors & critical_AC_current){
-//			// bad
-//			uvPanic("Critical AC Current", 0);
-//		}
-//		if (MC_errors & race_away_detected){
-//			// bad
-//			uvPanic("Race Away Detected", 0);
-//		}
-//		if (MC_errors & ecode_timeout_error){
-//			// bad
-//			uvPanic("Ecode Time Out Error", 0);
-//		}
-//		if (MC_errors & watchdog_reset){
-//			// bad
-//			uvPanic("Watchdog Reset", 0);
-//		}
-//		if (MC_errors & AC_current_offset_fault){
-//			// bad
-//			uvPanic("AC Current Offset Fault", 0);
-//		}
-//		if (MC_errors & internal_hardware_voltage_problem){
-//			// bad
-//			uvPanic("Internal Hardware Voltage Problem", 0);
-//		}
-//		if (MC_errors & bleed_resistor_overload){
-//			// bad
-//			uvPanic("Motor Controller not found", 0);
-//		}
-//	}
-//
-//	if (MC_warnings){
-//		// compare warnings to warnings bitmask
-//		if (MC_warnings & parameter_conflict_detected){
-//			// not great
-//		}
-//		if (MC_warnings & special_CPU_fault){
-//			// not great
-//		}
-//		if (MC_warnings & rotate_field_enable_not_present_norun){
-//			// not great
-//		}
-//		if (MC_warnings & auxiliary_voltage_min_limit){
-//			// not great
-//		}
-//		if (MC_warnings & feedback_signal_problem){
-//			// not great
-//		}
-//		if (MC_warnings & warning_5){
-//			// not great
-//		}
-//		if (MC_warnings & motor_temperature_warning){
-//			// not great
-//		}
-//		if (MC_warnings & IGBT_temperature_warning){
-//			// not great
-//		}
-//		if (MC_warnings & Vout_saturation_max_limit){
-//			// not great
-//		}
-//		if (MC_warnings & warning_9){
-//			// not great
-//		}
-//		if (MC_warnings & speed_actual_resolution_limit){
-//			// not great
-//		}
-//		if (MC_warnings & check_ecode_ID ){
-//			// not great
-//		}
-//		if (MC_warnings & tripzone_glitch_detected){
-//			// not great
-//		}
-//		if (MC_warnings & ADC_sequencer_problem){
-//			// not great
-//		}
-//		if (MC_warnings & ADC_measurement_problem){
-//			// not great
-//		}
-//		if (MC_warnings & bleeder_resistor_warning){
-//			// not great
-//		}
-//	}
-//}
-
-
-//void MC_Check_Serial_Number(uint8_t Data[]){
-//	// TODO check serial number
-////    uint32_t serial_number = MC_Request_Data(SERIAL_NUMBER_REGISTER);  // Request serial number
-////    return serial_number == MC_Expected_Serial_Number;
-//
-//    uint32_t serial_number = MC_Request_Data(SERIAL_NUMBER_REGISTER);
-//    if (serial_number != MC_Expected_Serial_Number) {
-//        uvPanic("Motor Controller Serial Number Mismatch", 0);  // Call error handler directly
-//    }
-//}
-//
-//void MC_Check_Firmware(uint8_t Data[]){
-//	// TODO check motor controllers firmware matches
-////	uint16_t firmware_version = MC_Request_Data(FIRMWARE_VERSION_REGISTER);  // Request firmware version
-////	return firmware_version == MC_Expected_FW_Version;
-//
-//    uint16_t firmware_version = MC_Request_Data(FIRMWARE_VERSION_REGISTER);
-//    if (firmware_version != MC_Expected_FW_Version) {
-//        uvPanic("Motor Controller Firmware Version Mismatch", 0);  // Call error handler directly
-//    }
-//}
-
-//void MC_Startup(void* args){
-//	// MC_Send_Data(...)
-//	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_14);
-//	uv_init_task_args* params = (uv_init_task_args*) args;
-//
-//	uv_init_task_response response = {UV_OK,MOTOR_CONTROLLER,0,NULL};
-//	//We need to do a bunch of stuff to actually initialize the motor controller here
-//
-//	motor_controller_settings* settings = (motor_controller_settings*) params->specific_args;
-//
-//	    // Step 1: Check serial number
-//	    MC_Check_Serial_Number();
-//
-//	    // Step 2: Check firmware version
-//	    MC_Check_Firmware();
-//
-////	 // Step 1: Check if motor controller exists (verify serial number)
-////	    if (!MC_Check_Serial_Number()) {
-////	        response.status = UV_ERROR;
-////	        response.error_code = MOTOR_CONTROLLER_NOT_FOUND;
-////	        xQueueSendToBack(params->init_info_queue, &response, 100);
-////	        uvPanic("Motor Controller not found", 0);
-////	        return;
-////	    }
-////
-////	    // Step 2: Check if motor firmware version is correct
-////	    if (!MC_Check_Firmware()) {
-////	        response.status = UV_ERROR;
-////	        response.error_code = MOTOR_CONTROLLER_FW_MISMATCH;
-////	        xQueueSendToBack(params->init_info_queue, &response, 100);
-////	        uvPanic("Firmware version mismatch", 0);
-////	        return;
-////	    }
-////
-////	    // Step 3: Send a low-RPM command to spin the motor briefly to verify response
-////	    uint8_t spin_command[2] = {0x00, 0x10};  // Command to set low RPM
-////	    MC_Send_Data(N_set, spin_command, 2);
-////	    vTaskDelay(pdMS_TO_TICKS(500));  // Non-blocking delay in RTOS to let motor spin
-////
-////	    // Step 4: Check for any errors after spinning the motor
-////	    if (MC_Check_Error_Warning()) {
-////	        response.status = UV_ERROR;
-////	        response.error_code = MOTOR_CONTROLLER_ERROR;
-////	        xQueueSendToBack(params->init_info_queue, &response, 100);
-////	        uvPanic("Error detected after motor spin", 0);
-////	        return;
-////	    }
-////
-////	    // Step 5: Initialization successful, send confirmation response
-////	    response.status = UV_OK;
-////	    response.error_code = MOTOR_CONTROLLER_OK;
-////	    if (xQueueSendToBack(params->init_info_queue, &response, 100) != pdPASS) {
-////	        uvPanic("Failed to enqueue MC OK Response", 0);
-////	    }
-//
-//	//Kill yourself
-//	vTaskSuspend(params->meta_task_handle);
-//}
-
-
-
-
-void MC_Check_Error_Warning(uint8_t Data[]){
-
-	// The motor controller will send a message with 6 bytes of data
-	// The first byte is the register ID, which in this case is 0x8F
-	// The second and third byte are low bytes which correspond to errors
-	// The order of bits in the low bytes is
-	// 7 6 5 4 3 2 1 0  15 14 13 12 11 10 9 8
-
-	// The fourth and fifth bytes are high bytes and correspond to warnings
-	// The order of bits in the high bytes is
-	// 23 22 21 20 19 18 17 16   31 30 29 28 27 26 25 24
-
-	// We need to and the bytes with the right bitmasks and check for errors
-
-
-	// Split four bytes into 2 high and 2 low bytes
-
-	uint16_t MC_errors = (Data[1] << 8) | Data[2];
-	uint16_t MC_warnings = (Data[3] << 8) | Data[4];
-
-	// All the error flags should be zero
-	if (MC_errors){
-		// Compare errors to errors bitmask to determine error
-		if (MC_errors & eprom_read_error){
-			// bad
-		}
-		if (MC_errors & hardware_fault){
-			// bad
-		}
-		if (MC_errors & rotate_field_enable_not_present_run){
-			// bad
-		}
-		if (MC_errors & CAN_timeout_error){
-			// bad
-		}
-		if (MC_errors & feedback_signal_error){
-			// bad
-		}
-		if (MC_errors & mains_voltage_min_limit){
-			// bad
-		}
-		if (MC_errors & motor_temp_max_limit){
-			// bad
-		}
-		if (MC_errors & IGBT_temp_max_limit){
-			// bad
-		}
-		if (MC_errors & mains_voltage_max_limit){
-			// bad
-		}
-		if (MC_errors & critical_AC_current){
-			// bad
-		}
-		if (MC_errors & race_away_detected){
-			// bad
-		}
-		if (MC_errors & ecode_timeout_error){
-			// bad
-		}
-		if (MC_errors & watchdog_reset){
-			// bad
-		}
-		if (MC_errors & AC_current_offset_fault){
-			// bad
-		}
-		if (MC_errors & internal_hardware_voltage_problem){
-			// bad
-		}
-		if (MC_errors & bleed_resistor_overload){
-			// bad
-		}
-	}
-
-	if (MC_warnings){
-		// compare warnings to warnings bitmask
-		if (MC_warnings & parameter_conflict_detected){
-			// not great
-		}
-		if (MC_warnings & special_CPU_fault){
-			// not great
-		}
-		if (MC_warnings & rotate_field_enable_not_present_norun){
-			// not great
-		}
-		if (MC_warnings & auxiliary_voltage_min_limit){
-			// not great
-		}
-		if (MC_warnings & feedback_signal_problem){
-			// not great
-		}
-		if (MC_warnings & warning_5){
-			// not great
-		}
-		if (MC_warnings & motor_temperature_warning){
-			// not great
-		}
-		if (MC_warnings & IGBT_temperature_warning){
-			// not great
-		}
-		if (MC_warnings & Vout_saturation_max_limit){
-			// not great
-		}
-		if (MC_warnings & warning_9){
-			// not great
-		}
-		if (MC_warnings & speed_actual_resolution_limit){
-			// not great
-		}
-		if (MC_warnings & check_ecode_ID ){
-			// not great
-		}
-		if (MC_warnings & tripzone_glitch_detected){
-			// not great
-		}
-		if (MC_warnings & ADC_sequencer_problem){
-			// not great
-		}
-		if (MC_warnings & ADC_measurement_problem){
-			// not great
-		}
-		if (MC_warnings & bleeder_resistor_warning){
-			// not great
-		}
-	}
+void Parse_Bamocar_Response(uv_CAN_msg* msg)
+{
+    if (!msg || msg->dlc < 4) {
+        uvPanic("Invalid motor controller response", 0);
+        return;
+    }
+    uint32_t val = (uint32_t)((msg->data[3] << 24) |
+                              (msg->data[2] << 16) |
+                              (msg->data[1] << 8)  |
+                               msg->data[0]);
+    //printf("Parsed 32-bit LE value: 0x%08X\n", val);
 }
 
-void MC_Validate(){
-
-}
-
-void MC_Check_Serial_Number(uint8_t Data[]){
-	// TODO
-}
-
-void MC_Check_Firmware(uint8_t Data[]){
-	// TODO
-}
-
-
-// Motor Controller Initialization
 /**
- * Initializes the motor controller by performing the following steps:
- * 1. Verifies the serial number from the motor controller.
- * 2. Checks the firmware version to ensure compatibility.
- * 3. Executes a motor spin test at low RPM to validate functionality.
- * 4. Checks for errors and warnings from the motor controller.
- * 5. Logs successful initialization if all checks pass.
+ * @brief Helper function to process a 16-bit error/warning field (little-endian).
+ *
+ * It expects the error data in 2 bytes where:
+ *   data[0] = LSB, data[1] = MSB.
+ * It checks the error flags and calls uvPanic for critical errors.
  */
-void MC_Startup(void* args){
-	// MC_Send_Data(...)
-	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_14);
-	uv_init_task_args* params = (uv_init_task_args*) args;
+static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
+{
+    if (length < 2)
+        return;
 
-	uv_init_task_response response = {UV_OK,MOTOR_CONTROLLER,0,NULL};
-	//We need to do a bunch of stuff to actually initialize the motor controller here
+    uint16_t errors = (uint16_t)((data[1] << 8) | data[0]);
 
-	motor_controller_settings* settings = (motor_controller_settings*) params->specific_args;
-
-
-
-	MC_Request_Data(SERIAL_NUMBER_REGISTER);
-	    if (!WaitFor_CAN_Response()) {
-	        uvPanic("Serial Number Request Timeout", 0); // No response received
-	    } else {
-	        uint32_t serial_number = Parse_Bamocar_Response(RxData, 8); // Parse response
-	        if (serial_number != MC_Expected_Serial_Number) {
-	            uvPanic("Serial Number Mismatch", serial_number); // Serial number mismatch
-	        }
-	    }
-
-	    // Step 2: Check Firmware Version
-	    MC_Request_Data(FIRMWARE_VERSION_REGISTER);
-	    if (!WaitFor_CAN_Response()) {
-	        uvPanic("Firmware Version Request Timeout", 0); // No response received
-	    } else {
-	        uint16_t firmware_version = (RxData[0] << 8) | RxData[1]; // Parse firmware version
-	        if (firmware_version != MC_Expected_FW_Version) {
-	            uvPanic("Firmware Version Mismatch", firmware_version); // Firmware mismatch
-	        }
-	    }
-
-	    // Step 3: Spin Motor Test
-	    if (MotorControllerSpinTest() != 0) {
-	        uvPanic("Motor Spin Test Failed", 0); // Spin test failed
-	    }
-
-	    // Step 4: Check for Errors and Warnings
-	    MC_Request_Data(motor_controller_errors_warnings);
-	    if (!WaitFor_CAN_Response()) {
-	        uvPanic("Error/Warning Request Timeout", 0); // No response received
-	    } else {
-	        MotorControllerErrorHandler(RxData, 8); // Process errors and warnings
-	    }
-
-
-
-
-
-
-
-
-	if(xQueueSendToBack(params->init_info_queue,&response,100) != pdPASS){
-		//OOPS
-		uvPanic("Failed to enqueue MC OK Response",0);
-	}
-
-
-
-
-
-	//Kill yourself
-	vTaskSuspend(params->meta_task_handle);
+    if (errors & eprom_read_error) {
+        uvPanic("EPROM Read Error", 0);
+    }
+    if (errors & hardware_fault) {
+        uvPanic("Hardware Fault", 0);
+    }
+    if (errors & rotate_field_enable_not_present_run) {
+        uvPanic("Rotating Field Enable Not Present (Run Active)", 0);
+    }
+    if (errors & CAN_timeout_error) {
+        uvPanic("CAN Timeout Error", 0);
+    }
+    if (errors & feedback_signal_error) {
+        uvPanic("Feedback Signal Error", 0);
+    }
+    if (errors & mains_voltage_min_limit) {
+        uvPanic("Mains Voltage Below Minimum Limit", 0);
+    }
+    if (errors & motor_temp_max_limit) {
+        uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
+    }
+    if (errors & IGBT_temp_max_limit) {
+        uvPanic("IGBT Temperature Exceeded Maximum Limit", 0);
+    }
+    if (errors & mains_voltage_max_limit) {
+        uvPanic("Mains Voltage Exceeded Maximum Limit", 0);
+    }
+    if (errors & critical_AC_current) {
+        uvPanic("Critical AC Current Detected", 0);
+    }
+    if (errors & race_away_detected) {
+        uvPanic("Race Away Detected", 0);
+    }
+    if (errors & ecode_timeout_error) {
+        uvPanic("Ecode Timeout Error", 0);
+    }
+    if (errors & watchdog_reset) {
+        uvPanic("Watchdog Reset Occurred", 0);
+    }
+    if (errors & AC_current_offset_fault) {
+        uvPanic("AC Current Offset Fault", 0);
+    }
+    if (errors & internal_hardware_voltage_problem) {
+        uvPanic("Internal Hardware Voltage Problem", 0);
+    }
+    if (errors & bleed_resistor_overload) {
+        uvPanic("Bleed Resistor Overload", 0);
+    }
+    // You can add additional error checks as needed.
 }
 
+/**
+ * @brief Processes a motor controller response received via CAN.
+ *
+ * This function examines the first byte as the register ID and then processes the rest
+ * of the message using little-endian parsing. For error/warning responses (for example,
+ * when reg_id equals motor_controller_errors_warnings), it calls the error handler.
+ */
+void ProcessMotorControllerResponse(uv_CAN_msg* msg)
+{
+    if (!msg || msg->dlc < 2)
+        return;
+
+    uint8_t reg_id = msg->data[0];
+
+    switch (reg_id) {
+        case N_actual:  // SPEED_ACTUAL (0x30)
+            if (msg->dlc >= 3) {
+                int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+                printf("SPEED_ACTUAL: %d rpm\n", speed);
+            }
+            break;
+
+        case CURRENT_ACTUAL:  // 0x31: 16-bit, little-endian
+            if (msg->dlc >= 3) {
+                int16_t current_raw = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+                printf("CURRENT_ACTUAL: %d (raw units)\n", current_raw);
+            }
+            break;
+
+        case LOGIMAP_ERRORS:  // 0x82: error bitfield, little-endian
+            if (msg->dlc >= 3) {
+                MotorControllerErrorHandler_16bitLE(&msg->data[1], 2);
+            }
+            break;
+
+        case LOGIMAP_IO:  // 0x83: I/O status, 16-bit, little-endian
+            if (msg->dlc >= 3) {
+                uint16_t io_flags = (uint16_t)((msg->data[2] << 8) | msg->data[1]);
+                printf("LOGIMAP_IO flags: 0x%04X\n", io_flags);
+            }
+            break;
+
+        case POS_ACTUAL:  // 0x86: 32-bit value, little-endian
+            if (msg->dlc >= 5) {
+                int32_t pos = (int32_t)((msg->data[4] << 24) |
+                                        (msg->data[3] << 16) |
+                                        (msg->data[2] << 8)  |
+                                         msg->data[1]);
+                printf("POS_ACTUAL: %ld\n", (long)pos);
+            }
+            break;
+
+        case motor_controller_errors_warnings:
+            // For error/warning responses using this register, assume a 16-bit field
+            if (msg->dlc >= 3) {
+                MotorControllerErrorHandler_16bitLE(&msg->data[1], 2);
+            }
+            break;
+
+        default:
+            // Handle other responses as needed or call a default parser.
+            break;
+    }
+}
+
+/**
+ * @brief Initializes the motor controller.
+ *
+ * This routine performs the following steps:
+ *   1. Requests the serial number and firmware version.
+ *   2. Sends a nominal torque command (spin test).
+ *   3. Requests error/warning data.
+ *   4. Suspends itself after successful initialization.
+ */
+void MC_Startup(void* args)
+{
+    HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+
+    uv_init_task_args* MC_init_args = (uv_init_task_args*)args;
+        QueueHandle_t queue = MC_init_args->init_info_queue;
+
+        uv_init_task_response rx;
+
+        rx.device = MOTOR_CONTROLLER;
+        rx.status = UV_OK;
+
+        // declare tx_msg here if you need to send a message
+        uv_CAN_msg tx_msg;
+        memset(&tx_msg, 0, sizeof(tx_msg));
+        tx_msg.msg_id = mc_default_settings.can_id_tx;
+
+		// Request serial number and firmware version.
+		MC_Request_Data(SERIAL_NUMBER_REGISTER);
+		vTaskDelay(10); //delay
+		MC_Request_Data(FIRMWARE_VERSION_REGISTER);
+		vTaskDelay(10); //delay
+
+		//set and verify tests
+		MC_SetAndVerify_Param(0x31, 0x0CCD);  // 10% speed
+		MC_SetAndVerify_Param(0x6A, 15);   // Kp
+		MC_SetAndVerify_Param(0x6B, 501);  // Ki
 
 
+	//    MC_SetAndVerify_Param(0x6A, MC_SETTINGS.proportional_gain);
+	//    MC_SetAndVerify_Param(0x6A, MC_SETTINGS.integral_time_constant);
+	//    MC_SetAndVerify_Param(0x6A, MC_SETTINGS.integral_memory_max);
+	//
+	//    MC_SetAndVerify_Param(0x34, MC_SETTINGS.max_speed);       // Speed limit
+	//    MC_SetAndVerify_Param(0x4D, MC_SETTINGS.max_current);     // Max current
+	//    MC_SetAndVerify_Param(0x4E, MC_SETTINGS.cont_current);    // Continuous current
 
+		// Send a nominal torque command (e.g., 10.0 units).
+		if (MotorControllerSpinTest(10.0f) != 0) {
+			uvPanic("Motor Spin Test Failed", 0);
+		}
+
+		// Request error data (if desired, e.g., using the error/warning register).
+		MC_Request_Data((uint8_t)motor_controller_errors_warnings);
+
+		// Optionally, signal success via an RTOS queue here...
+		xQueueSend(queue,&rx,0);
+
+		// Suspend this task so it does not run repeatedly.
+		vTaskSuspend(NULL);
+}

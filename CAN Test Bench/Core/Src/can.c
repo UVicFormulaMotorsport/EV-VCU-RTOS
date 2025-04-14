@@ -295,7 +295,15 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan2){
 
    //TANNER AND FLO CALL YOUR FUNCTION HERE TO DO STUFF
 
+	  uv_CAN_msg received_msg;
+	  received_msg.msg_id = RxHeader.StdId;
+	  received_msg.dlc = RxHeader.DLC;
+	  memcpy(received_msg.data, RxData, RxHeader.DLC);
 
+	  // Check for Bamocar message ID (replace 0x123 with the actual Bamocar CAN ID)
+	  if (received_msg.msg_id == 0x123) {
+		  Parse_Bamocar_Response(&received_msg);
+	  }
 
 }
 
@@ -307,25 +315,20 @@ void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan2){
 #define table_size 100 //CHAANGE THIS TO HOW MANY CAN_MESSAGES YOU NEED TO HANDLE!!!!!!
 
 
-#ifdef BRUH
-=======
+
 /** struct for CAN messages
  *  Contains a 32-bit CAN id
  *  Contains a funtion pointer that will point to whatever funciton the CAN id corresponds to
  *  Contains a pointer to next, which is a handle for two CAN id's having the hash index
  *  The next will be a pointer in the hash table at the hash index that is duplicate and will point to the CAN id of the thing with the same hash
 */
-typedef struct CAN_Message {
-    uint32_t CAN_id;
-    void* function;
-    struct CAN_Message* next;
-}CAN_Message;
+
 
 /** Hash Table To Store CAN Messages
  *  Creates a hash table of size table_size and type CAN_Message
  *  Initialize all CAN messages in the hash table
 */
-CAN_Message CAN_message_table[table_size] = {0};
+CAN_Message_handle CAN_message_table[table_size] = {0};
 
 /** HASH FUNCTION
 *   Take a can id and return a "random" hash id
@@ -349,15 +352,15 @@ unsigned int create_hash_id(uint32_t Incoming_CAN_id) {
 *   follow the next pointer until the right CAN id is found
 *   Then call the function
 */
-int call_function_from_CAN_id(uint32_t CAN_id, uint8_t* data, uint8_t length) {
-    unsigned int index = create_hash_id(CAN_id);
-    CAN_Message* current = &CAN_message_table[index];
+int call_function_from_CAN_id(uv_CAN_msg* data) {
+    unsigned int index = create_hash_id(data->msg_id);
+    CAN_Message_handle* current = &CAN_message_table[index];
 
     while (current != NULL) {
-        if (current->CAN_id == CAN_id) {
-            void (*function_ptr)(uint8_t* data, uint8_t length) = (void (*)(uint8_t*, uint8_t))current->function;
+        if (current->CAN_id == data->msg_id) {
+            void (*function_ptr)(uv_CAN_msg* data) = (void (*)(uv_CAN_msg*))current->function;
             if (function_ptr != NULL) {
-                function_ptr(data, length);
+                function_ptr(data);
                 return 0;
             }else{
                 return 1;
@@ -373,11 +376,11 @@ int call_function_from_CAN_id(uint32_t CAN_id, uint8_t* data, uint8_t length) {
  *  If not, insert the message
  *  If it already exists, malloc a new message and insert it
 */
-void insert_CAN_message(CAN_Message message) {
+void insert_CAN_message(CAN_Message_handle message) {
     unsigned int index = create_hash_id(message.CAN_id);
 
     if(CAN_message_table[index].CAN_id == message.CAN_id) {
-        CAN_Message* temp = malloc(sizeof(CAN_Message));
+        CAN_Message_handle* temp = uvMalloc(sizeof(CAN_Message_handle));
         temp->CAN_id = message.CAN_id;
         temp->function = message.function;
         temp->next = CAN_message_table[index].next;
@@ -394,26 +397,26 @@ void insert_CAN_message(CAN_Message message) {
 *    Index through the hash table and free all the malloced memory at each index
 */
 void nuke_hash_table() {
-    CAN_Message* temp;
+    CAN_Message_handle* temp;
     for (int i = 0; i < table_size; i++) {
-        temp = CAN_message_table + i*sizeof(CAN_Message);
+        temp = CAN_message_table + i*sizeof(CAN_Message_handle);
         if(temp->next != NULL){
             temp = temp->next;
-            CAN_Message* tmp2;
+            CAN_Message_handle* tmp2;
             while(temp != NULL){
                 tmp2 = temp->next;
-                free(temp);
+                uvFree(temp);
                 temp = tmp2;
             }
         }
     }
-
+}
   
 
 uv_status __uvCANtxCritSection(){
 	return UV_OK;
 }
-#endif
+
 
 /** @brief Function to send can message.
  *
@@ -514,7 +517,7 @@ void CANbusRxSVCDaemon(void* args){
 	for(;;){
 
 	}
-
+	return;
 }
 
 /* USER CODE END 1 */
