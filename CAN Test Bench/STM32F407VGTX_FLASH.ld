@@ -47,7 +47,8 @@ MEMORY
 {
   CCMRAM    (xrw)    : ORIGIN = 0x10000000,   LENGTH = 64K
   RAM    (xrw)    : ORIGIN = 0x20000000,   LENGTH = 128K
-  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 1024K
+  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 896K
+  DATA	(xrw)	: ORIGIN = 0x80FE000, 	LENGTH = 4K
 }
 
 /* Sections */
@@ -132,6 +133,16 @@ SECTIONS
 
   /* Used by the startup to initialize data */
   _sidata = LOADADDR(.data);
+  
+  .user_data (NOLOAD) :
+  {
+  	. = ALIGN(4);
+  	_s_uvdata = .;
+  	*(.user_data)
+  	. = ALIGN(4);
+  	_e_uvdata = .;
+  	
+  } > DATA 
 
   /* Initialized data sections into "RAM" Ram type memory */
   .data :

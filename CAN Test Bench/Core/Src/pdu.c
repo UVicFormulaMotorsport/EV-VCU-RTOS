@@ -2,10 +2,16 @@
 
 
 #include "pdu.h"
+#include "uvfr_utils.h"
 #include "can.h"
 #include "main.h"
 #include "constants.h"
 
+uv19_pdu_settings default_pdu_settings = {
+	.PDU_rx_addr = 0x310,
+	.PDU_tx_addr = 0x311,
+	.sdc_channel = 0x0C
+};
 
 // PDU commands for 5A Circuit
 void PDU_speaker_chirp(){

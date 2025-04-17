@@ -26,6 +26,13 @@ enum imd_status_bits{
 	Hardware_Error			= 0b10000000, // HE (1 for error)
 };
 
+typedef struct uv_imd_settings{
+	uint16_t min_isolation_resistances;
+	uint16_t expected_isolation_capacitances;
+	uint16_t max_imd_temperature;
+
+}uv_imd_settings;
+
 
 // The MCU needs to send a message to the IMD requesting info
 // These are requests that will return status bits (defined above) & the value requested

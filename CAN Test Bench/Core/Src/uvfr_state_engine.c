@@ -180,6 +180,7 @@ uv_status uvInitStateEngine(){
 	initTempMonitor(NULL); //create the temperature monitoring task
 	initDaqTask(NULL);
 	initOdometer(NULL);
+	uvConfigSettingTask(NULL);
 
 	return UV_OK;
 }

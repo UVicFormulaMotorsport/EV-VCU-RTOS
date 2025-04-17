@@ -19,40 +19,31 @@ typedef enum{
 	MOTOR_RPM,
 	MOTOR_TEMP,
 	MOTOR_CURRENT,
-	MC_VOLTAGE,
-	MC_CURRENT,
-	MC_TEMP,
-	MC_ERRORS,
-	BMS_CURRENT,
-	BMS_VOLTAGE,
-	BMS_ERRORS,
-	MAX_CELL_TEMP,
-	MIN_CELL_TEMP,
-	AVG_CELL_TEMP,
-	ACC_POWER,
-	ACC_POWER_LIMIT,
-	APPS1_ADC_VAL,
-	APPS2_ADC_VAL,
-	BPS1_ADC_VAL,
-	BPS2_ADC_VAL,
-	ACCELERATOR_PEDAL_RATIO,
-	BRAKE_PRESSURE_PA,
-	POWER_DERATE_FACTOR,
-	CURRENT_DRIVING_MODE,
-	MAX_LOGGABLE_PARAMS
+	MC_VOLTAGE, /**< Pack voltage as measured by motor_controller*/
+	MC_CURRENT, /**< Pack current as measured by motor_controller*/
+	MC_TEMP, /**< Motor controller temperature*/
+	MC_ERRORS, /**< Motor controller errors bitfield*/
+	BMS_CURRENT, /**< Pack current measured by BMS*/
+	BMS_VOLTAGE, /**< Pack voltage as measured by BMS*/
+	BMS_ERRORS, /**< Error codes in BMS*/
+	MAX_CELL_TEMP, /**< Max Temperature of a cell from BMS */
+	MIN_CELL_TEMP, /**< */
+	AVG_CELL_TEMP,/**< */
+	ACC_POWER, /**< */
+	ACC_POWER_LIMIT, /**< */
+	APPS1_ADC_VAL, /**< */
+	APPS2_ADC_VAL, /**< */
+	BPS1_ADC_VAL, /**< */
+	BPS2_ADC_VAL, /**< */
+	ACCELERATOR_PEDAL_RATIO, /**< */
+	BRAKE_PRESSURE_PA, /**< */
+	POWER_DERATE_FACTOR, /**< */
+	CURRENT_DRIVING_MODE, /**< */
+	IMD_VOLTAGE, /**< Accumulator voltage as measured by IMD*/
+	MAX_LOGGABLE_PARAMS /**< */
 }loggable_params;
 
 
-
-
-typedef struct daq_param_list_node{
-	uint16_t param_idx;
-	struct daq_param_list_node* next;
-}daq_param_list_node;
-
-/** @brief This struct holds info of what needs to be logged
- *
- */
 typedef struct daq_datapoint{ //8 bytes, convenient, no?
 	uint32_t can_id; /**< */
 	uint16_t param;	/**< Which loggable param are we logging boys? */
@@ -60,27 +51,25 @@ typedef struct daq_datapoint{ //8 bytes, convenient, no?
 	uint8_t type; /**< Datatype of the data */
 }daq_datapoint; /**< */
 
+
+
+/** @brief This struct holds info of what needs to be logged
+ *
+ */
+
 typedef struct daq_loop_args{
+	uint16_t total_params_logged;
 	uint8_t throttle_daq_to_preserve_performance; /**< */
 	uint8_t minimum_daq_period; /**< */
-	uint16_t padding; /**< */
-	uint32_t padding2; /**< */
-	daq_datapoint datapoints[MAX_LOGGABLE_PARAMS]; /**< */
+	uint8_t can_channel; /**< */
+	uint8_t daq_child_priority;
 }daq_loop_args;
 
-typedef struct daq_child_task{
-	struct rbnode treenode; //So this can just exist in a tree lol
-	TaskHandle_t meta_task_handle;
-	daq_param_list_node** param_list;
-	uint32_t period;
+typedef enum uv_status_t uv_status;
 
-}daq_child_task;
 
-#ifndef _SRC_UVFR_DAQ
-extern void* param_LUT[126];
-#endif
-
-enum uv_status_t initDaqTask(void * args);
+uv_status associateDaqParamWithVar(uint16_t paramID, void* var);
+uv_status initDaqTask(void * args);
 void daqMasterTask(void* args);
 
 

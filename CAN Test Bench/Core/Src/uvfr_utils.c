@@ -269,7 +269,10 @@ void uvSysResetDaemon(void* args){
  *
  */
 enum uv_status_t uvUtilsReset(){
-	xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
+	//xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
+	vTaskSuspendAll();
+	HAL_Delay(50);
+	NVIC_SystemReset();
 	return UV_OK;
 }
 

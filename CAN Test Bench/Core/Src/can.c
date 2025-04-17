@@ -531,14 +531,14 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 	//BaseType_t higher_priority_task_woken = pdFALSE;
 	if(Tx_msg_queue != NULL){
 		if(!is_isr){
-			if(xQueueSendToBack(Tx_msg_queue,&tx_msg,0) != pdPASS){
+			if(xQueueSendToBack(Tx_msg_queue,tx_msg,0) != pdPASS){
 				uvPanic("couldnt enqueue CAN message",0);
 			}else{
 				return UV_OK;
 			}
 			return UV_ERROR;
 		}else{
-			if(xQueueSendToBackFromISR(Tx_msg_queue,&tx_msg,0) != pdPASS){
+			if(xQueueSendToBackFromISR(Tx_msg_queue,tx_msg,0) != pdPASS){
 					uvPanic("couldnt enqueue CAN message",0);
 			}else{
 				return UV_OK;
@@ -564,13 +564,13 @@ void CANbusTxSvcDaemon(void* args){
 	uv_task_info* params = (uv_task_info*) args;
 	//CAN_TxHeaderTypeDef tx_header;
 
-	Tx_msg_queue = xQueueCreate(8,sizeof(uv_CAN_msg*));
+	Tx_msg_queue = xQueueCreate(8,sizeof(uv_CAN_msg));
 
 
 
 	//BaseType_t retval;
 
-	uv_CAN_msg* tx_msg = NULL;
+	uv_CAN_msg* tx_msg = uvMalloc(sizeof(uv_CAN_msg));
 
 	//tx_header.TransmitGlobalTime = DISABLE;
 
@@ -580,7 +580,7 @@ void CANbusTxSvcDaemon(void* args){
 	for(;;){
 
 
-		result = xQueueReceive(Tx_msg_queue,&tx_msg,20);
+		result = xQueueReceive(Tx_msg_queue,tx_msg,20);
 
 		if(result == pdTRUE){
 

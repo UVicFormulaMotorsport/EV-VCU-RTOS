@@ -144,7 +144,7 @@ void tempMonitorTask(void* args){
 			//handleCANbusError(&hcan2, 0);
 		//}
 
-		uvSendCanMSG(&test_msg);
+		//uvSendCanMSG(&test_msg);
 
 
 		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //BLUE
