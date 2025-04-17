@@ -12,14 +12,36 @@
 // 0x6B0
 // 0x6B1
 
+uint16_t packCurrent = 0; // logged
+uint16_t packVoltage = 0; // logged
+uint16_t stateOfCharge = 0; // used for toggling regen braking / low charge warning
+uint16_t relayState = 0;
+uint16_t msg1corrupt = 0;
+
+uint16_t packDCL = 0;
+uint16_t lowTemp = 0;
+uint16_t highTemp = 0;
+uint16_t msg2corrupt = 0;
+// extern uint16_t (var name) to call outside this file
+
 
 void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltageCANdata
 	// msg1 can handle current, voltage, charge, relay, checksum (corruption)
-	packCurrent = (msg->data[0] | msg->data[1]);
-	packVoltage = (msg->data[2]);
-	stateOfCharge = (msg->data[4]);
-	relayState = (msg->data[6]);
-	corrupt = (msg->data[7]);
+	packCurrent = (msg->data[0]<<8 | msg->data[1]); // x 0.1A
+	packVoltage = (msg->data[2]<<8 | msg->data[3]); // x 0.1V
+
+	stateOfCharge = (msg->data[4])*2; // x2; this is an int
+
+	relayState = (msg->data[5]<<8 | msg ->data[6]);
+	msg1corrupt = (msg->data[7]);
+	if (stateOfCharge < 20) {
+		// flash low battery warning to screen
+	}
+	if (stateOfCharge >= 95) {
+		// disable regenerative breaking
+	}
+	// in all other cases battery should be functioning as normal
+
 
 
 	// would make sense for voltageCANdata to turn into float
@@ -27,40 +49,25 @@ void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltage
 }
 
 void BMS_msg2(uv_CAN_msg* msg){
-	// msg2 can handle
-	//obtain charge data from CAN message
-	//does this needs to be constantly ran? to constantly monitor / update percentage on dash
-	//example:
-		//voltageCANdata = (msg->data[0] | (msg->data[1] <<8))
-		// maybe save this to a global variable somewhere as a float
-		// float charge = voltageCANData processed to a float
-	// if (charge < 20.0) {
-		// flash low battery warning to screen
-	// if (charge > 95) {
-		// regenBraking = false;
-	// in all other cases battery should be functioning as normal
+	// msg2 can handle DCL (Max current output), tempurature, checksum
+	packDCL = (msg->data[0]<<8 | msg->data[3]);
+	lowTemp = (msg->data[4]); // celsius
+	highTemp = (msg->data[5]); // celsius
+	msg2corrupt = (msg->data[7]);
 
-}
-
-void BMS_tempurature(){
-	// obtain tempurature data
-	// tempCANData = (msg->data[0] | (msg->data[1] <<8)) - processing CAN msg NEED TO CHANGE
-	// temp should also be a float to one decimal pt - so this is easier to manage
-	// send to global as well?
-
-	// if ( temp <= -5.0 ) {
+	 if (lowTemp <= -5 ) {
 		// warning - temp is too low
 		// stop operability?
 
-	// elif (temp > -5.0 && temp < 60.0) {
-		// normal operating tempurature range
-		// drive as normal
-		// if (temp >= 55.0) {{
-			// flash warning - approaching max temp
-			// maybe enable cooling fan/devices here
-		// }
-	// }
-
+	 }
+	 else if (lowTemp > -5 && highTemp < 55){
+//		 normal operating tempurature range
+//		 drive as normal
+		 if (temp >= 55.0) {
+//			 flash warning - approaching max temp
+//			 maybe enable cooling fan/devices here
+		 }
+	 }
 }
 
 void BMS_Init(void* args){
