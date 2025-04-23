@@ -78,6 +78,14 @@ enum uv_status_t initDrivingLoop(void *argument){
 	return UV_OK; //
 }
 
+/** AMMAR
+
+	@brief  Maps Throttle Percentage to Torque Request.
+	Call the calculateThrottlePercentage function to get the value
+	@param  throttle_percent: Throttle percentage (0% - 100%).
+	*
+	@return Requested torque in Nm.
+	*/
 inline static float mapThrottleToTorque(float throttle_percent) {
 		static float T_prev = 0.0f; // Stores the last filtered torque value. for filterting to check if decelearting
 	    //float throttle_percent = calculateThrottlePercentage(apps1, apps2);
@@ -96,7 +104,7 @@ inline static float mapThrottleToTorque(float throttle_percent) {
 #define ENDURANCE 2
 
 
-	inline float getKValue(int raceMode) {
+	float getKValue(int raceMode) {
 		float kVal = 0.3; //Default for if racemode Does not exist
 		if(raceMode == ACCELERATION) {
 			return kVal = 0.7;
@@ -108,6 +116,17 @@ inline static float mapThrottleToTorque(float throttle_percent) {
 		return kVal;
 	}
 
+
+	/**rachan
+		 * @brief Converts APPS sensor readings into a throttle percentage
+		 *
+		 * @param apps1: Raw voltage value from APPS1 sensor
+		 * @param apps2: Raw voltage value from APPS2 sensor
+		 *
+		 * TO DO: Set RPM_MAX & RPM_MIN
+		 * @return Throttle percentage (0% to 100%).
+		 *
+		 */
 	float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2) {
 	    // Ensure both sensor values are within the valid range
 	    if (apps1 < driving_args->min_apps1_value || apps1 > driving_args->max_apps1_value || apps2 < driving_args->min_apps2_value || apps2 > driving_args->max_apps2_value) return 0.0f;
@@ -272,10 +291,27 @@ void StartDrivingLoop(void * argument){
 			//TODO This.
 			//implement motor control logic here
 			// dont have to start as an if statement just idea
+
+			float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
+
+			// 2. Map to torque request
+			T_REQ = mapThrottleToTorque(throttle_percent);
+
+			// 3. Determine acceleration status
+			is_accelerating = (T_REQ >= T_PREV);
+
+			// 4. Apply filtering to smooth torque
+			float T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
+
+			// 5. Send torque to motor controller
+			sendTorqueToMotorController(T_filtered);
+
+			// 6. Update previous torque
+			T_PREV = T_filtered;
 		}
 
 		 // **Determine if accelerating or decelerating**
-		is_accelerating = (T_REQ >= T_PREV);
+		//is_accelerating = (T_REQ >= T_PREV);
 
 
 		// if vehicle state is equal to drivibg and only oif its equal to dribvibng
@@ -334,115 +370,6 @@ void StartDrivingLoop(void * argument){
 
 
 
-		/*
-			// ** Throttle (APPS) Checks**
-			if(apps1_value < dl_params->min_apps_value){
-				//APPS1 is probably unplugged. Act accordingly
-				return false; // stop
-			}else if(apps1_value > dl_params->max_apps_value){
-				//indicative of APPS1 short (APPS1 short circuit detected)
-				//goto DL_end;
-				return false;
-			}
-
-
-			if(apps2_value < dl_params->max_apps_value){
-				//APPS2 is probably unplugged. Act accordingly.
-				return false;
-			}else if(apps2_value > dl_params->max_apps_value){
-				//indicative of APPS2 short circuit detected
-				return false;
-			}
-
-
-			// ** Check APPS sensor synchronization
-			//uint16_t apps_diff = apps1_value - apps2_value;
-			uint16_t apps_diff = (apps1_value > apps2_value)
-						? (apps1_value - apps2_value)	// IF apps1 > apps2, do apps1 -apps2
-						: (apps2_value - apps1_value); // IF apps2 > apps1, do apps2 - apps1
-
-			if((apps_diff > dl_params->max_apps_offset)||(apps_diff < dl_params->min_apps_offset)){
-				//APPS1 and APPS2 are no longer in sync with each other
-				return false;
-			}
-
-			// BPS1/BPS2 Check (Brake Pressure Sensors)
-			//  ** Throttle (BPS) Checks**
-			if(bps1_value < dl_params->min_BPS_value){
-				// Possible BPS1 disconnection
-				return false;
-			}else if(bps1_value > dl_params->max_BPS_value){
-				// Possible BPS1 short circuit
-				return false;
-			}
-
-			//Repeat these safety checks for BPS 2.
-			if(bps2_value < dl_params->min_BPS_value){
-				return false;
-
-			}else if(bps2_value > dl_params->max_BPS_value){
-				return false;
-
-			}
-
-			//Brake Plausibility Check
-
-			/** Brake Plausibility Check
-			 *
-			 * The way that this works is that if the brake pressure is greater than some threshold,
-			 * and the accelerator pedal position is also greater than some threshold, the thing will
-			 * register that a brake implausibility has occurred. This is not very cash money.
-			 *
-			 * If this happens, we want to set the torque/speed output to zero. This will only reset itself once
-			 * the brakes are set to less than a certain threshold. Honestly evil.
-			 *
-			 * Rachan: IF both accelerator and brake are pressed at the same time, the system registers a fault and cuts motor power.
-
-
-			if((bps1_value > dl_params->bps_plausibility_check_threshold) && (apps1_value > dl_params->apps_plausibility_check_threshold)){
-				//This means that the pedal and brake are checked simultaneously
-				dl_status = Implausible; // set status to error
-				// error handler
-				return false;
-			}
-
-			//possible return to plausibility
-			if((dl_status == Implausible) && (1)){
-				dl_status = Plausible;
-			}
-
-			return true; // All checks passed
-
-			//Compute torque/velocity or whatever
-			//if(dl_status == Plausible){
-				// Compute motor output
-			}
-	}
-
-
-	*/
-
-
-	/**rachan
-	 * @brief Converts APPS sensor readings into a throttle percentage
-	 *
-	 * @param apps1: Raw voltage value from APPS1 sensor
-	 * @param apps2: Raw voltage value from APPS2 sensor
-	 *
-	 * TO DO: Set RPM_MAX & RPM_MIN
-	 * @return Throttle percentage (0% to 100%).
-	 *
-	 */
-
-
-	/** AMMAR
-
-	@brief  Maps Throttle Percentage to Torque Request.
-	Call the calculateThrottlePercentage function to get the value
-	@param  throttle_percent: Throttle percentage (0% - 100%).
-	*
-	@return Requested torque in Nm.
-	*/
 bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status) {
 //Perform input validation and ensures values are within the expected range
 
