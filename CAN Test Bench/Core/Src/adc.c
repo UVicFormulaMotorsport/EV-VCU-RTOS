@@ -21,6 +21,14 @@
 #include "adc.h"
 
 /* USER CODE BEGIN 0 */
+#include "uvfr_utils.h"
+
+extern volatile uint32_t adc_buf1[4]; // ADC1 - high priority readings
+
+extern uint16_t adc1_APPS1; //These are the locations for the sensor inputs for APPS and BPS
+extern uint16_t adc1_APPS2;
+extern uint16_t adc1_BPS1;
+extern uint16_t adc1_BPS2; // Allows access to buffer from main.c
 
 /* USER CODE END 0 */
 
@@ -33,10 +41,9 @@ void MX_ADC1_Init(void)
 {
 
   /* USER CODE BEGIN ADC1_Init 0 */
-
+	//code most be here or it will be deleted
   /* USER CODE END ADC1_Init 0 */
 
-  ADC_AnalogWDGConfTypeDef AnalogWDGConfig = {0};
   ADC_ChannelConfTypeDef sConfig = {0};
 
   /* USER CODE BEGIN ADC1_Init 1 */
@@ -49,26 +56,15 @@ void MX_ADC1_Init(void)
   hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.ScanConvMode = ENABLE;
-  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 4;
-  hadc1.Init.DMAContinuousRequests = ENABLE;
+  hadc1.Init.DMAContinuousRequests = DISABLE;
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Configure the analog watchdog
-  */
-  AnalogWDGConfig.WatchdogMode = ADC_ANALOGWATCHDOG_ALL_REG;
-  AnalogWDGConfig.HighThreshold = 2850;
-  AnalogWDGConfig.LowThreshold = 500;
-  AnalogWDGConfig.ITMode = ENABLE;
-  if (HAL_ADC_AnalogWDGConfig(&hadc1, &AnalogWDGConfig) != HAL_OK)
   {
     Error_Handler();
   }
@@ -77,7 +73,7 @@ void MX_ADC1_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_1;
   sConfig.Rank = 1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_84CYCLES;
+  sConfig.SamplingTime = ADC_SAMPLETIME_15CYCLES;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -205,6 +201,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
 
     __HAL_LINKDMA(adcHandle,DMA_Handle,hdma_adc1);
 
+    /* ADC1 interrupt Init */
+    HAL_NVIC_SetPriority(ADC_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(ADC_IRQn);
   /* USER CODE BEGIN ADC1_MspInit 1 */
 
   /* USER CODE END ADC1_MspInit 1 */
@@ -227,6 +226,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* ADC2 interrupt Init */
+    HAL_NVIC_SetPriority(ADC_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(ADC_IRQn);
   /* USER CODE BEGIN ADC2_MspInit 1 */
 
   /* USER CODE END ADC2_MspInit 1 */
@@ -254,6 +256,16 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 
     /* ADC1 DMA DeInit */
     HAL_DMA_DeInit(adcHandle->DMA_Handle);
+
+    /* ADC1 interrupt Deinit */
+  /* USER CODE BEGIN ADC1:ADC_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "ADC_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(ADC_IRQn); */
+  /* USER CODE END ADC1:ADC_IRQn disable */
+
   /* USER CODE BEGIN ADC1_MspDeInit 1 */
 
   /* USER CODE END ADC1_MspDeInit 1 */
@@ -272,6 +284,15 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5|GPIO_PIN_6);
 
+    /* ADC2 interrupt Deinit */
+  /* USER CODE BEGIN ADC2:ADC_IRQn disable */
+    /**
+    * Uncomment the line below to disable the "ADC_IRQn" interrupt
+    * Be aware, disabling shared interrupt may affect other IPs
+    */
+    /* HAL_NVIC_DisableIRQ(ADC_IRQn); */
+  /* USER CODE END ADC2:ADC_IRQn disable */
+
   /* USER CODE BEGIN ADC2_MspDeInit 1 */
 
   /* USER CODE END ADC2_MspDeInit 1 */
@@ -279,5 +300,75 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+#include "cmsis_os.h" // Add at the top of adc.c if not already
+
+#define DEBUG_TOGGLE_LED() HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15)
+
+void StartADCTask(void *argument) {
+    TickType_t tick_rate = pdMS_TO_TICKS(100); // 100ms cycle
+    TickType_t last_wake_time = xTaskGetTickCount(); // capture the current tick count as the starting point
+
+    for (;;) {
+        DEBUG_TOGGLE_LED(); // Optional - shows task is alive
+        if(HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buf1, 4) != HAL_OK){
+        	int a = 0;
+        }
+        vTaskDelayUntil(&last_wake_time, tick_rate);
+    }
+}
+
+void processADCBuffer() {
+
+	//adc_buf1[4];
+
+	adc1_APPS1 = adc_buf1[0]; //These are the locations for the sensor inputs for APPS and BPS
+	adc1_APPS2 = adc_buf1[1];
+	adc1_BPS1 = adc_buf1[2];
+	adc1_BPS2 = adc_buf1[3];
+//	*apps1 = 0;
+//	*apps2 = 0;
+//	*bps1  = 0;
+//	*bps2  = 0;
+//
+//    for (int i = 0; i < ADC1_SAMPLES; i++) {
+//        *apps1 += *(buf);
+//        buf += 4;
+//
+//        *apps2 += *(buf);
+//        buf += 4;
+//
+//        *bps1  += *(buf);
+//        buf += 4;
+//
+//        *bps2  += *(buf);
+//        buf += 4;
+//
+//    }
+
+//    *apps1 /= ADC1_SAMPLES;
+//    *apps2 /= ADC1_SAMPLES;
+//    *bps1  /= ADC1_SAMPLES;
+//    *bps2  /= ADC1_SAMPLES;
+
+//    *apps1 = (uint16_t)(0.8082f * (*apps1) - 0.3709f);
+//    *apps2 = (uint16_t)(0.8405f * (*apps2) - 0.8747f);
+}
+
+
+void initADCTask(void) {
+    BaseType_t result = xTaskCreate(
+        StartADCTask,         // Task function
+        "ADC Task",           // Name for debugging
+        128,                  // Stack size (adjust if needed)
+        NULL,                 // No args
+        osPriorityAboveNormal, // Priority
+        NULL                  // No task handle needed
+    );
+
+    if (result != pdPASS) {
+        Error_Handler();
+    }
+}
+
 
 /* USER CODE END 1 */

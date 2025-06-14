@@ -12,6 +12,15 @@
 extern TaskHandle_t init_task_handle;
 extern uint8_t               TxData[8];
 
+TaskHandle_t reset_handle = NULL;
+
+const uint8_t data_size[] = {1,1, //UV_UINT8 and UV_INT8
+		2,2, //UV_UINT16 and UV_INT16
+		4,4, //UV_UINT32 and UV_INT32
+		4,8, //UV_FLOAT, UV_DOUBLE
+		8,8, //UV_UINT64, UV_INT64
+		0}; //UV_STRING size indeterminate as we have no idea how long it is. Wait for '/0'.
+
 
 //#define CAN_TRANSMIT_TEST_IN_INIT
 
@@ -36,44 +45,6 @@ extern uint8_t               TxData[8];
  */
 void uvInit(void * arguments){
 	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //For debugging purposes, I wanna see if we actually end up here at some point
-
-
-#ifdef CAN_TRANSMIT_TEST_IN_INIT
-	TxData[0] = 0b10101010;
-	TxData[1] = 0b10101010;
-	TxData[2] = 0b10101010;
-	TxData[3] = 1;
-	TxData[4] = 2;
-	TxData[5] = 3;
-	TxData[6] = 0b10101010;
-	TxData[7] = 0b10101010;
-
-
-	HAL_StatusTypeDef can_send_status;
-		for(;;){
-			vTaskDelay(400);
-
-
-
-			TxHeader.IDE = CAN_ID_EXT;
-			TxHeader.ExtId = 0x1234;
-
-
-			TxHeader.DLC = 8;
-
-
-			//taskENTER_CRITICAL();
-			can_send_status = HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox);
-			//taskEXIT_CRITICAL();
-
-			if (can_send_status != HAL_OK){
-											/* Transmission request Error */
-				//uvPanic("Unable to Transmit CAN msg",can_send_status);
-				handleCANbusError(&hcan2, 0);
-			}
-		}
-#endif //CAN Tx testing
-
 
 	char* error_msg = NULL;
 	uint8_t msg_length = 0;
@@ -111,6 +82,20 @@ void uvInit(void * arguments){
 	 * tasks that will be running.
 	 *
 	 */
+
+	uv_task_info* canTxtask = uvCreateServiceTask();
+	canTxtask->task_function = CANbusTxSvcDaemon;
+	canTxtask->active_states = 0xFFFF;
+	canTxtask->task_name = CAN_TX_DAEMON_NAME;
+
+	uv_task_info* canRxtask = uvCreateServiceTask();
+	canRxtask->task_function = CANbusRxSvcDaemon;
+	canRxtask->active_states = 0xFFFF;
+	canRxtask->task_name = CAN_RX_DAEMON_NAME;
+	//super basic for now, just need something working
+	uint32_t var = 0; //retarded dummy var
+	uvStartTask(&var,canTxtask);
+	uvStartTask(&var,canRxtask);
 
 	/** Now we are going to create a bunch of tasks that will initialize our car's external devices.
 	 * The reason that these are RTOS tasks, is that it takes a buncha time to verify the existance of some devices.
@@ -182,6 +167,7 @@ void uvInit(void * arguments){
 	uint16_t ext_devices_status = 0x000F; //Tracks which devices are currently setup
 
 
+	initADCTask(); //START THE ADCs
 
 
 	/** @endcode
@@ -217,7 +203,7 @@ void uvInit(void * arguments){
 			}
 
 		}
-		ext_devices_status = 0;
+
 
 
 		if(ext_devices_status == 0){
@@ -266,6 +252,11 @@ void uvInit(void * arguments){
 
 }
 
+void uvSysResetDaemon(void* args){
+
+
+}
+
 /**@brief This function is a soft-reboot of the uv_utils_backend and OS abstraction.
  *
  * The idea here is to basically start from a blank slate and boot up everything. So therefore we must:
@@ -279,10 +270,15 @@ void uvInit(void * arguments){
  *
  */
 enum uv_status_t uvUtilsReset(){
+	//xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
+	vTaskSuspendAll();
+	HAL_Delay(50);
+	NVIC_SystemReset();
 	return UV_OK;
 }
 
-/** @deprecated I really dunno why this still exists
+/** @deprecated I really dunno why this still exists, but this gets called somewhere so Im leaving it.
+ * I think we just pass it NULL.
  *
  */
 void setup_extern_devices(void * argument){
