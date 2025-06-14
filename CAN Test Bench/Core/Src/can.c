@@ -41,7 +41,7 @@
 #include "stdlib.h"
 #include "string.h"
 
-
+//This line holds the entire program together
 #ifndef HAL_CAN_ERROR_INVALID_CALLBACK
 #define HAL_CAN_ERROR_INVALID_CALLBACK (0x00400000U)
 #endif
@@ -158,7 +158,7 @@ void MX_CAN2_Init(void)
 
   /* USER CODE END CAN2_Init 1 */
   hcan2.Instance = CAN2;
-  hcan2.Init.Prescaler = 8;
+  hcan2.Init.Prescaler = 4;
   hcan2.Init.Mode = CAN_MODE_NORMAL;
   hcan2.Init.SyncJumpWidth = CAN_SJW_1TQ;
   hcan2.Init.TimeSeg1 = CAN_BS1_12TQ;
@@ -517,22 +517,34 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 
 
 
-	//TODO: CanTxDaemon being inactive will brick this. FIX IT!!
 
 	if(tx_msg == NULL){
 		return UV_ERROR;
 	}
 
+	uint32_t is_isr;
+	//Special precautions need to be taken if you do this from an interrupt
+	__ASM volatile ("MRS %0, ipsr" : "=r" (is_isr) );
+
 
 
 	//BaseType_t higher_priority_task_woken = pdFALSE;
 	if(Tx_msg_queue != NULL){
-		if(xQueueSendToBack(Tx_msg_queue,&tx_msg,0) != pdPASS){
-			uvPanic("couldnt enqueue CAN message",0);
+		if(!is_isr){
+			if(xQueueSendToBack(Tx_msg_queue,tx_msg,0) != pdPASS){
+				uvPanic("couldnt enqueue CAN message",0);
+			}else{
+				return UV_OK;
+			}
+			return UV_ERROR;
 		}else{
-			return UV_OK;
+			if(xQueueSendToBackFromISR(Tx_msg_queue,tx_msg,0) != pdPASS){
+					uvPanic("couldnt enqueue CAN message",0);
+			}else{
+				return UV_OK;
+			}
+			return UV_ERROR;
 		}
-		return UV_ERROR;
 	}else{
 		if(__uvCANtxCritSection(tx_msg)!=UV_OK){
 			return UV_ERROR;
@@ -552,13 +564,13 @@ void CANbusTxSvcDaemon(void* args){
 	uv_task_info* params = (uv_task_info*) args;
 	//CAN_TxHeaderTypeDef tx_header;
 
-	Tx_msg_queue = xQueueCreate(8,sizeof(uv_CAN_msg*));
+	Tx_msg_queue = xQueueCreate(8,sizeof(uv_CAN_msg));
 
 
 
 	//BaseType_t retval;
 
-	uv_CAN_msg* tx_msg = NULL;
+	uv_CAN_msg* tx_msg = uvMalloc(sizeof(uv_CAN_msg));
 
 	//tx_header.TransmitGlobalTime = DISABLE;
 
@@ -568,7 +580,7 @@ void CANbusTxSvcDaemon(void* args){
 	for(;;){
 
 
-		result = xQueueReceive(Tx_msg_queue,&tx_msg,20);
+		result = xQueueReceive(Tx_msg_queue,tx_msg,20);
 
 		if(result == pdTRUE){
 
@@ -587,7 +599,9 @@ void CANbusTxSvcDaemon(void* args){
 			TxHeader.DLC = tx_msg->dlc;
 
 
+			while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan2) == 0){
 
+			}
 
 			if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
 								/* Transmission request Error */

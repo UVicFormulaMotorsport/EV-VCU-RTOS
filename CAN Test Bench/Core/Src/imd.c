@@ -62,7 +62,12 @@ int32_t IMD_Temperature;
 uint8_t IMD_error_flags_requested = 0;
 
 
+uv_imd_settings default_imd_settings = {
+	.min_isolation_resistances = 10000,
+	.expected_isolation_capacitances = 100,
+	.max_imd_temperature = 60
 
+};
 
 // Need a function to parse the CAN message data received from the IMD
 void IMD_Parse_Message(int DLC, uint8_t Data[]){

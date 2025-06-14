@@ -16,9 +16,21 @@
 
 
 typedef enum{
-	MOTOR_RPM,
-	MOTOR_TEMP,
-	MOTOR_CURRENT,
+
+	VCU_VEHICLE_STATE, /**< VCU Current Vehicle State */
+	VCU_ERROR_BITFIELD1,
+	VCU_ERROR_BITFIELD2,
+	VCU_ERROR_BITFIELD3,
+	VCU_ERROR_BITFIELD4,
+	VCU_CURRENT_UPTIME,
+	VCU_TOTAL_UPTIME,
+	VEH_DISTANCE_RUN,
+	VEH_DISTANCE_TOTAL,
+	VEH_LAPNUM,
+	VEH_SPEED,
+	MOTOR_RPM, /**< RPM as reported by motor controller */
+	MOTOR_TEMP, /**< Motor Temp as reported by motor controller */
+	MOTOR_CURRENT, /**< Motor Phase currents as reported by motor controller */
 	MC_VOLTAGE, /**< Pack voltage as measured by motor_controller*/
 	MC_CURRENT, /**< Pack current as measured by motor_controller*/
 	MC_TEMP, /**< Motor controller temperature*/
@@ -27,10 +39,12 @@ typedef enum{
 	BMS_VOLTAGE, /**< Pack voltage as measured by BMS*/
 	BMS_ERRORS, /**< Error codes in BMS*/
 	MAX_CELL_TEMP, /**< Max Temperature of a cell from BMS */
-	MIN_CELL_TEMP, /**< */
-	AVG_CELL_TEMP,/**< */
-	ACC_POWER, /**< */
-	ACC_POWER_LIMIT, /**< */
+	MIN_CELL_TEMP, /**< Min Temperature of a cell*/
+	AVG_CELL_TEMP,/**< Average Cell Temp*/
+	ACCUM_SOC,/**< */
+	ACCUM_SOH,/**< */
+	ACCUM_POWER, /**< */
+	ACCUM_POWER_LIMIT, /**< */
 	APPS1_ADC_VAL, /**< */
 	APPS2_ADC_VAL, /**< */
 	BPS1_ADC_VAL, /**< */
@@ -40,7 +54,20 @@ typedef enum{
 	POWER_DERATE_FACTOR, /**< */
 	CURRENT_DRIVING_MODE, /**< */
 	IMD_VOLTAGE, /**< Accumulator voltage as measured by IMD*/
-	MAX_LOGGABLE_PARAMS /**< */
+	IMD_STATUS,
+	IMD_ERRORS,
+	SUS_DAMPER_FL,
+	SUS_DUMPER_FR,
+	SUS_DAMPER_RL,
+	SUS_DAMPER_RR,
+	WSS_FR,
+	WSS_FL,
+	WSS_RL,
+	WSS_RR,
+	WSS_F_AVG,
+	WSS_R_AVG,
+	WSS_SLIP,
+	MAX_LOGGABLE_PARAMS /**< THIS MUST BE THE FINAL PARAM*/
 }loggable_params;
 
 

@@ -4,11 +4,24 @@
 
 
 #include "main.h"
+#include "uvfr_utils.h"
 
 // Can ID: 0x710
 
 #ifndef __PDU_H__
 #define __PDU_H__
+
+typedef struct uv19_pdu_settings{
+	uint32_t PDU_rx_addr;
+	uint32_t PDU_tx_addr;
+	uint8_t sdc_channel;
+	uint8_t brake_light_channel;
+	uint8_t buzzer_channel;
+	uint8_t coolant_pump_channel;
+	uint8_t fan1_channel;
+	uint8_t fan2_channel;
+	uint8_t mc_rfe_channel;
+}uv19_pdu_settings;
 
 enum pdu_messages_5A{
 	enable_speaker_msg = 0x1C,

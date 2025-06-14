@@ -24,6 +24,23 @@ extern uint16_t adc1_APPS2;
 extern uint16_t adc1_BPS1;
 extern uint16_t adc1_BPS2; // Brake
 
+
+driving_loop_args default_dl_settings;//TODO DECIDE WHAT YOU WANT DEFAULT SETTINGS TO BE
+
+driving_loop_args* driving_args = NULL;
+
+
+
+
+bool is_accelerating = false;
+float T_PREV = 0;
+float T_REQ = 0;
+
+
+float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2);
+bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status);
+
+
 //define default driving loop settings
 driving_loop_args default_dl_settings = {
     .absolute_max_acc_pwr = 10,       // Set appropriate default max power in watts
@@ -79,16 +96,20 @@ enum uv_status_t initDrivingLoop(void *argument){
 	associateDaqParamWithVar(BPS1_ADC_VAL, &adc1_BPS1);
 	associateDaqParamWithVar(BPS2_ADC_VAL, &adc1_BPS2);
 
+
 	//allocate memory for the task
 	uv_task_info* dl_task = uvCreateTask();
+
 
 	if(dl_task == NULL){
 		//Oh dear lawd if allocation fails return error
 		return UV_ERROR;
 	}
 
+
 	//grab those driving loop settings
 	driving_args = current_vehicle_settings->driving_loop_settings;
+
 
 
 	//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
@@ -99,6 +120,7 @@ enum uv_status_t initDrivingLoop(void *argument){
 	dl_task->stack_size = 256; // memory allocation for task execution
 	dl_task->active_states = UV_DRIVING; // Specifies when the task should be active
 	dl_task->suspension_states = 0x00;
+
 
 	dl_task->deletion_states = UV_INIT|UV_READY | PROGRAMMING | UV_SUSPENDED | UV_LAUNCH_CONTROL | UV_ERROR_STATE;
 	dl_task->task_period = 100; //runs every 100ms or 0.1 seconds
@@ -181,6 +203,7 @@ inline static float applyTorqueFilter(float T_req, float T_prev, bool is_accelea
 			FILTER_K = 1.0; // INSTANT to
 		}
 
+
 		// Calculate filtered torque
 		float T_filtered =  T_prev + (T_req - T_prev) * FILTER_K;
 
@@ -194,6 +217,7 @@ inline static float applyTorqueFilter(float T_req, float T_prev, bool is_accelea
 
 	    //send value to sent
 }
+
 
 
 /** Rachan
@@ -247,8 +271,14 @@ void StartDrivingLoop(void * argument){
 
 
 
+
+
+
 	/**@endcode */
 	for(;;){ // enters infinite loop
+
+
+
 
 		if(params->cmd_data == UV_KILL_CMD){ // to perform task control (suspend/kill)
 
@@ -283,6 +313,7 @@ void StartDrivingLoop(void * argument){
 		}
 
 		if(dl_status == Plausible){
+
 			//implement motor control logic here
 
 			// 1. Compute throttle %
@@ -304,11 +335,13 @@ void StartDrivingLoop(void * argument){
 			// 6. Update previous torque
 			T_PREV = T_filtered;
 
+
 	}
 
 		// if vehicle state is equal to drivibg and only oif its equal to dribvibng
 		// change states
 		// to avoid edge case
+
 
 		//Command the motor controller to do the thing
 		if(1){//if(1) reminds me that there should be a
@@ -465,6 +498,7 @@ void StartDrivingLoop(void * argument){
 
 	/** AMMAR
 
+
 	@brief  Maps Throttle Percentage to Torque Request.
 	Call the calculateThrottlePercentage function to get the value
 	@param  throttle_percent: Throttle percentage (0% - 100%).
@@ -534,9 +568,11 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 		printf("ERROR: BPS2 out of range! Stopping motor.\n");
 		//stop_command();
 		//killself(params); // uv_panic
+
 		uvPanic("idek",0);
 		return false;
 	}
+
 
 	// Non fatal errors: BPS sensors mismatch greater than 5%, suspend tasks, stop motor
 	if (bps_percentage_diff > 5.0f){
@@ -544,9 +580,11 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 		// output 0 as in no  request
 		//stop_command();
 		//suspendSelf(params);
+
 		uvPanic("idek",0);
 		return false;
 	}
+
 
 
 	// Brake Plausibility Check: Prevent simultaneous throttle and brake

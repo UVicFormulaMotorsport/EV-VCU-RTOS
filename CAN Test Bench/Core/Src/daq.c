@@ -13,7 +13,9 @@ typedef struct daq_param_list_node{
 	uint32_t can_id;
 	uint16_t param;
 
-	uint8_t* size;
+
+	uint8_t size;
+
 }daq_param_list_node;
 
 typedef struct daq_child_task{
@@ -38,23 +40,51 @@ daq_loop_args default_daq_settings = {
 daq_datapoint default_datapoints[] ={
 	{.can_id = 0x530,
 	.param = APPS1_ADC_VAL,
-	.period = 100,
+	.period = 50,
 	.type = UV_UINT16},
-
 	{.can_id = 0x531,
 	.param = APPS2_ADC_VAL,
-	.period = 100,
+	.period = 50,
 	.type = UV_UINT16},
 
 	{.can_id = 0x532,
 	.param = BPS1_ADC_VAL,
-	.period = 100,
+
+	.period = 50,
+
 	.type = UV_UINT16},
 
 	{.can_id = 0x533,
 	.param = BPS2_ADC_VAL,
+
+	.period = 50,
+	.type = UV_UINT16},
+
+	{.can_id = 0x540,
+	.param = VCU_VEHICLE_STATE,
 	.period = 100,
-	.type = UV_UINT16}
+	.type = UV_UINT16},
+
+	{.can_id = 0x541,
+	.param = VCU_ERROR_BITFIELD1,
+	.period = 100,
+	.type = UV_UINT32},
+
+	{.can_id = 0x542,
+	.param = VCU_ERROR_BITFIELD2,
+	.period = 100,
+	.type = UV_UINT32},
+
+	{.can_id = 0x543,
+	.param = VCU_ERROR_BITFIELD3,
+	.period = 100,
+	.type = UV_UINT32},
+
+	{.can_id = 0x544,
+	.param = VCU_ERROR_BITFIELD4,
+	.period = 100,
+	.type = UV_UINT32},
+
 
 };
 
@@ -118,12 +148,16 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 		}
 
 		daq_tlist->period = datapoint->period;
+
+		daq_tlist->next_task = NULL;
 	}
 
 	daq_child_task* list_tmp = daq_tlist;
-	node->can_id = datapoint->can_id;
+	node->can_id = datapoint->can_id; //Ensure that the daq_node has the needed params
 	node->param = datapoint->param;
 	node->size = data_size[datapoint->type];
+	node->next = NULL;
+
 
 	while(1){
 		//Keep going until we find one with a period that matches
@@ -164,12 +198,19 @@ uv_status configureDaqSubTasks(){
 
 	if(param_bank == NULL){
 		uvPanic("outofmem",0);
+
+		return UV_ERROR;
+
 	}
 
 	for(int i = 0; i<n_logged_params ; i++){
 		//We now go through all of the parameters.
 		if(insertParamToRegister(&(param_bank[i]),&(master_param_list[i])) != UV_OK){
+
 			//commit a warcrime
+
+			//This is a non_critical system, so I vote we just ignore it.
+
 		}
 	}
 
@@ -245,9 +286,9 @@ uv_status initDaqTask(void * args){
 
 	daq_task->stack_size = 64;
 
-	daq_task->active_states = UV_READY | UV_DRIVING | UV_ERROR_STATE;
+	daq_task->active_states = UV_READY | UV_DRIVING | UV_ERROR_STATE | UV_LAUNCH_CONTROL ;
 	daq_task->suspension_states = 0x00;
-	daq_task->deletion_states = PROGRAMMING | UV_LAUNCH_CONTROL ;
+	daq_task->deletion_states = PROGRAMMING ;
 
 	daq_task->task_period = 20; //measured in ms
 
@@ -263,9 +304,11 @@ uv_status initDaqTask(void * args){
 void daqMasterTask(void* args){
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
-	vTaskDelay(40); //Give it a moment before spawning in a buncha daq_tasks
 
-	if(startDaqSubTasks()==UV_OK){
+	vTaskDelay(50); //Give it a moment before spawning in a bunch of daq_tasks
+
+	if(startDaqSubTasks()!=UV_OK){
+		//failed to start the daq subtasks
 
 	}
 
@@ -281,9 +324,11 @@ void daqMasterTask(void* args){
 
 			killSelf(params);
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
+			stopDaqSubTasks();
+
 			suspendSelf(params);
 		}
-		vTaskDelay(tick_period);
+		uvTaskDelay(params,params->task_period);
 
 		//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
 //		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
@@ -326,6 +371,7 @@ static inline void sendDaqMsg(daq_param_list_node* param){
 	tmp_daq_msg.data[3] = *((uint8_t*)(param_ptrs[param->param]+3));
 	tmp_daq_msg.dlc = param->size;
 
+
 	uvSendCanMSG(&tmp_daq_msg);
 
 }
@@ -340,6 +386,7 @@ static inline void sendAllParamsFromList(daq_param_list_node* list){
 
 	while(list != NULL){
 		sendDaqMsg(list);
+
 
 		list = list->next;
 	}

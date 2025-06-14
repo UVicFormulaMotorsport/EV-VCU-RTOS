@@ -16,6 +16,7 @@ extern int16_t mc_torque_cmd;
 extern int16_t mc_motor_temp;
 extern int16_t mc_igbt_temp;
 
+
 /* Enums for CAN register IDs and other constants */
 
 /* Speed parameters: */
@@ -23,8 +24,10 @@ enum motor_controller_speed_parameters {
     N_actual = 0x30,  // actual motor speed in rpm (16-bit, little-endian)
     N_set    = 0x31,  // setpoint (used for torque command in our case)
     N_cmd    = 0x32,  // command speed after ramp
+
     N_error  = 0x33,   // speed error
 	M_out	 = 0xA0	  // actual active current scaled
+
 };
 
 enum motor_controller_status {
@@ -65,8 +68,10 @@ enum motor_controller_motor_constants {
 /* Temperatures */
 enum motor_controller_temperatures {
     igbt_temperature       = 0x4A,
+
 	max_motor_temp 			= 0xA3, //set new limit for max motor temp
     motor_temperature      = 0x49, //current motor temp
+
     air_temperature        = 0x4B,
     current_derate_temperature = 0x4C,
     temp_sensor_pt1        = 0x9C,
@@ -183,6 +188,8 @@ uint16_t MotorControllerSpinTest(float T_filtered);
 void MC_Request_Data(uint8_t RegID);
 void ProcessMotorControllerResponse(uv_CAN_msg* msg);
 void Parse_Bamocar_Response(uv_CAN_msg* msg);
+
 void MC_Shutdown(void);
+
 
 #endif /* __MOTOR_CONTROLLER_H__ */

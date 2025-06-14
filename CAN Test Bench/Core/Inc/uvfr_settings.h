@@ -20,8 +20,12 @@
 
 #define ENABLE_FLASH_SETTINGS 0
 
-#define START_OF_USER_FLASH (void*)0x080FE000
-#define	TOP_OF_USER_FLASH (void*)0x080FFFFF
+
+
+
+#define START_OF_USER_FLASH &_s_uvdata
+#define	TOP_OF_USER_FLASH &_e_uvdata
+
 #define TOP_OF_FLASH_SBLOCK (void*)0x080FFFFF
 #define SBLOCK_CSR_OFFSET 0x0C00
 #define SYS_DATA_OFFSET 0x00
@@ -31,16 +35,27 @@
 //size of user flash in bytes
 #define SIZEOF_USER_FLASH 4096
 
+#define SIZEOF_SBLOCK 4096
+
+#define FLASH_SBLOCK_START START_OF_USER_FLASH
+
+
+#define isPtrToFlash(p) ((p>=0x08000000)&&(p<TOP_OF_USER_FLASH))
+
+//Positions of different settings in SBLOCK
 #define GENERAL_VEH_INFO_MGROUP 0
-#define GENERAL_VEH_INFO_OFFSET 8
+#define GENERAL_VEH_INFO_OFFSET 32 //Start at 32 since first 32 bytes reserved for settings integrity checks
 
 #define OS_SETTINGS_MGROUP 0
-#define OS_SETTINGS_OFFSET 64
+#define OS_SETTINGS_OFFSET 128
+
 #define OS_SETTINGS_ADDR ((void*)(START_OF_USER_FLASH + OS_SETTINGS_MGROUP*256 + OS_SETTINGS_OFFSET))
 
 #define MOTOR_MGROUP 1
 #define MOTOR_OFFSET 0
-#define MOTOR_ADDR (motor_controller_settings*)(START_OF_USER_FLASH + MOTOR_MGROUP*256 + MOTOR_OFFSET)
+
+#define MOTOR_ADDR (struct motor_controller_settings*)(START_OF_USER_FLASH + MOTOR_MGROUP*256 + MOTOR_OFFSET)
+
 
 #define DRIVING_MGROUP 2
 #define DRIVING_OFFSET 0
@@ -83,20 +98,35 @@
 #define CRC_POLY 0x04C11DB7
 //CRC-32 (POSIX Checksum)
 
+
 //Positions of different settings in SBLOCK
+
+//Because this is little endian, it looks like DEADBEEF in the memory viewer
+#define MAGIC_NUMBER 0xEFBEADDE
+
 
 //AAA
 typedef struct veh_gen_info{
+	uint32_t wheel_size;
+	uint32_t drive_ratio;
+	uint16_t test1;
+	uint16_t test2;
+	uint16_t test3;
+	uint8_t test4;
+	uint8_t test5;
+
+	uint32_t test6;
 
 }veh_gen_info;
 
 typedef enum uv_status_t uv_status;
 
 typedef enum{
-	HANDSHAKE = 0x01,
+
+	LAPTOP_HANDSHAKE = 0x01,
 	ENTER_PROGRAMMING_MODE = 0x02,
 	REQUEST_VCU_STATUS = 0x03,
-	RESERVED_CMD1 = 0x04,
+	CLEAR_FAULTS = 0x04,
 	REQUEST_VCU_FIRMWARE_VERSION = 0x05,
 	GENERIC_ACK = 0x10,
 	CANNOT_PERFORM_REQUEST = 0x11,
@@ -114,19 +144,22 @@ typedef enum{
 }laptop_CMD;
 
 typedef struct uv_vehicle_settings{
+	struct veh_gen_info* veh_info;
 
 	struct uv_os_settings* os_settings;
 	struct motor_controller_settings* mc_settings;
 
 	driving_loop_args* driving_loop_settings;
 
-	void* imd_settings;
+	struct uv_imd_settings* imd_settings;
 	bms_settings_t* bms_settings;
 
 	daq_loop_args* daq_settings;
-	void* daq_param_list;
 
-	void* pdu_settings;
+	daq_datapoint* daq_param_list;
+
+
+	struct uv19_pdu_settings* pdu_settings;
 	//struct motor_controller_settings motor_controller_settings;
 
 	uint16_t flags; /**< Bitfield containing info on whether each settings instance is factory default. 0 default, 1 altered*/
@@ -153,6 +186,32 @@ typedef struct motor_controller_settings{
 
 }motor_controller_settings;
 
+
+
+//typedef struct motor_controller_settings motor_controller_settings;
+
+typedef struct motor_controller_settings{
+    //can transmit 0x200
+    uint32_t can_id_tx;
+    //can receive 0x201
+    uint32_t can_id_rx;
+   //can timeout 2s?
+    uint32_t mc_CAN_timeout;
+    //double check length
+    //kp - gain 0x2c - 10
+    uint8_t proportional_gain;
+    //ti - reset time 0x2d - 400
+    uint32_t integral_time_constant;
+    //Tim - max value integral 0x3b - 60%
+    uint8_t integral_memory_max;
+    //serial number
+
+    //firmware version
+
+}motor_controller_settings;
+
+
+uv_status uvConfigSettingTask(void* args);
 
 void nukeSettings(uv_vehicle_settings** settings_to_delete);
 uv_status uvValidateSettingsFromFlash();

@@ -7,6 +7,17 @@
 #include "can.h"
 #include "tim.h"
 #include "dash.h"
+#include "uvfr_utils.h"
+
+bms_settings_t default_bms_settings = {
+	.BMS_CAN_timeout = 100,
+	.max_temp = 60
+};
+
+void handleBMSVoltageMsg(uv_CAN_msg* msg){
+
+	return;
+}
 
 void BMS_Init(void* args){
 	uv_init_task_args* params = (uv_init_task_args*) args;

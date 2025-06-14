@@ -38,6 +38,7 @@
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
+#include "uvfr_diagnostics.h"
 #include "rb_tree.h"
 
 #include "bms.h"
@@ -153,7 +154,7 @@ typedef uint32_t uv_timespan_ms;
 #define UV_CAN1
 #define UV_CAN2
 
-//Feature flags
+//Feature flags WHY IS THIS NOT IN GLOBALCONFIG?????
 #define USE_OLED_DEBUG 1
 
 /**	@brief This is meant to be a return type from functions that indicates what is actually going on
@@ -175,17 +176,17 @@ typedef enum uv_status_t{
  *
  */
 typedef enum  {
-	UV_UINT8,
-	UV_INT8,
-	UV_UINT16,
-	UV_INT16,
-	UV_UINT32,
-	UV_INT32,
-	UV_FLOAT,
-	UV_DOUBLE,
-	UV_INT64,
-	UV_UINT64,
-	UV_STRING
+	UV_UINT8 = 0,
+	UV_INT8 = 1,
+	UV_UINT16 = 2,
+	UV_INT16 = 3,
+	UV_UINT32 = 4,
+	UV_INT32 = 5,
+	UV_FLOAT = 6,
+	UV_DOUBLE = 7,
+	UV_INT64 = 8,
+	UV_UINT64 = 9,
+	UV_STRING = 10
 
 }data_type;
 
@@ -363,7 +364,9 @@ typedef struct uv_init_task_response{
 
 #ifndef UV_UTILS_SRC_IMPLIMENTATION
 	extern uv_internal_params global_context;
-	extern uint8_t data_size[];
+
+	extern const uint8_t data_size[];
+
 #endif
 
 void uvInit(void * arguments);
