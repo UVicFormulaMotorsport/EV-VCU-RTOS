@@ -39,21 +39,21 @@ extern ADC_HandleTypeDef hadc2;
 /* USER CODE BEGIN Private defines */
 
 // 12 bit ADC resolution
-	// Buffer 1 has 4 channels, each is sampled 10 times per update
+// Buffer 1 has 4 channels, each is sampled 10 times per update
 #define ADC1_BUF_LEN 40
 #define ADC1_CHNL_CNT 4
 #define ADC1_SAMPLES 10
 
-	// Buffer 2 has 2 channels, each is sampled 1 time per update
+// Buffer 2 has 2 channels, each is sampled 1 time per update
 #define ADC2_BUF_LEN 2
 #define ADC2_CHNL_CNT 2
 #define ADC2_SAMPLES 1
 
 // Calculated voltage ranges for ADCs (may remove since specified in the ioc file
-	// ADC1 is for APPS and BPS sensors
+// ADC1 is for APPS and BPS sensors
 #define ADC1_MIN_VOLT 500
 #define ADC1_MAX_VOLT 2850
-	// ADC2 is for coolant temp and flow sensors
+// ADC2 is for coolant temp and flow sensors
 #define ADC2_MIN_VOLT 69
 #define ADC2_MAX_VOLT 69
 
@@ -63,6 +63,10 @@ void MX_ADC1_Init(void);
 void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+
+void initADCTask(void);
+void processADCBuffer();
+
 
 /* USER CODE END Prototypes */
 

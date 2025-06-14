@@ -40,6 +40,12 @@ float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2);
 bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status);
 
 enum uv_status_t initDrivingLoop(void *argument){
+	associateDaqParamWithVar(APPS1_ADC_VAL, &adc1_APPS1);
+	associateDaqParamWithVar(APPS2_ADC_VAL, &adc1_APPS2);
+	associateDaqParamWithVar(BPS1_ADC_VAL, &adc1_BPS1);
+	associateDaqParamWithVar(BPS2_ADC_VAL, &adc1_BPS2);
+
+
 	uv_task_info* dl_task = uvCreateTask(); // allocate memory for the task
 
 	if(dl_task == NULL){

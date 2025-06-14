@@ -63,18 +63,32 @@ void uvInit(void * arguments){
 	if(uvSettingsInit() != UV_OK){
 		__uvInitPanic();
 
-		/** Next up we will attempt to initialize the state engine. If this fails, then we are in another case where we are genuinely unsafe to drive.
-		 * This will create the prototypes for a bajillion tasks that will be started and stopped. Which tasks are currently running,
-		 * depends on the whims of the state engine. Since the state engine is critical to our ability to handle errors and implausibilitys,
-		 * we cannot proceed without a fully operational state engine.
-		 */
-	}else if(uvInitStateEngine() != UV_OK){
+		/**Once the settings are initialized, we will
+		 * initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged*/
+	}
+
+	if(uvInitDiagnostics() != UV_OK){
+
+
+	}
+
+	/** Next up we will attempt to initialize the state engine. If this fails, then we are in another case where we are genuinely unsafe to drive.
+	* This will create the prototypes for a bajillion tasks that will be started and stopped. Which tasks are currently running,
+	* depends on the whims of the state engine. Since the state engine is critical to our ability to handle errors and implausibilitys,
+	* we cannot proceed without a fully operational state engine.
+	*/
+	if(uvInitStateEngine() != UV_OK){
 		__uvInitPanic();
 
 		/** Once the state machine is initialized we get to actually start the thing.
 		 *
 		 */
-	}else if(uvStartStateMachine() != UV_OK){
+	}
+
+	/** Once the state machine is initialized we get to actually start the thing.
+	 *
+	 */
+	if(uvStartStateMachine() != UV_OK){
 		__uvInitPanic();
 	}
 
@@ -84,18 +98,18 @@ void uvInit(void * arguments){
 	 */
 
 	uv_task_info* canTxtask = uvCreateServiceTask();
-		canTxtask->task_function = CANbusTxSvcDaemon;
-		canTxtask->active_states = 0xFFFF;
-		canTxtask->task_name = CAN_TX_DAEMON_NAME;
+	canTxtask->task_function = CANbusTxSvcDaemon;
+	canTxtask->active_states = 0xFFFF;
+	canTxtask->task_name = CAN_TX_DAEMON_NAME;
 
-		uv_task_info* canRxtask = uvCreateServiceTask();
-		canRxtask->task_function = CANbusRxSvcDaemon;
-		canRxtask->active_states = 0xFFFF;
-		canRxtask->task_name = CAN_RX_DAEMON_NAME;
-		//super basic for now, just need something working
-		uint32_t var = 0; //retarded dummy var
-		uvStartTask(&var,canTxtask);
-		uvStartTask(&var,canRxtask);
+	uv_task_info* canRxtask = uvCreateServiceTask();
+	canRxtask->task_function = CANbusRxSvcDaemon;
+	canRxtask->active_states = 0xFFFF;
+	canRxtask->task_name = CAN_RX_DAEMON_NAME;
+	//super basic for now, just need something working
+	uint32_t var = 0; //retarded dummy var
+	uvStartTask(&var,canTxtask);
+	uvStartTask(&var,canRxtask);
 
 	/** Now we are going to create a bunch of tasks that will initialize our car's external devices.
 	 * The reason that these are RTOS tasks, is that it takes a buncha time to verify the existance of some devices.
@@ -167,6 +181,7 @@ void uvInit(void * arguments){
 	uint16_t ext_devices_status = 0x000F; //Tracks which devices are currently setup
 
 
+	initADCTask(); //START THE ADCs
 
 
 	/** @endcode
@@ -268,10 +283,10 @@ void uvSysResetDaemon(void* args){
  *
  *
  */
-enum uv_status_t uvUtilsReset(){
+enum uv_status_t uvUtilsReset(uint8_t reset_type){
 	//xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
 	vTaskSuspendAll();
-	HAL_Delay(50);
+	HAL_Delay(250);
 	NVIC_SystemReset();
 	return UV_OK;
 }

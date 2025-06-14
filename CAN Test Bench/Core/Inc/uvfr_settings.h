@@ -34,6 +34,8 @@
 #define SIZEOF_USER_FLASH 4096
 #define SIZEOF_SBLOCK 4096
 
+#define FLASH_SBLOCK_START START_OF_USER_FLASH
+
 
 #define isPtrToFlash(p) ((p>=0x08000000)&&(p<TOP_OF_USER_FLASH))
 
@@ -90,7 +92,8 @@
 #define CRC_POLY 0x04C11DB7
 //CRC-32 (POSIX Checksum)
 
-
+//Because this is little endian, it looks like DEADBEEF in the memory viewer
+#define MAGIC_NUMBER 0xEFBEADDE
 
 //AAA
 typedef struct veh_gen_info{
@@ -109,10 +112,10 @@ typedef struct veh_gen_info{
 typedef enum uv_status_t uv_status;
 
 typedef enum{
-	HANDSHAKE = 0x01,
+	LAPTOP_HANDSHAKE = 0x01,
 	ENTER_PROGRAMMING_MODE = 0x02,
 	REQUEST_VCU_STATUS = 0x03,
-	RESERVED_CMD1 = 0x04,
+	CLEAR_FAULTS = 0x04,
 	REQUEST_VCU_FIRMWARE_VERSION = 0x05,
 	GENERIC_ACK = 0x10,
 	CANNOT_PERFORM_REQUEST = 0x11,

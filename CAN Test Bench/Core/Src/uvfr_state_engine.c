@@ -42,6 +42,8 @@ static QueueHandle_t state_change_queue = NULL;
 
 rbtree* task_name_lut = NULL;
 
+uint32_t error_bitfield[4];
+
 enum uv_vehicle_state_t vehicle_state = UV_BOOT;
 enum uv_vehicle_state_t previous_state = UV_BOOT;
 
@@ -97,6 +99,11 @@ if((brakepedal_pressed == true) && (start_button_pressed == true)){
  As you can see, all you need to do is specify the new state. Naturally, the task should be ready to get deleted by the state_change_daemon, but that is neither here nor there.
  */
 uv_status changeVehicleState(uint16_t state){
+	//TODO: MAKE THREAD SAFE
+
+
+	//TODO: MAKE INTERRUPT SAFE
+
 
 	if(!(isPowerOfTwo(state))){
 		return UV_ERROR; //literally not a possible state, since all vehicle states are powers of two
@@ -105,7 +112,7 @@ uv_status changeVehicleState(uint16_t state){
 	/** If the state we wish to change to is the same as the state we're in, then
 	 * no need to be executing any of this fancy code
 	 */
-	if(state == vehicle_state){
+	if(state == vehicle_state || vehicle_state == UV_ERROR_STATE){
 		return UV_ABORTED;
 	}
 
@@ -492,8 +499,9 @@ static uv_status uvKillTaskViolently(uv_task_info* t){
  * This function is the lowtier god of the program. It pulls up and is like "YOU SHOULD KILL YOURSELF, NOW!!"
  * It sends a message to the task which tells it to kill itself.
  *
- * The task complies. It does not have a choice.
  *
+ * The task complies. It does not have a choice.
+
  */
 uv_status uvDeleteTask(uint32_t* tracker,uv_task_info* t){
 	if(t == NULL){

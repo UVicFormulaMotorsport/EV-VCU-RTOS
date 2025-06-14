@@ -13,8 +13,8 @@
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
 
-extern uint8_t _s_uvdata; //Start and end of user flash symbols
-extern uint8_t _e_uvdata;
+extern PRIVILEGED_DATA uint8_t _s_uvdata; //Start and end of user flash symbols
+extern PRIVILEGED_DATA uint8_t _e_uvdata;
 
 //global variables for all to enjoy
 uv_vehicle_settings* current_vehicle_settings = NULL;
@@ -28,15 +28,56 @@ extern bms_settings_t default_bms_settings;
 uv19_pdu_settings default_pdu_settings;
 extern daq_datapoint default_datapoints[];
 
+/** These are arguments passed to the "Transmit All Settings Over CANbus"
+ * Subroutine.
+ *
+ */
+typedef struct tx_all_settings_args{
+	uint8_t* sblock_origin;
+
+}tx_all_settings_args;
+
+/**
+ *
+ */
+typedef struct tx_journal_args{
+	uint32_t start_time;
+	uint32_t end_time;
+}tx_journal_args;
+
+/**
+ *
+ */
+typedef union helper_task_args{
+	tx_all_settings_args setting_tx_args;
+	tx_journal_args journal_tx_args;
+}helper_task_args;
+
+/**
+ *
+ */
+typedef struct setting_helper_task{
+	TaskHandle_t meta_task_handle;
+
+	uint32_t status;
+
+
+	helper_task_args args;
+
+}setting_helper_task;
+
+/**
+ *
+ */
 veh_gen_info default_vehicle = {
-		.wheel_size = 0xEEEEEEEE,
-		.drive_ratio = 0xDDDDDDDD,
-		.test1 = 0xCCCC,
-		.test2 = 0xBBBB,
-		.test3 = 0xAAAA,
-		.test4 = 0x99,
-		.test5 = 0x88,
-		.test6 = 0x77777777
+	.wheel_size = 0xEEEEEEEE,
+	.drive_ratio = 0xDDDDDDDD,
+	.test1 = 0xCCCC,
+	.test2 = 0xBBBB,
+	.test3 = 0xAAAA,
+	.test4 = 0x99,
+	.test5 = 0x88,
+	.test6 = 0x77777777
 };
 
 //Status of laptop connection
@@ -44,12 +85,12 @@ static bool is_laptop_connected = false;
 TickType_t last_contact_with_laptop = 0;
 
 //Queue for messages coming to the setting setter program
-QueueHandle_t settings_queue = NULL;
+static QueueHandle_t settings_queue = NULL;
 
-TaskHandle_t ptask_handle = NULL;
+static TaskHandle_t ptask_handle = NULL;
 
-TaskHandle_t child_task_handle = NULL;
-bool child_task_active = false;
+static TaskHandle_t child_task_handle = NULL;
+static bool child_task_active = false;
 
 /** Pre-create message that is transmitted by the VCU
  * upon successful completion of a settings change or diagnostic
@@ -75,6 +116,8 @@ const uv_CAN_msg vcu_ack_failed_msg = {
 };
 
 
+
+
 uv_status uvValidateFlashSettings();
 uv_status uvResetFlashToDefault();
 void uvSettingsProgrammerTask(void* args);
@@ -82,7 +125,7 @@ void uvSettingsProgrammerTask(void* args);
 /** @brief Internal function that is used to copy an arbitrary amount of data from point A to point B
  *
  */
-static inline void settingCopy(uint8_t* from, uint8_t* to, uint16_t length){
+static inline void settingCopy(uint8_t* from, uint8_t* to, uint16_t length) PRIVILEGED_FUNCTION{
 	if(from == NULL || to == NULL || length == 0){
 		return; //No null errors on my watch buddy boy
 	}
@@ -92,10 +135,21 @@ static inline void settingCopy(uint8_t* from, uint8_t* to, uint16_t length){
 	}
 }
 
+/** @brief Transmits the status of the vehicle, including errorcodes and similar
+ *
+ */
+uv_status uvTransmitVehicleStatus(){
+	return UV_OK;
+}
+
+uv_status uvAwaitLaptopAckMsg(){
+	return UV_ABORTED;
+}
+
 /** @brief Callback function for event where CAN message is received from laptop
  *
  */
-void handleIncomingLaptopMsg(uv_CAN_msg* msg){
+void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 	uint8_t cmd_byte = msg->data[0];
 	static uv_CAN_msg blank_msg = {
 			.msg_id = 0x420,
@@ -122,7 +176,7 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg){
 	case ENTER_PROGRAMMING_MODE:
 
 		if(vehicle_state == UV_READY){
-			//Send relevant ACK MSG.
+			//Relevant Ack. frame sent upon succesful startup of programmer task
 			changeVehicleState(PROGRAMMING);
 		}else{
 			//should not be programming if in either of these states
@@ -131,11 +185,15 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg){
 		break;
 	case REQUEST_VCU_STATUS:
 		//TODO Respond with VCU status
+		if(uvTransmitVehicleStatus()!=UV_OK){
+			//Handle this error.
+		}
 		break;
 	case GENERIC_ACK:
 		//Could come at any time, however here we are
 		break;
 	case SET_SPECIFIC_PARAM ... END_OF_SPECIFIC_PARAMS:
+	case CLEAR_FAULTS:
 	case REQUEST_ALL_SETTINGS:
 	case REQUEST_ALL_JOURNAL_ENTRIES:
 	case REQUEST_JOURNAL_ENTRIES_BY_TIME:
@@ -273,7 +331,7 @@ uv_status uvConfigSettingTask(void* args){
  * If it fails, then we revert to factory defaults.
  *
  */
-uv_status uvSettingsInit(){
+uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 	insertCANMessageHandler(0x520,handleIncomingLaptopMsg); //Allows us to talk with laptop
 
 	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
@@ -309,7 +367,7 @@ uv_status uvSettingsInit(){
 		//In this case, we need to check to see if we need to send out a msg for the VCU
 		if((uint32_t)(*(START_OF_USER_FLASH + 4))){
 
-			if(uvSendCanMSG(&vcu_ack_msg)==UV_OK){
+			if(uvSendCanMSG(&vcu_ack_msg)!=UV_OK){
 				return UV_ERROR;
 			}
 		}
@@ -341,7 +399,7 @@ uv_status uvSettingsInit(){
 		uvFree(tmp_sblock);
 	}
 
-
+	setupDefaultSettings();// Temporary and forces default settings
 	return UV_OK;
 
 }
@@ -386,6 +444,7 @@ uv_status uvUpdateTmpSettings(uint8_t* tmp_settings, uint8_t memgroup, uint8_t m
 	return UV_OK;
 }
 
+//NOTE: I Have not finished implementing the checksums here.
 uint32_t uvComputeChunkChecksum(uint32_t* chunk){
 	uint32_t tmp;
 	uint32_t buf[9];
@@ -446,8 +505,51 @@ uv_status uvValidateChecksums(void* sblock){
 
 }
 
+/** @brief Function to call when the Sblock Flash has become corrupted somehow.
+ *
+ */
+void uvSBlockCorruptionHandler() PRIVILEGED_FUNCTION{
+	//We need to forcibly revert to factory default. Unsure about ability to write to flash.
+	void* addr = FLASH_SBLOCK_START;
+	bool successful_write = false;
+
+	taskENTER_CRITICAL();
+
+	for(int i = 0; i<3; i++){
+		if(HAL_FLASH_Unlock() == HAL_OK){
+			break;
+		}
+	}
+
+	__HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_OPERR | FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGSERR | FLASH_FLAG_PGPERR);
+
+	//Set the start of the Sblock to 0, therefore causing uvValidate
+	if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,(uint32_t)addr,0x00000000)!= HAL_OK){
+		//If this does not work, then more drastic measures may be needed.
+		//Manually erase entire sector in hardware.
+		//Note that this will also destroy any persistent data, but we have genuinely much bigger fish to fry at this point, like the literal vehicle settings are corrupted WTF do you want from me, man?
+		while((FLASH->SR) & FLASH_SR_BSY){
+				//Wait till no longer busy
+		}
+
+		FLASH->CR |= (FLASH_CR_SNB_0 | FLASH_CR_SNB_1 | FLASH_CR_SNB_3); // Sector 11
+		FLASH->CR |= FLASH_CR_SER; //Queue up a flash erase operation
+
+		FLASH->CR |= FLASH_CR_STRT; //Tells the hardware to begin flash clear procces
 
 
+
+		while((FLASH->SR) & FLASH_SR_BSY){
+				//Wait till no longer busy
+		}
+	}
+
+	HAL_FLASH_Lock();//Always remember to lock the flash.
+
+	taskEXIT_CRITICAL();
+
+
+};
 
 
 uv_status uvOverwriteCsr(void* sblock, uint32_t* csr){
@@ -469,7 +571,7 @@ uv_status uvOverwriteCsr(void* sblock, uint32_t* csr){
 /** @brief Function to save a finished settings block to flash memory
  *
  */
-uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode){
+uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTION{
 	if(sblock == NULL){
 		*ecode = INVALID_SBLOCK;
 		return UV_ERROR;
@@ -480,7 +582,7 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode){
 //		return UV_ABORTED;
 //	}
 
-	*((uint32_t*)(tmp + 0)) = 0x42069420; //Identifies that this is in fact a valid S_Block
+	*((uint32_t*)(tmp + 0)) = MAGIC_NUMBER; //Identifies that this is in fact a valid S_Block
 	*((uint32_t*)(tmp + 4)) = 0x00000001; //Little reminder for future VCU that the settings were recently changed
 	*((uint16_t*)(tmp + 8)) = 0x1000;
 	*((uint16_t*)(tmp + 10)) = FIRMWARE_MAJOR_RELEASE; //Identify the firmware version this is
@@ -501,7 +603,7 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode){
 
 
 
-	void* addr = START_OF_USER_FLASH;
+	void* addr = FLASH_SBLOCK_START;
 
 	if(HAL_FLASH_Unlock() != HAL_OK){
 		*ecode = FLASH_NOT_UNLOCKED;
@@ -577,12 +679,12 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode){
 //			//Wait till no longer busy
 //	}
 //
-//	FLASH->CR |= FLASH_CR_LOCK; //LOCK FLASH
+	FLASH->CR |= FLASH_CR_LOCK; //LOCK FLASH
 
 
 	taskEXIT_CRITICAL();
 
-	HAL_FLASH_Lock();
+//	HAL_FLASH_Lock();
 
 	//Check to make sure the two match
 
@@ -673,7 +775,7 @@ void* uvCreateTmpSettingsCopy(){
 /** @brief Function that locates a specific setting parameter and sends the value over canbus
  *
  */
-uv_status uvSendSpecificParam(uint8_t mgroup, uint8_t m_offset, uint8_t size){
+uv_status uvSendSpecificParam(uint8_t* origin, uint8_t mgroup, uint8_t m_offset, uint8_t size){
 	uv_CAN_msg blank_msg;
 	blank_msg.flags = 0x00;
 	blank_msg.msg_id = 0x420;
@@ -707,7 +809,7 @@ uv_status uvSendSpecificParam(uint8_t mgroup, uint8_t m_offset, uint8_t size){
  */
 uv_status uvValidateFlashSettings(){
 	void* tmp = START_OF_USER_FLASH;
-	if(*((uint32_t*)tmp) != 0x5A5A5A5A){
+	if(*((uint32_t*)tmp) != MAGIC_NUMBER){
 		return UV_ERROR;// Nice blank slate
 	}
 
@@ -759,8 +861,20 @@ uv_status uvValidateFlashSettings(){
  * This task is only active once the car has been placed in programming mode.
  *
  */
-void uvSettingsProgrammerTask(void* args){
+void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 	uv_task_info* params = (uv_task_info*) args;
+
+	uint8_t mgroup = 0;
+	uint8_t m_offset = 0;
+	uint8_t d_type = 0;
+	uint8_t d_size = 0;
+
+	uint8_t cmd_byte = 0;
+
+	uint8_t* origin = NULL;
+
+	uv_CAN_msg tmp_msg; //messages get written into here when
+
 	void* new_tmp_settings = uvCreateTmpSettingsCopy();
 
 	if(new_tmp_settings == NULL){
@@ -778,29 +892,29 @@ void uvSettingsProgrammerTask(void* args){
 		uvPanic("Settings Queue Not Created",0);
 	}
 
-	uv_CAN_msg tmp_msg;
+
 
 	//Cached temporary variables for incoming programming messages
-	uint8_t mgroup = 0;
-	uint8_t m_offset = 0;
-	uint8_t d_type = 0;
-	uint8_t d_size = 0;
+
 
 	uvSendCanMSG(&vcu_ack_msg); //successfully entered the task
 
 	for(;;){
 		if(xQueueReceive(settings_queue,&tmp_msg,100)!=pdTRUE){
 			//laptop connection lost. Yowza. Discard whatever you're doin.
-			if((xTaskGetTickCount() - last_contact_with_laptop) > 200){
-				//more than 200ms have passed since last communication.
-				changeVehicleState(UV_READY); // leave the task
+//			if((xTaskGetTickCount() - last_contact_with_laptop) > 200){
+//				//more than 200ms have passed since last communication.
+//				changeVehicleState(UV_READY); // leave the task
+//
+//			}
 
-			}
-
-			continue; //To prevent an infinite loop of executing a specific cmd
+			/* WARNING: This is a goto. I know goto is prety heinous.
+			 * Fucking learn to deal with it u lil bitch boy
+			 */
+			goto __END_OF_SETTING_TASK_LOOP__;
 		}
 
-		uint8_t cmd_byte = tmp_msg.data[0];
+		cmd_byte = tmp_msg.data[0];
 
 		switch(cmd_byte){
 			case SET_SPECIFIC_PARAM ... END_OF_SPECIFIC_PARAMS:
@@ -833,13 +947,15 @@ void uvSettingsProgrammerTask(void* args){
 				break;
 			case REQUEST_SPECIFIC_SETTING:
 				//We wish to know the value of a specific setting
-				mgroup = tmp_msg.data[1];
-				m_offset = tmp_msg.data[2];
-				d_type = tmp_msg.data[3];
+				mgroup = tmp_msg.data[2];
+				m_offset = tmp_msg.data[3];
+				d_type = tmp_msg.data[4];
 				d_size = data_size[d_type];
 
+				origin = (tmp_msg.data[1])? FLASH_SBLOCK_START : new_tmp_settings;
 
-				if(uvSendSpecificParam(mgroup,m_offset,d_size) != UV_OK){
+
+				if(uvSendSpecificParam(origin,mgroup,m_offset,d_size) != UV_OK){
 					//HANDLE THIS ERROR HERE
 				}
 				break;
@@ -861,12 +977,14 @@ void uvSettingsProgrammerTask(void* args){
 						//Failure to unlock flash. Why?
 					}else if(ecode == DID_NOT_FINISH_PROGRAMMING){
 						//Partially programmed. Indicates data has been corrupted.
+						//FORCE RESET, CANNOT CONTINUE
 					}else if(ecode == DATA_MISMATCH){
 						//Data in flash does not match what has been programmed
+						//FORCE RESET, CANNOT CONTINUE
 					}else if(ecode == PRE_CHECKSUM){
-						//Checksum failure of sblock
+						//Checksum failure of sblock prior to save attempt
 					}else if(ecode == POST_CHECKSUM){
-						//Checksum failure of flash, post writing
+						//Checksum failure of flash, post save - CORRUPTION
 					}else if(ecode != 0){
 							/* This section of code is one of the worst places to be in the vehicle.
 							 *
@@ -915,6 +1033,9 @@ void uvSettingsProgrammerTask(void* args){
 				break;
 		}
 
+
+		__END_OF_SETTING_TASK_LOOP__:
+
 		if(params->cmd_data == UV_KILL_CMD){
 			//TODO add destructors here
 
@@ -922,7 +1043,7 @@ void uvSettingsProgrammerTask(void* args){
 				uvFree(new_tmp_settings);
 			}
 
-			killSelf(params);
+			killSelf(params); //Me too programming and diagnostics task, me too
 			while(1){ //hang
 
 			}
@@ -941,10 +1062,10 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	}
 
 	for(int i = 0; i<SETTING_BRANCH_SIZE; i += 4){
-		*((uint32_t*)(new_sblock + i)) = 0x00000000;
+		*((uint32_t*)(new_sblock + i)) = 0xFFFFFFFF;
 	} //Become Zeros
 
-	*((uint32_t*)(new_sblock)) = 0x42069420;
+	*((uint32_t*)(new_sblock)) = MAGIC_NUMBER;
 
 	//uint32_t pdiff = ((uint32_t)new_sblock) - ((uint32_t)START_OF_USER_FLASH);
 
@@ -989,6 +1110,7 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 		return UV_OK;
 	}
 
+	//Once we reach this point we know that some error has in fact occurred.
 	if(ecode == INVALID_SBLOCK){
 
 	}else if(ecode == FLASH_NOT_UNLOCKED){
@@ -1018,12 +1140,14 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 /** @brief Helper function for sending all settings
  *
  */
-uv_status sendSettingGroup(uint8_t memgroup,uint8_t m_offset, uint16_t size){
+uv_status uvSendSettingGroup(uint8_t* origin,uint8_t memgroup,uint8_t m_offset, uint16_t size){
 	uint16_t newsize = size + size%4;
 
+	//We always send the 32 bit word, because the VCU does not track what the individual types of struct members are.
+	//Doing so would be stupid complicated, so not gonna bother.
 	for(int i = 0; i<newsize; i+=4){
 		//Send the actual msg
-		if(uvSendSpecificParam(memgroup,m_offset + i,4)!=UV_OK){
+		if(uvSendSpecificParam(origin,memgroup,m_offset + i,4)!=UV_OK){
 			return UV_ERROR;
 		}
 
@@ -1037,19 +1161,62 @@ uv_status sendSettingGroup(uint8_t memgroup,uint8_t m_offset, uint16_t size){
  *
  */
 void sendAllSettingsWorker(void* args){
+	setting_helper_task* params = (setting_helper_task*) args;
+	child_task_handle = params->meta_task_handle;
+
+
+	uint8_t* origin = params->args.setting_tx_args.sblock_origin;
+	if(!origin){
+		origin = FLASH_SBLOCK_START;
+	}
+
+	params->status = UV_OK;
 
 	child_task_active = true;
 
-	int n = 10;
 
-	for(int i = 0; i<n; i++){
-		vSendSpecificParam(GENERAL_VEH_INFO_MGROUP, GENERAL_VEH_INFO_OFFSET, sizeof(veh_gen_info));
 
+	//Get through all this stuff first
+	if(uvSendSettingGroup(origin,GENERAL_VEH_INFO_MGROUP, GENERAL_VEH_INFO_OFFSET, sizeof(veh_gen_info))!= UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,OS_SETTINGS_MGROUP, OS_SETTINGS_OFFSET, sizeof(uv_os_settings))!= UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,MOTOR_MGROUP,MOTOR_OFFSET,sizeof(motor_controller_settings))!= UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,DRIVING_MGROUP,DRIVING_OFFSET,sizeof(driving_loop_args))!= UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,IMD_MGROUP,IMD_OFFSET,sizeof(uv_imd_settings))!=UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,BMS_MGROUP,BMS_OFFSET,sizeof(bms_settings_t))!= UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,DAQ_HEAD_MGROUP,DAQ_HEAD_OFFSET,sizeof(daq_loop_args))!=UV_OK){
+		//Handle this error
+	}else if(uvSendSettingGroup(origin,PDU_MGROUP,PDU_OFFSET,sizeof(uv19_pdu_settings)) != UV_OK){
+		//Handle this error
 	}
+
+	//Next is whatever in god's green earth the DAQ_datapoints are up to (Me when the edge case hits just right)
+	uint16_t remaining_bytes = (((daq_loop_args*)(origin + 256*DAQ_HEAD_MGROUP + DAQ_HEAD_OFFSET))->total_params_logged)*sizeof(daq_datapoint);
+
+	uint8_t t_mgroup = DAQ_PARAMS1_MGROUP;
+
+	while(remaining_bytes > 256){
+		if(uvSendSettingGroup(origin,t_mgroup,DAQ_PARAMS1_OFFSET,256)!=UV_OK){
+			//Handle this error
+		}
+
+		remaining_bytes -= 256;
+		t_mgroup++;
+	}
+
+	if(uvSendSettingGroup(origin,t_mgroup,DAQ_PARAMS1_OFFSET,remaining_bytes)!=UV_OK){
+		//Handle this error
+	}
+
 
 	child_task_active = false;
 
-	vTaskDelete(NULL);
+	vTaskSuspend(NULL);
 }
 
 /** @brief Sub-task that reads out the journal

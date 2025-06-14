@@ -59,7 +59,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-volatile uint32_t adc_buf1[ADC1_BUF_LEN]; // ADC1 - high priority readings
+volatile uint32_t adc_buf1[4]; // ADC1 - high priority readings
 
 uint16_t adc1_APPS1; //These are the locations for the sensor inputs for APPS and BPS
 uint16_t adc1_APPS2;
@@ -130,7 +130,7 @@ int main(void)
   //HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buf1, ADC1_BUF_LEN);
   //HAL_TIM_Base_Start_IT(&htim3); This is getting disabled, since measuring temp will now be an RTOS task
    // Just to prove we reached this point in the code
-
+  //MX_FREERTOS_Init();
   //ANYTHING WE NEED TO DO BEFORE THE KERNEL TAKES OVER SHOULD HAPPEN HERE:
 
   //HAL_NVIC_PriorityGroupConfig( NVIC_PRIORITYGROUP_4 ); ///< This one is a fun function to do some NVIC tomfoolery because we need to
@@ -273,6 +273,10 @@ void SystemClock_Config(void)
 
 // Called when adc dma buffer is completely filled
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+	//if(hadc == &hadc1){
+		processADCBuffer();
+	//}
+	/*
   // Could toggle an LED here
 	if(hadc->Instance == ADC1){ //TODO: Fix this so it is RTOS compatible
 		adc1_APPS1 = 0;
@@ -315,7 +319,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 		adc2_CoolantTemp = adc_buf2[0];
 		adc2_CoolantFlow = adc_buf2[1];
 	}
+	*/
 }
+
 
 // EXTI gpio pin a0 External Interrupt ISR Handler
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)

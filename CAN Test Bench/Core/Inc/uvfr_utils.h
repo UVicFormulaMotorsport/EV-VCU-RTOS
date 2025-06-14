@@ -38,6 +38,7 @@
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
+#include "uvfr_diagnostics.h"
 #include "rb_tree.h"
 
 #include "bms.h"
