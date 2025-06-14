@@ -1130,7 +1130,7 @@ void uvTaskManager(void* args) PRIVILEGED_FUNCTION{
 
 			suspendSelf(params);
 		}
-
+		vTaskSuspend(NULL);
 
 		uv_task_info* tmp = NULL;
 		TickType_t time = xTaskGetTickCount();

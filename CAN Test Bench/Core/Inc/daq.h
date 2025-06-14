@@ -16,6 +16,7 @@
 
 
 typedef enum{
+
 	VCU_VEHICLE_STATE, /**< VCU Current Vehicle State */
 	VCU_ERROR_BITFIELD1,
 	VCU_ERROR_BITFIELD2,

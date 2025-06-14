@@ -364,7 +364,9 @@ typedef struct uv_init_task_response{
 
 #ifndef UV_UTILS_SRC_IMPLIMENTATION
 	extern uv_internal_params global_context;
+
 	extern const uint8_t data_size[];
+
 #endif
 
 void uvInit(void * arguments);

@@ -10,7 +10,7 @@
  */
 void uvSecureVehicle(){
 	//Stop MCU Torque requests
-
+	MC_Shutdown();
 
 
 	//open SDC >:)

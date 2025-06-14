@@ -13,8 +13,10 @@
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
 
+
 extern PRIVILEGED_DATA uint8_t _s_uvdata; //Start and end of user flash symbols
 extern PRIVILEGED_DATA uint8_t _e_uvdata;
+
 
 //global variables for all to enjoy
 uv_vehicle_settings* current_vehicle_settings = NULL;
@@ -22,6 +24,7 @@ uv_vehicle_settings* current_vehicle_settings = NULL;
 extern struct uv_os_settings default_os_settings;
 extern struct motor_controller_settings mc_default_settings;
 extern struct driving_loop_args default_dl_settings;
+
 extern struct daq_loop_args default_daq_settings;
 extern struct uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
@@ -144,20 +147,24 @@ uv_status uvTransmitVehicleStatus(){
 
 uv_status uvAwaitLaptopAckMsg(){
 	return UV_ABORTED;
+
 }
 
 /** @brief Callback function for event where CAN message is received from laptop
  *
  */
+
 void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 	uint8_t cmd_byte = msg->data[0];
 	static uv_CAN_msg blank_msg = {
 			.msg_id = 0x420,
 			.flags = 0x00,
+
 			.dlc = 8
 	};
 
 	last_contact_with_laptop = xTaskGetTickCount();
+
 
 	switch(cmd_byte){
 	case HANDSHAKE:
@@ -171,12 +178,15 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 		blank_msg.data[6] = FIRMWARE_MINOR_RELEASE;
 		blank_msg.data[7] = FIRMWARE_PATCH_NUM;
 
+
 		uvSendCanMSG(&blank_msg);
 		break;
 	case ENTER_PROGRAMMING_MODE:
 
 		if(vehicle_state == UV_READY){
+
 			//Relevant Ack. frame sent upon succesful startup of programmer task
+
 			changeVehicleState(PROGRAMMING);
 		}else{
 			//should not be programming if in either of these states
@@ -185,14 +195,17 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 		break;
 	case REQUEST_VCU_STATUS:
 		//TODO Respond with VCU status
+
 		if(uvTransmitVehicleStatus()!=UV_OK){
 			//Handle this error.
 		}
+
 		break;
 	case GENERIC_ACK:
 		//Could come at any time, however here we are
 		break;
 	case SET_SPECIFIC_PARAM ... END_OF_SPECIFIC_PARAMS:
+
 	case CLEAR_FAULTS:
 	case REQUEST_ALL_SETTINGS:
 	case REQUEST_ALL_JOURNAL_ENTRIES:
@@ -240,15 +253,16 @@ uv_status setupDefaultSettings(){
 		return UV_ERROR;
 	}
 
-	current_vehicle_settings->veh_info = &default_vehicle;
+
 	current_vehicle_settings->os_settings = &default_os_settings;
 	current_vehicle_settings->mc_settings = &mc_default_settings;
 	current_vehicle_settings->driving_loop_settings = &default_dl_settings;
-	current_vehicle_settings->imd_settings = &default_imd_settings;
-	current_vehicle_settings->bms_settings = &default_bms_settings;
-	current_vehicle_settings->daq_settings = &default_daq_settings;
-	current_vehicle_settings->daq_param_list = default_datapoints; //Does not need to be a ptr, since this is an array
-	current_vehicle_settings->pdu_settings = &default_pdu_settings;
+	current_vehicle_settings->driving_loop_settings = NULL;
+	current_vehicle_settings->imd_settings = NULL;
+	current_vehicle_settings->bms_settings = NULL;
+	current_vehicle_settings->daq_settings = NULL;
+	current_vehicle_settings->pdu_settings = NULL;
+
 
 	current_vehicle_settings->flags |= 0x0001; //This is default settings
 	return UV_OK;
@@ -283,7 +297,9 @@ uv_status uvLoadSettingsFromFlash(){
 	}
 
 
+
 	current_vehicle_settings->veh_info = (veh_gen_info*)(START_OF_USER_FLASH + 256*GENERAL_VEH_INFO_MGROUP+GENERAL_VEH_INFO_OFFSET);
+
 
 	current_vehicle_settings->os_settings = (uv_os_settings*)(START_OF_USER_FLASH + OS_SETTINGS_MGROUP*256 + OS_SETTINGS_OFFSET);
 
@@ -294,6 +310,7 @@ uv_status uvLoadSettingsFromFlash(){
 	current_vehicle_settings->bms_settings = BMS_ADDR;
 	current_vehicle_settings->daq_settings = DAQ_HEAD_ADDR;
 	current_vehicle_settings->daq_param_list = DAQ_PARAMS1_ADDR;
+
 	current_vehicle_settings->pdu_settings = (void*)(START_OF_USER_FLASH + PDU_MGROUP*256 + PDU_OFFSET);
 	return UV_OK;
 }
@@ -327,15 +344,17 @@ uv_status uvConfigSettingTask(void* args){
 
 }
 
+
 /** @brief this function does one thing, and one thing only, it checks if we have custom settings, then it attempts to get them.
  * If it fails, then we revert to factory defaults.
  *
  */
+
 uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
+
 	insertCANMessageHandler(0x520,handleIncomingLaptopMsg); //Allows us to talk with laptop
 
 	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
-
 
 
 	if(current_vehicle_settings == NULL){
@@ -343,6 +362,7 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 		__uvInitPanic(); // deeply unfortunate
 		return UV_ERROR;
 	}
+
 
 	//uvConfigSettingTask(current_vehicle_settings);
 
@@ -705,9 +725,101 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 //		return UV_ERROR;
 //	}
 
+
+	return UV_OK;
+}
+
+#define FLASH_OK 0
+#define INVALID_SBLOCK 1
+#define FLASH_NOT_UNLOCKED 2
+#define DID_NOT_FINISH_PROGRAMMING 3
+#define DATA_MISMATCH 4
+#define PRE_CHECKSUM 5
+#define POST_CHECKSUM 6
+
+uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode){
+	if(sblock == NULL){
+		*ecode = INVALID_SBLOCK;
+		return UV_ERROR;
+	}
+
+	void* tmp = sblock;
+//	if(uvValidateChecksums(tmp) != UV_OK){
+//		return UV_ABORTED;
+//	}
+
+	*((uint32_t*)(tmp + 0)) = 0x42069420;
+	*((uint32_t*)(tmp + 4)) = 0x00000001; //Little reminder for future VCU that the settings were recently changed
+
+
+	void* addr = START_OF_USER_FLASH;
+
+	if(HAL_FLASH_Unlock() != HAL_OK){
+		*ecode = FLASH_NOT_UNLOCKED;
+		return UV_ERROR;
+	}
+
+
+
+
+	while(addr < TOP_OF_FLASH_SBLOCK){ //TODO Is this the right address?
+		if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,(uint32_t)addr,(uint32_t)sblock)!= HAL_OK){
+			//ERROR ERROR AHHHH FUCK
+			//uvPanic("FLASH_WRITE_ERROR");
+			*ecode = DID_NOT_FINISH_PROGRAMMING;
+			HAL_FLASH_Lock();
+			return UV_ERROR;
+		}
+		addr += 4;
+		tmp += 4;
+	}
+
+	HAL_FLASH_Lock();
+
+	//Check to make sure the two match
+
+	tmp = sblock;
+	addr = START_OF_USER_FLASH;
+
+	while(addr < TOP_OF_FLASH_SBLOCK){
+		if(*((uint32_t*)tmp) != *((uint32_t*)addr)){
+			*ecode = DATA_MISMATCH;
+			return UV_ERROR; //Mismatch
+		}
+
+		tmp += 4;
+		addr += 4;
+	}
+
+//	if(uvValidateChecksums(START_OF_USER_FLASH)!= UV_OK){
+//		return UV_ERROR;
+//	}
+
 	return UV_OK;
 
 }
+
+/** @brief Function that creates a
+ *
+ */
+void* uvCreateTmpSettingsCopy(){
+	uint32_t* sblock = uvMalloc(SETTING_BRANCH_SIZE);
+	if(sblock == NULL){
+		return NULL;
+
+	}
+
+	uint32_t* tmp = (uint32_t*)(START_OF_USER_FLASH);
+
+	for(int i = 0; i < SETTING_BRANCH_SIZE; i += 4){
+		*sblock = *(tmp + 4);
+
+	}
+
+	return sblock;
+
+}
+
 
 /** @brief This reminds the VCU to shoot off it's own message later when it reboots.
  *
@@ -875,6 +987,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 	uv_CAN_msg tmp_msg; //messages get written into here when
 
+
 	void* new_tmp_settings = uvCreateTmpSettingsCopy();
 
 	if(new_tmp_settings == NULL){
@@ -884,7 +997,9 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 	ptask_handle = params->task_handle;
 
+
 	//uvSendCanMSG(&vcu_ack_msg);
+
 
 	settings_queue = xQueueCreate(8, sizeof(uv_CAN_msg));
 
@@ -894,14 +1009,17 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 
 
+
 	//Cached temporary variables for incoming programming messages
 
 
 	uvSendCanMSG(&vcu_ack_msg); //successfully entered the task
 
+
 	for(;;){
 		if(xQueueReceive(settings_queue,&tmp_msg,100)!=pdTRUE){
 			//laptop connection lost. Yowza. Discard whatever you're doin.
+
 //			if((xTaskGetTickCount() - last_contact_with_laptop) > 200){
 //				//more than 200ms have passed since last communication.
 //				changeVehicleState(UV_READY); // leave the task
@@ -923,6 +1041,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				d_type = tmp_msg.data[2];
 				d_size = data_size[d_type];
 
+
 				if(uvUpdateTmpSettings(new_tmp_settings, mgroup, m_offset, d_size, (tmp_msg.data + 3)) == UV_OK){
 					//Send back an ACK
 					uvSendCanMSG(&vcu_ack_msg);
@@ -938,15 +1057,18 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				//Time for probably the most fucked task I've done in a hot minute
 				break;
 			case REQUEST_ALL_JOURNAL_ENTRIES:
+
 				//This is not yet implemented.
 				uvSendCanMSG(&vcu_ack_failed_msg);
 				break;
 			case REQUEST_JOURNAL_ENTRIES_BY_TIME:
 				//This is not yet implemented
+
 				uvSendCanMSG(&vcu_ack_failed_msg);
 				break;
 			case REQUEST_SPECIFIC_SETTING:
 				//We wish to know the value of a specific setting
+
 				mgroup = tmp_msg.data[2];
 				m_offset = tmp_msg.data[3];
 				d_type = tmp_msg.data[4];
@@ -958,12 +1080,14 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				if(uvSendSpecificParam(origin,mgroup,m_offset,d_size) != UV_OK){
 					//HANDLE THIS ERROR HERE
 				}
+
 				break;
 			case SAVE_AND_APPLY_NEW_SETTINGS:
 				//Save and apply. Hoo boy.
 				uint32_t ecode = 0;
 				if(uvSaveSettingsToFlash(new_tmp_settings, &ecode) == UV_OK){
 					//Try once
+
 					uvSendCanMSG(&vcu_ack_msg); //report success
 				}else if(uvSaveSettingsToFlash(new_tmp_settings, &ecode) == UV_OK){
 					//Try again
@@ -1003,6 +1127,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 						uvSendCanMSG(&vcu_ack_msg);
 						//This means that we have succeeded, as we have deleted the old settings,
 						//and new settings have taken their place
+
 					}else{
 						uvSendCanMSG(&vcu_ack_failed_msg);
 						uvPanic("uhh oh",0);
@@ -1014,6 +1139,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				}
 				break;
 			case DISCARD_NEW_SETTINGS_AND_EXIT:
+
 				//uvFree(new_tmp_settings); //No need to free, this happens in the destructor
 				changeVehicleState(UV_READY);
 				uvSendCanMSG(&vcu_ack_msg);
@@ -1027,6 +1153,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 				}
 
+
 				break;
 			default:
 				//unrecognized command spotted
@@ -1034,7 +1161,9 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 		}
 
 
+
 		__END_OF_SETTING_TASK_LOOP__:
+
 
 		if(params->cmd_data == UV_KILL_CMD){
 			//TODO add destructors here
@@ -1043,13 +1172,37 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				uvFree(new_tmp_settings);
 			}
 
+
 			killSelf(params); //Me too programming and diagnostics task, me too
 			while(1){ //hang
 
 			}
 		}
+
 	}
+
+	settingCopy((uint8_t*)(&default_os_settings),new_sblock + OS_SETTINGS_OFFSET,sizeof(uv_os_settings));
+//	settingCopy(0,0,0);
+//	settingCopy(0,0,0);
+//	settingCopy(0,0,0);
+//	settingCopy(0,0,0);
+//	settingCopy(0,0,0);
+//	settingCopy(0,0,0);
+//	settingCopy(0,0,0);
+
+
+	return UV_OK;
+
 }
+
+void sendAllSettingsWorker(void* args){
+
+}
+
+void sendJournalWorker(void* args){
+
+}
+
 
 
 
@@ -1226,4 +1379,5 @@ void sendAllSettingsWorker(void* args){
 void sendJournalWorker(void* args){
 
 }
+
 

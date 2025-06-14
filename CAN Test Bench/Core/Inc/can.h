@@ -57,6 +57,7 @@ uv_status uvSendCanMSG(uv_CAN_msg * msg);
 void CANbusTxSvcDaemon(void* args);
 void CANbusRxSvcDaemon(void* args);
 
+
 //int callFunctionFromCANid(uint32_t CAN_id, uint8_t* data, uint8_t length);
 void insertCANMessageHandler(uint32_t id, void* handlerfunc);
 void nuke_hash_table();
