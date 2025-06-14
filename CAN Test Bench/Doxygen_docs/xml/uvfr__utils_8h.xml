@@ -38,16 +38,22 @@
     <includedby refid="daq_8h" local="yes">Core/Inc/daq.h</includedby>
     <includedby refid="bms_8h" local="yes">Core/Inc/bms.h</includedby>
     <includedby refid="uvfr__state__engine_8h" local="yes">Core/Inc/uvfr_state_engine.h</includedby>
+    <includedby refid="pdu_8h" local="yes">Core/Inc/pdu.h</includedby>
     <includedby refid="oled_8h" local="yes">Core/Inc/oled.h</includedby>
     <includedby refid="temp__monitoring_8h" local="yes">Core/Inc/temp_monitoring.h</includedby>
+    <includedby refid="odometer_8h" local="yes">Core/Inc/odometer.h</includedby>
     <includedby refid="uvfr__vehicle__commands_8h" local="yes">Core/Inc/uvfr_vehicle_commands.h</includedby>
+    <includedby refid="adc_8c" local="yes">Core/Src/adc.c</includedby>
+    <includedby refid="bms_8c" local="yes">Core/Src/bms.c</includedby>
     <includedby refid="can_8c" local="yes">Core/Src/can.c</includedby>
     <includedby refid="daq_8c" local="yes">Core/Src/daq.c</includedby>
     <includedby refid="driving__loop_8c" local="yes">Core/Src/driving_loop.c</includedby>
     <includedby refid="freertos_8c" local="yes">Core/Src/freertos.c</includedby>
     <includedby refid="imd_8c" local="yes">Core/Src/imd.c</includedby>
+    <includedby refid="motor__controller_8c" local="yes">Core/Src/motor_controller.c</includedby>
     <includedby refid="odometer_8c" local="yes">Core/Src/odometer.c</includedby>
     <includedby refid="oled_8c" local="yes">Core/Src/oled.c</includedby>
+    <includedby refid="pdu_8c" local="yes">Core/Src/pdu.c</includedby>
     <includedby refid="rb__tree_8c" local="yes">Core/Src/rb_tree.c</includedby>
     <includedby refid="temp__monitoring_8c" local="yes">Core/Src/temp_monitoring.c</includedby>
     <includedby refid="uvfr__settings_8c" local="yes">Core/Src/uvfr_settings.c</includedby>
@@ -193,6 +199,8 @@
         <link refid="pdu_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
+        <childnode refid="1" relation="include">
+        </childnode>
       </node>
       <node id="18">
         <label>motor_controller.h</label>
@@ -202,6 +210,8 @@
         <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
       </node>
       <node id="17">
@@ -269,6 +279,8 @@
       <node id="29">
         <label>odometer.h</label>
         <link refid="odometer_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
       </node>
       <node id="4">
         <label>stm32f4xx_hal.h</label>
@@ -297,16 +309,16 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="16">
+      <node id="19">
         <label>Core/Inc/tim.h</label>
         <link refid="tim_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
       <node id="28">
@@ -314,9 +326,9 @@
         <link refid="imd_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
         <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -330,19 +342,19 @@
         <link refid="dash_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="9">
         <label>Core/Inc/driving_loop.h</label>
         <link refid="driving__loop_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
@@ -355,19 +367,19 @@
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="16">
         <label>Core/Src/pdu.c</label>
         <link refid="pdu_8c"/>
       </node>
-      <node id="9">
+      <node id="14">
         <label>Core/Src/dash.c</label>
         <link refid="dash_8c"/>
       </node>
-      <node id="17">
+      <node id="20">
         <label>Core/Src/tim.c</label>
         <link refid="tim_8c"/>
       </node>
-      <node id="44">
+      <node id="45">
         <label>Core/Src/uvfr_state_engine.c</label>
         <link refid="uvfr__state__engine_8c"/>
       </node>
@@ -400,11 +412,11 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
@@ -412,13 +424,21 @@
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
         <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="41" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
@@ -426,26 +446,30 @@
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="43" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
       </node>
-      <node id="42">
+      <node id="43">
         <label>Core/Src/odometer.c</label>
         <link refid="odometer_8c"/>
       </node>
@@ -453,20 +477,20 @@
         <label>Core/Src/freertos.c</label>
         <link refid="freertos_8c"/>
       </node>
-      <node id="7">
+      <node id="13">
         <label>Core/Src/bms.c</label>
         <link refid="bms_8c"/>
       </node>
       <node id="26">
         <label>Core/Inc/bms.h</label>
         <link refid="bms_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -483,14 +507,14 @@
         <label>Core/Src/driving_loop.c</label>
         <link refid="driving__loop_8c"/>
       </node>
-      <node id="21">
+      <node id="24">
         <label>Core/Inc/spi.h</label>
         <link refid="spi_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
       <node id="29">
@@ -498,33 +522,31 @@
         <link refid="pdu_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="22">
         <label>Core/Src/gpio.c</label>
         <link refid="gpio_8c"/>
       </node>
-      <node id="23">
+      <node id="7">
         <label>Core/Inc/motor_controller.h</label>
         <link refid="motor__controller_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
@@ -533,57 +555,57 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="8">
         <label>Core/Inc/uvfr_settings.h</label>
         <link refid="uvfr__settings_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="44">
         <label>Core/Src/rb_tree.c</label>
         <link refid="rb__tree_8c"/>
       </node>
-      <node id="15">
+      <node id="18">
         <label>Core/Src/dma.c</label>
         <link refid="dma_8c"/>
       </node>
-      <node id="20">
+      <node id="23">
         <label>Core/Src/temp_monitoring.c</label>
         <link refid="temp__monitoring_8c"/>
       </node>
-      <node id="46">
+      <node id="47">
         <label>Core/Src/uvfr_vehicle_commands.c</label>
         <link refid="uvfr__vehicle__commands_8c"/>
       </node>
       <node id="36">
         <label>Core/Inc/daq.h</label>
         <link refid="daq_8h"/>
-        <childnode refid="24" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="21">
         <label>Core/Inc/gpio.h</label>
         <link refid="gpio_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="46">
         <label>Core/Src/uvfr_utils.c</label>
         <link refid="uvfr__utils_8c"/>
       </node>
-      <node id="22">
+      <node id="25">
         <label>Core/Src/spi.c</label>
         <link refid="spi_8c"/>
       </node>
@@ -591,7 +613,7 @@
         <label>Core/Src/constants.c</label>
         <link refid="constants_8c"/>
       </node>
-      <node id="11">
+      <node id="15">
         <label>Core/Src/imd.c</label>
         <link refid="imd_8c"/>
       </node>
@@ -602,19 +624,21 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="34">
@@ -627,13 +651,19 @@
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="11">
         <label>Core/Src/can.c</label>
         <link refid="can_8c"/>
       </node>
-      <node id="41">
+      <node id="42">
         <label>Core/Inc/uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
+      </node>
+      <node id="41">
+        <label>Core/Inc/odometer.h</label>
+        <link refid="odometer_8h"/>
+        <childnode refid="1" relation="include">
+        </childnode>
       </node>
       <node id="32">
         <label>Core/Src/oled.c</label>
@@ -647,12 +677,12 @@
         <label>Core/Src/main.c</label>
         <link refid="main_8c"/>
       </node>
-      <node id="14">
+      <node id="17">
         <label>Core/Inc/dma.h</label>
         <link refid="dma_8h"/>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -666,17 +696,17 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
@@ -686,27 +716,25 @@
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="33" relation="include">
         </childnode>
@@ -1178,6 +1206,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         <name>data_type</name>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a34d03a41af56f92f5a5d1ba5160c7c5d" prot="public">
           <name>UV_UINT8</name>
+          <initializer>= 0</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1185,6 +1214,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14afc1d693c03775a0150f794262ba05318" prot="public">
           <name>UV_INT8</name>
+          <initializer>= 1</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1192,6 +1222,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0" prot="public">
           <name>UV_UINT16</name>
+          <initializer>= 2</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1199,6 +1230,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14aa93cbcd4f2887f8817cdded087237787" prot="public">
           <name>UV_INT16</name>
+          <initializer>= 3</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1206,6 +1238,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14ad3597a26fcf0676a97a4484f5093b0b0" prot="public">
           <name>UV_UINT32</name>
+          <initializer>= 4</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1213,6 +1246,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6979c7ca371fd950f17243bc1db719cc" prot="public">
           <name>UV_INT32</name>
+          <initializer>= 5</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1220,6 +1254,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a48ad3f9df814bf40b8038f4ae5edbbc9" prot="public">
           <name>UV_FLOAT</name>
+          <initializer>= 6</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1227,6 +1262,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6e5d3d7903d59e8a69073ac6d7d2d038" prot="public">
           <name>UV_DOUBLE</name>
+          <initializer>= 7</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1234,6 +1270,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a4e148426880e8cf1e81ceea15ddf2d7a" prot="public">
           <name>UV_INT64</name>
+          <initializer>= 8</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1241,6 +1278,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a04c45245ce9c00f905a60cc34cca2de6" prot="public">
           <name>UV_UINT64</name>
+          <initializer>= 9</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1248,6 +1286,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </enumvalue>
         <enumvalue id="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a17e48aeaa85be166241ccf35b5c195de" prot="public">
           <name>UV_STRING</name>
+          <initializer>= 10</initializer>
           <briefdescription>
           </briefdescription>
           <detaileddescription>
@@ -1731,6 +1770,21 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </inbodydescription>
         <location file="Core/Inc/uvfr_utils.h" line="365" column="27" declfile="Core/Inc/uvfr_utils.h" declline="365" declcolumn="27"/>
       </memberdef>
+      <memberdef kind="variable" id="uvfr__utils_8h_1a657e7e858d8847396634fd9912747f8b" prot="public" static="no" mutable="no">
+        <type>const uint8_t</type>
+        <definition>const uint8_t data_size[]</definition>
+        <argsstring>[]</argsstring>
+        <name>data_size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/uvfr_utils.h" line="366" column="22" bodyfile="Core/Src/uvfr_utils.c" bodystart="17" bodyend="-1" declfile="Core/Inc/uvfr_utils.h" declline="366" declcolumn="22"/>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+        <referencedby refid="uvfr__settings_8c_1a2f0cb7e05c1bef0501d585df7c2c6013" compoundref="uvfr__settings_8c" startline="864" endline="1052">uvSettingsProgrammerTask</referencedby>
+      </memberdef>
       </sectiondef>
       <sectiondef kind="func">
       <memberdef kind="function" id="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1824,6 +1878,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
 <codeline><highlight class="normal">uint16_t<sp/>ext_devices_status<sp/>=<sp/>0x000F;<sp/>//Tracks<sp/>which<sp/>devices<sp/>are<sp/>currently<sp/>setup</highlight></codeline>
 <codeline></codeline>
 <codeline></codeline>
+<codeline><highlight class="normal">initADCTask();<sp/>//START<sp/>THE<sp/>ADCs</highlight></codeline>
 <codeline></codeline>
 <codeline></codeline>
 <codeline><highlight class="normal">/**<sp/></highlight></codeline>
@@ -1832,32 +1887,42 @@ In practice this looks like the following: <programlisting><codeline><highlight 
 <para>We allocate space for a response from the initialization.</para>
 <para>Clean up, clean up, everybody clean up, clean up, clean up, everybody do your share! The following code cleans up all the threads that were running, and free up used memory</para>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="368" column="6" bodyfile="Core/Src/uvfr_utils.c" bodystart="39" bodyend="231" declfile="Core/Inc/uvfr_utils.h" declline="368" declcolumn="6"/>
-        <references refid="uvfr__utils_8c_1a92b5ac44171d49acd084c274385a043a" compoundref="uvfr__utils_8c" startline="271" endline="285">__uvInitPanic</references>
-        <references refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="11" endline="27">BMS_Init</references>
-        <references refid="structuv__vehicle__settings_1a6cdca5b5474080f1dff4d19ef96435e1" compoundref="uvfr__settings_8h" startline="40">uv_vehicle_settings::bms_settings</references>
-        <references refid="group__state__engine__api_1gaa3ad3e8df75177c00265881c16563212" compoundref="uvfr__state__engine_8c" startline="99" endline="156">changeVehicleState</references>
-        <references refid="uvfr__settings_8h_1a03566822d1b8893362970a459bd67daf" compoundref="uvfr__settings_8c" startline="15">current_vehicle_settings</references>
+        <location file="Core/Inc/uvfr_utils.h" line="369" column="6" bodyfile="Core/Src/uvfr_utils.c" bodystart="46" bodyend="253" declfile="Core/Inc/uvfr_utils.h" declline="369" declcolumn="6"/>
+        <references refid="uvfr__utils_8c_1a92b5ac44171d49acd084c274385a043a" compoundref="uvfr__utils_8c" startline="296" endline="310">__uvInitPanic</references>
+        <references refid="structuv__task__info_1ab24dea3bde4de2d839bf15e65c2df0d6" compoundref="uvfr__state__engine_8h" startline="251">uv_task_info::active_states</references>
+        <references refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="22" endline="38">BMS_Init</references>
+        <references refid="structuv__vehicle__settings_1a6cdca5b5474080f1dff4d19ef96435e1" compoundref="uvfr__settings_8h" startline="144">uv_vehicle_settings::bms_settings</references>
+        <references refid="can_8h_1a3cb7727094f40357f18ece08758738cc" compoundref="can_8h" startline="41">CAN_RX_DAEMON_NAME</references>
+        <references refid="can_8h_1a8258cafd2b5e0bfb1e4228e7a45750bf" compoundref="can_8h" startline="40">CAN_TX_DAEMON_NAME</references>
+        <references refid="can_8h_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="632" endline="670">CANbusRxSvcDaemon</references>
+        <references refid="can_8h_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</references>
+        <references refid="group__state__engine__api_1gaa3ad3e8df75177c00265881c16563212" compoundref="uvfr__state__engine_8c" startline="101" endline="163">changeVehicleState</references>
+        <references refid="uvfr__settings_8h_1a03566822d1b8893362970a459bd67daf" compoundref="uvfr__settings_8c" startline="20">current_vehicle_settings</references>
         <references refid="structuv__init__task__response_1adfcb943d08344e528ad3d49c5c428918" compoundref="uvfr__utils_8h" startline="357">uv_init_task_response::device</references>
         <references refid="structuv__init__task__response_1af29fdddeaddc456d2028cc1ad471bae1" compoundref="uvfr__utils_8h" startline="359">uv_init_task_response::errmsg</references>
-        <references refid="structuv__vehicle__settings_1a5b56318f394bef60ff7da0b4995183e0" compoundref="uvfr__settings_8h" startline="39">uv_vehicle_settings::imd_settings</references>
+        <references refid="structuv__vehicle__settings_1af8dbf93ac51eb9fdc8911644d096486d" compoundref="uvfr__settings_8h" startline="143">uv_vehicle_settings::imd_settings</references>
         <references refid="uvfr__utils_8h_1a4808a3bb38a3243b37a3690b9a02eba7" compoundref="uvfr__utils_8h" startline="146">INIT_CHECK_PERIOD</references>
         <references refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" compoundref="uvfr__utils_8h" startline="331">uv_init_task_args::init_info_queue</references>
         <references refid="uvfr__utils_8c_1a142da7a698285a444ffffb0d1d791023" compoundref="freertos_8c" startline="51">init_task_handle</references>
-        <references refid="imd_8h_1a19b4fd879f065cfe6e1b7bb3400cd0c3" compoundref="imd_8c" startline="554" endline="566">initIMD</references>
-        <references refid="pdu_8h_1afaa6671d51bcd0687c87ac635ff70d95" compoundref="pdu_8c" startline="183" endline="195">initPDU</references>
+        <references refid="adc_8h_1a4ba1683325a3553851abf884b905f1b1" compoundref="adc_8c" startline="358" endline="371">initADCTask</references>
+        <references refid="imd_8h_1a19b4fd879f065cfe6e1b7bb3400cd0c3" compoundref="imd_8c" startline="559" endline="571">initIMD</references>
+        <references refid="pdu_8h_1afaa6671d51bcd0687c87ac635ff70d95" compoundref="pdu_8c" startline="189" endline="201">initPDU</references>
         <references refid="uvfr__utils_8h_1a40d625666ff5a3c5918ec7591f0628ed" compoundref="uvfr__utils_8h" startline="145">MAX_INIT_TIME</references>
-        <references refid="structuv__vehicle__settings_1ad0b0375d2c1674abc6f972eec47e9cb7" compoundref="uvfr__settings_8h" startline="35">uv_vehicle_settings::mc_settings</references>
-        <references refid="motor__controller_8h_1aed1407e1e0fd59dc7c5e5d6db671f0ab" compoundref="motor__controller_8c" startline="739" endline="803">MC_Startup</references>
+        <references refid="structuv__vehicle__settings_1ad0b0375d2c1674abc6f972eec47e9cb7" compoundref="uvfr__settings_8h" startline="139">uv_vehicle_settings::mc_settings</references>
+        <references refid="motor__controller_8h_1aed1407e1e0fd59dc7c5e5d6db671f0ab" compoundref="motor__controller_8c" startline="278" endline="326">MC_Startup</references>
         <references refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" compoundref="uvfr__utils_8h" startline="332">uv_init_task_args::meta_task_handle</references>
         <references refid="structuv__init__task__response_1ab0bb4394cc62070f8d366ab3a55ff227" compoundref="uvfr__utils_8h" startline="358">uv_init_task_response::nchar</references>
         <references refid="structuv__init__task__args_1a61a9b579a1e65a3875a4edf3201a39f3" compoundref="uvfr__utils_8h" startline="330">uv_init_task_args::specific_args</references>
         <references refid="structuv__init__task__response_1a56b3df74c10cdc59e8e1b9d4c1f36af7" compoundref="uvfr__utils_8h" startline="356">uv_init_task_response::status</references>
+        <references refid="structuv__task__info_1afcd240d2b6b01b4acea600ef4dfe8fbc" compoundref="uvfr__state__engine_8h" startline="227">uv_task_info::task_function</references>
+        <references refid="structuv__task__info_1ad24b438130bb3098ee5e855222dff21d" compoundref="uvfr__state__engine_8h" startline="222">uv_task_info::task_name</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
         <references refid="group__state__engine__api_1gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8" compoundref="uvfr__state__engine_8h" startline="83">UV_READY</references>
-        <references refid="group__state__engine__api_1ga5c608f3832c45eac6e2da198d4ef1ba0" compoundref="uvfr__state__engine_8c" startline="164" endline="185">uvInitStateEngine</references>
-        <references refid="uvfr__settings_8h_1a80856a38d7040ca10b8106ff0fa4acf4" compoundref="uvfr__settings_8c" startline="64" endline="86">uvSettingsInit</references>
-        <references refid="group__state__engine__api_1ga2ad1d74b5783a51355c047be6642fab8" compoundref="uvfr__state__engine_8c" startline="192" endline="246">uvStartStateMachine</references>
+        <references refid="group__state__engine__backend_1ga20334b4aff0cfdab7be1d2864089c5ce" compoundref="uvfr__state__engine_8c" startline="1204" endline="1239">uvCreateServiceTask</references>
+        <references refid="group__state__engine__api_1ga5c608f3832c45eac6e2da198d4ef1ba0" compoundref="uvfr__state__engine_8c" startline="171" endline="193">uvInitStateEngine</references>
+        <references refid="uvfr__settings_8h_1a80856a38d7040ca10b8106ff0fa4acf4" compoundref="uvfr__settings_8c" startline="334" endline="405">uvSettingsInit</references>
+        <references refid="group__state__engine__api_1ga2ad1d74b5783a51355c047be6642fab8" compoundref="uvfr__state__engine_8c" startline="200" endline="254">uvStartStateMachine</references>
+        <references refid="group__state__engine__backend_1ga15cdf09b5625c2ba29a6c6d5c96214dc" compoundref="uvfr__state__engine_8c" startline="388" endline="455">uvStartTask</references>
         <referencedby refid="main_8c_1abade755e13d07c10889ae83143656158" compoundref="freertos_8c" startline="160" endline="201">MX_FREERTOS_Init</referencedby>
       </memberdef>
       <memberdef kind="function" id="uvfr__utils_8h_1a92b5ac44171d49acd084c274385a043a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -1875,10 +1940,11 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="370" column="6" bodyfile="Core/Src/uvfr_utils.c" bodystart="271" bodyend="285" declfile="Core/Inc/uvfr_utils.h" declline="370" declcolumn="6"/>
-        <referencedby refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="39" endline="231">uvInit</referencedby>
-        <referencedby refid="group__state__engine__api_1ga5c608f3832c45eac6e2da198d4ef1ba0" compoundref="uvfr__state__engine_8c" startline="164" endline="185">uvInitStateEngine</referencedby>
-        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1341" endline="1398">uvSVCTaskManager</referencedby>
+        <location file="Core/Inc/uvfr_utils.h" line="371" column="6" bodyfile="Core/Src/uvfr_utils.c" bodystart="296" bodyend="310" declfile="Core/Inc/uvfr_utils.h" declline="371" declcolumn="6"/>
+        <referencedby refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="46" endline="253">uvInit</referencedby>
+        <referencedby refid="group__state__engine__api_1ga5c608f3832c45eac6e2da198d4ef1ba0" compoundref="uvfr__state__engine_8c" startline="171" endline="193">uvInitStateEngine</referencedby>
+        <referencedby refid="uvfr__settings_8c_1adc9522bb052011b07febe1235d1a4792" compoundref="uvfr__settings_8c" startline="334" endline="405">uvSettingsInit</referencedby>
+        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1350" endline="1395">uvSVCTaskManager</referencedby>
       </memberdef>
       <memberdef kind="function" id="uvfr__utils_8h_1a0186c036688c7852cf0ceaee96b343a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref></type>
@@ -1898,13 +1964,14 @@ In practice this looks like the following: <programlisting><codeline><highlight 
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="395" column="11" bodyfile="Core/Src/uvfr_utils.c" bodystart="401" bodyend="458" declfile="Core/Inc/uvfr_utils.h" declline="395" declcolumn="11"/>
+        <location file="Core/Inc/uvfr_utils.h" line="396" column="11" bodyfile="Core/Src/uvfr_utils.c" bodystart="426" bodyend="483" declfile="Core/Inc/uvfr_utils.h" declline="396" declcolumn="11"/>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="169">UV_ERROR</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea87c01f9029276637a8c9568fd67efcac" compoundref="uvfr__utils_8h" startline="168">UV_WARNING</references>
-        <referencedby refid="uvfr__utils_8c_1ad372aabf81974eb44819f326172a563b" compoundref="uvfr__utils_8c" startline="328" endline="345">__uvFreeCritSection</referencedby>
-        <referencedby refid="uvfr__utils_8c_1a67fb0753300c33287657882ccff64e42" compoundref="uvfr__utils_8c" startline="379" endline="391">__uvFreeOS</referencedby>
-        <referencedby refid="uvfr__utils_8c_1a498966c0f95bfa592d26b625a93fa1a3" compoundref="uvfr__utils_8c" startline="353" endline="374">__uvMallocOS</referencedby>
+        <referencedby refid="uvfr__utils_8c_1ad372aabf81974eb44819f326172a563b" compoundref="uvfr__utils_8c" startline="353" endline="370">__uvFreeCritSection</referencedby>
+        <referencedby refid="uvfr__utils_8c_1a67fb0753300c33287657882ccff64e42" compoundref="uvfr__utils_8c" startline="404" endline="416">__uvFreeOS</referencedby>
+        <referencedby refid="uvfr__utils_8c_1a498966c0f95bfa592d26b625a93fa1a3" compoundref="uvfr__utils_8c" startline="378" endline="399">__uvMallocOS</referencedby>
+        <referencedby refid="daq_8c_1a56ca1193de01115c27ceb3768994017f" compoundref="daq_8c" startline="99" endline="111">associateDaqParamWithVar</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -2015,7 +2082,7 @@ In practice this looks like the following: <programlisting><codeline><highlight 
 <codeline lineno="153" refid="uvfr__utils_8h_1abdad0cac69564db7eec85ef103281130" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UV_CAN1</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="154" refid="uvfr__utils_8h_1a0b946cc6e8a3f7995d65c1921cfe989d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UV_CAN2</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="155"><highlight class="normal"></highlight></codeline>
-<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">//Feature<sp/>flags</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="comment">//Feature<sp/>flags<sp/>WHY<sp/>IS<sp/>THIS<sp/>NOT<sp/>IN<sp/>GLOBALCONFIG?????</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="157" refid="uvfr__utils_8h_1a16b23f220af0f78310f4fe6cfeb6ab0d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USE_OLED_DEBUG<sp/>1</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="158"><highlight class="normal"></highlight></codeline>
 <codeline lineno="166" refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9e" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9e" kindref="member">uv_status_t</ref>{</highlight></codeline>
@@ -2027,17 +2094,17 @@ In practice this looks like the following: <programlisting><codeline><highlight 
 <codeline lineno="172"><highlight class="normal"></highlight></codeline>
 <codeline lineno="173"><highlight class="normal"></highlight></codeline>
 <codeline lineno="177" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14" refkind="member"><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline lineno="178" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a34d03a41af56f92f5a5d1ba5160c7c5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a34d03a41af56f92f5a5d1ba5160c7c5d" kindref="member">UV_UINT8</ref>,</highlight></codeline>
-<codeline lineno="179" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14afc1d693c03775a0150f794262ba05318" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14afc1d693c03775a0150f794262ba05318" kindref="member">UV_INT8</ref>,</highlight></codeline>
-<codeline lineno="180" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0" kindref="member">UV_UINT16</ref>,</highlight></codeline>
-<codeline lineno="181" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14aa93cbcd4f2887f8817cdded087237787" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14aa93cbcd4f2887f8817cdded087237787" kindref="member">UV_INT16</ref>,</highlight></codeline>
-<codeline lineno="182" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14ad3597a26fcf0676a97a4484f5093b0b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14ad3597a26fcf0676a97a4484f5093b0b0" kindref="member">UV_UINT32</ref>,</highlight></codeline>
-<codeline lineno="183" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6979c7ca371fd950f17243bc1db719cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6979c7ca371fd950f17243bc1db719cc" kindref="member">UV_INT32</ref>,</highlight></codeline>
-<codeline lineno="184" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a48ad3f9df814bf40b8038f4ae5edbbc9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a48ad3f9df814bf40b8038f4ae5edbbc9" kindref="member">UV_FLOAT</ref>,</highlight></codeline>
-<codeline lineno="185" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6e5d3d7903d59e8a69073ac6d7d2d038" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6e5d3d7903d59e8a69073ac6d7d2d038" kindref="member">UV_DOUBLE</ref>,</highlight></codeline>
-<codeline lineno="186" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a4e148426880e8cf1e81ceea15ddf2d7a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a4e148426880e8cf1e81ceea15ddf2d7a" kindref="member">UV_INT64</ref>,</highlight></codeline>
-<codeline lineno="187" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a04c45245ce9c00f905a60cc34cca2de6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a04c45245ce9c00f905a60cc34cca2de6" kindref="member">UV_UINT64</ref>,</highlight></codeline>
-<codeline lineno="188" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a17e48aeaa85be166241ccf35b5c195de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a17e48aeaa85be166241ccf35b5c195de" kindref="member">UV_STRING</ref></highlight></codeline>
+<codeline lineno="178" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a34d03a41af56f92f5a5d1ba5160c7c5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a34d03a41af56f92f5a5d1ba5160c7c5d" kindref="member">UV_UINT8</ref><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="179" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14afc1d693c03775a0150f794262ba05318" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14afc1d693c03775a0150f794262ba05318" kindref="member">UV_INT8</ref><sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="180" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0" kindref="member">UV_UINT16</ref><sp/>=<sp/>2,</highlight></codeline>
+<codeline lineno="181" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14aa93cbcd4f2887f8817cdded087237787" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14aa93cbcd4f2887f8817cdded087237787" kindref="member">UV_INT16</ref><sp/>=<sp/>3,</highlight></codeline>
+<codeline lineno="182" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14ad3597a26fcf0676a97a4484f5093b0b0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14ad3597a26fcf0676a97a4484f5093b0b0" kindref="member">UV_UINT32</ref><sp/>=<sp/>4,</highlight></codeline>
+<codeline lineno="183" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6979c7ca371fd950f17243bc1db719cc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6979c7ca371fd950f17243bc1db719cc" kindref="member">UV_INT32</ref><sp/>=<sp/>5,</highlight></codeline>
+<codeline lineno="184" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a48ad3f9df814bf40b8038f4ae5edbbc9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a48ad3f9df814bf40b8038f4ae5edbbc9" kindref="member">UV_FLOAT</ref><sp/>=<sp/>6,</highlight></codeline>
+<codeline lineno="185" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6e5d3d7903d59e8a69073ac6d7d2d038" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a6e5d3d7903d59e8a69073ac6d7d2d038" kindref="member">UV_DOUBLE</ref><sp/>=<sp/>7,</highlight></codeline>
+<codeline lineno="186" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a4e148426880e8cf1e81ceea15ddf2d7a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a4e148426880e8cf1e81ceea15ddf2d7a" kindref="member">UV_INT64</ref><sp/>=<sp/>8,</highlight></codeline>
+<codeline lineno="187" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a04c45245ce9c00f905a60cc34cca2de6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a04c45245ce9c00f905a60cc34cca2de6" kindref="member">UV_UINT64</ref><sp/>=<sp/>9,</highlight></codeline>
+<codeline lineno="188" refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a17e48aeaa85be166241ccf35b5c195de" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14a17e48aeaa85be166241ccf35b5c195de" kindref="member">UV_STRING</ref><sp/>=<sp/>10</highlight></codeline>
 <codeline lineno="189"><highlight class="normal"></highlight></codeline>
 <codeline lineno="190"><highlight class="normal">}<ref refid="uvfr__utils_8h_1ac2ad7f431e3446fddcd9b6b9f93c4c14" kindref="member">data_type</ref>;</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"></highlight></codeline>
@@ -2178,42 +2245,43 @@ In practice this looks like the following: <programlisting><codeline><highlight 
 <codeline lineno="363"><highlight class="normal"></highlight></codeline>
 <codeline lineno="364"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>UV_UTILS_SRC_IMPLIMENTATION</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="structuv__internal__params" kindref="compound">uv_internal_params</ref><sp/><ref refid="uvfr__utils_8h_1a660f31748ce0b90d471a4f5441ee3cb1" kindref="member">global_context</ref>;</highlight></codeline>
-<codeline lineno="366"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="367"><highlight class="normal"></highlight></codeline>
-<codeline lineno="368"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" kindref="member">uvInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>arguments);</highlight></codeline>
-<codeline lineno="369"><highlight class="normal"></highlight></codeline>
-<codeline lineno="370"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a92b5ac44171d49acd084c274385a043a" kindref="member">__uvInitPanic</ref>();</highlight></codeline>
-<codeline lineno="371"><highlight class="normal"></highlight></codeline>
-<codeline lineno="372"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>uvMalloc</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="373"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>USE_OS_MEM_MGMT</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="374"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/><ref refid="uvfr__utils_8c_1a498966c0f95bfa592d26b625a93fa1a3" kindref="member">__uvMallocOS</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>memrequest);</highlight></codeline>
-<codeline lineno="375"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvMalloc(x)<sp/>__uvMallocOS(x)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/>//default<sp/>to<sp/>STDlib</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="377"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/><ref refid="uvfr__utils_8c_1abc00b3cb1c3b54fe4490c08ef85a293a" kindref="member">__uvMallocCritSection</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>memrequest);</highlight></codeline>
-<codeline lineno="378"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvMalloc(x)<sp/>__uvMallocCritSection(x)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="379"><highlight class="normal"></highlight></codeline>
-<codeline lineno="380"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//OS<sp/>mem<sp/>mgmt?</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="381"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//allow<sp/>macro<sp/>override</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="382"><highlight class="normal"></highlight></codeline>
-<codeline lineno="383"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>uvFree</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="384"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>USE_OS_MEM_MGMT</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="uvfr__utils_8c_1a67fb0753300c33287657882ccff64e42" kindref="member">__uvFreeOS</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr);</highlight></codeline>
-<codeline lineno="386"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvFree(x)<sp/>__uvFreeOS(x)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="387"><highlight class="normal"></highlight></codeline>
-<codeline lineno="388"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="389"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="uvfr__utils_8c_1ad372aabf81974eb44819f326172a563b" kindref="member">__uvFreeCritSection</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr);</highlight></codeline>
-<codeline lineno="390"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvFree(x)<sp/>__uvFreeCritSection(x)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="391"><highlight class="normal"></highlight></codeline>
-<codeline lineno="392"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//OS<sp/>mem<sp/>mgmt</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//Allows<sp/>macro<sp/>overriding</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="394"><highlight class="normal"></highlight></codeline>
-<codeline lineno="395"><highlight class="normal"><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="uvfr__utils_8h_1a0186c036688c7852cf0ceaee96b343a3" kindref="member">uvIsPTRValid</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr);</highlight></codeline>
-<codeline lineno="396"><highlight class="normal"></highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="uvfr__utils_8h_1a657e7e858d8847396634fd9912747f8b" kindref="member">data_size</ref>[];</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" kindref="member">uvInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/>arguments);</highlight></codeline>
+<codeline lineno="370"><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a92b5ac44171d49acd084c274385a043a" kindref="member">__uvInitPanic</ref>();</highlight></codeline>
+<codeline lineno="372"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>uvMalloc</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>USE_OS_MEM_MGMT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/><ref refid="uvfr__utils_8c_1a498966c0f95bfa592d26b625a93fa1a3" kindref="member">__uvMallocOS</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>memrequest);</highlight></codeline>
+<codeline lineno="376"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvMalloc(x)<sp/>__uvMallocOS(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight><highlight class="preprocessor">#else<sp/>//default<sp/>to<sp/>STDlib</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<sp/><ref refid="uvfr__utils_8c_1abc00b3cb1c3b54fe4490c08ef85a293a" kindref="member">__uvMallocCritSection</ref>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>memrequest);</highlight></codeline>
+<codeline lineno="379"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvMalloc(x)<sp/>__uvMallocCritSection(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//OS<sp/>mem<sp/>mgmt?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//allow<sp/>macro<sp/>override</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="384"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>uvFree</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>USE_OS_MEM_MGMT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="uvfr__utils_8c_1a67fb0753300c33287657882ccff64e42" kindref="member">__uvFreeOS</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr);</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvFree(x)<sp/>__uvFreeOS(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"></highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="uvfr__utils_8c_1ad372aabf81974eb44819f326172a563b" kindref="member">__uvFreeCritSection</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr);</highlight></codeline>
+<codeline lineno="391"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>uvFree(x)<sp/>__uvFreeCritSection(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//OS<sp/>mem<sp/>mgmt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/>//Allows<sp/>macro<sp/>overriding</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="uvfr__utils_8h_1a0186c036688c7852cf0ceaee96b343a3" kindref="member">uvIsPTRValid</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>ptr);</highlight></codeline>
 <codeline lineno="397"><highlight class="normal"></highlight></codeline>
 <codeline lineno="398"><highlight class="normal"></highlight></codeline>
 <codeline lineno="399"><highlight class="normal"></highlight></codeline>
 <codeline lineno="400"><highlight class="normal"></highlight></codeline>
-<codeline lineno="401"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>INC_UVFR_UTILS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+<codeline lineno="401"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>INC_UVFR_UTILS_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="Core/Inc/uvfr_utils.h"/>
   </compounddef>

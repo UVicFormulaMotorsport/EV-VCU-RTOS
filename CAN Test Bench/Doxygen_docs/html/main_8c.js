@@ -15,6 +15,6 @@ var main_8c =
     [ "adc1_BPS2", "main_8c.html#a277f7921a7a1e0fb8a6f953943dc06dc", null ],
     [ "adc2_CoolantFlow", "main_8c.html#a9211365d419c877b3b4f8074ef19cb33", null ],
     [ "adc2_CoolantTemp", "main_8c.html#a05d60ecdd2dcf9cb28968d8027d1d5ce", null ],
-    [ "adc_buf1", "main_8c.html#a8c60277435d9f53a21fed2e4ae28a66a", null ],
+    [ "adc_buf1", "main_8c.html#ace3a7a923fac03b79884ba01cc3b90e0", null ],
     [ "adc_buf2", "main_8c.html#a820ab8aecc5744f003ca984a1d960da1", null ]
 ];

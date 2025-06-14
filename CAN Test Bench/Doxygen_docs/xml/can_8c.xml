@@ -153,6 +153,8 @@
         <link refid="pdu_8h"/>
         <childnode refid="3" relation="include">
         </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
       <node id="18">
         <label>motor_controller.h</label>
@@ -162,6 +164,8 @@
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
         </childnode>
       </node>
       <node id="34">
@@ -260,6 +264,8 @@
       <node id="29">
         <label>odometer.h</label>
         <link refid="odometer_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
       </node>
       <node id="4">
         <label>stm32f4xx_hal.h</label>
@@ -341,8 +347,8 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/can.c" line="49" column="22" bodyfile="Core/Src/can.c" bodystart="49" bodyend="-1"/>
-        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="551" endline="610">CANbusTxSvcDaemon</referencedby>
-        <referencedby refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" compoundref="can_8c" startline="513" endline="542">uvSendCanMSG</referencedby>
+        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</referencedby>
+        <referencedby refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" compoundref="can_8c" startline="513" endline="554">uvSendCanMSG</referencedby>
       </memberdef>
       <memberdef kind="variable" id="can_8c_1ad0e232ce658c38916aee908ceae1db1e" prot="public" static="yes" mutable="no">
         <type>QueueHandle_t</type>
@@ -357,7 +363,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/can.c" line="50" column="22" bodyfile="Core/Src/can.c" bodystart="50" bodyend="-1"/>
-        <referencedby refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="618" endline="656">CANbusRxSvcDaemon</referencedby>
+        <referencedby refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="632" endline="670">CANbusRxSvcDaemon</referencedby>
         <referencedby refid="can_8c_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="298" endline="335">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
       </memberdef>
       <memberdef kind="variable" id="can_8c_1a323f3f73f5588982a51a55276dbc5738" prot="public" static="no" mutable="no">
@@ -391,7 +397,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/can.c" line="69" column="19" bodyfile="Core/Src/can.c" bodystart="69" bodyend="-1"/>
-        <referencedby refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="618" endline="656">CANbusRxSvcDaemon</referencedby>
+        <referencedby refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="632" endline="670">CANbusRxSvcDaemon</referencedby>
         <referencedby refid="group__uvfr__can__api_1ga81adc4a577110ce8fe1158b0dc302cc2" compoundref="can_8c" startline="395" endline="447">insertCANMessageHandler</referencedby>
       </memberdef>
       <memberdef kind="variable" id="can_8c_1ab77168d14df04ccca5d48612ee21ced8" prot="public" static="no" mutable="no">
@@ -407,27 +413,25 @@
         </inbodydescription>
         <location file="Core/Src/can.c" line="147" column="19" bodyfile="Core/Src/can.c" bodystart="147" bodyend="-1"/>
         <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</referencedby>
-        <referencedby refid="stm32f4xx__it_8c_1abf0ada95bd65ea0a24a25606a59a319d" compoundref="stm32f4xx__it_8c" startline="223" endline="232">CAN2_RX0_IRQHandler</referencedby>
-        <referencedby refid="stm32f4xx__it_8c_1ac67a8abbbb2e08b8c48726f65716295f" compoundref="stm32f4xx__it_8c" startline="237" endline="246">CAN2_RX1_IRQHandler</referencedby>
-        <referencedby refid="stm32f4xx__it_8c_1abc8a61d83a243d1d571a628a10f55733" compoundref="stm32f4xx__it_8c" startline="209" endline="218">CAN2_TX_IRQHandler</referencedby>
-        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="551" endline="610">CANbusTxSvcDaemon</referencedby>
+        <referencedby refid="stm32f4xx__it_8c_1abf0ada95bd65ea0a24a25606a59a319d" compoundref="stm32f4xx__it_8c" startline="240" endline="249">CAN2_RX0_IRQHandler</referencedby>
+        <referencedby refid="stm32f4xx__it_8c_1ac67a8abbbb2e08b8c48726f65716295f" compoundref="stm32f4xx__it_8c" startline="254" endline="263">CAN2_RX1_IRQHandler</referencedby>
+        <referencedby refid="stm32f4xx__it_8c_1abc8a61d83a243d1d571a628a10f55733" compoundref="stm32f4xx__it_8c" startline="226" endline="235">CAN2_TX_IRQHandler</referencedby>
+        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</referencedby>
         <referencedby refid="can_8c_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="298" endline="335">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
-        <referencedby refid="imd_8c_1aeb7c937639c5385f5d2b4e3a4e60250f" compoundref="imd_8c" startline="180" endline="191">IMD_Request_Status</referencedby>
+        <referencedby refid="imd_8c_1aeb7c937639c5385f5d2b4e3a4e60250f" compoundref="imd_8c" startline="185" endline="196">IMD_Request_Status</referencedby>
         <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="97" endline="211">main</referencedby>
-        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="230" endline="249">MC_Request_Data</referencedby>
-        <referencedby refid="motor__controller_8c_1a71371a5194c9b5c725abec77feffbc38" compoundref="motor__controller_8c" startline="62" endline="97">MotorControllerSpinTest</referencedby>
         <referencedby refid="can_8c_1a1ee5cd592134235b6c07f676784d47c3" compoundref="can_8c" startline="150" endline="226">MX_CAN2_Init</referencedby>
-        <referencedby refid="pdu_8c_1ad7b67b3c1618a7c50a5d6d9f9e13a89f" compoundref="pdu_8c" startline="48" endline="60">PDU_disable_brake_light</referencedby>
-        <referencedby refid="pdu_8c_1aebeb35957c80be85dc938efe72c8e825" compoundref="pdu_8c" startline="170" endline="181">PDU_disable_coolant_pump</referencedby>
-        <referencedby refid="pdu_8c_1a3c665494b7f9fb4e025ff31d24c97072" compoundref="pdu_8c" startline="136" endline="155">PDU_disable_cooling_fans</referencedby>
-        <referencedby refid="pdu_8c_1a6b189c4013c1cb97ff696a9bc05def5e" compoundref="pdu_8c" startline="74" endline="85">PDU_disable_motor_controller</referencedby>
-        <referencedby refid="pdu_8c_1a67ed21c50014c891cc0031655a30aef9" compoundref="pdu_8c" startline="100" endline="111">PDU_disable_shutdown_circuit</referencedby>
-        <referencedby refid="pdu_8c_1aa5479c0d6ab8d58683e99bf102d60db8" compoundref="pdu_8c" startline="34" endline="46">PDU_enable_brake_light</referencedby>
-        <referencedby refid="pdu_8c_1aef2fd854287906cac1734f08a6edcf2a" compoundref="pdu_8c" startline="158" endline="169">PDU_enable_coolant_pump</referencedby>
-        <referencedby refid="pdu_8c_1a9d736981007eb7fc9691275dc7b6c05c" compoundref="pdu_8c" startline="115" endline="134">PDU_enable_cooling_fans</referencedby>
-        <referencedby refid="pdu_8c_1ae3eaaae4438e04d63fe04cc23a201810" compoundref="pdu_8c" startline="62" endline="73">PDU_enable_motor_controller</referencedby>
-        <referencedby refid="pdu_8c_1a0f2b86f2db7ee86b014ccc246c8b674d" compoundref="pdu_8c" startline="87" endline="98">PDU_enable_shutdown_circuit</referencedby>
-        <referencedby refid="pdu_8c_1a42e33c33fc1dea26555ff7b20984b186" compoundref="pdu_8c" startline="11" endline="31">PDU_speaker_chirp</referencedby>
+        <referencedby refid="pdu_8c_1ad7b67b3c1618a7c50a5d6d9f9e13a89f" compoundref="pdu_8c" startline="54" endline="66">PDU_disable_brake_light</referencedby>
+        <referencedby refid="pdu_8c_1aebeb35957c80be85dc938efe72c8e825" compoundref="pdu_8c" startline="176" endline="187">PDU_disable_coolant_pump</referencedby>
+        <referencedby refid="pdu_8c_1a3c665494b7f9fb4e025ff31d24c97072" compoundref="pdu_8c" startline="142" endline="161">PDU_disable_cooling_fans</referencedby>
+        <referencedby refid="pdu_8c_1a6b189c4013c1cb97ff696a9bc05def5e" compoundref="pdu_8c" startline="80" endline="91">PDU_disable_motor_controller</referencedby>
+        <referencedby refid="pdu_8c_1a67ed21c50014c891cc0031655a30aef9" compoundref="pdu_8c" startline="106" endline="117">PDU_disable_shutdown_circuit</referencedby>
+        <referencedby refid="pdu_8c_1aa5479c0d6ab8d58683e99bf102d60db8" compoundref="pdu_8c" startline="40" endline="52">PDU_enable_brake_light</referencedby>
+        <referencedby refid="pdu_8c_1aef2fd854287906cac1734f08a6edcf2a" compoundref="pdu_8c" startline="164" endline="175">PDU_enable_coolant_pump</referencedby>
+        <referencedby refid="pdu_8c_1a9d736981007eb7fc9691275dc7b6c05c" compoundref="pdu_8c" startline="121" endline="140">PDU_enable_cooling_fans</referencedby>
+        <referencedby refid="pdu_8c_1ae3eaaae4438e04d63fe04cc23a201810" compoundref="pdu_8c" startline="68" endline="79">PDU_enable_motor_controller</referencedby>
+        <referencedby refid="pdu_8c_1a0f2b86f2db7ee86b014ccc246c8b674d" compoundref="pdu_8c" startline="93" endline="104">PDU_enable_shutdown_circuit</referencedby>
+        <referencedby refid="pdu_8c_1a42e33c33fc1dea26555ff7b20984b186" compoundref="pdu_8c" startline="17" endline="37">PDU_speaker_chirp</referencedby>
         <referencedby refid="dash_8c_1a66f84461e5c75202d12edfd8ea7c7f62" compoundref="dash_8c" startline="29" endline="45">Update_Batt_Temp</referencedby>
         <referencedby refid="dash_8c_1ab26e477047a5166efc8f2b34dbd38872" compoundref="dash_8c" startline="9" endline="26">Update_RPM</referencedby>
         <referencedby refid="dash_8c_1a30155b58ef3801f5693e953d4139d55f" compoundref="dash_8c" startline="48" endline="64">Update_State_Of_Charge</referencedby>
@@ -472,7 +476,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/can.c" line="150" column="6" bodyfile="Core/Src/can.c" bodystart="150" bodyend="226"/>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="378" endline="388">Error_Handler</references>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="384" endline="394">Error_Handler</references>
         <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="147">hcan2</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
         <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="97" endline="211">main</referencedby>
@@ -531,7 +535,7 @@
         <location file="Core/Src/can.c" line="298" column="6" bodyfile="Core/Src/can.c" bodystart="298" bodyend="335"/>
         <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="277">uv_CAN_msg::data</references>
         <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="275">uv_CAN_msg::dlc</references>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="378" endline="388">Error_Handler</references>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="384" endline="394">Error_Handler</references>
         <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="147">hcan2</references>
         <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="276">uv_CAN_msg::msg_id</references>
         <references refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" compoundref="can_8c" startline="50">Rx_msg_queue</references>
@@ -601,7 +605,7 @@
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="169">UV_ERROR</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea87c01f9029276637a8c9568fd67efcac" compoundref="uvfr__utils_8h" startline="168">UV_WARNING</references>
-        <referencedby refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="618" endline="656">CANbusRxSvcDaemon</referencedby>
+        <referencedby refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="632" endline="670">CANbusRxSvcDaemon</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__uvfr__can__api_1ga81adc4a577110ce8fe1158b0dc302cc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -631,7 +635,9 @@
         <references refid="struct_c_a_n___callback_1aaf6c1d8dd4ecbcac59008b8b5c7cbbaa" compoundref="can_8c" startline="58">CAN_Callback::function</references>
         <references refid="can_8c_1affa7bfe9532060be4358706525e4f36e" compoundref="can_8c" startline="351" endline="359">generateHash</references>
         <references refid="struct_c_a_n___callback_1ace8db41695ac99095f81f37c97056076" compoundref="can_8c" startline="59">CAN_Callback::next</references>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="157">tempMonitorTask</referencedby>
+        <referencedby refid="motor__controller_8c_1aed1407e1e0fd59dc7c5e5d6db671f0ab" compoundref="motor__controller_8c" startline="278" endline="326">MC_Startup</referencedby>
+        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="158">tempMonitorTask</referencedby>
+        <referencedby refid="uvfr__settings_8c_1adc9522bb052011b07febe1235d1a4792" compoundref="uvfr__settings_8c" startline="334" endline="405">uvSettingsInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8c_1acadda9ab3aa926b92a84e3f192c66547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -676,7 +682,7 @@
         <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="262">UV_CAN_EXTENDED_ID</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="169">UV_ERROR</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
-        <referencedby refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" compoundref="can_8c" startline="513" endline="542">uvSendCanMSG</referencedby>
+        <referencedby refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" compoundref="can_8c" startline="513" endline="554">uvSendCanMSG</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref></type>
@@ -695,13 +701,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/can.c" line="513" column="11" bodyfile="Core/Src/can.c" bodystart="513" bodyend="542"/>
+        <location file="Core/Src/can.c" line="513" column="11" bodyfile="Core/Src/can.c" bodystart="513" bodyend="554"/>
         <references refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</references>
         <references refid="can_8c_1a39f60bf61979059355fc4916aa3500db" compoundref="can_8c" startline="49">Tx_msg_queue</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="169">UV_ERROR</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="157">tempMonitorTask</referencedby>
+        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="152" endline="226">handleIncomingLaptopMsg</referencedby>
+        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="63" endline="78">MC_Request_Data</referencedby>
+        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="80" endline="96">MC_Set_Param</referencedby>
+        <referencedby refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" compoundref="motor__controller_8c" startline="30" endline="56">MotorControllerSpinTest</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
         <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="52" endline="63">testfunc2</referencedby>
+        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="778" endline="797">uvSendSpecificParam</referencedby>
+        <referencedby refid="uvfr__settings_8c_1adc9522bb052011b07febe1235d1a4792" compoundref="uvfr__settings_8c" startline="334" endline="405">uvSettingsInit</referencedby>
+        <referencedby refid="uvfr__settings_8c_1a2f0cb7e05c1bef0501d585df7c2c6013" compoundref="uvfr__settings_8c" startline="864" endline="1052">uvSettingsProgrammerTask</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8c_1a2357e197a9ac26277eec808769fe409f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -720,22 +733,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/can.c" line="551" column="6" bodyfile="Core/Src/can.c" bodystart="551" bodyend="610"/>
+        <location file="Core/Src/can.c" line="563" column="6" bodyfile="Core/Src/can.c" bodystart="563" bodyend="624"/>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="241">uv_task_info::cmd_data</references>
         <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="277">uv_CAN_msg::data</references>
         <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="275">uv_CAN_msg::dlc</references>
         <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="271">uv_CAN_msg::flags</references>
         <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="147">hcan2</references>
-        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="708" endline="741">killSelf</references>
+        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="717" endline="750">killSelf</references>
         <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="276">uv_CAN_msg::msg_id</references>
-        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="749" endline="780">suspendSelf</references>
+        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="758" endline="789">suspendSelf</references>
         <references refid="can_8c_1a39f60bf61979059355fc4916aa3500db" compoundref="can_8c" startline="49">Tx_msg_queue</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
         <references refid="constants_8h_1aedd1e4ac418a9697f9f41a2713d49569" compoundref="constants_8c" startline="8">TxMailbox</references>
         <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="262">UV_CAN_EXTENDED_ID</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" compoundref="uvfr__state__engine_8h" startline="98">UV_KILL_CMD</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" compoundref="uvfr__state__engine_8h" startline="99">UV_SUSPEND_CMD</references>
-        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1341" endline="1398">uvSVCTaskManager</referencedby>
+        <referencedby refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="46" endline="253">uvInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8c_1a2b32305988f51945b7c220ca60ab68e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -754,18 +767,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/can.c" line="618" column="6" bodyfile="Core/Src/can.c" bodystart="618" bodyend="656"/>
+        <location file="Core/Src/can.c" line="632" column="6" bodyfile="Core/Src/can.c" bodystart="632" bodyend="670"/>
         <references refid="can_8c_1a2bd63a687f9513e4fcaf3c97d5821515" compoundref="can_8c" startline="69">callback_table_mutex</references>
         <references refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" compoundref="can_8c" startline="368" endline="385">callFunctionFromCANid</references>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="241">uv_task_info::cmd_data</references>
-        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="708" endline="741">killSelf</references>
+        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="717" endline="750">killSelf</references>
         <references refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" compoundref="can_8c" startline="50">Rx_msg_queue</references>
-        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="749" endline="780">suspendSelf</references>
+        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="758" endline="789">suspendSelf</references>
         <references refid="structuv__task__info_1a5347f41c4b15b2d6b039c339613fde43" compoundref="uvfr__state__engine_8h" startline="239">uv_task_info::task_handle</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" compoundref="uvfr__state__engine_8h" startline="98">UV_KILL_CMD</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" compoundref="uvfr__state__engine_8h" startline="99">UV_SUSPEND_CMD</references>
-        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1341" endline="1398">uvSVCTaskManager</referencedby>
+        <referencedby refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="46" endline="253">uvInit</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -797,7 +810,7 @@ Copyright (c) 2023 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stdlib.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;string.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="43"><highlight class="normal"></highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//This<sp/>line<sp/>holds<sp/>the<sp/>entire<sp/>program<sp/>together</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>HAL_CAN_ERROR_INVALID_CALLBACK</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="46" refid="can_8c_1a81ca550f56875553f534a4d72adff10d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAL_CAN_ERROR_INVALID_CALLBACK<sp/>(0x00400000U)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
@@ -910,7 +923,7 @@ Copyright (c) 2023 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="158"><highlight class="normal"></highlight></codeline>
 <codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>CAN2_Init<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="160"><highlight class="normal"><sp/><sp/><ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>.Instance<sp/>=<sp/>CAN2;</highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>.Init.Prescaler<sp/>=<sp/>8;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>.Init.Prescaler<sp/>=<sp/>4;</highlight></codeline>
 <codeline lineno="162"><highlight class="normal"><sp/><sp/><ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>.Init.Mode<sp/>=<sp/>CAN_MODE_NORMAL;</highlight></codeline>
 <codeline lineno="163"><highlight class="normal"><sp/><sp/><ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>.Init.SyncJumpWidth<sp/>=<sp/>CAN_SJW_1TQ;</highlight></codeline>
 <codeline lineno="164"><highlight class="normal"><sp/><sp/><ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>.Init.TimeSeg1<sp/>=<sp/>CAN_BS1_12TQ;</highlight></codeline>
@@ -1230,133 +1243,147 @@ Copyright (c) 2023 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="517"><highlight class="normal"></highlight></codeline>
 <codeline lineno="518"><highlight class="normal"></highlight></codeline>
 <codeline lineno="519"><highlight class="normal"></highlight></codeline>
-<codeline lineno="520"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//TODO:<sp/>CanTxDaemon<sp/>being<sp/>inactive<sp/>will<sp/>brick<sp/>this.<sp/>FIX<sp/>IT!!</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="521"><highlight class="normal"></highlight></codeline>
-<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(tx_msg<sp/>==<sp/>NULL){</highlight></codeline>
-<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
-<codeline lineno="524"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="525"><highlight class="normal"></highlight></codeline>
-<codeline lineno="526"><highlight class="normal"></highlight></codeline>
-<codeline lineno="527"><highlight class="normal"></highlight></codeline>
-<codeline lineno="528"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//BaseType_t<sp/>higher_priority_task_woken<sp/>=<sp/>pdFALSE;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="529"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref><sp/>!=<sp/>NULL){</highlight></codeline>
-<codeline lineno="530"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(xQueueSendToBack(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>,&amp;tx_msg,0)<sp/>!=<sp/>pdPASS){</highlight></codeline>
-<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;couldnt<sp/>enqueue<sp/>CAN<sp/>message&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
-<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>;</highlight></codeline>
-<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
-<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" kindref="member">__uvCANtxCritSection</ref>(tx_msg)!=<ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>){</highlight></codeline>
-<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
-<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>;</highlight></codeline>
-<codeline lineno="542"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="543"><highlight class="normal"></highlight></codeline>
-<codeline lineno="551" refid="can_8c_1a2357e197a9ac26277eec808769fe409f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8c_1a2357e197a9ac26277eec808769fe409f" kindref="member">CANbusTxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args){</highlight></codeline>
-<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*<sp/>params<sp/>=<sp/>(<ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*)<sp/>args;</highlight></codeline>
-<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//CAN_TxHeaderTypeDef<sp/>tx_header;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="554"><highlight class="normal"></highlight></codeline>
-<codeline lineno="555"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref><sp/>=<sp/>xQueueCreate(8,</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*));</highlight></codeline>
-<codeline lineno="556"><highlight class="normal"></highlight></codeline>
-<codeline lineno="557"><highlight class="normal"></highlight></codeline>
-<codeline lineno="558"><highlight class="normal"></highlight></codeline>
-<codeline lineno="559"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//BaseType_t<sp/>retval;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="560"><highlight class="normal"></highlight></codeline>
-<codeline lineno="561"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>tx_msg<sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="562"><highlight class="normal"></highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//tx_header.TransmitGlobalTime<sp/>=<sp/>DISABLE;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="564"><highlight class="normal"></highlight></codeline>
-<codeline lineno="565"><highlight class="normal"></highlight></codeline>
-<codeline lineno="566"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseType_t<sp/>result;</highlight></codeline>
-<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//uint32_t<sp/>notif_val<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="568"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(;;){</highlight></codeline>
+<codeline lineno="520"><highlight class="normal"></highlight></codeline>
+<codeline lineno="521"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(tx_msg<sp/>==<sp/>NULL){</highlight></codeline>
+<codeline lineno="522"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="523"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="524"><highlight class="normal"></highlight></codeline>
+<codeline lineno="525"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>is_isr;</highlight></codeline>
+<codeline lineno="526"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Special<sp/>precautions<sp/>need<sp/>to<sp/>be<sp/>taken<sp/>if<sp/>you<sp/>do<sp/>this<sp/>from<sp/>an<sp/>interrupt</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="527"><highlight class="normal"><sp/><sp/><sp/><sp/>__ASM<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>(</highlight><highlight class="stringliteral">&quot;MRS<sp/>%0,<sp/>ipsr&quot;</highlight><highlight class="normal"><sp/>:<sp/></highlight><highlight class="stringliteral">&quot;=r&quot;</highlight><highlight class="normal"><sp/>(is_isr)<sp/>);</highlight></codeline>
+<codeline lineno="528"><highlight class="normal"></highlight></codeline>
+<codeline lineno="529"><highlight class="normal"></highlight></codeline>
+<codeline lineno="530"><highlight class="normal"></highlight></codeline>
+<codeline lineno="531"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//BaseType_t<sp/>higher_priority_task_woken<sp/>=<sp/>pdFALSE;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="532"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref><sp/>!=<sp/>NULL){</highlight></codeline>
+<codeline lineno="533"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!is_isr){</highlight></codeline>
+<codeline lineno="534"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(xQueueSendToBack(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>,tx_msg,0)<sp/>!=<sp/>pdPASS){</highlight></codeline>
+<codeline lineno="535"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;couldnt<sp/>enqueue<sp/>CAN<sp/>message&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
+<codeline lineno="536"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="537"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>;</highlight></codeline>
+<codeline lineno="538"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="539"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="540"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="541"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(xQueueSendToBackFromISR(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>,tx_msg,0)<sp/>!=<sp/>pdPASS){</highlight></codeline>
+<codeline lineno="542"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;couldnt<sp/>enqueue<sp/>CAN<sp/>message&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
+<codeline lineno="543"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="544"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>;</highlight></codeline>
+<codeline lineno="545"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="546"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="547"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="548"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="549"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" kindref="member">__uvCANtxCritSection</ref>(tx_msg)!=<ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>){</highlight></codeline>
+<codeline lineno="550"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="551"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="552"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="553"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>;</highlight></codeline>
+<codeline lineno="554"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="555"><highlight class="normal"></highlight></codeline>
+<codeline lineno="563" refid="can_8c_1a2357e197a9ac26277eec808769fe409f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8c_1a2357e197a9ac26277eec808769fe409f" kindref="member">CANbusTxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args){</highlight></codeline>
+<codeline lineno="564"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*<sp/>params<sp/>=<sp/>(<ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*)<sp/>args;</highlight></codeline>
+<codeline lineno="565"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//CAN_TxHeaderTypeDef<sp/>tx_header;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="566"><highlight class="normal"></highlight></codeline>
+<codeline lineno="567"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref><sp/>=<sp/>xQueueCreate(8,</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>));</highlight></codeline>
+<codeline lineno="568"><highlight class="normal"></highlight></codeline>
 <codeline lineno="569"><highlight class="normal"></highlight></codeline>
 <codeline lineno="570"><highlight class="normal"></highlight></codeline>
-<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>xQueueReceive(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>,&amp;tx_msg,20);</highlight></codeline>
+<codeline lineno="571"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//BaseType_t<sp/>retval;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="572"><highlight class="normal"></highlight></codeline>
-<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(result<sp/>==<sp/>pdTRUE){</highlight></codeline>
+<codeline lineno="573"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>tx_msg<sp/>=<sp/>uvMalloc(</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>));</highlight></codeline>
 <codeline lineno="574"><highlight class="normal"></highlight></codeline>
-<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(tx_msg<sp/>==<sp/>NULL){</highlight></codeline>
-<codeline lineno="576"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;cannot<sp/>send<sp/>null<sp/>CAN<sp/>msg&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
-<codeline lineno="577"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="578"><highlight class="normal"></highlight></codeline>
-<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" kindref="member">flags</ref>)&amp;<sp/><ref refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" kindref="member">UV_CAN_EXTENDED_ID</ref>){</highlight></codeline>
-<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.IDE<sp/>=<sp/>CAN_ID_EXT;</highlight></codeline>
-<codeline lineno="581"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.ExtId<sp/>=<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" kindref="member">msg_id</ref>;</highlight></codeline>
-<codeline lineno="582"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.IDE<sp/>=<sp/>CAN_ID_STD;</highlight></codeline>
-<codeline lineno="584"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.StdId<sp/>=<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" kindref="member">msg_id</ref>;</highlight></codeline>
-<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="575"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//tx_header.TransmitGlobalTime<sp/>=<sp/>DISABLE;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="576"><highlight class="normal"></highlight></codeline>
+<codeline lineno="577"><highlight class="normal"></highlight></codeline>
+<codeline lineno="578"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseType_t<sp/>result;</highlight></codeline>
+<codeline lineno="579"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//uint32_t<sp/>notif_val<sp/>=<sp/>0;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="580"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(;;){</highlight></codeline>
+<codeline lineno="581"><highlight class="normal"></highlight></codeline>
+<codeline lineno="582"><highlight class="normal"></highlight></codeline>
+<codeline lineno="583"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>result<sp/>=<sp/>xQueueReceive(<ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>,tx_msg,20);</highlight></codeline>
+<codeline lineno="584"><highlight class="normal"></highlight></codeline>
+<codeline lineno="585"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(result<sp/>==<sp/>pdTRUE){</highlight></codeline>
 <codeline lineno="586"><highlight class="normal"></highlight></codeline>
-<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.DLC<sp/>=<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" kindref="member">dlc</ref>;</highlight></codeline>
-<codeline lineno="588"><highlight class="normal"></highlight></codeline>
-<codeline lineno="589"><highlight class="normal"></highlight></codeline>
+<codeline lineno="587"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(tx_msg<sp/>==<sp/>NULL){</highlight></codeline>
+<codeline lineno="588"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;cannot<sp/>send<sp/>null<sp/>CAN<sp/>msg&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
+<codeline lineno="589"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="590"><highlight class="normal"></highlight></codeline>
-<codeline lineno="591"><highlight class="normal"></highlight></codeline>
-<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HAL_CAN_AddTxMessage(&amp;<ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>,<sp/>&amp;<ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>,<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>,<sp/>&amp;<ref refid="constants_8h_1aedd1e4ac418a9697f9f41a2713d49569" kindref="member">TxMailbox</ref>)<sp/>!=<sp/>HAL_OK){</highlight></codeline>
-<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmission<sp/>request<sp/>Error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;Unable<sp/>to<sp/>Transmit<sp/>CAN<sp/>msg&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
-<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="597"><highlight class="normal"></highlight></codeline>
-<codeline lineno="598"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" kindref="member">UV_KILL_CMD</ref>){</highlight></codeline>
-<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QueueHandle_t<sp/>tmpqueue<sp/>=<sp/><ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>;</highlight></codeline>
-<codeline lineno="600"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref><sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="601"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vQueueDelete(tmpqueue);</highlight></codeline>
-<codeline lineno="602"><highlight class="normal"></highlight></codeline>
-<codeline lineno="603"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" kindref="member">killSelf</ref>(params);</highlight></codeline>
-<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" kindref="member">UV_SUSPEND_CMD</ref>){</highlight></codeline>
-<codeline lineno="605"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" kindref="member">suspendSelf</ref>(params);</highlight></codeline>
-<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="607"><highlight class="normal"></highlight></codeline>
-<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight><highlight class="comment">//main<sp/>for<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="609"><highlight class="normal"></highlight></codeline>
-<codeline lineno="610"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="591"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">((tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" kindref="member">flags</ref>)&amp;<sp/><ref refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" kindref="member">UV_CAN_EXTENDED_ID</ref>){</highlight></codeline>
+<codeline lineno="592"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.IDE<sp/>=<sp/>CAN_ID_EXT;</highlight></codeline>
+<codeline lineno="593"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.ExtId<sp/>=<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" kindref="member">msg_id</ref>;</highlight></codeline>
+<codeline lineno="594"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="595"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.IDE<sp/>=<sp/>CAN_ID_STD;</highlight></codeline>
+<codeline lineno="596"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.StdId<sp/>=<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" kindref="member">msg_id</ref>;</highlight></codeline>
+<codeline lineno="597"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="598"><highlight class="normal"></highlight></codeline>
+<codeline lineno="599"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>.DLC<sp/>=<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" kindref="member">dlc</ref>;</highlight></codeline>
+<codeline lineno="600"><highlight class="normal"></highlight></codeline>
+<codeline lineno="601"><highlight class="normal"></highlight></codeline>
+<codeline lineno="602"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(HAL_CAN_GetTxMailboxesFreeLevel(&amp;<ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>)<sp/>==<sp/>0){</highlight></codeline>
+<codeline lineno="603"><highlight class="normal"></highlight></codeline>
+<codeline lineno="604"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="605"><highlight class="normal"></highlight></codeline>
+<codeline lineno="606"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(HAL_CAN_AddTxMessage(&amp;<ref refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>,<sp/>&amp;<ref refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" kindref="member">TxHeader</ref>,<sp/>tx_msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>,<sp/>&amp;<ref refid="constants_8h_1aedd1e4ac418a9697f9f41a2713d49569" kindref="member">TxMailbox</ref>)<sp/>!=<sp/>HAL_OK){</highlight></codeline>
+<codeline lineno="607"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Transmission<sp/>request<sp/>Error<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="608"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uvPanic(</highlight><highlight class="stringliteral">&quot;Unable<sp/>to<sp/>Transmit<sp/>CAN<sp/>msg&quot;</highlight><highlight class="normal">,0);</highlight></codeline>
+<codeline lineno="609"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="610"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="611"><highlight class="normal"></highlight></codeline>
-<codeline lineno="612"><highlight class="normal"></highlight></codeline>
-<codeline lineno="618" refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" kindref="member">CANbusRxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args){</highlight></codeline>
-<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*<sp/>params<sp/>=<sp/>(<ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*)<sp/>args;</highlight></codeline>
-<codeline lineno="620"><highlight class="normal"></highlight></codeline>
-<codeline lineno="621"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref><sp/>tmp;</highlight></codeline>
-<codeline lineno="622"><highlight class="normal"></highlight></codeline>
-<codeline lineno="623"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseType_t<sp/>retval;</highlight></codeline>
-<codeline lineno="624"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/>func_status;</highlight></codeline>
+<codeline lineno="612"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" kindref="member">UV_KILL_CMD</ref>){</highlight></codeline>
+<codeline lineno="613"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QueueHandle_t<sp/>tmpqueue<sp/>=<sp/><ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref>;</highlight></codeline>
+<codeline lineno="614"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="can_8c_1a39f60bf61979059355fc4916aa3500db" kindref="member">Tx_msg_queue</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="615"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vQueueDelete(tmpqueue);</highlight></codeline>
+<codeline lineno="616"><highlight class="normal"></highlight></codeline>
+<codeline lineno="617"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" kindref="member">killSelf</ref>(params);</highlight></codeline>
+<codeline lineno="618"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" kindref="member">UV_SUSPEND_CMD</ref>){</highlight></codeline>
+<codeline lineno="619"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" kindref="member">suspendSelf</ref>(params);</highlight></codeline>
+<codeline lineno="620"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="621"><highlight class="normal"></highlight></codeline>
+<codeline lineno="622"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight><highlight class="comment">//main<sp/>for<sp/>loop</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="623"><highlight class="normal"></highlight></codeline>
+<codeline lineno="624"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="625"><highlight class="normal"></highlight></codeline>
-<codeline lineno="626"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref><sp/>=<sp/>xQueueCreate(8,</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>));</highlight></codeline>
-<codeline lineno="627"><highlight class="normal"></highlight></codeline>
-<codeline lineno="628"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1a2bd63a687f9513e4fcaf3c97d5821515" kindref="member">callback_table_mutex</ref><sp/>=<sp/>xSemaphoreCreateMutex();</highlight></codeline>
-<codeline lineno="629"><highlight class="normal"></highlight></codeline>
-<codeline lineno="630"><highlight class="normal"></highlight></codeline>
-<codeline lineno="631"><highlight class="normal"></highlight></codeline>
-<codeline lineno="632"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(;;){</highlight></codeline>
-<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retval<sp/>=<sp/>xQueueReceive(<ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref>,&amp;tmp,10);</highlight></codeline>
-<codeline lineno="634"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(retval<sp/>==<sp/>pdTRUE){</highlight></codeline>
-<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func_status<sp/>=<sp/><ref refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" kindref="member">callFunctionFromCANid</ref>(&amp;tmp);</highlight></codeline>
-<codeline lineno="636"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(func_status<sp/>!=<sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>){</highlight></codeline>
-<codeline lineno="637"><highlight class="normal"></highlight></codeline>
-<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="639"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="640"><highlight class="normal"></highlight></codeline>
-<codeline lineno="641"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" kindref="member">UV_KILL_CMD</ref>){</highlight></codeline>
-<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QueueHandle_t<sp/>tmpqueue<sp/>=<sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref>;</highlight></codeline>
-<codeline lineno="643"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref><sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="644"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vQueueDelete(tmpqueue);</highlight></codeline>
+<codeline lineno="626"><highlight class="normal"></highlight></codeline>
+<codeline lineno="632" refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" kindref="member">CANbusRxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args){</highlight></codeline>
+<codeline lineno="633"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*<sp/>params<sp/>=<sp/>(<ref refid="structuv__task__info" kindref="compound">uv_task_info</ref>*)<sp/>args;</highlight></codeline>
+<codeline lineno="634"><highlight class="normal"></highlight></codeline>
+<codeline lineno="635"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref><sp/>tmp;</highlight></codeline>
+<codeline lineno="636"><highlight class="normal"></highlight></codeline>
+<codeline lineno="637"><highlight class="normal"><sp/><sp/><sp/><sp/>BaseType_t<sp/>retval;</highlight></codeline>
+<codeline lineno="638"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/>func_status;</highlight></codeline>
+<codeline lineno="639"><highlight class="normal"></highlight></codeline>
+<codeline lineno="640"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref><sp/>=<sp/>xQueueCreate(8,</highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>));</highlight></codeline>
+<codeline lineno="641"><highlight class="normal"></highlight></codeline>
+<codeline lineno="642"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1a2bd63a687f9513e4fcaf3c97d5821515" kindref="member">callback_table_mutex</ref><sp/>=<sp/>xSemaphoreCreateMutex();</highlight></codeline>
+<codeline lineno="643"><highlight class="normal"></highlight></codeline>
+<codeline lineno="644"><highlight class="normal"></highlight></codeline>
 <codeline lineno="645"><highlight class="normal"></highlight></codeline>
-<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" kindref="member">killSelf</ref>(params);</highlight></codeline>
-<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" kindref="member">UV_SUSPEND_CMD</ref>){</highlight></codeline>
-<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" kindref="member">suspendSelf</ref>(params);</highlight></codeline>
-<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="646"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(;;){</highlight></codeline>
+<codeline lineno="647"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>retval<sp/>=<sp/>xQueueReceive(<ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref>,&amp;tmp,10);</highlight></codeline>
+<codeline lineno="648"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(retval<sp/>==<sp/>pdTRUE){</highlight></codeline>
+<codeline lineno="649"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>func_status<sp/>=<sp/><ref refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" kindref="member">callFunctionFromCANid</ref>(&amp;tmp);</highlight></codeline>
+<codeline lineno="650"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(func_status<sp/>!=<sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>){</highlight></codeline>
 <codeline lineno="651"><highlight class="normal"></highlight></codeline>
-<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/>vQueueDelete(<ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref>);</highlight></codeline>
-<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref><sp/>=<sp/>NULL;</highlight></codeline>
-<codeline lineno="654"><highlight class="normal"><sp/><sp/><sp/><sp/>vTaskDelete(params-&gt;<ref refid="structuv__task__info_1a5347f41c4b15b2d6b039c339613fde43" kindref="member">task_handle</ref>);</highlight></codeline>
-<codeline lineno="655"><highlight class="normal"></highlight></codeline>
-<codeline lineno="656"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="657"><highlight class="normal"></highlight></codeline>
-<codeline lineno="658"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="652"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="653"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="654"><highlight class="normal"></highlight></codeline>
+<codeline lineno="655"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" kindref="member">UV_KILL_CMD</ref>){</highlight></codeline>
+<codeline lineno="656"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QueueHandle_t<sp/>tmpqueue<sp/>=<sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref>;</highlight></codeline>
+<codeline lineno="657"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="658"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>vQueueDelete(tmpqueue);</highlight></codeline>
+<codeline lineno="659"><highlight class="normal"></highlight></codeline>
+<codeline lineno="660"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" kindref="member">killSelf</ref>(params);</highlight></codeline>
+<codeline lineno="661"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(params-&gt;<ref refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" kindref="member">cmd_data</ref><sp/>==<sp/><ref refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" kindref="member">UV_SUSPEND_CMD</ref>){</highlight></codeline>
+<codeline lineno="662"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" kindref="member">suspendSelf</ref>(params);</highlight></codeline>
+<codeline lineno="663"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="664"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="665"><highlight class="normal"></highlight></codeline>
+<codeline lineno="666"><highlight class="normal"><sp/><sp/><sp/><sp/>vQueueDelete(<ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref>);</highlight></codeline>
+<codeline lineno="667"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" kindref="member">Rx_msg_queue</ref><sp/>=<sp/>NULL;</highlight></codeline>
+<codeline lineno="668"><highlight class="normal"><sp/><sp/><sp/><sp/>vTaskDelete(params-&gt;<ref refid="structuv__task__info_1a5347f41c4b15b2d6b039c339613fde43" kindref="member">task_handle</ref>);</highlight></codeline>
+<codeline lineno="669"><highlight class="normal"></highlight></codeline>
+<codeline lineno="670"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="671"><highlight class="normal"></highlight></codeline>
+<codeline lineno="672"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>1<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="Core/Src/can.c"/>
   </compounddef>

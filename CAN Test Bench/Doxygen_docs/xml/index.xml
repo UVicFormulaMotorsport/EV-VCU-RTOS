@@ -6,7 +6,8 @@
     <member refid="unionaccess__control__info_1a62c8e641c4d4d5d778c5e0f710bbddd1" kind="variable"><name>semaphore</name></member>
   </compound>
   <compound refid="structbms__settings__t" kind="struct"><name>bms_settings_t</name>
-    <member refid="structbms__settings__t_1a2f45a266303385b292a81104e0134ac6" kind="variable"><name>mc_CAN_timeout</name></member>
+    <member refid="structbms__settings__t_1ab83f63e1fb9e2c070731fd16ff553b26" kind="variable"><name>BMS_CAN_timeout</name></member>
+    <member refid="structbms__settings__t_1acf9bb6195e13b8c3511633b0bb1f59c9" kind="variable"><name>max_temp</name></member>
   </compound>
   <compound refid="struct_c_a_n___callback" kind="struct"><name>CAN_Callback</name>
     <member refid="struct_c_a_n___callback_1a2dbb9c56fe79ad5ce0165d7300b62ff5" kind="variable"><name>CAN_id</name></member>
@@ -14,26 +15,29 @@
     <member refid="struct_c_a_n___callback_1ace8db41695ac99095f81f37c97056076" kind="variable"><name>next</name></member>
   </compound>
   <compound refid="structdaq__child__task" kind="struct"><name>daq_child_task</name>
-    <member refid="structdaq__child__task_1a34966ce1e2f0fbe666f256d98a4378e7" kind="variable"><name>treenode</name></member>
+    <member refid="structdaq__child__task_1a1c1a861279f70722384c45e9a62eecee" kind="variable"><name>next_task</name></member>
     <member refid="structdaq__child__task_1aeb649c4b5047ed12107eea04fb68042e" kind="variable"><name>meta_task_handle</name></member>
-    <member refid="structdaq__child__task_1a214b6be30716c32c3ae1856d9f92685c" kind="variable"><name>param_list</name></member>
     <member refid="structdaq__child__task_1ada97dc181bb6a3919f978fb17431d336" kind="variable"><name>period</name></member>
+    <member refid="structdaq__child__task_1ab58febeab8b66376a3b3520e9cff950f" kind="variable"><name>param_list</name></member>
   </compound>
   <compound refid="structdaq__datapoint" kind="struct"><name>daq_datapoint</name>
-    <member refid="structdaq__datapoint_1a4980fdb5f68a228a79a55dccc9eb4ea9" kind="variable"><name>can_id</name></member>
+    <member refid="structdaq__datapoint_1aa58405f37b6a17c09e4f112d35671e2b" kind="variable"><name>can_id</name></member>
+    <member refid="structdaq__datapoint_1aef9003d6af949de34d576de6a1eb9fc2" kind="variable"><name>param</name></member>
     <member refid="structdaq__datapoint_1a8f1ff0b0cde6cc45079cd85c764b2ebe" kind="variable"><name>period</name></member>
     <member refid="structdaq__datapoint_1a44606584203d50acb9b885e45068846b" kind="variable"><name>type</name></member>
   </compound>
   <compound refid="structdaq__loop__args" kind="struct"><name>daq_loop_args</name>
+    <member refid="structdaq__loop__args_1acb7bf20ade7a6544c747aebc165b7faf" kind="variable"><name>total_params_logged</name></member>
     <member refid="structdaq__loop__args_1a8bb73e70ee9f47ffa9916c6067ff3eb5" kind="variable"><name>throttle_daq_to_preserve_performance</name></member>
     <member refid="structdaq__loop__args_1a4411f711c3bba9466f3f90c125bc6614" kind="variable"><name>minimum_daq_period</name></member>
-    <member refid="structdaq__loop__args_1a653d8fd8f6c526c6680f2406767bb7ca" kind="variable"><name>padding</name></member>
-    <member refid="structdaq__loop__args_1ad0f351d376aef4c061a6f122a8a46aff" kind="variable"><name>padding2</name></member>
-    <member refid="structdaq__loop__args_1ab4d8dba247b8b415c2a49356ac8a8dbc" kind="variable"><name>datapoints</name></member>
+    <member refid="structdaq__loop__args_1ac6e97a06cf45265c74de1ac1f13fad81" kind="variable"><name>can_channel</name></member>
+    <member refid="structdaq__loop__args_1af3ed9db4033594f8f7db2649a1ca59c0" kind="variable"><name>daq_child_priority</name></member>
   </compound>
   <compound refid="structdaq__param__list__node" kind="struct"><name>daq_param_list_node</name>
-    <member refid="structdaq__param__list__node_1a1213d4ad19f282a2e313f6ffe96584ac" kind="variable"><name>param_idx</name></member>
     <member refid="structdaq__param__list__node_1aa70718d4adff315eb53a8c00e4b1021a" kind="variable"><name>next</name></member>
+    <member refid="structdaq__param__list__node_1a6b52773cafc7e69fdb4eca2d64a2fab3" kind="variable"><name>can_id</name></member>
+    <member refid="structdaq__param__list__node_1a4a500221ca5a1327ac953045d1cb6d5e" kind="variable"><name>param</name></member>
+    <member refid="structdaq__param__list__node_1a4f12dbd7428c303f9b679ad5dfa1b790" kind="variable"><name>size</name></member>
   </compound>
   <compound refid="structdriving__loop__args" kind="struct"><name>driving_loop_args</name>
     <member refid="structdriving__loop__args_1a752f04c3eb17d10e5cf742631bbb0010" kind="variable"><name>absolute_max_acc_pwr</name></member>
@@ -45,7 +49,10 @@
     <member refid="structdriving__loop__args_1a483c9a4d7fe91e4a57512d054b010a13" kind="variable"><name>min_apps_offset</name></member>
     <member refid="structdriving__loop__args_1a51c8b3e55f33482df7a938d0d3e7bbd9" kind="variable"><name>max_apps_offset</name></member>
     <member refid="structdriving__loop__args_1a93bcc08ec8e62f33cf11efde02d61178" kind="variable"><name>min_apps_value</name></member>
-    <member refid="structdriving__loop__args_1a3972980cc1937753bc59dbc4978141b1" kind="variable"><name>max_apps_value</name></member>
+    <member refid="structdriving__loop__args_1a5de5af253c2b8fb31fcfed6e639e7ebf" kind="variable"><name>max_apps1_value</name></member>
+    <member refid="structdriving__loop__args_1a1b5e703a1791d3321357cf65ce4832ce" kind="variable"><name>min_apps1_value</name></member>
+    <member refid="structdriving__loop__args_1a8ab77d88be846bc556736387795d68b5" kind="variable"><name>min_apps2_value</name></member>
+    <member refid="structdriving__loop__args_1ab6ea518520efa72bf81353dc0efdf15e" kind="variable"><name>max_apps2_value</name></member>
     <member refid="structdriving__loop__args_1abdde53b1e1a9b649a8d780331362a966" kind="variable"><name>min_BPS_value</name></member>
     <member refid="structdriving__loop__args_1ac91f79da4c6beb38683e87ab2e09b0a2" kind="variable"><name>max_BPS_value</name></member>
     <member refid="structdriving__loop__args_1acfb537478247c21344473ce9fa0b2844" kind="variable"><name>apps_top</name></member>
@@ -76,17 +83,21 @@
     <member refid="structexp__torque__map__args_1a7bc571c9ed496329919c71232b437867" kind="variable"><name>offset</name></member>
     <member refid="structexp__torque__map__args_1a534a8b780b891202f1dcc3f926a7e222" kind="variable"><name>gamma</name></member>
   </compound>
+  <compound refid="unionhelper__task__args" kind="union"><name>helper_task_args</name>
+    <member refid="unionhelper__task__args_1a083dff2889a9c9006875745783ed5f45" kind="variable"><name>setting_tx_args</name></member>
+    <member refid="unionhelper__task__args_1a530fb24214eb4c3733920bf4446eb571" kind="variable"><name>journal_tx_args</name></member>
+  </compound>
   <compound refid="structlinear__torque__map__args" kind="struct"><name>linear_torque_map_args</name>
     <member refid="structlinear__torque__map__args_1a74b1dff208ef6cc80939af7490a7f3ba" kind="variable"><name>offset</name></member>
     <member refid="structlinear__torque__map__args_1a0ada1fc97e0519e952e77f491175b1ff" kind="variable"><name>slope</name></member>
   </compound>
-  <compound refid="structmotor__controllor__settings" kind="struct"><name>motor_controllor_settings</name>
-    <member refid="structmotor__controllor__settings_1a1229e590ebbf0159f0c829d5f8807294" kind="variable"><name>can_id_tx</name></member>
-    <member refid="structmotor__controllor__settings_1a0fafb17c00ec872a98dac74ca271b4cd" kind="variable"><name>can_id_rx</name></member>
-    <member refid="structmotor__controllor__settings_1a16d6ebc9fb542b543c66bba5cb1572d7" kind="variable"><name>mc_CAN_timeout</name></member>
-    <member refid="structmotor__controllor__settings_1ae2ba82196be75a510aad215ab0cc26de" kind="variable"><name>proportional_gain</name></member>
-    <member refid="structmotor__controllor__settings_1a72937e13b105d1c12492b89218cb41c0" kind="variable"><name>integral_time_constant</name></member>
-    <member refid="structmotor__controllor__settings_1a0d62a6e1afcb149473fd37d53c2058a5" kind="variable"><name>integral_memory_max</name></member>
+  <compound refid="structmotor__controller__settings" kind="struct"><name>motor_controller_settings</name>
+    <member refid="structmotor__controller__settings_1a810e13f814f738ffbde7b0bd18706958" kind="variable"><name>can_id_tx</name></member>
+    <member refid="structmotor__controller__settings_1a7165a9e7ed850b050639c43c438b60c4" kind="variable"><name>can_id_rx</name></member>
+    <member refid="structmotor__controller__settings_1afc16e254a9d88e585f85e56e927ef052" kind="variable"><name>mc_CAN_timeout</name></member>
+    <member refid="structmotor__controller__settings_1af64381c50076a7d79844fef4ccf7d616" kind="variable"><name>proportional_gain</name></member>
+    <member refid="structmotor__controller__settings_1aedfe4b9158863114187ba4495c4696da" kind="variable"><name>integral_time_constant</name></member>
+    <member refid="structmotor__controller__settings_1ad6bceecbb8d45df475d198ecb9c236aa" kind="variable"><name>integral_memory_max</name></member>
   </compound>
   <compound refid="structp__status" kind="struct"><name>p_status</name>
     <member refid="structp__status_1a4053f93722537baa0dd9c8ffe6d6fb58" kind="variable"><name>peripheral_status</name></member>
@@ -113,6 +124,11 @@
     <member refid="structs__curve__torque__map__args_1afe95ac783888f2b17831c9d8e50de827" kind="variable"><name>b</name></member>
     <member refid="structs__curve__torque__map__args_1a1a923153d39da6e36db00c644834189c" kind="variable"><name>c</name></member>
   </compound>
+  <compound refid="structsetting__helper__task" kind="struct"><name>setting_helper_task</name>
+    <member refid="structsetting__helper__task_1a867ac831a9ae5bbfb2ee7b32d63e8916" kind="variable"><name>meta_task_handle</name></member>
+    <member refid="structsetting__helper__task_1a7446a818ec9497a6b93a7995bf8b66d3" kind="variable"><name>status</name></member>
+    <member refid="structsetting__helper__task_1a2db368e63a9cc11c26caa2a0eacfca45" kind="variable"><name>args</name></member>
+  </compound>
   <compound refid="structstate__change__daemon__args" kind="struct"><name>state_change_daemon_args</name>
     <member refid="structstate__change__daemon__args_1aa19a15c725f1fdc8dcc05227584153bc" kind="variable"><name>meta_task_handle</name></member>
   </compound>
@@ -124,6 +140,24 @@
     <member refid="structtask__status__block_1abfd714aae92a1132cb79b3c675099b0f" kind="variable"><name>task_high_water_mark</name></member>
     <member refid="structtask__status__block_1a254979f63f50b48d35a3127e5e6b55eb" kind="variable"><name>task_report_time</name></member>
   </compound>
+  <compound refid="structtx__all__settings__args" kind="struct"><name>tx_all_settings_args</name>
+    <member refid="structtx__all__settings__args_1a8e42222b51c2f152869fc760560442b0" kind="variable"><name>sblock_origin</name></member>
+  </compound>
+  <compound refid="structtx__journal__args" kind="struct"><name>tx_journal_args</name>
+    <member refid="structtx__journal__args_1a47ca8e1495cb07e794ea926dedff2da7" kind="variable"><name>start_time</name></member>
+    <member refid="structtx__journal__args_1a170540474cdd1a431f8e257d5a70c4ac" kind="variable"><name>end_time</name></member>
+  </compound>
+  <compound refid="structuv19__pdu__settings" kind="struct"><name>uv19_pdu_settings</name>
+    <member refid="structuv19__pdu__settings_1aa75dd44eb41ce8bc81fdaa106a01e0dd" kind="variable"><name>PDU_rx_addr</name></member>
+    <member refid="structuv19__pdu__settings_1a5d872093d74b8fdad25db7c9811aeb9d" kind="variable"><name>PDU_tx_addr</name></member>
+    <member refid="structuv19__pdu__settings_1a80ce6f83d1dbc615ab5ab8a941a861e1" kind="variable"><name>sdc_channel</name></member>
+    <member refid="structuv19__pdu__settings_1af759ec6c2f3d8db0fd8c1294f3fde4ad" kind="variable"><name>brake_light_channel</name></member>
+    <member refid="structuv19__pdu__settings_1aa5eb905d084bb8c87875eeca45d1f856" kind="variable"><name>buzzer_channel</name></member>
+    <member refid="structuv19__pdu__settings_1ae76c496bb0af8a531bb07c2f4cce2c25" kind="variable"><name>coolant_pump_channel</name></member>
+    <member refid="structuv19__pdu__settings_1a4f92782d8ee781821a338b102176fa4b" kind="variable"><name>fan1_channel</name></member>
+    <member refid="structuv19__pdu__settings_1aa2238c64771ff22d3da9937cbdea3505" kind="variable"><name>fan2_channel</name></member>
+    <member refid="structuv19__pdu__settings_1a5df1668e998b9e48c9424160651897d6" kind="variable"><name>mc_rfe_channel</name></member>
+  </compound>
   <compound refid="structuv__binary__semaphore__info" kind="struct"><name>uv_binary_semaphore_info</name>
     <member refid="structuv__binary__semaphore__info_1a0bef92923f20ad17bf1cbfba456b7c47" kind="variable"><name>handle</name></member>
   </compound>
@@ -132,6 +166,11 @@
     <member refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" kind="variable"><name>dlc</name></member>
     <member refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" kind="variable"><name>msg_id</name></member>
     <member refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kind="variable"><name>data</name></member>
+  </compound>
+  <compound refid="structuv__imd__settings" kind="struct"><name>uv_imd_settings</name>
+    <member refid="structuv__imd__settings_1aafeccae0b3a5b40c444e002ba94e5c22" kind="variable"><name>min_isolation_resistances</name></member>
+    <member refid="structuv__imd__settings_1abbe28bb095b02ec7f90114d79c135c40" kind="variable"><name>expected_isolation_capacitances</name></member>
+    <member refid="structuv__imd__settings_1a349c8a307614045acbba0972565804e5" kind="variable"><name>max_imd_temperature</name></member>
   </compound>
   <compound refid="structuv__init__struct" kind="struct"><name>uv_init_struct</name>
     <member refid="structuv__init__struct_1a5275182451a7f4931006e5ff393f1cdb" kind="variable"><name>use_default_settings</name></member>
@@ -166,6 +205,11 @@
     <member refid="structuv__os__settings_1a49ce23050cb8eb64a0ad2c8eb59b9285" kind="variable"><name>task_overshoot_margin_crit</name></member>
     <member refid="structuv__os__settings_1a3eff117bf9dada61242e5778d1be6299" kind="variable"><name>task_throttle_increment</name></member>
     <member refid="structuv__os__settings_1a76c6055b26d876a01f6baac6d766e6ae" kind="variable"><name>os_flags</name></member>
+  </compound>
+  <compound refid="structuv__persistant__data__frame" kind="struct"><name>uv_persistant_data_frame</name>
+    <member refid="structuv__persistant__data__frame_1a4d3091b4723b506736d9fb782cf34d23" kind="variable"><name>total_vehicle_uptime</name></member>
+    <member refid="structuv__persistant__data__frame_1a1cee16114a1dffe2a3c8c2e3cf3cd68d" kind="variable"><name>total_time_driving</name></member>
+    <member refid="structuv__persistant__data__frame_1a1a642951254566c1cdf9c1e5db66893b" kind="variable"><name>total_distance_cm</name></member>
   </compound>
   <compound refid="structuv__scd__response" kind="struct"><name>uv_scd_response</name>
     <member refid="structuv__scd__response_1a92a8d03f9ffbbd860cb0bbe48f90bd7e" kind="variable"><name>response_val</name></member>
@@ -205,16 +249,26 @@
     <member refid="structuv__task__msg__t_1a4d48277de745dfd9168f7809af04ef3f" kind="variable"><name>msg_contents</name></member>
   </compound>
   <compound refid="structuv__vehicle__settings" kind="struct"><name>uv_vehicle_settings</name>
+    <member refid="structuv__vehicle__settings_1a6a386c439058f4464e4b82acd1315258" kind="variable"><name>veh_info</name></member>
     <member refid="structuv__vehicle__settings_1adbfed76ceedc0479ff023fea9ba7a84c" kind="variable"><name>os_settings</name></member>
     <member refid="structuv__vehicle__settings_1ad0b0375d2c1674abc6f972eec47e9cb7" kind="variable"><name>mc_settings</name></member>
     <member refid="structuv__vehicle__settings_1a7a5207ef389290242764f49c6c48a5ad" kind="variable"><name>driving_loop_settings</name></member>
-    <member refid="structuv__vehicle__settings_1a5b56318f394bef60ff7da0b4995183e0" kind="variable"><name>imd_settings</name></member>
+    <member refid="structuv__vehicle__settings_1af8dbf93ac51eb9fdc8911644d096486d" kind="variable"><name>imd_settings</name></member>
     <member refid="structuv__vehicle__settings_1a6cdca5b5474080f1dff4d19ef96435e1" kind="variable"><name>bms_settings</name></member>
     <member refid="structuv__vehicle__settings_1a6caecf0c9fd669e421c4005600d81b71" kind="variable"><name>daq_settings</name></member>
-    <member refid="structuv__vehicle__settings_1afbb4746468289d0e88ee03e325917fb3" kind="variable"><name>pdu_settings</name></member>
-    <member refid="structuv__vehicle__settings_1a5c9011e8b45d37e8963031285ece8f15" kind="variable"><name>is_default</name></member>
+    <member refid="structuv__vehicle__settings_1a191aefb9e6f4516a91157e5d6d68205b" kind="variable"><name>daq_param_list</name></member>
+    <member refid="structuv__vehicle__settings_1a01bbfda07b06d31224993ddf9745d285" kind="variable"><name>pdu_settings</name></member>
+    <member refid="structuv__vehicle__settings_1ae0c9377c4f8df54ad4b59d4ac4ab39fe" kind="variable"><name>flags</name></member>
   </compound>
   <compound refid="structveh__gen__info" kind="struct"><name>veh_gen_info</name>
+    <member refid="structveh__gen__info_1a4561037fdc0d97cbdac2c5a92a7dd241" kind="variable"><name>wheel_size</name></member>
+    <member refid="structveh__gen__info_1acb3eb226b04141a90f2c5a1aa958df5a" kind="variable"><name>drive_ratio</name></member>
+    <member refid="structveh__gen__info_1af54750016442f5bd64094dd43a12e346" kind="variable"><name>test1</name></member>
+    <member refid="structveh__gen__info_1a7921d58958087da2efb2026662119b34" kind="variable"><name>test2</name></member>
+    <member refid="structveh__gen__info_1adad360217b3ce71530e4f0aec6a98ebd" kind="variable"><name>test3</name></member>
+    <member refid="structveh__gen__info_1a52eaa870aa9aa627edc93ad562cb2bce" kind="variable"><name>test4</name></member>
+    <member refid="structveh__gen__info_1afc82e19bf46b848ba693d06e313f105f" kind="variable"><name>test5</name></member>
+    <member refid="structveh__gen__info_1a15a45f51f28b23562581f27c3782e036" kind="variable"><name>test6</name></member>
   </compound>
   <compound refid="adc_8h" kind="file"><name>adc.h</name>
     <member refid="adc_8h_1a241b375208136bfc174d8aac59759293" kind="define"><name>ADC1_BUF_LEN</name></member>
@@ -231,6 +285,8 @@
     <member refid="adc_8h_1acd9221f1aa19aebfe0b744947f2daf49" kind="variable"><name>hadc2</name></member>
     <member refid="adc_8h_1acccd58aa70215a6b184ad242312ffd0c" kind="function"><name>MX_ADC1_Init</name></member>
     <member refid="adc_8h_1a101e2e3433dfe72bbbd0ae3a84489263" kind="function"><name>MX_ADC2_Init</name></member>
+    <member refid="adc_8h_1a4ba1683325a3553851abf884b905f1b1" kind="function"><name>initADCTask</name></member>
+    <member refid="adc_8h_1a03fdeaebd739f2aa61c15278070878e0" kind="function"><name>processADCBuffer</name></member>
   </compound>
   <compound refid="bms_8h" kind="file"><name>bms.h</name>
     <member refid="bms_8h_1a0c88019b9a80e0a2b9820fb387e9e084" kind="define"><name>DEFAULT_BMS_CAN_TIMEOUT</name></member>
@@ -268,6 +324,17 @@
   <compound refid="daq_8h" kind="file"><name>daq.h</name>
     <member refid="daq_8h_1a81ace76d60c42037a62eaeb1687a96ce" kind="define"><name>_NUM_LOGGABLE_PARAMS</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9" kind="enum"><name>loggable_params</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382" kind="enumvalue"><name>VCU_VEHICLE_STATE</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a0e0864ffb7986f19129bc6b59a5fa77b" kind="enumvalue"><name>VCU_ERROR_BITFIELD1</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9acdcc0525deb76aea20f6a5239d32312d" kind="enumvalue"><name>VCU_ERROR_BITFIELD2</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a3515cf175fd12745ba64715a44137958" kind="enumvalue"><name>VCU_ERROR_BITFIELD3</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a3a9f7ef2405971218360d917a12802a3" kind="enumvalue"><name>VCU_ERROR_BITFIELD4</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9ad8aa245503fd95eebbc274e9dc6cffc3" kind="enumvalue"><name>VCU_CURRENT_UPTIME</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a53a54b13295e369b1b05d22b9b9c344f" kind="enumvalue"><name>VCU_TOTAL_UPTIME</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a28fea9f840239eeee80ef78dd75a3247" kind="enumvalue"><name>VEH_DISTANCE_RUN</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9acdd1817d078c39ea68589fc78229d433" kind="enumvalue"><name>VEH_DISTANCE_TOTAL</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a1342110df0aa36f1aac1f15cbd8415e7" kind="enumvalue"><name>VEH_LAPNUM</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a181ccc02a81f078677f8259feae961ee" kind="enumvalue"><name>VEH_SPEED</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a2237bba50d7e27353f72b7d26837fee4" kind="enumvalue"><name>MOTOR_RPM</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a1b5652598a4eb9009556ed9d79bc3481" kind="enumvalue"><name>MOTOR_TEMP</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9af753a5d3c1a828a48de12e24724ca9fa" kind="enumvalue"><name>MOTOR_CURRENT</name></member>
@@ -281,8 +348,10 @@
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9afe28f8aaa8c772e8fc42b5f47d2898ed" kind="enumvalue"><name>MAX_CELL_TEMP</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a2834d7adb4c1ad0ac9300d6085d52d3a" kind="enumvalue"><name>MIN_CELL_TEMP</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d" kind="enumvalue"><name>AVG_CELL_TEMP</name></member>
-    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a4ef281749693cf7082dc226a1ab26974" kind="enumvalue"><name>ACC_POWER</name></member>
-    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aef39c43ab7f393dc2bf798232d6af580" kind="enumvalue"><name>ACC_POWER_LIMIT</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aec9d5009b2d929a992c7b1112cba60a6" kind="enumvalue"><name>ACCUM_SOC</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a60204d11329b5d77eef412829a462ac2" kind="enumvalue"><name>ACCUM_SOH</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9ad15a7f488ce2e3fa4cdbf9da2cc3b4e8" kind="enumvalue"><name>ACCUM_POWER</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9af03ef2b58e3ed66d861ac83000e90bb3" kind="enumvalue"><name>ACCUM_POWER_LIMIT</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331" kind="enumvalue"><name>APPS1_ADC_VAL</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c" kind="enumvalue"><name>APPS2_ADC_VAL</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929" kind="enumvalue"><name>BPS1_ADC_VAL</name></member>
@@ -291,13 +360,26 @@
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101" kind="enumvalue"><name>BRAKE_PRESSURE_PA</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a9dd0829e0b91b1c3c07d12aa6dd7effb" kind="enumvalue"><name>POWER_DERATE_FACTOR</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00" kind="enumvalue"><name>CURRENT_DRIVING_MODE</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a0b2d565572d0eb211e6b8384d085d4d1" kind="enumvalue"><name>IMD_VOLTAGE</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a601de91a52bb4c0f528e9791ef5e92ec" kind="enumvalue"><name>IMD_STATUS</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aa011e4b7e1270618e9bff78cfd8c2053" kind="enumvalue"><name>IMD_ERRORS</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9acf95addd76af58fb001226d0977588ff" kind="enumvalue"><name>SUS_DAMPER_FL</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a0ee8a955209c64582c234f8f86bd7453" kind="enumvalue"><name>SUS_DUMPER_FR</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a8fb053ba15c1a4fe47bf4e636fd48d8e" kind="enumvalue"><name>SUS_DAMPER_RL</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a6139f8cd6529f2e67551806156d0f522" kind="enumvalue"><name>SUS_DAMPER_RR</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a5f234ecc55da7be78bf6b2a3b5fa7174" kind="enumvalue"><name>WSS_FR</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a3576a153551299293a7c9692e8f08ce6" kind="enumvalue"><name>WSS_FL</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a46eff224c7a33ef06adaa74ccb9aeedd" kind="enumvalue"><name>WSS_RL</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9acbd7f6945b95e86ffe38e6646458ab36" kind="enumvalue"><name>WSS_RR</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9a873bf319948580dc7b092ab7adbfd734" kind="enumvalue"><name>WSS_F_AVG</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aa7245912d873d42b396d2e22d829e681" kind="enumvalue"><name>WSS_R_AVG</name></member>
+    <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aae51bec2609e8310092bf819fd8f411c" kind="enumvalue"><name>WSS_SLIP</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502" kind="enumvalue"><name>MAX_LOGGABLE_PARAMS</name></member>
-    <member refid="daq_8h_1a4a7e5c4a5e65c315010bab902f2268a6" kind="typedef"><name>daq_param_list_node</name></member>
     <member refid="daq_8h_1ad3bc3bc1c9ab04b22cc999a6f7c82c40" kind="typedef"><name>daq_datapoint</name></member>
     <member refid="daq_8h_1a8895dc742d7ce8449057f317e7f9c81b" kind="typedef"><name>daq_loop_args</name></member>
-    <member refid="daq_8h_1a2104fed000d8cb392baf5d14e06193c1" kind="typedef"><name>daq_child_task</name></member>
-    <member refid="daq_8h_1a07e7f750fa90de582a1e994dcf9b57d0" kind="variable"><name>param_LUT</name></member>
-    <member refid="daq_8h_1adecae26482eb2c3289131a2a486ac8b3" kind="function"><name>initDaqTask</name></member>
+    <member refid="daq_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kind="typedef"><name>uv_status</name></member>
+    <member refid="daq_8h_1a56ca1193de01115c27ceb3768994017f" kind="function"><name>associateDaqParamWithVar</name></member>
+    <member refid="daq_8h_1af2c619df9f3d115dcbc511b0bb738e87" kind="function"><name>initDaqTask</name></member>
     <member refid="daq_8h_1a433bb586ceab47aed8d633fa2ff8ce56" kind="function"><name>daqMasterTask</name></member>
   </compound>
   <compound refid="dash_8h" kind="file"><name>dash.h</name>
@@ -456,6 +538,7 @@
     <member refid="imd_8h_1af8e85b806bce9c9cad944c261ff0aa0ca65563450695b30beae4032ff330f0e6f" kind="enumvalue"><name>Vexc_hi_res</name></member>
     <member refid="imd_8h_1af8e85b806bce9c9cad944c261ff0aa0ca23a10ada814d11a9a1044ede3a821688" kind="enumvalue"><name>Vb_hi_res</name></member>
     <member refid="imd_8h_1af8e85b806bce9c9cad944c261ff0aa0ca6d4bdc992b68f8ee4aea88056639af5d" kind="enumvalue"><name>Vpwr_hi_res</name></member>
+    <member refid="imd_8h_1a0b894eb0fe09aff3c2fb836118b040f8" kind="typedef"><name>uv_imd_settings</name></member>
     <member refid="imd_8h_1a1f6181c5ab49d963007eb9a212672bbd" kind="function"><name>IMD_Parse_Message</name></member>
     <member refid="imd_8h_1ab4e8b5af19cc6d0b08ace9185a542b01" kind="function"><name>IMD_Check_Status_Bits</name></member>
     <member refid="imd_8h_1a0cfe9b1a6472c4a5d0ca154a4e9e7bb0" kind="function"><name>IMD_Check_Error_Flags</name></member>
@@ -489,16 +572,20 @@
     <member refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" kind="function"><name>Error_Handler</name></member>
   </compound>
   <compound refid="motor__controller_8h" kind="file"><name>motor_controller.h</name>
-    <member refid="motor__controller_8h_1acc0df233686dd4cf6256fcab0473860e" kind="define"><name>DEFAULT_MOTOR_CONTROLLER_CAN_TIMEOUT</name></member>
     <member refid="motor__controller_8h_1aab8c03dc3480e25a7a75b60edbf51cb3" kind="define"><name>SERIAL_NUMBER_REGISTER</name></member>
     <member refid="motor__controller_8h_1a829d1af845327949015b4e83bb6fc43d" kind="define"><name>FIRMWARE_VERSION_REGISTER</name></member>
+    <member refid="motor__controller_8h_1afeb7926ab4804cec84303f15b96280bc" kind="define"><name>N_set_cmd</name></member>
     <member refid="motor__controller_8h_1a8cab19f0549eb777404ec1c7a3b56268" kind="enum"><name>motor_controller_speed_parameters</name></member>
     <member refid="motor__controller_8h_1a8cab19f0549eb777404ec1c7a3b56268a74ac68aa19b65409fa9b18b8f2be3bf4" kind="enumvalue"><name>N_actual</name></member>
     <member refid="motor__controller_8h_1a8cab19f0549eb777404ec1c7a3b56268aa53daf1b53f678af8159cba9238c5e6f" kind="enumvalue"><name>N_set</name></member>
     <member refid="motor__controller_8h_1a8cab19f0549eb777404ec1c7a3b56268ac5a4f68a0000a0d2d5004ba1d2e4c27f" kind="enumvalue"><name>N_cmd</name></member>
     <member refid="motor__controller_8h_1a8cab19f0549eb777404ec1c7a3b56268acc27e0901b9bd112a36ccf7e9620b09a" kind="enumvalue"><name>N_error</name></member>
+    <member refid="motor__controller_8h_1a08f38539bd153ea7b7b1be8df1d6f6ed" kind="enum"><name>motor_controller_status</name></member>
+    <member refid="motor__controller_8h_1a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27" kind="enumvalue"><name>LOGIMAP_ERRORS</name></member>
+    <member refid="motor__controller_8h_1a08f38539bd153ea7b7b1be8df1d6f6eda887c38d92ef273b6fae58dcb51931765" kind="enumvalue"><name>LOGIMAP_IO</name></member>
+    <member refid="motor__controller_8h_1a08f38539bd153ea7b7b1be8df1d6f6eda75b5d9cefe36e570d9e0c306fb0e22fc" kind="enumvalue"><name>POS_ACTUAL</name></member>
     <member refid="motor__controller_8h_1aefe525453e2d5fb5ff19de9f98247c7c" kind="enum"><name>motor_controller_current_parameters</name></member>
-    <member refid="motor__controller_8h_1aefe525453e2d5fb5ff19de9f98247c7cafa32268e686878b8024c674367c01767" kind="enumvalue"><name>todo1</name></member>
+    <member refid="motor__controller_8h_1aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091" kind="enumvalue"><name>CURRENT_ACTUAL</name></member>
     <member refid="motor__controller_8h_1ae5ebd6cc9310757a5488b935d21bc741" kind="enum"><name>motor_controller_motor_constants</name></member>
     <member refid="motor__controller_8h_1ae5ebd6cc9310757a5488b935d21bc741a64170ba683e522d8933cc80a5cf28ecb" kind="enumvalue"><name>nominal_motor_frequency</name></member>
     <member refid="motor__controller_8h_1ae5ebd6cc9310757a5488b935d21bc741a2d43068942abe44d33fd0f89f4b8cbb9" kind="enumvalue"><name>nominal_motor_voltage</name></member>
@@ -586,10 +673,17 @@
     <member refid="motor__controller_8h_1a0376dfd1eed1d027d96561fd24e48242" kind="enum"><name>motor_controller_startup</name></member>
     <member refid="motor__controller_8h_1a0376dfd1eed1d027d96561fd24e48242ae138a3e61cb9bb9076598775b7810347" kind="enumvalue"><name>clear_errors</name></member>
     <member refid="motor__controller_8h_1a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2" kind="enumvalue"><name>firmware_version</name></member>
-    <member refid="motor__controller_8h_1ac9389d71d481a5381fe1d1e23b1e4ecc" kind="typedef"><name>motor_controller_settings</name></member>
+    <member refid="motor__controller_8h_1a420642111318eedc2b05236f0ed531f4" kind="typedef"><name>motor_controller_settings</name></member>
+    <member refid="motor__controller_8h_1ad857192b5d0529e73642f1293d6bed75" kind="typedef"><name>uv_CAN_msg</name></member>
+    <member refid="motor__controller_8h_1afb41a96439ba6d63dcc64f257c43a1d2" kind="variable"><name>mc_default_settings</name></member>
     <member refid="motor__controller_8h_1aed1407e1e0fd59dc7c5e5d6db671f0ab" kind="function"><name>MC_Startup</name></member>
+    <member refid="motor__controller_8h_1ad9944bce211ed6594929c3acf72e3881" kind="function"><name>MotorControllerSpinTest</name></member>
+    <member refid="motor__controller_8h_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" kind="function"><name>MC_Request_Data</name></member>
+    <member refid="motor__controller_8h_1aaff68bb563bf4ad56841a5a5020cbadc" kind="function"><name>ProcessMotorControllerResponse</name></member>
+    <member refid="motor__controller_8h_1a98ef1edcc51198faf53767e8d92ce4c9" kind="function"><name>Parse_Bamocar_Response</name></member>
   </compound>
   <compound refid="odometer_8h" kind="file"><name>odometer.h</name>
+    <member refid="odometer_8h_1a9dca7cb063ae2e236db831c391c01eb8" kind="typedef"><name>uv_persistant_data_frame</name></member>
     <member refid="odometer_8h_1ace344890a9a3f03e059a4eb44af85e00" kind="function"><name>initOdometer</name></member>
     <member refid="odometer_8h_1a56d2ca9f89394f6519acb2ba11320d55" kind="function"><name>odometerTask</name></member>
   </compound>
@@ -619,6 +713,7 @@
     <member refid="pdu_8h_1a9da17cdb854b14b04e25bc942810f7e6a6fccdbe26ef1fe66ecd3ee62fb12007e" kind="enumvalue"><name>disable_right_cooling_fan_msg</name></member>
     <member refid="pdu_8h_1a9da17cdb854b14b04e25bc942810f7e6a09a6f1d46f6583f69ddb997adf4571c2" kind="enumvalue"><name>enable_coolant_pump_msg</name></member>
     <member refid="pdu_8h_1a9da17cdb854b14b04e25bc942810f7e6a2beb5f82c3d5098c13b0328938f72c6f" kind="enumvalue"><name>disable_coolant_pump_msg</name></member>
+    <member refid="pdu_8h_1aa0a9200cae8b8f6ce4757be92d17bab5" kind="typedef"><name>uv19_pdu_settings</name></member>
     <member refid="pdu_8h_1a42e33c33fc1dea26555ff7b20984b186" kind="function"><name>PDU_speaker_chirp</name></member>
     <member refid="pdu_8h_1aa5479c0d6ab8d58683e99bf102d60db8" kind="function"><name>PDU_enable_brake_light</name></member>
     <member refid="pdu_8h_1ad7b67b3c1618a7c50a5d6d9f9e13a89f" kind="function"><name>PDU_disable_brake_light</name></member>
@@ -772,6 +867,7 @@
     <member refid="stm32f4xx__it_8h_1a1d98923de2ed6b7309b66f9ba2971647" kind="function"><name>UsageFault_Handler</name></member>
     <member refid="stm32f4xx__it_8h_1adbdfb05858cc36fc520974df37ec3cb0" kind="function"><name>DebugMon_Handler</name></member>
     <member refid="stm32f4xx__it_8h_1a17e9789a29a87d2df54f12b94dd1a0b6" kind="function"><name>EXTI0_IRQHandler</name></member>
+    <member refid="stm32f4xx__it_8h_1a06406eadf297fa89a6eaf9586b227a69" kind="function"><name>ADC_IRQHandler</name></member>
     <member refid="stm32f4xx__it_8h_1ad1fd361bc5ad89facee67c76d1ff8dc0" kind="function"><name>TIM1_UP_TIM10_IRQHandler</name></member>
     <member refid="stm32f4xx__it_8h_1aaf6ce196dde98712e1223b99766e06c0" kind="function"><name>DMA2_Stream0_IRQHandler</name></member>
     <member refid="stm32f4xx__it_8h_1abc8a61d83a243d1d571a628a10f55733" kind="function"><name>CAN2_TX_IRQHandler</name></member>
@@ -791,16 +887,95 @@
     <member refid="uvfr__global__config_8h_1a0db9878509bed12a5285918640a6c309" kind="define"><name>ECUMASTER_PMU</name></member>
     <member refid="uvfr__global__config_8h_1ad2ffeade407a690d34c80397981a9326" kind="define"><name>STM32_F407</name></member>
     <member refid="uvfr__global__config_8h_1a6d9ab034d353afd623acde9fc618176c" kind="define"><name>STM32_H7xx</name></member>
+    <member refid="uvfr__global__config_8h_1a0b584a8bce5bc95619d58d126328d24d" kind="define"><name>FIRMWARE_MAJOR_RELEASE</name></member>
+    <member refid="uvfr__global__config_8h_1a2ada82deacaaa65d39fd8431202312e8" kind="define"><name>FIRMWARE_MINOR_RELEASE</name></member>
+    <member refid="uvfr__global__config_8h_1a056c3375923e87e7b3df830ea10295da" kind="define"><name>FIRMWARE_PATCH_NUM</name></member>
     <member refid="uvfr__global__config_8h_1a93d6d1e888beb1e52dcb61b2f1be2591" kind="define"><name>UV_MALLOC_LIMIT</name></member>
     <member refid="uvfr__global__config_8h_1a683423f7993a3b962eeba1629a028a0e" kind="define"><name>USE_OS_MEM_MGMT</name></member>
   </compound>
   <compound refid="uvfr__settings_8h" kind="file"><name>uvfr_settings.h</name>
     <member refid="uvfr__settings_8h_1ac120024a956e1c9d9994c49c5383d440" kind="define"><name>ENABLE_FLASH_SETTINGS</name></member>
+    <member refid="uvfr__settings_8h_1a3e4cc3b6b2019eb461b9cd99ff70f1e7" kind="define"><name>START_OF_USER_FLASH</name></member>
+    <member refid="uvfr__settings_8h_1a51c4eefdfb7ebd6d19fd6d35a3f6a34f" kind="define"><name>TOP_OF_USER_FLASH</name></member>
+    <member refid="uvfr__settings_8h_1aa81180ef8eb37ec6e7d99d706610680d" kind="define"><name>TOP_OF_FLASH_SBLOCK</name></member>
+    <member refid="uvfr__settings_8h_1acacc88fdb8b97ea07cf0be9f17a023cf" kind="define"><name>SBLOCK_CSR_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a41cab1c170a91737c8209c8231be894a" kind="define"><name>SYS_DATA_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a342e3921728e340ca4a2330e1c15b486" kind="define"><name>SIZE_OF_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1aebd62102e00795b30043cdceecace52f" kind="define"><name>SBLOCK_CRC_REGION_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a16f48a5f6f80f73072abfa3c5887fa43" kind="define"><name>SIZEOF_USER_FLASH</name></member>
+    <member refid="uvfr__settings_8h_1a79779aaf637a0459db42ec96f3c10a99" kind="define"><name>SIZEOF_SBLOCK</name></member>
+    <member refid="uvfr__settings_8h_1a1af6d32a5f9f7c214731b3cdde2ae48d" kind="define"><name>FLASH_SBLOCK_START</name></member>
+    <member refid="uvfr__settings_8h_1a2cec12819b880d2916b1eb46d049c28c" kind="define"><name>isPtrToFlash</name></member>
+    <member refid="uvfr__settings_8h_1aa896deeb35bafb45b994e9c1d0c6500a" kind="define"><name>GENERAL_VEH_INFO_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1abcf807ab03bef940a111bb64cfffecfa" kind="define"><name>GENERAL_VEH_INFO_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1ae727eadb1cf71a3feeb12b7bb2eb83d5" kind="define"><name>OS_SETTINGS_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a012d0d54f18a0eeee83d89f5786db5d5" kind="define"><name>OS_SETTINGS_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a8dcd226ad400ccad6948923cc1b4d335" kind="define"><name>OS_SETTINGS_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1aad0db57c7f8c7937be54192d7b74bdcf" kind="define"><name>MOTOR_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1aa990a9c990001dc29a5ee5fdde3773e4" kind="define"><name>MOTOR_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a64e82d251eccd0980c14764939968bef" kind="define"><name>MOTOR_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1aaad501c2b79f55f1bbbae030b6a18dcd" kind="define"><name>DRIVING_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a16f051ea34ee4f4965e4d11f3745d742" kind="define"><name>DRIVING_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a1d468b6513b2d5cb0bee9e8533d6f67c" kind="define"><name>DRIVING_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1a25a35d43902b9bec03daae2ef17883b1" kind="define"><name>BMS_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a95973d7f17e9a5994743b16520f6a136" kind="define"><name>BMS_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1ab638ad0845e4b5e7007e314c83bc43d5" kind="define"><name>BMS_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1ae5fe9f0cb3fad913bd688758c9b24d79" kind="define"><name>IMD_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a790b81866b0c7880d2d8fcb39880885a" kind="define"><name>IMD_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1ae99330d4904337e9a603ad2df6758b95" kind="define"><name>IMD_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1aa77056695d9689ca6642d5b7176e33c9" kind="define"><name>PDU_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a8336472ba83c36033d7d4511a2e3b53e" kind="define"><name>PDU_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a9102216741a840e84c7fcdc4398a194c" kind="define"><name>PDU_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1a14f988f2e948d8f522f0ef04a29762d6" kind="define"><name>DAQ_HEAD_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1afc36afa04b73fc9a1ea92b22e6cb564f" kind="define"><name>DAQ_HEAD_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1aae3049baf8d0bf80753c7b0da5ec8260" kind="define"><name>DAQ_HEAD_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1a084bd6444fb9817cc88531b879ba571b" kind="define"><name>DAQ_PARAMS1_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a10d6e75bc6bdeb4dec495cbfe05682fd" kind="define"><name>DAQ_PARAMS1_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1ae385496a129924fb290839da5bfa90a2" kind="define"><name>DAQ_PARAMS1_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1a95329f2d7eeeb3f9ede20a879c5392ca" kind="define"><name>DAQ_PARAMS2_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1af56bc76639c60400254e802f48f20936" kind="define"><name>DAQ_PARAMS2_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a944ba9611ab0e293aacff9594b1ebf7f" kind="define"><name>DAQ_PARAMS2_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1a60d2a2dc2bef8bfc786db07f7ddad0d9" kind="define"><name>DAQ_PARAMS3_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1afadf89c5c899160c56994a513674f7b6" kind="define"><name>DAQ_PARAMS3_OFFSET</name></member>
+    <member refid="uvfr__settings_8h_1a1016315bfe0ce8be5512780f7769a364" kind="define"><name>DAQ_PARAMS3_ADDR</name></member>
+    <member refid="uvfr__settings_8h_1aa252d2dee631f0619838cb19f8dd10fe" kind="define"><name>PERSISTENT_DATA_MGROUP</name></member>
+    <member refid="uvfr__settings_8h_1a81e1cb9c94a204763cd52c4c2ce47428" kind="define"><name>CRC_MGROUP1</name></member>
+    <member refid="uvfr__settings_8h_1a4d5340ff37ab779b3a6acf7c523a6f72" kind="define"><name>CRC_MGROUP2</name></member>
+    <member refid="uvfr__settings_8h_1ae3422980a714e1a061dc8c4685a1d613" kind="define"><name>SETTING_BRANCH_SIZE</name></member>
+    <member refid="uvfr__settings_8h_1a3a57af5c3275b2f53fa64274b11e8d52" kind="define"><name>CRC_POLY</name></member>
+    <member refid="uvfr__settings_8h_1a54061e5993a5517320d425f44408cc86" kind="define"><name>MAGIC_NUMBER</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694" kind="enum"><name>laptop_CMD</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694acc6ddcaa36bd57e5aec12749cb5ce29c" kind="enumvalue"><name>HANDSHAKE</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694aab474c9db56509a37ee4ee2930849b38" kind="enumvalue"><name>ENTER_PROGRAMMING_MODE</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694ad67522ff5c2a93d043e4d26bd905ce34" kind="enumvalue"><name>REQUEST_VCU_STATUS</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694ab8a24171d3940ec1ea3160842c3e4b4b" kind="enumvalue"><name>CLEAR_FAULTS</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a12171aa85f3d0dca4aa19b53122ca542" kind="enumvalue"><name>REQUEST_VCU_FIRMWARE_VERSION</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694ad99a8ce3d129dcc56d82ee11b0610f18" kind="enumvalue"><name>GENERIC_ACK</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a6d038d621b53bce1f3da19a4d1796c60" kind="enumvalue"><name>CANNOT_PERFORM_REQUEST</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a7091f0610d47127e952576fcf2d72eac" kind="enumvalue"><name>SET_SPECIFIC_PARAM</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694aefd2ddc079bf62b63b3e5226b9a83ac3" kind="enumvalue"><name>END_OF_SPECIFIC_PARAMS</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a9b0e526098fd6c30dc93538edba59405" kind="enumvalue"><name>REQUEST_ALL_SETTINGS</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a205322c736d66df92b6d968b53648acb" kind="enumvalue"><name>REQUEST_ALL_JOURNAL_ENTRIES</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a4313d65a75fd41f3e527b330e7370a5e" kind="enumvalue"><name>REQUEST_JOURNAL_ENTRIES_BY_TIME</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694ac53400ee472ace47006a18aaaa4a86a0" kind="enumvalue"><name>REQUEST_SPECIFIC_SETTING</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a8ad6825ef0a84f2615148dc63202be1f" kind="enumvalue"><name>SAVE_AND_APPLY_NEW_SETTINGS</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a485f41f6d806239622abbac7aef60557" kind="enumvalue"><name>DISCARD_NEW_SETTINGS</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694abe34f5f2d055215f2ff2e2d85401199a" kind="enumvalue"><name>DISCARD_NEW_SETTINGS_AND_EXIT</name></member>
+    <member refid="uvfr__settings_8h_1aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258" kind="enumvalue"><name>FORCE_RESTORE_FACTORY_DEFAULT</name></member>
     <member refid="uvfr__settings_8h_1a63c94a189304fb004523f327915010e0" kind="typedef"><name>veh_gen_info</name></member>
+    <member refid="uvfr__settings_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kind="typedef"><name>uv_status</name></member>
     <member refid="uvfr__settings_8h_1a1c41697a3618ce0a5236b7ccb250d967" kind="typedef"><name>uv_vehicle_settings</name></member>
+    <member refid="uvfr__settings_8h_1a420642111318eedc2b05236f0ed531f4" kind="typedef"><name>motor_controller_settings</name></member>
     <member refid="uvfr__settings_8h_1a03566822d1b8893362970a459bd67daf" kind="variable"><name>current_vehicle_settings</name></member>
+    <member refid="uvfr__settings_8h_1a086bfc48f5a63b15586c6a2a8a1d29a8" kind="function"><name>uvConfigSettingTask</name></member>
     <member refid="uvfr__settings_8h_1a4648237563030182a8309d8c75e12205" kind="function"><name>nukeSettings</name></member>
+    <member refid="uvfr__settings_8h_1a3abaec3762455ba15c98ea72a3894d75" kind="function"><name>uvValidateSettingsFromFlash</name></member>
     <member refid="uvfr__settings_8h_1a80856a38d7040ca10b8106ff0fa4acf4" kind="function"><name>uvSettingsInit</name></member>
+    <member refid="uvfr__settings_8h_1add1ebdaa7f93f2a43ca6afc6e05fdd44" kind="function"><name>setupDefaultSettings</name></member>
+    <member refid="uvfr__settings_8h_1ae3d00fef6a3de0a54cee08c6615791b9" kind="function"><name>uvSaveSettingsToFlash</name></member>
+    <member refid="uvfr__settings_8h_1a90cba009630be4dc991f7de6cbede4d8" kind="function"><name>uvComputeMemRegionChecksum</name></member>
+    <member refid="uvfr__settings_8h_1ab5517a01eefd6dbd7d0b05251467792d" kind="function"><name>uvComputeSettingsCheckSums</name></member>
+    <member refid="uvfr__settings_8h_1a84fc0703372fd83581befabb9fba3858" kind="function"><name>uvValidateChecksums</name></member>
   </compound>
   <compound refid="uvfr__state__engine_8h" kind="file"><name>uvfr_state_engine.h</name>
     <member refid="uvfr__state__engine_8h_1a20115c3c236542d702abb10565f381f2" kind="define"><name>_UV_DEFAULT_TASK_INSTANCES</name></member>
@@ -1005,6 +1180,7 @@
     <member refid="uvfr__utils_8h_1ab92fc0d70c77e3d9bf8b15b5f9cb91a8" kind="typedef"><name>uv_internal_params</name></member>
     <member refid="uvfr__utils_8h_1a8e8a2c49abd23762e28f61fe5c9cb882" kind="typedef"><name>uv_init_task_response</name></member>
     <member refid="uvfr__utils_8h_1a660f31748ce0b90d471a4f5441ee3cb1" kind="variable"><name>global_context</name></member>
+    <member refid="uvfr__utils_8h_1a657e7e858d8847396634fd9912747f8b" kind="variable"><name>data_size</name></member>
     <member refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" kind="function"><name>uvInit</name></member>
     <member refid="uvfr__utils_8h_1a92b5ac44171d49acd084c274385a043a" kind="function"><name>__uvInitPanic</name></member>
     <member refid="uvfr__utils_8h_1a0186c036688c7852cf0ceaee96b343a3" kind="function"><name>uvIsPTRValid</name></member>
@@ -1028,6 +1204,12 @@
     <member refid="uvfr__vehicle__commands_8h_1a8073be27b31b156bee66e3b3038144c9" kind="function"><name>uvSecureVehicle</name></member>
   </compound>
   <compound refid="adc_8c" kind="file"><name>adc.c</name>
+    <member refid="adc_8c_1a3903c57732eb74d8fe2a3a80866a81d1" kind="define"><name>DEBUG_TOGGLE_LED</name></member>
+    <member refid="adc_8c_1ace3a7a923fac03b79884ba01cc3b90e0" kind="variable"><name>adc_buf1</name></member>
+    <member refid="adc_8c_1a549b3590f54dfc129d2eebf2604c16e8" kind="variable"><name>adc1_APPS1</name></member>
+    <member refid="adc_8c_1a8567d6e2f5ad8bd53f71ecc2b2b0ae30" kind="variable"><name>adc1_APPS2</name></member>
+    <member refid="adc_8c_1ad36d3aa4037203058df6816d56f4c186" kind="variable"><name>adc1_BPS1</name></member>
+    <member refid="adc_8c_1a277f7921a7a1e0fb8a6f953943dc06dc" kind="variable"><name>adc1_BPS2</name></member>
     <member refid="adc_8c_1a22b804736f5648d52f639b2647d4ed13" kind="variable"><name>hadc1</name></member>
     <member refid="adc_8c_1acd9221f1aa19aebfe0b744947f2daf49" kind="variable"><name>hadc2</name></member>
     <member refid="adc_8c_1a1c126854bb1813d31ab4776b21dcc51f" kind="variable"><name>hdma_adc1</name></member>
@@ -1035,8 +1217,13 @@
     <member refid="adc_8c_1a101e2e3433dfe72bbbd0ae3a84489263" kind="function"><name>MX_ADC2_Init</name></member>
     <member refid="adc_8c_1ac3139540667c403c5dfd37a99c610b1c" kind="function"><name>HAL_ADC_MspInit</name></member>
     <member refid="adc_8c_1a3f61f2c2af0f122f81a87af8ad7b4360" kind="function"><name>HAL_ADC_MspDeInit</name></member>
+    <member refid="adc_8c_1adeffbae91619fcbc1647f8b964aa896b" kind="function"><name>StartADCTask</name></member>
+    <member refid="adc_8c_1a03fdeaebd739f2aa61c15278070878e0" kind="function"><name>processADCBuffer</name></member>
+    <member refid="adc_8c_1a4ba1683325a3553851abf884b905f1b1" kind="function"><name>initADCTask</name></member>
   </compound>
   <compound refid="bms_8c" kind="file"><name>bms.c</name>
+    <member refid="bms_8c_1a28e4314b233b9140e73e4fd0bab7e354" kind="variable"><name>default_bms_settings</name></member>
+    <member refid="bms_8c_1a31a2cd89d8b65b4477bb24316a62e910" kind="function"><name>handleBMSVoltageMsg</name></member>
     <member refid="bms_8c_1aa9af83736568f74c94d41f3f16adf513" kind="function"><name>BMS_Init</name></member>
   </compound>
   <compound refid="can_8c" kind="file"><name>can.c</name>
@@ -1072,14 +1259,27 @@
   </compound>
   <compound refid="daq_8c" kind="file"><name>daq.c</name>
     <member refid="daq_8c_1a5a6490a76926af0287e58c4b1af260bd" kind="define"><name>_SRC_UVFR_DAQ</name></member>
-    <member refid="daq_8c_1a07e7f750fa90de582a1e994dcf9b57d0" kind="variable"><name>param_LUT</name></member>
-    <member refid="daq_8c_1a5ad861e87cf80d5723cc62a2fbc31c86" kind="function"><name>deleteParamList</name></member>
-    <member refid="daq_8c_1a25d6aad2bb791db6e28fdab0bbb026d5" kind="function"><name>deleteDaqSubTask</name></member>
+    <member refid="daq_8c_1a4a7e5c4a5e65c315010bab902f2268a6" kind="typedef"><name>daq_param_list_node</name></member>
+    <member refid="daq_8c_1a2104fed000d8cb392baf5d14e06193c1" kind="typedef"><name>daq_child_task</name></member>
+    <member refid="daq_8c_1a5a9a97f4494923c066b5c4faaaaf8f88" kind="variable"><name>curr_daq_settings</name></member>
+    <member refid="daq_8c_1a22b4a1eccdbbbf445f1847cc3a49c3e0" kind="variable"><name>default_daq_settings</name></member>
+    <member refid="daq_8c_1af5ab2cd7ec858145d49d4e585e4bef94" kind="variable"><name>default_datapoints</name></member>
+    <member refid="daq_8c_1aeed531c2be2a5177eebeaacd47c04526" kind="variable"><name>param_ptrs</name></member>
+    <member refid="daq_8c_1a912bd9ed0555d1bedc46ec216962c5f1" kind="variable"><name>daq_tlist</name></member>
+    <member refid="daq_8c_1ad6cbbc8d3571452db9a10c35551f721e" kind="variable"><name>datapoints</name></member>
+    <member refid="daq_8c_1a463311a3d81da8e08c8c9c78d447fc59" kind="variable"><name>param_bank</name></member>
+    <member refid="daq_8c_1a46330ae75c3716f15677e104e8cced32" kind="variable"><name>tmp_daq_msg</name></member>
+    <member refid="daq_8c_1a740f6299f5ce19d6d94d148e13231dd9" kind="function"><name>daqSubTask</name></member>
+    <member refid="daq_8c_1a56ca1193de01115c27ceb3768994017f" kind="function"><name>associateDaqParamWithVar</name></member>
+    <member refid="daq_8c_1adcd689b5d7e750a2970e1f9e05c16c55" kind="function"><name>insertParamToParamList</name></member>
+    <member refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" kind="function"><name>insertParamToRegister</name></member>
+    <member refid="daq_8c_1a9e1cd582f8748d018266ba4ab15561ae" kind="function"><name>configureDaqSubTasks</name></member>
     <member refid="daq_8c_1a65df75bcd76d421bf28fca5704c8ff95" kind="function"><name>startDaqSubTasks</name></member>
     <member refid="daq_8c_1ad3997ae047f3e30136b3f2b668c8030a" kind="function"><name>stopDaqSubTasks</name></member>
     <member refid="daq_8c_1af2c619df9f3d115dcbc511b0bb738e87" kind="function"><name>initDaqTask</name></member>
     <member refid="daq_8c_1a433bb586ceab47aed8d633fa2ff8ce56" kind="function"><name>daqMasterTask</name></member>
-    <member refid="daq_8c_1a740f6299f5ce19d6d94d148e13231dd9" kind="function"><name>daqSubTask</name></member>
+    <member refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" kind="function"><name>sendDaqMsg</name></member>
+    <member refid="daq_8c_1ae7274a95a4e4881bc3fe84c9021d4a6c" kind="function"><name>sendAllParamsFromList</name></member>
   </compound>
   <compound refid="dash_8c" kind="file"><name>dash.c</name>
     <member refid="dash_8c_1ab26e477047a5166efc8f2b34dbd38872" kind="function"><name>Update_RPM</name></member>
@@ -1090,11 +1290,25 @@
     <member refid="dma_8c_1a323249dac769f9855c10b4ec9446b707" kind="function"><name>MX_DMA_Init</name></member>
   </compound>
   <compound refid="driving__loop_8c" kind="file"><name>driving_loop.c</name>
+    <member refid="driving__loop_8c_1a3fa2d9e8a3ff5bc7ac576fda26265b44" kind="define"><name>ACCELERATION</name></member>
+    <member refid="driving__loop_8c_1a7c627c95d1731c3c24a41b8aa86a5fd5" kind="define"><name>AUTOCROSS</name></member>
+    <member refid="driving__loop_8c_1a64a87e1f80735e94aac871db572dda97" kind="define"><name>ENDURANCE</name></member>
     <member refid="driving__loop_8c_1a549b3590f54dfc129d2eebf2604c16e8" kind="variable"><name>adc1_APPS1</name></member>
     <member refid="driving__loop_8c_1a8567d6e2f5ad8bd53f71ecc2b2b0ae30" kind="variable"><name>adc1_APPS2</name></member>
     <member refid="driving__loop_8c_1ad36d3aa4037203058df6816d56f4c186" kind="variable"><name>adc1_BPS1</name></member>
     <member refid="driving__loop_8c_1a277f7921a7a1e0fb8a6f953943dc06dc" kind="variable"><name>adc1_BPS2</name></member>
+    <member refid="driving__loop_8c_1ab8788a0f246816c11002008cb43d1886" kind="variable"><name>default_dl_settings</name></member>
+    <member refid="driving__loop_8c_1a401dd8422f51d8d344e5ac9559ef8908" kind="variable"><name>driving_args</name></member>
+    <member refid="driving__loop_8c_1a15e200c9bf4f5d49b02215e273d2d841" kind="variable"><name>is_accelerating</name></member>
+    <member refid="driving__loop_8c_1afb126e9ab9acbc2c02585ce5728a538a" kind="variable"><name>T_PREV</name></member>
+    <member refid="driving__loop_8c_1a8096732d061a4d6d6a9b78780025f056" kind="variable"><name>T_REQ</name></member>
+    <member refid="driving__loop_8c_1ad5227d6e3a1f9c241f31f07abe9f1695" kind="function"><name>calculateThrottlePercentage</name></member>
+    <member refid="driving__loop_8c_1ac9c776513f26edd5cf75280eea26275b" kind="function"><name>performSafetyChecks</name></member>
     <member refid="driving__loop_8c_1af580185fb5bb1cfba30ee1709d90628c" kind="function"><name>initDrivingLoop</name></member>
+    <member refid="driving__loop_8c_1a14bdb2b38c226aa850a0c25207afd1fa" kind="function"><name>mapThrottleToTorque</name></member>
+    <member refid="driving__loop_8c_1abdfd52d179ac8c6707ea8e0ddb98b7cd" kind="function"><name>getKValue</name></member>
+    <member refid="driving__loop_8c_1a42c4321a28da09906e185c9c5971fce9" kind="function"><name>applyTorqueFilter</name></member>
+    <member refid="driving__loop_8c_1a1eee9dfaef3aaaf010bd8bb12fa20fc3" kind="function"><name>sendTorqueToMotorController</name></member>
     <member refid="driving__loop_8c_1a80cc48f06202edc29bcad26a956bcc98" kind="function"><name>StartDrivingLoop</name></member>
   </compound>
   <compound refid="freertos_8c" kind="file"><name>freertos.c</name>
@@ -1142,6 +1356,7 @@
     <member refid="imd_8c_1ac493eb0ec9882a9ff2c6d340707c19e6" kind="variable"><name>IMD_Serial_Number_Set</name></member>
     <member refid="imd_8c_1a5b8ada827e9888be105e0bc8c27006f3" kind="variable"><name>IMD_Temperature</name></member>
     <member refid="imd_8c_1a208e957d0a18b23cb59f4eedd1c855cc" kind="variable"><name>IMD_error_flags_requested</name></member>
+    <member refid="imd_8c_1a58782be23a1af4a9d26692154f2b826a" kind="variable"><name>default_imd_settings</name></member>
     <member refid="imd_8c_1a1f6181c5ab49d963007eb9a212672bbd" kind="function"><name>IMD_Parse_Message</name></member>
     <member refid="imd_8c_1aeb7c937639c5385f5d2b4e3a4e60250f" kind="function"><name>IMD_Request_Status</name></member>
     <member refid="imd_8c_1ab4e8b5af19cc6d0b08ace9185a542b01" kind="function"><name>IMD_Check_Status_Bits</name></member>
@@ -1164,7 +1379,7 @@
   </compound>
   <compound refid="main_8c" kind="file"><name>main.c</name>
     <member refid="main_8c_1a764dcd92a2e2229e53e2090201243643" kind="define"><name>DEBUG_CAN_IN_MAIN</name></member>
-    <member refid="main_8c_1a8c60277435d9f53a21fed2e4ae28a66a" kind="variable"><name>adc_buf1</name></member>
+    <member refid="main_8c_1ace3a7a923fac03b79884ba01cc3b90e0" kind="variable"><name>adc_buf1</name></member>
     <member refid="main_8c_1a549b3590f54dfc129d2eebf2604c16e8" kind="variable"><name>adc1_APPS1</name></member>
     <member refid="main_8c_1a8567d6e2f5ad8bd53f71ecc2b2b0ae30" kind="variable"><name>adc1_APPS2</name></member>
     <member refid="main_8c_1ad36d3aa4037203058df6816d56f4c186" kind="variable"><name>adc1_BPS1</name></member>
@@ -1182,21 +1397,13 @@
     <member refid="main_8c_1a1730ffe1e560465665eb47d9264826f9" kind="function"><name>Error_Handler</name></member>
   </compound>
   <compound refid="motor__controller_8c" kind="file"><name>motor_controller.c</name>
-    <member refid="motor__controller_8c_1a31e56f574be52c9850bb3034ebd9e010" kind="variable"><name>canRxQueue</name></member>
-    <member refid="motor__controller_8c_1ad7e8e999e507ca3c4a6f1d4b5430cfff" kind="variable"><name>canTxQueue</name></member>
-    <member refid="motor__controller_8c_1a26195bc72f07eeb97338e761432e03d2" kind="variable"><name>MC_Expected_Serial_Number</name></member>
-    <member refid="motor__controller_8c_1a8f25ebbc9bf59980fdc0458f271437ee" kind="variable"><name>MC_Expected_FW_Version</name></member>
-    <member refid="motor__controller_8c_1a347eaa173dae5d48ae87a4bc5532adfc" kind="variable"><name>max_motor_speed</name></member>
     <member refid="motor__controller_8c_1afb41a96439ba6d63dcc64f257c43a1d2" kind="variable"><name>mc_default_settings</name></member>
-    <member refid="motor__controller_8c_1a6e0eaf3bbf353c1b2b7b4ae59e928722" kind="function"><name>Parse_Bamocar_Response</name></member>
-    <member refid="motor__controller_8c_1ae459dcb08bdf9b88ccc2de10bee4c409" kind="function"><name>MotorControllerErrorHandler</name></member>
-    <member refid="motor__controller_8c_1a71371a5194c9b5c725abec77feffbc38" kind="function"><name>MotorControllerSpinTest</name></member>
-    <member refid="motor__controller_8c_1a560fd64fa21f9583f346b08cd371afa4" kind="function"><name>WaitFor_CAN_Response</name></member>
+    <member refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" kind="function"><name>MotorControllerSpinTest</name></member>
     <member refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" kind="function"><name>MC_Request_Data</name></member>
-    <member refid="motor__controller_8c_1a40bf1b849ad7443bbe8af342006bb3cd" kind="function"><name>MC_Check_Error_Warning</name></member>
-    <member refid="motor__controller_8c_1ac592ffd65d2793aadca7ca158a3d2dbc" kind="function"><name>MC_Validate</name></member>
-    <member refid="motor__controller_8c_1af34e05da8add9233de12150656dad092" kind="function"><name>MC_Check_Serial_Number</name></member>
-    <member refid="motor__controller_8c_1a877a1b68c89c7eeecc3ed294e5dc8a73" kind="function"><name>MC_Check_Firmware</name></member>
+    <member refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" kind="function"><name>MC_Set_Param</name></member>
+    <member refid="motor__controller_8c_1a98ef1edcc51198faf53767e8d92ce4c9" kind="function"><name>Parse_Bamocar_Response</name></member>
+    <member refid="motor__controller_8c_1aa2fe2c9102e9f2ab65ab4a9d5557f497" kind="function"><name>MotorControllerErrorHandler_16bitLE</name></member>
+    <member refid="motor__controller_8c_1aaff68bb563bf4ad56841a5a5020cbadc" kind="function"><name>ProcessMotorControllerResponse</name></member>
     <member refid="motor__controller_8c_1aed1407e1e0fd59dc7c5e5d6db671f0ab" kind="function"><name>MC_Startup</name></member>
   </compound>
   <compound refid="odometer_8c" kind="file"><name>odometer.c</name>
@@ -1206,6 +1413,7 @@
   <compound refid="oled_8c" kind="file"><name>oled.c</name>
   </compound>
   <compound refid="pdu_8c" kind="file"><name>pdu.c</name>
+    <member refid="pdu_8c_1a07c6d6c6f641c6fb60600b9bd7efbf7e" kind="variable"><name>default_pdu_settings</name></member>
     <member refid="pdu_8c_1a42e33c33fc1dea26555ff7b20984b186" kind="function"><name>PDU_speaker_chirp</name></member>
     <member refid="pdu_8c_1aa5479c0d6ab8d58683e99bf102d60db8" kind="function"><name>PDU_enable_brake_light</name></member>
     <member refid="pdu_8c_1ad7b67b3c1618a7c50a5d6d9f9e13a89f" kind="function"><name>PDU_disable_brake_light</name></member>
@@ -1256,6 +1464,8 @@
   </compound>
   <compound refid="stm32f4xx__it_8c" kind="file"><name>stm32f4xx_it.c</name>
     <member refid="stm32f4xx__it_8c_1a1c126854bb1813d31ab4776b21dcc51f" kind="variable"><name>hdma_adc1</name></member>
+    <member refid="stm32f4xx__it_8c_1a22b804736f5648d52f639b2647d4ed13" kind="variable"><name>hadc1</name></member>
+    <member refid="stm32f4xx__it_8c_1acd9221f1aa19aebfe0b744947f2daf49" kind="variable"><name>hadc2</name></member>
     <member refid="stm32f4xx__it_8c_1ab77168d14df04ccca5d48612ee21ced8" kind="variable"><name>hcan2</name></member>
     <member refid="stm32f4xx__it_8c_1a25fc663547539bc49fecc0011bd76ab5" kind="variable"><name>htim1</name></member>
     <member refid="stm32f4xx__it_8c_1a6ad7a5e3ee69cb6db6a6b9111ba898bc" kind="function"><name>NMI_Handler</name></member>
@@ -1265,6 +1475,7 @@
     <member refid="stm32f4xx__it_8c_1a1d98923de2ed6b7309b66f9ba2971647" kind="function"><name>UsageFault_Handler</name></member>
     <member refid="stm32f4xx__it_8c_1adbdfb05858cc36fc520974df37ec3cb0" kind="function"><name>DebugMon_Handler</name></member>
     <member refid="stm32f4xx__it_8c_1a17e9789a29a87d2df54f12b94dd1a0b6" kind="function"><name>EXTI0_IRQHandler</name></member>
+    <member refid="stm32f4xx__it_8c_1a06406eadf297fa89a6eaf9586b227a69" kind="function"><name>ADC_IRQHandler</name></member>
     <member refid="stm32f4xx__it_8c_1ad1fd361bc5ad89facee67c76d1ff8dc0" kind="function"><name>TIM1_UP_TIM10_IRQHandler</name></member>
     <member refid="stm32f4xx__it_8c_1aaf6ce196dde98712e1223b99766e06c0" kind="function"><name>DMA2_Stream0_IRQHandler</name></member>
     <member refid="stm32f4xx__it_8c_1abc8a61d83a243d1d571a628a10f55733" kind="function"><name>CAN2_TX_IRQHandler</name></member>
@@ -1320,12 +1531,67 @@
   </compound>
   <compound refid="uvfr__settings_8c" kind="file"><name>uvfr_settings.c</name>
     <member refid="uvfr__settings_8c_1a7350f4a84cab7a08d99c9e88b248a180" kind="define"><name>SRC_UVFR_SETTINGS_C_</name></member>
+    <member refid="uvfr__settings_8c_1a9320db4d0509341600bb7584ca595609" kind="define"><name>VCU_TO_LAPTOP_ID</name></member>
+    <member refid="uvfr__settings_8c_1aaa6ee3d8e77c95b379e21d4b827ad783" kind="define"><name>LAPTOP_TO_VCU_ID</name></member>
+    <member refid="uvfr__settings_8c_1a65bd5632c9f844eac3ead2787cb1375c" kind="define"><name>FLASH_OK</name></member>
+    <member refid="uvfr__settings_8c_1a0acc0e528de17ca0616ca14d82e92ba5" kind="define"><name>INVALID_SBLOCK</name></member>
+    <member refid="uvfr__settings_8c_1a7922bc9d90bb507f9885103792e4343f" kind="define"><name>FLASH_NOT_UNLOCKED</name></member>
+    <member refid="uvfr__settings_8c_1a0202712190ca1bce6a198dd196f48c4b" kind="define"><name>DID_NOT_FINISH_PROGRAMMING</name></member>
+    <member refid="uvfr__settings_8c_1ae9b3336d2f9087deea03d9adac5d06fd" kind="define"><name>DATA_MISMATCH</name></member>
+    <member refid="uvfr__settings_8c_1a4fc65d72946e3e169f15ed0015fa3d3c" kind="define"><name>PRE_CHECKSUM</name></member>
+    <member refid="uvfr__settings_8c_1a1e63b2fed237e9d016b304884c01457b" kind="define"><name>POST_CHECKSUM</name></member>
+    <member refid="uvfr__settings_8c_1a0641c122dc09626011ee339625d1ea63" kind="typedef"><name>tx_all_settings_args</name></member>
+    <member refid="uvfr__settings_8c_1a9a7490c87797ddce618071ea477c8009" kind="typedef"><name>tx_journal_args</name></member>
+    <member refid="uvfr__settings_8c_1a06b8e5486501c8fe34e2a1c669e4a01c" kind="typedef"><name>helper_task_args</name></member>
+    <member refid="uvfr__settings_8c_1aff5e0078d7c880f42cc79e084141a6bd" kind="typedef"><name>setting_helper_task</name></member>
+    <member refid="uvfr__settings_8c_1a7c9185b38cc68d3a0c2c205746d25494" kind="variable"><name>_s_uvdata</name></member>
+    <member refid="uvfr__settings_8c_1a32dcb66c3240af325158ccd12dcb3c68" kind="variable"><name>_e_uvdata</name></member>
     <member refid="uvfr__settings_8c_1a03566822d1b8893362970a459bd67daf" kind="variable"><name>current_vehicle_settings</name></member>
     <member refid="group__state__engine_1gad9e02be6d2d0bc1ab5cd9fd8cae34230" kind="variable"><name>default_os_settings</name></member>
-    <member refid="uvfr__settings_8c_1a42f7a1907bfe84d7b0f9fb4e2260018b" kind="function"><name>setupDefaultSettings</name></member>
+    <member refid="uvfr__settings_8c_1a1c7fecf890841f27a4ca39fc66e8cc1b" kind="variable"><name>mc_default_settings</name></member>
+    <member refid="uvfr__settings_8c_1a44daa1a9c68be860616e7bc627d9b8f4" kind="variable"><name>default_dl_settings</name></member>
+    <member refid="uvfr__settings_8c_1ad795c6981571499e4a90ef72698b6ea1" kind="variable"><name>default_daq_settings</name></member>
+    <member refid="uvfr__settings_8c_1a1071bc1cceac3198de98d9c0753044d6" kind="variable"><name>default_imd_settings</name></member>
+    <member refid="uvfr__settings_8c_1a28e4314b233b9140e73e4fd0bab7e354" kind="variable"><name>default_bms_settings</name></member>
+    <member refid="uvfr__settings_8c_1a07c6d6c6f641c6fb60600b9bd7efbf7e" kind="variable"><name>default_pdu_settings</name></member>
+    <member refid="uvfr__settings_8c_1af5ab2cd7ec858145d49d4e585e4bef94" kind="variable"><name>default_datapoints</name></member>
+    <member refid="uvfr__settings_8c_1a550e75d7673e407aad1a5240ff83db23" kind="variable"><name>default_vehicle</name></member>
+    <member refid="uvfr__settings_8c_1ad566fc47eb8eb3464e5b48f088ddbb83" kind="variable"><name>is_laptop_connected</name></member>
+    <member refid="uvfr__settings_8c_1a4a1aa886008fc488d72c502d5af2aa52" kind="variable"><name>last_contact_with_laptop</name></member>
+    <member refid="uvfr__settings_8c_1aa3e729b05a7d2931a9a1e55f52bca3c7" kind="variable"><name>settings_queue</name></member>
+    <member refid="uvfr__settings_8c_1a6726b669a3c5795c3326238ab974f382" kind="variable"><name>ptask_handle</name></member>
+    <member refid="uvfr__settings_8c_1a19de39f55cc05851f5fa6a40070681e3" kind="variable"><name>child_task_handle</name></member>
+    <member refid="uvfr__settings_8c_1af0cbf7f4ea57695f3b1d2d3c83844000" kind="variable"><name>child_task_active</name></member>
+    <member refid="uvfr__settings_8c_1af3e753b2f0a1841e5e54714979b93491" kind="variable"><name>vcu_ack_msg</name></member>
+    <member refid="uvfr__settings_8c_1af7c7d49fd92c65119717ab40db8725f5" kind="variable"><name>vcu_ack_failed_msg</name></member>
+    <member refid="uvfr__settings_8c_1a0be2604cded239f54f4f4ab61460a85c" kind="function"><name>uvValidateFlashSettings</name></member>
+    <member refid="uvfr__settings_8c_1ac9480e8bfbccfda4b4c7316bdb55ba87" kind="function"><name>uvResetFlashToDefault</name></member>
+    <member refid="uvfr__settings_8c_1a2f0cb7e05c1bef0501d585df7c2c6013" kind="function"><name>uvSettingsProgrammerTask</name></member>
+    <member refid="uvfr__settings_8c_1a854e0900506f03ff53ff3ed1a9dc97ca" kind="function"><name>settingCopy</name></member>
+    <member refid="uvfr__settings_8c_1ad2bb778b8a8907a17c87de89f0eea3c0" kind="function"><name>uvTransmitVehicleStatus</name></member>
+    <member refid="uvfr__settings_8c_1a66126a25eee9ffcb3c5fa49314fc998b" kind="function"><name>uvAwaitLaptopAckMsg</name></member>
+    <member refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" kind="function"><name>handleIncomingLaptopMsg</name></member>
+    <member refid="uvfr__settings_8c_1add1ebdaa7f93f2a43ca6afc6e05fdd44" kind="function"><name>setupDefaultSettings</name></member>
     <member refid="uvfr__settings_8c_1a4648237563030182a8309d8c75e12205" kind="function"><name>nukeSettings</name></member>
-    <member refid="uvfr__settings_8c_1a80856a38d7040ca10b8106ff0fa4acf4" kind="function"><name>uvSettingsInit</name></member>
-    <member refid="uvfr__settings_8c_1aa4405e1cc3fcec217efd4de0ea6b55ee" kind="function"><name>uvSettingsProgrammerTask</name></member>
+    <member refid="uvfr__settings_8c_1ae9ab130db00266635709bb7fb72c1844" kind="function"><name>uvLoadSettingsFromFlash</name></member>
+    <member refid="uvfr__settings_8c_1a086bfc48f5a63b15586c6a2a8a1d29a8" kind="function"><name>uvConfigSettingTask</name></member>
+    <member refid="uvfr__settings_8c_1adc9522bb052011b07febe1235d1a4792" kind="function"><name>uvSettingsInit</name></member>
+    <member refid="uvfr__settings_8c_1adfd1bb6988b37f38e799bb1f996ac005" kind="function"><name>uvUpdateTmpSettings</name></member>
+    <member refid="uvfr__settings_8c_1aec8886c47c65892251b444760cb30116" kind="function"><name>uvComputeChunkChecksum</name></member>
+    <member refid="uvfr__settings_8c_1a90cba009630be4dc991f7de6cbede4d8" kind="function"><name>uvComputeMemRegionChecksum</name></member>
+    <member refid="uvfr__settings_8c_1aee72930bcdad229cbe8a8adb73e4a3b3" kind="function"><name>uvComputeSettingsChecksums</name></member>
+    <member refid="uvfr__settings_8c_1a84fc0703372fd83581befabb9fba3858" kind="function"><name>uvValidateChecksums</name></member>
+    <member refid="uvfr__settings_8c_1a2284c8b3e2b6e434f6a1d322396efdb2" kind="function"><name>uvSBlockCorruptionHandler</name></member>
+    <member refid="uvfr__settings_8c_1a36192e27458271ff052029579febb5a1" kind="function"><name>uvOverwriteCsr</name></member>
+    <member refid="uvfr__settings_8c_1a71b4d19fc9194c90d6b546a1b8138902" kind="function"><name>uvSaveSettingsToFlash</name></member>
+    <member refid="uvfr__settings_8c_1a30c09e445d8f0fbfbdfd1bfa0fcfdc67" kind="function"><name>uvSetSettingResponseReminder</name></member>
+    <member refid="uvfr__settings_8c_1a8e128ab49bfb636a4597802418066784" kind="function"><name>uvForceDefaultReversionUponDeviceReset</name></member>
+    <member refid="uvfr__settings_8c_1a53df36781d38254cb6bbe6717e6ebae0" kind="function"><name>uvCreateTmpSettingsCopy</name></member>
+    <member refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" kind="function"><name>uvSendSpecificParam</name></member>
+    <member refid="uvfr__settings_8c_1a5f5ab3b99bc259455a2ec79144422450" kind="function"><name>uvResetFlashToDefault</name></member>
+    <member refid="uvfr__settings_8c_1a7572b56a19346ee479bd66789c616bfb" kind="function"><name>uvSendSettingGroup</name></member>
+    <member refid="uvfr__settings_8c_1a4610dbfba4a1c427386d906bfc656b77" kind="function"><name>sendAllSettingsWorker</name></member>
+    <member refid="uvfr__settings_8c_1a632dfb21b35fd170c003515ef4bdc291" kind="function"><name>sendJournalWorker</name></member>
   </compound>
   <compound refid="uvfr__state__engine_8c" kind="file"><name>uvfr_state_engine.c</name>
     <member refid="uvfr__state__engine_8c_1a6cd439d1fb18334cd13cf3539aebca5c" kind="define"><name>UVFR_STATE_MACHINE_IMPLIMENTATION</name></member>
@@ -1343,6 +1609,7 @@
     <member refid="group__state__engine_1ga6f4abbac22d8261c588c551b1d153ef6" kind="variable"><name>nc_throttling</name></member>
     <member refid="group__state__engine_1ga6837d935e61f84062544da8971a18560" kind="variable"><name>state_change_queue</name></member>
     <member refid="group__state__engine_1ga168524a5d658247db44217e643b6396f" kind="variable"><name>task_name_lut</name></member>
+    <member refid="group__state__engine_1gad05ab0da0046c01c52191148bbd0c36d" kind="variable"><name>error_bitfield</name></member>
     <member refid="group__state__engine_1ga2f58cf65b3566bc390600f877f8bed35" kind="variable"><name>vehicle_state</name></member>
     <member refid="group__state__engine_1ga2ce6eef16a78c095592954d2fe68af2e" kind="variable"><name>previous_state</name></member>
     <member refid="group__state__engine_1ga3de41676729241e58688c61c450e4a1e" kind="variable"><name>task_manager</name></member>
@@ -1391,9 +1658,10 @@
     <member refid="uvfr__utils_8c_1a142da7a698285a444ffffb0d1d791023" kind="variable"><name>init_task_handle</name></member>
     <member refid="uvfr__utils_8c_1af553c31425b32bd9c020380c942ed3bd" kind="variable"><name>TxData</name></member>
     <member refid="uvfr__utils_8c_1a4e2f70766df64229ab99dfe80c0c012a" kind="variable"><name>reset_handle</name></member>
+    <member refid="uvfr__utils_8c_1a657e7e858d8847396634fd9912747f8b" kind="variable"><name>data_size</name></member>
     <member refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" kind="function"><name>uvInit</name></member>
     <member refid="uvfr__utils_8c_1a11806db468fdae50664b98e619575425" kind="function"><name>uvSysResetDaemon</name></member>
-    <member refid="uvfr__utils_8c_1a02781145b4802ebdc7001800bbe6d994" kind="function"><name>uvUtilsReset</name></member>
+    <member refid="uvfr__utils_8c_1a720831e1a34620ed980646076fa2fbc9" kind="function"><name>uvUtilsReset</name></member>
     <member refid="uvfr__utils_8c_1ab80c00a024c34da7f7926212ce10ef01" kind="function"><name>setup_extern_devices</name></member>
     <member refid="uvfr__utils_8c_1a92b5ac44171d49acd084c274385a043a" kind="function"><name>__uvInitPanic</name></member>
     <member refid="uvfr__utils_8c_1abc00b3cb1c3b54fe4490c08ef85a293a" kind="function"><name>__uvMallocCritSection</name></member>
@@ -1419,6 +1687,7 @@
     <member refid="group__state__engine_1ga6f4abbac22d8261c588c551b1d153ef6" kind="variable"><name>nc_throttling</name></member>
     <member refid="group__state__engine_1ga6837d935e61f84062544da8971a18560" kind="variable"><name>state_change_queue</name></member>
     <member refid="group__state__engine_1ga168524a5d658247db44217e643b6396f" kind="variable"><name>task_name_lut</name></member>
+    <member refid="group__state__engine_1gad05ab0da0046c01c52191148bbd0c36d" kind="variable"><name>error_bitfield</name></member>
     <member refid="group__state__engine_1ga2f58cf65b3566bc390600f877f8bed35" kind="variable"><name>vehicle_state</name></member>
     <member refid="group__state__engine_1ga2ce6eef16a78c095592954d2fe68af2e" kind="variable"><name>previous_state</name></member>
     <member refid="group__state__engine_1ga3de41676729241e58688c61c450e4a1e" kind="variable"><name>task_manager</name></member>

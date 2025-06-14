@@ -2,21 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
   <compounddef id="structdaq__param__list__node" kind="struct" language="C++" prot="public">
     <compoundname>daq_param_list_node</compoundname>
-    <includes refid="daq_8h" local="no">daq.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structdaq__param__list__node_1a1213d4ad19f282a2e313f6ffe96584ac" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t daq_param_list_node::param_idx</definition>
-        <argsstring></argsstring>
-        <name>param_idx</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Inc/daq.h" line="49" column="10" bodyfile="Core/Inc/daq.h" bodystart="49" bodyend="-1"/>
-      </memberdef>
       <memberdef kind="variable" id="structdaq__param__list__node_1aa70718d4adff315eb53a8c00e4b1021a" prot="public" static="no" mutable="no">
         <type>struct <ref refid="structdaq__param__list__node" kindref="compound">daq_param_list_node</ref> *</type>
         <definition>struct daq_param_list_node* daq_param_list_node::next</definition>
@@ -28,7 +14,55 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/daq.h" line="50" column="27" bodyfile="Core/Inc/daq.h" bodystart="50" bodyend="-1"/>
+        <location file="Core/Src/daq.c" line="11" column="27" bodyfile="Core/Src/daq.c" bodystart="11" bodyend="-1"/>
+        <referencedby refid="daq_8c_1adcd689b5d7e750a2970e1f9e05c16c55" compoundref="daq_8c" startline="116" endline="131">insertParamToParamList</referencedby>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+        <referencedby refid="daq_8c_1ae7274a95a4e4881bc3fe84c9021d4a6c" compoundref="daq_8c" startline="366" endline="376">sendAllParamsFromList</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdaq__param__list__node_1a6b52773cafc7e69fdb4eca2d64a2fab3" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t daq_param_list_node::can_id</definition>
+        <argsstring></argsstring>
+        <name>can_id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Src/daq.c" line="13" column="10" bodyfile="Core/Src/daq.c" bodystart="13" bodyend="-1"/>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdaq__param__list__node_1a4a500221ca5a1327ac953045d1cb6d5e" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t daq_param_list_node::param</definition>
+        <argsstring></argsstring>
+        <name>param</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Src/daq.c" line="14" column="10" bodyfile="Core/Src/daq.c" bodystart="14" bodyend="-1"/>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdaq__param__list__node_1a4f12dbd7428c303f9b679ad5dfa1b790" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t daq_param_list_node::size</definition>
+        <argsstring></argsstring>
+        <name>size</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Src/daq.c" line="16" column="9" bodyfile="Core/Src/daq.c" bodystart="16" bodyend="-1"/>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -44,10 +78,12 @@
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="Core/Inc/daq.h" line="48" column="34" bodyfile="Core/Inc/daq.h" bodystart="48" bodyend="51"/>
+    <location file="Core/Src/daq.c" line="10" column="34" bodyfile="Core/Src/daq.c" bodystart="10" bodyend="17"/>
     <listofallmembers>
+      <member refid="structdaq__param__list__node_1a6b52773cafc7e69fdb4eca2d64a2fab3" prot="public" virt="non-virtual"><scope>daq_param_list_node</scope><name>can_id</name></member>
       <member refid="structdaq__param__list__node_1aa70718d4adff315eb53a8c00e4b1021a" prot="public" virt="non-virtual"><scope>daq_param_list_node</scope><name>next</name></member>
-      <member refid="structdaq__param__list__node_1a1213d4ad19f282a2e313f6ffe96584ac" prot="public" virt="non-virtual"><scope>daq_param_list_node</scope><name>param_idx</name></member>
+      <member refid="structdaq__param__list__node_1a4a500221ca5a1327ac953045d1cb6d5e" prot="public" virt="non-virtual"><scope>daq_param_list_node</scope><name>param</name></member>
+      <member refid="structdaq__param__list__node_1a4f12dbd7428c303f9b679ad5dfa1b790" prot="public" virt="non-virtual"><scope>daq_param_list_node</scope><name>size</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

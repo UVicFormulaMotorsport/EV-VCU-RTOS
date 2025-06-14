@@ -13,7 +13,7 @@ void \mbox{\hyperlink{uvfr__utils_8c_a6d40598f9d8daa89ca159a2e87f4fd01}{uv\+Init
 \begin{DoxyCompactList}\small\item\em \+: Function that initializes all of the car\textquotesingle{}s stuff. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{uvfr__utils_8c_a11806db468fdae50664b98e619575425}{uv\+Sys\+Reset\+Daemon}} (void $\ast$args)
 \item 
-enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{uvfr__utils_8c_a02781145b4802ebdc7001800bbe6d994}{uv\+Utils\+Reset}} ()
+enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{uvfr__utils_8c_a720831e1a34620ed980646076fa2fbc9}{uv\+Utils\+Reset}} (uint8\+\_\+t reset\+\_\+type)
 \begin{DoxyCompactList}\small\item\em This function is a soft-\/reboot of the uv\+\_\+utils\+\_\+backend and OS abstraction. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{uvfr__utils_8c_ab80c00a024c34da7f7926212ce10ef01}{setup\+\_\+extern\+\_\+devices}} (void $\ast$argument)
 \item 
@@ -37,6 +37,8 @@ Task\+Handle\+\_\+t \mbox{\hyperlink{uvfr__utils_8c_a142da7a698285a444ffffb0d1d7
 uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8c_af553c31425b32bd9c020380c942ed3bd}{Tx\+Data}} \mbox{[}8\mbox{]}
 \item 
 Task\+Handle\+\_\+t \mbox{\hyperlink{uvfr__utils_8c_a4e2f70766df64229ab99dfe80c0c012a}{reset\+\_\+handle}} = N\+U\+LL
+\item 
+const uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8c_a657e7e858d8847396634fd9912747f8b}{data\+\_\+size}} \mbox{[}$\,$\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -66,7 +68,7 @@ Thread-\/safe wrapper for {\ttfamily free}.
 
 This is typically called from the macro expansion of {\ttfamily uv\+Free(x)} 
 
-Definition at line 328 of file uvfr\+\_\+utils.\+c.
+Definition at line 353 of file uvfr\+\_\+utils.\+c.
 
 
 
@@ -84,7 +86,7 @@ O\+S-\/based free wrapper that calls pv\+Port\+Free.
 
 
 
-Definition at line 379 of file uvfr\+\_\+utils.\+c.
+Definition at line 404 of file uvfr\+\_\+utils.\+c.
 
 
 
@@ -105,11 +107,11 @@ Calling \+\_\+uv\+Init\+Panic() is irreversable and will cause the vehicle to ha
 \end{DoxyAttention}
 
 
-Definition at line 271 of file uvfr\+\_\+utils.\+c.
+Definition at line 296 of file uvfr\+\_\+utils.\+c.
 
 
 
-Referenced by uv\+Init(), uv\+Init\+State\+Engine(), and uv\+S\+V\+C\+Task\+Manager().
+Referenced by uv\+Init(), uv\+Init\+State\+Engine(), uv\+Settings\+Init(), and uv\+S\+V\+C\+Task\+Manager().
 
 \mbox{\Hypertarget{uvfr__utils_8c_abc00b3cb1c3b54fe4490c08ef85a293a}\label{uvfr__utils_8c_abc00b3cb1c3b54fe4490c08ef85a293a}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!\_\_uvMallocCritSection@{\_\_uvMallocCritSection}}
@@ -123,7 +125,7 @@ Wrapper function for {\ttfamily malloc()} that makes it thread safe.
 
 This typically appears in a macro expansion from {\ttfamily uv\+Malloc(x)} 
 
-Definition at line 292 of file uvfr\+\_\+utils.\+c.
+Definition at line 317 of file uvfr\+\_\+utils.\+c.
 
 \mbox{\Hypertarget{uvfr__utils_8c_a498966c0f95bfa592d26b625a93fa1a3}\label{uvfr__utils_8c_a498966c0f95bfa592d26b625a93fa1a3}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!\_\_uvMallocOS@{\_\_uvMallocOS}}
@@ -137,7 +139,7 @@ Definition at line 292 of file uvfr\+\_\+utils.\+c.
 
 The reason we might wanto to be using pv\+Port\+Malloc() rather than regular stdlib malloc() is to consolodate the heap between R\+T\+OS and non-\/\+R\+T\+OS functions. 
 
-Definition at line 353 of file uvfr\+\_\+utils.\+c.
+Definition at line 378 of file uvfr\+\_\+utils.\+c.
 
 
 
@@ -150,10 +152,10 @@ References U\+V\+\_\+\+M\+A\+L\+L\+O\+C\+\_\+\+L\+I\+M\+IT, U\+V\+\_\+\+OK, and 
 {\footnotesize\ttfamily void setup\+\_\+extern\+\_\+devices (\begin{DoxyParamCaption}\item[{void $\ast$}]{argument }\end{DoxyParamCaption})}
 
 \begin{DoxyRefDesc}{Deprecated}
-\item[\mbox{\hyperlink{deprecated__deprecated000004}{Deprecated}}]I really dunno why this still exists, but this gets called somewhere so Im leaving it. I think we just pass it N\+U\+LL.\end{DoxyRefDesc}
+\item[\mbox{\hyperlink{deprecated__deprecated000005}{Deprecated}}]I really dunno why this still exists, but this gets called somewhere so Im leaving it. I think we just pass it N\+U\+LL.\end{DoxyRefDesc}
 
 
-Definition at line 259 of file uvfr\+\_\+utils.\+c.
+Definition at line 284 of file uvfr\+\_\+utils.\+c.
 
 \mbox{\Hypertarget{uvfr__utils_8c_a6d40598f9d8daa89ca159a2e87f4fd01}\label{uvfr__utils_8c_a6d40598f9d8daa89ca159a2e87f4fd01}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!uvInit@{uvInit}}
@@ -235,7 +237,7 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \DoxyCodeLine{}
 \DoxyCodeLine{\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}* IMD\_init\_args = uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
 \DoxyCodeLine{IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}} = init\_validation\_queue;}
-\DoxyCodeLine{IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}} = \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a5b56318f394bef60ff7da0b4995183e0}{imd\_settings}});}
+\DoxyCodeLine{IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}} = \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}});}
 \DoxyCodeLine{retval = xTaskCreate(\mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{initIMD}},\textcolor{stringliteral}{"BMS\_init"},128,IMD\_init\_args,osPriorityAboveNormal,\&(IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
 \DoxyCodeLine{\textcolor{keywordflow}{if}(retval != pdPASS)\{}
 \DoxyCodeLine{        \textcolor{comment}{//FUCK}}
@@ -244,7 +246,7 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \DoxyCodeLine{}
 \DoxyCodeLine{\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}* PDU\_init\_args = uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
 \DoxyCodeLine{PDU\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}} = init\_validation\_queue;}
-\DoxyCodeLine{PDU\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}} = \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a5b56318f394bef60ff7da0b4995183e0}{imd\_settings}});}
+\DoxyCodeLine{PDU\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}} = \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}});}
 \DoxyCodeLine{retval = xTaskCreate(\mbox{\hyperlink{pdu_8h_afaa6671d51bcd0687c87ac635ff70d95}{initPDU}},\textcolor{stringliteral}{"PDU\_init"},128,PDU\_init\_args,osPriorityAboveNormal,\&(PDU\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}})); \textcolor{comment}{//pass in the right settings, dumdum}}
 \DoxyCodeLine{\textcolor{keywordflow}{if}(retval != pdPASS)\{}
 \DoxyCodeLine{        \textcolor{comment}{//FUCK}}
@@ -255,6 +257,7 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \DoxyCodeLine{uint16\_t ext\_devices\_status = 0x000F; \textcolor{comment}{//Tracks which devices are currently setup}}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
+\DoxyCodeLine{\mbox{\hyperlink{adc_8h_a4ba1683325a3553851abf884b905f1b1}{initADCTask}}(); \textcolor{comment}{//START THE ADCs}}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \end{DoxyCode}
@@ -266,11 +269,11 @@ We allocate space for a response from the initialization.
 
 Clean up, clean up, everybody clean up, clean up, clean up, everybody do your share! The following code cleans up all the threads that were running, and free up used memory
 
-Definition at line 39 of file uvfr\+\_\+utils.\+c.
+Definition at line 46 of file uvfr\+\_\+utils.\+c.
 
 
 
-References \+\_\+\+\_\+uv\+Init\+Panic(), B\+M\+S\+\_\+\+Init(), uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings, change\+Vehicle\+State(), current\+\_\+vehicle\+\_\+settings, uv\+\_\+init\+\_\+task\+\_\+response\+::device, uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg, uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings, I\+N\+I\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+E\+R\+I\+OD, uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, init\+\_\+task\+\_\+handle, init\+I\+M\+D(), init\+P\+D\+U(), M\+A\+X\+\_\+\+I\+N\+I\+T\+\_\+\+T\+I\+ME, uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings, M\+C\+\_\+\+Startup(), uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle, uv\+\_\+init\+\_\+task\+\_\+response\+::nchar, uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args, uv\+\_\+init\+\_\+task\+\_\+response\+::status, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, uv\+Init\+State\+Engine(), uv\+Settings\+Init(), and uv\+Start\+State\+Machine().
+References \+\_\+\+\_\+uv\+Init\+Panic(), uv\+\_\+task\+\_\+info\+::active\+\_\+states, B\+M\+S\+\_\+\+Init(), uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings, C\+A\+N\+\_\+\+R\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME, C\+A\+N\+\_\+\+T\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME, C\+A\+Nbus\+Rx\+Svc\+Daemon(), C\+A\+Nbus\+Tx\+Svc\+Daemon(), change\+Vehicle\+State(), current\+\_\+vehicle\+\_\+settings, uv\+\_\+init\+\_\+task\+\_\+response\+::device, uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg, uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings, I\+N\+I\+T\+\_\+\+C\+H\+E\+C\+K\+\_\+\+P\+E\+R\+I\+OD, uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, init\+\_\+task\+\_\+handle, init\+A\+D\+C\+Task(), init\+I\+M\+D(), init\+P\+D\+U(), M\+A\+X\+\_\+\+I\+N\+I\+T\+\_\+\+T\+I\+ME, uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings, M\+C\+\_\+\+Startup(), uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle, uv\+\_\+init\+\_\+task\+\_\+response\+::nchar, uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args, uv\+\_\+init\+\_\+task\+\_\+response\+::status, uv\+\_\+task\+\_\+info\+::task\+\_\+function, uv\+\_\+task\+\_\+info\+::task\+\_\+name, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, uv\+Create\+Service\+Task(), uv\+Init\+State\+Engine(), uv\+Settings\+Init(), uv\+Start\+State\+Machine(), and uv\+Start\+Task().
 
 
 
@@ -290,7 +293,7 @@ The primary motivation for this is to avoid trying to dereference a pointer that
 
 Exiting gracefully can be pretty neat sometimes. 
 
-Definition at line 401 of file uvfr\+\_\+utils.\+c.
+Definition at line 426 of file uvfr\+\_\+utils.\+c.
 
 
 
@@ -298,7 +301,7 @@ References U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and U\+V\+\_\+\+W\+A\+R\+N\+
 
 
 
-Referenced by \+\_\+\+\_\+uv\+Free\+Crit\+Section(), \+\_\+\+\_\+uv\+Free\+O\+S(), and \+\_\+\+\_\+uv\+Malloc\+O\+S().
+Referenced by \+\_\+\+\_\+uv\+Free\+Crit\+Section(), \+\_\+\+\_\+uv\+Free\+O\+S(), \+\_\+\+\_\+uv\+Malloc\+O\+S(), and associate\+Daq\+Param\+With\+Var().
 
 \mbox{\Hypertarget{uvfr__utils_8c_a11806db468fdae50664b98e619575425}\label{uvfr__utils_8c_a11806db468fdae50664b98e619575425}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!uvSysResetDaemon@{uvSysResetDaemon}}
@@ -308,17 +311,13 @@ Referenced by \+\_\+\+\_\+uv\+Free\+Crit\+Section(), \+\_\+\+\_\+uv\+Free\+O\+S(
 
 
 
-Definition at line 233 of file uvfr\+\_\+utils.\+c.
+Definition at line 255 of file uvfr\+\_\+utils.\+c.
 
-
-
-Referenced by uv\+Utils\+Reset().
-
-\mbox{\Hypertarget{uvfr__utils_8c_a02781145b4802ebdc7001800bbe6d994}\label{uvfr__utils_8c_a02781145b4802ebdc7001800bbe6d994}} 
+\mbox{\Hypertarget{uvfr__utils_8c_a720831e1a34620ed980646076fa2fbc9}\label{uvfr__utils_8c_a720831e1a34620ed980646076fa2fbc9}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!uvUtilsReset@{uvUtilsReset}}
 \index{uvUtilsReset@{uvUtilsReset}!uvfr\_utils.c@{uvfr\_utils.c}}
 \doxysubsubsection{\texorpdfstring{uvUtilsReset()}{uvUtilsReset()}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} uv\+Utils\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} uv\+Utils\+Reset (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reset\+\_\+type }\end{DoxyParamCaption})}
 
 
 
@@ -334,15 +333,39 @@ The idea here is to basically start from a blank slate and boot up everything. S
 
 reinitialize uv\+\_\+utils 
 
-Definition at line 250 of file uvfr\+\_\+utils.\+c.
+Definition at line 272 of file uvfr\+\_\+utils.\+c.
 
 
 
-References reset\+\_\+handle, U\+V\+\_\+\+OK, and uv\+Sys\+Reset\+Daemon().
+References U\+V\+\_\+\+OK.
 
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{uvfr__utils_8c_a657e7e858d8847396634fd9912747f8b}\label{uvfr__utils_8c_a657e7e858d8847396634fd9912747f8b}} 
+\index{uvfr\_utils.c@{uvfr\_utils.c}!data\_size@{data\_size}}
+\index{data\_size@{data\_size}!uvfr\_utils.c@{uvfr\_utils.c}}
+\doxysubsubsection{\texorpdfstring{data\_size}{data\_size}}
+{\footnotesize\ttfamily const uint8\+\_\+t data\+\_\+size\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{1,1, }
+\DoxyCodeLine{        2,2, }
+\DoxyCodeLine{        4,4, }
+\DoxyCodeLine{        4,8, }
+\DoxyCodeLine{        8,8, }
+\DoxyCodeLine{        0\}}
+
+\end{DoxyCode}
+
+
+Definition at line 17 of file uvfr\+\_\+utils.\+c.
+
+
+
+Referenced by insert\+Param\+To\+Register(), and uv\+Settings\+Programmer\+Task().
+
 \mbox{\Hypertarget{uvfr__utils_8c_a142da7a698285a444ffffb0d1d791023}\label{uvfr__utils_8c_a142da7a698285a444ffffb0d1d791023}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!init\_task\_handle@{init\_task\_handle}}
 \index{init\_task\_handle@{init\_task\_handle}!uvfr\_utils.c@{uvfr\_utils.c}}
@@ -366,10 +389,6 @@ Referenced by M\+X\+\_\+\+F\+R\+E\+E\+R\+T\+O\+S\+\_\+\+Init(), and uv\+Init().
 
 
 Definition at line 15 of file uvfr\+\_\+utils.\+c.
-
-
-
-Referenced by uv\+Utils\+Reset().
 
 \mbox{\Hypertarget{uvfr__utils_8c_af553c31425b32bd9c020380c942ed3bd}\label{uvfr__utils_8c_af553c31425b32bd9c020380c942ed3bd}} 
 \index{uvfr\_utils.c@{uvfr\_utils.c}!TxData@{TxData}}

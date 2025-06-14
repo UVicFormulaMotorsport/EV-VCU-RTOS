@@ -24,6 +24,8 @@ void \mbox{\hyperlink{stm32f4xx__it_8c_adbdfb05858cc36fc520974df37ec3cb0}{Debug\
 \begin{DoxyCompactList}\small\item\em This function handles Debug monitor. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{stm32f4xx__it_8c_a17e9789a29a87d2df54f12b94dd1a0b6}{E\+X\+T\+I0\+\_\+\+I\+R\+Q\+Handler}} (void)
 \begin{DoxyCompactList}\small\item\em This function handles E\+X\+TI line0 interrupt. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{stm32f4xx__it_8c_a06406eadf297fa89a6eaf9586b227a69}{A\+D\+C\+\_\+\+I\+R\+Q\+Handler}} (void)
+\begin{DoxyCompactList}\small\item\em This function handles A\+D\+C1, A\+D\+C2 and A\+D\+C3 global interrupts. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{stm32f4xx__it_8c_ad1fd361bc5ad89facee67c76d1ff8dc0}{T\+I\+M1\+\_\+\+U\+P\+\_\+\+T\+I\+M10\+\_\+\+I\+R\+Q\+Handler}} (void)
 \begin{DoxyCompactList}\small\item\em This function handles T\+I\+M1 update interrupt and T\+I\+M10 global interrupt. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{stm32f4xx__it_8c_aaf6ce196dde98712e1223b99766e06c0}{D\+M\+A2\+\_\+\+Stream0\+\_\+\+I\+R\+Q\+Handler}} (void)
@@ -38,6 +40,10 @@ void \mbox{\hyperlink{stm32f4xx__it_8c_ac67a8abbbb2e08b8c48726f65716295f}{C\+A\+
 \begin{DoxyCompactItemize}
 \item 
 D\+M\+A\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32f4xx__it_8c_a1c126854bb1813d31ab4776b21dcc51f}{hdma\+\_\+adc1}}
+\item 
+A\+D\+C\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32f4xx__it_8c_a22b804736f5648d52f639b2647d4ed13}{hadc1}}
+\item 
+A\+D\+C\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32f4xx__it_8c_acd9221f1aa19aebfe0b744947f2daf49}{hadc2}}
 \item 
 C\+A\+N\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{stm32f4xx__it_8c_ab77168d14df04ccca5d48612ee21ced8}{hcan2}}
 \item 
@@ -56,6 +62,24 @@ Copyright (c) 2023 S\+T\+Microelectronics. All rights reserved.
 This software is licensed under terms that can be found in the L\+I\+C\+E\+N\+SE file in the root directory of this software component. If no L\+I\+C\+E\+N\+SE file comes with this software, it is provided A\+S-\/\+IS. 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{stm32f4xx__it_8c_a06406eadf297fa89a6eaf9586b227a69}\label{stm32f4xx__it_8c_a06406eadf297fa89a6eaf9586b227a69}} 
+\index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!ADC\_IRQHandler@{ADC\_IRQHandler}}
+\index{ADC\_IRQHandler@{ADC\_IRQHandler}!stm32f4xx\_it.c@{stm32f4xx\_it.c}}
+\doxysubsubsection{\texorpdfstring{ADC\_IRQHandler()}{ADC\_IRQHandler()}}
+{\footnotesize\ttfamily void A\+D\+C\+\_\+\+I\+R\+Q\+Handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+This function handles A\+D\+C1, A\+D\+C2 and A\+D\+C3 global interrupts. 
+
+
+
+Definition at line 183 of file stm32f4xx\+\_\+it.\+c.
+
+
+
+References hadc1, and hadc2.
+
 \mbox{\Hypertarget{stm32f4xx__it_8c_a850cefb17a977292ae5eb4cafa9976c3}\label{stm32f4xx__it_8c_a850cefb17a977292ae5eb4cafa9976c3}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!BusFault\_Handler@{BusFault\_Handler}}
 \index{BusFault\_Handler@{BusFault\_Handler}!stm32f4xx\_it.c@{stm32f4xx\_it.c}}
@@ -68,7 +92,7 @@ This function handles Pre-\/fetch fault, memory access fault.
 
 
 
-Definition at line 117 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 119 of file stm32f4xx\+\_\+it.\+c.
 
 \mbox{\Hypertarget{stm32f4xx__it_8c_abf0ada95bd65ea0a24a25606a59a319d}\label{stm32f4xx__it_8c_abf0ada95bd65ea0a24a25606a59a319d}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!CAN2\_RX0\_IRQHandler@{CAN2\_RX0\_IRQHandler}}
@@ -82,7 +106,7 @@ This function handles C\+A\+N2 R\+X0 interrupts.
 
 
 
-Definition at line 223 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 240 of file stm32f4xx\+\_\+it.\+c.
 
 
 
@@ -100,7 +124,7 @@ This function handles C\+A\+N2 R\+X1 interrupt.
 
 
 
-Definition at line 237 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 254 of file stm32f4xx\+\_\+it.\+c.
 
 
 
@@ -118,7 +142,7 @@ This function handles C\+A\+N2 TX interrupts.
 
 
 
-Definition at line 209 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 226 of file stm32f4xx\+\_\+it.\+c.
 
 
 
@@ -136,7 +160,7 @@ This function handles Debug monitor.
 
 
 
-Definition at line 147 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 149 of file stm32f4xx\+\_\+it.\+c.
 
 \mbox{\Hypertarget{stm32f4xx__it_8c_aaf6ce196dde98712e1223b99766e06c0}\label{stm32f4xx__it_8c_aaf6ce196dde98712e1223b99766e06c0}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!DMA2\_Stream0\_IRQHandler@{DMA2\_Stream0\_IRQHandler}}
@@ -150,7 +174,7 @@ This function handles D\+M\+A2 stream0 global interrupt.
 
 
 
-Definition at line 195 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 212 of file stm32f4xx\+\_\+it.\+c.
 
 
 
@@ -168,7 +192,7 @@ This function handles E\+X\+TI line0 interrupt.
 
 
 
-Definition at line 167 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 169 of file stm32f4xx\+\_\+it.\+c.
 
 
 
@@ -186,7 +210,7 @@ This function handles Hard fault interrupt.
 
 
 
-Definition at line 87 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 89 of file stm32f4xx\+\_\+it.\+c.
 
 \mbox{\Hypertarget{stm32f4xx__it_8c_a3150f74512510287a942624aa9b44cc5}\label{stm32f4xx__it_8c_a3150f74512510287a942624aa9b44cc5}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!MemManage\_Handler@{MemManage\_Handler}}
@@ -200,7 +224,7 @@ This function handles Memory management fault.
 
 
 
-Definition at line 102 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 104 of file stm32f4xx\+\_\+it.\+c.
 
 \mbox{\Hypertarget{stm32f4xx__it_8c_a6ad7a5e3ee69cb6db6a6b9111ba898bc}\label{stm32f4xx__it_8c_a6ad7a5e3ee69cb6db6a6b9111ba898bc}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!NMI\_Handler@{NMI\_Handler}}
@@ -214,7 +238,7 @@ This function handles Non maskable interrupt.
 
 
 
-Definition at line 72 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 74 of file stm32f4xx\+\_\+it.\+c.
 
 \mbox{\Hypertarget{stm32f4xx__it_8c_ad1fd361bc5ad89facee67c76d1ff8dc0}\label{stm32f4xx__it_8c_ad1fd361bc5ad89facee67c76d1ff8dc0}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!TIM1\_UP\_TIM10\_IRQHandler@{TIM1\_UP\_TIM10\_IRQHandler}}
@@ -228,7 +252,7 @@ This function handles T\+I\+M1 update interrupt and T\+I\+M10 global interrupt.
 
 
 
-Definition at line 181 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 198 of file stm32f4xx\+\_\+it.\+c.
 
 
 
@@ -246,11 +270,39 @@ This function handles Undefined instruction or illegal state.
 
 
 
-Definition at line 132 of file stm32f4xx\+\_\+it.\+c.
+Definition at line 134 of file stm32f4xx\+\_\+it.\+c.
 
 
 
 \doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{stm32f4xx__it_8c_a22b804736f5648d52f639b2647d4ed13}\label{stm32f4xx__it_8c_a22b804736f5648d52f639b2647d4ed13}} 
+\index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!hadc1@{hadc1}}
+\index{hadc1@{hadc1}!stm32f4xx\_it.c@{stm32f4xx\_it.c}}
+\doxysubsubsection{\texorpdfstring{hadc1}{hadc1}}
+{\footnotesize\ttfamily A\+D\+C\+\_\+\+Handle\+Type\+Def hadc1}
+
+
+
+Definition at line 35 of file adc.\+c.
+
+
+
+Referenced by A\+D\+C\+\_\+\+I\+R\+Q\+Handler(), M\+X\+\_\+\+A\+D\+C1\+\_\+\+Init(), and Start\+A\+D\+C\+Task().
+
+\mbox{\Hypertarget{stm32f4xx__it_8c_acd9221f1aa19aebfe0b744947f2daf49}\label{stm32f4xx__it_8c_acd9221f1aa19aebfe0b744947f2daf49}} 
+\index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!hadc2@{hadc2}}
+\index{hadc2@{hadc2}!stm32f4xx\_it.c@{stm32f4xx\_it.c}}
+\doxysubsubsection{\texorpdfstring{hadc2}{hadc2}}
+{\footnotesize\ttfamily A\+D\+C\+\_\+\+Handle\+Type\+Def hadc2}
+
+
+
+Definition at line 36 of file adc.\+c.
+
+
+
+Referenced by A\+D\+C\+\_\+\+I\+R\+Q\+Handler(), and M\+X\+\_\+\+A\+D\+C2\+\_\+\+Init().
+
 \mbox{\Hypertarget{stm32f4xx__it_8c_ab77168d14df04ccca5d48612ee21ced8}\label{stm32f4xx__it_8c_ab77168d14df04ccca5d48612ee21ced8}} 
 \index{stm32f4xx\_it.c@{stm32f4xx\_it.c}!hcan2@{hcan2}}
 \index{hcan2@{hcan2}!stm32f4xx\_it.c@{stm32f4xx\_it.c}}
@@ -273,7 +325,7 @@ Referenced by \+\_\+\+\_\+uv\+C\+A\+Ntx\+Crit\+Section(), C\+A\+N2\+\_\+\+R\+X0\
 
 
 
-Definition at line 29 of file adc.\+c.
+Definition at line 37 of file adc.\+c.
 
 
 

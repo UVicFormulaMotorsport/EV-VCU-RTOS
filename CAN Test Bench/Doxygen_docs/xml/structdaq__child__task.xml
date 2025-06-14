@@ -2,20 +2,21 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
   <compounddef id="structdaq__child__task" kind="struct" language="C++" prot="public">
     <compoundname>daq_child_task</compoundname>
-    <includes refid="daq_8h" local="no">daq.h</includes>
       <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structdaq__child__task_1a34966ce1e2f0fbe666f256d98a4378e7" prot="public" static="no" mutable="no">
-        <type>struct <ref refid="structrbnode" kindref="compound">rbnode</ref></type>
-        <definition>struct rbnode daq_child_task::treenode</definition>
+      <memberdef kind="variable" id="structdaq__child__task_1a1c1a861279f70722384c45e9a62eecee" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="structdaq__child__task" kindref="compound">daq_child_task</ref> *</type>
+        <definition>struct daq_child_task* daq_child_task::next_task</definition>
         <argsstring></argsstring>
-        <name>treenode</name>
+        <name>next_task</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/daq.h" line="67" column="15" bodyfile="Core/Inc/daq.h" bodystart="71" bodyend="-1"/>
+        <location file="Core/Src/daq.c" line="20" column="22" bodyfile="Core/Src/daq.c" bodystart="20" bodyend="-1"/>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+        <referencedby refid="daq_8c_1a65df75bcd76d421bf28fca5704c8ff95" compoundref="daq_8c" startline="211" endline="223">startDaqSubTasks</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structdaq__child__task_1aeb649c4b5047ed12107eea04fb68042e" prot="public" static="no" mutable="no">
         <type>TaskHandle_t</type>
@@ -28,20 +29,9 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/daq.h" line="72" column="14" bodyfile="Core/Inc/daq.h" bodystart="72" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structdaq__child__task_1a214b6be30716c32c3ae1856d9f92685c" prot="public" static="no" mutable="no">
-        <type><ref refid="structdaq__param__list__node" kindref="compound">daq_param_list_node</ref> **</type>
-        <definition>daq_param_list_node** daq_child_task::param_list</definition>
-        <argsstring></argsstring>
-        <name>param_list</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Inc/daq.h" line="73" column="21" bodyfile="Core/Inc/daq.h" bodystart="73" bodyend="-1"/>
+        <location file="Core/Src/daq.c" line="21" column="14" bodyfile="Core/Src/daq.c" bodystart="21" bodyend="-1"/>
+        <referencedby refid="daq_8c_1a65df75bcd76d421bf28fca5704c8ff95" compoundref="daq_8c" startline="211" endline="223">startDaqSubTasks</referencedby>
+        <referencedby refid="daq_8c_1ad3997ae047f3e30136b3f2b668c8030a" compoundref="daq_8c" startline="228" endline="235">stopDaqSubTasks</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structdaq__child__task_1ada97dc181bb6a3919f978fb17431d336" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -54,7 +44,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/daq.h" line="74" column="10" bodyfile="Core/Inc/daq.h" bodystart="74" bodyend="-1"/>
+        <location file="Core/Src/daq.c" line="22" column="10" bodyfile="Core/Src/daq.c" bodystart="22" bodyend="-1"/>
+        <referencedby refid="daq_8c_1a740f6299f5ce19d6d94d148e13231dd9" compoundref="daq_8c" startline="381" endline="389">daqSubTask</referencedby>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structdaq__child__task_1ab58febeab8b66376a3b3520e9cff950f" prot="public" static="no" mutable="no">
+        <type><ref refid="structdaq__param__list__node" kindref="compound">daq_param_list_node</ref> *</type>
+        <definition>daq_param_list_node* daq_child_task::param_list</definition>
+        <argsstring></argsstring>
+        <name>param_list</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Src/daq.c" line="23" column="21" bodyfile="Core/Src/daq.c" bodystart="23" bodyend="-1"/>
+        <referencedby refid="daq_8c_1a740f6299f5ce19d6d94d148e13231dd9" compoundref="daq_8c" startline="381" endline="389">daqSubTask</referencedby>
+        <referencedby refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" compoundref="daq_8c" startline="136" endline="179">insertParamToRegister</referencedby>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -62,15 +69,6 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
-      <node id="3">
-        <label>rbnode</label>
-        <link refid="structrbnode"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>right</edgelabel>
-          <edgelabel>left</edgelabel>
-          <edgelabel>parent</edgelabel>
-        </childnode>
-      </node>
       <node id="2">
         <label>daq_param_list_node</label>
         <link refid="structdaq__param__list__node"/>
@@ -84,17 +82,17 @@
         <childnode refid="2" relation="usage">
           <edgelabel>param_list</edgelabel>
         </childnode>
-        <childnode refid="3" relation="usage">
-          <edgelabel>treenode</edgelabel>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next_task</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
-    <location file="Core/Inc/daq.h" line="70" column="29" bodyfile="Core/Inc/daq.h" bodystart="70" bodyend="76"/>
+    <location file="Core/Src/daq.c" line="19" column="29" bodyfile="Core/Src/daq.c" bodystart="19" bodyend="26"/>
     <listofallmembers>
       <member refid="structdaq__child__task_1aeb649c4b5047ed12107eea04fb68042e" prot="public" virt="non-virtual"><scope>daq_child_task</scope><name>meta_task_handle</name></member>
-      <member refid="structdaq__child__task_1a214b6be30716c32c3ae1856d9f92685c" prot="public" virt="non-virtual"><scope>daq_child_task</scope><name>param_list</name></member>
+      <member refid="structdaq__child__task_1a1c1a861279f70722384c45e9a62eecee" prot="public" virt="non-virtual"><scope>daq_child_task</scope><name>next_task</name></member>
+      <member refid="structdaq__child__task_1ab58febeab8b66376a3b3520e9cff950f" prot="public" virt="non-virtual"><scope>daq_child_task</scope><name>param_list</name></member>
       <member refid="structdaq__child__task_1ada97dc181bb6a3919f978fb17431d336" prot="public" virt="non-virtual"><scope>daq_child_task</scope><name>period</name></member>
-      <member refid="structdaq__child__task_1a34966ce1e2f0fbe666f256d98a4378e7" prot="public" virt="non-virtual"><scope>daq_child_task</scope><name>treenode</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

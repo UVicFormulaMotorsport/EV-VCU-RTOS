@@ -3,24 +3,22 @@
 {\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}uvfr\+\_\+settings.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
-\begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structmotor__controllor__settings}{motor\+\_\+controllor\+\_\+settings}}
-\end{DoxyCompactItemize}
+{\ttfamily \#include \char`\"{}can.\+h\char`\"{}}\newline
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{motor__controller_8h_acc0df233686dd4cf6256fcab0473860e}{D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+O\+T\+O\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+C\+A\+N\+\_\+\+T\+I\+M\+E\+O\+UT}}~((\mbox{\hyperlink{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}{uv\+\_\+timespan\+\_\+ms}})200)
-\item 
-\#define \mbox{\hyperlink{motor__controller_8h_aab8c03dc3480e25a7a75b60edbf51cb3}{S\+E\+R\+I\+A\+L\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+ER}}~0x1A
+\#define \mbox{\hyperlink{motor__controller_8h_aab8c03dc3480e25a7a75b60edbf51cb3}{S\+E\+R\+I\+A\+L\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+ER}}~0x62
 \item 
 \#define \mbox{\hyperlink{motor__controller_8h_a829d1af845327949015b4e83bb6fc43d}{F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+G\+I\+S\+T\+ER}}~0x1B
+\item 
+\#define \mbox{\hyperlink{motor__controller_8h_afeb7926ab4804cec84303f15b96280bc}{N\+\_\+set\+\_\+cmd}}~\mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268aa53daf1b53f678af8159cba9238c5e6f}{N\+\_\+set}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structmotor__controllor__settings}{motor\+\_\+controllor\+\_\+settings}} \mbox{\hyperlink{motor__controller_8h_ac9389d71d481a5381fe1d1e23b1e4ecc}{motor\+\_\+controller\+\_\+settings}}
+typedef struct \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} \mbox{\hyperlink{motor__controller_8h_a420642111318eedc2b05236f0ed531f4}{motor\+\_\+controller\+\_\+settings}}
+\item 
+typedef struct \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} \mbox{\hyperlink{motor__controller_8h_ad857192b5d0529e73642f1293d6bed75}{uv\+\_\+\+C\+A\+N\+\_\+msg}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Enumerations}
 \begin{DoxyCompactItemize}
@@ -31,13 +29,18 @@ enum \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268}{mo
 \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268acc27e0901b9bd112a36ccf7e9620b09a}{N\+\_\+error}} = 0x33
  \}
 \item 
-enum \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7c}{motor\+\_\+controller\+\_\+current\+\_\+parameters}} \{ \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7cafa32268e686878b8024c674367c01767}{todo1}} = 0x69
+enum \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6ed}{motor\+\_\+controller\+\_\+status}} \{ \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27}{L\+O\+G\+I\+M\+A\+P\+\_\+\+E\+R\+R\+O\+RS}} = 0x82, 
+\mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda887c38d92ef273b6fae58dcb51931765}{L\+O\+G\+I\+M\+A\+P\+\_\+\+IO}} = 0x83, 
+\mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda75b5d9cefe36e570d9e0c306fb0e22fc}{P\+O\+S\+\_\+\+A\+C\+T\+U\+AL}} = 0x86
+ \}
+\item 
+enum \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7c}{motor\+\_\+controller\+\_\+current\+\_\+parameters}} \{ \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091}{C\+U\+R\+R\+E\+N\+T\+\_\+\+A\+C\+T\+U\+AL}} = 0x69
  \}
 \item 
 enum \mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741}{motor\+\_\+controller\+\_\+motor\+\_\+constants}} \{ \newline
 \mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741a64170ba683e522d8933cc80a5cf28ecb}{nominal\+\_\+motor\+\_\+frequency}} = 0x05, 
 \mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741a2d43068942abe44d33fd0f89f4b8cbb9}{nominal\+\_\+motor\+\_\+voltage}} = 0x06, 
-\mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741ad24139707ecedd81a10a96dea882f0a0}{power\+\_\+factor}} = 0x0e, 
+\mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741ad24139707ecedd81a10a96dea882f0a0}{power\+\_\+factor}} = 0x0E, 
 \mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741a0a0dac29c811eaa0c4bbe6ce120f2fad}{motor\+\_\+max\+\_\+current}} = 0x4D, 
 \newline
 \mbox{\hyperlink{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741a3d1c48ec7fd442d23cce8a69daedc1a4}{motor\+\_\+continuous\+\_\+current}} = 0x4E, 
@@ -77,46 +80,46 @@ enum \mbox{\hyperlink{motor__controller_8h_a2e6d114c8834f029dc4c48acf7ddf56f}{mo
 \item 
 enum \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dff}{motor\+\_\+controller\+\_\+status\+\_\+information\+\_\+errors\+\_\+warnings}} \{ \newline
 \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa595211bb6640ca05c1c3344b47e2890f}{motor\+\_\+controller\+\_\+errors\+\_\+warnings}} = 0x8F, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa87ada8cd125ba521b447d565c12bb30e}{eprom\+\_\+read\+\_\+error}} = 1$<$$<$8, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffae9da794167969482cb67bfad83a04d71}{hardware\+\_\+fault}} = 1$<$$<$9, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffadae8b5f4fb6cd6712202d055529499ef}{rotate\+\_\+field\+\_\+enable\+\_\+not\+\_\+present\+\_\+run}} = 1$<$$<$10, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa87ada8cd125ba521b447d565c12bb30e}{eprom\+\_\+read\+\_\+error}} = 1 $<$$<$ 8, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffae9da794167969482cb67bfad83a04d71}{hardware\+\_\+fault}} = 1 $<$$<$ 9, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffadae8b5f4fb6cd6712202d055529499ef}{rotate\+\_\+field\+\_\+enable\+\_\+not\+\_\+present\+\_\+run}} = 1 $<$$<$ 10, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa425430d2585733363b6043ed70ebd7ab}{C\+A\+N\+\_\+timeout\+\_\+error}} = 1$<$$<$11, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc}{feedback\+\_\+signal\+\_\+error}} = 1$<$$<$12, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa13726d0d6fc8dd12135f4ea92d1dcc92}{mains\+\_\+voltage\+\_\+min\+\_\+limit}} = 1$<$$<$13, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2267f6ae60d8b9024ba418dd1f6d4b15}{motor\+\_\+temp\+\_\+max\+\_\+limit}} = 1$<$$<$14, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa425430d2585733363b6043ed70ebd7ab}{C\+A\+N\+\_\+timeout\+\_\+error}} = 1 $<$$<$ 11, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc}{feedback\+\_\+signal\+\_\+error}} = 1 $<$$<$ 12, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa13726d0d6fc8dd12135f4ea92d1dcc92}{mains\+\_\+voltage\+\_\+min\+\_\+limit}} = 1 $<$$<$ 13, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2267f6ae60d8b9024ba418dd1f6d4b15}{motor\+\_\+temp\+\_\+max\+\_\+limit}} = 1 $<$$<$ 14, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa54a5ca5981535fd231b00a1040622950}{I\+G\+B\+T\+\_\+temp\+\_\+max\+\_\+limit}} = 1$<$$<$15, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa54a5ca5981535fd231b00a1040622950}{I\+G\+B\+T\+\_\+temp\+\_\+max\+\_\+limit}} = 1 $<$$<$ 15, 
 \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa229533ef674ddd4475b22e47eb506b49}{mains\+\_\+voltage\+\_\+max\+\_\+limit}} = 1, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa29aa452fe3c693b96c17c09849ee1633}{critical\+\_\+\+A\+C\+\_\+current}} = 1$<$$<$1, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa696b36face7279e19e2905b0fa9ecb68}{race\+\_\+away\+\_\+detected}} = 1$<$$<$2, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa29aa452fe3c693b96c17c09849ee1633}{critical\+\_\+\+A\+C\+\_\+current}} = 1 $<$$<$ 1, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa696b36face7279e19e2905b0fa9ecb68}{race\+\_\+away\+\_\+detected}} = 1 $<$$<$ 2, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa0dd2c6834f96df064d7b152074a9f81f}{ecode\+\_\+timeout\+\_\+error}} = 1$<$$<$3, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa357611869a1ec791b38a36ec2dfe09b9}{watchdog\+\_\+reset}} = 1$<$$<$4, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa0dbc9540bf7a4c67b6a2810985bfb55d}{A\+C\+\_\+current\+\_\+offset\+\_\+fault}} = 1$<$$<$5, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa18df3363e2a0048a813dcef5a41785ce}{internal\+\_\+hardware\+\_\+voltage\+\_\+problem}} = 1$<$$<$6, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa0dd2c6834f96df064d7b152074a9f81f}{ecode\+\_\+timeout\+\_\+error}} = 1 $<$$<$ 3, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa357611869a1ec791b38a36ec2dfe09b9}{watchdog\+\_\+reset}} = 1 $<$$<$ 4, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa0dbc9540bf7a4c67b6a2810985bfb55d}{A\+C\+\_\+current\+\_\+offset\+\_\+fault}} = 1 $<$$<$ 5, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa18df3363e2a0048a813dcef5a41785ce}{internal\+\_\+hardware\+\_\+voltage\+\_\+problem}} = 1 $<$$<$ 6, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa150953c78b7fcc8ae97a50a5b5765264}{bleed\+\_\+resistor\+\_\+overload}} = 1$<$$<$7, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2fbc7fdf1ab20514fac8d6418291a114}{parameter\+\_\+conflict\+\_\+detected}} = 1$<$$<$8, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa7483be8346bb7b2fdfb418383961fba7}{special\+\_\+\+C\+P\+U\+\_\+fault}} = 1$<$$<$9, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa3689755161fb5aa5fae86b270bfbf5fc}{rotate\+\_\+field\+\_\+enable\+\_\+not\+\_\+present\+\_\+norun}} = 1$<$$<$10, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa150953c78b7fcc8ae97a50a5b5765264}{bleed\+\_\+resistor\+\_\+overload}} = 1 $<$$<$ 7, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2fbc7fdf1ab20514fac8d6418291a114}{parameter\+\_\+conflict\+\_\+detected}} = 1 $<$$<$ 8, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa7483be8346bb7b2fdfb418383961fba7}{special\+\_\+\+C\+P\+U\+\_\+fault}} = 1 $<$$<$ 9, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa3689755161fb5aa5fae86b270bfbf5fc}{rotate\+\_\+field\+\_\+enable\+\_\+not\+\_\+present\+\_\+norun}} = 1 $<$$<$ 10, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa03e3fe1a981eecdeb19cd0589bdcc6f8}{auxiliary\+\_\+voltage\+\_\+min\+\_\+limit}} = 1$<$$<$11, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13}{feedback\+\_\+signal\+\_\+problem}} = 1$<$$<$12, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa3050ef440e4e82f9fb3973e1fb9faea7}{warning\+\_\+5}} = 1$<$$<$13, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa4e9b2370bf4b4680b4c2471d2f7d312e}{motor\+\_\+temperature\+\_\+warning}} = 1$<$$<$14, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa03e3fe1a981eecdeb19cd0589bdcc6f8}{auxiliary\+\_\+voltage\+\_\+min\+\_\+limit}} = 1 $<$$<$ 11, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13}{feedback\+\_\+signal\+\_\+problem}} = 1 $<$$<$ 12, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa3050ef440e4e82f9fb3973e1fb9faea7}{warning\+\_\+5}} = 1 $<$$<$ 13, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa4e9b2370bf4b4680b4c2471d2f7d312e}{motor\+\_\+temperature\+\_\+warning}} = 1 $<$$<$ 14, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa298d28f3aa38960b5d1349a04cbbca95}{I\+G\+B\+T\+\_\+temperature\+\_\+warning}} = 1$<$$<$15, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa298d28f3aa38960b5d1349a04cbbca95}{I\+G\+B\+T\+\_\+temperature\+\_\+warning}} = 1 $<$$<$ 15, 
 \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffaf06c0a389c1c73850def361e9bd7ffdc}{Vout\+\_\+saturation\+\_\+max\+\_\+limit}} = 1, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffad53242de6aeaa134a78749bc60fec984}{warning\+\_\+9}} = 1$<$$<$1, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2c5d3b1ee0135916f17e89f331429ed5}{speed\+\_\+actual\+\_\+resolution\+\_\+limit}} = 1$<$$<$2, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffad53242de6aeaa134a78749bc60fec984}{warning\+\_\+9}} = 1 $<$$<$ 1, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2c5d3b1ee0135916f17e89f331429ed5}{speed\+\_\+actual\+\_\+resolution\+\_\+limit}} = 1 $<$$<$ 2, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa3d2e8b6cb27af4a0a1121c419594bbfa}{check\+\_\+ecode\+\_\+\+ID}} = 1$<$$<$3, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa618e6f62f2e284a9fec848782c9473c7}{tripzone\+\_\+glitch\+\_\+detected}} = 1$<$$<$4, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa9c77d3a416d8465efe129cf8ad401cfe}{A\+D\+C\+\_\+sequencer\+\_\+problem}} = 1$<$$<$5, 
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffac02a9e080dc6bde671fa915b7e254c67}{A\+D\+C\+\_\+measurement\+\_\+problem}} = 1$<$$<$6, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa3d2e8b6cb27af4a0a1121c419594bbfa}{check\+\_\+ecode\+\_\+\+ID}} = 1 $<$$<$ 3, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa618e6f62f2e284a9fec848782c9473c7}{tripzone\+\_\+glitch\+\_\+detected}} = 1 $<$$<$ 4, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa9c77d3a416d8465efe129cf8ad401cfe}{A\+D\+C\+\_\+sequencer\+\_\+problem}} = 1 $<$$<$ 5, 
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffac02a9e080dc6bde671fa915b7e254c67}{A\+D\+C\+\_\+measurement\+\_\+problem}} = 1 $<$$<$ 6, 
 \newline
-\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffae0c6a82b11d3fb69b758c350960f5a2a}{bleeder\+\_\+resistor\+\_\+warning}} = 1$<$$<$7
+\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffae0c6a82b11d3fb69b758c350960f5a2a}{bleeder\+\_\+resistor\+\_\+warning}} = 1 $<$$<$ 7
  \}
 \item 
 enum \mbox{\hyperlink{motor__controller_8h_a1592f0c8dbd9d1c5d8304671b518a863}{motor\+\_\+controller\+\_\+io}} \{ \mbox{\hyperlink{motor__controller_8h_a1592f0c8dbd9d1c5d8304671b518a863a3a545dba8b1debc96a10c15f0e3bddf3}{todo6969}} = 6969
@@ -153,20 +156,23 @@ enum \mbox{\hyperlink{motor__controller_8h_a0376dfd1eed1d027d96561fd24e48242}{mo
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{motor__controller_8h_aed1407e1e0fd59dc7c5e5d6db671f0ab}{M\+C\+\_\+\+Startup}} (void $\ast$args)
+\begin{DoxyCompactList}\small\item\em Initializes the motor controller. \end{DoxyCompactList}\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8h_ad9944bce211ed6594929c3acf72e3881}{Motor\+Controller\+Spin\+Test}} (float T\+\_\+filtered)
+\begin{DoxyCompactList}\small\item\em Sends a direct torque command to the motor controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__controller_8h_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{M\+C\+\_\+\+Request\+\_\+\+Data}} (uint8\+\_\+t Reg\+ID)
+\begin{DoxyCompactList}\small\item\em Sends a C\+AN request to retrieve a specific register from the motor controller. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__controller_8h_aaff68bb563bf4ad56841a5a5020cbadc}{Process\+Motor\+Controller\+Response}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Processes a motor controller response received via C\+AN. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__controller_8h_a98ef1edcc51198faf53767e8d92ce4c9}{Parse\+\_\+\+Bamocar\+\_\+\+Response}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Parses a 32-\/bit value from a C\+AN message in little-\/endian format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} \mbox{\hyperlink{motor__controller_8h_afb41a96439ba6d63dcc64f257c43a1d2}{mc\+\_\+default\+\_\+settings}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{motor__controller_8h_acc0df233686dd4cf6256fcab0473860e}\label{motor__controller_8h_acc0df233686dd4cf6256fcab0473860e}} 
-\index{motor\_controller.h@{motor\_controller.h}!DEFAULT\_MOTOR\_CONTROLLER\_CAN\_TIMEOUT@{DEFAULT\_MOTOR\_CONTROLLER\_CAN\_TIMEOUT}}
-\index{DEFAULT\_MOTOR\_CONTROLLER\_CAN\_TIMEOUT@{DEFAULT\_MOTOR\_CONTROLLER\_CAN\_TIMEOUT}!motor\_controller.h@{motor\_controller.h}}
-\doxysubsubsection{\texorpdfstring{DEFAULT\_MOTOR\_CONTROLLER\_CAN\_TIMEOUT}{DEFAULT\_MOTOR\_CONTROLLER\_CAN\_TIMEOUT}}
-{\footnotesize\ttfamily \#define D\+E\+F\+A\+U\+L\+T\+\_\+\+M\+O\+T\+O\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+E\+R\+\_\+\+C\+A\+N\+\_\+\+T\+I\+M\+E\+O\+UT~((\mbox{\hyperlink{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}{uv\+\_\+timespan\+\_\+ms}})200)}
-
-
-
-Definition at line 15 of file motor\+\_\+controller.\+h.
-
 \mbox{\Hypertarget{motor__controller_8h_a829d1af845327949015b4e83bb6fc43d}\label{motor__controller_8h_a829d1af845327949015b4e83bb6fc43d}} 
 \index{motor\_controller.h@{motor\_controller.h}!FIRMWARE\_VERSION\_REGISTER@{FIRMWARE\_VERSION\_REGISTER}}
 \index{FIRMWARE\_VERSION\_REGISTER@{FIRMWARE\_VERSION\_REGISTER}!motor\_controller.h@{motor\_controller.h}}
@@ -175,26 +181,50 @@ Definition at line 15 of file motor\+\_\+controller.\+h.
 
 
 
-Definition at line 20 of file motor\+\_\+controller.\+h.
+Definition at line 165 of file motor\+\_\+controller.\+h.
+
+\mbox{\Hypertarget{motor__controller_8h_afeb7926ab4804cec84303f15b96280bc}\label{motor__controller_8h_afeb7926ab4804cec84303f15b96280bc}} 
+\index{motor\_controller.h@{motor\_controller.h}!N\_set\_cmd@{N\_set\_cmd}}
+\index{N\_set\_cmd@{N\_set\_cmd}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{N\_set\_cmd}{N\_set\_cmd}}
+{\footnotesize\ttfamily \#define N\+\_\+set\+\_\+cmd~\mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268aa53daf1b53f678af8159cba9238c5e6f}{N\+\_\+set}}}
+
+
+
+Definition at line 169 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_aab8c03dc3480e25a7a75b60edbf51cb3}\label{motor__controller_8h_aab8c03dc3480e25a7a75b60edbf51cb3}} 
 \index{motor\_controller.h@{motor\_controller.h}!SERIAL\_NUMBER\_REGISTER@{SERIAL\_NUMBER\_REGISTER}}
 \index{SERIAL\_NUMBER\_REGISTER@{SERIAL\_NUMBER\_REGISTER}!motor\_controller.h@{motor\_controller.h}}
 \doxysubsubsection{\texorpdfstring{SERIAL\_NUMBER\_REGISTER}{SERIAL\_NUMBER\_REGISTER}}
-{\footnotesize\ttfamily \#define S\+E\+R\+I\+A\+L\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+ER~0x1A}
+{\footnotesize\ttfamily \#define S\+E\+R\+I\+A\+L\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+ER~0x62}
 
 
 
-Definition at line 19 of file motor\+\_\+controller.\+h.
+Definition at line 164 of file motor\+\_\+controller.\+h.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{motor__controller_8h_ac9389d71d481a5381fe1d1e23b1e4ecc}\label{motor__controller_8h_ac9389d71d481a5381fe1d1e23b1e4ecc}} 
+\mbox{\Hypertarget{motor__controller_8h_a420642111318eedc2b05236f0ed531f4}\label{motor__controller_8h_a420642111318eedc2b05236f0ed531f4}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_settings@{motor\_controller\_settings}}
 \index{motor\_controller\_settings@{motor\_controller\_settings}!motor\_controller.h@{motor\_controller.h}}
 \doxysubsubsection{\texorpdfstring{motor\_controller\_settings}{motor\_controller\_settings}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structmotor__controllor__settings}{motor\+\_\+controllor\+\_\+settings}} \mbox{\hyperlink{motor__controller_8h_ac9389d71d481a5381fe1d1e23b1e4ecc}{motor\+\_\+controller\+\_\+settings}}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}}}
+
+
+
+Definition at line 16 of file motor\+\_\+controller.\+h.
+
+\mbox{\Hypertarget{motor__controller_8h_ad857192b5d0529e73642f1293d6bed75}\label{motor__controller_8h_ad857192b5d0529e73642f1293d6bed75}} 
+\index{motor\_controller.h@{motor\_controller.h}!uv\_CAN\_msg@{uv\_CAN\_msg}}
+\index{uv\_CAN\_msg@{uv\_CAN\_msg}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{uv\_CAN\_msg}{uv\_CAN\_msg}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}}}
+
+
+
+Definition at line 17 of file motor\+\_\+controller.\+h.
 
 
 
@@ -206,14 +236,14 @@ Definition at line 19 of file motor\+\_\+controller.\+h.
 {\footnotesize\ttfamily enum \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7c}{motor\+\_\+controller\+\_\+current\+\_\+parameters}}}
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{todo1@{todo1}!motor\_controller.h@{motor\_controller.h}}\index{motor\_controller.h@{motor\_controller.h}!todo1@{todo1}}}\mbox{\Hypertarget{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7cafa32268e686878b8024c674367c01767}\label{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7cafa32268e686878b8024c674367c01767}} 
-todo1&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURRENT\_ACTUAL@{CURRENT\_ACTUAL}!motor\_controller.h@{motor\_controller.h}}\index{motor\_controller.h@{motor\_controller.h}!CURRENT\_ACTUAL@{CURRENT\_ACTUAL}}}\mbox{\Hypertarget{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091}\label{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091}} 
+C\+U\+R\+R\+E\+N\+T\+\_\+\+A\+C\+T\+U\+AL&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 30 of file motor\+\_\+controller.\+h.
+Definition at line 37 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a1592f0c8dbd9d1c5d8304671b518a863}\label{motor__controller_8h_a1592f0c8dbd9d1c5d8304671b518a863}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_io@{motor\_controller\_io}}
@@ -229,7 +259,7 @@ todo6969&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 113 of file motor\+\_\+controller.\+h.
+Definition at line 124 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a0d9dfc4722aad3781f3bfda8afb41554}\label{motor__controller_8h_a0d9dfc4722aad3781f3bfda8afb41554}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_limp\_mode@{motor\_controller\_limp\_mode}}
@@ -253,7 +283,7 @@ N\+\_\+lim\+\_\+minus&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 138 of file motor\+\_\+controller.\+h.
+Definition at line 148 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a2e6d114c8834f029dc4c48acf7ddf56f}\label{motor__controller_8h_a2e6d114c8834f029dc4c48acf7ddf56f}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_measurements@{motor\_controller\_measurements}}
@@ -269,7 +299,7 @@ D\+C\+\_\+bus\+\_\+voltage&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 68 of file motor\+\_\+controller.\+h.
+Definition at line 77 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741}\label{motor__controller_8h_ae5ebd6cc9310757a5488b935d21bc741}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_motor\_constants@{motor\_controller\_motor\_constants}}
@@ -357,7 +387,7 @@ time\+\_\+constant\+\_\+stator&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 34 of file motor\+\_\+controller.\+h.
+Definition at line 42 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a3f03fa29b56b9f1f2cf0a36f989f9521}\label{motor__controller_8h_a3f03fa29b56b9f1f2cf0a36f989f9521}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_PI\_values@{motor\_controller\_PI\_values}}
@@ -405,7 +435,7 @@ ramp\+\_\+set\+\_\+current&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 117 of file motor\+\_\+controller.\+h.
+Definition at line 129 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_aa7c35d6b7a8102a9104bd52eb92f9520}\label{motor__controller_8h_aa7c35d6b7a8102a9104bd52eb92f9520}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_repeating\_time@{motor\_controller\_repeating\_time}}
@@ -425,7 +455,7 @@ one\+\_\+hundred\+\_\+ms&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 133 of file motor\+\_\+controller.\+h.
+Definition at line 142 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268}\label{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_speed\_parameters@{motor\_controller\_speed\_parameters}}
@@ -453,7 +483,7 @@ N\+\_\+error&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 23 of file motor\+\_\+controller.\+h.
+Definition at line 22 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a0376dfd1eed1d027d96561fd24e48242}\label{motor__controller_8h_a0376dfd1eed1d027d96561fd24e48242}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_startup@{motor\_controller\_startup}}
@@ -473,7 +503,31 @@ firmware\+\_\+version&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 144 of file motor\+\_\+controller.\+h.
+Definition at line 155 of file motor\+\_\+controller.\+h.
+
+\mbox{\Hypertarget{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6ed}\label{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6ed}} 
+\index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_status@{motor\_controller\_status}}
+\index{motor\_controller\_status@{motor\_controller\_status}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{motor\_controller\_status}{motor\_controller\_status}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6ed}{motor\+\_\+controller\+\_\+status}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOGIMAP\_ERRORS@{LOGIMAP\_ERRORS}!motor\_controller.h@{motor\_controller.h}}\index{motor\_controller.h@{motor\_controller.h}!LOGIMAP\_ERRORS@{LOGIMAP\_ERRORS}}}\mbox{\Hypertarget{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27}\label{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27}} 
+L\+O\+G\+I\+M\+A\+P\+\_\+\+E\+R\+R\+O\+RS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOGIMAP\_IO@{LOGIMAP\_IO}!motor\_controller.h@{motor\_controller.h}}\index{motor\_controller.h@{motor\_controller.h}!LOGIMAP\_IO@{LOGIMAP\_IO}}}\mbox{\Hypertarget{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda887c38d92ef273b6fae58dcb51931765}\label{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda887c38d92ef273b6fae58dcb51931765}} 
+L\+O\+G\+I\+M\+A\+P\+\_\+\+IO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{POS\_ACTUAL@{POS\_ACTUAL}!motor\_controller.h@{motor\_controller.h}}\index{motor\_controller.h@{motor\_controller.h}!POS\_ACTUAL@{POS\_ACTUAL}}}\mbox{\Hypertarget{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda75b5d9cefe36e570d9e0c306fb0e22fc}\label{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda75b5d9cefe36e570d9e0c306fb0e22fc}} 
+P\+O\+S\+\_\+\+A\+C\+T\+U\+AL&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 29 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dff}\label{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dff}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_status\_information\_errors\_warnings@{motor\_controller\_status\_information\_errors\_warnings}}
@@ -617,7 +671,7 @@ bleeder\+\_\+resistor\+\_\+warning&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 73 of file motor\+\_\+controller.\+h.
+Definition at line 82 of file motor\+\_\+controller.\+h.
 
 \mbox{\Hypertarget{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645}\label{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645}} 
 \index{motor\_controller.h@{motor\_controller.h}!motor\_controller\_temperatures@{motor\_controller\_temperatures}}
@@ -661,33 +715,133 @@ temp\+\_\+sensor\+\_\+pt4&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 57 of file motor\+\_\+controller.\+h.
+Definition at line 65 of file motor\+\_\+controller.\+h.
 
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{motor__controller_8h_af6b3a4911f1bdac54d84b4dcc7b7ec4a}\label{motor__controller_8h_af6b3a4911f1bdac54d84b4dcc7b7ec4a}} 
+\index{motor\_controller.h@{motor\_controller.h}!MC\_Request\_Data@{MC\_Request\_Data}}
+\index{MC\_Request\_Data@{MC\_Request\_Data}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{MC\_Request\_Data()}{MC\_Request\_Data()}}
+{\footnotesize\ttfamily void M\+C\+\_\+\+Request\+\_\+\+Data (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Reg\+ID }\end{DoxyParamCaption})}
+
+
+
+Sends a C\+AN request to retrieve a specific register from the motor controller. 
+
+The request message is formatted as\+: \mbox{[}0x3D, Reg\+ID, 0\mbox{]}, which should trigger an immediate reply. 
+
+Definition at line 63 of file motor\+\_\+controller.\+c.
+
+
+
+References motor\+\_\+controller\+\_\+settings\+::can\+\_\+id\+\_\+tx, uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, uv\+\_\+\+C\+A\+N\+\_\+msg\+::flags, mc\+\_\+default\+\_\+settings, uv\+\_\+\+C\+A\+N\+\_\+msg\+::msg\+\_\+id, U\+V\+\_\+\+OK, and uv\+Send\+Can\+M\+S\+G().
+
+
+
+Referenced by M\+C\+\_\+\+Startup().
+
 \mbox{\Hypertarget{motor__controller_8h_aed1407e1e0fd59dc7c5e5d6db671f0ab}\label{motor__controller_8h_aed1407e1e0fd59dc7c5e5d6db671f0ab}} 
 \index{motor\_controller.h@{motor\_controller.h}!MC\_Startup@{MC\_Startup}}
 \index{MC\_Startup@{MC\_Startup}!motor\_controller.h@{motor\_controller.h}}
 \doxysubsubsection{\texorpdfstring{MC\_Startup()}{MC\_Startup()}}
 {\footnotesize\ttfamily void M\+C\+\_\+\+Startup (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
 
-Initializes the motor controller by performing the following steps\+:
+
+
+Initializes the motor controller. 
+
+This routine performs the following steps\+:
 \begin{DoxyEnumerate}
-\item Verifies the serial number from the motor controller.
-\item Checks the firmware version to ensure compatibility.
-\item Executes a motor spin test at low R\+PM to validate functionality.
-\item Checks for errors and warnings from the motor controller.
-\item Logs successful initialization if all checks pass. 
+\item Requests the serial number and firmware version.
+\item Sends a nominal torque command (spin test).
+\item Requests error/warning data.
+\item Suspends itself after successful initialization. 
 \end{DoxyEnumerate}
 
-Definition at line 739 of file motor\+\_\+controller.\+c.
+Definition at line 278 of file motor\+\_\+controller.\+c.
 
 
 
-References firmware\+\_\+version, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+G\+I\+S\+T\+ER, uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, M\+C\+\_\+\+Expected\+\_\+\+F\+W\+\_\+\+Version, M\+C\+\_\+\+Expected\+\_\+\+Serial\+\_\+\+Number, M\+C\+\_\+\+Request\+\_\+\+Data(), uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle, M\+O\+T\+O\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+ER, motor\+\_\+controller\+\_\+errors\+\_\+warnings, Motor\+Controller\+Error\+Handler(), Motor\+Controller\+Spin\+Test(), Parse\+\_\+\+Bamocar\+\_\+\+Response(), Rx\+Data, S\+E\+R\+I\+A\+L\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+ER, uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args, U\+V\+\_\+\+OK, and Wait\+For\+\_\+\+C\+A\+N\+\_\+\+Response().
+References uv\+\_\+init\+\_\+task\+\_\+response\+::device, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+V\+E\+R\+S\+I\+O\+N\+\_\+\+R\+E\+G\+I\+S\+T\+ER, uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, insert\+C\+A\+N\+Message\+Handler(), mc\+\_\+default\+\_\+settings, M\+C\+\_\+\+Request\+\_\+\+Data(), M\+C\+\_\+\+Set\+\_\+\+Param(), M\+O\+T\+O\+R\+\_\+\+C\+O\+N\+T\+R\+O\+L\+L\+ER, motor\+\_\+controller\+\_\+errors\+\_\+warnings, Motor\+Controller\+Spin\+Test(), Parse\+\_\+\+Bamocar\+\_\+\+Response(), motor\+\_\+controller\+\_\+settings\+::proportional\+\_\+gain, S\+E\+R\+I\+A\+L\+\_\+\+N\+U\+M\+B\+E\+R\+\_\+\+R\+E\+G\+I\+S\+T\+ER, uv\+\_\+init\+\_\+task\+\_\+response\+::status, and U\+V\+\_\+\+OK.
 
 
 
 Referenced by uv\+Init().
+
+\mbox{\Hypertarget{motor__controller_8h_ad9944bce211ed6594929c3acf72e3881}\label{motor__controller_8h_ad9944bce211ed6594929c3acf72e3881}} 
+\index{motor\_controller.h@{motor\_controller.h}!MotorControllerSpinTest@{MotorControllerSpinTest}}
+\index{MotorControllerSpinTest@{MotorControllerSpinTest}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{MotorControllerSpinTest()}{MotorControllerSpinTest()}}
+{\footnotesize\ttfamily uint16\+\_\+t Motor\+Controller\+Spin\+Test (\begin{DoxyParamCaption}\item[{float}]{T\+\_\+filtered }\end{DoxyParamCaption})}
+
+
+
+Sends a direct torque command to the motor controller. 
+
+This function accepts a float for the desired torque (T\+\_\+filtered), clamps it between 0 and 100, converts it to a 16-\/bit integer, and then sends it over C\+AN using uv\+Send\+Can\+M\+SG. 
+
+Definition at line 30 of file motor\+\_\+controller.\+c.
+
+
+
+References motor\+\_\+controller\+\_\+settings\+::can\+\_\+id\+\_\+tx, uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, uv\+\_\+\+C\+A\+N\+\_\+msg\+::flags, mc\+\_\+default\+\_\+settings, uv\+\_\+\+C\+A\+N\+\_\+msg\+::msg\+\_\+id, N\+\_\+set, U\+V\+\_\+\+OK, and uv\+Send\+Can\+M\+S\+G().
+
+
+
+Referenced by M\+C\+\_\+\+Startup(), and send\+Torque\+To\+Motor\+Controller().
+
+\mbox{\Hypertarget{motor__controller_8h_a98ef1edcc51198faf53767e8d92ce4c9}\label{motor__controller_8h_a98ef1edcc51198faf53767e8d92ce4c9}} 
+\index{motor\_controller.h@{motor\_controller.h}!Parse\_Bamocar\_Response@{Parse\_Bamocar\_Response}}
+\index{Parse\_Bamocar\_Response@{Parse\_Bamocar\_Response}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{Parse\_Bamocar\_Response()}{Parse\_Bamocar\_Response()}}
+{\footnotesize\ttfamily void Parse\+\_\+\+Bamocar\+\_\+\+Response (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Parses a 32-\/bit value from a C\+AN message in little-\/endian format. 
+
+This example assumes that the data bytes are stored as\+: data\mbox{[}0\mbox{]} = L\+SB, data\mbox{[}3\mbox{]} = M\+SB. 
+
+Definition at line 104 of file motor\+\_\+controller.\+c.
+
+
+
+References uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, deserialize\+Small\+E16, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, mc\+\_\+default\+\_\+settings, and motor\+\_\+controller\+\_\+settings\+::proportional\+\_\+gain.
+
+
+
+Referenced by M\+C\+\_\+\+Startup().
+
+\mbox{\Hypertarget{motor__controller_8h_aaff68bb563bf4ad56841a5a5020cbadc}\label{motor__controller_8h_aaff68bb563bf4ad56841a5a5020cbadc}} 
+\index{motor\_controller.h@{motor\_controller.h}!ProcessMotorControllerResponse@{ProcessMotorControllerResponse}}
+\index{ProcessMotorControllerResponse@{ProcessMotorControllerResponse}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{ProcessMotorControllerResponse()}{ProcessMotorControllerResponse()}}
+{\footnotesize\ttfamily void Process\+Motor\+Controller\+Response (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$}]{msg }\end{DoxyParamCaption})}
+
+
+
+Processes a motor controller response received via C\+AN. 
+
+This function examines the first byte as the register ID and then processes the rest of the message using little-\/endian parsing. For error/warning responses (for example, when reg\+\_\+id equals motor\+\_\+controller\+\_\+errors\+\_\+warnings), it calls the error handler. 
+
+Definition at line 211 of file motor\+\_\+controller.\+c.
+
+
+
+References C\+U\+R\+R\+E\+N\+T\+\_\+\+A\+C\+T\+U\+AL, uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, L\+O\+G\+I\+M\+A\+P\+\_\+\+E\+R\+R\+O\+RS, L\+O\+G\+I\+M\+A\+P\+\_\+\+IO, motor\+\_\+controller\+\_\+errors\+\_\+warnings, Motor\+Controller\+Error\+Handler\+\_\+16bit\+L\+E(), N\+\_\+actual, and P\+O\+S\+\_\+\+A\+C\+T\+U\+AL.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{motor__controller_8h_afb41a96439ba6d63dcc64f257c43a1d2}\label{motor__controller_8h_afb41a96439ba6d63dcc64f257c43a1d2}} 
+\index{motor\_controller.h@{motor\_controller.h}!mc\_default\_settings@{mc\_default\_settings}}
+\index{mc\_default\_settings@{mc\_default\_settings}!motor\_controller.h@{motor\_controller.h}}
+\doxysubsubsection{\texorpdfstring{mc\_default\_settings}{mc\_default\_settings}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} mc\+\_\+default\+\_\+settings}
+
+
+
+Definition at line 14 of file motor\+\_\+controller.\+c.
 

@@ -288,7 +288,7 @@ Variables</h2></td></tr>
 
 <p class="reference">References <a class="el" href="can_8c_source.html#l00067">CAN_callback_table</a>, <a class="el" href="can_8c_source.html#l00057">CAN_Callback::CAN_id</a>, <a class="el" href="can_8c_source.html#l00058">CAN_Callback::function</a>, <a class="el" href="can_8c_source.html#l00351">generateHash()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00276">uv_CAN_msg::msg_id</a>, <a class="el" href="can_8c_source.html#l00059">CAN_Callback::next</a>, <a class="el" href="uvfr__utils_8h_source.html#l00169">UV_ERROR</a>, <a class="el" href="uvfr__utils_8h_source.html#l00167">UV_OK</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00168">UV_WARNING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00618">CANbusRxSvcDaemon()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00632">CANbusRxSvcDaemon()</a>.</p>
 
 </div>
 </div>
@@ -311,11 +311,11 @@ Variables</h2></td></tr>
 <p>Background task that executes the CAN message callback functions. </p>
 <p>Basically just snoops through the hash table </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00618">618</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00632">632</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="can_8c_source.html#l00069">callback_table_mutex</a>, <a class="el" href="can_8c_source.html#l00368">callFunctionFromCANid()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00241">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00708">killSelf()</a>, <a class="el" href="can_8c_source.html#l00050">Rx_msg_queue</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00749">suspendSelf()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00239">uv_task_info::task_handle</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00098">UV_KILL_CMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00167">UV_OK</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00099">UV_SUSPEND_CMD</a>.</p>
+<p class="reference">References <a class="el" href="can_8c_source.html#l00069">callback_table_mutex</a>, <a class="el" href="can_8c_source.html#l00368">callFunctionFromCANid()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00241">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00717">killSelf()</a>, <a class="el" href="can_8c_source.html#l00050">Rx_msg_queue</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00758">suspendSelf()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00239">uv_task_info::task_handle</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00098">UV_KILL_CMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00167">UV_OK</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00099">UV_SUSPEND_CMD</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__state__engine_8c_source.html#l01341">uvSVCTaskManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00046">uvInit()</a>.</p>
 
 </div>
 </div>
@@ -338,11 +338,11 @@ Variables</h2></td></tr>
 <p>Background task that handles any CAN messages that are being sent. </p>
 <p>This task sits idle, until the time is right (it receives a notification from the uvSendCanMSG function) Once this condition has been met, it will actually call the <code>HAL_CAN_AddTxMessage</code> function. This is a very high priority task, meaning that it will pause whatever other code is going in order to run </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00551">551</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00563">563</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00241">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00277">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00275">uv_CAN_msg::dlc</a>, <a class="el" href="uvfr__utils_8h_source.html#l00271">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00147">hcan2</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00708">killSelf()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00276">uv_CAN_msg::msg_id</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00749">suspendSelf()</a>, <a class="el" href="can_8c_source.html#l00049">Tx_msg_queue</a>, <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>, <a class="el" href="constants_8c_source.html#l00008">TxMailbox</a>, <a class="el" href="uvfr__utils_8h_source.html#l00262">UV_CAN_EXTENDED_ID</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00098">UV_KILL_CMD</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00099">UV_SUSPEND_CMD</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00241">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00277">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00275">uv_CAN_msg::dlc</a>, <a class="el" href="uvfr__utils_8h_source.html#l00271">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00147">hcan2</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00717">killSelf()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00276">uv_CAN_msg::msg_id</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00758">suspendSelf()</a>, <a class="el" href="can_8c_source.html#l00049">Tx_msg_queue</a>, <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>, <a class="el" href="constants_8c_source.html#l00008">TxMailbox</a>, <a class="el" href="uvfr__utils_8h_source.html#l00262">UV_CAN_EXTENDED_ID</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00098">UV_KILL_CMD</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00099">UV_SUSPEND_CMD</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__state__engine_8c_source.html#l01341">uvSVCTaskManager()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00046">uvInit()</a>.</p>
 
 </div>
 </div>
@@ -431,7 +431,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00298">298</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00277">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00275">uv_CAN_msg::dlc</a>, <a class="el" href="main_8c_source.html#l00378">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00147">hcan2</a>, <a class="el" href="uvfr__utils_8h_source.html#l00276">uv_CAN_msg::msg_id</a>, <a class="el" href="can_8c_source.html#l00050">Rx_msg_queue</a>, and <a class="el" href="constants_8c_source.html#l00005">RxHeader</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00277">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00275">uv_CAN_msg::dlc</a>, <a class="el" href="main_8c_source.html#l00384">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00147">hcan2</a>, <a class="el" href="uvfr__utils_8h_source.html#l00276">uv_CAN_msg::msg_id</a>, <a class="el" href="can_8c_source.html#l00050">Rx_msg_queue</a>, and <a class="el" href="constants_8c_source.html#l00005">RxHeader</a>.</p>
 
 </div>
 </div>
@@ -507,7 +507,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00150">150</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="main_8c_source.html#l00378">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00147">hcan2</a>, and <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>.</p>
+<p class="reference">References <a class="el" href="main_8c_source.html#l00384">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00147">hcan2</a>, and <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00097">main()</a>.</p>
 
@@ -550,7 +550,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00069">69</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00618">CANbusRxSvcDaemon()</a>, and <a class="el" href="can_8c_source.html#l00395">insertCANMessageHandler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00632">CANbusRxSvcDaemon()</a>, and <a class="el" href="can_8c_source.html#l00395">insertCANMessageHandler()</a>.</p>
 
 </div>
 </div>
@@ -587,7 +587,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00147">147</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00476">__uvCANtxCritSection()</a>, <a class="el" href="stm32f4xx__it_8c_source.html#l00223">CAN2_RX0_IRQHandler()</a>, <a class="el" href="stm32f4xx__it_8c_source.html#l00237">CAN2_RX1_IRQHandler()</a>, <a class="el" href="stm32f4xx__it_8c_source.html#l00209">CAN2_TX_IRQHandler()</a>, <a class="el" href="can_8c_source.html#l00551">CANbusTxSvcDaemon()</a>, <a class="el" href="can_8c_source.html#l00298">HAL_CAN_RxFifo0MsgPendingCallback()</a>, <a class="el" href="imd_8c_source.html#l00180">IMD_Request_Status()</a>, <a class="el" href="main_8c_source.html#l00097">main()</a>, <a class="el" href="motor__controller_8c_source.html#l00230">MC_Request_Data()</a>, <a class="el" href="motor__controller_8c_source.html#l00062">MotorControllerSpinTest()</a>, <a class="el" href="can_8c_source.html#l00150">MX_CAN2_Init()</a>, <a class="el" href="pdu_8c_source.html#l00048">PDU_disable_brake_light()</a>, <a class="el" href="pdu_8c_source.html#l00170">PDU_disable_coolant_pump()</a>, <a class="el" href="pdu_8c_source.html#l00136">PDU_disable_cooling_fans()</a>, <a class="el" href="pdu_8c_source.html#l00074">PDU_disable_motor_controller()</a>, <a class="el" href="pdu_8c_source.html#l00100">PDU_disable_shutdown_circuit()</a>, <a class="el" href="pdu_8c_source.html#l00034">PDU_enable_brake_light()</a>, <a class="el" href="pdu_8c_source.html#l00158">PDU_enable_coolant_pump()</a>, <a class="el" href="pdu_8c_source.html#l00115">PDU_enable_cooling_fans()</a>, <a class="el" href="pdu_8c_source.html#l00062">PDU_enable_motor_controller()</a>, <a class="el" href="pdu_8c_source.html#l00087">PDU_enable_shutdown_circuit()</a>, <a class="el" href="pdu_8c_source.html#l00011">PDU_speaker_chirp()</a>, <a class="el" href="dash_8c_source.html#l00029">Update_Batt_Temp()</a>, <a class="el" href="dash_8c_source.html#l00009">Update_RPM()</a>, and <a class="el" href="dash_8c_source.html#l00048">Update_State_Of_Charge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00476">__uvCANtxCritSection()</a>, <a class="el" href="stm32f4xx__it_8c_source.html#l00240">CAN2_RX0_IRQHandler()</a>, <a class="el" href="stm32f4xx__it_8c_source.html#l00254">CAN2_RX1_IRQHandler()</a>, <a class="el" href="stm32f4xx__it_8c_source.html#l00226">CAN2_TX_IRQHandler()</a>, <a class="el" href="can_8c_source.html#l00563">CANbusTxSvcDaemon()</a>, <a class="el" href="can_8c_source.html#l00298">HAL_CAN_RxFifo0MsgPendingCallback()</a>, <a class="el" href="imd_8c_source.html#l00185">IMD_Request_Status()</a>, <a class="el" href="main_8c_source.html#l00097">main()</a>, <a class="el" href="can_8c_source.html#l00150">MX_CAN2_Init()</a>, <a class="el" href="pdu_8c_source.html#l00054">PDU_disable_brake_light()</a>, <a class="el" href="pdu_8c_source.html#l00176">PDU_disable_coolant_pump()</a>, <a class="el" href="pdu_8c_source.html#l00142">PDU_disable_cooling_fans()</a>, <a class="el" href="pdu_8c_source.html#l00080">PDU_disable_motor_controller()</a>, <a class="el" href="pdu_8c_source.html#l00106">PDU_disable_shutdown_circuit()</a>, <a class="el" href="pdu_8c_source.html#l00040">PDU_enable_brake_light()</a>, <a class="el" href="pdu_8c_source.html#l00164">PDU_enable_coolant_pump()</a>, <a class="el" href="pdu_8c_source.html#l00121">PDU_enable_cooling_fans()</a>, <a class="el" href="pdu_8c_source.html#l00068">PDU_enable_motor_controller()</a>, <a class="el" href="pdu_8c_source.html#l00093">PDU_enable_shutdown_circuit()</a>, <a class="el" href="pdu_8c_source.html#l00017">PDU_speaker_chirp()</a>, <a class="el" href="dash_8c_source.html#l00029">Update_Batt_Temp()</a>, <a class="el" href="dash_8c_source.html#l00009">Update_RPM()</a>, and <a class="el" href="dash_8c_source.html#l00048">Update_State_Of_Charge()</a>.</p>
 
 </div>
 </div>
@@ -613,7 +613,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00050">50</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00618">CANbusRxSvcDaemon()</a>, and <a class="el" href="can_8c_source.html#l00298">HAL_CAN_RxFifo0MsgPendingCallback()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00632">CANbusRxSvcDaemon()</a>, and <a class="el" href="can_8c_source.html#l00298">HAL_CAN_RxFifo0MsgPendingCallback()</a>.</p>
 
 </div>
 </div>
@@ -639,7 +639,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00049">49</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00551">CANbusTxSvcDaemon()</a>, and <a class="el" href="can_8c_source.html#l00513">uvSendCanMSG()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l00563">CANbusTxSvcDaemon()</a>, and <a class="el" href="can_8c_source.html#l00513">uvSendCanMSG()</a>.</p>
 
 </div>
 </div>

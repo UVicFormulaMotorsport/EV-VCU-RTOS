@@ -113,5 +113,6 @@ var uvfr__utils_8h =
     [ "__uvInitPanic", "uvfr__utils_8h.html#a92b5ac44171d49acd084c274385a043a", null ],
     [ "uvInit", "uvfr__utils_8h.html#a6d40598f9d8daa89ca159a2e87f4fd01", null ],
     [ "uvIsPTRValid", "uvfr__utils_8h.html#a0186c036688c7852cf0ceaee96b343a3", null ],
+    [ "data_size", "uvfr__utils_8h.html#a657e7e858d8847396634fd9912747f8b", null ],
     [ "global_context", "uvfr__utils_8h.html#a660f31748ce0b90d471a4f5441ee3cb1", null ]
 ];

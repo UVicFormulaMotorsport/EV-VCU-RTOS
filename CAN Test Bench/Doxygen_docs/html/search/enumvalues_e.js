@@ -1,15 +1,17 @@
 var searchData=
 [
-  ['s_5fcurve_5fspeed_5fmap_1921',['s_curve_speed_map',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800a20916d6e654ff6402aa120d8710a81a0',1,'driving_loop.h']]],
-  ['s_5fcurve_5ftorque_5fmap_1922',['s_curve_torque_map',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800a97cb36a9ac4fbbe2e7b481a2677993f9',1,'driving_loop.h']]],
-  ['safety_5ftouch_5fcurrent_1923',['safety_touch_current',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f',1,'imd.h']]],
-  ['safety_5ftouch_5fenergy_1924',['safety_touch_energy',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504',1,'imd.h']]],
-  ['serial_5fnumber_5f0_1925',['Serial_number_0',['../imd_8h.html#a975959819df682c9adec7c667028674ea453d45b6245737d4987dd4b78a2e464a',1,'imd.h']]],
-  ['serial_5fnumber_5f1_1926',['Serial_number_1',['../imd_8h.html#a975959819df682c9adec7c667028674ea29cf9ca0d526194e6ce71ff99120ee9e',1,'imd.h']]],
-  ['serial_5fnumber_5f2_1927',['Serial_number_2',['../imd_8h.html#a975959819df682c9adec7c667028674ea87fc8ea63ac933e1e441f105dce28cdb',1,'imd.h']]],
-  ['serial_5fnumber_5f3_1928',['Serial_number_3',['../imd_8h.html#a975959819df682c9adec7c667028674eaf9d06047340a1a4185e714ca761f891e',1,'imd.h']]],
-  ['special_5fcpu_5ffault_1929',['special_CPU_fault',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa7483be8346bb7b2fdfb418383961fba7',1,'motor_controller.h']]],
-  ['speed_5factual_5fresolution_5flimit_1930',['speed_actual_resolution_limit',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa2c5d3b1ee0135916f17e89f331429ed5',1,'motor_controller.h']]],
-  ['stator_5fleakage_5finductance_1931',['stator_leakage_inductance',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741af2bcc9a2d80a2655bf9adc22f9e6c062',1,'motor_controller.h']]],
-  ['stator_5fresistance_5fph_5fph_1932',['stator_resistance_ph_ph',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741a0505769d343c974ce9b0ea5f645c4869',1,'motor_controller.h']]]
+  ['race_5faway_5fdetected_2257',['race_away_detected',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa696b36face7279e19e2905b0fa9ecb68',1,'motor_controller.h']]],
+  ['ramp_5fset_5fcurrent_2258',['ramp_set_current',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521a5cde7e1c696e5ca92501b3e470b9ad88',1,'motor_controller.h']]],
+  ['rated_5fmotor_5fspeed_2259',['rated_motor_speed',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741a6c9ec3f524698f618635129709fd5ea2',1,'motor_controller.h']]],
+  ['realtime_5fpriority_2260',['REALTIME_PRIORITY',['../group__state__engine__api.html#gga6166ed80f8e3bd62f1e7e6122c8817f6aa20ceda9447596a05151a4a66db46a92',1,'uvfr_state_engine.h']]],
+  ['recuperation_5framp_2261',['recuperation_ramp',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521a013c38322d35d441c21920fc665d197a',1,'motor_controller.h']]],
+  ['request_5fall_5fjournal_5fentries_2262',['REQUEST_ALL_JOURNAL_ENTRIES',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a205322c736d66df92b6d968b53648acb',1,'uvfr_settings.h']]],
+  ['request_5fall_5fsettings_2263',['REQUEST_ALL_SETTINGS',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a9b0e526098fd6c30dc93538edba59405',1,'uvfr_settings.h']]],
+  ['request_5fjournal_5fentries_5fby_5ftime_2264',['REQUEST_JOURNAL_ENTRIES_BY_TIME',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a4313d65a75fd41f3e527b330e7370a5e',1,'uvfr_settings.h']]],
+  ['request_5fspecific_5fsetting_2265',['REQUEST_SPECIFIC_SETTING',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694ac53400ee472ace47006a18aaaa4a86a0',1,'uvfr_settings.h']]],
+  ['request_5fvcu_5ffirmware_5fversion_2266',['REQUEST_VCU_FIRMWARE_VERSION',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a12171aa85f3d0dca4aa19b53122ca542',1,'uvfr_settings.h']]],
+  ['request_5fvcu_5fstatus_2267',['REQUEST_VCU_STATUS',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694ad67522ff5c2a93d043e4d26bd905ce34',1,'uvfr_settings.h']]],
+  ['rotate_5ffield_5fenable_5fnot_5fpresent_5fnorun_2268',['rotate_field_enable_not_present_norun',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3689755161fb5aa5fae86b270bfbf5fc',1,'motor_controller.h']]],
+  ['rotate_5ffield_5fenable_5fnot_5fpresent_5frun_2269',['rotate_field_enable_not_present_run',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffadae8b5f4fb6cd6712202d055529499ef',1,'motor_controller.h']]],
+  ['rotor_5fresistance_2270',['rotor_resistance',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741ac3c230853d874dbfd67c8eb9217562c0',1,'motor_controller.h']]]
 ];

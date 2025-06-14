@@ -1,5 +1,6 @@
 var stm32f4xx__it_8c =
 [
+    [ "ADC_IRQHandler", "stm32f4xx__it_8c.html#a06406eadf297fa89a6eaf9586b227a69", null ],
     [ "BusFault_Handler", "stm32f4xx__it_8c.html#a850cefb17a977292ae5eb4cafa9976c3", null ],
     [ "CAN2_RX0_IRQHandler", "stm32f4xx__it_8c.html#abf0ada95bd65ea0a24a25606a59a319d", null ],
     [ "CAN2_RX1_IRQHandler", "stm32f4xx__it_8c.html#ac67a8abbbb2e08b8c48726f65716295f", null ],
@@ -12,6 +13,8 @@ var stm32f4xx__it_8c =
     [ "NMI_Handler", "stm32f4xx__it_8c.html#a6ad7a5e3ee69cb6db6a6b9111ba898bc", null ],
     [ "TIM1_UP_TIM10_IRQHandler", "stm32f4xx__it_8c.html#ad1fd361bc5ad89facee67c76d1ff8dc0", null ],
     [ "UsageFault_Handler", "stm32f4xx__it_8c.html#a1d98923de2ed6b7309b66f9ba2971647", null ],
+    [ "hadc1", "stm32f4xx__it_8c.html#a22b804736f5648d52f639b2647d4ed13", null ],
+    [ "hadc2", "stm32f4xx__it_8c.html#acd9221f1aa19aebfe0b744947f2daf49", null ],
     [ "hcan2", "stm32f4xx__it_8c.html#ab77168d14df04ccca5d48612ee21ced8", null ],
     [ "hdma_adc1", "stm32f4xx__it_8c.html#a1c126854bb1813d31ab4776b21dcc51f", null ],
     [ "htim1", "stm32f4xx__it_8c.html#a25fc663547539bc49fecc0011bd76ab5", null ]

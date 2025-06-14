@@ -11,5 +11,6 @@ var pdu_8c =
     [ "PDU_enable_cooling_fans", "pdu_8c.html#a9d736981007eb7fc9691275dc7b6c05c", null ],
     [ "PDU_enable_motor_controller", "pdu_8c.html#ae3eaaae4438e04d63fe04cc23a201810", null ],
     [ "PDU_enable_shutdown_circuit", "pdu_8c.html#a0f2b86f2db7ee86b014ccc246c8b674d", null ],
-    [ "PDU_speaker_chirp", "pdu_8c.html#a42e33c33fc1dea26555ff7b20984b186", null ]
+    [ "PDU_speaker_chirp", "pdu_8c.html#a42e33c33fc1dea26555ff7b20984b186", null ],
+    [ "default_pdu_settings", "pdu_8c.html#a07c6d6c6f641c6fb60600b9bd7efbf7e", null ]
 ];

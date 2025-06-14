@@ -6,6 +6,7 @@
     <includes refid="constants_8h" local="yes">constants.h</includes>
     <includes refid="uvfr__utils_8h" local="yes">uvfr_utils.h</includes>
     <includedby refid="uvfr__utils_8h" local="yes">Core/Inc/uvfr_utils.h</includedby>
+    <includedby refid="motor__controller_8h" local="yes">Core/Inc/motor_controller.h</includedby>
     <includedby refid="bms_8c" local="yes">Core/Src/bms.c</includedby>
     <includedby refid="can_8c" local="yes">Core/Src/can.c</includedby>
     <includedby refid="dash_8c" local="yes">Core/Src/dash.c</includedby>
@@ -153,6 +154,8 @@
         <link refid="pdu_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
       </node>
       <node id="17">
         <label>motor_controller.h</label>
@@ -162,6 +165,8 @@
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="1" relation="include">
         </childnode>
       </node>
       <node id="16">
@@ -229,6 +234,8 @@
       <node id="28">
         <label>odometer.h</label>
         <link refid="odometer_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
       </node>
       <node id="3">
         <label>stm32f4xx_hal.h</label>
@@ -327,7 +334,7 @@
         <label>Core/Src/tim.c</label>
         <link refid="tim_8c"/>
       </node>
-      <node id="44">
+      <node id="45">
         <label>Core/Src/uvfr_state_engine.c</label>
         <link refid="uvfr__state__engine_8c"/>
       </node>
@@ -372,11 +379,19 @@
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
         <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
@@ -388,24 +403,28 @@
         </childnode>
         <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="42" relation="include">
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="43" relation="include">
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="44" relation="include">
-        </childnode>
         <childnode refid="45" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
+        <childnode refid="47" relation="include">
+        </childnode>
       </node>
-      <node id="42">
+      <node id="43">
         <label>Core/Src/odometer.c</label>
         <link refid="odometer_8c"/>
       </node>
@@ -466,8 +485,6 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
         <childnode refid="29" relation="include">
         </childnode>
       </node>
@@ -501,7 +518,7 @@
         <childnode refid="17" relation="include">
         </childnode>
       </node>
-      <node id="43">
+      <node id="44">
         <label>Core/Src/rb_tree.c</label>
         <link refid="rb__tree_8c"/>
       </node>
@@ -513,7 +530,7 @@
         <label>Core/Src/temp_monitoring.c</label>
         <link refid="temp__monitoring_8c"/>
       </node>
-      <node id="46">
+      <node id="47">
         <label>Core/Src/uvfr_vehicle_commands.c</label>
         <link refid="uvfr__vehicle__commands_8c"/>
       </node>
@@ -539,7 +556,7 @@
         <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="45">
+      <node id="46">
         <label>Core/Src/uvfr_utils.c</label>
         <link refid="uvfr__utils_8c"/>
       </node>
@@ -559,6 +576,8 @@
         <label>Core/Inc/can.h</label>
         <link refid="can_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="10" relation="include">
         </childnode>
@@ -591,9 +610,15 @@
         <label>Core/Src/can.c</label>
         <link refid="can_8c"/>
       </node>
-      <node id="41">
+      <node id="42">
         <label>Core/Inc/uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
+      </node>
+      <node id="41">
+        <label>Core/Inc/odometer.h</label>
+        <link refid="odometer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="32">
         <label>Core/Src/oled.c</label>
@@ -661,8 +686,6 @@
         <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="32" relation="include">
         </childnode>
@@ -741,21 +764,19 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Inc/can.h" line="36" column="26" bodyfile="Core/Src/can.c" bodystart="147" bodyend="-1" declfile="Core/Inc/can.h" declline="36" declcolumn="26"/>
-        <referencedby refid="imd_8c_1aeb7c937639c5385f5d2b4e3a4e60250f" compoundref="imd_8c" startline="180" endline="191">IMD_Request_Status</referencedby>
+        <referencedby refid="imd_8c_1aeb7c937639c5385f5d2b4e3a4e60250f" compoundref="imd_8c" startline="185" endline="196">IMD_Request_Status</referencedby>
         <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="97" endline="211">main</referencedby>
-        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="230" endline="249">MC_Request_Data</referencedby>
-        <referencedby refid="motor__controller_8c_1a71371a5194c9b5c725abec77feffbc38" compoundref="motor__controller_8c" startline="62" endline="97">MotorControllerSpinTest</referencedby>
-        <referencedby refid="pdu_8c_1ad7b67b3c1618a7c50a5d6d9f9e13a89f" compoundref="pdu_8c" startline="48" endline="60">PDU_disable_brake_light</referencedby>
-        <referencedby refid="pdu_8c_1aebeb35957c80be85dc938efe72c8e825" compoundref="pdu_8c" startline="170" endline="181">PDU_disable_coolant_pump</referencedby>
-        <referencedby refid="pdu_8c_1a3c665494b7f9fb4e025ff31d24c97072" compoundref="pdu_8c" startline="136" endline="155">PDU_disable_cooling_fans</referencedby>
-        <referencedby refid="pdu_8c_1a6b189c4013c1cb97ff696a9bc05def5e" compoundref="pdu_8c" startline="74" endline="85">PDU_disable_motor_controller</referencedby>
-        <referencedby refid="pdu_8c_1a67ed21c50014c891cc0031655a30aef9" compoundref="pdu_8c" startline="100" endline="111">PDU_disable_shutdown_circuit</referencedby>
-        <referencedby refid="pdu_8c_1aa5479c0d6ab8d58683e99bf102d60db8" compoundref="pdu_8c" startline="34" endline="46">PDU_enable_brake_light</referencedby>
-        <referencedby refid="pdu_8c_1aef2fd854287906cac1734f08a6edcf2a" compoundref="pdu_8c" startline="158" endline="169">PDU_enable_coolant_pump</referencedby>
-        <referencedby refid="pdu_8c_1a9d736981007eb7fc9691275dc7b6c05c" compoundref="pdu_8c" startline="115" endline="134">PDU_enable_cooling_fans</referencedby>
-        <referencedby refid="pdu_8c_1ae3eaaae4438e04d63fe04cc23a201810" compoundref="pdu_8c" startline="62" endline="73">PDU_enable_motor_controller</referencedby>
-        <referencedby refid="pdu_8c_1a0f2b86f2db7ee86b014ccc246c8b674d" compoundref="pdu_8c" startline="87" endline="98">PDU_enable_shutdown_circuit</referencedby>
-        <referencedby refid="pdu_8c_1a42e33c33fc1dea26555ff7b20984b186" compoundref="pdu_8c" startline="11" endline="31">PDU_speaker_chirp</referencedby>
+        <referencedby refid="pdu_8c_1ad7b67b3c1618a7c50a5d6d9f9e13a89f" compoundref="pdu_8c" startline="54" endline="66">PDU_disable_brake_light</referencedby>
+        <referencedby refid="pdu_8c_1aebeb35957c80be85dc938efe72c8e825" compoundref="pdu_8c" startline="176" endline="187">PDU_disable_coolant_pump</referencedby>
+        <referencedby refid="pdu_8c_1a3c665494b7f9fb4e025ff31d24c97072" compoundref="pdu_8c" startline="142" endline="161">PDU_disable_cooling_fans</referencedby>
+        <referencedby refid="pdu_8c_1a6b189c4013c1cb97ff696a9bc05def5e" compoundref="pdu_8c" startline="80" endline="91">PDU_disable_motor_controller</referencedby>
+        <referencedby refid="pdu_8c_1a67ed21c50014c891cc0031655a30aef9" compoundref="pdu_8c" startline="106" endline="117">PDU_disable_shutdown_circuit</referencedby>
+        <referencedby refid="pdu_8c_1aa5479c0d6ab8d58683e99bf102d60db8" compoundref="pdu_8c" startline="40" endline="52">PDU_enable_brake_light</referencedby>
+        <referencedby refid="pdu_8c_1aef2fd854287906cac1734f08a6edcf2a" compoundref="pdu_8c" startline="164" endline="175">PDU_enable_coolant_pump</referencedby>
+        <referencedby refid="pdu_8c_1a9d736981007eb7fc9691275dc7b6c05c" compoundref="pdu_8c" startline="121" endline="140">PDU_enable_cooling_fans</referencedby>
+        <referencedby refid="pdu_8c_1ae3eaaae4438e04d63fe04cc23a201810" compoundref="pdu_8c" startline="68" endline="79">PDU_enable_motor_controller</referencedby>
+        <referencedby refid="pdu_8c_1a0f2b86f2db7ee86b014ccc246c8b674d" compoundref="pdu_8c" startline="93" endline="104">PDU_enable_shutdown_circuit</referencedby>
+        <referencedby refid="pdu_8c_1a42e33c33fc1dea26555ff7b20984b186" compoundref="pdu_8c" startline="17" endline="37">PDU_speaker_chirp</referencedby>
         <referencedby refid="dash_8c_1a66f84461e5c75202d12edfd8ea7c7f62" compoundref="dash_8c" startline="29" endline="45">Update_Batt_Temp</referencedby>
         <referencedby refid="dash_8c_1ab26e477047a5166efc8f2b34dbd38872" compoundref="dash_8c" startline="9" endline="26">Update_RPM</referencedby>
         <referencedby refid="dash_8c_1a30155b58ef3801f5693e953d4139d55f" compoundref="dash_8c" startline="48" endline="64">Update_State_Of_Charge</referencedby>
@@ -777,7 +798,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Inc/can.h" line="48" column="6" bodyfile="Core/Src/can.c" bodystart="150" bodyend="226" declfile="Core/Inc/can.h" declline="48" declcolumn="6"/>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="378" endline="388">Error_Handler</references>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="384" endline="394">Error_Handler</references>
         <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="147">hcan2</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
         <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="97" endline="211">main</referencedby>
@@ -800,7 +821,7 @@
         <location file="Core/Inc/can.h" line="52" column="6" bodyfile="Core/Src/can.c" bodystart="298" bodyend="335" declfile="Core/Inc/can.h" declline="52" declcolumn="6"/>
         <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="277">uv_CAN_msg::data</references>
         <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="275">uv_CAN_msg::dlc</references>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="378" endline="388">Error_Handler</references>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="384" endline="394">Error_Handler</references>
         <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="147">hcan2</references>
         <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="276">uv_CAN_msg::msg_id</references>
         <references refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" compoundref="can_8c" startline="50">Rx_msg_queue</references>
@@ -841,13 +862,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="55" column="11" bodyfile="Core/Src/can.c" bodystart="513" bodyend="542" declfile="Core/Inc/can.h" declline="55" declcolumn="11"/>
+        <location file="Core/Inc/can.h" line="55" column="11" bodyfile="Core/Src/can.c" bodystart="513" bodyend="554" declfile="Core/Inc/can.h" declline="55" declcolumn="11"/>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="169">UV_ERROR</references>
         <references refid="can_8c_1a39f60bf61979059355fc4916aa3500db" compoundref="can_8c" startline="49">Tx_msg_queue</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
         <references refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</references>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
+        <referencedby refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" compoundref="motor__controller_8c" startline="30" endline="56">MotorControllerSpinTest</referencedby>
+        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="63" endline="78">MC_Request_Data</referencedby>
+        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="80" endline="96">MC_Set_Param</referencedby>
         <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="52" endline="63">testfunc2</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="157">tempMonitorTask</referencedby>
+        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="152" endline="226">handleIncomingLaptopMsg</referencedby>
+        <referencedby refid="uvfr__settings_8c_1adc9522bb052011b07febe1235d1a4792" compoundref="uvfr__settings_8c" startline="334" endline="405">uvSettingsInit</referencedby>
+        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="778" endline="797">uvSendSpecificParam</referencedby>
+        <referencedby refid="uvfr__settings_8c_1a2f0cb7e05c1bef0501d585df7c2c6013" compoundref="uvfr__settings_8c" startline="864" endline="1052">uvSettingsProgrammerTask</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8h_1a2357e197a9ac26277eec808769fe409f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -866,22 +894,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="57" column="6" bodyfile="Core/Src/can.c" bodystart="551" bodyend="610" declfile="Core/Inc/can.h" declline="57" declcolumn="6"/>
+        <location file="Core/Inc/can.h" line="57" column="6" bodyfile="Core/Src/can.c" bodystart="563" bodyend="624" declfile="Core/Inc/can.h" declline="57" declcolumn="6"/>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="241">uv_task_info::cmd_data</references>
         <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="277">uv_CAN_msg::data</references>
         <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="275">uv_CAN_msg::dlc</references>
         <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="271">uv_CAN_msg::flags</references>
         <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="147">hcan2</references>
-        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="708" endline="741">killSelf</references>
+        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="717" endline="750">killSelf</references>
         <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="276">uv_CAN_msg::msg_id</references>
-        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="749" endline="780">suspendSelf</references>
+        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="758" endline="789">suspendSelf</references>
         <references refid="can_8c_1a39f60bf61979059355fc4916aa3500db" compoundref="can_8c" startline="49">Tx_msg_queue</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
         <references refid="constants_8h_1aedd1e4ac418a9697f9f41a2713d49569" compoundref="constants_8c" startline="8">TxMailbox</references>
         <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="262">UV_CAN_EXTENDED_ID</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" compoundref="uvfr__state__engine_8h" startline="98">UV_KILL_CMD</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" compoundref="uvfr__state__engine_8h" startline="99">UV_SUSPEND_CMD</references>
-        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1341" endline="1398">uvSVCTaskManager</referencedby>
+        <referencedby refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="46" endline="253">uvInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8h_1a2b32305988f51945b7c220ca60ab68e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -900,18 +928,18 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="58" column="6" bodyfile="Core/Src/can.c" bodystart="618" bodyend="656" declfile="Core/Inc/can.h" declline="58" declcolumn="6"/>
+        <location file="Core/Inc/can.h" line="58" column="6" bodyfile="Core/Src/can.c" bodystart="632" bodyend="670" declfile="Core/Inc/can.h" declline="58" declcolumn="6"/>
         <references refid="can_8c_1a2bd63a687f9513e4fcaf3c97d5821515" compoundref="can_8c" startline="69">callback_table_mutex</references>
         <references refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" compoundref="can_8c" startline="368" endline="385">callFunctionFromCANid</references>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="241">uv_task_info::cmd_data</references>
-        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="708" endline="741">killSelf</references>
+        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="717" endline="750">killSelf</references>
         <references refid="can_8c_1ad0e232ce658c38916aee908ceae1db1e" compoundref="can_8c" startline="50">Rx_msg_queue</references>
-        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="749" endline="780">suspendSelf</references>
+        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="758" endline="789">suspendSelf</references>
         <references refid="structuv__task__info_1a5347f41c4b15b2d6b039c339613fde43" compoundref="uvfr__state__engine_8h" startline="239">uv_task_info::task_handle</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" compoundref="uvfr__state__engine_8h" startline="98">UV_KILL_CMD</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="167">UV_OK</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" compoundref="uvfr__state__engine_8h" startline="99">UV_SUSPEND_CMD</references>
-        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1341" endline="1398">uvSVCTaskManager</referencedby>
+        <referencedby refid="uvfr__utils_8c_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="46" endline="253">uvInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__uvfr__can__api_1ga81adc4a577110ce8fe1158b0dc302cc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -941,7 +969,9 @@
         <references refid="struct_c_a_n___callback_1a2dbb9c56fe79ad5ce0165d7300b62ff5" compoundref="can_8c" startline="57">CAN_Callback::CAN_id</references>
         <references refid="struct_c_a_n___callback_1aaf6c1d8dd4ecbcac59008b8b5c7cbbaa" compoundref="can_8c" startline="58">CAN_Callback::function</references>
         <references refid="struct_c_a_n___callback_1ace8db41695ac99095f81f37c97056076" compoundref="can_8c" startline="59">CAN_Callback::next</references>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="157">tempMonitorTask</referencedby>
+        <referencedby refid="motor__controller_8c_1aed1407e1e0fd59dc7c5e5d6db671f0ab" compoundref="motor__controller_8c" startline="278" endline="326">MC_Startup</referencedby>
+        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="158">tempMonitorTask</referencedby>
+        <referencedby refid="uvfr__settings_8c_1adc9522bb052011b07febe1235d1a4792" compoundref="uvfr__settings_8c" startline="334" endline="405">uvSettingsInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8h_1acadda9ab3aa926b92a84e3f192c66547" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>

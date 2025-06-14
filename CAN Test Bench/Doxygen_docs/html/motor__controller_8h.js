@@ -1,12 +1,12 @@
 var motor__controller_8h =
 [
-    [ "motor_controllor_settings", "structmotor__controllor__settings.html", "structmotor__controllor__settings" ],
-    [ "DEFAULT_MOTOR_CONTROLLER_CAN_TIMEOUT", "motor__controller_8h.html#acc0df233686dd4cf6256fcab0473860e", null ],
     [ "FIRMWARE_VERSION_REGISTER", "motor__controller_8h.html#a829d1af845327949015b4e83bb6fc43d", null ],
+    [ "N_set_cmd", "motor__controller_8h.html#afeb7926ab4804cec84303f15b96280bc", null ],
     [ "SERIAL_NUMBER_REGISTER", "motor__controller_8h.html#aab8c03dc3480e25a7a75b60edbf51cb3", null ],
-    [ "motor_controller_settings", "motor__controller_8h.html#ac9389d71d481a5381fe1d1e23b1e4ecc", null ],
+    [ "motor_controller_settings", "motor__controller_8h.html#a420642111318eedc2b05236f0ed531f4", null ],
+    [ "uv_CAN_msg", "motor__controller_8h.html#ad857192b5d0529e73642f1293d6bed75", null ],
     [ "motor_controller_current_parameters", "motor__controller_8h.html#aefe525453e2d5fb5ff19de9f98247c7c", [
-      [ "todo1", "motor__controller_8h.html#aefe525453e2d5fb5ff19de9f98247c7cafa32268e686878b8024c674367c01767", null ]
+      [ "CURRENT_ACTUAL", "motor__controller_8h.html#aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091", null ]
     ] ],
     [ "motor_controller_io", "motor__controller_8h.html#a1592f0c8dbd9d1c5d8304671b518a863", [
       [ "todo6969", "motor__controller_8h.html#a1592f0c8dbd9d1c5d8304671b518a863a3a545dba8b1debc96a10c15f0e3bddf3", null ]
@@ -65,6 +65,11 @@ var motor__controller_8h =
       [ "clear_errors", "motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242ae138a3e61cb9bb9076598775b7810347", null ],
       [ "firmware_version", "motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2", null ]
     ] ],
+    [ "motor_controller_status", "motor__controller_8h.html#a08f38539bd153ea7b7b1be8df1d6f6ed", [
+      [ "LOGIMAP_ERRORS", "motor__controller_8h.html#a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27", null ],
+      [ "LOGIMAP_IO", "motor__controller_8h.html#a08f38539bd153ea7b7b1be8df1d6f6eda887c38d92ef273b6fae58dcb51931765", null ],
+      [ "POS_ACTUAL", "motor__controller_8h.html#a08f38539bd153ea7b7b1be8df1d6f6eda75b5d9cefe36e570d9e0c306fb0e22fc", null ]
+    ] ],
     [ "motor_controller_status_information_errors_warnings", "motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dff", [
       [ "motor_controller_errors_warnings", "motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa595211bb6640ca05c1c3344b47e2890f", null ],
       [ "eprom_read_error", "motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa87ada8cd125ba521b447d565c12bb30e", null ],
@@ -110,5 +115,10 @@ var motor__controller_8h =
       [ "temp_sensor_pt3", "motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645a4518ebfdfdcbae7be91b9b41b99ad2a4", null ],
       [ "temp_sensor_pt4", "motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645a19e537ab9271f8ef8d455f7b3dd85a94", null ]
     ] ],
-    [ "MC_Startup", "motor__controller_8h.html#aed1407e1e0fd59dc7c5e5d6db671f0ab", null ]
+    [ "MC_Request_Data", "motor__controller_8h.html#af6b3a4911f1bdac54d84b4dcc7b7ec4a", null ],
+    [ "MC_Startup", "motor__controller_8h.html#aed1407e1e0fd59dc7c5e5d6db671f0ab", null ],
+    [ "MotorControllerSpinTest", "motor__controller_8h.html#ad9944bce211ed6594929c3acf72e3881", null ],
+    [ "Parse_Bamocar_Response", "motor__controller_8h.html#a98ef1edcc51198faf53767e8d92ce4c9", null ],
+    [ "ProcessMotorControllerResponse", "motor__controller_8h.html#aaff68bb563bf4ad56841a5a5020cbadc", null ],
+    [ "mc_default_settings", "motor__controller_8h.html#afb41a96439ba6d63dcc64f257c43a1d2", null ]
 ];

@@ -10,7 +10,8 @@ var uvfr__utils_8c =
     [ "uvInit", "uvfr__utils_8c.html#a6d40598f9d8daa89ca159a2e87f4fd01", null ],
     [ "uvIsPTRValid", "uvfr__utils_8c.html#a0186c036688c7852cf0ceaee96b343a3", null ],
     [ "uvSysResetDaemon", "uvfr__utils_8c.html#a11806db468fdae50664b98e619575425", null ],
-    [ "uvUtilsReset", "uvfr__utils_8c.html#a02781145b4802ebdc7001800bbe6d994", null ],
+    [ "uvUtilsReset", "uvfr__utils_8c.html#a720831e1a34620ed980646076fa2fbc9", null ],
+    [ "data_size", "uvfr__utils_8c.html#a657e7e858d8847396634fd9912747f8b", null ],
     [ "init_task_handle", "uvfr__utils_8c.html#a142da7a698285a444ffffb0d1d791023", null ],
     [ "reset_handle", "uvfr__utils_8c.html#a4e2f70766df64229ab99dfe80c0c012a", null ],
     [ "TxData", "uvfr__utils_8c.html#af553c31425b32bd9c020380c942ed3bd", null ]
