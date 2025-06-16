@@ -63,8 +63,6 @@ static Queue\+Handle\+\_\+t \mbox{\hyperlink{group__state__engine_ga6837d935e61f
 \item 
 \mbox{\hyperlink{structrbtree}{rbtree}} $\ast$ \mbox{\hyperlink{group__state__engine_ga168524a5d658247db44217e643b6396f}{task\+\_\+name\+\_\+lut}} = N\+U\+LL
 \item 
-uint32\+\_\+t \mbox{\hyperlink{group__state__engine_gad05ab0da0046c01c52191148bbd0c36d}{error\+\_\+bitfield}} \mbox{[}4\mbox{]}
-\item 
 enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478e4}{uv\+\_\+vehicle\+\_\+state\+\_\+t}} \mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\+\_\+state}} = \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4afdfc4cdb8c5210e05bdfdc3df51f80ff}{U\+V\+\_\+\+B\+O\+OT}}
 \item 
 enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478e4}{uv\+\_\+vehicle\+\_\+state\+\_\+t}} \mbox{\hyperlink{group__state__engine_ga2ce6eef16a78c095592954d2fe68af2e}{previous\+\_\+state}} = \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4afdfc4cdb8c5210e05bdfdc3df51f80ff}{U\+V\+\_\+\+B\+O\+OT}}
@@ -122,7 +120,7 @@ Definition at line 20 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-Definition at line 1397 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1400 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -150,11 +148,11 @@ Now we deinitialize the svc\+Task\+Manager. This is done by doing the following\
 
 Lovely times for all
 
-Definition at line 1350 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1341 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-References \+\_\+\+\_\+uv\+Init\+Panic(), \+\_\+task\+\_\+register, and task\+\_\+management\+\_\+info\+::task\+\_\+handle.
+References \+\_\+\+\_\+uv\+Init\+Panic(), \+\_\+task\+\_\+register, uv\+\_\+task\+\_\+info\+::active\+\_\+states, C\+A\+N\+\_\+\+R\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME, C\+A\+N\+\_\+\+T\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME, C\+A\+Nbus\+Rx\+Svc\+Daemon(), C\+A\+Nbus\+Tx\+Svc\+Daemon(), uv\+\_\+task\+\_\+info\+::task\+\_\+function, task\+\_\+management\+\_\+info\+::task\+\_\+handle, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+Create\+Service\+Task(), and uv\+Start\+Task().
 
 
 
@@ -172,7 +170,7 @@ Function called at the end of the task period.
 
 @ 
 
-Definition at line 1454 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1457 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -248,21 +246,11 @@ Referenced by \+\_\+state\+Change\+Daemon(), \+\_\+uv\+Validate\+Specific\+Task(
 \end{DoxyCode}
 
 
-Definition at line 57 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 55 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
-
-\mbox{\Hypertarget{group__state__engine_gad05ab0da0046c01c52191148bbd0c36d}\label{group__state__engine_gad05ab0da0046c01c52191148bbd0c36d}} 
-\index{State Engine@{State Engine}!error\_bitfield@{error\_bitfield}}
-\index{error\_bitfield@{error\_bitfield}!State Engine@{State Engine}}
-\doxysubsubsection{\texorpdfstring{error\_bitfield}{error\_bitfield}}
-{\footnotesize\ttfamily uint32\+\_\+t error\+\_\+bitfield\mbox{[}4\mbox{]}}
-
-
-
-Definition at line 45 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Referenced by setup\+Default\+Settings().
 
 \mbox{\Hypertarget{group__state__engine_ga0ae08e3e5e1cb6e0228da97c7e4326e0}\label{group__state__engine_ga0ae08e3e5e1cb6e0228da97c7e4326e0}} 
 \index{State Engine@{State Engine}!last\_task\_end\_times@{last\_task\_end\_times}}
@@ -314,7 +302,7 @@ Referenced by uv\+Task\+Manager(), and uv\+Task\+Period\+End().
 
 
 
-Definition at line 55 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 53 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -328,7 +316,7 @@ Referenced by uv\+Start\+State\+Machine(), and uv\+Task\+Manager().
 
 
 
-Definition at line 48 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 46 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -380,7 +368,7 @@ Referenced by \+\_\+state\+Change\+Daemon(), kill\+Self(), and suspend\+Self().
 
 
 
-Definition at line 51 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 49 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -394,7 +382,7 @@ Referenced by uv\+Init\+State\+Engine(), and uv\+Start\+State\+Machine().
 
 
 
-Definition at line 50 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 48 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -418,7 +406,7 @@ Definition at line 43 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-Definition at line 53 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 51 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 \mbox{\Hypertarget{group__state__engine_gaf622d52254e824f6da1204abc93b18db}\label{group__state__engine_gaf622d52254e824f6da1204abc93b18db}} 
 \index{State Engine@{State Engine}!task\_tardiness@{task\_tardiness}}
@@ -452,9 +440,9 @@ Definition at line 39 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-Definition at line 47 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 45 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-Referenced by \+\_\+state\+Change\+Daemon(), change\+Vehicle\+State(), handle\+Incoming\+Laptop\+Msg(), testfunc(), and uv\+Start\+State\+Machine().
+Referenced by \+\_\+state\+Change\+Daemon(), change\+Vehicle\+State(), daq\+Master\+Task(), testfunc(), and uv\+Start\+State\+Machine().
 

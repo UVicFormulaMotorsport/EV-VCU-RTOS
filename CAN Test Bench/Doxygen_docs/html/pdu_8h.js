@@ -1,7 +1,5 @@
 var pdu_8h =
 [
-    [ "uv19_pdu_settings", "structuv19__pdu__settings.html", "structuv19__pdu__settings" ],
-    [ "uv19_pdu_settings", "pdu_8h.html#aa0a9200cae8b8f6ce4757be92d17bab5", null ],
     [ "pdu_messages_20A", "pdu_8h.html#a9da17cdb854b14b04e25bc942810f7e6", [
       [ "enable_left_cooling_fan_msg", "pdu_8h.html#a9da17cdb854b14b04e25bc942810f7e6a1b3de6d118ec94c8254a719eb4affdf6", null ],
       [ "disable_left_cooling_fan_msg", "pdu_8h.html#a9da17cdb854b14b04e25bc942810f7e6a7b960f0f0ff602f3a276e2a9a4a23967", null ],

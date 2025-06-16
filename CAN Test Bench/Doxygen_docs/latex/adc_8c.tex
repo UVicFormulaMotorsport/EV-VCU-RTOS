@@ -6,13 +6,6 @@ This file provides code for the configuration of the A\+DC instances.
 
 
 {\ttfamily \#include \char`\"{}adc.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}cmsis\+\_\+os.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
-\begin{DoxyCompactItemize}
-\item 
-\#define \mbox{\hyperlink{adc_8c_a3903c57732eb74d8fe2a3a80866a81d1}{D\+E\+B\+U\+G\+\_\+\+T\+O\+G\+G\+L\+E\+\_\+\+L\+ED}}()~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Toggle\+Pin(G\+P\+I\+OD, G\+P\+I\+O\+\_\+\+P\+I\+N\+\_\+15)
-\end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -23,25 +16,9 @@ void \mbox{\hyperlink{adc_8c_a101e2e3433dfe72bbbd0ae3a84489263}{M\+X\+\_\+\+A\+D
 void \mbox{\hyperlink{adc_8c_ac3139540667c403c5dfd37a99c610b1c}{H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Msp\+Init}} (A\+D\+C\+\_\+\+Handle\+Type\+Def $\ast$adc\+Handle)
 \item 
 void \mbox{\hyperlink{adc_8c_a3f61f2c2af0f122f81a87af8ad7b4360}{H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Msp\+De\+Init}} (A\+D\+C\+\_\+\+Handle\+Type\+Def $\ast$adc\+Handle)
-\item 
-void \mbox{\hyperlink{adc_8c_adeffbae91619fcbc1647f8b964aa896b}{Start\+A\+D\+C\+Task}} (void $\ast$argument)
-\item 
-void \mbox{\hyperlink{adc_8c_a03fdeaebd739f2aa61c15278070878e0}{process\+A\+D\+C\+Buffer}} ()
-\item 
-void \mbox{\hyperlink{adc_8c_a4ba1683325a3553851abf884b905f1b1}{init\+A\+D\+C\+Task}} (void)
 \end{DoxyCompactItemize}
 \doxysubsection*{Variables}
 \begin{DoxyCompactItemize}
-\item 
-volatile uint32\+\_\+t \mbox{\hyperlink{adc_8c_ace3a7a923fac03b79884ba01cc3b90e0}{adc\+\_\+buf1}} \mbox{[}4\mbox{]}
-\item 
-uint16\+\_\+t \mbox{\hyperlink{adc_8c_a549b3590f54dfc129d2eebf2604c16e8}{adc1\+\_\+\+A\+P\+P\+S1}}
-\item 
-uint16\+\_\+t \mbox{\hyperlink{adc_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}{adc1\+\_\+\+A\+P\+P\+S2}}
-\item 
-uint16\+\_\+t \mbox{\hyperlink{adc_8c_ad36d3aa4037203058df6816d56f4c186}{adc1\+\_\+\+B\+P\+S1}}
-\item 
-uint16\+\_\+t \mbox{\hyperlink{adc_8c_a277f7921a7a1e0fb8a6f953943dc06dc}{adc1\+\_\+\+B\+P\+S2}}
 \item 
 A\+D\+C\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{adc_8c_a22b804736f5648d52f639b2647d4ed13}{hadc1}}
 \item 
@@ -61,19 +38,6 @@ Copyright (c) 2023 S\+T\+Microelectronics. All rights reserved.
 
 This software is licensed under terms that can be found in the L\+I\+C\+E\+N\+SE file in the root directory of this software component. If no L\+I\+C\+E\+N\+SE file comes with this software, it is provided A\+S-\/\+IS. 
 
-\doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{adc_8c_a3903c57732eb74d8fe2a3a80866a81d1}\label{adc_8c_a3903c57732eb74d8fe2a3a80866a81d1}} 
-\index{adc.c@{adc.c}!DEBUG\_TOGGLE\_LED@{DEBUG\_TOGGLE\_LED}}
-\index{DEBUG\_TOGGLE\_LED@{DEBUG\_TOGGLE\_LED}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{DEBUG\_TOGGLE\_LED}{DEBUG\_TOGGLE\_LED}}
-{\footnotesize\ttfamily \#define D\+E\+B\+U\+G\+\_\+\+T\+O\+G\+G\+L\+E\+\_\+\+L\+ED(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+Toggle\+Pin(G\+P\+I\+OD, G\+P\+I\+O\+\_\+\+P\+I\+N\+\_\+15)}
-
-
-
-Definition at line 305 of file adc.\+c.
-
-
-
 \doxysubsection{Function Documentation}
 \mbox{\Hypertarget{adc_8c_a3f61f2c2af0f122f81a87af8ad7b4360}\label{adc_8c_a3f61f2c2af0f122f81a87af8ad7b4360}} 
 \index{adc.c@{adc.c}!HAL\_ADC\_MspDeInit@{HAL\_ADC\_MspDeInit}}
@@ -83,13 +47,9 @@ Definition at line 305 of file adc.\+c.
 
 A\+D\+C1 G\+P\+IO Configuration P\+A1 -\/-\/-\/---$>$ A\+D\+C1\+\_\+\+I\+N1 P\+A2 -\/-\/-\/---$>$ A\+D\+C1\+\_\+\+I\+N2 P\+A3 -\/-\/-\/---$>$ A\+D\+C1\+\_\+\+I\+N3 P\+A4 -\/-\/-\/---$>$ A\+D\+C1\+\_\+\+I\+N4
 
-Uncomment the line below to disable the \char`\"{}\+A\+D\+C\+\_\+\+I\+R\+Qn\char`\"{} interrupt Be aware, disabling shared interrupt may affect other I\+Ps
-
 A\+D\+C2 G\+P\+IO Configuration P\+A5 -\/-\/-\/---$>$ A\+D\+C2\+\_\+\+I\+N5 P\+A6 -\/-\/-\/---$>$ A\+D\+C2\+\_\+\+I\+N6
 
-Uncomment the line below to disable the \char`\"{}\+A\+D\+C\+\_\+\+I\+R\+Qn\char`\"{} interrupt Be aware, disabling shared interrupt may affect other I\+Ps
-
-Definition at line 238 of file adc.\+c.
+Definition at line 236 of file adc.\+c.
 
 \mbox{\Hypertarget{adc_8c_ac3139540667c403c5dfd37a99c610b1c}\label{adc_8c_ac3139540667c403c5dfd37a99c610b1c}} 
 \index{adc.c@{adc.c}!HAL\_ADC\_MspInit@{HAL\_ADC\_MspInit}}
@@ -101,29 +61,11 @@ A\+D\+C1 G\+P\+IO Configuration P\+A1 -\/-\/-\/---$>$ A\+D\+C1\+\_\+\+I\+N1 P\+A
 
 A\+D\+C2 G\+P\+IO Configuration P\+A5 -\/-\/-\/---$>$ A\+D\+C2\+\_\+\+I\+N5 P\+A6 -\/-\/-\/---$>$ A\+D\+C2\+\_\+\+I\+N6
 
-Definition at line 161 of file adc.\+c.
+Definition at line 165 of file adc.\+c.
 
 
 
 References Error\+\_\+\+Handler(), and hdma\+\_\+adc1.
-
-\mbox{\Hypertarget{adc_8c_a4ba1683325a3553851abf884b905f1b1}\label{adc_8c_a4ba1683325a3553851abf884b905f1b1}} 
-\index{adc.c@{adc.c}!initADCTask@{initADCTask}}
-\index{initADCTask@{initADCTask}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{initADCTask()}{initADCTask()}}
-{\footnotesize\ttfamily void init\+A\+D\+C\+Task (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 358 of file adc.\+c.
-
-
-
-References Error\+\_\+\+Handler(), and Start\+A\+D\+C\+Task().
-
-
-
-Referenced by uv\+Init().
 
 \mbox{\Hypertarget{adc_8c_acccd58aa70215a6b184ad242312ffd0c}\label{adc_8c_acccd58aa70215a6b184ad242312ffd0c}} 
 \index{adc.c@{adc.c}!MX\_ADC1\_Init@{MX\_ADC1\_Init}}
@@ -133,7 +75,7 @@ Referenced by uv\+Init().
 
 Configure the global features of the A\+DC (Clock, Resolution, Data Alignment and number of conversion)
 
-Configure for the selected A\+DC regular channel its corresponding rank in the sequencer and its sample time.
+Configure the analog watchdog
 
 Configure for the selected A\+DC regular channel its corresponding rank in the sequencer and its sample time.
 
@@ -141,7 +83,9 @@ Configure for the selected A\+DC regular channel its corresponding rank in the s
 
 Configure for the selected A\+DC regular channel its corresponding rank in the sequencer and its sample time.
 
-Definition at line 40 of file adc.\+c.
+Configure for the selected A\+DC regular channel its corresponding rank in the sequencer and its sample time.
+
+Definition at line 32 of file adc.\+c.
 
 
 
@@ -161,7 +105,7 @@ Configure the global features of the A\+DC (Clock, Resolution, Data Alignment an
 
 Configure for the selected A\+DC regular channel its corresponding rank in the sequencer and its sample time.
 
-Definition at line 114 of file adc.\+c.
+Definition at line 118 of file adc.\+c.
 
 
 
@@ -171,115 +115,9 @@ References Error\+\_\+\+Handler(), and hadc2.
 
 Referenced by main().
 
-\mbox{\Hypertarget{adc_8c_a03fdeaebd739f2aa61c15278070878e0}\label{adc_8c_a03fdeaebd739f2aa61c15278070878e0}} 
-\index{adc.c@{adc.c}!processADCBuffer@{processADCBuffer}}
-\index{processADCBuffer@{processADCBuffer}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{processADCBuffer()}{processADCBuffer()}}
-{\footnotesize\ttfamily void process\+A\+D\+C\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 320 of file adc.\+c.
-
-
-
-References adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, adc1\+\_\+\+B\+P\+S1, adc1\+\_\+\+B\+P\+S2, and adc\+\_\+buf1.
-
-
-
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback().
-
-\mbox{\Hypertarget{adc_8c_adeffbae91619fcbc1647f8b964aa896b}\label{adc_8c_adeffbae91619fcbc1647f8b964aa896b}} 
-\index{adc.c@{adc.c}!StartADCTask@{StartADCTask}}
-\index{StartADCTask@{StartADCTask}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{StartADCTask()}{StartADCTask()}}
-{\footnotesize\ttfamily void Start\+A\+D\+C\+Task (\begin{DoxyParamCaption}\item[{void $\ast$}]{argument }\end{DoxyParamCaption})}
-
-
-
-Definition at line 307 of file adc.\+c.
-
-
-
-References adc\+\_\+buf1, D\+E\+B\+U\+G\+\_\+\+T\+O\+G\+G\+L\+E\+\_\+\+L\+ED, and hadc1.
-
-
-
-Referenced by init\+A\+D\+C\+Task().
-
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{adc_8c_a549b3590f54dfc129d2eebf2604c16e8}\label{adc_8c_a549b3590f54dfc129d2eebf2604c16e8}} 
-\index{adc.c@{adc.c}!adc1\_APPS1@{adc1\_APPS1}}
-\index{adc1\_APPS1@{adc1\_APPS1}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{adc1\_APPS1}{adc1\_APPS1}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+A\+P\+P\+S1}
-
-
-
-Definition at line 64 of file main.\+c.
-
-
-
-Referenced by process\+A\+D\+C\+Buffer().
-
-\mbox{\Hypertarget{adc_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}\label{adc_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}} 
-\index{adc.c@{adc.c}!adc1\_APPS2@{adc1\_APPS2}}
-\index{adc1\_APPS2@{adc1\_APPS2}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{adc1\_APPS2}{adc1\_APPS2}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+A\+P\+P\+S2}
-
-
-
-Definition at line 65 of file main.\+c.
-
-
-
-Referenced by process\+A\+D\+C\+Buffer().
-
-\mbox{\Hypertarget{adc_8c_ad36d3aa4037203058df6816d56f4c186}\label{adc_8c_ad36d3aa4037203058df6816d56f4c186}} 
-\index{adc.c@{adc.c}!adc1\_BPS1@{adc1\_BPS1}}
-\index{adc1\_BPS1@{adc1\_BPS1}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{adc1\_BPS1}{adc1\_BPS1}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+B\+P\+S1}
-
-
-
-Definition at line 66 of file main.\+c.
-
-
-
-Referenced by process\+A\+D\+C\+Buffer().
-
-\mbox{\Hypertarget{adc_8c_a277f7921a7a1e0fb8a6f953943dc06dc}\label{adc_8c_a277f7921a7a1e0fb8a6f953943dc06dc}} 
-\index{adc.c@{adc.c}!adc1\_BPS2@{adc1\_BPS2}}
-\index{adc1\_BPS2@{adc1\_BPS2}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{adc1\_BPS2}{adc1\_BPS2}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+B\+P\+S2}
-
-
-
-Definition at line 67 of file main.\+c.
-
-
-
-Referenced by process\+A\+D\+C\+Buffer().
-
-\mbox{\Hypertarget{adc_8c_ace3a7a923fac03b79884ba01cc3b90e0}\label{adc_8c_ace3a7a923fac03b79884ba01cc3b90e0}} 
-\index{adc.c@{adc.c}!adc\_buf1@{adc\_buf1}}
-\index{adc\_buf1@{adc\_buf1}!adc.c@{adc.c}}
-\doxysubsubsection{\texorpdfstring{adc\_buf1}{adc\_buf1}}
-{\footnotesize\ttfamily volatile uint32\+\_\+t adc\+\_\+buf1\mbox{[}4\mbox{]}}
-
-
-
-Definition at line 62 of file main.\+c.
-
-
-
-Referenced by process\+A\+D\+C\+Buffer(), and Start\+A\+D\+C\+Task().
-
 \mbox{\Hypertarget{adc_8c_a22b804736f5648d52f639b2647d4ed13}\label{adc_8c_a22b804736f5648d52f639b2647d4ed13}} 
 \index{adc.c@{adc.c}!hadc1@{hadc1}}
 \index{hadc1@{hadc1}!adc.c@{adc.c}}
@@ -288,11 +126,11 @@ Referenced by process\+A\+D\+C\+Buffer(), and Start\+A\+D\+C\+Task().
 
 
 
-Definition at line 35 of file adc.\+c.
+Definition at line 27 of file adc.\+c.
 
 
 
-Referenced by A\+D\+C\+\_\+\+I\+R\+Q\+Handler(), H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Level\+Out\+Of\+Window\+Callback(), M\+X\+\_\+\+A\+D\+C1\+\_\+\+Init(), and Start\+A\+D\+C\+Task().
+Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Level\+Out\+Of\+Window\+Callback(), and M\+X\+\_\+\+A\+D\+C1\+\_\+\+Init().
 
 \mbox{\Hypertarget{adc_8c_acd9221f1aa19aebfe0b744947f2daf49}\label{adc_8c_acd9221f1aa19aebfe0b744947f2daf49}} 
 \index{adc.c@{adc.c}!hadc2@{hadc2}}
@@ -302,11 +140,11 @@ Referenced by A\+D\+C\+\_\+\+I\+R\+Q\+Handler(), H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+L
 
 
 
-Definition at line 36 of file adc.\+c.
+Definition at line 28 of file adc.\+c.
 
 
 
-Referenced by A\+D\+C\+\_\+\+I\+R\+Q\+Handler(), H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+Period\+Elapsed\+Callback(), and M\+X\+\_\+\+A\+D\+C2\+\_\+\+Init().
+Referenced by H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+Period\+Elapsed\+Callback(), and M\+X\+\_\+\+A\+D\+C2\+\_\+\+Init().
 
 \mbox{\Hypertarget{adc_8c_a1c126854bb1813d31ab4776b21dcc51f}\label{adc_8c_a1c126854bb1813d31ab4776b21dcc51f}} 
 \index{adc.c@{adc.c}!hdma\_adc1@{hdma\_adc1}}
@@ -316,7 +154,7 @@ Referenced by A\+D\+C\+\_\+\+I\+R\+Q\+Handler(), H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+P
 
 
 
-Definition at line 37 of file adc.\+c.
+Definition at line 29 of file adc.\+c.
 
 
 

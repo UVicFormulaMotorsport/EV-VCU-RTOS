@@ -9,6 +9,8 @@
 #define UV_UTILS_SRC_IMPLIMENTATION
 #include "uvfr_utils.h"
 
+void rtdTask(void* args);
+
 extern TaskHandle_t init_task_handle;
 extern uint8_t               TxData[8];
 
@@ -135,7 +137,7 @@ void uvInit(void * arguments){
 	MC_init_args->specific_args = &(current_vehicle_settings->mc_settings);
 	//MC_init_args->meta_task_handle = osThreadCreate(&MC_init_thread,MC_init_args);
 	//vTaskResume( MC_init_args->meta_task_handle );
-	retval = xTaskCreate(MC_Startup,"MC_init",128,MC_init_args,osPriorityAboveNormal,&(MC_init_args->meta_task_handle));
+	retval = xTaskCreate(MC_Startup,"MC_init",256,MC_init_args,osPriorityAboveNormal,&(MC_init_args->meta_task_handle));
 	if(retval != pdPASS){
 		//FUCK
 		error_msg = "bruh";
@@ -162,7 +164,7 @@ void uvInit(void * arguments){
 	uv_init_task_args* IMD_init_args = uvMalloc(sizeof(uv_init_task_args));
 	IMD_init_args->init_info_queue = init_validation_queue;
 	IMD_init_args->specific_args = &(current_vehicle_settings->imd_settings);
-	retval = xTaskCreate(initIMD,"BMS_init",128,IMD_init_args,osPriorityAboveNormal,&(IMD_init_args->meta_task_handle));
+	retval = xTaskCreate(initIMD,"IMD_init",128,IMD_init_args,osPriorityAboveNormal,&(IMD_init_args->meta_task_handle));
 	if(retval != pdPASS){
 			//FUCK
 		error_msg = "bruh";
@@ -259,6 +261,8 @@ void uvInit(void * arguments){
 
 
 
+
+
 	//vQueueDelete(init_validation_queue);
 	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
 	vTaskDelete(init_task_handle);
@@ -283,10 +287,12 @@ void uvSysResetDaemon(void* args){
  *
  *
  */
+
 enum uv_status_t uvUtilsReset(uint8_t reset_type){
 	//xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
 	vTaskSuspendAll();
 	HAL_Delay(250);
+
 	NVIC_SystemReset();
 	return UV_OK;
 }

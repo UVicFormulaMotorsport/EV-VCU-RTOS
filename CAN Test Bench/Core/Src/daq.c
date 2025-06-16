@@ -28,7 +28,7 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 4,
+	.total_params_logged = 8,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = 1,
@@ -144,6 +144,7 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 
 		daq_tlist->period = datapoint->period;
 		daq_tlist->next_task = NULL;
+		daq_tlist->param_list = NULL;
 	}
 
 	daq_child_task* list_tmp = daq_tlist;
@@ -157,8 +158,8 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 		if(list_tmp->period == datapoint->period){
 			//Insert to list
 			insertParamToParamList(node, &(list_tmp->param_list));
+			return UV_OK;
 
-			break;
 		}
 
 		if(list_tmp->next_task == NULL){
@@ -169,6 +170,11 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 			}
 
 			list_tmp->next_task->period = datapoint->period;
+			list_tmp->next_task->next_task = NULL;
+			list_tmp->next_task->param_list = NULL;
+			//list_tmp->param_list = NULL;
+			insertParamToParamList(node, &(list_tmp->next_task->param_list));
+			return UV_OK;
 
 		}
 
@@ -177,6 +183,8 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 
 	return UV_OK;
 }
+
+//daq_param_list_node* param_bank;
 
 /** @brief This pre-allocates parameters to one of the daq subtasks
  *
@@ -187,7 +195,7 @@ uv_status configureDaqSubTasks(){
 
 	daq_datapoint* master_param_list = current_vehicle_settings->daq_param_list;
 
-	daq_param_list_node* param_bank = uvMalloc(n_logged_params*sizeof(daq_param_list_node));
+	param_bank = uvMalloc(n_logged_params*sizeof(daq_param_list_node));
 
 	if(param_bank == NULL){
 		uvPanic("outofmem",0);
@@ -305,13 +313,13 @@ void daqMasterTask(void* args){
 	//TickType_t last_time = xTaskGetTickCount();		/**@endcode */
 	for(;;){
 		if(params->cmd_data == UV_KILL_CMD){
-			stopDaqSubTasks();
+			//stopDaqSubTasks();
 
 			killSelf(params);
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
-			stopDaqSubTasks();
+			//stopDaqSubTasks();
 
-			suspendSelf(params);
+			//suspendSelf(params);
 		}
 		uvTaskDelay(params,params->task_period);
 
@@ -323,13 +331,9 @@ void daqMasterTask(void* args){
 //			}
 //
 //
-//			if(vehicle_state == UV_READY){
+//
 //				changeVehicleState(UV_DRIVING);
-//			}else if(vehicle_state == UV_DRIVING){
-//				changeVehicleState(UV_ERROR_STATE);
-//			}else if(vehicle_state == UV_ERROR_STATE){
-//				changeVehicleState(UV_READY);
-//			}
+//
 //
 //
 //		}
@@ -345,6 +349,10 @@ uv_CAN_msg tmp_daq_msg;
  *
  */
 static inline void sendDaqMsg(daq_param_list_node* param){
+	if(param->param > 32){
+		return;
+	}
+
 	if(param_ptrs[param->param] == NULL){ //We simply ignore nulls instead of say, crashing
 		return;
 	}
@@ -387,5 +395,4 @@ void daqSubTask(void* args){
 		vTaskDelayUntil(&curr_time,pdMS_TO_TICKS(params->period));
 	}
 }
-
 

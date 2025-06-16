@@ -232,11 +232,11 @@ Definition at line 33 of file driving\+\_\+loop.\+h.
 
 
 
-Definition at line 42 of file driving\+\_\+loop.\+c.
+Definition at line 25 of file driving\+\_\+loop.\+c.
 
 
 
-References uv\+\_\+task\+\_\+info\+::active\+\_\+states, adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, adc1\+\_\+\+B\+P\+S1, adc1\+\_\+\+B\+P\+S2, A\+P\+P\+S1\+\_\+\+A\+D\+C\+\_\+\+V\+AL, A\+P\+P\+S2\+\_\+\+A\+D\+C\+\_\+\+V\+AL, associate\+Daq\+Param\+With\+Var(), B\+P\+S1\+\_\+\+A\+D\+C\+\_\+\+V\+AL, B\+P\+S2\+\_\+\+A\+D\+C\+\_\+\+V\+AL, current\+\_\+vehicle\+\_\+settings, uv\+\_\+task\+\_\+info\+::deletion\+\_\+states, driving\+\_\+args, uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings, P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, uv\+\_\+task\+\_\+info\+::stack\+\_\+size, Start\+Driving\+Loop(), uv\+\_\+task\+\_\+info\+::suspension\+\_\+states, uv\+\_\+task\+\_\+info\+::task\+\_\+args, uv\+\_\+task\+\_\+info\+::task\+\_\+function, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+\_\+task\+\_\+info\+::task\+\_\+period, uv\+\_\+task\+\_\+info\+::task\+\_\+priority, U\+V\+\_\+\+D\+R\+I\+V\+I\+NG, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+A\+TE, U\+V\+\_\+\+I\+N\+IT, U\+V\+\_\+\+L\+A\+U\+N\+C\+H\+\_\+\+C\+O\+N\+T\+R\+OL, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+ED, and uv\+Create\+Task().
+References uv\+\_\+task\+\_\+info\+::active\+\_\+states, uv\+\_\+task\+\_\+info\+::deletion\+\_\+states, P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, uv\+\_\+task\+\_\+info\+::stack\+\_\+size, Start\+Driving\+Loop(), uv\+\_\+task\+\_\+info\+::suspension\+\_\+states, uv\+\_\+task\+\_\+info\+::task\+\_\+args, uv\+\_\+task\+\_\+info\+::task\+\_\+function, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+\_\+task\+\_\+info\+::task\+\_\+period, uv\+\_\+task\+\_\+info\+::task\+\_\+priority, U\+V\+\_\+\+D\+R\+I\+V\+I\+NG, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+A\+TE, U\+V\+\_\+\+I\+N\+IT, U\+V\+\_\+\+L\+A\+U\+N\+C\+H\+\_\+\+C\+O\+N\+T\+R\+OL, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+ED, and uv\+Create\+Task().
 
 
 
@@ -272,80 +272,28 @@ This line extracts the specific driving loop parameters as specified in the vehi
 \end{DoxyCode}
 
 
-These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task execution actually takes rachan\+: ensures the function runs exactly 100ms, regardless of execution time.
+These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task execution actually takes
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{ */}
 \DoxyCodeLine{TickType\_t tick\_period = pdMS\_TO\_TICKS(params-\/>task\_period); \textcolor{comment}{//Convert ms of period to the RTOS ticks}}
 \DoxyCodeLine{TickType\_t last\_time = xTaskGetTickCount();}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{/**}}
 \end{DoxyCode}
 
 
-Performs safety checks on A\+P\+PS (Throttle) and B\+PS (Brake) sensors.
+Brake Plausibility Check
 
-This function ensures that\+:
-\begin{DoxyItemize}
-\item Throttle position sensors (A\+P\+P\+S1 \& A\+P\+P\+S2) are within 10\% of each other.
-\item Brake pressure sensors (B\+P\+S1 \& B\+P\+S2) are within 5\% of each other.
-\item Sensors are within their expected min/max ranges.
-\item Brake and throttle are not pressed at the same time.
-\end{DoxyItemize}
+The way that this works is that if the brake pressure is greater than some threshold, and the accelerator pedal position is also greater than some threshold, the thing will register that a brake implausibility has occurred. This is not very cash money.
 
-If a {\bfseries{fatal error}} is detected (e.\+g., sensor out of range), the function\+:
-\begin{DoxyItemize}
-\item {\bfseries{Stops the motor}}.
-\item {\bfseries{Kills the task execution}} ({\ttfamily \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{kill\+Self()}}}).
-\end{DoxyItemize}
+If this happens, we want to set the torque/speed output to zero. This will only reset itself once the brakes are set to less than a certain threshold. Honestly evil.
 
-If a {\bfseries{non-\/fatal error}} occurs (e.\+g., sensor mismatch exceeding the limit)\+:
-\begin{DoxyItemize}
-\item {\bfseries{Stops the motor}}.
-\item {\bfseries{Suspends the task temporarily}} ({\ttfamily \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspend\+Self()}}}).
-\end{DoxyItemize}
-
-If safety conditions return to normal, the function\+:
-\begin{DoxyItemize}
-\item {\bfseries{Restarts the motor}}.
-\end{DoxyItemize}
-
-
-\begin{DoxyParams}{Parameters}
-{\em dl\+\_\+params} & Pointer to the driving loop parameters. \\
-\hline
-{\em apps1\+\_\+value} & Raw sensor reading from A\+P\+P\+S1. \\
-\hline
-{\em apps2\+\_\+value} & Raw sensor reading from A\+P\+P\+S2. \\
-\hline
-{\em bps1\+\_\+value} & Raw sensor reading from B\+P\+S1. \\
-\hline
-{\em bps2\+\_\+value} & Raw sensor reading from B\+P\+S2. \\
-\hline
-{\em params} & Pointer to the current task information. \\
-\hline
-{\em dl\+\_\+status} & Pointer to the driving loop internal state.\\
-\hline
-\end{DoxyParams}
-
-\begin{DoxyRetVals}{Return values}
-{\em true} & All safety checks passed. \\
-\hline
-{\em false} & One or more safety checks failed.\\
-\hline
-\end{DoxyRetVals}
-
-
-Definition at line 194 of file driving\+\_\+loop.\+c.
+Definition at line 68 of file driving\+\_\+loop.\+c.
 
 
 
-References adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, adc1\+\_\+\+B\+P\+S1, adc1\+\_\+\+B\+P\+S2, uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, is\+\_\+accelerating, kill\+Self(), perform\+Safety\+Checks(), Plausible, suspend\+Self(), T\+\_\+\+P\+R\+EV, T\+\_\+\+R\+EQ, uv\+\_\+task\+\_\+info\+::task\+\_\+args, uv\+\_\+task\+\_\+info\+::task\+\_\+period, U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD, and U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+\_\+\+C\+MD.
+References adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, adc1\+\_\+\+B\+P\+S1, adc1\+\_\+\+B\+P\+S2, driving\+\_\+loop\+\_\+args\+::apps\+\_\+plausibility\+\_\+check\+\_\+threshold, driving\+\_\+loop\+\_\+args\+::bps\+\_\+plausibility\+\_\+check\+\_\+threshold, uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, Implausible, kill\+Self(), driving\+\_\+loop\+\_\+args\+::max\+\_\+apps\+\_\+offset, driving\+\_\+loop\+\_\+args\+::max\+\_\+apps\+\_\+value, driving\+\_\+loop\+\_\+args\+::max\+\_\+\+B\+P\+S\+\_\+value, Plausible, suspend\+Self(), uv\+\_\+task\+\_\+info\+::task\+\_\+args, uv\+\_\+task\+\_\+info\+::task\+\_\+period, U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD, and U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+\_\+\+C\+MD.
 
 
 

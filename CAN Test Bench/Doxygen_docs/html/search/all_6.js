@@ -1,21 +1,12 @@
 var searchData=
 [
-  ['false_374',['false',['../group__utility__macros.html#ga65e9886d74aaee76545e83dd09011727',1,'uvfr_utils.h']]],
-  ['fan1_5fchannel_375',['fan1_channel',['../structuv19__pdu__settings.html#a4f92782d8ee781821a338b102176fa4b',1,'uv19_pdu_settings']]],
-  ['fan2_5fchannel_376',['fan2_channel',['../structuv19__pdu__settings.html#aa2238c64771ff22d3da9937cbdea3505',1,'uv19_pdu_settings']]],
-  ['feedback_5fsignal_5ferror_377',['feedback_signal_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc',1,'motor_controller.h']]],
-  ['feedback_5fsignal_5fproblem_378',['feedback_signal_problem',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13',1,'motor_controller.h']]],
-  ['firmware_5fmajor_5frelease_379',['FIRMWARE_MAJOR_RELEASE',['../uvfr__global__config_8h.html#a0b584a8bce5bc95619d58d126328d24d',1,'uvfr_global_config.h']]],
-  ['firmware_5fminor_5frelease_380',['FIRMWARE_MINOR_RELEASE',['../uvfr__global__config_8h.html#a2ada82deacaaa65d39fd8431202312e8',1,'uvfr_global_config.h']]],
-  ['firmware_5fpatch_5fnum_381',['FIRMWARE_PATCH_NUM',['../uvfr__global__config_8h.html#a056c3375923e87e7b3df830ea10295da',1,'uvfr_global_config.h']]],
-  ['firmware_5fversion_382',['firmware_version',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2',1,'motor_controller.h']]],
-  ['firmware_5fversion_5fregister_383',['FIRMWARE_VERSION_REGISTER',['../motor__controller_8h.html#a829d1af845327949015b4e83bb6fc43d',1,'motor_controller.h']]],
-  ['flags_384',['flags',['../structdriving_mode.html#aa1bd42a95b3d00fc3ace7c78df51d2ef',1,'drivingMode::flags()'],['../structuv__vehicle__settings.html#ae0c9377c4f8df54ad4b59d4ac4ab39fe',1,'uv_vehicle_settings::flags()'],['../structuv___c_a_n__msg.html#a3a3fdc7fed06a631fefa58ea44052d8d',1,'uv_CAN_msg::flags()']]],
-  ['flash_5fnot_5funlocked_385',['FLASH_NOT_UNLOCKED',['../uvfr__settings_8c.html#a7922bc9d90bb507f9885103792e4343f',1,'uvfr_settings.c']]],
-  ['flash_5fok_386',['FLASH_OK',['../uvfr__settings_8c.html#a65bd5632c9f844eac3ead2787cb1375c',1,'uvfr_settings.c']]],
-  ['flash_5fsblock_5fstart_387',['FLASH_SBLOCK_START',['../uvfr__settings_8h.html#a1af6d32a5f9f7c214731b3cdde2ae48d',1,'uvfr_settings.h']]],
-  ['force_5frestore_5ffactory_5fdefault_388',['FORCE_RESTORE_FACTORY_DEFAULT',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258',1,'uvfr_settings.h']]],
-  ['freertos_2ec_389',['freertos.c',['../freertos_8c.html',1,'']]],
-  ['freertosconfig_2eh_390',['FreeRTOSConfig.h',['../_free_r_t_o_s_config_8h.html',1,'']]],
-  ['function_391',['function',['../struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa',1,'CAN_Callback']]]
+  ['false_311',['false',['../group__utility__macros.html#ga65e9886d74aaee76545e83dd09011727',1,'uvfr_utils.h']]],
+  ['feedback_5fsignal_5ferror_312',['feedback_signal_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc',1,'motor_controller.h']]],
+  ['feedback_5fsignal_5fproblem_313',['feedback_signal_problem',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13',1,'motor_controller.h']]],
+  ['firmware_5fversion_314',['firmware_version',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2',1,'motor_controller.h']]],
+  ['firmware_5fversion_5fregister_315',['FIRMWARE_VERSION_REGISTER',['../motor__controller_8h.html#a829d1af845327949015b4e83bb6fc43d',1,'motor_controller.h']]],
+  ['flags_316',['flags',['../structdriving_mode.html#aa1bd42a95b3d00fc3ace7c78df51d2ef',1,'drivingMode::flags()'],['../structuv___c_a_n__msg.html#a3a3fdc7fed06a631fefa58ea44052d8d',1,'uv_CAN_msg::flags()']]],
+  ['freertos_2ec_317',['freertos.c',['../freertos_8c.html',1,'']]],
+  ['freertosconfig_2eh_318',['FreeRTOSConfig.h',['../_free_r_t_o_s_config_8h.html',1,'']]],
+  ['function_319',['function',['../struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa',1,'CAN_Callback']]]
 ];

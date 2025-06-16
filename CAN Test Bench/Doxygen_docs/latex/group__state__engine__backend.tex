@@ -89,7 +89,7 @@ The following should happen, in order\+:
 
 Should change vehicle state itself be the source of the error, we just need the software to completely fucking hang itself. If things are so fucked that we genuinely cannot even transition to the error state, then get that shit the fuck outta here, we shuttin down fr fr. 
 
-Definition at line 695 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 686 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -193,7 +193,7 @@ The final act of the S\+CD, is to delete itself
 \end{DoxyCode}
 
 
-Definition at line 874 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 865 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -215,7 +215,7 @@ make sure the parameters of a task\+\_\+info struct is valid
 
 
 
-Definition at line 331 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 323 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -233,7 +233,7 @@ Referenced by add\+Task\+To\+Task\+Register(), and uv\+Validate\+Managed\+Tasks(
 
 
 
-Definition at line 318 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 310 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -251,7 +251,7 @@ The name should be pretty self explanatory.
 
 
 
-Definition at line 460 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 452 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -273,7 +273,7 @@ This function is called by a task to nuke itself. Is a wrapper function that is 
 
 First lets load up the queue and the values in it. These come from the task we are doing.
 
-Definition at line 717 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 708 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -281,7 +281,7 @@ References uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, uv\+\_\+scd\+\_\+response\+:
 
 
 
-Referenced by C\+A\+Nbus\+Rx\+Svc\+Daemon(), C\+A\+Nbus\+Tx\+Svc\+Daemon(), daq\+Master\+Task(), odometer\+Task(), Start\+Driving\+Loop(), temp\+Monitor\+Task(), uv\+Settings\+Programmer\+Task(), and uv\+Task\+Manager().
+Referenced by C\+A\+Nbus\+Rx\+Svc\+Daemon(), C\+A\+Nbus\+Tx\+Svc\+Daemon(), daq\+Master\+Task(), odometer\+Task(), Start\+Driving\+Loop(), temp\+Monitor\+Task(), and uv\+Task\+Manager().
 
 \mbox{\Hypertarget{group__state__engine__backend_ga2e8a31626909ac17be499f2941d359d0}\label{group__state__engine__backend_ga2e8a31626909ac17be499f2941d359d0}} 
 \index{State Engine Internals@{State Engine Internals}!proccessSCDMsg@{proccessSCDMsg}}
@@ -299,7 +299,7 @@ This function is responsible for the following functionality\+:
 \item If a task claims that it is deleted, or suspended, then we must verify that this is the case 
 \end{DoxyItemize}Get the id of the message, then use that to index the \+\_\+task\+\_\+register Mission critical stuff that stops ev from driving into a wall
 
-Definition at line 801 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 792 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -321,7 +321,7 @@ Called by a task that needs to suspend itself, once the task has determined it i
 
 
 
-Definition at line 758 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 749 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -343,7 +343,7 @@ If a task is scheduled for deletion, we want to be able to resurrect it.
 
 Calling this will find the task deletion timer, and remove the task from the grave. 
 
-Definition at line 566 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 557 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -361,7 +361,7 @@ Create a new service task, because fuck you, thats why.
 
 Acquire the pointer to the spot in the array, we are doing this since we need to return the pointer anyways, and it cleans up the syntax a little.
 
-Definition at line 1204 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1195 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -369,7 +369,7 @@ References \+\_\+next\+\_\+svc\+\_\+task\+\_\+id, \+\_\+next\+\_\+task\+\_\+id, 
 
 
 
-Referenced by uv\+Init(), and uv\+Init\+State\+Engine().
+Referenced by uv\+Init\+State\+Engine(), and uv\+S\+V\+C\+Task\+Manager().
 
 \mbox{\Hypertarget{group__state__engine__backend_ga02ceb2f70d4474d4734de6494aca8978}\label{group__state__engine__backend_ga02ceb2f70d4474d4734de6494aca8978}} 
 \index{State Engine Internals@{State Engine Internals}!uvDeleteSVCTask@{uvDeleteSVCTask}}
@@ -383,7 +383,7 @@ For when you need to delete a service task... for some reason...
 
 
 
-Definition at line 1298 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1289 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -407,7 +407,7 @@ This function is the lowtier god of the program. It pulls up and is like \char`\
 
 The task complies. It does not have a choice. This checks with the R\+T\+OS kernel to see that the task as stated by the scheduler matches the state known by uvfr\+\_\+utils
 
-Definition at line 506 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 497 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -425,7 +425,7 @@ Referenced by \+\_\+state\+Change\+Daemon(), and kill\+Em\+All().
 
 Sometimes you just gottta deal with it lol 
 
-Definition at line 1433 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1436 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 \mbox{\Hypertarget{group__state__engine__backend_gab212c58efa87a2bc8ab5d256733a0b0a}\label{group__state__engine__backend_gab212c58efa87a2bc8ab5d256733a0b0a}} 
 \index{State Engine Internals@{State Engine Internals}!uvGetTaskFromRTOSHandle@{uvGetTaskFromRTOSHandle}}
@@ -449,7 +449,7 @@ Returns the pointer to the task info structure.
 \end{DoxyRetVals}
 
 
-Definition at line 1445 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1448 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 \mbox{\Hypertarget{group__state__engine__backend_gae0caac28206291f3dc5c416f11892edd}\label{group__state__engine__backend_gae0caac28206291f3dc5c416f11892edd}} 
 \index{State Engine Internals@{State Engine Internals}!uvKillTaskViolently@{uvKillTaskViolently}}
@@ -463,7 +463,7 @@ if a task refuses to comply with the S\+CD, then it has no choice but to be dele
 
 You will not win against the operating system. The first thing that needs to happen, is we will tell the kernel to release any resources owned by the task.
 
-Definition at line 481 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 473 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -481,7 +481,7 @@ Referenced by uv\+Restart\+S\+V\+C\+Task().
 
 
 
-Definition at line 1055 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1046 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -503,7 +503,7 @@ Function that takes a service part that may be messed up and tries to reboot it 
 
 This may be neccessary if a S\+VC task is not responding. Be careful though, since this has the potential to delay more important tasks \+:o Therefore, this technique should be used sparingly, and each task gets a limited number of attempts within a certain time period. 
 
-Definition at line 1326 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1317 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -521,7 +521,7 @@ Schedule a task to be deleted in the future double plus ungood imho.
 
 
 
-Definition at line 578 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 569 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -539,7 +539,7 @@ Referenced by \+\_\+state\+Change\+Daemon().
 
 
 
-Definition at line 858 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 849 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 \mbox{\Hypertarget{group__state__engine__backend_ga91b9f84bc63d5808a3f70623ed8a0700}\label{group__state__engine__backend_ga91b9f84bc63d5808a3f70623ed8a0700}} 
 \index{State Engine Internals@{State Engine Internals}!uvStartSVCTask@{uvStartSVCTask}}
@@ -553,7 +553,7 @@ Function to start a service task specifically.
 
 
 
-Definition at line 1244 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1235 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -581,7 +581,7 @@ If a task has been suspended, we do not want to create a new instance of the tas
 
 If none of the previous if statements caught the task handle, then that means that either this is our first time attempting to activate this task, or the task has been deleted at some point prior to this one
 
-Definition at line 388 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 380 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -589,7 +589,7 @@ References \+\_\+\+B\+V\+\_\+32, uv\+\_\+task\+\_\+info\+::last\+\_\+execution\+
 
 
 
-Referenced by \+\_\+state\+Change\+Daemon(), and uv\+Init().
+Referenced by \+\_\+state\+Change\+Daemon(), and uv\+S\+V\+C\+Task\+Manager().
 
 \mbox{\Hypertarget{group__state__engine__backend_ga87455110c1a898b9294c66c14043f02a}\label{group__state__engine__backend_ga87455110c1a898b9294c66c14043f02a}} 
 \index{State Engine Internals@{State Engine Internals}!uvSuspendSVCTask@{uvSuspendSVCTask}}
@@ -603,7 +603,7 @@ Function that suspends a service task.
 
 
 
-Definition at line 1283 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1274 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -628,7 +628,7 @@ function to suspend one of the managed tasks.
 \end{DoxyParams}
 
 
-Definition at line 605 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 596 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -652,7 +652,7 @@ Effectively, there are a couple variables we care about here\+: 1) Can the vehic
 
 If the task is critical, then this needs to 100\% result in a panic. If it isn\textquotesingle{}t then we can try to restart the task, noting that this may result in strange undefined behavior down the line. Thankfully if a task is not safety critical, we don\textquotesingle{}t really care whether it misbehaves. Appropriate countermeasures are in place to prevent one task from overflowing into another task, as well as to mitigate against possible memory leaks. 
 
-Definition at line 662 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 653 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -678,7 +678,7 @@ The responsibilities of this task are as follows\+:
 
 This task is one of the most important ones in the system. Lovely times for all. Therefore it us of utmost importance that this one D\+O\+ES N\+OT C\+R\+A\+SH. E\+V\+ER. 
 
-Definition at line 1089 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1080 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -696,7 +696,7 @@ Referenced by uv\+Start\+State\+Machine().
 
 
 
-Definition at line 1050 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1041 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 \mbox{\Hypertarget{group__state__engine__backend_ga8c1618caac0d7f29836107f1a44833e8}\label{group__state__engine__backend_ga8c1618caac0d7f29836107f1a44833e8}} 
 \index{State Engine Internals@{State Engine Internals}!uvValidateManagedTasks@{uvValidateManagedTasks}}
@@ -710,7 +710,7 @@ ensure that all the tasks people have created actually make sense, and are valid
 
 
 
-Definition at line 366 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 358 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 

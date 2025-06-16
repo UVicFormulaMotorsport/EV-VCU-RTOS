@@ -853,7 +853,7 @@ Transition from {\ttfamily U\+V\+\_\+\+I\+N\+IT} to {\ttfamily U\+V\+\_\+\+R\+E\
 
 Transition from {\ttfamily U\+V\+\_\+\+I\+N\+IT} to {\ttfamily U\+V\+\_\+\+E\+R\+R\+OR} states
 
-Definition at line 101 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 99 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -861,7 +861,7 @@ References \+\_\+state\+Change\+Daemon(), is\+Power\+Of\+Two, state\+\_\+change\
 
 
 
-Referenced by \+\_\+\+\_\+uv\+Panic(), handle\+Incoming\+Laptop\+Msg(), testfunc(), uv\+Init(), and uv\+Settings\+Programmer\+Task().
+Referenced by \+\_\+\+\_\+uv\+Panic(), daq\+Master\+Task(), testfunc(), and uv\+Init().
 
 \mbox{\Hypertarget{group__state__engine__api_ga99bfc92472cdc99e9005e9d3c792909a}\label{group__state__engine__api_ga99bfc92472cdc99e9005e9d3c792909a}} 
 \index{State Engine API@{State Engine API}!uvCreateTask@{uvCreateTask}}
@@ -877,7 +877,7 @@ Do not exceed the number of tasks available
 
 Acquire the pointer to the spot in the array, we are doing this since we need to return the pointer anyways, and it cleans up the syntax a little.
 
-Definition at line 272 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 264 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -885,7 +885,7 @@ References \+\_\+next\+\_\+task\+\_\+id, \+\_\+task\+\_\+register, \+\_\+\+U\+V\
 
 
 
-Referenced by init\+Daq\+Task(), init\+Driving\+Loop(), init\+Odometer(), init\+Temp\+Monitor(), and uv\+Config\+Setting\+Task().
+Referenced by init\+Daq\+Task(), init\+Driving\+Loop(), init\+Odometer(), and init\+Temp\+Monitor().
 
 \mbox{\Hypertarget{group__state__engine__api_ga5cb739823b10b90a139315356aa6b22f}\label{group__state__engine__api_ga5cb739823b10b90a139315356aa6b22f}} 
 \index{State Engine API@{State Engine API}!uvDeInitStateEngine@{uvDeInitStateEngine}}
@@ -899,7 +899,7 @@ Stops and frees all resources used by uvfr\+\_\+state\+\_\+engine.
 
 If we need to initialize the state engine, gotta de-\/initialize as well. This is the opposite of \mbox{\hyperlink{group__state__engine__api_ga5c608f3832c45eac6e2da198d4ef1ba0}{uv\+Init\+State\+Engine}} 
 
-Definition at line 262 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 254 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
@@ -917,11 +917,11 @@ Function that prepares the state engine to do its thing.
 
 This is called when the system is first starting up. 
 
-Definition at line 171 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 164 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-References \+\_\+\+\_\+uv\+Init\+Panic(), \+\_\+task\+\_\+register, init\+Daq\+Task(), init\+Driving\+Loop(), init\+Odometer(), init\+Temp\+Monitor(), M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+M\+A\+N\+A\+G\+E\+D\+\_\+\+T\+A\+S\+KS, svc\+\_\+task\+\_\+manager, task\+\_\+manager, U\+V\+\_\+\+OK, uv\+Config\+Setting\+Task(), and uv\+Create\+Service\+Task().
+References \+\_\+\+\_\+uv\+Init\+Panic(), \+\_\+task\+\_\+register, init\+Daq\+Task(), init\+Driving\+Loop(), init\+Odometer(), init\+Temp\+Monitor(), M\+A\+X\+\_\+\+N\+U\+M\+\_\+\+M\+A\+N\+A\+G\+E\+D\+\_\+\+T\+A\+S\+KS, svc\+\_\+task\+\_\+manager, task\+\_\+manager, U\+V\+\_\+\+OK, and uv\+Create\+Service\+Task().
 
 
 
@@ -939,11 +939,11 @@ Actually starts up the state engine to do state engine things.
 
 This function ensures that all of the managed tasks are setup in a legal way, and then it allocates resources for, and starts the state engine and the background tasks. This unlocks the ability for the vehicle to do basically anything. 
 
-Definition at line 200 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 192 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 
-References current\+\_\+vehicle\+\_\+settings, os\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::os\+\_\+settings, previous\+\_\+state, uv\+\_\+task\+\_\+info\+::stack\+\_\+size, svc\+\_\+task\+\_\+manager, uv\+\_\+task\+\_\+info\+::task\+\_\+flags, uv\+\_\+task\+\_\+info\+::task\+\_\+function, task\+\_\+manager, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+\_\+task\+\_\+info\+::task\+\_\+period, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+I\+N\+IT, U\+V\+\_\+\+OK, U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+M\+I\+S\+S\+I\+O\+N\+\_\+\+C\+R\+I\+T\+I\+C\+AL, U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+S\+C\+D\+\_\+\+I\+G\+N\+O\+RE, uv\+S\+V\+C\+Task\+Manager(), uv\+Task\+Manager(), uv\+Validate\+Managed\+Tasks(), and vehicle\+\_\+state.
+References current\+\_\+vehicle\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::os\+\_\+settings, os\+\_\+settings, previous\+\_\+state, uv\+\_\+task\+\_\+info\+::stack\+\_\+size, svc\+\_\+task\+\_\+manager, uv\+\_\+os\+\_\+settings\+::svc\+\_\+task\+\_\+manager\+\_\+period, uv\+\_\+task\+\_\+info\+::task\+\_\+flags, uv\+\_\+task\+\_\+info\+::task\+\_\+function, uv\+\_\+task\+\_\+info\+::task\+\_\+handle, task\+\_\+manager, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+\_\+task\+\_\+info\+::task\+\_\+period, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+I\+N\+IT, U\+V\+\_\+\+OK, U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+M\+I\+S\+S\+I\+O\+N\+\_\+\+C\+R\+I\+T\+I\+C\+AL, U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+S\+C\+D\+\_\+\+I\+G\+N\+O\+RE, uv\+S\+V\+C\+Task\+Manager(), uv\+Task\+Manager(), uv\+Validate\+Managed\+Tasks(), and vehicle\+\_\+state.
 
 
 
@@ -961,7 +961,7 @@ Function called at the end of the task period.
 
 @ 
 
-Definition at line 1454 of file uvfr\+\_\+state\+\_\+engine.\+c.
+Definition at line 1457 of file uvfr\+\_\+state\+\_\+engine.\+c.
 
 
 

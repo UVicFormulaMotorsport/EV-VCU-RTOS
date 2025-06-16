@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">/* Private variables ---------------------------------------------------------*/</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">/* USER CODE BEGIN PV */</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="main_8c.html#ace3a7a923fac03b79884ba01cc3b90e0">   62</a></span>&#160;<span class="keyword">volatile</span> uint32_t <a class="code" href="main_8c.html#ace3a7a923fac03b79884ba01cc3b90e0">adc_buf1</a>[4]; <span class="comment">// ADC1 - high priority readings</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="main_8c.html#a8c60277435d9f53a21fed2e4ae28a66a">   62</a></span>&#160;<span class="keyword">volatile</span> uint32_t <a class="code" href="main_8c.html#a8c60277435d9f53a21fed2e4ae28a66a">adc_buf1</a>[<a class="code" href="adc_8h.html#a241b375208136bfc174d8aac59759293">ADC1_BUF_LEN</a>]; <span class="comment">// ADC1 - high priority readings</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">   64</a></span>&#160;uint16_t <a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a>; <span class="comment">//These are the locations for the sensor inputs for APPS and BPS</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">   65</a></span>&#160;uint16_t <a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a>;</div>
@@ -202,7 +202,7 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">//HAL_ADC_Start_DMA(&amp;hadc1, (uint32_t*)adc_buf1, ADC1_BUF_LEN);</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="comment">//HAL_TIM_Base_Start_IT(&amp;htim3); This is getting disabled, since measuring temp will now be an RTOS task</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;   <span class="comment">// Just to prove we reached this point in the code</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <span class="comment">//MX_FREERTOS_Init();</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">//ANYTHING WE NEED TO DO BEFORE THE KERNEL TAKES OVER SHOULD HAPPEN HERE:</span></div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="comment">//HAL_NVIC_PriorityGroupConfig( NVIC_PRIORITYGROUP_4 ); ///&lt; This one is a fun function to do some NVIC tomfoolery because we need to</span></div>
@@ -334,143 +334,139 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment">// Called when adc dma buffer is completely filled</span></div>
 <div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="main_8c.html#af20a88180db1113be1e89266917d148b">  275</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#af20a88180db1113be1e89266917d148b">HAL_ADC_ConvCpltCallback</a>(ADC_HandleTypeDef* hadc) {</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="comment">//if(hadc == &amp;hadc1){</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <a class="code" href="adc_8h.html#a03fdeaebd739f2aa61c15278070878e0">processADCBuffer</a>();</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="comment">//}</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="comment">/*</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="comment">  // Could toggle an LED here</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment">    if(hadc-&gt;Instance == ADC1){ //TODO: Fix this so it is RTOS compatible</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="comment">        adc1_APPS1 = 0;</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="comment">        adc1_APPS2 = 0;</span></div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="comment">        adc1_BPS1 = 0;</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="comment">        adc1_BPS2 = 0;</span></div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment">        //Hmmm this should honestly probably be a 16 bit type but aint nobody got time for dat</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment">        uint32_t* buf1_pointer = adc_buf1;</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment">        for(int i = 0; i &lt; ADC1_SAMPLES; i++){ //BUG: pointer incremented by one rather than the length of the datatype</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;<span class="comment">            adc1_APPS1 += *buf1_pointer++;</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;<span class="comment">            adc1_APPS2 += *buf1_pointer++;</span></div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment">            adc1_BPS1 += *buf1_pointer++;</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment">            adc1_BPS2 += *buf1_pointer++;</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment">        }</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment">        //The above code is actually even worse than I originally suspected. Seriously, WTF. If multiple writes occur, then they get summed,</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">        //Rather than initial writes getting overwritten by newer ones. UNDEFINED BEHAVIOR!</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="comment">        // calculate APPS fraction travelled (see spreadsheet for equation derivation)</span></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;<span class="comment">        // Byron here: I want these constants to be TUNABLE, this will need some debugging in the future</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment">        adc1_APPS1 = 0.8082*adc1_APPS1 - 0.3709;</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="comment">        adc1_APPS2 = 0.8405*adc1_APPS2 - 0.8747;</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">        // APPS1 &amp; APPS2 plausibility check</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="comment">            // suspend if error persists for 100 ms</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment">        if((adc1_APPS1-adc1_APPS2)&gt;0.1 || (adc1_APPS1-adc1_APPS2)&lt;-0.1){</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment">            //START TIMER FOR APPS IMPLAUSIBILITY</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment">        }</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;<span class="comment">        // APPS &amp; BPS plausibility check</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;<span class="comment">            // immediate suspend if error occurs</span></div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment">        if(((adc1_APPS1 &gt; 0.25)||(adc1_APPS2 &gt; 0.25))&amp;&amp;((adc1_BPS1 &gt; 69)||(adc1_BPS2 &gt; 69))){</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment">            // checking for hard brake + accel</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">            // if found, enter suspend</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">        }</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment">    }</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment">    if (hadc-&gt;Instance == ADC2){</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">        adc2_CoolantTemp = adc_buf2[0];</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment">        adc2_CoolantFlow = adc_buf2[1];</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="comment">    }</span></div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment">    */</span></div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;}</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160; </div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160; </div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;<span class="comment">// EXTI gpio pin a0 External Interrupt ISR Handler</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno"><a class="line" href="main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f">  327</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f">HAL_GPIO_EXTI_Callback</a>(uint16_t GPIO_Pin)</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;{</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">if</span>(GPIO_Pin == GPIO_PIN_0) <span class="comment">// If The INT Source Is EXTI Line0 (A0 Pin)</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    {</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;<span class="comment">//ready_to_drive = 1;</span></div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    }</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;}</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;<span class="comment">// Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095</span></div>
-<div class="line"><a name="l00336"></a><span class="lineno"><a class="line" href="main_8c.html#a8cf5c59c6355fe7cf3c10816c761b9c2">  336</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a8cf5c59c6355fe7cf3c10816c761b9c2">HAL_ADC_LevelOutOfWindowCallback</a>(ADC_HandleTypeDef* hadc){</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keywordflow">if</span>(hadc-&gt;Instance == ADC1){</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="comment">// triggered for voltages below 0.5V (below 400) or above 4.5V (above 3674)</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        HAL_GPIO_WritePin(<a class="code" href="main_8h.html#a20d53ed7496ff721dc9647b280148f1a">Red_LED_GPIO_Port</a>,<a class="code" href="main_8h.html#a74d7905a14b6db421bd1d521d86789eb">Red_LED_Pin</a>, GPIO_PIN_SET);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        HAL_ADC_Stop_DMA(&amp;<a class="code" href="adc_8h.html#a22b804736f5648d52f639b2647d4ed13">hadc1</a>);</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> = 0;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> = 0;</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    }</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    <span class="keywordflow">if</span>(hadc-&gt;Instance == ADC2){</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        <span class="comment">// handle coolant sensors short error</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    }</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;}</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment">/* USER CODE END 4 */</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
-<div class="line"><a name="l00360"></a><span class="lineno"><a class="line" href="main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac">  360</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a>(TIM_HandleTypeDef *htim)</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;{</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  <span class="comment">/* USER CODE BEGIN Callback 0 */</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  <span class="comment">/* USER CODE END Callback 0 */</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  <span class="keywordflow">if</span> (htim-&gt;Instance == TIM1) {</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    HAL_IncTick();</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  }</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;  <span class="comment">/* USER CODE BEGIN Callback 1 */</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  <span class="keywordflow">if</span> (htim == &amp;<a class="code" href="tim_8h.html#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a>){</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="comment">// start a single round of ADC2 conversions</span></div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;        HAL_ADC_Start_DMA(&amp;<a class="code" href="adc_8h.html#acd9221f1aa19aebfe0b744947f2daf49">hadc2</a>, (uint32_t*)<a class="code" href="main_8c.html#a820ab8aecc5744f003ca984a1d960da1">adc_buf2</a>, <a class="code" href="adc_8h.html#aa11cd6f12825030de59c9466913e011a">ADC2_BUF_LEN</a>);</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="comment">// Could toggle an LED here</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="keywordflow">if</span>(hadc-&gt;Instance == ADC1){ <span class="comment">//TODO: Fix this so it is RTOS compatible</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        <a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> = 0;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        <a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> = 0;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <a class="code" href="main_8c.html#ad36d3aa4037203058df6816d56f4c186">adc1_BPS1</a> = 0;</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <a class="code" href="main_8c.html#a277f7921a7a1e0fb8a6f953943dc06dc">adc1_BPS2</a> = 0;</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160; </div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="comment">//Hmmm this should honestly probably be a 16 bit type but aint nobody got time for dat</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        uint32_t* buf1_pointer = <a class="code" href="main_8c.html#a8c60277435d9f53a21fed2e4ae28a66a">adc_buf1</a>;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160; </div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="adc_8h.html#a11f08a78cccde778b1effca3c3081b75">ADC1_SAMPLES</a>; i++){ <span class="comment">//BUG: pointer incremented by one rather than the length of the datatype</span></div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            <a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> += *buf1_pointer++;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            <a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> += *buf1_pointer++;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <a class="code" href="main_8c.html#ad36d3aa4037203058df6816d56f4c186">adc1_BPS1</a> += *buf1_pointer++;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            <a class="code" href="main_8c.html#a277f7921a7a1e0fb8a6f953943dc06dc">adc1_BPS2</a> += *buf1_pointer++;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        <span class="comment">//The above code is actually even worse than I originally suspected. Seriously, WTF. If multiple writes occur, then they get summed,</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="comment">//Rather than initial writes getting overwritten by newer ones. UNDEFINED BEHAVIOR!</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="comment">// calculate APPS fraction travelled (see spreadsheet for equation derivation)</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="comment">// Byron here: I want these constants to be TUNABLE, this will need some debugging in the future</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> = 0.8082*<a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> - 0.3709;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> = 0.8405*<a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> - 0.8747;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;        <span class="comment">// APPS1 &amp; APPS2 plausibility check</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;            <span class="comment">// suspend if error persists for 100 ms</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        <span class="keywordflow">if</span>((<a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a>-<a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a>)&gt;0.1 || (<a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a>-<a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a>)&lt;-0.1){</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            <span class="comment">//START TIMER FOR APPS IMPLAUSIBILITY</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        }</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="comment">// APPS &amp; BPS plausibility check</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            <span class="comment">// immediate suspend if error occurs</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">if</span>(((<a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> &gt; 0.25)||(<a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> &gt; 0.25))&amp;&amp;((<a class="code" href="main_8c.html#ad36d3aa4037203058df6816d56f4c186">adc1_BPS1</a> &gt; 69)||(<a class="code" href="main_8c.html#a277f7921a7a1e0fb8a6f953943dc06dc">adc1_BPS2</a> &gt; 69))){</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            <span class="comment">// checking for hard brake + accel</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            <span class="comment">// if found, enter suspend</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <span class="keywordflow">if</span> (hadc-&gt;Instance == ADC2){</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <a class="code" href="main_8c.html#a05d60ecdd2dcf9cb28968d8027d1d5ce">adc2_CoolantTemp</a> = <a class="code" href="main_8c.html#a820ab8aecc5744f003ca984a1d960da1">adc_buf2</a>[0];</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        <a class="code" href="main_8c.html#a9211365d419c877b3b4f8074ef19cb33">adc2_CoolantFlow</a> = <a class="code" href="main_8c.html#a820ab8aecc5744f003ca984a1d960da1">adc_buf2</a>[1];</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    }</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;}</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment">// EXTI gpio pin a0 External Interrupt ISR Handler</span></div>
+<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f">  321</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f">HAL_GPIO_EXTI_Callback</a>(uint16_t GPIO_Pin)</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;{</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordflow">if</span>(GPIO_Pin == GPIO_PIN_0) <span class="comment">// If The INT Source Is EXTI Line0 (A0 Pin)</span></div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;<span class="comment">//ready_to_drive = 1;</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    }</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;}</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;<span class="comment">// Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095</span></div>
+<div class="line"><a name="l00330"></a><span class="lineno"><a class="line" href="main_8c.html#a8cf5c59c6355fe7cf3c10816c761b9c2">  330</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a8cf5c59c6355fe7cf3c10816c761b9c2">HAL_ADC_LevelOutOfWindowCallback</a>(ADC_HandleTypeDef* hadc){</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">if</span>(hadc-&gt;Instance == ADC1){</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="comment">// triggered for voltages below 0.5V (below 400) or above 4.5V (above 3674)</span></div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        HAL_GPIO_WritePin(<a class="code" href="main_8h.html#a20d53ed7496ff721dc9647b280148f1a">Red_LED_GPIO_Port</a>,<a class="code" href="main_8h.html#a74d7905a14b6db421bd1d521d86789eb">Red_LED_Pin</a>, GPIO_PIN_SET);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        HAL_ADC_Stop_DMA(&amp;<a class="code" href="adc_8h.html#a22b804736f5648d52f639b2647d4ed13">hadc1</a>);</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;        <a class="code" href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a> = 0;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <a class="code" href="main_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30">adc1_APPS2</a> = 0;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    }</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordflow">if</span>(hadc-&gt;Instance == ADC2){</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        <span class="comment">// handle coolant sensors short error</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;}</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160; </div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">/* USER CODE END 4 */</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
+<div class="line"><a name="l00354"></a><span class="lineno"><a class="line" href="main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac">  354</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a>(TIM_HandleTypeDef *htim)</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;{</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  <span class="comment">/* USER CODE BEGIN Callback 0 */</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  <span class="comment">/* USER CODE END Callback 0 */</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;  <span class="keywordflow">if</span> (htim-&gt;Instance == TIM1) {</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    HAL_IncTick();</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;  }</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  <span class="comment">/* USER CODE BEGIN Callback 1 */</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  <span class="keywordflow">if</span> (htim == &amp;<a class="code" href="tim_8h.html#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a>){</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160; </div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;        <span class="comment">// start a single round of ADC2 conversions</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;        HAL_ADC_Start_DMA(&amp;<a class="code" href="adc_8h.html#acd9221f1aa19aebfe0b744947f2daf49">hadc2</a>, (uint32_t*)<a class="code" href="main_8c.html#a820ab8aecc5744f003ca984a1d960da1">adc_buf2</a>, <a class="code" href="adc_8h.html#aa11cd6f12825030de59c9466913e011a">ADC2_BUF_LEN</a>);</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        <span class="comment">// restart timer</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        HAL_TIM_Base_Start_IT(&amp;<a class="code" href="tim_8h.html#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a>);</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    }</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;  <span class="comment">/* USER CODE END Callback 1 */</span></div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;}</div>
 <div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;        <span class="comment">// restart timer</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        HAL_TIM_Base_Start_IT(&amp;<a class="code" href="tim_8h.html#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a>);</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    }</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;  <span class="comment">/* USER CODE END Callback 1 */</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;}</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
-<div class="line"><a name="l00384"></a><span class="lineno"><a class="line" href="main_8c.html#a1730ffe1e560465665eb47d9264826f9">  384</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a>(<span class="keywordtype">void</span>)</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;{</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  <span class="comment">/* USER CODE BEGIN Error_Handler_Debug */</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12); <span class="comment">//Me when the error is not being handled</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;  <span class="comment">/* User can add his own implementation to report the HAL error return state */</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;  __disable_irq();</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;  <span class="keywordflow">while</span> (1)</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  {</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;  }</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  <span class="comment">/* USER CODE END Error_Handler_Debug */</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;}</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="preprocessor">#ifdef  USE_FULL_ASSERT</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160; </div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="keywordtype">void</span> assert_failed(uint8_t *file, uint32_t line)</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;{</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;  <span class="comment">/* USER CODE BEGIN 6 */</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="comment">/* User can add his own implementation to report the file name and line number,</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">     ex: printf(&quot;Wrong parameters value: file %s on line %d\r\n&quot;, file, line) */</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  <span class="comment">/* USER CODE END 6 */</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;}</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* USE_FULL_ASSERT */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="main_8c.html#a1730ffe1e560465665eb47d9264826f9">  378</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8c.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a>(<span class="keywordtype">void</span>)</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;{</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;  <span class="comment">/* USER CODE BEGIN Error_Handler_Debug */</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_12); <span class="comment">//Me when the error is not being handled</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;  <span class="comment">/* User can add his own implementation to report the HAL error return state */</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;  __disable_irq();</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;  <span class="keywordflow">while</span> (1)</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;  {</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  }</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  <span class="comment">/* USER CODE END Error_Handler_Debug */</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;}</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="preprocessor">#ifdef  USE_FULL_ASSERT</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160; </div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="keywordtype">void</span> assert_failed(uint8_t *file, uint32_t line)</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;{</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  <span class="comment">/* USER CODE BEGIN 6 */</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  <span class="comment">/* User can add his own implementation to report the file name and line number,</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">     ex: printf(&quot;Wrong parameters value: file %s on line %d\r\n&quot;, file, line) */</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  <span class="comment">/* USER CODE END 6 */</span></div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;}</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* USE_FULL_ASSERT */</span><span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="amain_8h_html_a20d53ed7496ff721dc9647b280148f1a"><div class="ttname"><a href="main_8h.html#a20d53ed7496ff721dc9647b280148f1a">Red_LED_GPIO_Port</a></div><div class="ttdeci">#define Red_LED_GPIO_Port</div><div class="ttdef"><b>Definition:</b> <a href="main_8h_source.html#l00070">main.h:70</a></div></div>
-<div class="ttc" id="aadc_8h_html_acd9221f1aa19aebfe0b744947f2daf49"><div class="ttname"><a href="adc_8h.html#acd9221f1aa19aebfe0b744947f2daf49">hadc2</a></div><div class="ttdeci">ADC_HandleTypeDef hadc2</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00036">adc.c:36</a></div></div>
+<div class="ttc" id="aadc_8h_html_acd9221f1aa19aebfe0b744947f2daf49"><div class="ttname"><a href="adc_8h.html#acd9221f1aa19aebfe0b744947f2daf49">hadc2</a></div><div class="ttdeci">ADC_HandleTypeDef hadc2</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00028">adc.c:28</a></div></div>
 <div class="ttc" id="aspi_8h_html"><div class="ttname"><a href="spi_8h.html">spi.h</a></div><div class="ttdoc">This file contains all the function prototypes for the spi.c file.</div></div>
 <div class="ttc" id="atim_8h_html"><div class="ttname"><a href="tim_8h.html">tim.h</a></div><div class="ttdoc">This file contains all the function prototypes for the tim.c file.</div></div>
-<div class="ttc" id="amain_8c_html_a8cf5c59c6355fe7cf3c10816c761b9c2"><div class="ttname"><a href="main_8c.html#a8cf5c59c6355fe7cf3c10816c761b9c2">HAL_ADC_LevelOutOfWindowCallback</a></div><div class="ttdeci">void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef *hadc)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00336">main.c:336</a></div></div>
+<div class="ttc" id="aadc_8h_html_a241b375208136bfc174d8aac59759293"><div class="ttname"><a href="adc_8h.html#a241b375208136bfc174d8aac59759293">ADC1_BUF_LEN</a></div><div class="ttdeci">#define ADC1_BUF_LEN</div><div class="ttdef"><b>Definition:</b> <a href="adc_8h_source.html#l00043">adc.h:43</a></div></div>
+<div class="ttc" id="amain_8c_html_a8cf5c59c6355fe7cf3c10816c761b9c2"><div class="ttname"><a href="main_8c.html#a8cf5c59c6355fe7cf3c10816c761b9c2">HAL_ADC_LevelOutOfWindowCallback</a></div><div class="ttdeci">void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef *hadc)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00330">main.c:330</a></div></div>
 <div class="ttc" id="abms_8h_html"><div class="ttname"><a href="bms_8h.html">bms.h</a></div></div>
 <div class="ttc" id="amain_8c_html_af20a88180db1113be1e89266917d148b"><div class="ttname"><a href="main_8c.html#af20a88180db1113be1e89266917d148b">HAL_ADC_ConvCpltCallback</a></div><div class="ttdeci">void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00275">main.c:275</a></div></div>
-<div class="ttc" id="aadc_8h_html_a22b804736f5648d52f639b2647d4ed13"><div class="ttname"><a href="adc_8h.html#a22b804736f5648d52f639b2647d4ed13">hadc1</a></div><div class="ttdeci">ADC_HandleTypeDef hadc1</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00035">adc.c:35</a></div></div>
+<div class="ttc" id="aadc_8h_html_a22b804736f5648d52f639b2647d4ed13"><div class="ttname"><a href="adc_8h.html#a22b804736f5648d52f639b2647d4ed13">hadc1</a></div><div class="ttdeci">ADC_HandleTypeDef hadc1</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00027">adc.c:27</a></div></div>
 <div class="ttc" id="aadc_8h_html"><div class="ttname"><a href="adc_8h.html">adc.h</a></div><div class="ttdoc">This file contains all the function prototypes for the adc.c file.</div></div>
 <div class="ttc" id="adma_8h_html_a323249dac769f9855c10b4ec9446b707"><div class="ttname"><a href="dma_8h.html#a323249dac769f9855c10b4ec9446b707">MX_DMA_Init</a></div><div class="ttdeci">void MX_DMA_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="dma_8c_source.html#l00039">dma.c:39</a></div></div>
+<div class="ttc" id="amain_8c_html_a8c60277435d9f53a21fed2e4ae28a66a"><div class="ttname"><a href="main_8c.html#a8c60277435d9f53a21fed2e4ae28a66a">adc_buf1</a></div><div class="ttdeci">volatile uint32_t adc_buf1[ADC1_BUF_LEN]</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00062">main.c:62</a></div></div>
 <div class="ttc" id="amain_8c_html_a549b3590f54dfc129d2eebf2604c16e8"><div class="ttname"><a href="main_8c.html#a549b3590f54dfc129d2eebf2604c16e8">adc1_APPS1</a></div><div class="ttdeci">uint16_t adc1_APPS1</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00064">main.c:64</a></div></div>
-<div class="ttc" id="amain_8c_html_ace3a7a923fac03b79884ba01cc3b90e0"><div class="ttname"><a href="main_8c.html#ace3a7a923fac03b79884ba01cc3b90e0">adc_buf1</a></div><div class="ttdeci">volatile uint32_t adc_buf1[4]</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00062">main.c:62</a></div></div>
 <div class="ttc" id="aadc_8h_html_aa11cd6f12825030de59c9466913e011a"><div class="ttname"><a href="adc_8h.html#aa11cd6f12825030de59c9466913e011a">ADC2_BUF_LEN</a></div><div class="ttdeci">#define ADC2_BUF_LEN</div><div class="ttdef"><b>Definition:</b> <a href="adc_8h_source.html#l00048">adc.h:48</a></div></div>
-<div class="ttc" id="aadc_8h_html_a101e2e3433dfe72bbbd0ae3a84489263"><div class="ttname"><a href="adc_8h.html#a101e2e3433dfe72bbbd0ae3a84489263">MX_ADC2_Init</a></div><div class="ttdeci">void MX_ADC2_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00114">adc.c:114</a></div></div>
+<div class="ttc" id="aadc_8h_html_a101e2e3433dfe72bbbd0ae3a84489263"><div class="ttname"><a href="adc_8h.html#a101e2e3433dfe72bbbd0ae3a84489263">MX_ADC2_Init</a></div><div class="ttdeci">void MX_ADC2_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00118">adc.c:118</a></div></div>
 <div class="ttc" id="amain_8c_html_abade755e13d07c10889ae83143656158"><div class="ttname"><a href="main_8c.html#abade755e13d07c10889ae83143656158">MX_FREERTOS_Init</a></div><div class="ttdeci">void MX_FREERTOS_Init(void)</div><div class="ttdoc">FreeRTOS initialization.</div><div class="ttdef"><b>Definition:</b> <a href="freertos_8c_source.html#l00160">freertos.c:160</a></div></div>
-<div class="ttc" id="amain_8c_html_a0cd91fd3a9608559c2a87a8ba6cba55f"><div class="ttname"><a href="main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f">HAL_GPIO_EXTI_Callback</a></div><div class="ttdeci">void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00327">main.c:327</a></div></div>
-<div class="ttc" id="aadc_8h_html_acccd58aa70215a6b184ad242312ffd0c"><div class="ttname"><a href="adc_8h.html#acccd58aa70215a6b184ad242312ffd0c">MX_ADC1_Init</a></div><div class="ttdeci">void MX_ADC1_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00040">adc.c:40</a></div></div>
+<div class="ttc" id="amain_8c_html_a0cd91fd3a9608559c2a87a8ba6cba55f"><div class="ttname"><a href="main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f">HAL_GPIO_EXTI_Callback</a></div><div class="ttdeci">void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00321">main.c:321</a></div></div>
+<div class="ttc" id="aadc_8h_html_acccd58aa70215a6b184ad242312ffd0c"><div class="ttname"><a href="adc_8h.html#acccd58aa70215a6b184ad242312ffd0c">MX_ADC1_Init</a></div><div class="ttdeci">void MX_ADC1_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00032">adc.c:32</a></div></div>
+<div class="ttc" id="aadc_8h_html_a11f08a78cccde778b1effca3c3081b75"><div class="ttname"><a href="adc_8h.html#a11f08a78cccde778b1effca3c3081b75">ADC1_SAMPLES</a></div><div class="ttdeci">#define ADC1_SAMPLES</div><div class="ttdef"><b>Definition:</b> <a href="adc_8h_source.html#l00045">adc.h:45</a></div></div>
 <div class="ttc" id="apdu_8h_html"><div class="ttname"><a href="pdu_8h.html">pdu.h</a></div></div>
 <div class="ttc" id="acan_8c_html_aff5c4caa2b4968b309deaffdc58f1e92"><div class="ttname"><a href="can_8c.html#aff5c4caa2b4968b309deaffdc58f1e92">handleCANbusError</a></div><div class="ttdeci">void handleCANbusError(const CAN_HandleTypeDef *hcan, const uint32_t err_to_ignore)</div><div class="ttdef"><b>Definition:</b> <a href="can_8c_source.html#l00071">can.c:71</a></div></div>
 <div class="ttc" id="aconstants_8h_html_af553c31425b32bd9c020380c942ed3bd"><div class="ttname"><a href="constants_8h.html#af553c31425b32bd9c020380c942ed3bd">TxData</a></div><div class="ttdeci">uint8_t TxData[8]</div><div class="ttdef"><b>Definition:</b> <a href="constants_8c_source.html#l00007">constants.c:7</a></div></div>
@@ -483,7 +479,7 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="ttc" id="aspi_8h_html_af81398f9775695df0b172367651ca3e6"><div class="ttname"><a href="spi_8h.html#af81398f9775695df0b172367651ca3e6">MX_SPI1_Init</a></div><div class="ttdeci">void MX_SPI1_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="spi_8c_source.html#l00030">spi.c:30</a></div></div>
 <div class="ttc" id="amain_8c_html_a840291bc02cba5474a4cb46a9b9566fe"><div class="ttname"><a href="main_8c.html#a840291bc02cba5474a4cb46a9b9566fe">main</a></div><div class="ttdeci">int main(void)</div><div class="ttdoc">The application entry point.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00097">main.c:97</a></div></div>
 <div class="ttc" id="aconstants_8h_html_aedd1e4ac418a9697f9f41a2713d49569"><div class="ttname"><a href="constants_8h.html#aedd1e4ac418a9697f9f41a2713d49569">TxMailbox</a></div><div class="ttdeci">uint32_t TxMailbox</div><div class="ttdef"><b>Definition:</b> <a href="constants_8c_source.html#l00008">constants.c:8</a></div></div>
-<div class="ttc" id="amain_8c_html_a8a3b0ad512a6e6c6157440b68d395eac"><div class="ttname"><a href="main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a></div><div class="ttdeci">void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Period elapsed callback in non blocking mode.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00360">main.c:360</a></div></div>
+<div class="ttc" id="amain_8c_html_a8a3b0ad512a6e6c6157440b68d395eac"><div class="ttname"><a href="main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac">HAL_TIM_PeriodElapsedCallback</a></div><div class="ttdeci">void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)</div><div class="ttdoc">Period elapsed callback in non blocking mode.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00354">main.c:354</a></div></div>
 <div class="ttc" id="amain_8h_html"><div class="ttname"><a href="main_8h.html">main.h</a></div><div class="ttdoc">: Header for main.c file. This file contains the common defines of the application.</div></div>
 <div class="ttc" id="agpio_8h_html"><div class="ttname"><a href="gpio_8h.html">gpio.h</a></div><div class="ttdoc">This file contains all the function prototypes for the gpio.c file.</div></div>
 <div class="ttc" id="amain_8c_html_a277f7921a7a1e0fb8a6f953943dc06dc"><div class="ttname"><a href="main_8c.html#a277f7921a7a1e0fb8a6f953943dc06dc">adc1_BPS2</a></div><div class="ttdeci">uint16_t adc1_BPS2</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00067">main.c:67</a></div></div>
@@ -499,10 +495,9 @@ $(document).ready(function(){initNavTree('main_8c_source.html','');});
 <div class="ttc" id="amain_8c_html_a9211365d419c877b3b4f8074ef19cb33"><div class="ttname"><a href="main_8c.html#a9211365d419c877b3b4f8074ef19cb33">adc2_CoolantFlow</a></div><div class="ttdeci">uint16_t adc2_CoolantFlow</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00071">main.c:71</a></div></div>
 <div class="ttc" id="acan_8h_html"><div class="ttname"><a href="can_8h.html">can.h</a></div><div class="ttdoc">This file contains all the function prototypes for the can.c file.</div></div>
 <div class="ttc" id="adash_8h_html"><div class="ttname"><a href="dash_8h.html">dash.h</a></div></div>
-<div class="ttc" id="amain_8c_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8c.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">This function is executed in case of error occurrence.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00384">main.c:384</a></div></div>
+<div class="ttc" id="amain_8c_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8c.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">This function is executed in case of error occurrence.</div><div class="ttdef"><b>Definition:</b> <a href="main_8c_source.html#l00378">main.c:378</a></div></div>
 <div class="ttc" id="adma_8h_html"><div class="ttname"><a href="dma_8h.html">dma.h</a></div><div class="ttdoc">This file contains all the function prototypes for the dma.c file.</div></div>
 <div class="ttc" id="agpio_8h_html_ac724e431d2af879252de35615be2bdea"><div class="ttname"><a href="gpio_8h.html#ac724e431d2af879252de35615be2bdea">MX_GPIO_Init</a></div><div class="ttdeci">void MX_GPIO_Init(void)</div><div class="ttdef"><b>Definition:</b> <a href="gpio_8c_source.html#l00042">gpio.c:42</a></div></div>
-<div class="ttc" id="aadc_8h_html_a03fdeaebd739f2aa61c15278070878e0"><div class="ttname"><a href="adc_8h.html#a03fdeaebd739f2aa61c15278070878e0">processADCBuffer</a></div><div class="ttdeci">void processADCBuffer()</div><div class="ttdef"><b>Definition:</b> <a href="adc_8c_source.html#l00320">adc.c:320</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

@@ -14,7 +14,6 @@ var group__state__engine =
     [ "_next_task_id", "group__state__engine.html#gaf070a24ce066297b4a8276ddcb884b0c", null ],
     [ "_task_register", "group__state__engine.html#ga6b49ab568bed9d9189782eebb90545b5", null ],
     [ "default_os_settings", "group__state__engine.html#gad9e02be6d2d0bc1ab5cd9fd8cae34230", null ],
-    [ "error_bitfield", "group__state__engine.html#gad05ab0da0046c01c52191148bbd0c36d", null ],
     [ "last_task_end_times", "group__state__engine.html#ga0ae08e3e5e1cb6e0228da97c7e4326e0", null ],
     [ "last_task_start_times", "group__state__engine.html#gac5868023f8ec284bd14c50db7a815e78", null ],
     [ "nc_throttling", "group__state__engine.html#ga6f4abbac22d8261c588c551b1d153ef6", null ],

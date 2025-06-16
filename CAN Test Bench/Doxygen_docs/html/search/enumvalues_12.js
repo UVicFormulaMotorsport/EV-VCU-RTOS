@@ -1,24 +1,6 @@
 var searchData=
 [
-  ['vb_5fhi_5fres_2358',['Vb_hi_res',['../imd_8h.html#af8e85b806bce9c9cad944c261ff0aa0ca23a10ada814d11a9a1044ede3a821688',1,'imd.h']]],
-  ['vcu_5fcurrent_5fuptime_2359',['VCU_CURRENT_UPTIME',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ad8aa245503fd95eebbc274e9dc6cffc3',1,'daq.h']]],
-  ['vcu_5ferror_5fbitfield1_2360',['VCU_ERROR_BITFIELD1',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a0e0864ffb7986f19129bc6b59a5fa77b',1,'daq.h']]],
-  ['vcu_5ferror_5fbitfield2_2361',['VCU_ERROR_BITFIELD2',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9acdcc0525deb76aea20f6a5239d32312d',1,'daq.h']]],
-  ['vcu_5ferror_5fbitfield3_2362',['VCU_ERROR_BITFIELD3',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a3515cf175fd12745ba64715a44137958',1,'daq.h']]],
-  ['vcu_5ferror_5fbitfield4_2363',['VCU_ERROR_BITFIELD4',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a3a9f7ef2405971218360d917a12802a3',1,'daq.h']]],
-  ['vcu_5ftotal_5fuptime_2364',['VCU_TOTAL_UPTIME',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a53a54b13295e369b1b05d22b9b9c344f',1,'daq.h']]],
-  ['vcu_5fvehicle_5fstate_2365',['VCU_VEHICLE_STATE',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382',1,'daq.h']]],
-  ['veh_5fdistance_5frun_2366',['VEH_DISTANCE_RUN',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a28fea9f840239eeee80ef78dd75a3247',1,'daq.h']]],
-  ['veh_5fdistance_5ftotal_2367',['VEH_DISTANCE_TOTAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9acdd1817d078c39ea68589fc78229d433',1,'daq.h']]],
-  ['veh_5flapnum_2368',['VEH_LAPNUM',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a1342110df0aa36f1aac1f15cbd8415e7',1,'daq.h']]],
-  ['veh_5fspeed_2369',['VEH_SPEED',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a181ccc02a81f078677f8259feae961ee',1,'daq.h']]],
-  ['version_5f0_2370',['Version_0',['../imd_8h.html#a975959819df682c9adec7c667028674ea5eb2adcd1cb7d65f6c590b6f6b7ee322',1,'imd.h']]],
-  ['version_5f1_2371',['Version_1',['../imd_8h.html#a975959819df682c9adec7c667028674eafcc458d57f1b3273ae319230922231a4',1,'imd.h']]],
-  ['version_5f2_2372',['Version_2',['../imd_8h.html#a975959819df682c9adec7c667028674eafb60bb95154ac28254f2e8dfbc82c638',1,'imd.h']]],
-  ['vexc_5fhi_5fres_2373',['Vexc_hi_res',['../imd_8h.html#af8e85b806bce9c9cad944c261ff0aa0ca65563450695b30beae4032ff330f0e6f',1,'imd.h']]],
-  ['vn_5fhi_5fres_2374',['Vn_hi_res',['../imd_8h.html#af8e85b806bce9c9cad944c261ff0aa0ca781dcc0628d7284c0e9e0be67cd3365b',1,'imd.h']]],
-  ['voltages_5fvp_5fand_5fvn_2375',['voltages_Vp_and_Vn',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1',1,'imd.h']]],
-  ['vout_5fsaturation_5fmax_5flimit_2376',['Vout_saturation_max_limit',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffaf06c0a389c1c73850def361e9bd7ffdc',1,'motor_controller.h']]],
-  ['vp_5fhi_5fres_2377',['Vp_hi_res',['../imd_8h.html#af8e85b806bce9c9cad944c261ff0aa0ca6b90089e224b90d87a6cf113e5e36f22',1,'imd.h']]],
-  ['vpwr_5fhi_5fres_2378',['Vpwr_hi_res',['../imd_8h.html#af8e85b806bce9c9cad944c261ff0aa0ca6d4bdc992b68f8ee4aea88056639af5d',1,'imd.h']]]
+  ['warning_5f5_2013',['warning_5',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3050ef440e4e82f9fb3973e1fb9faea7',1,'motor_controller.h']]],
+  ['warning_5f9_2014',['warning_9',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffad53242de6aeaa134a78749bc60fec984',1,'motor_controller.h']]],
+  ['watchdog_5freset_2015',['watchdog_reset',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa357611869a1ec791b38a36ec2dfe09b9',1,'motor_controller.h']]]
 ];

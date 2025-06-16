@@ -1,25 +1,8 @@
 var searchData=
 [
-  ['daq_5fhead_5faddr_2458',['DAQ_HEAD_ADDR',['../uvfr__settings_8h.html#aae3049baf8d0bf80753c7b0da5ec8260',1,'uvfr_settings.h']]],
-  ['daq_5fhead_5fmgroup_2459',['DAQ_HEAD_MGROUP',['../uvfr__settings_8h.html#a14f988f2e948d8f522f0ef04a29762d6',1,'uvfr_settings.h']]],
-  ['daq_5fhead_5foffset_2460',['DAQ_HEAD_OFFSET',['../uvfr__settings_8h.html#afc36afa04b73fc9a1ea92b22e6cb564f',1,'uvfr_settings.h']]],
-  ['daq_5fparams1_5faddr_2461',['DAQ_PARAMS1_ADDR',['../uvfr__settings_8h.html#ae385496a129924fb290839da5bfa90a2',1,'uvfr_settings.h']]],
-  ['daq_5fparams1_5fmgroup_2462',['DAQ_PARAMS1_MGROUP',['../uvfr__settings_8h.html#a084bd6444fb9817cc88531b879ba571b',1,'uvfr_settings.h']]],
-  ['daq_5fparams1_5foffset_2463',['DAQ_PARAMS1_OFFSET',['../uvfr__settings_8h.html#a10d6e75bc6bdeb4dec495cbfe05682fd',1,'uvfr_settings.h']]],
-  ['daq_5fparams2_5faddr_2464',['DAQ_PARAMS2_ADDR',['../uvfr__settings_8h.html#a944ba9611ab0e293aacff9594b1ebf7f',1,'uvfr_settings.h']]],
-  ['daq_5fparams2_5fmgroup_2465',['DAQ_PARAMS2_MGROUP',['../uvfr__settings_8h.html#a95329f2d7eeeb3f9ede20a879c5392ca',1,'uvfr_settings.h']]],
-  ['daq_5fparams2_5foffset_2466',['DAQ_PARAMS2_OFFSET',['../uvfr__settings_8h.html#af56bc76639c60400254e802f48f20936',1,'uvfr_settings.h']]],
-  ['daq_5fparams3_5faddr_2467',['DAQ_PARAMS3_ADDR',['../uvfr__settings_8h.html#a1016315bfe0ce8be5512780f7769a364',1,'uvfr_settings.h']]],
-  ['daq_5fparams3_5fmgroup_2468',['DAQ_PARAMS3_MGROUP',['../uvfr__settings_8h.html#a60d2a2dc2bef8bfc786db07f7ddad0d9',1,'uvfr_settings.h']]],
-  ['daq_5fparams3_5foffset_2469',['DAQ_PARAMS3_OFFSET',['../uvfr__settings_8h.html#afadf89c5c899160c56994a513674f7b6',1,'uvfr_settings.h']]],
-  ['data_5fcache_5fenable_2470',['DATA_CACHE_ENABLE',['../stm32f4xx__hal__conf_8h.html#a5b4c32a40cf49b06c0d761e385949a6b',1,'stm32f4xx_hal_conf.h']]],
-  ['data_5fmismatch_2471',['DATA_MISMATCH',['../uvfr__settings_8c.html#ae9b3336d2f9087deea03d9adac5d06fd',1,'uvfr_settings.c']]],
-  ['debug_5fcan_5fin_5fmain_2472',['DEBUG_CAN_IN_MAIN',['../main_8c.html#a764dcd92a2e2229e53e2090201243643',1,'main.c']]],
-  ['debug_5ftoggle_5fled_2473',['DEBUG_TOGGLE_LED',['../adc_8c.html#a3903c57732eb74d8fe2a3a80866a81d1',1,'adc.c']]],
-  ['default_5fbms_5fcan_5ftimeout_2474',['DEFAULT_BMS_CAN_TIMEOUT',['../bms_8h.html#a0c88019b9a80e0a2b9820fb387e9e084',1,'bms.h']]],
-  ['did_5fnot_5ffinish_5fprogramming_2475',['DID_NOT_FINISH_PROGRAMMING',['../uvfr__settings_8c.html#a0202712190ca1bce6a198dd196f48c4b',1,'uvfr_settings.c']]],
-  ['dp83848_5fphy_5faddress_2476',['DP83848_PHY_ADDRESS',['../stm32f4xx__hal__conf_8h.html#a25f014091aaba92bdd9d95d0b2f00503',1,'stm32f4xx_hal_conf.h']]],
-  ['driving_5faddr_2477',['DRIVING_ADDR',['../uvfr__settings_8h.html#a1d468b6513b2d5cb0bee9e8533d6f67c',1,'uvfr_settings.h']]],
-  ['driving_5fmgroup_2478',['DRIVING_MGROUP',['../uvfr__settings_8h.html#aaad501c2b79f55f1bbbae030b6a18dcd',1,'uvfr_settings.h']]],
-  ['driving_5foffset_2479',['DRIVING_OFFSET',['../uvfr__settings_8h.html#a16f051ea34ee4f4965e4d11f3745d742',1,'uvfr_settings.h']]]
+  ['data_5fcache_5fenable_2077',['DATA_CACHE_ENABLE',['../stm32f4xx__hal__conf_8h.html#a5b4c32a40cf49b06c0d761e385949a6b',1,'stm32f4xx_hal_conf.h']]],
+  ['debug_5fcan_5fin_5fmain_2078',['DEBUG_CAN_IN_MAIN',['../main_8c.html#a764dcd92a2e2229e53e2090201243643',1,'main.c']]],
+  ['default_5fbms_5fcan_5ftimeout_2079',['DEFAULT_BMS_CAN_TIMEOUT',['../bms_8h.html#a0c88019b9a80e0a2b9820fb387e9e084',1,'bms.h']]],
+  ['default_5fmotor_5fcontroller_5fcan_5ftimeout_2080',['DEFAULT_MOTOR_CONTROLLER_CAN_TIMEOUT',['../motor__controller_8h.html#acc0df233686dd4cf6256fcab0473860e',1,'motor_controller.h']]],
+  ['dp83848_5fphy_5faddress_2081',['DP83848_PHY_ADDRESS',['../stm32f4xx__hal__conf_8h.html#a25f014091aaba92bdd9d95d0b2f00503',1,'stm32f4xx_hal_conf.h']]]
 ];

@@ -1,7 +1,6 @@
 \hypertarget{pdu_8c}{}\doxysection{Core/\+Src/pdu.c File Reference}
 \label{pdu_8c}\index{Core/Src/pdu.c@{Core/Src/pdu.c}}
 {\ttfamily \#include \char`\"{}pdu.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}can.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\newline
@@ -32,11 +31,6 @@ void \mbox{\hyperlink{pdu_8c_aebeb35957c80be85dc938efe72c8e825}{P\+D\+U\+\_\+dis
 \item 
 void \mbox{\hyperlink{pdu_8c_afaa6671d51bcd0687c87ac635ff70d95}{init\+P\+DU}} (void $\ast$args)
 \end{DoxyCompactItemize}
-\doxysubsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-\mbox{\hyperlink{structuv19__pdu__settings}{uv19\+\_\+pdu\+\_\+settings}} \mbox{\hyperlink{pdu_8c_a07c6d6c6f641c6fb60600b9bd7efbf7e}{default\+\_\+pdu\+\_\+settings}}
-\end{DoxyCompactItemize}
 
 
 \doxysubsection{Function Documentation}
@@ -48,7 +42,7 @@ void \mbox{\hyperlink{pdu_8c_afaa6671d51bcd0687c87ac635ff70d95}{init\+P\+DU}} (v
 
 
 
-Definition at line 189 of file pdu.\+c.
+Definition at line 183 of file pdu.\+c.
 
 
 
@@ -66,7 +60,7 @@ Referenced by uv\+Init().
 
 
 
-Definition at line 54 of file pdu.\+c.
+Definition at line 48 of file pdu.\+c.
 
 
 
@@ -80,7 +74,7 @@ References disable\+\_\+brake\+\_\+light\+\_\+msg, Error\+\_\+\+Handler(), hcan2
 
 
 
-Definition at line 176 of file pdu.\+c.
+Definition at line 170 of file pdu.\+c.
 
 
 
@@ -94,7 +88,7 @@ References disable\+\_\+coolant\+\_\+pump\+\_\+msg, Error\+\_\+\+Handler(), hcan
 
 
 
-Definition at line 142 of file pdu.\+c.
+Definition at line 136 of file pdu.\+c.
 
 
 
@@ -108,7 +102,7 @@ References disable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg, disable\+\_\+right\
 
 
 
-Definition at line 80 of file pdu.\+c.
+Definition at line 74 of file pdu.\+c.
 
 
 
@@ -122,7 +116,7 @@ References disable\+\_\+motor\+\_\+controller\+\_\+msg, Error\+\_\+\+Handler(), 
 
 
 
-Definition at line 106 of file pdu.\+c.
+Definition at line 100 of file pdu.\+c.
 
 
 
@@ -136,7 +130,7 @@ References disable\+\_\+shutdown\+\_\+circuit\+\_\+msg, Error\+\_\+\+Handler(), 
 
 
 
-Definition at line 40 of file pdu.\+c.
+Definition at line 34 of file pdu.\+c.
 
 
 
@@ -150,7 +144,7 @@ References enable\+\_\+brake\+\_\+light\+\_\+msg, Error\+\_\+\+Handler(), hcan2,
 
 
 
-Definition at line 164 of file pdu.\+c.
+Definition at line 158 of file pdu.\+c.
 
 
 
@@ -164,7 +158,7 @@ References enable\+\_\+coolant\+\_\+pump\+\_\+msg, Error\+\_\+\+Handler(), hcan2
 
 
 
-Definition at line 121 of file pdu.\+c.
+Definition at line 115 of file pdu.\+c.
 
 
 
@@ -178,7 +172,7 @@ References enable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg, enable\+\_\+right\+\
 
 
 
-Definition at line 68 of file pdu.\+c.
+Definition at line 62 of file pdu.\+c.
 
 
 
@@ -192,7 +186,7 @@ References enable\+\_\+motor\+\_\+controller\+\_\+msg, Error\+\_\+\+Handler(), h
 
 
 
-Definition at line 93 of file pdu.\+c.
+Definition at line 87 of file pdu.\+c.
 
 
 
@@ -206,31 +200,9 @@ References enable\+\_\+shutdown\+\_\+circuit\+\_\+msg, Error\+\_\+\+Handler(), h
 
 
 
-Definition at line 17 of file pdu.\+c.
+Definition at line 11 of file pdu.\+c.
 
 
 
 References disable\+\_\+speaker\+\_\+msg, enable\+\_\+speaker\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-
-
-\doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{pdu_8c_a07c6d6c6f641c6fb60600b9bd7efbf7e}\label{pdu_8c_a07c6d6c6f641c6fb60600b9bd7efbf7e}} 
-\index{pdu.c@{pdu.c}!default\_pdu\_settings@{default\_pdu\_settings}}
-\index{default\_pdu\_settings@{default\_pdu\_settings}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{default\_pdu\_settings}{default\_pdu\_settings}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structuv19__pdu__settings}{uv19\+\_\+pdu\+\_\+settings}} default\+\_\+pdu\+\_\+settings}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{    .PDU\_rx\_addr = 0x310,}
-\DoxyCodeLine{    .PDU\_tx\_addr = 0x311,}
-\DoxyCodeLine{    .sdc\_channel = 0x0C}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
-
-
-Definition at line 10 of file pdu.\+c.
 

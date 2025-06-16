@@ -6,7 +6,6 @@ var globals_eval =
     [ "d", "globals_eval_d.html", null ],
     [ "e", "globals_eval_e.html", null ],
     [ "f", "globals_eval_f.html", null ],
-    [ "g", "globals_eval_g.html", null ],
     [ "h", "globals_eval_h.html", null ],
     [ "i", "globals_eval_i.html", null ],
     [ "l", "globals_eval_l.html", null ],

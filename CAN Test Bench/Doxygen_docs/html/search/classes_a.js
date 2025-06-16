@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['s_5fcurve_5ftorque_5fmap_5fargs_1373',['s_curve_torque_map_args',['../structs__curve__torque__map__args.html',1,'']]],
-  ['setting_5fhelper_5ftask_1374',['setting_helper_task',['../structsetting__helper__task.html',1,'']]],
-  ['state_5fchange_5fdaemon_5fargs_1375',['state_change_daemon_args',['../structstate__change__daemon__args.html',1,'']]]
+  ['task_5fmanagement_5finfo_1159',['task_management_info',['../structtask__management__info.html',1,'']]],
+  ['task_5fstatus_5fblock_1160',['task_status_block',['../structtask__status__block.html',1,'']]]
 ];

@@ -1,15 +1,9 @@
 var searchData=
 [
-  ['wait_1337',['wait',['../oled_8h.html#af93671960400c7db99ba9c052d81fd7a',1,'oled.h']]],
-  ['warning_5f5_1338',['warning_5',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3050ef440e4e82f9fb3973e1fb9faea7',1,'motor_controller.h']]],
-  ['warning_5f9_1339',['warning_9',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffad53242de6aeaa134a78749bc60fec984',1,'motor_controller.h']]],
-  ['watchdog_5freset_1340',['watchdog_reset',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa357611869a1ec791b38a36ec2dfe09b9',1,'motor_controller.h']]],
-  ['wheel_5fsize_1341',['wheel_size',['../structveh__gen__info.html#a4561037fdc0d97cbdac2c5a92a7dd241',1,'veh_gen_info']]],
-  ['wss_5ff_5favg_1342',['WSS_F_AVG',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a873bf319948580dc7b092ab7adbfd734',1,'daq.h']]],
-  ['wss_5ffl_1343',['WSS_FL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a3576a153551299293a7c9692e8f08ce6',1,'daq.h']]],
-  ['wss_5ffr_1344',['WSS_FR',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a5f234ecc55da7be78bf6b2a3b5fa7174',1,'daq.h']]],
-  ['wss_5fr_5favg_1345',['WSS_R_AVG',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9aa7245912d873d42b396d2e22d829e681',1,'daq.h']]],
-  ['wss_5frl_1346',['WSS_RL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a46eff224c7a33ef06adaa74ccb9aeedd',1,'daq.h']]],
-  ['wss_5frr_1347',['WSS_RR',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9acbd7f6945b95e86ffe38e6646458ab36',1,'daq.h']]],
-  ['wss_5fslip_1348',['WSS_SLIP',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9aae51bec2609e8310092bf819fd8f411c',1,'daq.h']]]
+  ['xidlestack_1134',['xIdleStack',['../freertos_8c.html#af311b04396149ce536fe1a3b5f127445',1,'freertos.c']]],
+  ['xidletasktcbbuffer_1135',['xIdleTaskTCBBuffer',['../freertos_8c.html#a2dd1013c5ef8f355ac2f1479e36ec659',1,'freertos.c']]],
+  ['xportpendsvhandler_1136',['xPortPendSVHandler',['../_free_r_t_o_s_config_8h.html#a6f30022da7d797dd31f1b8a11cae9a35',1,'FreeRTOSConfig.h']]],
+  ['xportsystickhandler_1137',['xPortSysTickHandler',['../_free_r_t_o_s_config_8h.html#ae42e6318b5d564e44f97f8c765859448',1,'FreeRTOSConfig.h']]],
+  ['xtimerstack_1138',['xTimerStack',['../freertos_8c.html#ac4bbf08a713d317769fd40e9474a279b',1,'freertos.c']]],
+  ['xtimertasktcbbuffer_1139',['xTimerTaskTCBBuffer',['../freertos_8c.html#a38d479dc434b1716ec493c97d862680e',1,'freertos.c']]]
 ];

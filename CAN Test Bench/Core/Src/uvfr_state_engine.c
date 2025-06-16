@@ -1,12 +1,3 @@
-/**
- * @file uvfr_state_engine.c
- * @author Byron Oser
- *
- * @brief File containing the implementation of the vehicle's state engine and error handling infrastructure
- */
-
-
-
 #define UVFR_STATE_MACHINE_IMPLIMENTATION
 
 #include "uvfr_utils.h"
@@ -112,9 +103,13 @@ uv_status changeVehicleState(uint16_t state){
 	/** If the state we wish to change to is the same as the state we're in, then
 	 * no need to be executing any of this fancy code
 	 */
-	if(state == vehicle_state || vehicle_state == UV_ERROR_STATE){
-		return UV_ABORTED;
-	}
+//	if(state == vehicle_state || vehicle_state == UV_ERROR_STATE){
+//		return UV_ABORTED;
+//	}
+
+	if(state == vehicle_state){
+			return UV_ABORTED;
+		}
 
 	previous_state = vehicle_state;
 	vehicle_state = state;
@@ -162,6 +157,8 @@ uv_status changeVehicleState(uint16_t state){
 	return UV_OK;
 }
 
+uv_status initRTDtask(void* args);
+
 
 /** @brief Function that prepares the state engine to do its thing
  *
@@ -188,6 +185,9 @@ uv_status uvInitStateEngine(){
 	initDaqTask(NULL);
 	initOdometer(NULL);
 	uvConfigSettingTask(NULL);
+	initRTDtask(NULL);
+
+	associateDaqParamWithVar(VCU_VEHICLE_STATE,&vehicle_state);
 
 	return UV_OK;
 }
@@ -697,7 +697,7 @@ void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, con
 
 	uvSecureVehicle(); // ensure safe state of vehicle.
 
-	changeVehicleState(UV_ERROR_STATE);
+	//changeVehicleState(UV_ERROR_STATE);
 
 	//TODO: We should probably keep a log of this or something
 
@@ -872,6 +872,10 @@ void uvSendTaskStatusReport(uv_task_info* t){
  * It performs this in the following way
  */
 void _stateChangeDaemon(void * args) PRIVILEGED_FUNCTION{
+	while(SCD_active){
+		vTaskDelay(2);
+	}
+
 	SCD_active = true;
 
 
@@ -1130,7 +1134,7 @@ void uvTaskManager(void* args) PRIVILEGED_FUNCTION{
 
 			suspendSelf(params);
 		}
-
+		vTaskSuspend(NULL);
 
 		uv_task_info* tmp = NULL;
 		TickType_t time = xTaskGetTickCount();
