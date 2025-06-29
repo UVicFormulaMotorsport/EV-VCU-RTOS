@@ -587,8 +587,12 @@ void CANbusTxSvcDaemon(void* args){
 
 			TxHeader.DLC = tx_msg->dlc;
 
+			TickType_t attempt_time = xTaskGetTickCount();
 
 			while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan2) == 0){
+				if(xTaskGetTickCount() - attempt_time > 1){
+					uvPanic("Unable to Transmit CAN msg",0);
+				}
 
 			}
 
