@@ -48,7 +48,7 @@ driving_loop_args default_dl_settings = {
     .absolute_max_accum_current = 200,      // Amps
     .max_accum_current_5s = 200,            // Amps for 5s burst
 
-    .absolute_max_motor_rpm = 12000,        // Max RPM
+    .absolute_max_motor_rpm = 6500,        // Max RPM
     .regen_rpm_cutoff = 1000,               // Below this, regen is off
 
 	.min_apps_offset = 0,					 /**<minimum APPS offset */
@@ -225,10 +225,10 @@ inline static float applyTorqueFilter(float T_req, float T_prev, bool is_accelea
 	 *
 	 * @param  T_filtered: Final torque value after filtering.
 */
-static void sendTorqueToMotorController(float T_filtered) {
-	    // Placeholder function to send torque command to motor controller
-		MotorControllerSpinTest(T_filtered);
-}
+//static void sendTorqueToMotorController(float T_filtered) {
+//	    // Placeholder function to send torque command to motor controller
+//		MotorControllerSpinTest(T_filtered);
+//}
 
 // Start of Driving Loop
 void StartDrivingLoop(void * argument){
@@ -327,12 +327,16 @@ void StartDrivingLoop(void * argument){
 
 			// 4. Apply filtering to smooth torque
 			float T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
+			// 6. Update previous torque
+			//todo: fix T_filter scaling
+			//half the requested torque
+			T_filtered = T_filtered/2;
 
-			// 5. Send torque to motor controller
+			// 5. Send torque to motor controller via motor_controller.c
 			if(vehicle_state == UV_DRIVING){
 				sendTorqueToMotorController(T_filtered);
 			}
-			// 6. Update previous torque
+
 			T_PREV = T_filtered;
 
 
@@ -535,7 +539,8 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 		//uvPanic("idek",0);
 		return false;
 	}
-	if (apps2_value < dl_params->min_apps2_value || apps2_value > dl_params->max_apps2_value) {
+
+ 	if (apps2_value < dl_params->min_apps2_value || apps2_value > dl_params->max_apps2_value) {
 	    //printf("ERROR: APPS2 out of range! Stopping motor.\n");
 	    //stop_command();
 	    //killSelf(params); // combination of these two can be replaced with UV_panic
@@ -554,7 +559,7 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 	}
 
 	// Fatal Errors BPS sensor our of range
-	if (bps1_value < dl_params->min_BPS_value || bps1_value > dl_params->max_BPS_value) { // BPS1
+    	if (bps1_value < dl_params->min_BPS_value || bps1_value > dl_params->max_BPS_value) { // BPS1
 		//printf("ERROR: BPS1 out of range! Stopping motor.\n");
 		//stop_command();
 		//killself(params);

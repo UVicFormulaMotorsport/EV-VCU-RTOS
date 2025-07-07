@@ -22,7 +22,8 @@ extern int16_t mc_igbt_temp;
 /* Speed parameters: */
 enum motor_controller_speed_parameters {
     N_actual = 0x30,  // actual motor speed in rpm (16-bit, little-endian)
-    N_set    = 0x31,  // setpoint (used for torque command in our case)
+    N_set    = 0x31,  // setpoint (used for speed command in our case)
+	M_set	 = 0x90,	//setpoint (used for torque command in our case)
     N_cmd    = 0x32,  // command speed after ramp
 
     N_error  = 0x33,   // speed error
@@ -68,8 +69,9 @@ enum motor_controller_motor_constants {
 /* Temperatures */
 enum motor_controller_temperatures {
     igbt_temperature       = 0x4A,
-
+	//M-temp
 	max_motor_temp 			= 0xA3, //set new limit for max motor temp
+	warning_motor_temp		= 0xA2, //motor temp limit for warnings
     motor_temperature      = 0x49, //current motor temp
 
     air_temperature        = 0x4B,
@@ -184,7 +186,7 @@ extern motor_controller_settings mc_default_settings;
 
 /* Function prototypes that will be called by other modules (driving_loop, init, etc.) */
 void MC_Startup(void* args);
-uint16_t MotorControllerSpinTest(float T_filtered);
+uint16_t sendTorqueToMotorController(float T_filtered);
 void MC_Request_Data(uint8_t RegID);
 void ProcessMotorControllerResponse(uv_CAN_msg* msg);
 void Parse_Bamocar_Response(uv_CAN_msg* msg);
