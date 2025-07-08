@@ -183,6 +183,7 @@ typedef struct motor_controller_settings{
 	uint16_t cont_current; // e.g., 0x4E
 	uint16_t max_torque;   // if using 0x90 or similar torque command
 	uint16_t max_motor_temp; //max motor temp
+	uint16_t warning_motor_temp; //trigger point for motor temp
 
 }motor_controller_settings;
 
