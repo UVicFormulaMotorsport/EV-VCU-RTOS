@@ -36,8 +36,9 @@ bool is_accelerating = false;
 float T_PREV = 0;
 float T_REQ = 0;
 
-
+static bool torque_inhibit_active = false; //track state of torque acceptance
 float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2);
+float calculateBrakePercentage(uint16_t bps1);
 bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status);
 
 
@@ -86,7 +87,6 @@ driving_loop_args default_dl_settings = {
 //allows torque filter to use getKvalue even if it's defined after
 static inline float getKValue(int raceMode);
 
-float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2);
 bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint16_t apps2_value, uint16_t bps1_value, uint16_t bps2_value, enum DL_internal_state* dl_status);
 
 //define diff chennels for adcs
@@ -180,6 +180,29 @@ float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2) {
 	    	 //* OR return something
 	    	// *
 	    return throttle_percent;
+}
+
+//function to calculate throttle percentage
+float calculateBrakePercentage(uint16_t bps1) {
+	    // Ensure both sensor values are within the valid range
+	    if (bps1 < driving_args->min_BPS_value || bps1 > driving_args->max_BPS_value ) return 0.0f;
+
+	    // Compute brake percentage using linear interpolation
+	    float brake_percent = ((float)(bps1 - driving_args->min_BPS_value) / (driving_args->max_BPS_value - driving_args->min_BPS_value)) * 100.0f;
+
+	    // SAFETY CHECK: Verify APPS1 and APPS2 values are within 10% of each other
+//	    float apps_diff = fabs((float)apps1 - (float)apps2) / (float)apps1;
+//	    if (apps_diff > 0.1f) {
+//	        // Sensors are out of sync, return 0% to prevent errors
+//	    	//printf("WARNING: APPS sensors out of sync! Returning 0%% throttle.\n");
+//	    	//uvPanic("idek",0);
+//	        //return 0.0f;
+//	    }
+	    //else if (apps_diff <= 0.1f){
+	    	// Next function call calcThrottlePercentage(param)
+	    	 //* OR return something
+	    	// *
+	    return brake_percent;
 }
 
 
@@ -318,7 +341,23 @@ void StartDrivingLoop(void * argument){
 
 			// 1. Compute throttle %
 			float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
+			float brake_percent = calculateBrakePercentage(bps1_value);
+			float T_filtered;
 
+			//APPS and Brake Pedal Plausibility Check
+			// Check if plausibility check should activate torque inhibit
+			if (throttle_percent > 25 && brake_percent > 0) {
+			    torque_inhibit_active = true;
+			}
+			// Reset torque inhibit only if throttle < 5%
+			if (throttle_percent < 5) {
+			    torque_inhibit_active = false;
+			}
+			// Final torque decision
+			if (torque_inhibit_active) {
+			    T_filtered = 0; //stop motor
+			}
+			else{
 			// 2. Map to torque request
 			T_REQ = mapThrottleToTorque(throttle_percent);
 
@@ -326,16 +365,18 @@ void StartDrivingLoop(void * argument){
 			is_accelerating = (T_REQ >= T_PREV);
 
 			// 4. Apply filtering to smooth torque
-			float T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
+			T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
 			// 6. Update previous torque
 			//todo: fix T_filter scaling
 			//half the requested torque
 			T_filtered = T_filtered/2;
+			}
 
 			// 5. Send torque to motor controller via motor_controller.c
 			if(vehicle_state == UV_DRIVING){
 				sendTorqueToMotorController(T_filtered);
 			}
+
 
 			T_PREV = T_filtered;
 
@@ -587,6 +628,8 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 		//uvPanic("idek",0);
 		return false;
 	}
+
+
 
 
 //TODO FIX THESE PARAMETERS
