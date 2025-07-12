@@ -872,7 +872,7 @@ void uvSendTaskStatusReport(uv_task_info* t){
  * It performs this in the following way
  */
 void _stateChangeDaemon(void * args) PRIVILEGED_FUNCTION{
-	while(SCD_active){
+	while(SCD_active){ //Leads to terrible terrible queue behavior but idk what else to do here
 		vTaskDelay(2);
 	}
 

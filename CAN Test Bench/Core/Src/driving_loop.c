@@ -55,15 +55,15 @@ driving_loop_args default_dl_settings = {
 	.min_apps_offset = 0,					 /**<minimum APPS offset */
 	.max_apps_offset = 0,					 /**< maximum APPS offset */
 	.min_apps_value = 0,					 /**< for detecting disconnects and short circuits*/
-	.max_apps1_value = 0x08C4,					/**< for detecting disconnects and short circuits*/
-	.min_apps1_value = 0x0531,					/**< for detecting disconnects and short circuits*/
-	.min_apps2_value = 0x0272,					/**< for detecting disconnects and short circuits*/
-	.max_apps2_value = 0x0329,
+	.apps1_abs_max_val = 0x08C4,					/**< for detecting disconnects and short circuits*/
+	.apps1_abs_min_val = 0x0531,					/**< for detecting disconnects and short circuits*/
+	.apps2_abs_min_val = 0x0272,					/**< for detecting disconnects and short circuits*/
+	.apps2_abs_max_val = 0x0329,
 	.min_BPS_value = 0x0106,						/**< are the brakes valid?*/
 	.max_BPS_value = 0x0B7E,						 /**< are the brakes valid?*/
 
-    .apps_top = 4095,                       //idk
-    .apps_bottom = 0,						//idk
+    .apps1_top = 4095,                       //idk
+    .apps1_bottom = 0,						//idk
 
     .apps_plausibility_check_threshold = 200,	//idk
     .bps_plausibility_check_threshold = 500,	//idk
@@ -162,10 +162,16 @@ inline float getKValue(int raceMode) {
 //function to calculate throttle percentage
 float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2) {
 	    // Ensure both sensor values are within the valid range
-	    if (apps1 < driving_args->min_apps1_value || apps1 > driving_args->max_apps1_value || apps2 < driving_args->min_apps2_value || apps2 > driving_args->max_apps2_value) return 0.0f;
+	    //if (apps1 < driving_args->min_apps1_value || apps1 > driving_args->apps1_abs_max_val || apps2 < driving_args->apps2_abs_min_val || apps2 > driving_args->apps2_abs_max_val) return 0.0f;
+	    if(apps1 < driving_args->apps1_bottom){
+	    	return 0;
+	    }
 
+	    if(apps1 > driving_args->apps1_top){
+	    	return 100.0f;
+	    }
 	    // Compute throttle percentage using linear interpolation
-	    float throttle_percent = ((float)(apps1 - driving_args->min_apps1_value) / (driving_args->max_apps1_value - driving_args->min_apps1_value)) * 100.0f;
+	    float throttle_percent = ((float)(apps1 - driving_args->apps1_bottom) / (driving_args->apps1_top - driving_args->apps1_bottom)) * 100.0f;
 
 	    // SAFETY CHECK: Verify APPS1 and APPS2 values are within 10% of each other
 	    float apps_diff = fabs((float)apps1 - (float)apps2) / (float)apps1;
@@ -555,8 +561,8 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 	// Convert APPS values to a 0-1 float scale
 	// This helps us in calculating the percentage difference between the two throttle sensors
 	// can do this as a function call
-	float apps1_ratio = ((float)(apps1_value - dl_params->min_apps1_value)/(dl_params->max_apps1_value - dl_params->min_apps1_value));
-	float apps2_ratio = ((float)(apps2_value - dl_params->min_apps2_value)/(dl_params->max_apps2_value - dl_params->min_apps2_value));
+	float apps1_ratio = ((float)(apps1_value - dl_params->apps1_abs_min_val)/(dl_params->apps1_abs_max_val - dl_params->apps1_abs_min_val));
+	float apps2_ratio = ((float)(apps2_value - dl_params->apps2_abs_min_val)/(dl_params->apps2_abs_max_val - dl_params->apps2_abs_min_val));
 	float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
 
 	// Convert BPS values to a 0-1 float scale
@@ -573,7 +579,7 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 
 
 	// Fatal Errors APPS Sensors are out of Range shut down motor
-	if (apps1_value < dl_params->min_apps1_value || apps1_value > dl_params->max_apps1_value){
+	if (apps1_value < dl_params->apps1_abs_min_val || apps1_value > dl_params->apps1_abs_max_val){
 		//printf("ERROR: APPS1: out of range! Stopping motor.\n");
 		//stop_commmand();
 		//killself(params);
@@ -581,7 +587,7 @@ bool performSafetyChecks(driving_loop_args* dl_params, uint16_t apps1_value,uint
 		return false;
 	}
 
- 	if (apps2_value < dl_params->min_apps2_value || apps2_value > dl_params->max_apps2_value) {
+ 	if (apps2_value < dl_params->apps2_abs_min_val || apps2_value > dl_params->apps2_abs_max_val) {
 	    //printf("ERROR: APPS2 out of range! Stopping motor.\n");
 	    //stop_command();
 	    //killSelf(params); // combination of these two can be replaced with UV_panic

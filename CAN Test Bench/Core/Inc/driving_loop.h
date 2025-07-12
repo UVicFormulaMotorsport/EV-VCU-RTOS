@@ -120,15 +120,18 @@ typedef struct driving_loop_args{
 	uint16_t min_apps_offset; /**<minimum APPS offset */
 	uint16_t max_apps_offset; /**< maximum APPS offset */
 	uint16_t min_apps_value; /**< for detecting disconnects and short circuits*/
-	uint16_t max_apps1_value; /**< for detecting disconnects and short circuits*/
-	uint16_t min_apps1_value; /**< for detecting disconnects and short circuits*/
-	uint16_t min_apps2_value; /**< for detecting disconnects and short circuits*/
-	uint16_t max_apps2_value;
+	uint16_t apps1_abs_max_val; /**< for detecting disconnects and short circuits*/
+	uint16_t apps1_abs_min_val; /**< for detecting disconnects and short circuits*/
+	uint16_t apps2_abs_min_val; /**< for detecting disconnects and short circuits*/
+	uint16_t apps2_abs_max_val;
 	uint16_t min_BPS_value; /**< are the brakes valid?*/
 	uint16_t max_BPS_value; /**< are the brakes valid?*/
 
-	uint16_t apps_top; /**< Max APPS input value, representing 100% throttle*/
-	uint16_t apps_bottom; /**< Min APPS input value, representing 0% throttle*/
+	uint16_t apps1_top; /**< Max APPS input value, representing 100% throttle*/
+	uint16_t apps1_bottom; /**< Min APPS input value, representing 0% throttle*/
+
+	uint16_t apps2_top;
+	uint16_t apps2_bottom;
 
 	uint16_t apps_plausibility_check_threshold; /**< Threshold for accelerator position with  */
 	uint16_t bps_plausibility_check_threshold; /**< Brake pressure threshold for APPS */
