@@ -50,6 +50,7 @@
 //Only used for debugging
 #include "oled.h"
 
+#include "uvfr_vehicle_logger.h"
 //mainstay meat and potatoes tasks
 #include "driving_loop.h"
 #include "temp_monitoring.h"
