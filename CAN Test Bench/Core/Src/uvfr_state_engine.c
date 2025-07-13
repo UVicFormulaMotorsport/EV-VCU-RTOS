@@ -692,7 +692,7 @@ uv_status uvTaskCrashHandler(uv_task_info* t){
  * to the error state, then get that shit the fuck outta here, we shuttin down fr fr.
  *
  */
-void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, const char* func){
+void __uvPanic(char* msg, fault_event_type_e type, const char* file, const int line, const char* func){
 
 
 	uvSecureVehicle(); // ensure safe state of vehicle.
