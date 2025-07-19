@@ -20,6 +20,8 @@ extern QueueHandle_t CAN_Rx_Queue;
 
 //global variable for the last mc responce
 uv_CAN_msg last_mc_response;
+//global variable for timeout
+TickType_t last_driver_input_time = 0;
 
 //cyclic parameters
 int16_t mc_speed_rpm = 0;
@@ -509,6 +511,9 @@ void MC_Startup(void* args)
 
 		//clear error list
 		MC_Set_Param(0x8E, 0x444d);
+
+		//sendTorqueToMotorController(0); //set initial speed to 0
+		vTaskDelay(pdMS_TO_TICKS(10));
 
 		//set and verify tests
 		//MC_SetAndVerify_Param(0x31, 0x0CCD);  // 10% speed N_Set

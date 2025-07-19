@@ -17,6 +17,8 @@ extern int16_t mc_motor_temp;
 extern int16_t mc_igbt_temp;
 
 
+extern TickType_t last_driver_input_time;
+
 /* Enums for CAN register IDs and other constants */
 
 /* Speed parameters: */
