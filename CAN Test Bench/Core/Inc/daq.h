@@ -49,6 +49,8 @@ typedef enum{
 	APPS2_ADC_VAL, /**< */
 	BPS1_ADC_VAL, /**< */
 	BPS2_ADC_VAL, /**< */
+	COOLANT_TEMP_ADC,
+	MOTOR_TEMP_ADC,
 	ACCELERATOR_PEDAL_RATIO, /**< */
 	BRAKE_PRESSURE_PA, /**< */
 	POWER_DERATE_FACTOR, /**< */
