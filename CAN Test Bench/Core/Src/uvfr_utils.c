@@ -6,7 +6,7 @@
  */
 
 
-#define UV_UTILS_SRC_IMPLIMENTATION
+#define _UTILS_SRC_IMPLIMENTATION
 #include "uvfr_utils.h"
 
 void rtdTask(void* args);
