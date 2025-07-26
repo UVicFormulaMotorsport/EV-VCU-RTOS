@@ -16,51 +16,51 @@ volatile uint16_t motor_temp_adc = 0;
 //configuring ADCs
 ADC_HandleTypeDef hadc1;
 
-void MX_ADC1_Init(void){
-	ADC_ChannelConfTypeDef sConfig = {0};
+//void MX_ADC1_Init(void){
+//	ADC_ChannelConfTypeDef sConfig = {0};
+//
+//	__HAL_RCC_ADC1_CLK_ENABLE(); //enable clock
+//
+//	//ADC1 CONFIGURATION
+//	hadc1.Instance = ADC1;
+//	hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
+//	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+//	hadc1.Init.ScanConvMode = ENABLE;
+//	hadc1.Init.ContinuousConvMode = DISABLE;
+//	hadc1.Init.DiscontinuousConvMode = DISABLE;
+//	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+//	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+//	hadc1.Init.NbrOfConversion = 2;
+//	HAL_ADC_Init(&hadc1);
+//
+//	// channel configuration
+//	sConfig.Channel = ADC_CHANNEL_1;
+//	sConfig.Rank = 1;
+//	sConfig.SamplingTime = ADC_SAMPLETIME_144CYCLES;
+//	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+//
+//	sConfig.Channel = ADC_CHANNEL_2;
+//	sConfig.Rank = 2;
+//	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
+//
+//}
 
-	__HAL_RCC_ADC1_CLK_ENABLE(); //enable clock
-
-	//ADC1 CONFIGURATION
-	hadc1.Instance = ADC1;
-	hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
-	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
-	hadc1.Init.ScanConvMode = ENABLE;
-	hadc1.Init.ContinuousConvMode = DISABLE;
-	hadc1.Init.DiscontinuousConvMode = DISABLE;
-	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadc1.Init.NbrOfConversion = 2;
-	HAL_ADC_Init(&hadc1);
-
-	// channel configuration
-	sConfig.Channel = ADC_CHANNEL_1;
-	sConfig.Rank = 1;
-	sConfig.SamplingTime = ADC_SAMPLETIME_144CYCLES;
-	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-
-	sConfig.Channel = ADC_CHANNEL_2;
-	sConfig.Rank = 2;
-	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-
-}
-
-void updateReadings(void){
-	HAL_ADC_Start(&hadc1);
-
-	//wait and read first channel
-	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-
-	coolant_temp_adc = HAL_ADC_GetValue(&hadc1);
-
-	//wait and read second channel
-	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	motor_temp_adc = HAL_ADC_GetValue(&hadc1);
-
-	//self explanatory
-	HAL_ADC_Stop(&hadc1);
-
-}
+//void updateReadings(void){
+//	HAL_ADC_Start(&hadc1);
+//
+//	//wait and read first channel
+//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+//
+//	coolant_temp_adc = HAL_ADC_GetValue(&hadc1);
+//
+//	//wait and read second channel
+//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+//	motor_temp_adc = HAL_ADC_GetValue(&hadc1);
+//
+//	//self explanatory
+//	HAL_ADC_Stop(&hadc1);
+//
+//}
 
 
 
@@ -355,7 +355,7 @@ uv_status initDaqTask(void * args){
 	daq_task->task_function = daqMasterTask;
 	daq_task->task_priority = curr_daq_settings->daq_child_priority + 1; //Slightly more important than the children tasks
 
-	daq_task->stack_size = 64;
+	daq_task->stack_size = 256;
 
 	daq_task->active_states = UV_READY | UV_DRIVING | UV_ERROR_STATE | UV_LAUNCH_CONTROL ;
 	daq_task->suspension_states = 0x00;
@@ -377,7 +377,7 @@ void daqMasterTask(void* args){
 
 	vTaskDelay(50); //Give it a moment before spawning in a bunch of daq_tasks
 
-	updateReadings(); //update ADC values
+	//updateReadings(); //update ADC values
 
 	if(startDaqSubTasks()!=UV_OK){
 		//failed to start the daq subtasks
