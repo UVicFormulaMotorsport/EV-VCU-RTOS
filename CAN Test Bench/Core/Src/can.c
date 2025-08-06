@@ -593,6 +593,7 @@ void CANbusTxSvcDaemon(void* args){
 				if(xTaskGetTickCount() - attempt_time >= 2){
 
 					uvPanic("Unable to Transmit CAN msg",0);
+					vTaskSuspend(NULL);
 				}
 
 			}

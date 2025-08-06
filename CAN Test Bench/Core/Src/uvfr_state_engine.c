@@ -10,7 +10,7 @@
 
 #define MAX_NUM_MANAGED_TASKS 16
 
-
+HeapStats_t xHeapStats;
 
 //Stores the actual task info
 static uv_task_id _next_task_id = 0;
@@ -189,7 +189,20 @@ uv_status uvInitStateEngine(){
 
 	associateDaqParamWithVar(VCU_VEHICLE_STATE,&vehicle_state);
 
+	associateDaqParamWithVar(OS_AVAILABLE_HEAP,&(xHeapStats.xAvailableHeapSpaceInBytes));
+	associateDaqParamWithVar(OS_LARGEST_FREE_BLOCK,&(xHeapStats.xSizeOfLargestFreeBlockInBytes));
+	associateDaqParamWithVar(OS_SMALLEST_FREE_BLOCK,&(xHeapStats.xSizeOfSmallestFreeBlockInBytes));
+	associateDaqParamWithVar(OS_NUM_FREE_BLOCKS,&(xHeapStats.xNumberOfFreeBlocks));
+	associateDaqParamWithVar(OS_MIN_EVER_FREE_BYTES,&(xHeapStats.xMinimumEverFreeBytesRemaining));
+	associateDaqParamWithVar(OS_NUM_SUCCESSFUL_ALLOCS,&(xHeapStats.xAvailableHeapSpaceInBytes));
+	associateDaqParamWithVar(OS_NUM_SUCCESSFUL_FREES,&(xHeapStats.xAvailableHeapSpaceInBytes));
+
+
 	return UV_OK;
+}
+
+void uvCrashIntoWall(){
+
 }
 
 /** @brief Actually starts up the state engine to do state engine things
@@ -966,6 +979,8 @@ void _stateChangeDaemon(void * args) PRIVILEGED_FUNCTION{
 				}else{
 					task_tracker &= ~(0x01<<i);
 				}
+			}else{
+				uvPanic("this task is physically impossible",0);
 			}
 
 		}//end of first iteration loop where thas reconciliation occurs

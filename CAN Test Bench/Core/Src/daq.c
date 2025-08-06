@@ -221,7 +221,7 @@ uv_status startDaqSubTasks(){
 	BaseType_t retval = 0;
 	while(tmp != NULL){
 		retval = xTaskCreate(daqSubTask,
-				"DaqSub",64,tmp,
+				"DaqSub",256,tmp,
 				curr_daq_settings->daq_child_priority,
 				&(tmp->meta_task_handle));
 		tmp = tmp->next_task;
@@ -279,7 +279,7 @@ uv_status initDaqTask(void * args){
 	daq_task->task_function = daqMasterTask;
 	daq_task->task_priority = curr_daq_settings->daq_child_priority + 1; //Slightly more important than the children tasks
 
-	daq_task->stack_size = 64;
+	daq_task->stack_size = 128;
 
 	daq_task->active_states = UV_READY | UV_DRIVING | UV_ERROR_STATE | UV_LAUNCH_CONTROL ;
 	daq_task->suspension_states = 0x00;

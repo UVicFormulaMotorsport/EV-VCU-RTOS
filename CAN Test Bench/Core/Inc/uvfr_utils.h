@@ -40,6 +40,7 @@
 #include "uvfr_state_engine.h"
 #include "uvfr_diagnostics.h"
 #include "rb_tree.h"
+#include "uvfr_vehicle_commands.h"
 
 #include "bms.h"
 #include "motor_controller.h"
@@ -74,7 +75,7 @@
 #define _BV_32(x) ((uint32_t)(0x01U >> x))
 
 #define endianSwap(x) endianSwap16(x)
-#define endianSwap8(x) x //if someone calls this, they are mentally retarded, but here ya go I guess
+#define endianSwap8(x) x //if someone calls this, why? its 1 byte... but here ya go I guess
 #define endianSwap16(x) (((x & 0x00FF)<<8) | ((x & 0xFF00)>>8))
 #define endianSwap32(x) (((x & 0x000000FF)<<16)|((x & 0x0000FF00)<<8)|((x & 0x00FF0000)>>8)|((x & 0xFF000000)>>16))
 
