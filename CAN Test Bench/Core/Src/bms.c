@@ -49,7 +49,7 @@ void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltage
 	packCurrent = (msg->data[0]<<8 | msg->data[1]); // x 0.1A
 	packVoltage = (msg->data[2]<<8 | msg->data[3]); // x 0.1V
 
-	stateOfCharge = (msg->data[4])*2; // x2; this is an int
+	stateOfCharge = (msg->data[4])/2; // x2; this is an int
 
 	relayState = (msg->data[5]<<8 | msg ->data[6]);
 	msg1corrupt = (msg->data[7]);

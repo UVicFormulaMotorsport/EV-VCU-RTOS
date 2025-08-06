@@ -793,16 +793,34 @@ uv_status uvForceDefaultReversionUponDeviceReset(){
  *
  */
 void* uvCreateTmpSettingsCopy(){
-	//Step 1: Allocate needed memory
-	uint64_t* sblock = uvMalloc(SETTING_BRANCH_SIZE);
+
+	uint8_t* sblock = uvMalloc(SETTING_BRANCH_SIZE);
+
 	if(sblock == NULL){
 		return NULL;
 
 	}
 
-	uint32_t* tmp = (uint32_t*)(START_OF_USER_FLASH);
 
-	for(int i = 0; i < SETTING_BRANCH_SIZE; i += 4){
+	uint8_t* tmp = (uint8_t*)(START_OF_USER_FLASH);
+
+	for(int i = 0; i < SETTING_BRANCH_SIZE; i++){
+
+		if(uvIsPTRValid(sblock + i)!= UV_OK){
+			void* a = sblock + i;
+			while(1){
+
+			}
+		}
+
+		if(uvIsPTRValid(tmp + i)!= UV_OK){
+			void* a = tmp + i;
+			while(1){
+
+			}
+		}
+
+
 		*(sblock + i) = *(tmp + i);
 
 	}
