@@ -291,7 +291,7 @@ uv_status startDaqSubTasks(){
 	BaseType_t retval = 0;
 	while(tmp != NULL){
 		retval = xTaskCreate(daqSubTask,
-				"DaqSub",256,tmp,
+				"DaqSub",512,tmp,
 				curr_daq_settings->daq_child_priority,
 				&(tmp->meta_task_handle));
 		tmp = tmp->next_task;

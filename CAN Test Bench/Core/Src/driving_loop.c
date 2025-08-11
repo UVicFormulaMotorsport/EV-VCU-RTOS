@@ -76,9 +76,9 @@ driving_loop_args default_dl_settings = {
 	.min_BPS_value = 0x0106,						/**< are the brakes valid?*/
 	.max_BPS_value = 0x0B7E,						 /**< are the brakes valid?*/
 
-    .apps1_top = 0x0993,                       //idk
+    .apps1_top = 0x09f9,                       //idk
     .apps1_bottom = 0x0570,
-	.apps2_top = 0x0347,
+	.apps2_top = 0x0999,
 	.apps2_bottom = 0x02B0, //idk
 
     .apps_plausibility_check_threshold = 200,	//idk
@@ -245,12 +245,12 @@ inline static float applyTorqueFilter(float T_req, float T_prev, bool is_accelea
 
 
 
-/** Rachan
+/**
 	 * @brief  Sends the filtered torque value to the motor controller.
 	 *
 	 * @param  T_filtered: Final torque value after filtering.
 */
-
+//
 // Start of Driving Loop
 void StartDrivingLoop(void * argument){
 	//Initialize driving loop now
@@ -266,22 +266,15 @@ void StartDrivingLoop(void * argument){
 	driving_loop_args* dl_params = current_vehicle_settings->driving_loop_settings;
 
 	//Timeout values
-	//static TickType_t last_input_change_time = 0;
-	//static float last_throttle_percent = 0.0f;
-	//static float last_brake_percent = 0.0f;
-
 	TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
 	TickType_t last_time = xTaskGetTickCount();
 	last_input_change_time = last_time;
-
 
 	/**@endcode */
 	for(;;){ // enters infinite loop
 
 		if(params->cmd_data == UV_KILL_CMD){ // to perform task control (suspend/kill)
-
 			killSelf(params);
-
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
 			suspendSelf(params); // if _UV_SUSPEND_CMD received pause the task
 		}
@@ -292,7 +285,6 @@ void StartDrivingLoop(void * argument){
 		//Copy the values over into new local variables, in order to avoid messing up the APPS
 		uint16_t apps1_value = adc1_APPS1; // reading sensor values
 		uint16_t apps2_value = adc1_APPS2;
-
 		uint16_t bps1_value = adc1_BPS1;
 		uint16_t bps2_value = adc1_BPS2;
 		float T_filtered = 0;
@@ -300,104 +292,194 @@ void StartDrivingLoop(void * argument){
 		bool safe = performSafetyChecks(dl_params, apps1_value, apps2_value, bps1_value, bps2_value, &dl_status);
 
 		if(!safe) {
-			// if safety check fails, handle error (stop?)
-			//continue;
-			//MC_Shutdown();
 			T_filtered = 0;
 			sendTorqueToMotorController(T_filtered);
-			continue;
+			continue; //skip rest of loop
 		}
-
-//		if(dl_status == Plausible){
-
-			//implement motor control logic here
-
-			//Compute throttle %
+		else{
+			// Compute throttle and brake percentages
 			float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
 			float brake_percent = calculateBrakePercentage(bps1_value);
 
-
-			// ---------------------- not used atm
 			// How much did the throttle or brake change since last time?
 			float throttle_delta = fabs(throttle_percent - last_throttle_percent);
 			float brake_delta = fabs(brake_percent - last_brake_percent);
-
-			//TickType_t now = xTaskGetTickCount();
 			TickType_t timeout_ticks = pdMS_TO_TICKS(INPUT_TIMEOUT_MS);
 
-			// If either % changed significantly, update the "last time the driver did something"
-			// Only update the time if there's meaningful input change
+			// Update last driver input time if change is significant
 			if (throttle_delta > THROTTLE_CHANGE_THRESHOLD || brake_delta > BRAKE_CHANGE_THRESHOLD) {
-			    last_driver_input_time = xTaskGetTickCount();
-			    last_throttle_percent = throttle_percent;
-			    last_brake_percent = brake_percent;
+				last_driver_input_time = xTaskGetTickCount();
+				last_throttle_percent = throttle_percent;
+				last_brake_percent = brake_percent;
 			}
 
-			// Check for input timeout
-			// If it's been too long since the last meaningful input
-			//bool input_timeout = (last_driver_input_time - last_input_change_time) > timeout_ticks;
+			// Check for input timeout (not used currently)
+			//bool input_timeout = (xTaskGetTickCount() - last_input_change_time) > timeout_ticks;
 
-			bool input_timeout = (xTaskGetTickCount() - last_input_change_time) > timeout_ticks;
+			// Normal driving logic
+			T_REQ = mapThrottleToTorque(throttle_percent);
+			is_accelerating = (T_REQ >= T_PREV);
+			T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
+			T_filtered = T_filtered / 2; // temp scale down torque
 
-			//-------------------
-
-			//APPS and Brake Pedal Plausibility Check
-			// 1. Trigger torque inhibit if APPS > 25% and Brake is pressed
-			if (throttle_percent > 25.0f && brake_percent > 5.0f) {
-			    torque_inhibit_active = true;
-			}
-			// 2. Do NOT reset torque inhibit until BOTH are released to < thresholds
-			if (torque_inhibit_active && throttle_percent < 5.0f && brake_percent < 5.0f) {
-			    torque_inhibit_active = false;
-			}
-			// 3. If inhibit is active, override torque request
-			if (torque_inhibit_active) {
-			    T_filtered = 0.0f;
-			}
-			// Enforce torque cutoff if:
-			// 4. No driver input detected for too long (input_timeout)
-			// 5. Torque inhibit is active due to APPS >25% and Brake >5% (per FSAE Rule T.4.2.5)
-			//    → Torque must remain zero until APPS <5% and Brake <5% to clear inhibit
-			//if (input_timeout || torque_inhibit_active) { //this might cause the inverter to break bc it'll cut torque after 500ms of no pedal?
-			if (torque_inhibit_active){
-			    T_filtered = 0.0f;
-			    sent_zero_torque = true;
-			}else{ //normal driving logic
-				// 2. Map to torque request
-				T_REQ = mapThrottleToTorque(throttle_percent);
-
-				// 3. Determine acceleration status
-				is_accelerating = (T_REQ >= T_PREV);
-
-				// 4. Apply filtering to smooth torque
-				T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
-				// 6. Update previous torque
-				//todo: fix T_filter scaling
-				//half the requested torque
-				T_filtered = T_filtered/2;
-			}
-
-			// 5. Send torque to motor controller via motor_controller.c
+			// Send torque only in driving state
 			if(vehicle_state == UV_DRIVING){
 				sendTorqueToMotorController(T_filtered);
 			}else{
 				sendTorqueToMotorController(0.0);
 			}
 
-
 			T_PREV = T_filtered;
-
-	//}
-
+		}
 	}
-
-
-
-
-
 }
-
-
+//// Start of Driving Loop
+//void StartDrivingLoop(void * argument){
+//	//Initialize driving loop now
+//
+//	//extracting task arguments, and gets parameters like min/max allowed values for the APPS and BPS
+//	uv_task_info* params = (uv_task_info*) argument;
+//
+//	enum DL_internal_state dl_status = Plausible; // no issues are detected
+//
+//	/** This line extracts the specific driving loop parameters as specified in the
+//	 * vehicle settings
+//	 @code*/
+//	driving_loop_args* dl_params = current_vehicle_settings->driving_loop_settings;
+//
+//	//Timeout values
+//	//static TickType_t last_input_change_time = 0;
+//	//static float last_throttle_percent = 0.0f;
+//	//static float last_brake_percent = 0.0f;
+//
+//	TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
+//	TickType_t last_time = xTaskGetTickCount();
+//	last_input_change_time = last_time;
+//
+//
+//	/**@endcode */
+//	for(;;){ // enters infinite loop
+//
+//		if(params->cmd_data == UV_KILL_CMD){ // to perform task control (suspend/kill)
+//
+//			killSelf(params);
+//
+//		}else if(params->cmd_data == UV_SUSPEND_CMD){
+//			suspendSelf(params); // if _UV_SUSPEND_CMD received pause the task
+//		}
+//		vTaskDelayUntil( &last_time, tick_period); //Me and the boys on our way to wait for a set period every 100ms
+//
+//		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14); //Blink and LED (for debugging)
+//
+//		//Copy the values over into new local variables, in order to avoid messing up the APPS
+//		uint16_t apps1_value = adc1_APPS1; // reading sensor values
+//		uint16_t apps2_value = adc1_APPS2;
+//
+//		uint16_t bps1_value = adc1_BPS1;
+//		uint16_t bps2_value = adc1_BPS2;
+//		float T_filtered = 0;
+//
+//		bool safe = performSafetyChecks(dl_params, apps1_value, apps2_value, bps1_value, bps2_value, &dl_status);
+//
+//		if(!safe) {
+//			// if safety check fails, handle error (stop?)
+//			//continue;
+//			//MC_Shutdown();
+//			T_filtered = 0;
+//			sendTorqueToMotorController(T_filtered);
+//			continue; //skip rest of loop
+//		}
+//		else{
+//
+////		if(dl_status == Plausible){
+//
+//			//implement motor control logic here
+//
+//			//Compute throttle %
+//			float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
+//			float brake_percent = calculateBrakePercentage(bps1_value);
+//
+//
+//			// ---------------------- not used atm
+//			// How much did the throttle or brake change since last time?
+//			float throttle_delta = fabs(throttle_percent - last_throttle_percent);
+//			float brake_delta = fabs(brake_percent - last_brake_percent);
+//
+//			//TickType_t now = xTaskGetTickCount();
+//			TickType_t timeout_ticks = pdMS_TO_TICKS(INPUT_TIMEOUT_MS);
+//
+//			// If either % changed significantly, update the "last time the driver did something"
+//			// Only update the time if there's meaningful input change
+//			if (throttle_delta > THROTTLE_CHANGE_THRESHOLD || brake_delta > BRAKE_CHANGE_THRESHOLD) {
+//			    last_driver_input_time = xTaskGetTickCount();
+//			    last_throttle_percent = throttle_percent;
+//			    last_brake_percent = brake_percent;
+//			}
+//
+//			// Check for input timeout
+//			// If it's been too long since the last meaningful input
+//			//bool input_timeout = (last_driver_input_time - last_input_change_time) > timeout_ticks;
+//
+//			bool input_timeout = (xTaskGetTickCount() - last_input_change_time) > timeout_ticks;
+//
+//			//-------------------
+//
+//			//APPS and Brake Pedal Plausibility Check
+//			// 1. Trigger torque inhibit if APPS > 25% and Brake is pressed
+//			if (throttle_percent > 25.0f && brake_percent > 5.0f) {
+//			    torque_inhibit_active = true;
+//			}
+//			// 2. Do NOT reset torque inhibit until BOTH are released to < thresholds
+//			if (torque_inhibit_active && throttle_percent < 5.0f && brake_percent < 5.0f) {
+//			    torque_inhibit_active = false;
+//			}
+//			// 3. If inhibit is active, override torque request
+//			if (torque_inhibit_active) {
+//			    T_filtered = 0.0f;
+//			}
+//			// Enforce torque cutoff if:
+//			// 4. No driver input detected for too long (input_timeout)
+//			// 5. Torque inhibit is active due to APPS >25% and Brake >5% (per FSAE Rule T.4.2.5)
+//			//    → Torque must remain zero until APPS <5% and Brake <5% to clear inhibit
+//			//if (input_timeout || torque_inhibit_active) { //this might cause the inverter to break bc it'll cut torque after 500ms of no pedal?
+//			if (torque_inhibit_active){
+//			    T_filtered = 0.0f;
+//			    sent_zero_torque = true;
+//			}else{ //normal driving logic
+//				// 2. Map to torque request
+//				T_REQ = mapThrottleToTorque(throttle_percent);
+//
+//				// 3. Determine acceleration status
+//				is_accelerating = (T_REQ >= T_PREV);
+//
+//				// 4. Apply filtering to smooth torque
+//				T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating);
+//				// 6. Update previous torque
+//				//todo: fix T_filter scaling
+//				//half the requested torque
+//				T_filtered = T_filtered/2;
+//			}
+//
+//			// 5. Send torque to motor controller via motor_controller.c
+//			if(vehicle_state == UV_DRIVING){
+//				sendTorqueToMotorController(T_filtered);
+//			}else{
+//				sendTorqueToMotorController(0.0);
+//			}
+//
+//
+//			T_PREV = T_filtered;
+//		}
+//
+//	//}
+//
+//	}
+//
+//
+//
+//
+//
+//}
 
 /**
 	 * @brief  Performs safety checks on APPS (Throttle) and BPS (Brake) sensors.
@@ -438,78 +520,181 @@ bool performSafetyChecks(driving_loop_args* dl_params,uint16_t apps1_value,uint1
 
     // Normalize APPS1
     if (apps1_value < dl_params->apps1_bottom){
-    	apps1_ratio = 0;
+        apps1_ratio = 0;
     }
     else if (apps1_value > dl_params->apps1_top){
-    	apps1_ratio = 1.0f;
+        apps1_ratio = 1.0f;
     }
     else{
-    	apps1_ratio = ((float)(apps1_value - dl_params->apps1_bottom)) / (dl_params->apps1_top - dl_params->apps1_bottom);
+        apps1_ratio = ((float)(apps1_value - dl_params->apps1_bottom)) / (dl_params->apps1_top - dl_params->apps1_bottom);
     }
 
     // Normalize APPS2
     if (apps2_value < dl_params->apps2_bottom) {
-    	apps2_ratio = 0;
+        apps2_ratio = 0;
     }
     else if (apps2_value > dl_params->apps2_top){
-    	apps2_ratio = 1.0f;
+        apps2_ratio = 1.0f;
     }
     else {
-    	apps2_ratio = ((float)(apps2_value - dl_params->apps2_bottom)) / (dl_params->apps2_top - dl_params->apps2_bottom);
+        apps2_ratio = ((float)(apps2_value - dl_params->apps2_bottom)) / (dl_params->apps2_top - dl_params->apps2_bottom);
     }
+
     // Calculate the absolute difference between APPS1 and APPS2 as a percentage
-    // (FSAE Rule T.4.2.4: Implausibility is deviation >10% for >100ms)
+    // (FSAE Rule T.4.2.4: Implausibility is deviation > threshold, typically 10%, for >100ms)
     float apps_diff_percent = fabsf(apps1_ratio - apps2_ratio) * 100.0f;
 
+    //THROTTLE + BRAKE Percent — must come before checks below
+    float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
+    float brake_percent = calculateBrakePercentage(bps1_value);
 
     //FATAL RANGE ERRORS
     //APPS1 Range
     if (apps1_value < dl_params->apps1_abs_min_val || apps1_value > dl_params->apps1_abs_max_val) {
-        MC_Shutdown();
+        torque_inhibit_active = true;
         return false;
     }
     //APPS2 Range
     if (apps2_value < dl_params->apps2_abs_min_val || apps2_value > dl_params->apps2_abs_max_val) {
-        MC_Shutdown();
+        torque_inhibit_active = true;
         return false;
     }
     //BPS1 Range
     if (bps1_value < dl_params->min_BPS_value || bps1_value > dl_params->max_BPS_value) {
-        MC_Shutdown();
+        torque_inhibit_active = true;
         return false;
     }
     //BPS2 Range
     if (bps2_value < dl_params->min_BPS_value || bps2_value > dl_params->max_BPS_value) {
-        MC_Shutdown();
+        torque_inhibit_active = true;
         return false;
     }
 
-    //APPS MISMATCH CHECK. If greater then 10% then shutdown.
-    //if (apps_diff_percent > 25.0f) {
+    //1. APPS MISMATCH CHECK. If greater than threshold (default 10%) --> inhibit
     if (apps_diff_percent > dl_params->apps_plausibility_check_threshold){
-
-        //*dl_status = Implausible;
-    	MC_Shutdown();
+        torque_inhibit_active = true;
         return false;
     }
 
-    //THROTTLE + BRAKE Percent
-    float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
-    float brake_percent = calculateBrakePercentage(bps1_value);
+    //APPS + BPS Plausibility Checks and Torque Inhibit Logic
 
-    //RECOVERY CHECK. If implausible on return to original state after both brake and pedal released
-//    if (*dl_status == Implausible &&
-//        throttle_percent < dl_params->apps_implausibility_recovery_threshold &&
-//        brake_percent < dl_params->bps_implausibility_recovery_threshold)
-//    {
-//        *dl_status = Plausible;
-//    }
+    // 2. Trigger torque inhibit if APPS > 25% and BPS > 5% (FSAE Rule T.4.2.5)
+    if (throttle_percent > 25.0f && brake_percent > 15.0f) {
+        torque_inhibit_active = true;
+        return false;
+    }
 
-    if (torque_inhibit_active && throttle_percent < dl_params->apps_implausibility_recovery_threshold && brake_percent < dl_params->bps_implausibility_recovery_threshold){
+    // 3. Recover from torque inhibit only if both values drop below thresholds
+    if (torque_inhibit_active && throttle_percent < dl_params->apps_implausibility_recovery_threshold && brake_percent < dl_params->bps_implausibility_recovery_threshold) {
         torque_inhibit_active = false;
     }
 
+    // 4. If torque inhibit is still active, override output
+    if (torque_inhibit_active) {
+        *dl_status = Implausible;
+        return false;
+    }
 
     return true; // All good
 }
+
+//bool performSafetyChecks(driving_loop_args* dl_params,uint16_t apps1_value,uint16_t apps2_value,uint16_t bps1_value,uint16_t bps2_value,enum DL_internal_state* dl_status){
+//
+//    //sensor scaling
+//    float apps1_ratio = 0;
+//    float apps2_ratio = 0;
+//
+//    // Normalize APPS1
+//    if (apps1_value < dl_params->apps1_bottom){
+//    	apps1_ratio = 0;
+//    }
+//    else if (apps1_value > dl_params->apps1_top){
+//    	apps1_ratio = 1.0f;
+//    }
+//    else{
+//    	apps1_ratio = ((float)(apps1_value - dl_params->apps1_bottom)) / (dl_params->apps1_top - dl_params->apps1_bottom);
+//    }
+//
+//    // Normalize APPS2
+//    if (apps2_value < dl_params->apps2_bottom) {
+//    	apps2_ratio = 0;
+//    }
+//    else if (apps2_value > dl_params->apps2_top){
+//    	apps2_ratio = 1.0f;
+//    }
+//    else {
+//    	apps2_ratio = ((float)(apps2_value - dl_params->apps2_bottom)) / (dl_params->apps2_top - dl_params->apps2_bottom);
+//    }
+//    // Calculate the absolute difference between APPS1 and APPS2 as a percentage
+//    // (FSAE Rule T.4.2.4: Implausibility is deviation >10% for >100ms)
+//    float apps_diff_percent = fabsf(apps1_ratio - apps2_ratio) * 100.0f;
+//
+//
+//    //FATAL RANGE ERRORS
+//    //APPS1 Range
+//    if (apps1_value < dl_params->apps1_abs_min_val || apps1_value > dl_params->apps1_abs_max_val) {
+//        //MC_Shutdown();
+//    	torque_inhibit_active = true;
+//        return false;
+//    }
+//    //APPS2 Range
+//    if (apps2_value < dl_params->apps2_abs_min_val || apps2_value > dl_params->apps2_abs_max_val) {
+//        //MC_Shutdown();
+//    	torque_inhibit_active = true;
+//        return false;
+//    }
+//    //BPS1 Range
+//    if (bps1_value < dl_params->min_BPS_value || bps1_value > dl_params->max_BPS_value) {
+//        //MC_Shutdown();
+//    	torque_inhibit_active = true;
+//        return false;
+//    }
+//    //BPS2 Range
+//    if (bps2_value < dl_params->min_BPS_value || bps2_value > dl_params->max_BPS_value) {
+//        //MC_Shutdown();
+//    	torque_inhibit_active = true;
+//        return false;
+//    }
+//
+//    //APPS MISMATCH CHECK. If greater then 10% then shutdown.
+//    //if (apps_diff_percent > 25.0f) {
+//    if (apps_diff_percent > dl_params->apps_plausibility_check_threshold){
+//
+//        //*dl_status = Implausible;
+//    	//MC_Shutdown();
+//    	torque_inhibit_active = true;
+//        return false;
+//    }
+//    // === APPS + BPS Plausibility Checks and Torque Inhibit Logic ===
+//
+//    // 1. Trigger torque inhibit if APPS > 25% and BPS > 5% (FSAE Rule T.4.2.5)
+//    if (throttle_percent > 25.0f && brake_percent > 5.0f) {
+//        torque_inhibit_active = true;
+//        return false;
+//    }
+//
+//    // 2. Recover from torque inhibit only if both values drop below 5%
+//    if (torque_inhibit_active && throttle_percent < 5.0f && brake_percent < 5.0f) {
+//        torque_inhibit_active = false;
+//    }
+//
+//    // 3. If torque inhibit is active, block torque
+//    if (torque_inhibit_active) {
+//        *dl_status = Inhibited;
+//        return false;
+//    }
+//
+//    //THROTTLE + BRAKE Percent
+//    float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
+//    float brake_percent = calculateBrakePercentage(bps1_value);
+//
+//    // Check if both throttle and brake have been released below recovery thresholds
+//    // to clear torque inhibit condition (per FSAE Rule T.4.2.5)
+//    if (torque_inhibit_active && throttle_percent < dl_params->apps_implausibility_recovery_threshold && brake_percent < dl_params->bps_implausibility_recovery_threshold){
+//        torque_inhibit_active = false;
+//    }
+//    return true; // All good
+//}
+
+
 

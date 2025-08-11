@@ -138,6 +138,21 @@ typedef struct driving_loop_args{
 
 	uint16_t bps_implausibility_recovery_threshold; /**< Threshold for accellerator pedal position to recover fron APPS check*/
 	uint16_t apps_implausibility_recovery_threshold; /**< Threshold for brake position */
+	//----------------
+//	// Thresholds for detecting meaningful pedal changes
+//	float apps_input_change_threshold;
+//	float bps_input_change_threshold;
+//
+//	// Torque inhibit thresholds (FSAE T.4.2.5)
+//	float apps_torque_inhibit_threshold;
+//	float bps_torque_inhibit_threshold;
+//
+//	// Timeout for driver input inactivity
+//	uint32_t input_timeout_ms;
+//
+//	// 0 = Accel, 1 = Autocross, 2 = Endurance
+//	uint8_t current_driving_mode;
+	//--------------------
 
 	uint8_t num_driving_modes;/**< How many modes are actually populated */
 	uint8_t period; /**< how often does the driving loop execute */

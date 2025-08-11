@@ -267,7 +267,7 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
         uvPanic("Mains Voltage Below Minimum Limit", 0);
     }
     if (errors & motor_temp_max_limit) {
-        uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
+        //uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
     }
     if (errors & IGBT_temp_max_limit) {
         uvPanic("IGBT Temperature Exceeded Maximum Limit", 0);
@@ -342,11 +342,12 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
             }
             break;
 
-        case LOGIMAP_ERRORS:  // 0x82: error bitfield, little-endian
-            if (msg->dlc >= 3) {
-                MotorControllerErrorHandler_16bitLE(&msg->data[1], 2);
-            }
-            break;
+        //case LOGIMAP_ERRORS:  // 0x82: error bitfield, little-endian
+//        case motor_controller_errors_warnings:
+//            if (msg->dlc >= 3) {
+//                MotorControllerErrorHandler_16bitLE(&msg->data[1], 2);
+//            }
+//            break;
 
         case LOGIMAP_IO:  // 0x83: I/O status, 16-bit, little-endian
             if (msg->dlc >= 3) {
@@ -412,7 +413,8 @@ void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
         igbt_temperature,    // 0x4A — IGBT temperature
 		max_motor_temp, 	//0xa3	- max motor temp
 		warning_motor_temp, //0xa2 - warning motor temp
-		LOGIMAP_ERRORS, // 0x8F — ERROR BIT map
+		//LOGIMAP_ERRORS, // 0x8F — ERROR BIT map
+		motor_controller_errors_warnings,
     };
 
     for (int i = 0; i < sizeof(regs); i++) {
