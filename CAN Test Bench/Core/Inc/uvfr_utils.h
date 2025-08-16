@@ -41,6 +41,7 @@
 #include "uvfr_diagnostics.h"
 #include "rb_tree.h"
 #include "uvfr_vehicle_commands.h"
+#include "uvfr_conifer.h"
 
 #include "bms.h"
 #include "motor_controller.h"

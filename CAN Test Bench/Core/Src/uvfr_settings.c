@@ -13,7 +13,7 @@
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
 
-typedef struct output_channel_settings output_channel_settings;
+typedef struct conifer_settings conifer_settings;
 
 
 extern PRIVILEGED_DATA uint8_t _s_uvdata; //Start and end of user flash symbols
@@ -30,7 +30,7 @@ extern struct driving_loop_args default_dl_settings;
 extern struct daq_loop_args default_daq_settings;
 extern struct uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
-extern struct output_channel_settings default_output_channels;
+extern struct conifer_settings default_confer_config;
 extern daq_datapoint default_datapoints[];
 
 /** These are arguments passed to the "Transmit All Settings Over CANbus"
@@ -264,7 +264,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
 	current_vehicle_settings->daq_param_list = default_datapoints;
-	current_vehicle_settings->pdu_settings = NULL;
+	current_vehicle_settings->conifer_config = &default_conifer_config;
 
 
 	current_vehicle_settings->flags |= 0x0001; //This is default settings
@@ -622,7 +622,7 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	*((uint8_t*)(tmp + 21)) = sizeof(bms_settings_t);
 	*((uint8_t*)(tmp + 22)) = sizeof(daq_loop_args);
 	*((uint8_t*)(tmp + 23)) = sizeof(daq_datapoint);
-	*((uint8_t*)(tmp + 24)) = sizeof(output_channel_settings);
+	*((uint8_t*)(tmp + 24)) = sizeof(conifer_settings);
 
 
 
@@ -907,7 +907,7 @@ uv_status uvValidateFlashSettings(){
 		return UV_ERROR;
 	}
 
-	if(*((uint8_t*)(tmp + 24)) != sizeof(output_channel_settings)){
+	if(*((uint8_t*)(tmp + 24)) != sizeof(conifer_settings)){
 		return UV_ERROR;
 	}
 
@@ -1181,7 +1181,7 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	settingCopy((uint8_t*)(&default_imd_settings),(new_sblock+256*IMD_MGROUP+IMD_OFFSET),sizeof(uv_imd_settings));
 
 	//PDU
-	settingCopy((uint8_t*)(&default_output_channels),new_sblock + 256*PDU_MGROUP + PDU_OFFSET,sizeof(output_channel_settings));
+	settingCopy((uint8_t*)(&default_conifer_config),new_sblock + 256*CONIFER_MGROUP + CONIFER_OFFSET,sizeof(conifer_settings));
 
 
 	//DAQ Head + Meta settings
@@ -1285,7 +1285,7 @@ void sendAllSettingsWorker(void* args){
 		//Handle this error
 	}else if(uvSendSettingGroup(origin,DAQ_HEAD_MGROUP,DAQ_HEAD_OFFSET,sizeof(daq_loop_args))!=UV_OK){
 		//Handle this error
-	}else if(uvSendSettingGroup(origin,PDU_MGROUP,PDU_OFFSET,sizeof(output_channel_settings)) != UV_OK){
+	}else if(uvSendSettingGroup(origin,CONIFER_MGROUP,CONIFER_OFFSET,sizeof(conifer_settings)) != UV_OK){
 		//Handle this error
 	}
 

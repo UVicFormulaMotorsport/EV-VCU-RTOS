@@ -70,9 +70,9 @@
 #define IMD_OFFSET 128
 #define IMD_ADDR ((void*)(START_OF_USER_FLASH + IMD_MGROUP*256 + IMD_OFFSET))
 
-#define PDU_MGROUP 5
-#define PDU_OFFSET 0
-#define PDU_ADDR ((void*)(START_OF_USER_FLASH + PDU_MGROUP*256 + PDU_OFFSET))
+#define CONIFER_MGROUP 5
+#define CONIFER_OFFSET 0
+#define CONIFER_ADDR ((void*)(START_OF_USER_FLASH + PDU_MGROUP*256 + PDU_OFFSET))
 
 #define DAQ_HEAD_MGROUP 6
 #define DAQ_HEAD_OFFSET 128
@@ -165,7 +165,7 @@ typedef struct uv_vehicle_settings{
 	daq_datapoint* daq_param_list;
 
 
-	struct output_channel_settings* pdu_settings;
+	struct conifer_settings* conifer_config;
 	//struct motor_controller_settings motor_controller_settings;
 
 	uint16_t flags; /**< Bitfield containing info on whether each settings instance is factory default. 0 default, 1 altered*/

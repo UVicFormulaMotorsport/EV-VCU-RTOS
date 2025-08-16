@@ -245,11 +245,11 @@ uv_status uvStartStateMachine(){
 //		return UV_ERROR; //if for whatever god forsaken reason neither of these tasks actually activate
 //	}
 //
-//	retval = xTaskCreate(task_manager->task_function,task_manager->task_name,task_manager->stack_size,task_manager,4,&(task_manager->task_handle));
-//
-//	if(retval != pdPASS){
-//		return UV_ERROR;//very much ++ ungoods
-//	}
+	retval = xTaskCreate(task_manager->task_function,task_manager->task_name,task_manager->stack_size,task_manager,4,&(task_manager->task_handle));
+
+	if(retval != pdPASS){
+		return UV_ERROR;//very much ++ ungoods
+	}
 
 //	state_change_daemon_args* scd_args = uvMalloc(sizeof(state_change_daemon_args));
 //	scd_args->meta_task_handle = NULL;
@@ -1093,6 +1093,10 @@ void uvLateTaskHandler(uv_task_info* t ,TickType_t tdiff , uint8_t task_tardines
 
 }
 
+uv_status uvCollectMemUseageTelemetry(){
+	vPortGetHeapStats(&xHeapStats);
+}
+
 /** @brief The big papa task that deals with handling all of the others.
  *
  * The responsibilities of this task are as follows:
@@ -1149,12 +1153,16 @@ void uvTaskManager(void* args) PRIVILEGED_FUNCTION{
 
 			suspendSelf(params);
 		}
-		vTaskSuspend(NULL);
+		//vTaskSuspend(NULL);
 
 		uv_task_info* tmp = NULL;
 		TickType_t time = xTaskGetTickCount();
 		TickType_t threshold = 0xFF;
 		TickType_t tdiff = 0;
+
+
+
+
 		for(int i = 0; i<_next_task_id; i++){//iterate through the tasks
 			tmp = &(_task_register[i]);
 
@@ -1474,7 +1482,7 @@ void uvTaskPeriodEnd(uv_task_info* t){
 	//BaseType_t successful_delay;
 	bool is_late = 0;
 
-	TickType_t end_of_loop_time = xTaskGetTickCount;
+	TickType_t end_of_loop_time = xTaskGetTickCount();
 
 	if((end_of_loop_time - t->last_execution_time)>t->task_period){
 		is_late = 1;

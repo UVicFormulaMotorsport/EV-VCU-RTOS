@@ -83,13 +83,13 @@ typedef union drivingModeParams{
  *
  */
 typedef struct drivingMode{
-	char dm_name[16]; /**< Name of mode, 15 chars + /0*/
+	//char dm_name[16]; /**< Name of mode, 15 chars + /0*/
 	uint32_t max_acc_pwr;
 	uint32_t max_motor_torque;
 	uint32_t max_current;
 
 
-	uint16_t flags;
+	uint16_t flags; //Space for up to 16 Booleans
 
 	drivingModeParams map_fn_params; /**< */
 	uint8_t control_map_fn; /**< */
