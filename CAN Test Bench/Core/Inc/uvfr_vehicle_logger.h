@@ -81,4 +81,9 @@ uint32_t getSystemFaultFlags(void);
 // clears fault bits (bitmask of flags to clear)
 void clearSystemFaultFlags(uint32_t flags_to_clear);
 
+// Sends all stored log entries as formatted CAN messages.
+// Intended for post-panic diagnostics.
+void flushLogsToCAN(void);
+
+
 #endif // UVFR_VEHICLE_LOGGER_H

@@ -11,11 +11,15 @@
 
 #include "uvfr_utils.h"
 #include "uvfr_state_engine.h"
+#include "uvfr_vehicle_logger.h"
+
+#include "can.h" // for uv_can_transmit()
 
 
 // Logger Configuration
 
 #define MAX_LOG_ENTRIES 32  // max # of stored
+#define LOG_DUMP_CAN_ID 0x666 // CAN ID for diagnostic dump
 
 
 // Logger Storage
@@ -89,14 +93,6 @@ void dumpLogsToUART(void) {
 
 /**
  * adds a new log entry for a fault or error.
- *
- * @param type      what type of fault occurred (enum value)
- * @param task      pointer to the task that caused it (can be NULL)
- * @param msg       message or reason for the error
- * @param file      source file (use __FILE__)
- * @param line      line number (use __LINE__)
- * @param func      function name (use __func__)
- * @param is_panic  true if this was caused by a system panic
  */
 void logVehicleFault(fault_event_type_e type,
                      uv_task_info* task,
@@ -106,10 +102,10 @@ void logVehicleFault(fault_event_type_e type,
                      const char* func,
                      bool is_panic)
 {
-    // mark this fault type as "occurred"
+    // Mark this fault type as "occurred"
     system_error_flags |= (1U << type);
 
-    // write into next log slot
+    // Write into next log slot
     vehicle_log_entry* entry = &log_buffer[log_write_index];
 
     entry->type = type;
@@ -121,7 +117,7 @@ void logVehicleFault(fault_event_type_e type,
     entry->timestamp = xTaskGetTickCount();
     entry->vehicle_state = vehicle_state;
 
-    // add task info (if task is valid)
+    // Add task info (if task is valid)
     if (task != NULL) {
         entry->task_name = task->task_name;
         entry->task_id = task->task_id;
@@ -132,10 +128,53 @@ void logVehicleFault(fault_event_type_e type,
         entry->task_state = UV_TASK_NOT_STARTED;
     }
 
-    // move to next slot
+    // Move to next slot
     log_write_index++;
     if (log_write_index >= MAX_LOG_ENTRIES) {
         log_write_index = 0;
         has_wrapped = true;
+    }
+}
+
+/**
+ * Flush all current log entries out over CAN for diagnostic laptop tools.
+ * Each entry is sent as a single compact CAN frame.
+ *
+ * Frame layout:
+ *   ID  = LOG_DUMP_CAN_ID
+ *   DLC = 8
+ *   Byte 0 : fault type
+ *   Byte 1 : timestamp LSB
+ *   Byte 2 : timestamp MSB
+ *   Byte 3 : task ID
+ *   Byte 4 : is_panic flag
+ *   Byte 5 : vehicle_state
+ *   Byte 6 : reserved (0)
+ *   Byte 7 : reserved (0)
+ */
+void flushLogsToCAN(void)
+{
+    uint8_t count = getLogCount();
+
+    for (uint8_t i = 0; i < count; i++)
+    {
+        const vehicle_log_entry* entry = getLogEntry(i);
+        if (entry == NULL) continue;
+
+        uv_CAN_msg msg;
+        msg.msg_id = LOG_DUMP_CAN_ID;
+        msg.dlc    = 8;
+
+        msg.data[0] = (uint8_t)entry->type;
+        msg.data[1] = (uint8_t)(entry->timestamp & 0xFF);
+        msg.data[2] = (uint8_t)((entry->timestamp >> 8) & 0xFF);
+        msg.data[3] = (uint8_t)entry->task_id;
+        msg.data[4] = (uint8_t)entry->is_panic;
+        msg.data[5] = (uint8_t)entry->vehicle_state;
+        msg.data[6] = 0;
+        msg.data[7] = 0;
+
+        uvSendCanMSG(&msg);  // <-- Use your existing CAN transmit wrapper
+        osDelay(2);          // small gap between packets
     }
 }

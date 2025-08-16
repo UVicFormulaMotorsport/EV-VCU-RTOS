@@ -696,16 +696,9 @@ void __uvPanic(char* msg, fault_event_type_e type, const char* file, const int l
 
 
 	uvSecureVehicle(); // ensure safe state of vehicle.
-
-	//changeVehicleState(UV_ERROR_STATE);
-
+	changeVehicleState(UV_ERROR_STATE); // log a fault from here then create
 	//TODO: We should probably keep a log of this or something
 
-	//ruh roh, something has gone a little bit fucky wucky
-	//vTaskSuspendAll();
-	//while(1){
-
-	//}
 
 }
 
