@@ -103,11 +103,13 @@ void uvInit(void * arguments){
 	canTxtask->task_function = CANbusTxSvcDaemon;
 	canTxtask->active_states = 0xFFFF;
 	canTxtask->task_name = CAN_TX_DAEMON_NAME;
+	canTxtask->stack_size = 256;
 
 	uv_task_info* canRxtask = uvCreateServiceTask();
 	canRxtask->task_function = CANbusRxSvcDaemon;
 	canRxtask->active_states = 0xFFFF;
 	canRxtask->task_name = CAN_RX_DAEMON_NAME;
+	canRxtask->stack_size = 256;
 	//super basic for now, just need something working
 	uint32_t var = 0; //retarded dummy var
 	uvStartTask(&var,canTxtask);
@@ -220,6 +222,7 @@ void uvInit(void * arguments){
 
 		}
 
+		ext_devices_status = 0;
 
 
 		if(ext_devices_status == 0){
