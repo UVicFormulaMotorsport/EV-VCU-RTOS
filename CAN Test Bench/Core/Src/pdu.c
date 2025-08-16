@@ -7,11 +7,6 @@
 #include "main.h"
 #include "constants.h"
 
-uv19_pdu_settings default_pdu_settings = {
-	.PDU_rx_addr = 0x310,
-	.PDU_tx_addr = 0x311,
-	.sdc_channel = 0x0C
-};
 
 
 
@@ -28,3 +23,5 @@ void initPDU(void* args){
 
 	vTaskSuspend(params->meta_task_handle);
 }
+
+
