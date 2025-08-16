@@ -30,7 +30,7 @@ extern struct driving_loop_args default_dl_settings;
 extern struct daq_loop_args default_daq_settings;
 extern struct uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
-extern struct conifer_settings default_confer_config;
+extern struct conifer_settings default_conifer_config;
 extern daq_datapoint default_datapoints[];
 
 /** These are arguments passed to the "Transmit All Settings Over CANbus"
@@ -314,7 +314,7 @@ uv_status uvLoadSettingsFromFlash(){
 	current_vehicle_settings->daq_settings = DAQ_HEAD_ADDR;
 	current_vehicle_settings->daq_param_list = DAQ_PARAMS1_ADDR;
 
-	current_vehicle_settings->pdu_settings = (void*)(START_OF_USER_FLASH + PDU_MGROUP*256 + PDU_OFFSET);
+	current_vehicle_settings->conifer_config = (void*)(START_OF_USER_FLASH + CONIFER_MGROUP*256 + CONIFER_OFFSET);
 	return UV_OK;
 }
 
