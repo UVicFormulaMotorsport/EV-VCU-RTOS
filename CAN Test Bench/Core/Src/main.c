@@ -123,7 +123,6 @@ int main(void)
   MX_DMA_Init();
   MX_CAN2_Init();
   MX_ADC1_Init();
-  MX_ADC2_Init();
   MX_TIM3_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
@@ -369,7 +368,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim == &htim3){
 
   		// start a single round of ADC2 conversions
-  		HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc_buf2, ADC2_BUF_LEN);
+  		//HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc_buf2, ADC2_BUF_LEN);
 
   		// restart timer
   		HAL_TIM_Base_Start_IT(&htim3);
