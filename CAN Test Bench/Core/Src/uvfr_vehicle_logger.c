@@ -164,15 +164,18 @@ void flushLogsToCAN(void)
         uv_CAN_msg msg;
         msg.msg_id = LOG_DUMP_CAN_ID;
         msg.dlc    = 8;
+        msg.flags = 0x00;
 
         msg.data[0] = (uint8_t)entry->type;
         msg.data[1] = (uint8_t)(entry->timestamp & 0xFF);
         msg.data[2] = (uint8_t)((entry->timestamp >> 8) & 0xFF);
-        msg.data[3] = (uint8_t)entry->task_id;
-        msg.data[4] = (uint8_t)entry->is_panic;
-        msg.data[5] = (uint8_t)entry->vehicle_state;
-        msg.data[6] = 0;
-        msg.data[7] = 0;
+        msg.data[3] = (uint8_t)((entry->timestamp >> 16) & 0xFF);
+        msg.data[4] = (uint8_t)((entry->timestamp >> 24) & 0xFF);
+        msg.data[5] = (uint8_t)entry->task_id;
+        msg.data[6] = (uint8_t)entry->is_panic;
+        msg.data[7] = (uint8_t)entry->vehicle_state;
+        msg.data[8] = 0;
+        msg.data[9] = 0;
 
         uvSendCanMSG(&msg);  // <-- Use your existing CAN transmit wrapper
         osDelay(2);          // small gap between packets

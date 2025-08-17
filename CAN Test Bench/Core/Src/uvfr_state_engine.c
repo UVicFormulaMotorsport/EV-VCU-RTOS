@@ -699,7 +699,7 @@ void __uvPanic(char* msg, fault_event_type_e type, const char* file, const int l
 	changeVehicleState(UV_ERROR_STATE); // log a fault from here then create
 	//TODO: We should probably keep a log of this or something
 
-
+	logVehicleFault(type,NULL,msg,file,line,func,true);
 }
 
 
