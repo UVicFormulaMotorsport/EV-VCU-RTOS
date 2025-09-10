@@ -20,10 +20,10 @@ uv_status coniferInit(){
 		ch->status_control_reg = 0;
 	}
 
-	//STEP 2: Pull up the relevant settings
+	//STEP 2: Pull up the relevant settings into the table
 
 
-	//STEP 3: Set system initial conditions
+	//STEP 3: Set system initial conditions to turn on/off the relevant channels
 	return UV_OK;
 }
 
@@ -34,10 +34,29 @@ uv_status coniferDeInit(){
 
 uv_status coniferEnChannel(conifer_output_channel ch){
 	abstract_conifer_channel* ch_ptr = ch_table + ch*sizeof(abstract_conifer_channel);
-	uint8_t src = 7;
+	//uint8_t src = 7;
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+	switch(src){
+	case LOCAL_CH:
+
+		break;
+	case UV19_PDU_CH:
+
+		break;
+	case ECUMASTER_PMU16_CH:
+
+		break;
+	default:
+
+		break;
+	}
+
+
 	return UV_ERROR;
 }
 
@@ -46,6 +65,23 @@ uv_status coniferDisChannel(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+		switch(src){
+		case LOCAL_CH:
+
+			break;
+		case UV19_PDU_CH:
+
+			break;
+		case ECUMASTER_PMU16_CH:
+
+			break;
+		default:
+
+			break;
+		}
 	return UV_ERROR;
 }
 
@@ -54,6 +90,22 @@ uv_status coniferToggleChannel(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+		switch(src){
+		case LOCAL_CH:
+
+			break;
+		case UV19_PDU_CH:
+
+			break;
+		case ECUMASTER_PMU16_CH:
+
+			break;
+		default:
+
+			break;
+		}
 	return UV_ERROR;
 }
 
@@ -62,7 +114,22 @@ uv_status coniferSetDutyCycle(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+		switch(src){
+		case LOCAL_CH:
 
+			break;
+		case UV19_PDU_CH:
+
+			break;
+		case ECUMASTER_PMU16_CH:
+
+			break;
+		default:
+
+			break;
+		}
 
 	return UV_ERROR;
 }
@@ -72,6 +139,22 @@ uv_status coniferSetDirection(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+		switch(src){
+		case LOCAL_CH:
+
+			break;
+		case UV19_PDU_CH:
+
+			break;
+		case ECUMASTER_PMU16_CH:
+
+			break;
+		default:
+
+			break;
+		}
 	return UV_ERROR;
 }
 
@@ -80,6 +163,22 @@ uv_status coniferSetDutyCycleAndDirection(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+		switch(src){
+		case LOCAL_CH:
+
+			break;
+		case UV19_PDU_CH:
+
+			break;
+		case ECUMASTER_PMU16_CH:
+
+			break;
+		default:
+
+			break;
+		}
 	return UV_ERROR;
 }
 
@@ -89,10 +188,42 @@ uint16_t coniferGetChannelCurrent(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+		switch(src){
+		case LOCAL_CH:
+
+			break;
+		case UV19_PDU_CH:
+
+			break;
+		case ECUMASTER_PMU16_CH:
+
+			break;
+		default:
+
+			break;
+		}
 	return 0;
 }
 
 uint16_t coniferGetChannelFbck(conifer_output_channel ch){
+	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+	switch(src){
+	case LOCAL_CH:
+
+		break;
+	case UV19_PDU_CH:
+
+		break;
+	case ECUMASTER_PMU16_CH:
+
+		break;
+	default:
+
+		break;
+	}
 	return 0;
 }
 

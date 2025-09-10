@@ -9,7 +9,9 @@
 
 
 
-
+/** @brief Subtask to initialize the PDU
+ *
+ */
 void initPDU(void* args){
 	uv_init_task_args* params = (uv_init_task_args*) args;
 	uv_init_task_response response = {UV_OK,PDU,0,NULL};
