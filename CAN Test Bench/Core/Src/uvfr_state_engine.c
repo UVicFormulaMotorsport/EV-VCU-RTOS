@@ -673,7 +673,7 @@ uv_status uvTaskCrashHandler(uv_task_info* t){
 
 
 
-
+extern uint8_t is_can_ok;
 
 /** @brief Something bad has occurred here now we in trouble
  *
@@ -694,8 +694,9 @@ uv_status uvTaskCrashHandler(uv_task_info* t){
  */
 void __uvPanic(char* msg, fault_event_type_e type, const char* file, const int line, const char* func){
 
-
-	uvSecureVehicle(); // ensure safe state of vehicle.
+	if(is_can_ok){
+		uvSecureVehicle(); // ensure safe state of vehicle.
+	}
 	changeVehicleState(UV_ERROR_STATE); // log a fault from here then create
 	//TODO: We should probably keep a log of this or something
 

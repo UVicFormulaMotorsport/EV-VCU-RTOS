@@ -68,7 +68,10 @@ CAN_Callback CAN_callback_table[table_size] = {0};
 
 SemaphoreHandle_t callback_table_mutex = NULL;
 
+uint8_t is_can_ok = 1;
+
 void handleCANbusError(const CAN_HandleTypeDef* hcan, const uint32_t err_to_ignore){
+	is_can_ok = 0;
 	if(hcan == NULL){
 		uvPanic("null can handle",0);
 		return;
@@ -304,9 +307,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan2){
   if (HAL_CAN_GetRxMessage(hcan2, CAN_RX_FIFO0, &RxHeader, tmp.data) != HAL_OK)
   {
     Error_Handler();
+    is_can_ok = 0;
   }
 
   if(Rx_msg_queue == NULL){
+	  is_can_ok = 0;
 	  return; //RxDaemon not active yet
   }
 
@@ -379,6 +384,7 @@ static inline uv_status callFunctionFromCANid(uv_CAN_msg* msg) {
                 function_ptr(msg);
                 return UV_OK;
             }else{
+            	is_can_ok = 0;
                 return UV_ERROR;
             }
         }
@@ -497,6 +503,7 @@ uv_status __uvCANtxCritSection(uv_CAN_msg* tx_msg){
 	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
 		/* Transmission request Error */
 		taskEXIT_CRITICAL();
+		is_can_ok = 0;
 		uvPanic("Unable to Transmit CAN msg",0);
 		return UV_ERROR;
 	}else{
@@ -522,6 +529,7 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 
 
 	if(tx_msg == NULL){
+		is_can_ok = 0;
 		return UV_ERROR;
 	}
 
@@ -539,17 +547,21 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 			}else{
 				return UV_OK;
 			}
+			is_can_ok = 0;
 			return UV_ERROR;
 		}else{
 			if(xQueueSendToBackFromISR(Tx_msg_queue,tx_msg,0) != pdPASS){
-					uvPanic("couldnt enqueue CAN message",0);
+				is_can_ok = 0;
+				uvPanic("couldnt enqueue CAN message",0);
 			}else{
 				return UV_OK;
 			}
+			is_can_ok = 0;
 			return UV_ERROR;
 		}
 	}else{
 		if(__uvCANtxCritSection(tx_msg)!=UV_OK){
+			is_can_ok = 0;
 			return UV_ERROR;
 		}
 	}
@@ -605,7 +617,7 @@ void CANbusTxSvcDaemon(void* args){
 
 			while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan2) == 0){
 				if(xTaskGetTickCount() - attempt_time >= 2){
-
+					is_can_ok = 0;
 					uvPanic("Unable to Transmit CAN msg",0);
 				}
 
@@ -613,6 +625,7 @@ void CANbusTxSvcDaemon(void* args){
 
 			if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
 								/* Transmission request Error */
+				is_can_ok = 0;
 				uvPanic("Unable to Transmit CAN msg",0);
 			}
 		}
