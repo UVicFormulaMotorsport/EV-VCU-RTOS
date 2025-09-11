@@ -3,6 +3,9 @@
  *
  *  Created on: Oct 31, 2024
  *      Author: byo10
+ *
+ *  Edited Sept 11th, 2025
+ *  	Chris R
  */
 
 
@@ -13,6 +16,7 @@ uint16_t adc_coolant_temp1 = 0;
 uint16_t adc_coolant_temp2 = 0;
 extern int16_t mc_motor_temp;
 extern int16_t mc_igbt_temp;
+
 
 uv_status initTempMonitor(void * arguments){
 	uv_task_info* tm_task = uvCreateTask();
@@ -87,6 +91,23 @@ void tempMonitorTask(void* args){
 	insertCANMessageHandler(0x87, testfunc);
 	insertCANMessageHandler(0x64, testfunc2);
 
+
+	//optimal theshold estimates
+
+	//coolant 20 - 45
+	//motor 40 - 90
+	//inverter 35 - 65
+
+	float max_MI_thres = 65;
+	float min_MI_thres = 35;
+
+	float max_cool_thres = 45;
+	float min_cool_thres = 20;
+
+	bool is_pump_on = false;
+	bool is_fan_on = false;
+
+
 	/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
 	 * execution actually takes
 	 *
@@ -128,15 +149,49 @@ void tempMonitorTask(void* args){
 
 		HAL_StatusTypeDef can_send_status;
 
-					//vTaskDelay(400);
-
+		//vTaskDelay(400);
 
 
 		TxHeader.IDE = CAN_ID_EXT;
 		TxHeader.ExtId = 0x1234;
 
-
 		TxHeader.DLC = 8;
+
+
+
+		if (mc_motor_temp > max_MI_thres || mc_igbt_temp > max_MI_thres){
+
+			if (is_pump_on == false){
+				uvStartCoolantPump();
+
+			}
+
+
+		} else if (mc_motor_temp < min_MI_thres && mc_igbt_temp < min_MI_thres){
+
+			if (is_pump_on == true){
+				uvStopCoolantPump();
+
+			}
+
+		}
+
+		if (adc_coolant_temp1 > max_cool_thres || adc_coolant_temp2 > max_cool_thres){
+
+			if(is_fan_on == false){
+				uvStartFans(x);
+
+			}
+
+
+		} else if (adc_coolant_temp1 < min_cool_thres && adc_coolant_temp2 < min_cool_thres){
+
+			if(is_fan_on == true){
+				uvStopFans(x);
+			}
+
+		}
+
 
 
 		//taskENTER_CRITICAL();
