@@ -39,7 +39,7 @@ uv_status coniferEnChannel(conifer_output_channel ch){
 		return UV_ABORTED;
 	}
 
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 	uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 	switch(src){
 	case LOCAL_CH:
@@ -66,7 +66,7 @@ uv_status coniferDisChannel(conifer_output_channel ch){
 		return UV_ABORTED;
 	}
 
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 		switch(src){
 		case LOCAL_CH:
@@ -90,7 +90,7 @@ uv_status coniferToggleChannel(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 		switch(src){
 		case LOCAL_CH:
@@ -114,7 +114,7 @@ uv_status coniferSetDutyCycle(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 		switch(src){
 		case LOCAL_CH:
@@ -139,7 +139,7 @@ uv_status coniferSetDirection(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 		switch(src){
 		case LOCAL_CH:
@@ -163,7 +163,7 @@ uv_status coniferSetDutyCycleAndDirection(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 		switch(src){
 		case LOCAL_CH:
@@ -188,7 +188,7 @@ uint16_t coniferGetChannelCurrent(conifer_output_channel ch){
 	if(!IS_CONIFER_CH_USED(ch_ptr)){
 		return UV_ABORTED;
 	}
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
 		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 		switch(src){
 		case LOCAL_CH:
@@ -208,8 +208,9 @@ uint16_t coniferGetChannelCurrent(conifer_output_channel ch){
 }
 
 uint16_t coniferGetChannelFbck(conifer_output_channel ch){
-	uint8_t src = (ch_ptr->hardware_mapping&HW_CH_LOC_MASK)>>8;
-		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+	abstract_conifer_channel* ch_ptr = ch_table + ch*sizeof(abstract_conifer_channel);
+	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
+	uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 	switch(src){
 	case LOCAL_CH:
 

@@ -65,16 +65,29 @@ ADC_HandleTypeDef hadc1;
 
 
 
-
+/** @brief Structure representing a specific CAN message to send from the DAQ.
+ *
+ */
 typedef struct daq_param_list_node{
 	struct daq_param_list_node* next;
 
 	uint32_t can_id;
 	uint16_t param;
+	uint16_t param2;
+	uint16_t param3;
+	uint16_t param4;
 
 	uint8_t size;
+	uint8_t size2;
+	uint8_t size3;
+	uint8_t size4;
 }daq_param_list_node;
 
+#define UNUSED_PARAM 0xFFFF
+
+/** @brief Representation of a task that sends the DAQ messages periodically.
+ *
+ */
 typedef struct daq_child_task{
 	struct daq_child_task* next_task;
 	TaskHandle_t meta_task_handle;
@@ -217,10 +230,36 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 		daq_tlist->param_list = NULL;
 	}
 
+	uint8_t n_bytes = 0;
 	daq_child_task* list_tmp = daq_tlist;
+
 	node->can_id = datapoint->can_id; //Ensure that the daq_node has the needed params
 	node->param = datapoint->param;
 	node->size = data_size[datapoint->type];
+	n_bytes += node->size;
+
+	if((n_bytes+data_size[datapoint->type2])<=8){ //Making sure it is actually sendable lol
+		node->param2 = datapoint->param2;
+		node->size2 = data_size[datapoint->type2];
+		n_bytes += node->size2;
+
+
+		if((n_bytes+data_size[datapoint->type3])<=8){
+			node->param3 = datapoint->param3;
+			node->size3 = data_size[datapoint->type3];
+			n_bytes += node->size3;
+
+			if((n_bytes+data_size[datapoint->type4])<=8){
+				node->param4 = datapoint->param4;
+				node->size4 = data_size[datapoint->type4];
+
+			}
+		}
+	}
+
+
+
+
 	node->next = NULL;
 
 	while(1){
@@ -428,21 +467,114 @@ uv_CAN_msg tmp_daq_msg;
 /** @brief
  *
  */
-static inline void sendDaqMsg(daq_param_list_node* param){
-	if(param->param > 32){
+static inline void sendDaqMsg(daq_param_list_node* node){
+	if(node->param >= MAX_LOGGABLE_PARAMS){
 		return;
 	}
 
-	if(param_ptrs[param->param] == NULL){ //We simply ignore nulls instead of say, crashing
-		return;
+	uint8_t m_idx = 0;
+	uint8_t total_len = 0;
+	uint32_t tmp = 0;
+	uint32_t* p = NULL;
+
+
+
+	if(node->param4 < MAX_LOGGABLE_PARAMS){
+		total_len = node->size + node->size2 + node->size3 + node->size4;
+	}else if(node->param3 < MAX_LOGGABLE_PARAMS){
+		total_len = node->size + node->size2 + node->size3;
+	}else if(node->param2 < MAX_LOGGABLE_PARAMS){
+		total_len = node->size + node->size2;
+	}else{
+		total_len = node->size;
 	}
 
-	tmp_daq_msg.msg_id = param->can_id;
-	tmp_daq_msg.data[0] = *((uint8_t*)(param_ptrs[param->param]));
-	tmp_daq_msg.data[1] = *((uint8_t*)(param_ptrs[param->param]+1));
-	tmp_daq_msg.data[2] = *((uint8_t*)(param_ptrs[param->param]+2));
-	tmp_daq_msg.data[3] = *((uint8_t*)(param_ptrs[param->param]+3));
-	tmp_daq_msg.dlc = param->size;
+
+
+	tmp_daq_msg.msg_id = node->can_id;//Just setting the msg ID
+	//This is basically an atrocious unwrapped for loop
+	p = ((uint32_t*)param_ptrs[node->param]); //Putting the first param in the message
+	if(p==NULL){ //Check to avoid null dereference - default behavior is to reset var to 0
+		tmp = 0;
+	}else{
+		tmp = *p;
+	}
+
+	for(int i = 0; i<node->size; i++){
+		//Write bytes to the array
+		tmp_daq_msg.data[m_idx] = (tmp & 0xFF);
+		tmp = tmp >> 8;
+		m_idx++;
+	}
+
+	if(m_idx >= (total_len)){
+		goto endOfDaqTransmitFunc;
+	}
+
+	//Param 2
+	if(node->param2 >= MAX_LOGGABLE_PARAMS){ //Validate
+		tmp = 0;
+	}else{
+		p = ((uint32_t*)param_ptrs[node->param2]); //Putting the first param in the message
+		if(p==NULL){
+			tmp = 0;
+		}else{
+			tmp = *p;
+		}
+	}
+
+	for(int i = 0; i<node->size2; i++){
+			//Write bytes to the array
+		tmp_daq_msg.data[m_idx] = (tmp & 0xFF);
+		tmp = tmp >> 8;
+		m_idx++;
+	}
+
+	if(m_idx >= (total_len)){
+		goto endOfDaqTransmitFunc;
+	}
+
+	if(node->param3 >= MAX_LOGGABLE_PARAMS){ //Validate
+			tmp = 0;
+	}else{
+		p = ((uint32_t*)param_ptrs[node->param3]); //Putting the first param in the message
+		if(p==NULL){
+			tmp = 0;
+		}else{
+			tmp = *p;
+		}
+	}
+
+	for(int i = 0; i<node->size3; i++){
+				//Write bytes to the array
+		tmp_daq_msg.data[m_idx] = (tmp & 0xFF);
+		tmp = tmp >> 8;
+		m_idx++;
+	}
+
+	if(m_idx >= (total_len)){
+		goto endOfDaqTransmitFunc;
+	}
+
+	if(node->param4 >= MAX_LOGGABLE_PARAMS){ //Validate
+		tmp = 0;
+	}else{
+		p = ((uint32_t*)param_ptrs[node->param3]); //Putting the first param in the message
+		if(p==NULL){
+				tmp = 0;
+		}else{
+			tmp = *p;
+		}
+	}
+
+	for(int i = 0; i<node->size4; i++){
+		//Write bytes to the array
+		tmp_daq_msg.data[m_idx] = (tmp & 0xFF);
+		tmp = tmp >> 8;
+		m_idx++;
+	}
+
+	endOfDaqTransmitFunc:
 
 	uvSendCanMSG(&tmp_daq_msg);
 
