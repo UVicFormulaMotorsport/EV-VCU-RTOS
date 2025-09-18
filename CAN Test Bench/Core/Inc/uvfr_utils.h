@@ -128,6 +128,9 @@ setBits(num,mask,data);
 #define false 0
 #define true !false
 
+/** Converts a macro argument to a string literal */
+#define TEXTIFY(A) #A
+
 /**@} */
 
 //Typedefs used throughout vehicle

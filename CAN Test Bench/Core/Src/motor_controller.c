@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "uvfr_settings.h"
-#include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"      // For vTaskSuspend
+#include "cmsis_os.h"      // For vTaskSuspend
 
 extern uv_vehicle_settings* current_vehicle_settings;
 extern QueueHandle_t CAN_Rx_Queue;

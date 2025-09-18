@@ -8,11 +8,15 @@
 #include "uvfr_utils.h"
 
 uv_status uvEnterDiagnosticMode(){
-
+	return UV_OK;
 }
 
 uv_status uvExitDiagnosticMode(){
+	return UV_OK;
+}
 
+uv_status uvInitDiagnostics(){
+	return UV_OK;
 }
 
 
@@ -54,7 +58,7 @@ void uvEventLogDaemon(void* args){
 	}
 }
 
-void uvAssertFailed(){
+void uvAssertFailed(char* file, uint16_t line, TaskHandle_t task, char* condition){
 
 }
 

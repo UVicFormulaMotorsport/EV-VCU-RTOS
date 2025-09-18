@@ -15,6 +15,9 @@
   *
   ******************************************************************************
   */
+
+#define __UV_FILENAME__ "main.c"
+
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -70,6 +73,9 @@ volatile uint32_t adc_buf2[ADC2_BUF_LEN]; // ADC2 - lower priority readings
 uint16_t adc2_CoolantTemp;
 uint16_t adc2_CoolantFlow;
 
+TaskHandle_t init_task_handle;
+uv_init_struct init_settings;
+
 //int adc_conv_complete_flag = 0;
 
 
@@ -114,7 +120,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  uvAssert((1+1) == 2);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
