@@ -45,6 +45,13 @@
 
 
 #include "uvfr_utils.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "cmsis_os.h"
+#include "message_buffer.h"
+
 
 
 //#include "uvfr_utils.h"

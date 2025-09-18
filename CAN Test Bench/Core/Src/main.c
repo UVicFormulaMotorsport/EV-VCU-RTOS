@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
 #include "dma.h"
@@ -37,6 +36,7 @@
 #include "imd.h"
 #include "motor_controller.h"
 #include "pdu.h"
+#include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
 
 
 /* USER CODE END Includes */
@@ -80,7 +80,6 @@ uint16_t adc2_CoolantFlow;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -173,16 +172,17 @@ int main(void)
 #endif
   /* USER CODE END 2 */
 
-  /* Call init function for freertos objects (in cmsis_os2.c) */
-  MX_FREERTOS_Init();
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  BaseType_t x_task_return = xTaskCreate(uvInit,"init",512,&init_settings,osPriorityNormal,&init_task_handle);
+    if(x_task_return != pdPASS){
+  	 while(1){
+  		  //Program hangs itself, like bro, we couldnt even create the INITIALISATION task, thats fucked
+  	 }
+  }
+
+  vTaskStartScheduler();
 
     //Update_Batt_Temp(69); // temp debugging
 

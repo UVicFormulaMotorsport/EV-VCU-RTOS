@@ -2,12 +2,12 @@
 
 #include "motor_controller.h"
 #include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
-#include "cmsis_os.h"      // For vTaskSuspend
 #include "uvfr_utils.h"    // For uvPanic, etc.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "uvfr_settings.h"
+#include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"      // For vTaskSuspend
 
 extern uv_vehicle_settings* current_vehicle_settings;
 extern QueueHandle_t CAN_Rx_Queue;

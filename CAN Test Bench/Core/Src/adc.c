@@ -238,7 +238,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 }
 
 /* USER CODE BEGIN 1 */
-#include "cmsis_os.h" // Add at the top of adc.c if not already
+#include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h" // Add at the top of adc.c if not already
 
 #define DEBUG_TOGGLE_LED() HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15)
 
