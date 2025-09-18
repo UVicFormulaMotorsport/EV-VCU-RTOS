@@ -227,11 +227,11 @@ void SystemClock_Config(void)
   * in the RCC_OscInitTypeDef structure.
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLM = 25;
+  RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -276,6 +276,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 		processADCBuffer();
 	//}
 	/*
+	 * TODO: WHY IS THIS AREA SO MESSED UP?
   // Could toggle an LED here
 	if(hadc->Instance == ADC1){ //TODO: Fix this so it is RTOS compatible
 		adc1_APPS1 = 0;
@@ -331,7 +332,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
 }
 
-// Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095
+// Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095?? why does this exist still - Byron
 void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc){
 	if(hadc->Instance == ADC1){
 		// triggered for voltages below 0.5V (below 400) or above 4.5V (above 3674)

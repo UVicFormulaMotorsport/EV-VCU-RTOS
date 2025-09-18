@@ -1264,6 +1264,7 @@ uv_status uvStartSVCTask(uv_task_info* t){
 
 	BaseType_t retval;
 	retval = xTaskCreate(t->task_function,t->task_name,t->stack_size,t->task_args,t->task_priority,&(t->task_handle));
+
 	//This creates a task cause the necessary conditions have been met
 
 	if(retval != pdPASS){
@@ -1271,6 +1272,7 @@ uv_status uvStartSVCTask(uv_task_info* t){
 		return UV_ERROR;
 	}
 
+	//t->task_handle->uvTaskHandle = t;
 	return UV_OK;
 
 }
@@ -1318,7 +1320,7 @@ uv_status uvDeleteSVCTask(uv_task_info* t){
 
 /** @brief Function that takes a service part that may be messed up and tries to reboot it to recover
  *
- * This may be neccessary if a SVC task is not responding. Be careful though, since this has the potential to delay more important tasks :o
+ * This may be necessary if a SVC task is not responding. Be careful though, since this has the potential to delay more important tasks :o
  * Therefore, this technique should be used sparingly, and each task gets a limited number of attempts within a certain time period.
  */
 uv_status uvRestartSVCTask(uv_task_info* t){
