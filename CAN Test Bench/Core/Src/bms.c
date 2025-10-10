@@ -8,24 +8,26 @@
 #include "can.h"
 #include "tim.h"
 #include "dash.h"
+#include <string.h>
+#include <stdint.h>
+
+
 
 //two IDs for bms can message
 // 0x6B0
 // 0x6B1
 
-uint16_t packCurrent = 0; // logged
-uint16_t packVoltage = 0; // logged
-uint16_t stateOfCharge = 0; // used for toggling regen braking / low charge warning
-uint16_t relayState = 0;
-uint16_t msg1corrupt = 0;
-
-uint16_t packDCL = 0;
-uint16_t lowTemp = 0;
-uint16_t highTemp = 0;
-uint16_t msg2corrupt = 0;
-// extern uint16_t (var name) to call outside this file
+volatile bms_state_t g_bms_state = {0};
 
 
+// causes syntax error but not sure why
+bms_settings_t g_bms_settings = {
+		.can_timeout_ms = DEFAULT_BMS_CAN_TIMEOUT,
+
+		//Temps (need to be tuned to cell datasheet and comp-specific rules)
+
+		.discharge_cold_fault_c = -20;
+};
 void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltageCANdata
 	// msg1 can handle current, voltage, charge, relay, checksum (corruption)
 	packCurrent = (msg->data[0]<<8 | msg->data[1]); // x 0.1A
