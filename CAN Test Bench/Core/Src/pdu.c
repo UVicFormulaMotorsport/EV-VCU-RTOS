@@ -1,5 +1,5 @@
 // This where the code to handle switching channels with the PDU will go
-
+//typedef struct abstract_conifer_channel abstract_conifer_channel;
 
 #include "pdu.h"
 #include "uvfr_utils.h"
@@ -7,183 +7,61 @@
 #include "main.h"
 #include "constants.h"
 
-uv19_pdu_settings default_pdu_settings = {
-	.PDU_rx_addr = 0x310,
-	.PDU_tx_addr = 0x311,
-	.sdc_channel = 0x0C
+uint16_t read_5A_vals; //What the PDU claims its 5A channels are up to
+uint16_t set_5A_vals; //What the intended 5A channel outputs are
+
+uint16_t read_20A_vals; //What the PDU claims its 20A channels are up to
+uint16_t set_20A_vals; //What the intended 20A channel outputs are
+
+uv_CAN_msg last_received_from_PDU;
+
+
+uv_CAN_msg msg_to_PDU = {
+	.flags = 0x00,
+	.dlc = 1,
+	.msg_id = 0x710,
+	.data = {0,0,0,0,0,0,0,0}
 };
 
+
+#define U19_PDU_20A_BIT 0b00100000
+#define U19_PDU_EN_BIT  0b00010000
+
 // PDU commands for 5A Circuit
-void PDU_speaker_chirp(){
-/* Chirp to indicate vehicle ready to drive*/
-    TxHeader.StdId = PDU_CAN_ID_Tx; // This is the CAN ID
-    TxHeader.DLC = 1; // Data Length Code
+uv_status u19updatePduChannel(struct abstract_conifer_channel* ch_ptr, uint32_t* ecode){
+	//assume that the channel is in fact in use, no need.
 
-    TxData[0] = enable_speaker_msg;
+	//This PDU is simply a dumb enable/disable signal, nothing fancy going on here.
+	//First part is we need to get the channel.
+	uint8_t ch = (ch_ptr->hardware_mapping)&0xFF;
+	uint8_t msg = ch;
 
-    if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-    {
-		 /* Transmission request Error */
-		 Error_Handler();
-    }
-    // the delay has to be between 1 to 3 seconds by rules
-	HAL_Delay(2000);
-	TxData[0] = disable_speaker_msg;
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-
-
-void PDU_enable_brake_light(){
-
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-    TxHeader.DLC=1; // Data Length Code
-
-    TxData[0] = enable_brake_light_msg;
-
-	 if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	 {
-		 /* Transmission request Error */
-		 Error_Handler();
-	 }
-}
-
-void PDU_disable_brake_light(){
-
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-    TxHeader.DLC=1; // Data Length Code
-
-    TxData[0] = disable_brake_light_msg;
-
-	 if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	 {
-		 /* Transmission request Error */
-		 Error_Handler();
-	 }
-}
-
-void PDU_enable_motor_controller(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = enable_motor_controller_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-void PDU_disable_motor_controller(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = disable_motor_controller_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-
-void PDU_enable_shutdown_circuit(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = enable_shutdown_circuit_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-
-void PDU_disable_shutdown_circuit(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = disable_shutdown_circuit_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-
-
-// PDU commands for 20A Circuit
-void PDU_enable_cooling_fans(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = enable_left_cooling_fan_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
+	//Bounds check on ch:
+	if((ch > U19_PDU_20A_8)||(ch > U19_PDU_5A_16 && ch < U19_PDU_20A_1)){
+		//This is a PDU channel that dont exist
+		*ecode = CONIFER_DRV_INVALID_HW_CH_ID;
 	}
 
-	TxData[0] = enable_right_cooling_fan_msg;
+	if((ch_ptr->status_control_reg & CONIFER_CH_EN_BIT) == CONIFER_CH_EN_BIT){
+		//Enable
+		if(ch & U19_PDU_20A_BIT){
+			set_20A_vals |= 0x01U<<(ch&0x0F); //Indicates what the set 20A channels are
+		}else{
+			set_5A_vals |= 0x01U<<ch;
+		}
 
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-
-void PDU_disable_cooling_fans(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = disable_left_cooling_fan_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
+		msg |= U19_PDU_EN_BIT; //Set the bit on the msg
+	}else{
+		//Otherwise disable
+		if(ch & U19_PDU_20A_BIT){
+			set_20A_vals &= ~(0x01U<<(ch&0x0F)); //Clear the bit because we really dont want them to be like this
+		}else{
+			set_5A_vals &= ~(0x01U<<ch);
+		}
 	}
 
-	TxData[0] = disable_right_cooling_fan_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-
-
-void PDU_enable_coolant_pump(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = enable_coolant_pump_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
-}
-void PDU_disable_coolant_pump(){
-	TxHeader.StdId=PDU_CAN_ID_Tx; // PDU CAN ID
-	TxHeader.DLC=1; // Data Length Code
-
-	TxData[0] = disable_coolant_pump_msg;
-
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK)
-	{
-		/* Transmission request Error */
-		Error_Handler();
-	}
+	msg_to_PDU.data[0] = msg;
+	return uvSendCanMSG(&msg_to_PDU); //Send the message to the PDU
 }
 
 void initPDU(void* args){
