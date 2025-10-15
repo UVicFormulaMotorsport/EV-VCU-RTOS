@@ -17,6 +17,7 @@
   */
 
 #define __UV_FILENAME__ "main.c"
+#define MAIN_C
 
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
@@ -24,7 +25,6 @@
 #include "adc.h"
 #include "can.h"
 #include "dma.h"
-#include "spi.h"
 #include "tim.h"
 #include "gpio.h"
 
@@ -62,16 +62,25 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-volatile uint32_t adc_buf1[4]; // ADC1 - high priority readings
+volatile uint32_t adc_buf1[5]; // ADC1 - high priority readings
 
 uint16_t adc1_APPS1; //These are the locations for the sensor inputs for APPS and BPS
 uint16_t adc1_APPS2;
 uint16_t adc1_BPS1;
 uint16_t adc1_BPS2;
+uint16_t adc1_pack_curr;
 
-volatile uint32_t adc_buf2[ADC2_BUF_LEN]; // ADC2 - lower priority readings
-uint16_t adc2_CoolantTemp;
+volatile uint32_t adc_buf2[7]; // ADC2 - lower priority readings
+uint16_t adc2_CoolantTemp1;
+uint16_t adc2_CoolantTemp2;
 uint16_t adc2_CoolantFlow;
+uint16_t adc2_steering_pos;
+
+volatile uint32_t adc_buf3[4];
+uint16_t adc3_damper_FL;
+uint16_t adc3_damper_FR;
+uint16_t adc3_damper_RL;
+uint16_t adc3_damper_RR;
 
 TaskHandle_t init_task_handle;
 uv_init_struct init_settings;
@@ -130,7 +139,10 @@ int main(void)
   MX_CAN2_Init();
   MX_ADC1_Init();
   MX_TIM3_Init();
-  MX_SPI1_Init();
+  MX_ADC2_Init();
+  MX_ADC3_Init();
+  MX_CAN1_Init();
+  MX_TIM11_Init();
   /* USER CODE BEGIN 2 */
   //HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buf1, ADC1_BUF_LEN);
   //HAL_TIM_Base_Start_IT(&htim3); This is getting disabled, since measuring temp will now be an RTOS task
@@ -237,7 +249,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLM = 25;
   RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
@@ -279,54 +291,14 @@ void SystemClock_Config(void)
 
 // Called when adc dma buffer is completely filled
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
-	//if(hadc == &hadc1){
-		processADCBuffer();
-	//}
-	/*
-	 * TODO: WHY IS THIS AREA SO MESSED UP?
-  // Could toggle an LED here
-	if(hadc->Instance == ADC1){ //TODO: Fix this so it is RTOS compatible
-		adc1_APPS1 = 0;
-		adc1_APPS2 = 0;
-		adc1_BPS1 = 0;
-		adc1_BPS2 = 0;
-
-		//Hmmm this should honestly probably be a 16 bit type but aint nobody got time for dat
-		uint32_t* buf1_pointer = adc_buf1;
-
-		for(int i = 0; i < ADC1_SAMPLES; i++){ //BUG: pointer incremented by one rather than the length of the datatype
-			adc1_APPS1 += *buf1_pointer++;
-			adc1_APPS2 += *buf1_pointer++;
-			adc1_BPS1 += *buf1_pointer++;
-			adc1_BPS2 += *buf1_pointer++;
-		}
-
-		//The above code is actually even worse than I originally suspected. Seriously, WTF. If multiple writes occur, then they get summed,
-		//Rather than initial writes getting overwritten by newer ones. UNDEFINED BEHAVIOR!
-
-		// calculate APPS fraction travelled (see spreadsheet for equation derivation)
-		// Byron here: I want these constants to be TUNABLE, this will need some debugging in the future
-		adc1_APPS1 = 0.8082*adc1_APPS1 - 0.3709;
-		adc1_APPS2 = 0.8405*adc1_APPS2 - 0.8747;
-
-		// APPS1 & APPS2 plausibility check
-			// suspend if error persists for 100 ms
-		if((adc1_APPS1-adc1_APPS2)>0.1 || (adc1_APPS1-adc1_APPS2)<-0.1){
-			//START TIMER FOR APPS IMPLAUSIBILITY
-		}
-
-		// APPS & BPS plausibility check
-			// immediate suspend if error occurs
-		if(((adc1_APPS1 > 0.25)||(adc1_APPS2 > 0.25))&&((adc1_BPS1 > 69)||(adc1_BPS2 > 69))){
-			// checking for hard brake + accel
-			// if found, enter suspend
-		}
+	if(hadc == &hadc1){
+		processADCBuffer(1);
+	}else if(hadc == &hadc2){
+		processADCBuffer(2);
+	}else if(hadc == &hadc3){
+		processADCBuffer(3);
 	}
-	if (hadc->Instance == ADC2){
-		adc2_CoolantTemp = adc_buf2[0];
-		adc2_CoolantFlow = adc_buf2[1];
-	}
-	*/
+
 }
 
 
@@ -343,7 +315,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc){
 	if(hadc->Instance == ADC1){
 		// triggered for voltages below 0.5V (below 400) or above 4.5V (above 3674)
-		HAL_GPIO_WritePin(Red_LED_GPIO_Port,Red_LED_Pin, GPIO_PIN_SET);
+//		HAL_GPIO_WritePin(Red_LED_GPIO_Port,Red_LED_Pin, GPIO_PIN_SET);
 		HAL_ADC_Stop_DMA(&hadc1);
 		adc1_APPS1 = 0;
 		adc1_APPS2 = 0;

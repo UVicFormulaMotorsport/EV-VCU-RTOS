@@ -29,7 +29,7 @@
 #include "dma.h"
 #include "tim.h"
 #include "gpio.h"
-#include "spi.h"
+
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
@@ -43,8 +43,7 @@
 #include "pdu.h"
 #include "daq.h"
 
-//Only used for debugging
-#include "oled.h"
+
 
 #include "uvfr_conifer.h"
 #include "uvfr_vehicle_logger.h"
