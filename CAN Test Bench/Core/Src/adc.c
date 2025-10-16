@@ -667,12 +667,12 @@ void processADCBuffer(uint8_t adc) {
 		adc2_steering_pos = adc_buf2[0];
 		//PA5 is currently spare
 		adc2_CoolantFlow  = adc_buf2[2];
-
 		adc2_CoolantTemp1 = adc_buf2[3];
 		adc2_CoolantTemp2 = adc_buf2[4];
+		//adc_buf2[5] and adc_buf2[6] are spares for now;
 		break;
 	case 3:
-		adc3_damper_FL = adc_buf3[0];
+		adc3_damper_FL = adc_buf3[0]; //Damper pots
 		adc3_damper_FR = adc_buf3[1];
 		adc3_damper_RL = adc_buf3[2];
 		adc3_damper_RR = adc_buf3[3];
