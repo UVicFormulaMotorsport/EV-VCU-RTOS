@@ -17,7 +17,7 @@
 #include "uvfr_state_engine.h"  // for uv_task_info, uv_task_status, etc.
 
 
-typedef uint8_t bool;
+//typedef uint8_t bool;
 
 // types of faults we can log, this might be over kill
 

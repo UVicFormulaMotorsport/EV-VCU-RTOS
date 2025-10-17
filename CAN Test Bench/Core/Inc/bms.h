@@ -8,9 +8,9 @@
 #include "main.h"
 #include "uvfr_utils.h"
 #include <stdint.h>
-#include <stdbool.h>
 
 
+typedef uint8_t bool;
 #define DEFAULT_BMS_CAN_TIMEOUT ((uv_timespan_ms)200)
 
 
@@ -37,15 +37,17 @@ typedef struct { //TODO Needs populating
 	uint32_t BMS_CAN_timeout;
 	uint32_t max_temp;
 
-	// "_c" for temperature in C\
-	// "_pct" for percentage value
+	/* "_c" for temperature in C
+	 "_pct" for percentage value */
 	int16_t discharge_cold_fault_c; // -20
 	int16_t discharge_cold_warn_c;
 
 	int16_t charge_cold_fault_c;
 	int16_t charge_hot_fault_c;
-	int16_t hot_warn_c;
-	int16_t hot_fault_c;
+
+	int16_t discharge_hot_warn_c;
+	int16_t discharge_hot_derate_c; // safety check for when pack running too hot (limit power rate)
+	int16_t discharge_hot_fault_c;
 
 	int16_t temp_plaus_min_c;
 	int16_t temp_plaus_max_c;
@@ -58,7 +60,7 @@ typedef struct { //TODO Needs populating
 	// extern uint16_t (var name) to call outside this file
 } bms_settings_t;
 
-extern bms_settings_t g_bms_settings;
+//extern bms_settings_t g_bms_settings;
 
 
 void BMS_Init(void* args);
