@@ -37,6 +37,8 @@ typedef struct { //TODO Needs populating
 	uint32_t BMS_CAN_timeout;
 	uint32_t max_temp;
 
+
+
 	/* "_c" for temperature in C
 	 "_pct" for percentage value */
 	int16_t discharge_cold_fault_c; // -20
@@ -49,13 +51,20 @@ typedef struct { //TODO Needs populating
 	int16_t discharge_hot_derate_c; // safety check for when pack running too hot (limit power rate)
 	int16_t discharge_hot_fault_c;
 
-	int16_t temp_plaus_min_c;
-	int16_t temp_plaus_max_c;
+	// need to add settings definitions for DCL
 
 	uint8_t soc_low_warn_pct;
 	uint8_t soc_regen_disable_pct;
 
 	uint16_t derate_start_c;
+
+	// --- NEW: Plausibility ranges (°C, V, A) ---
+	int16_t  temp_plaus_min_c;     // e.g. -40
+	int16_t  temp_plaus_max_c;     // e.g. 100
+	int16_t  current_plaus_min_dA; // e.g. -20000  → -2000 A
+	int16_t  current_plaus_max_dA; // e.g.  20000  →  2000 A
+	uint16_t voltage_plaus_min_dV; // e.g.  0       →  0 V
+	uint16_t voltage_plaus_max_dV; // e.g.  8000    → 800 V
 
 	// extern uint16_t (var name) to call outside this file
 } bms_settings_t;
