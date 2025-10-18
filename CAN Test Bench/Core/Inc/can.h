@@ -33,6 +33,8 @@ extern "C" {
 #include "uvfr_utils.h"
 /* USER CODE END Includes */
 
+extern CAN_HandleTypeDef hcan1;
+
 extern CAN_HandleTypeDef hcan2;
 
 /* USER CODE BEGIN Private defines */
@@ -45,6 +47,7 @@ typedef enum uv_status_t uv_status;
 
 /* USER CODE END Private defines */
 
+void MX_CAN1_Init(void);
 void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
