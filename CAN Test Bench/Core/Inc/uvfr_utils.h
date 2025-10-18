@@ -24,17 +24,12 @@
 #include "uvfr_global_config.h"
 
 #include "main.h"
-#include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
 #include "dma.h"
 #include "tim.h"
 #include "gpio.h"
 #include "spi.h"
-
-#include "FreeRTOS.h"
-#include "task.h"
-#include "message_buffer.h"
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
@@ -63,6 +58,10 @@
 //#include "stdlib.h"
 #include "stdint.h"
 #include <stdlib.h>
+#include "cmsis_os.h"
+#include "FreeRTOS.h"
+#include "message_buffer.h"
+#include "task.h"
 
 
 /** @addtogroup utility_macros
@@ -129,6 +128,9 @@ setBits(num,mask,data);
 /** Wish.com Boolean */
 #define false 0
 #define true !false
+
+/** Converts a macro argument to a string literal */
+#define TEXTIFY(A) #A
 
 /**@} */
 

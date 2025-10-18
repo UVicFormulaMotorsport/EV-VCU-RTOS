@@ -686,7 +686,7 @@ uv_status uvTaskCrashHandler(uv_task_info* t){
 
 
 
-
+extern uint8_t is_can_ok;
 
 /** @brief Something bad has occurred here now we in trouble
  *
@@ -707,19 +707,13 @@ uv_status uvTaskCrashHandler(uv_task_info* t){
  */
 void __uvPanic(char* msg, fault_event_type_e type, const char* file, const int line, const char* func){
 
-
-	uvSecureVehicle(); // ensure safe state of vehicle.
-
-	//changeVehicleState(UV_ERROR_STATE);
-
+	if(is_can_ok){
+		uvSecureVehicle(); // ensure safe state of vehicle.
+	}
+	changeVehicleState(UV_ERROR_STATE); // log a fault from here then create
 	//TODO: We should probably keep a log of this or something
 
-	//ruh roh, something has gone a little bit fucky wucky
-	//vTaskSuspendAll();
-	//while(1){
-
-	//}
-
+	logVehicleFault(type,NULL,msg,file,line,func,true);
 }
 
 
@@ -1285,6 +1279,7 @@ uv_status uvStartSVCTask(uv_task_info* t){
 
 	BaseType_t retval;
 	retval = xTaskCreate(t->task_function,t->task_name,t->stack_size,t->task_args,t->task_priority,&(t->task_handle));
+
 	//This creates a task cause the necessary conditions have been met
 
 	if(retval != pdPASS){
@@ -1292,6 +1287,7 @@ uv_status uvStartSVCTask(uv_task_info* t){
 		return UV_ERROR;
 	}
 
+	//t->task_handle->uvTaskHandle = t;
 	return UV_OK;
 
 }
@@ -1339,7 +1335,7 @@ uv_status uvDeleteSVCTask(uv_task_info* t){
 
 /** @brief Function that takes a service part that may be messed up and tries to reboot it to recover
  *
- * This may be neccessary if a SVC task is not responding. Be careful though, since this has the potential to delay more important tasks :o
+ * This may be necessary if a SVC task is not responding. Be careful though, since this has the potential to delay more important tasks :o
  * Therefore, this technique should be used sparingly, and each task gets a limited number of attempts within a certain time period.
  */
 uv_status uvRestartSVCTask(uv_task_info* t){
@@ -1508,3 +1504,34 @@ void uvTaskPeriodEnd(uv_task_info* t){
 /** @}
  *
  */
+
+
+/** @brief Function that will be called if the enable idle task hook is called.
+ *
+ */
+__weak void vApplicationIdleHook( void ){
+	int i = 0;
+	i++;
+}
+
+static StaticTask_t xIdleTaskTCBBuffer;
+static StackType_t xIdleStack[configMINIMAL_STACK_SIZE];
+
+void vApplicationGetIdleTaskMemory( StaticTask_t **ppxIdleTaskTCBBuffer, StackType_t **ppxIdleTaskStackBuffer, uint32_t *pulIdleTaskStackSize )
+{
+  *ppxIdleTaskTCBBuffer = &xIdleTaskTCBBuffer;
+  *ppxIdleTaskStackBuffer = &xIdleStack[0];
+  *pulIdleTaskStackSize = configMINIMAL_STACK_SIZE;
+  /* place for user code */
+}
+
+static StaticTask_t xTimerTaskTCBBuffer;
+static StackType_t xTimerStack[configTIMER_TASK_STACK_DEPTH];
+
+void vApplicationGetTimerTaskMemory( StaticTask_t **ppxTimerTaskTCBBuffer, StackType_t **ppxTimerTaskStackBuffer, uint32_t *pulTimerTaskStackSize )
+{
+  *ppxTimerTaskTCBBuffer = &xTimerTaskTCBBuffer;
+  *ppxTimerTaskStackBuffer = &xTimerStack[0];
+  *pulTimerTaskStackSize = configTIMER_TASK_STACK_DEPTH;
+  /* place for user code */
+}

@@ -34,8 +34,6 @@ extern "C" {
 
 extern ADC_HandleTypeDef hadc1;
 
-extern ADC_HandleTypeDef hadc2;
-
 /* USER CODE BEGIN Private defines */
 
 // 12 bit ADC resolution
@@ -60,7 +58,6 @@ extern ADC_HandleTypeDef hadc2;
 /* USER CODE END Private defines */
 
 void MX_ADC1_Init(void);
-void MX_ADC2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 

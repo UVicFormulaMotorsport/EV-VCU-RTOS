@@ -9,15 +9,15 @@
 #include "uvfr_utils.h"
 #include "can.h"
 #include "motor_controller.h"
-#include "FreeRTOS.h"
-#include "task.h"
 #include "main.h"
-#include "cmsis_os.h"
 #include <stdlib.h> // move somewhere else
 #include <stdio.h>
 #include <math.h>
 
 #include "driving_loop.h"
+#include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+#include "../FreeRTOS/Source/include/FreeRTOS.h"
+#include "../FreeRTOS/Source/include/task.h"
 
 //External Variables:
 extern uint16_t adc1_APPS1; //These are the locations for the sensor inputs for APPS and BPS

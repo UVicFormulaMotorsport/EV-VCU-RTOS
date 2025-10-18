@@ -18,5 +18,4 @@ void uvSecureVehicle(){
 	//open SDC >:)
 	//uvOpenSDC();
 
-
 }

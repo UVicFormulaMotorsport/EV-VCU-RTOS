@@ -9,6 +9,7 @@
 #include "uvfr_utils.h"
 #include "main.h"
 #include "stdlib.h"
+#include "uvfr_vehicle_logger.h"
 
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
@@ -206,11 +207,13 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 	case GENERIC_ACK:
 		//Could come at any time, however here we are
 		break;
+	case REQUEST_ALL_JOURNAL_ENTRIES:
+		flushLogsToCAN();
+		break;
 	case SET_SPECIFIC_PARAM ... END_OF_SPECIFIC_PARAMS:
 
 	case CLEAR_FAULTS:
 	case REQUEST_ALL_SETTINGS:
-	case REQUEST_ALL_JOURNAL_ENTRIES:
 	case REQUEST_JOURNAL_ENTRIES_BY_TIME:
 	case REQUEST_SPECIFIC_SETTING:
 	case SAVE_AND_APPLY_NEW_SETTINGS:

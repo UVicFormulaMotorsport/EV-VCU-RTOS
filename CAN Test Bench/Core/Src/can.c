@@ -37,9 +37,9 @@
 #include "pdu.h"
 #include "uvfr_utils.h"
 #include "main.h"
-#include "task.h"
 #include "stdlib.h"
 #include "string.h"
+#include "../FreeRTOS/Source/include/task.h"
 
 //This line holds the entire program together
 #ifndef HAL_CAN_ERROR_INVALID_CALLBACK
@@ -68,7 +68,10 @@ CAN_Callback CAN_callback_table[table_size] = {0};
 
 SemaphoreHandle_t callback_table_mutex = NULL;
 
+uint8_t is_can_ok = 1;
+
 void handleCANbusError(const CAN_HandleTypeDef* hcan, const uint32_t err_to_ignore){
+	is_can_ok = 0;
 	if(hcan == NULL){
 		uvPanic("null can handle",0);
 		return;
@@ -251,10 +254,14 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* CAN2 interrupt Init */
-    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(CAN2_TX_IRQn, 6, 0);
+    HAL_NVIC_EnableIRQ(CAN2_TX_IRQn);
+    HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 6, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX0_IRQn);
-    HAL_NVIC_SetPriority(CAN2_RX1_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(CAN2_RX1_IRQn, 6, 0);
     HAL_NVIC_EnableIRQ(CAN2_RX1_IRQn);
+    HAL_NVIC_SetPriority(CAN2_SCE_IRQn, 6, 0);
+    HAL_NVIC_EnableIRQ(CAN2_SCE_IRQn);
   /* USER CODE BEGIN CAN2_MspInit 1 */
 
   /* USER CODE END CAN2_MspInit 1 */
@@ -280,8 +287,10 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_12|GPIO_PIN_13);
 
     /* CAN2 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(CAN2_TX_IRQn);
     HAL_NVIC_DisableIRQ(CAN2_RX0_IRQn);
     HAL_NVIC_DisableIRQ(CAN2_RX1_IRQn);
+    HAL_NVIC_DisableIRQ(CAN2_SCE_IRQn);
   /* USER CODE BEGIN CAN2_MspDeInit 1 */
 
   /* USER CODE END CAN2_MspDeInit 1 */
@@ -298,9 +307,11 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan2){
   if (HAL_CAN_GetRxMessage(hcan2, CAN_RX_FIFO0, &RxHeader, tmp.data) != HAL_OK)
   {
     Error_Handler();
+    is_can_ok = 0;
   }
 
   if(Rx_msg_queue == NULL){
+	  is_can_ok = 0;
 	  return; //RxDaemon not active yet
   }
 
@@ -373,6 +384,7 @@ static inline uv_status callFunctionFromCANid(uv_CAN_msg* msg) {
                 function_ptr(msg);
                 return UV_OK;
             }else{
+            	is_can_ok = 0;
                 return UV_ERROR;
             }
         }
@@ -491,6 +503,7 @@ uv_status __uvCANtxCritSection(uv_CAN_msg* tx_msg){
 	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
 		/* Transmission request Error */
 		taskEXIT_CRITICAL();
+		is_can_ok = 0;
 		uvPanic("Unable to Transmit CAN msg",0);
 		return UV_ERROR;
 	}else{
@@ -516,6 +529,7 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 
 
 	if(tx_msg == NULL){
+		is_can_ok = 0;
 		return UV_ERROR;
 	}
 
@@ -533,17 +547,21 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 			}else{
 				return UV_OK;
 			}
+			is_can_ok = 0;
 			return UV_ERROR;
 		}else{
 			if(xQueueSendToBackFromISR(Tx_msg_queue,tx_msg,0) != pdPASS){
-					uvPanic("couldnt enqueue CAN message",0);
+				is_can_ok = 0;
+				uvPanic("couldnt enqueue CAN message",0);
 			}else{
 				return UV_OK;
 			}
+			is_can_ok = 0;
 			return UV_ERROR;
 		}
 	}else{
 		if(__uvCANtxCritSection(tx_msg)!=UV_OK){
+			is_can_ok = 0;
 			return UV_ERROR;
 		}
 	}
@@ -599,15 +617,16 @@ void CANbusTxSvcDaemon(void* args){
 
 			while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan2) == 0){
 				if(xTaskGetTickCount() - attempt_time >= 2){
-
+					is_can_ok = 0;
 					uvPanic("Unable to Transmit CAN msg",0);
-					vTaskSuspend(NULL);
+					break;
 				}
 
 			}
 
 			if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
 								/* Transmission request Error */
+				is_can_ok = 0;
 				uvPanic("Unable to Transmit CAN msg",0);
 			}
 		}

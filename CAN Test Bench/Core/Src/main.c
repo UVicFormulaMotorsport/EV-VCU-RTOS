@@ -15,10 +15,12 @@
   *
   ******************************************************************************
   */
+
+#define __UV_FILENAME__ "main.c"
+
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
 #include "dma.h"
@@ -37,6 +39,7 @@
 #include "imd.h"
 #include "motor_controller.h"
 #include "pdu.h"
+#include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
 
 
 /* USER CODE END Includes */
@@ -70,6 +73,9 @@ volatile uint32_t adc_buf2[ADC2_BUF_LEN]; // ADC2 - lower priority readings
 uint16_t adc2_CoolantTemp;
 uint16_t adc2_CoolantFlow;
 
+TaskHandle_t init_task_handle;
+uv_init_struct init_settings;
+
 //int adc_conv_complete_flag = 0;
 
 
@@ -80,7 +86,6 @@ uint16_t adc2_CoolantFlow;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -115,7 +120,8 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  uvAssert((1+1) == 2);
+  SysTick_Config(SystemCoreClock / 1000);
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -123,7 +129,6 @@ int main(void)
   MX_DMA_Init();
   MX_CAN2_Init();
   MX_ADC1_Init();
-  MX_ADC2_Init();
   MX_TIM3_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
@@ -174,16 +179,17 @@ int main(void)
 #endif
   /* USER CODE END 2 */
 
-  /* Call init function for freertos objects (in cmsis_os2.c) */
-  MX_FREERTOS_Init();
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
-
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
+  BaseType_t x_task_return = xTaskCreate(uvInit,"init",512,&init_settings,osPriorityNormal,&init_task_handle);
+    if(x_task_return != pdPASS){
+  	 while(1){
+  		  //Program hangs itself, like bro, we couldnt even create the INITIALISATION task, thats fucked
+  	 }
+  }
+
+  vTaskStartScheduler();
 
     //Update_Batt_Temp(69); // temp debugging
 
@@ -228,11 +234,11 @@ void SystemClock_Config(void)
   * in the RCC_OscInitTypeDef structure.
   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 4;
-  RCC_OscInitStruct.PLL.PLLN = 168;
+  RCC_OscInitStruct.PLL.PLLM = 8;
+  RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
@@ -277,6 +283,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 		processADCBuffer();
 	//}
 	/*
+	 * TODO: WHY IS THIS AREA SO MESSED UP?
   // Could toggle an LED here
 	if(hadc->Instance == ADC1){ //TODO: Fix this so it is RTOS compatible
 		adc1_APPS1 = 0;
@@ -332,7 +339,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
     }
 }
 
-// Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095
+// Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095?? why does this exist still - Byron
 void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc){
 	if(hadc->Instance == ADC1){
 		// triggered for voltages below 0.5V (below 400) or above 4.5V (above 3674)
@@ -369,7 +376,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim == &htim3){
 
   		// start a single round of ADC2 conversions
-  		HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc_buf2, ADC2_BUF_LEN);
+  		//HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc_buf2, ADC2_BUF_LEN);
 
   		// restart timer
   		HAL_TIM_Base_Start_IT(&htim3);

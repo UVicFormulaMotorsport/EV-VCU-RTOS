@@ -57,7 +57,6 @@
 /* External variables --------------------------------------------------------*/
 extern DMA_HandleTypeDef hdma_adc1;
 extern ADC_HandleTypeDef hadc1;
-extern ADC_HandleTypeDef hadc2;
 extern CAN_HandleTypeDef hcan2;
 extern TIM_HandleTypeDef htim1;
 
@@ -104,7 +103,7 @@ void HardFault_Handler(void)
 void MemManage_Handler(void)
 {
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-	return;
+
   /* USER CODE END MemoryManagement_IRQn 0 */
   while (1)
   {
@@ -144,9 +143,22 @@ void UsageFault_Handler(void)
 }
 
 /**
+  * @brief This function handles System service call via SWI instruction.
+  */
+__weak void SVC_Handler(void)
+{
+  /* USER CODE BEGIN SVCall_IRQn 0 */
+
+  /* USER CODE END SVCall_IRQn 0 */
+  /* USER CODE BEGIN SVCall_IRQn 1 */
+
+  /* USER CODE END SVCall_IRQn 1 */
+}
+
+/**
   * @brief This function handles Debug monitor.
   */
-void DebugMon_Handler(void)
+__weak void DebugMon_Handler(void)
 {
   /* USER CODE BEGIN DebugMonitor_IRQn 0 */
 
@@ -154,6 +166,33 @@ void DebugMon_Handler(void)
   /* USER CODE BEGIN DebugMonitor_IRQn 1 */
 
   /* USER CODE END DebugMonitor_IRQn 1 */
+}
+
+/**
+  * @brief This function handles Pendable request for system service.
+  */
+__weak void PendSV_Handler(void)
+{
+  /* USER CODE BEGIN PendSV_IRQn 0 */
+
+  /* USER CODE END PendSV_IRQn 0 */
+  /* USER CODE BEGIN PendSV_IRQn 1 */
+
+  /* USER CODE END PendSV_IRQn 1 */
+}
+
+/**
+  * @brief This function handles System tick timer.
+  */
+__weak void SysTick_Handler(void)
+{
+  /* USER CODE BEGIN SysTick_IRQn 0 */
+
+  /* USER CODE END SysTick_IRQn 0 */
+
+  /* USER CODE BEGIN SysTick_IRQn 1 */
+
+  /* USER CODE END SysTick_IRQn 1 */
 }
 
 /******************************************************************************/
@@ -164,20 +203,6 @@ void DebugMon_Handler(void)
 /******************************************************************************/
 
 /**
-  * @brief This function handles EXTI line0 interrupt.
-  */
-void EXTI0_IRQHandler(void)
-{
-  /* USER CODE BEGIN EXTI0_IRQn 0 */
-
-  /* USER CODE END EXTI0_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(Start_Button_Input_Pin);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
-
-  /* USER CODE END EXTI0_IRQn 1 */
-}
-
-/**
   * @brief This function handles ADC1, ADC2 and ADC3 global interrupts.
   */
 void ADC_IRQHandler(void)
@@ -186,7 +211,6 @@ void ADC_IRQHandler(void)
 
   /* USER CODE END ADC_IRQn 0 */
   HAL_ADC_IRQHandler(&hadc1);
-  HAL_ADC_IRQHandler(&hadc2);
   /* USER CODE BEGIN ADC_IRQn 1 */
 
   /* USER CODE END ADC_IRQn 1 */
@@ -221,6 +245,20 @@ void DMA2_Stream0_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles CAN2 TX interrupts.
+  */
+void CAN2_TX_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN2_TX_IRQn 0 */
+
+  /* USER CODE END CAN2_TX_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan2);
+  /* USER CODE BEGIN CAN2_TX_IRQn 1 */
+
+  /* USER CODE END CAN2_TX_IRQn 1 */
+}
+
+/**
   * @brief This function handles CAN2 RX0 interrupts.
   */
 void CAN2_RX0_IRQHandler(void)
@@ -246,6 +284,20 @@ void CAN2_RX1_IRQHandler(void)
   /* USER CODE BEGIN CAN2_RX1_IRQn 1 */
 
   /* USER CODE END CAN2_RX1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles CAN2 SCE interrupt.
+  */
+void CAN2_SCE_IRQHandler(void)
+{
+  /* USER CODE BEGIN CAN2_SCE_IRQn 0 */
+
+  /* USER CODE END CAN2_SCE_IRQn 0 */
+  HAL_CAN_IRQHandler(&hcan2);
+  /* USER CODE BEGIN CAN2_SCE_IRQn 1 */
+
+  /* USER CODE END CAN2_SCE_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
