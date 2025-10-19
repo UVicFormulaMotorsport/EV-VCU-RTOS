@@ -9,6 +9,7 @@
 #define UV_UTILS_SRC_IMPLIMENTATION
 #include "uvfr_utils.h"
 
+
 void rtdTask(void* args);
 
 extern TaskHandle_t init_task_handle;
@@ -111,7 +112,7 @@ void uvInit(void * arguments){
 	canRxtask->task_name = CAN_RX_DAEMON_NAME;
 	canRxtask->stack_size = 256;
 	//super basic for now, just need something working
-	uint32_t var = 0; //retarded dummy var
+	uint32_t var = 0; //dummy var
 	uvStartTask(&var,canTxtask);
 	uvStartTask(&var,canRxtask);
 
@@ -154,7 +155,7 @@ void uvInit(void * arguments){
 	BMS_init_args->init_info_queue = init_validation_queue;
 	BMS_init_args->specific_args = &(current_vehicle_settings->bms_settings);
 	//BMS_init_args->meta_task_handle = osThreadCreate(&BMS_init_thread,BMS_init_args);
-	retval = xTaskCreate(BMS_Init,"BMS_init",128,BMS_init_args,osPriorityAboveNormal,&(BMS_init_args->meta_task_handle));
+	retval = xTaskCreate(BMS_Init,"BMS_init",256,BMS_init_args,osPriorityAboveNormal,&(BMS_init_args->meta_task_handle));
 	if(retval != pdPASS){
 		//FUCK
 		error_msg = "bruh";
@@ -294,7 +295,8 @@ void uvSysResetDaemon(void* args){
 enum uv_status_t uvUtilsReset(uint8_t reset_type){
 	//xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
 	vTaskSuspendAll();
-	HAL_Delay(250);
+
+	HAL_Delay(250);//Cannot use vTaskDelay cause the scheduler is no longer active
 
 	NVIC_SystemReset();
 	return UV_OK;

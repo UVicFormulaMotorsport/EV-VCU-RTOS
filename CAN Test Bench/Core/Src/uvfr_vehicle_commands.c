@@ -1,6 +1,8 @@
 #include "uvfr_utils.h"
 
+typedef struct output_channel_settings output_channel_settings;
 
+output_channel_settings default_output_channels;
 /** @brief Function to put vehicle into safe state.
  *
  * Should perform the following functions in order:
@@ -14,6 +16,6 @@ void uvSecureVehicle(){
 
 
 	//open SDC >:)
-
+	//uvOpenSDC();
 
 }

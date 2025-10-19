@@ -9,6 +9,11 @@
 #include "uvfr_utils.h"
 #include "gpio.h"
 
+uint16_t adc_coolant_temp1 = 0;
+uint16_t adc_coolant_temp2 = 0;
+extern int16_t mc_motor_temp;
+extern int16_t mc_igbt_temp;
+
 uv_status initTempMonitor(void * arguments){
 	uv_task_info* tm_task = uvCreateTask();
 

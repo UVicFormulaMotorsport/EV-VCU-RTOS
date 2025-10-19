@@ -24,22 +24,18 @@
 #include "uvfr_global_config.h"
 
 #include "main.h"
-#include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
 #include "dma.h"
 #include "tim.h"
 #include "gpio.h"
-#include "spi.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "message_buffer.h"
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
 #include "uvfr_diagnostics.h"
 #include "rb_tree.h"
+#include "uvfr_vehicle_commands.h"
 
 #include "bms.h"
 #include "motor_controller.h"
@@ -48,9 +44,9 @@
 #include "pdu.h"
 #include "daq.h"
 
-//Only used for debugging
-#include "oled.h"
 
+
+#include "uvfr_conifer.h"
 #include "uvfr_vehicle_logger.h"
 //mainstay meat and potatoes tasks
 #include "driving_loop.h"
@@ -62,6 +58,10 @@
 //#include "stdlib.h"
 #include "stdint.h"
 #include <stdlib.h>
+#include "cmsis_os.h"
+#include "FreeRTOS.h"
+#include "message_buffer.h"
+#include "task.h"
 
 
 /** @addtogroup utility_macros
@@ -74,7 +74,7 @@
 #define _BV_32(x) ((uint32_t)(0x01U >> x))
 
 #define endianSwap(x) endianSwap16(x)
-#define endianSwap8(x) x //if someone calls this, they are mentally retarded, but here ya go I guess
+#define endianSwap8(x) x //if someone calls this, why? its 1 byte... but here ya go I guess
 #define endianSwap16(x) (((x & 0x00FF)<<8) | ((x & 0xFF00)>>8))
 #define endianSwap32(x) (((x & 0x000000FF)<<16)|((x & 0x0000FF00)<<8)|((x & 0x00FF0000)>>8)|((x & 0xFF000000)>>16))
 
@@ -129,6 +129,9 @@ setBits(num,mask,data);
 #define false 0
 #define true !false
 
+/** Converts a macro argument to a string literal */
+#define TEXTIFY(A) #A
+
 /**@} */
 
 //Typedefs used throughout vehicle
@@ -139,6 +142,8 @@ typedef enum uv_task_cmd_e uv_task_cmd;
 //typedef enum
 typedef uint8_t uv_ext_device_id;
 typedef uint32_t uv_timespan_ms;
+
+//typedef enum CONIFER_OUTPUT conifer_output_channel;
 
 
 
@@ -272,7 +277,7 @@ typedef union access_control_info{
 typedef struct uv_CAN_msg{
 	uint8_t flags; /**< Bitfield that contains some basic information about the message:
 	-Bit 0: Is the message an extended ID message, or a standard ID message? 1 For extended.
-	-Bits 1:2 Which CANbus is being used to send the message? 01 -> CAN1 10 -> CAN2 11-> CAN3 (doesnt exist yet). Will default to CAN1 if all zeros*/
+	-Bits 1:2 Which CANbus is being used to send the message? 00-> whatever the default is 01 -> CAN1 10 -> CAN2 11-> CAN3 (doesnt exist yet). Will default to CAN1 if all zeros*/
 
 	uint8_t dlc; /**<Data Length Code, representing how many bytes of data are present*/
 	uint32_t msg_id; /**<The ID of a message*/

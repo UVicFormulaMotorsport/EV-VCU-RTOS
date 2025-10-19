@@ -9,9 +9,12 @@
 #include "uvfr_utils.h"
 #include "main.h"
 #include "stdlib.h"
+#include "uvfr_vehicle_logger.h"
 
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
+
+typedef struct output_channel_settings output_channel_settings;
 
 
 extern PRIVILEGED_DATA uint8_t _s_uvdata; //Start and end of user flash symbols
@@ -28,7 +31,7 @@ extern struct driving_loop_args default_dl_settings;
 extern struct daq_loop_args default_daq_settings;
 extern struct uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
-uv19_pdu_settings default_pdu_settings;
+extern struct output_channel_settings default_output_channels;
 extern daq_datapoint default_datapoints[];
 
 /** These are arguments passed to the "Transmit All Settings Over CANbus"
@@ -204,11 +207,13 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 	case GENERIC_ACK:
 		//Could come at any time, however here we are
 		break;
+	case REQUEST_ALL_JOURNAL_ENTRIES:
+		flushLogsToCAN();
+		break;
 	case SET_SPECIFIC_PARAM ... END_OF_SPECIFIC_PARAMS:
 
 	case CLEAR_FAULTS:
 	case REQUEST_ALL_SETTINGS:
-	case REQUEST_ALL_JOURNAL_ENTRIES:
 	case REQUEST_JOURNAL_ENTRIES_BY_TIME:
 	case REQUEST_SPECIFIC_SETTING:
 	case SAVE_AND_APPLY_NEW_SETTINGS:
@@ -259,7 +264,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->driving_loop_settings = &default_dl_settings;
 	//current_vehicle_settings->driving_loop_settings = NULL;
 	current_vehicle_settings->imd_settings = NULL;
-	current_vehicle_settings->bms_settings = NULL;
+	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
 	current_vehicle_settings->daq_param_list = default_datapoints;
 	current_vehicle_settings->pdu_settings = NULL;
@@ -382,7 +387,7 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 		}else if(uvLoadSettingsFromFlash()== UV_OK){
 			//Could not actually load from flash. BAD!
 			//In this case we would like to revert to factory defaults!
-			use_factory_default = false;
+			use_factory_default = true;
 		}
 
 		//In this case, we need to check to see if we need to send out a msg for the VCU
@@ -620,7 +625,7 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	*((uint8_t*)(tmp + 21)) = sizeof(bms_settings_t);
 	*((uint8_t*)(tmp + 22)) = sizeof(daq_loop_args);
 	*((uint8_t*)(tmp + 23)) = sizeof(daq_datapoint);
-	*((uint8_t*)(tmp + 24)) = sizeof(uv19_pdu_settings);
+	*((uint8_t*)(tmp + 24)) = sizeof(output_channel_settings);
 
 
 
@@ -791,11 +796,14 @@ uv_status uvForceDefaultReversionUponDeviceReset(){
  *
  */
 void* uvCreateTmpSettingsCopy(){
+
 	uint8_t* sblock = uvMalloc(SETTING_BRANCH_SIZE);
+
 	if(sblock == NULL){
 		return NULL;
 
 	}
+
 
 	uint8_t* tmp = (uint8_t*)(START_OF_USER_FLASH);
 
@@ -814,6 +822,7 @@ void* uvCreateTmpSettingsCopy(){
 
 			}
 		}
+
 
 		*(sblock + i) = *(tmp + i);
 
@@ -901,7 +910,7 @@ uv_status uvValidateFlashSettings(){
 		return UV_ERROR;
 	}
 
-	if(*((uint8_t*)(tmp + 24)) != sizeof(uv19_pdu_settings)){
+	if(*((uint8_t*)(tmp + 24)) != sizeof(output_channel_settings)){
 		return UV_ERROR;
 	}
 
@@ -916,6 +925,7 @@ uv_status uvValidateFlashSettings(){
 void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 	uv_task_info* params = (uv_task_info*) args;
 
+	//Cache these vars for future usage
 	uint8_t mgroup = 0;
 	uint8_t m_offset = 0;
 	uint8_t d_type = 0;
@@ -927,7 +937,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 	uv_CAN_msg tmp_msg; //messages get written into here when
 
-
+	//Allocates memory for the temporary settings that will be edited
 	void* new_tmp_settings = uvCreateTmpSettingsCopy();
 
 	if(new_tmp_settings == NULL){
@@ -1174,7 +1184,7 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	settingCopy((uint8_t*)(&default_imd_settings),(new_sblock+256*IMD_MGROUP+IMD_OFFSET),sizeof(uv_imd_settings));
 
 	//PDU
-	settingCopy((uint8_t*)(&default_pdu_settings),new_sblock + 256*PDU_MGROUP + PDU_OFFSET,sizeof(uv19_pdu_settings));
+	settingCopy((uint8_t*)(&default_output_channels),new_sblock + 256*PDU_MGROUP + PDU_OFFSET,sizeof(output_channel_settings));
 
 
 	//DAQ Head + Meta settings
@@ -1278,7 +1288,7 @@ void sendAllSettingsWorker(void* args){
 		//Handle this error
 	}else if(uvSendSettingGroup(origin,DAQ_HEAD_MGROUP,DAQ_HEAD_OFFSET,sizeof(daq_loop_args))!=UV_OK){
 		//Handle this error
-	}else if(uvSendSettingGroup(origin,PDU_MGROUP,PDU_OFFSET,sizeof(uv19_pdu_settings)) != UV_OK){
+	}else if(uvSendSettingGroup(origin,PDU_MGROUP,PDU_OFFSET,sizeof(output_channel_settings)) != UV_OK){
 		//Handle this error
 	}
 

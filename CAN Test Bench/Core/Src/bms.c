@@ -115,13 +115,15 @@ void BMS_Init(void* args){
 		if(init_deadline < xTaskGetTickCount()){
 			//BMS not connected lol
 			//uvPanic("BMS Not Detected", 0);
+
+			//TODO re-enable this if for whatever reason we have this thing again
+
 			//response.status = UV_ERROR;
 			break;
 		}
 		if(is_bms_connected == 1){
 			break;
 		}
-		vTaskDelay(20);
 	}
 
 

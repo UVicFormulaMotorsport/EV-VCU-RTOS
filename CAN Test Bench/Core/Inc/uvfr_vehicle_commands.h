@@ -23,10 +23,26 @@
 #error "Invalid PDU configuration"
 #endif
 
+/*
+ *
+ */
+typedef struct output_channel{
+	uint16_t I_max;
+	uint8_t flags;
+	uint8_t chID;
+}output_channel;
+
+/*
+ *
+ */
+typedef struct output_channel_settings{
+	uint16_t var;
+}output_channel_settings;
+
 #ifndef uvOpenSDC
 #if UV19_PDU
 	void _uvOpenSDC_canBased();
-	#define uvOpenSDC(x) _uvOpenSDC_canBased(x)
+	#define uvOpenSDC() _uvOpenSDC_canBased()
 #elif ECUMASTER_PMU
 	#define uvOpenSDC(x) _uvOpenSDC_canBased(x)
 #else

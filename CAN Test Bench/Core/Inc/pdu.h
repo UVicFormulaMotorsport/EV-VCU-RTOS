@@ -6,6 +6,8 @@
 #include "main.h"
 #include "uvfr_utils.h"
 
+typedef struct abstract_conifer_channel abstract_conifer_channel;
+
 // Can ID: 0x710
 
 #ifndef __PDU_H__
@@ -14,50 +16,39 @@
 typedef struct uv19_pdu_settings{
 	uint32_t PDU_rx_addr;
 	uint32_t PDU_tx_addr;
-	uint8_t sdc_channel;
-	uint8_t brake_light_channel;
-	uint8_t buzzer_channel;
-	uint8_t coolant_pump_channel;
-	uint8_t fan1_channel;
-	uint8_t fan2_channel;
-	uint8_t mc_rfe_channel;
+	uint32_t expected_period;
 }uv19_pdu_settings;
 
-enum pdu_messages_5A{
-	enable_speaker_msg = 0x1C,
-	disable_speaker_msg = 0x0C,
-	enable_brake_light_msg = 0x1B,
-	disable_brake_light_msg = 0x0B,
-	enable_motor_controller_msg = 0x1E,
-	disable_motor_controller_msg = 0x0E,
-	enable_shutdown_circuit_msg = 0x1F,
-	disable_shutdown_circuit_msg = 0x0F
-};
-
-enum pdu_messages_20A{
-	enable_left_cooling_fan_msg = 0x33,
-	disable_left_cooling_fan_msg = 0x23,
-	enable_right_cooling_fan_msg = 0x34,
-	disable_right_cooling_fan_msg = 0x24,
-	enable_coolant_pump_msg = 0x31,
-	disable_coolant_pump_msg = 0x21
-};
+typedef enum u19_PDU_ch{
+	U19_PDU_5A_1 = 0x00,
+	U19_PDU_5A_2 = 0x01,
+	U19_PDU_5A_3 = 0x02,
+	U19_PDU_5A_4 = 0x03,
+	U19_PDU_5A_5 = 0x04,
+	U19_PDU_5A_6 = 0x05,
+	U19_PDU_5A_7 = 0x06,
+	U19_PDU_5A_8 = 0x07,
+	U19_PDU_5A_9 = 0x08,
+	U19_PDU_5A_10 = 0x09,
+	U19_PDU_5A_11 = 0x0A,
+	U19_PDU_5A_12 = 0x0B,
+	U19_PDU_5A_13 = 0x0C,
+	U19_PDU_5A_14 = 0x0D,
+	U19_PDU_5A_15 = 0x0E,
+	U19_PDU_5A_16 = 0x0F,
+	U19_PDU_20A_1 = 0x20,
+	U19_PDU_20A_2 = 0x21,
+	U19_PDU_20A_3 = 0x22,
+	U19_PDU_20A_4 = 0x23,
+	U19_PDU_20A_5 = 0x24,
+	U19_PDU_20A_6 = 0x25,
+	U19_PDU_20A_7 = 0x26,
+	U19_PDU_20A_8 = 0x27
+}u19_PDU_ch;
 
 
 // PDU functions (5 Amp)
-void PDU_speaker_chirp();
-void PDU_enable_brake_light();
-void PDU_disable_brake_light();
-void PDU_enable_motor_controller();
-void PDU_disable_motor_controller();
-void PDU_enable_shutdown_circuit();
-void PDU_disable_shutdown_circuit();
-
-// PDU functions (20 Amp)
-void PDU_enable_cooling_fans();
-void PDU_disable_cooling_fans();
-void PDU_enable_coolant_pump();
-void PDU_disable_coolant_pump();
+uv_status u19updatePduChannel(abstract_conifer_channel* ch_ptr, uint32_t* ecode);
 
 void initPDU(void* args);
 
