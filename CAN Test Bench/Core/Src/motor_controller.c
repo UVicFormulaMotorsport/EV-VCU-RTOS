@@ -317,8 +317,8 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
  *
  * @param msg Pointer to the received CAN message from the motor controller.
  */
-void ProcessMotorControllerResponse(uv_CAN_msg* msg)
-{
+void ProcessMotorControllerResponse(uv_CAN_msg* msg){
+
 	//every incoming mc message gets stored for use later
 	memcpy(&last_mc_response, msg, sizeof(uv_CAN_msg));
 

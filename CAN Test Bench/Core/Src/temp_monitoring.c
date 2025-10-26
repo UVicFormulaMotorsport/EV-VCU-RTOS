@@ -83,9 +83,9 @@ void tempMonitorTask(void* args){
 	test_msg.msg_id = 0x85;
 	test_msg.flags = 0x00;
 
-	insertCANMessageHandler(0x86, testfunc);
-	insertCANMessageHandler(0x87, testfunc);
-	insertCANMessageHandler(0x64, testfunc2);
+	insertCANMessageHandler(0x86, testfunc, CAN_BUS_1);
+	insertCANMessageHandler(0x87, testfunc, CAN_BUS_1);
+	insertCANMessageHandler(0x64, testfunc2, CAN_BUS_1);
 
 	/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
 	 * execution actually takes

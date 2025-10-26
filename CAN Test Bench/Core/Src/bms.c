@@ -71,6 +71,7 @@ void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltage
 	//log voltage data to where, maybe setting global variable
 }
 
+
 void BMS_msg2(uv_CAN_msg* msg){
 	// msg2 can handle DCL (Max current output), tempurature, checksum
 	packDCL = (msg->data[0]<<8 | msg->data[3]);
@@ -108,8 +109,8 @@ void BMS_Init(void* args){
 
 
 
-	insertCANMessageHandler(0x6B0, BMS_msg1);
-	insertCANMessageHandler(0x6B1, BMS_msg2);
+	insertCANMessageHandler(0x6B0, BMS_msg1, CAN_BUS_1);
+	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_1);
 
 	for(;;){
 		if(init_deadline < xTaskGetTickCount()){

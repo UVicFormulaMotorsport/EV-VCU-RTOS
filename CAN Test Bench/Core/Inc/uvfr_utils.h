@@ -266,7 +266,12 @@ typedef union access_control_info{
 }access_control_info;
 
 
-#define UV_CAN_EXTENDED_ID 0x01
+#define UV_CAN_EXTENDED_ID 0b00000011
+
+#define CAN_BUS_1 0b00000001
+#define CAN_BUS_2 0b00000010
+
+
 #define UV_CAN_CHANNEL_MASK 0b00000110
 #define UV_CAN_DYNAMIC_MEM  0b00001000
 
