@@ -595,7 +595,7 @@ void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num) {
 
     } else {//insert into CAN 2
 
-    	if(callback_table_mutex != NULL){//whats up w this !!!!
+    	if(callback_table_mutex != NULL){
     	    if(xSemaphoreTake(callback_table_2_mutex,10) == pdTRUE){
 
     	    }else{
@@ -944,3 +944,4 @@ void CANbusRxSvcDaemon(void* args){
 }
 
 /* USER CODE END 1 */
+
