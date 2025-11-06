@@ -19,10 +19,20 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
+#include "gpio.h"
+#include <math.h>
 
 /* USER CODE BEGIN 0 */
+#define NUM_WHEELS 4
+#define WHEEL_CIRCUMFERENCE_M 2.0f
 
 /* USER CODE END 0 */
+
+volatile uint32_t last_timestamp[NUM_WHEELS] = {0};
+volatile uint32_t period[NUM_WHEELS] = {0};
+volatile float frequency[NUM_WHEELS] = {0.0f};
+volatile float wheel_speed[NUM_WHEELS] = {0.0f};
+volatile float wheel_rpm[NUM_WHEELS] = {0.0f};
 
 TIM_HandleTypeDef htim3;
 
@@ -63,6 +73,7 @@ void MX_TIM3_Init(void)
   }
   /* USER CODE BEGIN TIM3_Init 2 */
 
+  HAL_TIM_Base_Start(&htim3); //starts free running timer
   /* USER CODE END TIM3_Init 2 */
 
 }
@@ -100,5 +111,55 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
+// -------- INTERRUPT -----------
 
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  switch (GPIO_Pin)
+  {
+    case GPIO_PIN_12: handle_wheel_interrupt(0); break; // Wheel 1
+    case GPIO_PIN_13: handle_wheel_interrupt(1); break; // Wheel 2
+    case GPIO_PIN_14: handle_wheel_interrupt(2); break; // Wheel 3
+    case GPIO_PIN_15: handle_wheel_interrupt(3); break; // Wheel 4
+    default: break;
+  }
+}
+
+static void handle_wheel_interrupt(uint32_t wheel_index)
+{
+  uint32_t now = __HAL_TIM_GET_COUNTER(&htim3);
+  uint32_t last = last_timestamp[wheel_index];
+
+  if (now >= last) {
+      period[wheel_index] = now - last;
+  } else {
+      period[wheel_index] = (0xFFFFFFFF - last) + now; // Handle timer overflow
+  }
+  last_timestamp[wheel_index] = now;
+}
 /* USER CODE END 1 */
+
+
+
+
+
+
+/*
+IN MAIN.C FILE WE JUST HAVE TO CALL THIS
+
+int main(void)
+{
+    HAL_Init();
+    SystemClock_Config();
+    MX_GPIO_Init();
+    MX_TIM3_Init();  // initializes and starts timer
+
+    while (1)
+    {
+        TIM_Process_WheelSpeeds();  // update frequency & speed
+        HAL_Delay(100);
+    }
+}
+
+
+*/
