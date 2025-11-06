@@ -22,9 +22,12 @@
 #include "gpio.h"
 #include <math.h>
 
+
 /* USER CODE BEGIN 0 */
 #define NUM_WHEELS 4
 #define WHEEL_CIRCUMFERENCE_M 2.0f
+#define TIMER_TICK_US 50.0f
+#define PULSES_PER_REV 20
 
 /* USER CODE END 0 */
 
@@ -140,7 +143,30 @@ static void handle_wheel_interrupt(uint32_t wheel_index)
 /* USER CODE END 1 */
 
 
+void WheelSpeed_UpdateAll(void)
+{
+    // TODO: Loop through each wheel
+    // TODO: Convert period → frequency
+    // TODO: Convert frequency → speed
+  for (uint8_t i = 0; i < NUM_WHEELS; i++) {
 
+
+    if (period[i] > 0) {
+      // Convert period (µs) → frequency (Hz)
+      float period_s = (period[i] * TIMER_TICK_US) / 1e6f; // Convert to seconds
+      frequency[i] = 1.0f / period_s;
+
+      // Convert frequency → speed
+      float rev_per_sec = frequency[i] / PULSES_PER_REV;
+      wheel_speed[i] = rev_per_sec * WHEEL_CIRCUMFERENCE_M;
+      wheel_rpm[i] = rev_per_sec * 60.0f;
+    } else {
+      frequency[i] = 0.0f;
+      wheel_speed[i] = 0.0f;
+      wheel_rpm[i] = 0.0f;
+    }
+  }
+}
 
 
 
