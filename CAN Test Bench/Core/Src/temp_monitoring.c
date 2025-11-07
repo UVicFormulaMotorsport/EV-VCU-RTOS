@@ -72,6 +72,29 @@ void testfunc2(uv_CAN_msg* msg){
  * Atm, this is mostly serving as an example of a task
  *
  */
+
+void CAN_1_TEST_msg(uv_CAN_msg* msg){
+
+
+	//
+
+
+}
+
+
+void CAN_2_TEST_msg2(uv_CAN_msg* msg){
+
+
+//
+
+
+}
+
+
+
+
+
+
 void tempMonitorTask(void* args){
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
@@ -91,6 +114,37 @@ void tempMonitorTask(void* args){
 	 * execution actually takes
 	 *
 	 @code*/
+
+
+
+	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_1);
+	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_2);
+
+
+	uv_CAN_msg temp1;
+	uv_CAN_msg temp2;
+
+	temp1.data[0] = 1;
+	temp1.data[1] = 2;
+	temp1.data[2] = 3;
+	temp1.dlc = 3;
+	temp1.msg_id = 0x85;
+	temp1.flags = 0x00;
+
+	temp2.data[0] = 9;
+	temp2.data[1] = 10;
+	temp2.data[2] = 11;
+	temp2.dlc = 3;
+	temp2.msg_id = 0xF5;
+	temp2.flags = 0x00;
+
+
+	uvSendCanMsg(temp1);
+	uvSendCanMsg(temp2);
+
+
+
+
 	TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
 	TickType_t last_time = 0;
 	/**@endcode */

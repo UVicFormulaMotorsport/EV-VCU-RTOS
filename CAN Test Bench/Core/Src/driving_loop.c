@@ -30,7 +30,6 @@ driving_loop_args default_dl_settings;//TODO DECIDE WHAT YOU WANT DEFAULT SETTIN
 
 driving_loop_args* driving_args = NULL;
 
-
 bool is_accelerating = false;
 float T_PREV = 0;
 float T_REQ = 0;

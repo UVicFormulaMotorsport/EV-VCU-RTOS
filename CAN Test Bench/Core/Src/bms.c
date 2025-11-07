@@ -108,7 +108,6 @@ void BMS_Init(void* args){
 	TickType_t init_deadline = bms_init_time + bms_settings->BMS_CAN_timeout;
 
 
-
 	insertCANMessageHandler(0x6B0, BMS_msg1, CAN_BUS_1);
 	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_1);
 

@@ -62,8 +62,8 @@ void CANbusRxSvcDaemon(void* args);
 
 
 //int callFunctionFromCANid(uint32_t CAN_id, uint8_t* data, uint8_t length);
-void insertCANMessageHandler(uint32_t id, void* handlerfunc);
-void nuke_hash_table();
+void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num);
+void nuke_hash_table(int can_num);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
