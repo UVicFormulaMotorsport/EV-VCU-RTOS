@@ -763,6 +763,8 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 
 
 
+
+
 	//BaseType_t higher_priority_task_woken = pdFALSE;
 	if(Tx_msg_queue != NULL){
 		if(!is_isr){
@@ -900,7 +902,7 @@ void CANbusTxSvcDaemon(void* args){
 /** @brief Background task that executes the CAN message callback functions
  *
  *
- * dequeue can message,
+ * dequeue can message to call function
  *
  */
 void CANbusRxSvcDaemon(void* args){
