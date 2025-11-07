@@ -25,7 +25,7 @@
 
 /* USER CODE BEGIN 0 */
 #define NUM_WHEELS 4
-#define WHEEL_CIRCUMFERENCE_M 2.0f
+#define WHEEL_CIRCUMFERENCE_M 2.0f // just placeholder values here
 #define TIMER_TICK_US 50.0f
 #define PULSES_PER_REV 20
 
@@ -114,6 +114,8 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+
 // -------- INTERRUPT -----------
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
