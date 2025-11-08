@@ -400,7 +400,7 @@ uv_status __uvFreeCritSection(void* ptr){
 void* __uvMallocOS(size_t memrequest){
 	if(memrequest == 0){
 		return NULL;
-	}else if(memrequest > UV_MALLOC_LIMIT){
+	}else if(memrequest > 99999){
 		return NULL;
 	}
 

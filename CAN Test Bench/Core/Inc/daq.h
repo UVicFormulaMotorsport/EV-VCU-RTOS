@@ -82,7 +82,7 @@ typedef enum{
 
 typedef struct daq_datapoint{ //8 bytes, convenient, no?
 	uint32_t can_id; /**< */
-	uint16_t param;	/**< Which loggable param are we logging boys? */
+	uint16_t param;	/**< Which loggable param are we logging? */
 	uint8_t period; /**< Time between transmissions in ms*/
 	uint8_t type; /**< Datatype of the data */
 }daq_datapoint; /**< */

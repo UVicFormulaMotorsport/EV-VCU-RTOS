@@ -12,7 +12,7 @@
 //typedef enum CONIFER_OUTPUT conifer_output_channel;
 struct conifer_settings;
 //This is the default configuration for conifer
-struct conifer_settings default_conifer_config = {
+struct conifer_settings default_conifer_settings = {
 
 };
 static abstract_conifer_channel ch_table[FINAL_CONIFER_OUTPUT];

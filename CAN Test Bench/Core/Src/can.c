@@ -47,8 +47,10 @@
 static QueueHandle_t Tx_msg_queue = NULL;
 static QueueHandle_t Rx_msg_queue = NULL;
 
-#define table_size_1 128 //CHAANGE THIS TO HOW MANY CAN_MESSAGES YOU NEED TO HANDLE!!!!!!
-#define table_size_2 128
+
+#define table_size 128
+#define table_size_1 table_size //CHAANGE THIS TO HOW MANY CAN_MESSAGES YOU NEED TO HANDLE!!!!!!
+#define table_size_2 table_size
 
 typedef struct CAN_Callback {
     uint32_t CAN_id;
@@ -143,6 +145,7 @@ void handleCANbusError(const CAN_HandleTypeDef* hcan, const uint32_t err_to_igno
 
 }
 
+extern CAN_TxHeaderTypeDef   TxHeader2;
 
 /* USER CODE END 0 */
 
@@ -177,12 +180,57 @@ void MX_CAN1_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN CAN1_Init 2 */
+  // Define the CAN Filter
+  CAN_FilterTypeDef FilterConfig;
 
+
+  TxHeader.DLC= 1; // Data Length Code
+  TxHeader.StdId= 0x244; // This is the CAN ID
+
+  TxHeader.IDE=CAN_ID_STD; //set identifier to standard
+  TxHeader.RTR=CAN_RTR_DATA;
+  TxHeader.ExtId = 0x01;
+  TxHeader.TransmitGlobalTime = DISABLE;
+
+      //filter one (stack light blink)
+  FilterConfig.FilterFIFOAssignment=CAN_RX_FIFO0; //set fifo assignment
+  FilterConfig.FilterIdHigh = 0x0000; // filter of zero allows all messages
+  FilterConfig.FilterIdLow = 0x0000;
+  FilterConfig.FilterMaskIdHigh = 0x0000;
+  FilterConfig.FilterMaskIdLow = 0x0000;
+  FilterConfig.FilterScale=CAN_FILTERSCALE_32BIT; //set filter scale
+  FilterConfig.FilterActivation=ENABLE;
+  FilterConfig.FilterBank = 0;
+  FilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+  FilterConfig.SlaveStartFilterBank = 14;
+  FilterConfig.FilterBank = 0;
+
+       // try to configure the filter
+  if (HAL_CAN_ConfigFilter(&hcan1, &FilterConfig) != HAL_OK)
+  {
+         /* Filter configuration Error */
+      Error_Handler();
+  }
+
+        // Try to set up interrupts for receiving mailbox
+  if (HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING) != HAL_OK)
+  {
+  	  Error_Handler();
+   }
+
+    	  // Try to start CAN communication - this is not sending a message, this just initializes it
+        // If HAL_CAN_Start returns an error, then we want to go into the error handler
+   if (HAL_CAN_Start(&hcan1) != HAL_OK)
+   {
+         /* Start Error */
+         Error_Handler();
+   }
   /* USER CODE END CAN1_Init 2 */
 
 }
 /* CAN2 init function */
-void MX_CAN2_Init(void){
+void MX_CAN2_Init(void)
+{
 
   /* USER CODE BEGIN CAN2_Init 0 */
 
@@ -256,6 +304,7 @@ void MX_CAN2_Init(void){
     	}
 
   /* USER CODE END CAN2_Init 2 */
+
 }
 
 static uint32_t HAL_RCC_CAN1_CLK_ENABLED=0;
@@ -317,7 +366,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
     PB12     ------> CAN2_RX
     PB13     ------> CAN2_TX
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13;
+    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_12|GPIO_PIN_13;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
@@ -407,7 +456,19 @@ void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
 	uv_CAN_msg tmp;
 	BaseType_t was_higher_priority_task_woken;
-  if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &RxHeader, tmp.data) != HAL_OK){
+	CAN_RxHeaderTypeDef* pHeader;
+
+	uint8_t bus;
+
+	if(hcan == &hcan1){
+		bus = CAN_BUS_1;
+		pHeader = &RxHeader;
+		tmp.flags = bus;
+	}else{
+		bus = CAN_BUS_2;
+		pHeader = &RxHeader2;
+	}
+  if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, pHeader, tmp.data) != HAL_OK){
     Error_Handler();
     is_can_ok = 0;
   }
@@ -417,15 +478,18 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
 	  return; //RxDaemon not active yet
   }
 
+  tmp.flags = bus;
+
   //uint8_t Data[8] = {0};
   //int CAN_ID = 0;
   //int DLC = 0;
 
   // Extract the ID
   if (RxHeader.IDE == CAN_ID_STD){
-	  tmp.msg_id = RxHeader.StdId;
-  }else if (RxHeader.IDE == CAN_ID_EXT){
-  	  tmp.msg_id = RxHeader.ExtId;
+	  tmp.msg_id = pHeader->StdId;
+  }else if (pHeader->IDE == CAN_ID_EXT){
+  	  tmp.msg_id = pHeader->ExtId;
+  	  tmp.flags |= UV_CAN_EXTENDED_ID;
   }else{
 	  //How did we get here?
   }
@@ -445,8 +509,59 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan){
 }
 
 // Here is where the second mailbox ISR would live
-void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan2){
+void HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan){
 	// do something
+	uv_CAN_msg tmp;
+	BaseType_t was_higher_priority_task_woken;
+	CAN_RxHeaderTypeDef* pHeader;
+
+	uint8_t bus;
+
+	if(hcan == &hcan1){
+		bus = CAN_BUS_1;
+		pHeader = &RxHeader;
+	}else{
+		bus = CAN_BUS_2;
+		pHeader = &RxHeader2;
+	}
+  if (HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO1, pHeader, tmp.data) != HAL_OK){
+    Error_Handler();
+    is_can_ok = 0;
+  }
+
+  if(Rx_msg_queue == NULL){
+	  is_can_ok = 0;
+	  return; //RxDaemon not active yet
+  }
+
+  //uint8_t Data[8] = {0};
+  //int CAN_ID = 0;
+  //int DLC = 0;
+
+  tmp.flags = bus;
+
+  // Extract the ID
+  if (RxHeader.IDE == CAN_ID_STD){
+	  tmp.msg_id = pHeader->StdId;
+  }else if (pHeader->IDE == CAN_ID_EXT){
+  	  tmp.msg_id = pHeader->ExtId;
+  	  tmp.flags |= UV_CAN_EXTENDED_ID;
+  }else{
+	  //How did we get here?
+  }
+
+  //
+  //
+  //  // Extract the data length
+  tmp.dlc = RxHeader.DLC; // Data Length Code
+
+  //TANNER AND FLO CALL YOUR FUNCTION HERE TO DO STUFF
+  xQueueSendFromISR( Rx_msg_queue, &tmp, &was_higher_priority_task_woken );
+
+  if(was_higher_priority_task_woken == pdTRUE){
+	  taskYIELD();
+  }
+
 }
 // CAN_Messages_Tanner
 
@@ -595,7 +710,7 @@ void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num) {
 
     } else {//insert into CAN 2
 
-    	if(callback_table_mutex != NULL){
+    	if(callback_table_2_mutex != NULL){
     	    if(xSemaphoreTake(callback_table_2_mutex,10) == pdTRUE){
 
     	    }else{
@@ -663,7 +778,7 @@ void nuke_hash_table(int can_num) {
     CAN_Callback* temp;
 
     for (int i = 0; i < table_size; i++) {
-        temp = CAN_callback_table + i*sizeof(CAN_Callback);
+        temp = CAN_callback_table_1 + i*sizeof(CAN_Callback);
         if(temp->next != NULL){
             temp = temp->next;
             CAN_Callback* tmp2;
@@ -675,18 +790,18 @@ void nuke_hash_table(int can_num) {
         }
     }
 
-    (void)memset(CAN_callback_table,0,table_size*sizeof(CAN_Callback)); //set the table to all 0s
+    (void)memset(CAN_callback_table_1,0,table_size*sizeof(CAN_Callback)); //set the table to all 0s
 
 
 
-	}else if (can_num == CAN_BUS_1){//insert into CAN 1
+	}else if (can_num == CAN_BUS_2){//insert into CAN 2
 
 
 
 	CAN_Callback* temp;
 
 	for (int i = 0; i < table_size; i++) {
-	    temp = CAN_callback_table + i*sizeof(CAN_Callback);
+	    temp = CAN_callback_table_2 + i*sizeof(CAN_Callback);
 	    if(temp->next != NULL){
 	       temp = temp->next;
 	       CAN_Callback* tmp2;
@@ -698,7 +813,7 @@ void nuke_hash_table(int can_num) {
 	    }
 	 }
 
-	 (void)memset(CAN_callback_table,0,table_size*sizeof(CAN_Callback)); //set the table to all 0s
+	 (void)memset(CAN_callback_table_2,0,table_size*sizeof(CAN_Callback)); //set the table to all 0s
 
 
 
@@ -757,9 +872,9 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 		return UV_ERROR;
 	}
 
-	uint32_t is_isr;
+	uint32_t is_isr = 0;
 	//Special precautions need to be taken if you do this from an interrupt
-	__ASM volatile ("MRS %0, ipsr" : "=r" (is_isr) );
+	//__ASM volatile ("MRS %0, ipsr" : "=r" (is_isr) );
 
 
 
@@ -831,50 +946,72 @@ void CANbusTxSvcDaemon(void* args){
 				uvPanic("cannot send null CAN msg",0);
 			}
 
-			if((tx_msg->flags)& UV_CAN_EXTENDED_ID){// edited UV_CAN_EXTENDED_ID to both CAN 1 and 2
-				TxHeader.IDE = CAN_ID_EXT;
-				TxHeader.ExtId = tx_msg->msg_id;
-			}else{
-				TxHeader.IDE = CAN_ID_STD;
-				TxHeader.StdId = tx_msg->msg_id;
-			}
 
-			TxHeader.DLC = tx_msg->dlc;
 
-			TickType_t attempt_time = xTaskGetTickCount();
+
+
+			TickType_t attempt_time1 = xTaskGetTickCount();
+			TickType_t attempt_time2 = attempt_time1;
 
 
 
 
 			if((tx_msg->flags)& CAN_BUS_1){
 
-			while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) == 0){
-				if(xTaskGetTickCount() - attempt_time >= 2){
+				TxHeader.DLC = tx_msg->dlc;
+
+				if((tx_msg->flags)& UV_CAN_EXTENDED_ID){// edited UV_CAN_EXTENDED_ID to both CAN 1 and 2
+								TxHeader.IDE = CAN_ID_EXT;
+								TxHeader.ExtId = tx_msg->msg_id;
+							}else{
+								TxHeader.IDE = CAN_ID_STD;
+								TxHeader.StdId = tx_msg->msg_id;
+							}
+
+				while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan1) == 0){
+					if(xTaskGetTickCount() - attempt_time1 >= 2){
+						is_can_ok = 0;
+						uvPanic("Unable to Transmit CAN msg",0);
+
+						if (CAN1->ESR & CAN_ESR_BOFF) {
+						    // Bus-off condition
+							break;
+						}
+
+
+						break;
+					}
+				}
+
+				if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
+				/* Transmission request Error */
 					is_can_ok = 0;
 					uvPanic("Unable to Transmit CAN msg",0);
-					break;
 				}
-			}
-
-			if (HAL_CAN_AddTxMessage(&hcan1, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
-				/* Transmission request Error */
-				is_can_ok = 0;
-				uvPanic("Unable to Transmit CAN msg",0);
-			}
 
 
 
 			}else{
 
-			while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan2) == 0){
-				if(xTaskGetTickCount() - attempt_time >= 2){
+				TxHeader2.DLC = tx_msg->dlc;
+
+				if((tx_msg->flags)& UV_CAN_EXTENDED_ID){// edited UV_CAN_EXTENDED_ID to both CAN 1 and 2
+								TxHeader2.IDE = CAN_ID_EXT;
+								TxHeader2.ExtId = tx_msg->msg_id;
+							}else{
+								TxHeader2.IDE = CAN_ID_STD;
+								TxHeader2.StdId = tx_msg->msg_id;
+							}
+
+				while(HAL_CAN_GetTxMailboxesFreeLevel(&hcan2) == 0){
+				if(xTaskGetTickCount() - attempt_time2 >= 2){
 					is_can_ok = 0;
 					uvPanic("Unable to Transmit CAN msg",0);
 					break;
 				}
 			}
 
-			if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
+			if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader2, tx_msg->data, &TxMailbox) != HAL_OK){
 														/* Transmission request Error */
 				is_can_ok = 0;
 				uvPanic("Unable to Transmit CAN msg",0);
@@ -946,4 +1083,3 @@ void CANbusRxSvcDaemon(void* args){
 }
 
 /* USER CODE END 1 */
-

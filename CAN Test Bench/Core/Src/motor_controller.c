@@ -50,6 +50,8 @@ motor_controller_settings mc_default_settings = {
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
     .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
 	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
+
+	.mc_bus 				= CAN_BUS_1
 };
 
 
@@ -91,7 +93,7 @@ uint16_t sendTorqueToMotorController(float T_filtered)
     // Little-endian: LSB first then MSB
     torque_msg.data[1] = (uint8_t)(torque_cmd & 0xFF);
     torque_msg.data[2] = (uint8_t)((torque_cmd >> 8) & 0xFF);
-    torque_msg.flags   = 0;
+    torque_msg.flags   = mc_settings->mc_bus;
 
     if (uvSendCanMSG(&torque_msg) != UV_OK) {
         uvPanic("Failed to send torque command", 0);
@@ -115,7 +117,7 @@ void MC_Request_Data(uint8_t RegID)
     request_msg.data[0] = 0x3D;   // Request command identifier
     request_msg.data[1] = RegID;    // The register to be requested
     request_msg.data[2] = 0;
-    request_msg.flags   = 0;
+    request_msg.flags   = mc_settings->mc_bus;
 
     if (uvSendCanMSG(&request_msg) != UV_OK) {
         uvPanic("CAN Request Transmission Failed", 0);
@@ -145,6 +147,8 @@ uv_status MC_Set_Param(uint8_t RegID,uint16_t d){
     tx_msg.data[1] = d & 0xFF;
     tx_msg.data[2] = (d >> 8) & 0xFF;
     tx_msg.data[3] = 0;
+
+    tx_msg.flags = mc_settings->mc_bus;
 
     if(uvSendCanMSG(&tx_msg) != UV_OK){
         uvPanic("MC_Param set fail", 0);
@@ -424,7 +428,7 @@ void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
         tx.data[0] = 0x3D;            // Command: Enable cyclic read
         tx.data[1] = regs[i];         // Target register
         tx.data[2] = interval_ms;     // Repeating time (1–254 ms)
-        tx.flags   = 0;
+        tx.flags   = mc_settings->mc_bus;
 
         uvSendCanMSG(&tx);
         vTaskDelay(pdMS_TO_TICKS(5));  // delay between messages
@@ -458,7 +462,7 @@ void MC_Startup(void* args)
 
     //Register CAN RX handler first and routes eveyrthing though processmotorcontrollerresponse
     //subsequently the motor controller error handler
-    insertCANMessageHandler(mc_settings->can_id_rx, ProcessMotorControllerResponse);
+    insertCANMessageHandler(mc_settings->can_id_rx, ProcessMotorControllerResponse, mc_settings->mc_bus);
 
     //start cyclic transmission
     MC_EnableCyclicSpeedTransmission(100); // every 100ms

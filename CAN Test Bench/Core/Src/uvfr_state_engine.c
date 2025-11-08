@@ -974,7 +974,7 @@ void _stateChangeDaemon(void * args) PRIVILEGED_FUNCTION{
 					task_tracker &= ~(0x01<<i);
 				}
 			}else{
-				uvPanic("this task is physically impossible",0);
+				//uvPanic("this task is physically impossible",0);
 			}
 
 		}//end of first iteration loop where thas reconciliation occurs

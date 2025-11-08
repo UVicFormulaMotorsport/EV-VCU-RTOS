@@ -7,6 +7,8 @@
 #include "main.h"
 #include "constants.h"
 
+
+
 uint16_t read_5A_vals; //What the PDU claims its 5A channels are up to
 uint16_t set_5A_vals; //What the intended 5A channel outputs are
 
@@ -67,7 +69,11 @@ uv_status u19updatePduChannel(struct abstract_conifer_channel* ch_ptr, uint32_t*
 void initPDU(void* args){
 	uv_init_task_args* params = (uv_init_task_args*) args;
 	uv_init_task_response response = {UV_OK,PDU,0,NULL};
-	vTaskDelay(102); //Pretend to be doing something for now
+
+
+	msg_to_PDU.flags = conifer_params->pdu_bus;
+
+	vTaskDelay(10); //Pretend to be doing something for now
 
 	if(xQueueSendToBack(params->init_info_queue,&response,100) != pdPASS){
 				//OOPS

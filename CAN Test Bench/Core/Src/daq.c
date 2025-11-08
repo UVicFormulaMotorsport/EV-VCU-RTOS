@@ -9,58 +9,14 @@
 #include "stm32f4xx_hal_adc.h"
 #include "stm32f4xx_hal_rcc.h"
 
+//#define daq_settings current_vehicle_settings->daq_settings
+
 
 volatile uint16_t coolant_temp_adc = 0;
 volatile uint16_t motor_temp_adc = 0;
 
 //configuring ADCs
 ADC_HandleTypeDef hadc1;
-
-//void MX_ADC1_Init(void){
-//	ADC_ChannelConfTypeDef sConfig = {0};
-//
-//	__HAL_RCC_ADC1_CLK_ENABLE(); //enable clock
-//
-//	//ADC1 CONFIGURATION
-//	hadc1.Instance = ADC1;
-//	hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
-//	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
-//	hadc1.Init.ScanConvMode = ENABLE;
-//	hadc1.Init.ContinuousConvMode = DISABLE;
-//	hadc1.Init.DiscontinuousConvMode = DISABLE;
-//	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-//	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-//	hadc1.Init.NbrOfConversion = 2;
-//	HAL_ADC_Init(&hadc1);
-//
-//	// channel configuration
-//	sConfig.Channel = ADC_CHANNEL_1;
-//	sConfig.Rank = 1;
-//	sConfig.SamplingTime = ADC_SAMPLETIME_144CYCLES;
-//	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-//
-//	sConfig.Channel = ADC_CHANNEL_2;
-//	sConfig.Rank = 2;
-//	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-//
-//}
-
-//void updateReadings(void){
-//	HAL_ADC_Start(&hadc1);
-//
-//	//wait and read first channel
-//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-//
-//	coolant_temp_adc = HAL_ADC_GetValue(&hadc1);
-//
-//	//wait and read second channel
-//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-//	motor_temp_adc = HAL_ADC_GetValue(&hadc1);
-//
-//	//self explanatory
-//	HAL_ADC_Stop(&hadc1);
-//
-//}
 
 
 
@@ -90,7 +46,7 @@ daq_loop_args default_daq_settings = {
 	.total_params_logged = 8,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
-	.can_channel = 1,
+	.can_channel = CAN_BUS_1,
 	.daq_child_priority = 1
 };
 
@@ -312,6 +268,8 @@ uv_status stopDaqSubTasks(){
 	return UV_ERROR;
 }
 
+uv_CAN_msg tmp_daq_msg;
+
 /** @brief initializes the master DAQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks
  *
  * This is a fairly standard function. Here are the things that it does in order:
@@ -332,6 +290,7 @@ uv_status initDaqTask(void * args){
 
 	curr_daq_settings = current_vehicle_settings->daq_settings;
 	datapoints = current_vehicle_settings->daq_param_list;
+	tmp_daq_msg.flags = curr_daq_settings->can_channel;
 
 	associateDaqParamWithVar(COOLANT_TEMP_ADC, (void*)&coolant_temp_adc); //HOOKING ADC VARS TO DAQ. 
 	associateDaqParamWithVar(MOTOR_TEMP_ADC, (void*)&motor_temp_adc); //HOOKING ADC VARS TO DAQ. 
@@ -423,7 +382,7 @@ void daqMasterTask(void* args){
 }
 
 
-uv_CAN_msg tmp_daq_msg;
+
 
 /** @brief
  *

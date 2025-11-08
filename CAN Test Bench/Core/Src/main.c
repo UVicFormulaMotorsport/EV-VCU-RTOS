@@ -123,6 +123,7 @@ int main(void)
   /* USER CODE BEGIN Init */
   // The CAN clock must be enabled
   __HAL_RCC_CAN2_CLK_ENABLE();
+  __HAL_RCC_CAN1_CLK_ENABLE();
   /* USER CODE END Init */
 
   /* Configure the system clock */

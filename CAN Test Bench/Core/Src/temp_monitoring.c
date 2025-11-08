@@ -5,7 +5,7 @@
  *      Author: byo10
  */
 
-
+#include "can.h"
 #include "uvfr_utils.h"
 #include "gpio.h"
 
@@ -67,6 +67,20 @@ void testfunc2(uv_CAN_msg* msg){
 	uvSendCanMSG(&response);
 }
 
+void testfunc3(uv_CAN_msg* msg){
+	static uv_CAN_msg response = {
+		.msg_id = 0x65,
+		.dlc = 1
+
+
+
+	};
+
+	response.data[0] = msg->data[0] + msg->data[1];
+	response.flags = CAN_BUS_1;
+	uvSendCanMSG(&response);
+}
+
 /** @brief Monitors the temperatures of various points in the tractive system, and activates various cooling systems and such accordingly
  *
  * Atm, this is mostly serving as an example of a task
@@ -108,7 +122,7 @@ void tempMonitorTask(void* args){
 
 	insertCANMessageHandler(0x86, testfunc, CAN_BUS_1);
 	insertCANMessageHandler(0x87, testfunc, CAN_BUS_1);
-	insertCANMessageHandler(0x64, testfunc2, CAN_BUS_1);
+	insertCANMessageHandler(0x64, testfunc3, CAN_BUS_1);
 
 	/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
 	 * execution actually takes
@@ -117,8 +131,8 @@ void tempMonitorTask(void* args){
 
 
 
-	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_1);
-	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_2);
+	insertCANMessageHandler(0x64, testfunc2, CAN_BUS_2);
+	//insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_2);
 
 
 	uv_CAN_msg temp1;
@@ -129,7 +143,7 @@ void tempMonitorTask(void* args){
 	temp1.data[2] = 3;
 	temp1.dlc = 3;
 	temp1.msg_id = 0x85;
-	temp1.flags = 0x00;
+	temp1.flags = CAN_BUS_1;
 
 	temp2.data[0] = 9;
 	temp2.data[1] = 10;
@@ -139,8 +153,8 @@ void tempMonitorTask(void* args){
 	temp2.flags = 0x00;
 
 
-	uvSendCanMsg(temp1);
-	uvSendCanMsg(temp2);
+	uvSendCanMSG(&temp1);
+	uvSendCanMSG(&temp2);
 
 
 
@@ -170,27 +184,27 @@ void tempMonitorTask(void* args){
 		last_time = xTaskGetTickCount();
 
 		//Mohak code here
-		TxData[0] = 0b10101010;
-		TxData[1] = 0b10101010;
-		TxData[2] = 0b10101010;
-		TxData[3] = 1;
-		TxData[4] = 2;
-		TxData[5] = 3;
-		TxData[6] = 0b10101010;
-		TxData[7] = 0b10101010;
-
-
-		HAL_StatusTypeDef can_send_status;
-
-					//vTaskDelay(400);
-
-
-
-		TxHeader.IDE = CAN_ID_EXT;
-		TxHeader.ExtId = 0x1234;
-
-
-		TxHeader.DLC = 8;
+//		TxData[0] = 0b10101010;
+//		TxData[1] = 0b10101010;
+//		TxData[2] = 0b10101010;
+//		TxData[3] = 1;
+//		TxData[4] = 2;
+//		TxData[5] = 3;
+//		TxData[6] = 0b10101010;
+//		TxData[7] = 0b10101010;
+//
+//
+//		HAL_StatusTypeDef can_send_status;
+//
+//					//vTaskDelay(400);
+//
+//
+//
+//		TxHeader.IDE = CAN_ID_EXT;
+//		TxHeader.ExtId = 0x1234;
+//
+//
+//		TxHeader.DLC = 8;
 
 
 		//taskENTER_CRITICAL();
@@ -206,11 +220,14 @@ void tempMonitorTask(void* args){
 		//uvSendCanMSG(&test_msg);
 
 
-		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //BLUE
+		//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //BLUE
 
 		if(params->cmd_data == UV_KILL_CMD || params->cmd_data == UV_SUSPEND_CMD){
 			continue; // The idea here is to skip the delay
 		}
+
+		uvSendCanMSG(&temp1);
+		uvSendCanMSG(&temp2);
 
 		uvTaskDelayUntil(params, last_time, tick_period); //The delay that keeps task on period theoretically
 	}

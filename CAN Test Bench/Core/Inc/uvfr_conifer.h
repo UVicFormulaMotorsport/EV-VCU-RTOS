@@ -4,6 +4,8 @@
 #include"stdlib.h"
 #include "stdint.h"
 
+#define conifer_params current_vehicle_settings->conifer_settings
+
 typedef enum uv_status_t uv_status;
 
 //Enum that is the human readable names of the abstract conifer outputs
@@ -91,6 +93,7 @@ typedef struct conifer_settings{
 	uint16_t regbusB_continous_current;
 
 	uint8_t n_ch;
+	uint8_t pdu_bus;
 
 }conifer_settings;
 
