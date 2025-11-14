@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_message_buffer_create" kind="group">
     <compoundname>xMessageBufferCreate</compoundname>
     <title>xMessageBufferCreate</title>
@@ -23,17 +23,20 @@ MessageBufferHandle_t <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9
 </parameterlist>
 <simplesect kind="return"><para>If NULL is returned, then the message buffer cannot be created because there is insufficient heap memory available for FreeRTOS to allocate the message buffer data structures and storage area. A non-NULL value being returned indicates that the message buffer has been created successfully - the returned value should be stored as the handle to the created message buffer.</para>
 </simplesect>
-Example use: <preformatted></preformatted></para>
-<para><preformatted>void vAFunction( void )
+Example use: <preformatted>
+
+void vAFunction( void )
 {
 MessageBufferHandle_t xMessageBuffer;
-const size_t xMessageBufferSizeBytes = 100;</preformatted></para>
-<para><preformatted>    // Create a message buffer that can hold 100 bytes.  The memory used to hold
+const size_t xMessageBufferSizeBytes = 100;
+
+    // Create a message buffer that can hold 100 bytes.  The memory used to hold
     // both the message buffer structure and the messages themselves is allocated
     // dynamically.  Each message added to the buffer consumes an additional 4
     // bytes which are used to hold the lengh of the message.
-    xMessageBuffer = <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate( xMessageBufferSizeBytes )</ref>;</preformatted></para>
-<para><preformatted>    if( xMessageBuffer == NULL )
+    xMessageBuffer = <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate( xMessageBufferSizeBytes )</ref>;
+
+    if( xMessageBuffer == NULL )
     {
         // There was not enough heap memory space available to create the
         // message buffer.
@@ -41,8 +44,9 @@ const size_t xMessageBufferSizeBytes = 100;</preformatted></para>
     else
     {
         // The message buffer was created successfully and can now be used.
-    }</preformatted></para>
-<para><preformatted></preformatted> </para>
+    }
+
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

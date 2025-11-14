@@ -1,0 +1,74 @@
+\doxysection{dash.\+c}
+\hypertarget{dash_8c_source}{}\label{dash_8c_source}\index{Core/Src/dash.c@{Core/Src/dash.c}}
+\mbox{\hyperlink{dash_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00001}00001\ \textcolor{comment}{//\ This\ where\ the\ code\ to\ handle\ displaying\ data,\ errors\ and\ such\ to\ the\ dash\ will\ go}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dash_8h}{dash.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{can_8h}{can.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00008}00008\ \textcolor{comment}{//\ If\ we\ pass\ it\ a\ negative\ number\ then\ a\ garbage\ number\ will\ show\ up}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00009}\mbox{\hyperlink{dash_8h_ab26e477047a5166efc8f2b34dbd38872}{00009}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dash_8c_ab26e477047a5166efc8f2b34dbd38872}{Update\_RPM}}(int16\_t\ value)\{}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00011}00011\ \ \ \ \ \textcolor{comment}{//\ Need\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00012}00012\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.StdId\ =\ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326acf570e9fd481a65c750c9dff4f799db6}{Dash\_RPM}};\ \textcolor{comment}{//\ This\ is\ the\ CAN\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.DLC\ =\ 2;\ \textcolor{comment}{//\ Data\ Length\ Code}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00016}00016\ \ \ \ \ \textcolor{comment}{//\ Need\ message}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}}[0]\ =\ (value\ >>\ 8)\&\ 0xFF;}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00018}00018\ \ \ \ \ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}}[1]\ =\ value\ \&\ 0xFF;}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00020}00020\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_CAN\_AddTxMessage(\&\mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}},\ \&\mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}},\ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}},\ \&\mbox{\hyperlink{constants_8h_aedd1e4ac418a9697f9f41a2713d49569}{TxMailbox}})\ !=\ HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00021}00021\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Transmission\ request\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00023}00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{main_8h_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}();}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00024}00024\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00028}00028\ \textcolor{comment}{//\ If\ we\ pass\ it\ a\ negative\ number\ then\ a\ garbage\ number\ will\ show\ up}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00029}\mbox{\hyperlink{dash_8h_a66f84461e5c75202d12edfd8ea7c7f62}{00029}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dash_8c_a66f84461e5c75202d12edfd8ea7c7f62}{Update\_Batt\_Temp}}(uint8\_t\ value)\{}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00031}00031\ \ \ \ \ \textcolor{comment}{//\ Need\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00032}00032\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.StdId\ =\ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326af40c0ecb9c7ec3c5bb9d7fe5db7a2c9f}{Dash\_Battery\_Temperature}};\ \textcolor{comment}{//\ This\ is\ the\ CAN\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00033}00033\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.DLC\ =\ 1;\ \textcolor{comment}{//\ Data\ Length\ Code}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00036}00036\ \ \ \ \ \textcolor{comment}{//\ Need\ message}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00037}00037\ \ \ \ \ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}}[0]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00039}00039\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_CAN\_AddTxMessage(\&\mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}},\ \&\mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}},\ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}},\ \&\mbox{\hyperlink{constants_8h_aedd1e4ac418a9697f9f41a2713d49569}{TxMailbox}})\ !=\ HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00040}00040\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Transmission\ request\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{main_8h_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}();}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00043}00043\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00048}\mbox{\hyperlink{dash_8h_a30155b58ef3801f5693e953d4139d55f}{00048}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dash_8c_a30155b58ef3801f5693e953d4139d55f}{Update\_State\_Of\_Charge}}(uint8\_t\ value)\{}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//\ Need\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.StdId\ =\ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326a0dabe76af82e2a49e2e60add5dd72dfc}{Dash\_State\_of\_Charge}};\ \textcolor{comment}{//\ This\ is\ the\ CAN\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.DLC\ =\ 1;\ \textcolor{comment}{//\ Data\ Length\ Code}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ Need\ message}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00056}00056\ \ \ \ \ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}}[0]\ =\ value;}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00058}00058\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_CAN\_AddTxMessage(\&\mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}},\ \&\mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}},\ \mbox{\hyperlink{constants_8h_af553c31425b32bd9c020380c942ed3bd}{TxData}},\ \&\mbox{\hyperlink{constants_8h_aedd1e4ac418a9697f9f41a2713d49569}{TxMailbox}})\ !=\ HAL\_OK)}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00059}00059\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Transmission\ request\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{main_8h_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}();}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00062}00062\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00064}00064\ \}}
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{dash_8c_source_l00068}00068\ }
+
+\end{DoxyCode}

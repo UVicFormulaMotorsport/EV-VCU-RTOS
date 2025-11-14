@@ -1,35 +1,46 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="structuv___c_a_n__msg" kind="struct" language="C++" prot="public">
     <compoundname>uv_CAN_msg</compoundname>
     <includes refid="uvfr__utils_8h" local="no">uvfr_utils.h</includes>
-      <sectiondef kind="public-attrib">
+    <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t uv_CAN_msg::flags</definition>
         <argsstring></argsstring>
         <name>flags</name>
+        <qualifiedname>uv_CAN_msg::flags</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Bitfield that contains some basic information about the message: -Bit 0: Is the message an extended ID message, or a standard ID message? 1 For extended. -Bits 1:2 Which CANbus is being used to send the message? 01 -&gt; CAN1 10 -&gt; CAN2 11-&gt; CAN3 (doesnt exist yet). Will default to CAN1 if all zeros </para>
+<para>Bitfield that contains some basic information about the message: -Bit 0: Is the message an extended ID message, or a standard ID message? 1 For extended. -Bits 1:2 Which CANbus is being used to send the message? 00-&gt; whatever the default is 01 -&gt; CAN1 10 -&gt; CAN2 11-&gt; CAN3 (doesnt exist yet). Will default to CAN1 if all zeros </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="271" column="9" bodyfile="Core/Inc/uvfr_utils.h" bodystart="271" bodyend="-1"/>
-        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</referencedby>
-        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</referencedby>
-        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="63" endline="78">MC_Request_Data</referencedby>
-        <referencedby refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" compoundref="motor__controller_8c" startline="30" endline="56">MotorControllerSpinTest</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="158">tempMonitorTask</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="52" endline="63">testfunc2</referencedby>
-        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="778" endline="797">uvSendSpecificParam</referencedby>
+        <location file="Core/Inc/uvfr_utils.h" line="283" column="9" bodyfile="Core/Inc/uvfr_utils.h" bodystart="283" bodyend="-1"/>
+        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="826" endline="853">__uvCANtxCritSection</referencedby>
+        <referencedby refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" compoundref="can_8c" startline="592" endline="641">callFunctionFromCANid</referencedby>
+        <referencedby refid="can_8h_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="920" endline="1036">CANbusTxSvcDaemon</referencedby>
+        <referencedby refid="uvfr__vehicle__logger_8h_1aa94a06d1457baf8f7a2bdffc9bdb0f34" compoundref="uvfr__vehicle__logger_8c" startline="155" endline="183">flushLogsToCAN</referencedby>
+        <referencedby refid="can_8h_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="456" endline="509">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
+        <referencedby refid="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" compoundref="can_8c" startline="512" endline="565">HAL_CAN_RxFifo1MsgPendingCallback</referencedby>
+        <referencedby refid="daq_8h_1af2c619df9f3d115dcbc511b0bb738e87" compoundref="daq_8c" startline="288" endline="331">initDaqTask</referencedby>
+        <referencedby refid="pdu_8h_1a1fe919a957b7055fcd240d738195d529" compoundref="pdu_8c" startline="87" endline="107">initPDU</referencedby>
+        <referencedby refid="motor__controller_8c_1aeaf0ac96c53381d0e43d5d7944923d86" compoundref="motor__controller_8c" startline="407" endline="436">MC_EnableCyclicSpeedTransmission</referencedby>
+        <referencedby refid="motor__controller_8h_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="110" endline="125">MC_Request_Data</referencedby>
+        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="141" endline="159">MC_Set_Param</referencedby>
+        <referencedby refid="motor__controller_8h_1ae71f2a8631fd64b7d7ce321470d4fab0" compoundref="motor__controller_8c" startline="69" endline="103">sendTorqueToMotorController</referencedby>
+        <referencedby refid="temp__monitoring_8h_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="112" endline="234">tempMonitorTask</referencedby>
+        <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="57" endline="68">testfunc2</referencedby>
+        <referencedby refid="temp__monitoring_8c_1aa416215627c38dc6970c3fbadf298112" compoundref="temp__monitoring_8c" startline="70" endline="82">testfunc3</referencedby>
+        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="840" endline="859">uvSendSpecificParam</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t uv_CAN_msg::dlc</definition>
         <argsstring></argsstring>
         <name>dlc</name>
+        <qualifiedname>uv_CAN_msg::dlc</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -37,25 +48,29 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="275" column="9" bodyfile="Core/Inc/uvfr_utils.h" bodystart="275" bodyend="-1"/>
-        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</referencedby>
-        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</referencedby>
-        <referencedby refid="can_8c_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="298" endline="335">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
-        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="152" endline="226">handleIncomingLaptopMsg</referencedby>
-        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="63" endline="78">MC_Request_Data</referencedby>
-        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="80" endline="96">MC_Set_Param</referencedby>
-        <referencedby refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" compoundref="motor__controller_8c" startline="30" endline="56">MotorControllerSpinTest</referencedby>
-        <referencedby refid="motor__controller_8c_1a98ef1edcc51198faf53767e8d92ce4c9" compoundref="motor__controller_8c" startline="104" endline="137">Parse_Bamocar_Response</referencedby>
-        <referencedby refid="motor__controller_8c_1aaff68bb563bf4ad56841a5a5020cbadc" compoundref="motor__controller_8c" startline="211" endline="267">ProcessMotorControllerResponse</referencedby>
-        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="158">tempMonitorTask</referencedby>
-        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="778" endline="797">uvSendSpecificParam</referencedby>
+        <location file="Core/Inc/uvfr_utils.h" line="287" column="9" bodyfile="Core/Inc/uvfr_utils.h" bodystart="287" bodyend="-1"/>
+        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="826" endline="853">__uvCANtxCritSection</referencedby>
+        <referencedby refid="can_8h_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="920" endline="1036">CANbusTxSvcDaemon</referencedby>
+        <referencedby refid="uvfr__vehicle__logger_8h_1aa94a06d1457baf8f7a2bdffc9bdb0f34" compoundref="uvfr__vehicle__logger_8c" startline="155" endline="183">flushLogsToCAN</referencedby>
+        <referencedby refid="can_8h_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="456" endline="509">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
+        <referencedby refid="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" compoundref="can_8c" startline="512" endline="565">HAL_CAN_RxFifo1MsgPendingCallback</referencedby>
+        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="160" endline="244">handleIncomingLaptopMsg</referencedby>
+        <referencedby refid="motor__controller_8c_1aeaf0ac96c53381d0e43d5d7944923d86" compoundref="motor__controller_8c" startline="407" endline="436">MC_EnableCyclicSpeedTransmission</referencedby>
+        <referencedby refid="motor__controller_8h_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="110" endline="125">MC_Request_Data</referencedby>
+        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="141" endline="159">MC_Set_Param</referencedby>
+        <referencedby refid="motor__controller_8h_1a98ef1edcc51198faf53767e8d92ce4c9" compoundref="motor__controller_8c" startline="221" endline="232">Parse_Bamocar_Response</referencedby>
+        <referencedby refid="motor__controller_8h_1aaff68bb563bf4ad56841a5a5020cbadc" compoundref="motor__controller_8c" startline="324" endline="392">ProcessMotorControllerResponse</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="390" endline="408">sendDaqMsg</referencedby>
+        <referencedby refid="motor__controller_8h_1ae71f2a8631fd64b7d7ce321470d4fab0" compoundref="motor__controller_8c" startline="69" endline="103">sendTorqueToMotorController</referencedby>
+        <referencedby refid="temp__monitoring_8h_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="112" endline="234">tempMonitorTask</referencedby>
+        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="840" endline="859">uvSendSpecificParam</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
         <definition>uint32_t uv_CAN_msg::msg_id</definition>
         <argsstring></argsstring>
         <name>msg_id</name>
+        <qualifiedname>uv_CAN_msg::msg_id</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -63,25 +78,27 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="276" column="10" bodyfile="Core/Inc/uvfr_utils.h" bodystart="276" bodyend="-1"/>
-        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</referencedby>
-        <referencedby refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" compoundref="can_8c" startline="368" endline="385">callFunctionFromCANid</referencedby>
-        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</referencedby>
-        <referencedby refid="can_8c_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="298" endline="335">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
-        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="152" endline="226">handleIncomingLaptopMsg</referencedby>
-        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="63" endline="78">MC_Request_Data</referencedby>
-        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="80" endline="96">MC_Set_Param</referencedby>
-        <referencedby refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" compoundref="motor__controller_8c" startline="30" endline="56">MotorControllerSpinTest</referencedby>
-        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="158">tempMonitorTask</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="52" endline="63">testfunc2</referencedby>
-        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="778" endline="797">uvSendSpecificParam</referencedby>
+        <location file="Core/Inc/uvfr_utils.h" line="288" column="10" bodyfile="Core/Inc/uvfr_utils.h" bodystart="288" bodyend="-1"/>
+        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="826" endline="853">__uvCANtxCritSection</referencedby>
+        <referencedby refid="can_8c_1aa5d470f815f2c11378233e0f3ca9ed8b" compoundref="can_8c" startline="592" endline="641">callFunctionFromCANid</referencedby>
+        <referencedby refid="can_8h_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="920" endline="1036">CANbusTxSvcDaemon</referencedby>
+        <referencedby refid="uvfr__vehicle__logger_8h_1aa94a06d1457baf8f7a2bdffc9bdb0f34" compoundref="uvfr__vehicle__logger_8c" startline="155" endline="183">flushLogsToCAN</referencedby>
+        <referencedby refid="can_8h_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="456" endline="509">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
+        <referencedby refid="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" compoundref="can_8c" startline="512" endline="565">HAL_CAN_RxFifo1MsgPendingCallback</referencedby>
+        <referencedby refid="motor__controller_8c_1aeaf0ac96c53381d0e43d5d7944923d86" compoundref="motor__controller_8c" startline="407" endline="436">MC_EnableCyclicSpeedTransmission</referencedby>
+        <referencedby refid="motor__controller_8h_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="110" endline="125">MC_Request_Data</referencedby>
+        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="141" endline="159">MC_Set_Param</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="390" endline="408">sendDaqMsg</referencedby>
+        <referencedby refid="motor__controller_8h_1ae71f2a8631fd64b7d7ce321470d4fab0" compoundref="motor__controller_8c" startline="69" endline="103">sendTorqueToMotorController</referencedby>
+        <referencedby refid="temp__monitoring_8h_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="112" endline="234">tempMonitorTask</referencedby>
+        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="840" endline="859">uvSendSpecificParam</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" prot="public" static="no" mutable="no">
         <type>uint8_t</type>
         <definition>uint8_t uv_CAN_msg::data[8]</definition>
         <argsstring>[8]</argsstring>
         <name>data</name>
+        <qualifiedname>uv_CAN_msg::data</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
@@ -89,29 +106,38 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="277" column="9" bodyfile="Core/Inc/uvfr_utils.h" bodystart="277" bodyend="-1"/>
-        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="476" endline="503">__uvCANtxCritSection</referencedby>
-        <referencedby refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="563" endline="624">CANbusTxSvcDaemon</referencedby>
-        <referencedby refid="can_8c_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="298" endline="335">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
-        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="152" endline="226">handleIncomingLaptopMsg</referencedby>
-        <referencedby refid="motor__controller_8c_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="63" endline="78">MC_Request_Data</referencedby>
-        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="80" endline="96">MC_Set_Param</referencedby>
-        <referencedby refid="motor__controller_8c_1ad9944bce211ed6594929c3acf72e3881" compoundref="motor__controller_8c" startline="30" endline="56">MotorControllerSpinTest</referencedby>
-        <referencedby refid="motor__controller_8c_1a98ef1edcc51198faf53767e8d92ce4c9" compoundref="motor__controller_8c" startline="104" endline="137">Parse_Bamocar_Response</referencedby>
-        <referencedby refid="motor__controller_8c_1aaff68bb563bf4ad56841a5a5020cbadc" compoundref="motor__controller_8c" startline="211" endline="267">ProcessMotorControllerResponse</referencedby>
-        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="347" endline="361">sendDaqMsg</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="70" endline="158">tempMonitorTask</referencedby>
-        <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="52" endline="63">testfunc2</referencedby>
-        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="778" endline="797">uvSendSpecificParam</referencedby>
-        <referencedby refid="uvfr__settings_8c_1a2f0cb7e05c1bef0501d585df7c2c6013" compoundref="uvfr__settings_8c" startline="864" endline="1052">uvSettingsProgrammerTask</referencedby>
+        <location file="Core/Inc/uvfr_utils.h" line="289" column="9" bodyfile="Core/Inc/uvfr_utils.h" bodystart="289" bodyend="-1"/>
+        <referencedby refid="can_8c_1ae025787f17f6312df1e71c731b2a0fe4" compoundref="can_8c" startline="826" endline="853">__uvCANtxCritSection</referencedby>
+        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
+        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
+        <referencedby refid="can_8h_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="920" endline="1036">CANbusTxSvcDaemon</referencedby>
+        <referencedby refid="uvfr__vehicle__logger_8h_1aa94a06d1457baf8f7a2bdffc9bdb0f34" compoundref="uvfr__vehicle__logger_8c" startline="155" endline="183">flushLogsToCAN</referencedby>
+        <referencedby refid="can_8h_1a4e0742fef0f265347a75b7fa12012229" compoundref="can_8c" startline="456" endline="509">HAL_CAN_RxFifo0MsgPendingCallback</referencedby>
+        <referencedby refid="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" compoundref="can_8c" startline="512" endline="565">HAL_CAN_RxFifo1MsgPendingCallback</referencedby>
+        <referencedby refid="uvfr__diagnostics_8c_1ac227fb16a61fc925f514f8b28a854c3d" compoundref="uvfr__diagnostics_8c" startline="24" endline="49">handleDiagnosticMsg</referencedby>
+        <referencedby refid="uvfr__settings_8c_1afa15631878f6d936a1143656f88f3620" compoundref="uvfr__settings_8c" startline="160" endline="244">handleIncomingLaptopMsg</referencedby>
+        <referencedby refid="motor__controller_8c_1aeaf0ac96c53381d0e43d5d7944923d86" compoundref="motor__controller_8c" startline="407" endline="436">MC_EnableCyclicSpeedTransmission</referencedby>
+        <referencedby refid="motor__controller_8h_1af6b3a4911f1bdac54d84b4dcc7b7ec4a" compoundref="motor__controller_8c" startline="110" endline="125">MC_Request_Data</referencedby>
+        <referencedby refid="motor__controller_8c_1a37f4a694fab82b650c96c13fe4894143" compoundref="motor__controller_8c" startline="141" endline="159">MC_Set_Param</referencedby>
+        <referencedby refid="motor__controller_8c_1af42bb7e058463e8db7e230378f98741c" compoundref="motor__controller_8c" startline="175" endline="213">MC_SetAndVerify_Param</referencedby>
+        <referencedby refid="motor__controller_8h_1a98ef1edcc51198faf53767e8d92ce4c9" compoundref="motor__controller_8c" startline="221" endline="232">Parse_Bamocar_Response</referencedby>
+        <referencedby refid="motor__controller_8h_1aaff68bb563bf4ad56841a5a5020cbadc" compoundref="motor__controller_8c" startline="324" endline="392">ProcessMotorControllerResponse</referencedby>
+        <referencedby refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" compoundref="daq_8c" startline="390" endline="408">sendDaqMsg</referencedby>
+        <referencedby refid="motor__controller_8h_1ae71f2a8631fd64b7d7ce321470d4fab0" compoundref="motor__controller_8c" startline="69" endline="103">sendTorqueToMotorController</referencedby>
+        <referencedby refid="temp__monitoring_8h_1a2a1d7fee4cea6ce07e4d4acc1b2ca752" compoundref="temp__monitoring_8c" startline="112" endline="234">tempMonitorTask</referencedby>
+        <referencedby refid="temp__monitoring_8c_1a42aed0ca516238bb78f401d645b7b930" compoundref="temp__monitoring_8c" startline="57" endline="68">testfunc2</referencedby>
+        <referencedby refid="temp__monitoring_8c_1aa416215627c38dc6970c3fbadf298112" compoundref="temp__monitoring_8c" startline="70" endline="82">testfunc3</referencedby>
+        <referencedby refid="pdu_8h_1a3d05c1a1776f19cc1437baf3c93c39e0" compoundref="pdu_8c" startline="35" endline="85">u19updatePduChannel</referencedby>
+        <referencedby refid="uvfr__settings_8c_1abdad8cd245f0f77d58548f011775a572" compoundref="uvfr__settings_8c" startline="840" endline="859">uvSendSpecificParam</referencedby>
+        <referencedby refid="uvfr__settings_8c_1a2f0cb7e05c1bef0501d585df7c2c6013" compoundref="uvfr__settings_8c" startline="926" endline="1147">uvSettingsProgrammerTask</referencedby>
       </memberdef>
-      </sectiondef>
+    </sectiondef>
     <briefdescription>
 <para>Representative of a CAN message. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="Core/Inc/uvfr_utils.h" line="270" column="25" bodyfile="Core/Inc/uvfr_utils.h" bodystart="270" bodyend="278"/>
+    <location file="Core/Inc/uvfr_utils.h" line="282" column="1" bodyfile="Core/Inc/uvfr_utils.h" bodystart="282" bodyend="290"/>
     <listofallmembers>
       <member refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" prot="public" virt="non-virtual"><scope>uv_CAN_msg</scope><name>data</name></member>
       <member refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" prot="public" virt="non-virtual"><scope>uv_CAN_msg</scope><name>dlc</name></member>

@@ -1,0 +1,82 @@
+\doxysection{ready\+\_\+to\+\_\+drive.\+c}
+\hypertarget{ready__to__drive_8c_source}{}\label{ready__to__drive_8c_source}\index{Core/Src/ready\_to\_drive.c@{Core/Src/ready\_to\_drive.c}}
+\mbox{\hyperlink{ready__to__drive_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00002}00002\ \textcolor{comment}{\ *\ ready\_to\_drive.c}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Apr\ 28,\ 2025}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ karni}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00010}00010\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ready__to__drive_8c_a7c1df8bfd0055e3fb1621239c779c744}{rtdTask}}(\textcolor{keywordtype}{void}*\ args);}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00012}\mbox{\hyperlink{group__state__engine__api_ga2cef5ea1ce8c53aae9a3508d4c23ceeb}{00012}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{group__state__engine__api_ga2cef5ea1ce8c53aae9a3508d4c23ceeb}{initRTDtask}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ rtd\_task\ =\ \mbox{\hyperlink{group__state__engine__api_gac977eb33c99a9ac0a5f51a7db20e24d6}{uvCreateTask}}();}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(rtd\_task\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Oh\ dear\ lawd}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00018}00018\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//DO\ NOT\ TOUCH\ ANY\ OF\ THE\ FIELDS\ WE\ HAVENT\ ALREADY\ MENTIONED\ HERE.\ FOR\ THE\ LOVE\ OF\ GOD.}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00022}00022\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_ad24b438130bb3098ee5e855222dff21d}{task\_name}}\ =\ \textcolor{stringliteral}{"{}rtd"{}};}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_afcd240d2b6b01b4acea600ef4dfe8fbc}{task\_function}}\ =\ \mbox{\hyperlink{ready__to__drive_8c_a7c1df8bfd0055e3fb1621239c779c744}{rtdTask}};}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_aff45751f7189980589d55379d1d5a355}{task\_priority}}\ =\ 2;\ \textcolor{comment}{//Slightly\ more\ important\ than\ the\ children\ tasks}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_a353ec6bf2c42ab0920f3d1e671e568a3}{stack\_size}}\ =\ 64;}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_ab24dea3bde4de2d839bf15e65c2df0d6}{active\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}};}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_aafd4e2d916f50b54b99fd02d63831e43}{suspension\_states}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_a6986d7216c7f889164931b37ab752c29}{deletion\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{UV\_ERROR\_STATE}};}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}}\ =\ 20;\ \textcolor{comment}{//measured\ in\ ms}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ rtd\_task-\/>\mbox{\hyperlink{structuv__task__info_ae255dff9b38fc8c0754085060e8ae699}{task\_args}}\ =\ NULL;\ \textcolor{comment}{//TODO:\ Add\ actual\ settings\ dipshit}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00039}00039\ \}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00041}\mbox{\hyperlink{ready__to__drive_8c_a7c1df8bfd0055e3fb1621239c779c744}{00041}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{ready__to__drive_8c_a7c1df8bfd0055e3fb1621239c779c744}{rtdTask}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00042}00042\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ params\ =\ (\mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*)args;}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}})\{\ \textcolor{comment}{//\ to\ perform\ task\ control\ (suspend/kill)}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(params);}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspendSelf}}(params);\ \textcolor{comment}{//\ if\ \_UV\_SUSPEND\_CMD\ received\ pause\ the\ task}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(20);}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Check\ brake\ pressure\ above\ threshold}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Are\ they\ pushing\ the\ start\ button?}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_GPIO\_ReadPin(GPIOA,\ GPIO\_PIN\_0))\{}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(500);}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}});}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//if\ both,\ change\ vehicle\ state\ to\ driving}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//changeVehicleState(UV\_DRIVING);}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{ready__to__drive_8c_source_l00076}00076\ \}}
+
+\end{DoxyCode}

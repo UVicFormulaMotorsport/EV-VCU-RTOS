@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['task_5fmanagement_5finfo_1698',['task_management_info',['../group__state__engine__api.html#gae41267a13309a303a826aa55c4873a31',1,'uvfr_state_engine.h']]],
-  ['task_5fpriority_1699',['task_priority',['../group__state__engine__api.html#ga0faa8cc05082e150c515bbddea144d90',1,'uvfr_state_engine.h']]],
-  ['task_5fstatus_5fblock_1700',['task_status_block',['../group__state__engine__api.html#ga0d368f40115996d74f2e3833ff1a5396',1,'uvfr_state_engine.h']]]
+  ['queue_5ft_0',['Queue_t',['../queue_8c.html#ade16d14675fc1ac34af04a1162a6b883',1,'queue.c']]],
+  ['queuehandle_5ft_1',['QueueHandle_t',['../queue_8h.html#a57349603001f8ddf51c888c49e2804d7',1,'queue.h']]],
+  ['queuepointers_5ft_2',['QueuePointers_t',['../queue_8c.html#afa576747932ccf4c923633fc6a46a0d8',1,'queue.c']]],
+  ['queuesethandle_5ft_3',['QueueSetHandle_t',['../queue_8h.html#a1ae056fb02b2467993003b85111dde16',1,'queue.h']]],
+  ['queuesetmemberhandle_5ft_4',['QueueSetMemberHandle_t',['../queue_8h.html#afac7ec7649e5c57381315eb011c36ef5',1,'queue.h']]]
 ];

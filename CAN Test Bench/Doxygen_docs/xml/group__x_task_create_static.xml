@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_task_create_static" kind="group">
     <compoundname>xTaskCreateStatic</compoundname>
     <title>xTaskCreateStatic</title>
@@ -75,34 +75,41 @@ TaskHandle_t xTaskCreateStatic( TaskFunction_t pvTaskCode,
 </parameterlist>
 <simplesect kind="return"><para>If neither pxStackBuffer or pxTaskBuffer are NULL, then the task will be created and a handle to the created task is returned. If either pxStackBuffer or pxTaskBuffer are NULL then the task will not be created and NULL is returned.</para>
 </simplesect>
-Example usage: <preformatted></preformatted></para>
-<para><preformatted>   // Dimensions the buffer that the task being created will use as its stack.
+Example usage: <preformatted>
+
+   // Dimensions the buffer that the task being created will use as its stack.
    // NOTE:  This is the number of words the stack will hold, not the number of
    // bytes.  For example, if each stack item is 32-bits, and this is set to 100,
    // then 400 bytes (100 * 32-bits) will be allocated.
-   #define STACK_SIZE 200</preformatted></para>
-<para><preformatted>   // Structure that will hold the TCB of the task being created.
-   StaticTask_t xTaskBuffer;</preformatted></para>
-<para><preformatted>   // Buffer that the task being created will use as its stack.  Note this is
+   #define STACK_SIZE 200
+
+   // Structure that will hold the TCB of the task being created.
+   StaticTask_t xTaskBuffer;
+
+   // Buffer that the task being created will use as its stack.  Note this is
    // an array of StackType_t variables.  The size of StackType_t is dependent on
    // the RTOS port.
-   StackType_t xStack[ STACK_SIZE ];</preformatted></para>
-<para><preformatted>   // Function that implements the task being created.
+   StackType_t xStack[ STACK_SIZE ];
+
+   // Function that implements the task being created.
    void vTaskCode( void * pvParameters )
    {
        // The parameter value is expected to be 1 as 1 is passed in the
        // pvParameters value in the call to xTaskCreateStatic().
-       configASSERT( ( uint32_t ) pvParameters == 1UL );</preformatted></para>
-<para><preformatted>       for( ;; )
+       configASSERT( ( uint32_t ) pvParameters == 1UL );
+
+       for( ;; )
        {
            // Task code goes here.
        }
-   }</preformatted></para>
-<para><preformatted>   // Function that creates a task.
+   }
+
+   // Function that creates a task.
    void vOtherFunction( void )
    {
-       TaskHandle_t xHandle = NULL;</preformatted></para>
-<para><preformatted>       // Create the task without using any dynamic memory allocation.
+       TaskHandle_t xHandle = NULL;
+
+       // Create the task without using any dynamic memory allocation.
        xHandle = xTaskCreateStatic(
                      vTaskCode,       // Function that implements the task.
                      &quot;NAME&quot;,          // Text name for the task.
@@ -110,13 +117,14 @@ Example usage: <preformatted></preformatted></para>
                      ( void * ) 1,    // Parameter passed into the task.
                      tskIDLE_PRIORITY,// Priority at which the task is created.
                      xStack,          // Array to use as the task&apos;s stack.
-                     &amp;xTaskBuffer );  // Variable to hold the task&apos;s data structure.</preformatted></para>
-<para><preformatted>       // puxStackBuffer and pxTaskBuffer were not NULL, so the task will have
+                     &amp;xTaskBuffer );  // Variable to hold the task&apos;s data structure.
+
+       // puxStackBuffer and pxTaskBuffer were not NULL, so the task will have
        // been created, and xHandle will be the task&apos;s handle.  Use the handle
        // to suspend the task.
        vTaskSuspend( xHandle );
    }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

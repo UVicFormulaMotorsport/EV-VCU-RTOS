@@ -1,0 +1,457 @@
+\doxysection{motor\+\_\+controller.\+c}
+\hypertarget{motor__controller_8c_source}{}\label{motor__controller_8c_source}\index{Core/Src/motor\_controller.c@{Core/Src/motor\_controller.c}}
+\mbox{\hyperlink{motor__controller_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00001}00001\ \textcolor{comment}{/*\ motor\_controller.c\ */}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{motor__controller_8h}{motor\_controller.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{can_8h}{can.h}}"{}}\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ uvSendCanMSG,\ uv\_CAN\_msg,\ etc.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}\ \ \ \ \textcolor{comment}{//\ For\ uvPanic,\ etc.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__settings_8h}{uvfr\_settings.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cmsis__os_8h}{cmsis\_os.h}}"{}}\ \ \ \ \ \ \textcolor{comment}{//\ For\ vTaskSuspend}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00012}00012\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structuv__vehicle__settings}{uv\_vehicle\_settings}}*\ \mbox{\hyperlink{motor__controller_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00013}00013\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ \mbox{\hyperlink{motor__controller_8c_aeb37f26e053d2887099e01f7fcfb62d5}{CAN\_Rx\_Queue}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00015}00015\ \textcolor{comment}{//\ Redirect\ all\ mc\_settings.x\ to\ actual\ config\ struct}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00016}\mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{00016}}\ \textcolor{preprocessor}{\#define\ mc\_settings\ (current\_vehicle\_settings-\/>mc\_settings)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00017}00017\ \textcolor{comment}{//register\ for\ motor\ controller\ errors\ and\ warnings\ so\ we\ can\ make\ them\ cyclic}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00018}00018\ \textcolor{comment}{//\#define\ motor\_controller\_errors\_warnings\ 0x82}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00021}00021\ \textcolor{comment}{//global\ variable\ for\ the\ last\ mc\ responce}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00022}\mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{00022}}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ \mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\_mc\_response}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00023}00023\ \textcolor{comment}{//global\ variable\ for\ timeout}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00024}\mbox{\hyperlink{motor__controller_8h_a01068b62ae077af823a3ff2339589a5a}{00024}}\ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ \mbox{\hyperlink{motor__controller_8c_a01068b62ae077af823a3ff2339589a5a}{last\_driver\_input\_time}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00026}00026\ \textcolor{comment}{//cyclic\ parameters}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00027}\mbox{\hyperlink{motor__controller_8h_ab2f9a165135f6377e587c0a1e196c18e}{00027}}\ int16\_t\ \mbox{\hyperlink{motor__controller_8c_ab2f9a165135f6377e587c0a1e196c18e}{mc\_speed\_rpm}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00028}\mbox{\hyperlink{motor__controller_8h_a399e00d21730a80f94ac96c6b3d9d729}{00028}}\ int16\_t\ \mbox{\hyperlink{motor__controller_8c_a399e00d21730a80f94ac96c6b3d9d729}{mc\_current}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00029}\mbox{\hyperlink{motor__controller_8h_adfaaabb45aef6c2b8bf7fb35a5d3d37a}{00029}}\ int16\_t\ \mbox{\hyperlink{motor__controller_8c_adfaaabb45aef6c2b8bf7fb35a5d3d37a}{mc\_torque\_cmd}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00030}\mbox{\hyperlink{motor__controller_8h_addd0636fe19f64a68688fb4c64eb8d9a}{00030}}\ int16\_t\ \mbox{\hyperlink{motor__controller_8c_addd0636fe19f64a68688fb4c64eb8d9a}{mc\_motor\_temp}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00031}\mbox{\hyperlink{motor__controller_8h_a1edd8dace1c45eaa85bb105f903248de}{00031}}\ int16\_t\ \mbox{\hyperlink{motor__controller_8c_a1edd8dace1c45eaa85bb105f903248de}{mc\_igbt\_temp}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00035}00035\ \textcolor{comment}{/*\ Global\ default\ settings\ variable\ defined\ here.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00036}00036\ \textcolor{comment}{\ *\ This\ uses\ the\ motor\_controller\_settings\ definition\ from\ uvfr\_settings.h.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00037}00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00038}\mbox{\hyperlink{motor__controller_8h_afb41a96439ba6d63dcc64f257c43a1d2}{00038}}\ \mbox{\hyperlink{structmotor__controller__settings}{motor\_controller\_settings}}\ \mbox{\hyperlink{motor__controller_8c_afb41a96439ba6d63dcc64f257c43a1d2}{mc\_default\_settings}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00039}00039\ \ \ \ \ .can\_id\_tx\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x201,}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00040}00040\ \ \ \ \ .can\_id\_rx\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x181,}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00041}00041\ \ \ \ \ .mc\_CAN\_timeout\ \ \ \ \ \ \ \ \ =\ 2,}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00042}00042\ \ \ \ \ .proportional\_gain\ \ \ \ \ \ =\ 10,\ \ \ \textcolor{comment}{//\ uint8\_t}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00043}00043\ \ \ \ \ .integral\_time\_constant\ =\ 400,\ \ \textcolor{comment}{//\ uint32\_t}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00044}00044\ \ \ \ \ .integral\_memory\_max\ \ \ \ =\ 60,\ \ \ \ \textcolor{comment}{//\ uint8\_t\ (represents\ 60\%)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00046}00046\ \ \ \ \ \textcolor{comment}{//\ Scaled\ values\ (normalized\ to\ 32767)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00047}00047\ \ \ \ \ .max\_speed\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 12357,\ \ \ \textcolor{comment}{//\ (2457.5\ RPM\ /\ 6500\ RPM)\ *\ 32767}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00048}00048\ \ \ \ \ .max\_current\ \ \ \ \ \ \ \ \ \ \ \ =\ 13107,\ \ \ \textcolor{comment}{//\ (100\ A\ /\ 250\ A)\ *\ 32767}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00049}00049\ \ \ \ \ .cont\_current\ \ \ \ \ \ \ \ \ \ \ =\ 7864,\ \ \ \ \textcolor{comment}{//\ (60\ A\ /\ 250\ A)\ *\ 32767}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00050}00050\ \ \ \ \ .max\_torque\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 32767,\ \ \ \textcolor{comment}{//\ Full\ scale\ =\ 230\ Nm\ =\ 32767}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00051}00051\ \ \ \ \ .max\_motor\_temp\ \ \ \ \ \ \ \ \ =\ 32767,\ \ \ \textcolor{comment}{//\ 120\ °C\ →\ full\ scale\ (as\ per\ 0xA3\ field)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00052}00052\ \ \ \ \ .warning\_motor\_temp\ \ \ \ \ =\ 32767,\ \ \ \ \textcolor{comment}{//120\ °C\ →\ full\ scale\ (as\ per\ 0xA2\ field)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00054}00054\ \ \ \ \ .mc\_bus\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00055}00055\ \};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00069}\mbox{\hyperlink{motor__controller_8h_ae71f2a8631fd64b7d7ce321470d4fab0}{00069}}\ uint16\_t\ \mbox{\hyperlink{motor__controller_8c_ae71f2a8631fd64b7d7ce321470d4fab0}{sendTorqueToMotorController}}(\textcolor{keywordtype}{float}\ T\_filtered)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00070}00070\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00071}00071\ \ \ \ \ \textcolor{keywordflow}{if}\ (T\_filtered\ <\ 0.0f)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ T\_filtered\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (T\_filtered\ >\ 256.0f)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ T\_filtered\ =\ 256.0f;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//uint16\_t\ torque\_cmd\ =\ (uint16\_t)\ T\_filtered;}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00078}00078\ \ \ \ \ \textcolor{comment}{//scale\ to\ bamocar\ requirements\ of\ 32760}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00079}00079\ \ \ \ \ \textcolor{keywordtype}{float}\ T\_MAX\ =\ 230.0f;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00080}00080\ \ \ \ \ uint16\_t\ torque\_cmd\ =\ (uint16\_t)((T\_filtered\ /\ T\_MAX)\ *\ 32760.0f);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00082}00082\ \ \ \ \ \textcolor{comment}{//if\ T\_filtered\ is\ 115\ nm\ -\/-\/>\ 1680\ for\ bamocar}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00083}00083\ \ \ \ \ \textcolor{comment}{//(115\ /\ 230)\ *\ 32760\ =\ 16380\ ≈\ 0x3FFC}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ torque\_msg;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00086}00086\ \ \ \ \ memset(\&torque\_msg,\ 0,\ \textcolor{keyword}{sizeof}(torque\_msg));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00088}00088\ \ \ \ \ torque\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>can\_id\_tx;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00089}00089\ \ \ \ \ torque\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ \ \ \ =\ 3;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ Use\ the\ N\_set\ command\ (from\ your\ enum\ motor\_controller\_speed\_parameters)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00091}00091\ \ \ \ \ torque\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268aa53daf1b53f678af8159cba9238c5e6f}{N\_set}};\ \textcolor{comment}{//speed\ comand}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00092}00092\ \ \ \ \ \textcolor{comment}{//torque\_msg.data[0]\ =\ M\_Set;\ //torque\ command}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//\ Little-\/endian:\ LSB\ first\ then\ MSB}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00094}00094\ \ \ \ \ torque\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ (uint8\_t)(torque\_cmd\ \&\ 0xFF);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00095}00095\ \ \ \ \ torque\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ (uint8\_t)((torque\_cmd\ >>\ 8)\ \&\ 0xFF);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00096}00096\ \ \ \ \ torque\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ \ \ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>mc\_bus;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&torque\_msg)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Failed\ to\ send\ torque\ command"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00101}00101\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00103}00103\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00110}\mbox{\hyperlink{motor__controller_8h_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{00110}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(uint8\_t\ RegID)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00111}00111\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ request\_msg;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00113}00113\ \ \ \ \ memset(\&request\_msg,\ 0,\ \textcolor{keyword}{sizeof}(request\_msg));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00115}00115\ \ \ \ \ request\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>can\_id\_tx;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00116}00116\ \ \ \ \ request\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ \ \ \ =\ 3;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00117}00117\ \ \ \ \ request\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 0x3D;\ \ \ \textcolor{comment}{//\ Request\ command\ identifier}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00118}00118\ \ \ \ \ request\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ RegID;\ \ \ \ \textcolor{comment}{//\ The\ register\ to\ be\ requested}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00119}00119\ \ \ \ \ request\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00120}00120\ \ \ \ \ request\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ \ \ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>mc\_bus;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00122}00122\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&request\_msg)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}CAN\ Request\ Transmission\ Failed"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00125}00125\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00141}\mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{00141}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(uint8\_t\ RegID,uint16\_t\ d)\{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00142}00142\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ tx\_msg;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00143}00143\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>can\_id\_tx;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00144}00144\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ 3;\ \textcolor{comment}{//DLC\ MUST\ BE\ 3}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00145}00145\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ RegID;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00147}00147\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ d\ \&\ 0xFF;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00148}00148\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ (d\ >>\ 8)\ \&\ 0xFF;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00149}00149\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00151}00151\ \ \ \ \ tx\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>mc\_bus;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&tx\_msg)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}MC\_Param\ set\ fail"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00156}00156\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00157}00157\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00158}00158\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00159}00159\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00175}\mbox{\hyperlink{motor__controller_8c_af42bb7e058463e8db7e230378f98741c}{00175}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{motor__controller_8c_af42bb7e058463e8db7e230378f98741c}{MC\_SetAndVerify\_Param}}(uint8\_t\ reg\_id,\ uint16\_t\ set\_val)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00176}00176\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00177}00177\ \ \ \ \ \textcolor{comment}{//send\ parameter\ to\ be\ set}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(reg\_id,\ set\_val)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Set\ failed"{}},\ reg\_id);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00181}00181\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00182}00182\ \ \ \ \ \textcolor{comment}{//delay\ to\ give\ time\ to\ set}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00183}00183\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(20));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00185}00185\ \ \ \ \ \textcolor{comment}{//\ Request\ the\ parameter\ back}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00186}00186\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(reg\_id);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00188}00188\ \ \ \ \ \textcolor{comment}{//\ Delay\ for\ the\ response\ to\ arrive\ via\ CAN}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00189}00189\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(20));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00191}00191\ \ \ \ \ \textcolor{comment}{//\ Manually\ call\ response\ parser\ on\ the\ updated\ CAN\ message}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00192}00192\ \ \ \ \ \textcolor{comment}{//ProcessMotorControllerResponse(\&last\_mc\_response);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00194}00194\ \ \ \ \ \textcolor{comment}{//\ Validate\ the\ returned\ register}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\_mc\_response}}.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ !=\ reg\_id)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Mismatched\ REGID\ in\ response"{}},\ \mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\_mc\_response}}.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00198}00198\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00200}00200\ \ \ \ \ \textcolor{comment}{//\ Parse\ 16-\/bit\ LE\ value}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00201}00201\ \ \ \ \ uint16\_t\ returned\_val\ =\ (\mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\_mc\_response}}.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ \mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\_mc\_response}}.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1];}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00203}00203\ \ \ \ \ \textcolor{keywordflow}{if}\ (returned\_val\ !=\ set\_val)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ err\_buf[64];}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00205}00205\ \ \ \ \ \ \ \ \ snprintf(err\_buf,\ \textcolor{keyword}{sizeof}(err\_buf),}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}Mismatch\ for\ Reg\ 0x\%02X:\ set\ 0x\%04X,\ got\ 0x\%04X"{}},}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reg\_id,\ set\_val,\ returned\_val);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvPanic(err\_buf,\ 0);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00210}00210\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00211}00211\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00212}00212\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00213}00213\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00221}\mbox{\hyperlink{motor__controller_8h_a98ef1edcc51198faf53767e8d92ce4c9}{00221}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_a98ef1edcc51198faf53767e8d92ce4c9}{Parse\_Bamocar\_Response}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00222}00222\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00223}00223\ \ \ \ \ \textcolor{keywordflow}{if}\ (!msg\ ||\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ <\ 4)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Invalid\ motor\ controller\ response"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00226}00226\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00227}00227\ \ \ \ \ uint32\_t\ val\ =\ (uint32\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]\ <<\ 24)\ |}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 16)\ |}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ <<\ 8)\ \ |}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00231}00231\ \ \ \ \ \textcolor{comment}{//printf("{}Parsed\ 32-\/bit\ LE\ value:\ 0x\%08X\(\backslash\)n"{},\ val);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00232}00232\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00233}00233\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00247}\mbox{\hyperlink{motor__controller_8c_aa2fe2c9102e9f2ab65ab4a9d5557f497}{00247}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_aa2fe2c9102e9f2ab65ab4a9d5557f497}{MotorControllerErrorHandler\_16bitLE}}(uint8\_t\ *data,\ uint8\_t\ length)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00248}00248\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00249}00249\ \ \ \ \ \textcolor{keywordflow}{if}\ (length\ <\ 2)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00250}00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00252}00252\ \ \ \ \ uint16\_t\ errors\ =\ (uint16\_t)((data[1]\ <<\ 8)\ |\ data[0]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00255}00255\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa87ada8cd125ba521b447d565c12bb30e}{eprom\_read\_error}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00256}00256\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}EPROM\ Read\ Error"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00257}00257\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00258}00258\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffae9da794167969482cb67bfad83a04d71}{hardware\_fault}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00259}00259\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Hardware\ Fault"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00260}00260\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00261}00261\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffadae8b5f4fb6cd6712202d055529499ef}{rotate\_field\_enable\_not\_present\_run}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Rotating\ Field\ Enable\ Not\ Present\ (Run\ Active)"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00263}00263\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00264}00264\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa425430d2585733363b6043ed70ebd7ab}{CAN\_timeout\_error}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00265}00265\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}CAN\ Timeout\ Error"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00266}00266\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00267}00267\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc}{feedback\_signal\_error}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Feedback\ Signal\ Error"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00269}00269\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00270}00270\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa13726d0d6fc8dd12135f4ea92d1dcc92}{mains\_voltage\_min\_limit}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00271}00271\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Mains\ Voltage\ Below\ Minimum\ Limit"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00272}00272\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa2267f6ae60d8b9024ba418dd1f6d4b15}{motor\_temp\_max\_limit}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Motor\ Temperature\ Exceeded\ Maximum\ Limit"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00275}00275\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00276}00276\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa54a5ca5981535fd231b00a1040622950}{IGBT\_temp\_max\_limit}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00277}00277\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}IGBT\ Temperature\ Exceeded\ Maximum\ Limit"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00278}00278\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00279}00279\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa229533ef674ddd4475b22e47eb506b49}{mains\_voltage\_max\_limit}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00280}00280\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Mains\ Voltage\ Exceeded\ Maximum\ Limit"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00281}00281\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa29aa452fe3c693b96c17c09849ee1633}{critical\_AC\_current}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00283}00283\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Critical\ AC\ Current\ Detected"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00284}00284\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa696b36face7279e19e2905b0fa9ecb68}{race\_away\_detected}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Race\ Away\ Detected"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00287}00287\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00288}00288\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa0dd2c6834f96df064d7b152074a9f81f}{ecode\_timeout\_error}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00289}00289\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Ecode\ Timeout\ Error"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00290}00290\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00291}00291\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa357611869a1ec791b38a36ec2dfe09b9}{watchdog\_reset}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00292}00292\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Watchdog\ Reset\ Occurred"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00293}00293\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00294}00294\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa0dbc9540bf7a4c67b6a2810985bfb55d}{AC\_current\_offset\_fault}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00295}00295\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}AC\ Current\ Offset\ Fault"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00296}00296\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00297}00297\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa18df3363e2a0048a813dcef5a41785ce}{internal\_hardware\_voltage\_problem}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00298}00298\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Internal\ Hardware\ Voltage\ Problem"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00299}00299\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00300}00300\ \ \ \ \ \textcolor{keywordflow}{if}\ (errors\ \&\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa150953c78b7fcc8ae97a50a5b5765264}{bleed\_resistor\_overload}})\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00301}00301\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Bleed\ Resistor\ Overload"{}},\ 0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00302}00302\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00303}00303\ \ \ \ \ \textcolor{comment}{//\ You\ can\ add\ additional\ error\ checks\ as\ needed.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00305}00305\ \ \ \ \ \textcolor{comment}{//motor\_controller\_settings*\ settings\ =\ (motor\_controller\_settings*)\ params-\/>specific\_args;}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00306}00306\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00324}\mbox{\hyperlink{motor__controller_8h_aaff68bb563bf4ad56841a5a5020cbadc}{00324}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_aaff68bb563bf4ad56841a5a5020cbadc}{ProcessMotorControllerResponse}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00326}00326\ \ \ \ \ \textcolor{comment}{//every\ incoming\ mc\ message\ gets\ stored\ for\ use\ later}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00327}00327\ \ \ \ \ memcpy(\&\mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\_mc\_response}},\ msg,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00328}00328\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00329}00329\ \ \ \ \ \textcolor{keywordflow}{if}\ (!msg\ ||\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ <\ 2)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00331}00331\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00332}00332\ \ \ \ \ uint8\_t\ reg\_id\ =\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0];}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00333}00333\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00334}00334\ \ \ \ \ \textcolor{keywordflow}{switch}\ (reg\_id)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00335}00335\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268a74ac68aa19b65409fa9b18b8f2be3bf4}{N\_actual}}:\ \ \textcolor{comment}{//\ SPEED\_ACTUAL\ (0x30)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ >=\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int16\_t\ speed\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_ab2f9a165135f6377e587c0a1e196c18e}{mc\_speed\_rpm}}\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//cyclic}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00342}00342\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091}{CURRENT\_ACTUAL}}:\ \ \textcolor{comment}{//\ 0x31:\ 16-\/bit,\ little-\/endian}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ >=\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int16\_t\ current\_raw\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a399e00d21730a80f94ac96c6b3d9d729}{mc\_current}}\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//cyclic}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00349}00349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27}{LOGIMAP\_ERRORS}}:\ \ \textcolor{comment}{//\ 0x82:\ error\ bitfield,\ little-\/endian}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ >=\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_aa2fe2c9102e9f2ab65ab4a9d5557f497}{MotorControllerErrorHandler\_16bitLE}}(\&msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1],\ 2);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00354}00354\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda887c38d92ef273b6fae58dcb51931765}{LOGIMAP\_IO}}:\ \ \textcolor{comment}{//\ 0x83:\ I/O\ status,\ 16-\/bit,\ little-\/endian}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ >=\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ io\_flags\ =\ (uint16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda75b5d9cefe36e570d9e0c306fb0e22fc}{POS\_ACTUAL}}:\ \ \textcolor{comment}{//\ 0x86:\ 32-\/bit\ value,\ little-\/endian}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ >=\ 5)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ pos\ =\ (int32\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4]\ <<\ 24)\ |}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]\ <<\ 16)\ |}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ \ |}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00369}00369\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00370}00370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa595211bb6640ca05c1c3344b47e2890f}{motor\_controller\_errors\_warnings}}:}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ error/warning\ responses\ using\ this\ register,\ assume\ a\ 16-\/bit\ field}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ >=\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_aa2fe2c9102e9f2ab65ab4a9d5557f497}{MotorControllerErrorHandler\_16bitLE}}(\&msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1],\ 2);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00376}00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268ac53068c686a03da9dbdc2e20ea07a8d0}{M\_out}}:\ \ \ \ \ \ \ \ \textcolor{comment}{//0xA0:\ actual\ active\ current\ scaled}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00377}00377\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_adfaaabb45aef6c2b8bf7fb35a5d3d37a}{mc\_torque\_cmd}}\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//cyclic}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00380}00380\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645aeff9dce22875056570afa6b71fd23842}{motor\_temperature}}:\ \ \ \ \ \ \ \ \textcolor{comment}{//0x49:\ motor\ temperature}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_addd0636fe19f64a68688fb4c64eb8d9a}{mc\_motor\_temp}}\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//cyclic}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00382}00382\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00384}00384\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645a349799caa493b390c9527db251fd128c}{igbt\_temperature}}:\ \ \ \ \ \ \textcolor{comment}{//0x4A:\ igbt\ temperature}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a1edd8dace1c45eaa85bb105f903248de}{mc\_igbt\_temp}}\ =\ (int16\_t)((msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ <<\ 8)\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//cyclic}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00388}00388\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Handle\ other\ responses\ as\ needed\ or\ call\ a\ default\ parser.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00391}00391\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00392}00392\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00393}00393\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00407}\mbox{\hyperlink{motor__controller_8c_aeaf0ac96c53381d0e43d5d7944923d86}{00407}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_aeaf0ac96c53381d0e43d5d7944923d86}{MC\_EnableCyclicSpeedTransmission}}(uint8\_t\ interval\_ms)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00408}00408\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00409}00409\ \ \ \ \ \textcolor{keywordflow}{if}\ (interval\_ms\ <\ 1\ ||\ interval\_ms\ >\ 254)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00410}00410\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00411}00411\ \ \ \ \ uint8\_t\ regs[]\ =\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00412}00412\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268a74ac68aa19b65409fa9b18b8f2be3bf4}{N\_actual}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0x30\ —\ Actual\ Speed}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00413}00413\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091}{CURRENT\_ACTUAL}},\ \ \ \ \ \textcolor{comment}{//\ 0x69\ —\ Actual\ Current}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00414}00414\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_a8cab19f0549eb777404ec1c7a3b56268ac53068c686a03da9dbdc2e20ea07a8d0}{M\_out}},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0xA0\ —\ Actual\ Active\ Current\ Scaled}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00415}00415\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645aeff9dce22875056570afa6b71fd23842}{motor\_temperature}},\ \ \textcolor{comment}{//\ 0x49\ —\ Current\ Motor\ temperature}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00416}00416\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645a349799caa493b390c9527db251fd128c}{igbt\_temperature}},\ \ \ \ \textcolor{comment}{//\ 0x4A\ —\ IGBT\ temperature}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00417}00417\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645afe594d99cc90d2fff45e0107f9e52f0f}{max\_motor\_temp}},\ \ \ \textcolor{comment}{//0xa3\ \ -\/\ max\ motor\ temp}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00418}00418\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_af56dfdd222f09bea78ac88fdf4ecf645a201a49da019d5cf651ff2ec75ef27b10}{warning\_motor\_temp}},\ \textcolor{comment}{//0xa2\ -\/\ warning\ motor\ temp}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00419}00419\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_a08f38539bd153ea7b7b1be8df1d6f6eda0065463d68046f7a361ad1b060548b27}{LOGIMAP\_ERRORS}},\ \textcolor{comment}{//\ 0x8F\ —\ ERROR\ BIT\ map}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00420}00420\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00422}00422\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \textcolor{keyword}{sizeof}(regs);\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00423}00423\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ tx;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00424}00424\ \ \ \ \ \ \ \ \ memset(\&tx,\ 0,\ \textcolor{keyword}{sizeof}(tx));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00425}00425\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00426}00426\ \ \ \ \ \ \ \ \ tx.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ \ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>can\_id\_tx;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00427}00427\ \ \ \ \ \ \ \ \ tx.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ \ \ \ \ =\ 3;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00428}00428\ \ \ \ \ \ \ \ \ tx.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 0x3D;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Command:\ Enable\ cyclic\ read}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00429}00429\ \ \ \ \ \ \ \ \ tx.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ regs[i];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Target\ register}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00430}00430\ \ \ \ \ \ \ \ \ tx.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ interval\_ms;\ \ \ \ \ \textcolor{comment}{//\ Repeating\ time\ (1–254\ ms)}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00431}00431\ \ \ \ \ \ \ \ \ tx.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ \ \ =\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>mc\_bus;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00432}00432\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00433}00433\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&tx);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00434}00434\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(5));\ \ \textcolor{comment}{//\ delay\ between\ messages}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00435}00435\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00436}00436\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00437}00437\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00438}00438\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00458}\mbox{\hyperlink{motor__controller_8h_aed1407e1e0fd59dc7c5e5d6db671f0ab}{00458}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_aed1407e1e0fd59dc7c5e5d6db671f0ab}{MC\_Startup}}(\textcolor{keywordtype}{void}*\ args)}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00459}00459\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00460}00460\ \ \ \ \ \textcolor{comment}{//toggle\ pin}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00461}00461\ \ \ \ \ HAL\_GPIO\_TogglePin(GPIOD,\ GPIO\_PIN\_14);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00462}00462\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00463}00463\ \ \ \ \ \textcolor{comment}{//Register\ CAN\ RX\ handler\ first\ and\ routes\ eveyrthing\ though\ processmotorcontrollerresponse}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00464}00464\ \ \ \ \ \textcolor{comment}{//subsequently\ the\ motor\ controller\ error\ handler}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00465}00465\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(\mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>can\_id\_rx,\ \mbox{\hyperlink{motor__controller_8c_aaff68bb563bf4ad56841a5a5020cbadc}{ProcessMotorControllerResponse}},\ \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\_settings}}-\/>mc\_bus);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00466}00466\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00467}00467\ \ \ \ \ \textcolor{comment}{//start\ cyclic\ transmission}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00468}00468\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_aeaf0ac96c53381d0e43d5d7944923d86}{MC\_EnableCyclicSpeedTransmission}}(100);\ \textcolor{comment}{//\ every\ 100ms}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00470}00470\ \ \ \ \ \textcolor{comment}{//\ ===\ Bamocar\ Init\ Routine\ (partial\ from\ Example\ 11)\ ===}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00471}00471\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00472}00472\ \ \ \ \ \textcolor{comment}{//\ 1.\ Request\ BTB\ (0xE2)\ —\ optional}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00473}00473\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(0xE2);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00474}00474\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00475}00475\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00476}00476\ \ \ \ \ \textcolor{comment}{//\ 2.\ Disable\ motor}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00477}00477\ \ \ \ \ \textcolor{comment}{//0x51\ is\ mode\ state}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00478}00478\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0x51,\ 0x0004);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00479}00479\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00480}00480\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00481}00481\ \ \ \ \ \textcolor{comment}{//\ 3.\ Request\ enable\ hardware}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00482}00482\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(0xE8);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00483}00483\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00484}00484\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00485}00485\ \ \ \ \ \textcolor{comment}{//\ 4.\ Enable\ controller}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00486}00486\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0x51,\ 0x0000);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00487}00487\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00488}00488\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00489}00489\ \ \ \ \ \textcolor{comment}{//\ 5.\ Set\ acceleration\ ramp}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00490}00490\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0x35,\ 0x01F4);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00491}00491\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00492}00492\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00493}00493\ \ \ \ \ \textcolor{comment}{//\ 6.\ Set\ deceleration\ ramp}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00494}00494\ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0xED,\ 0x03E8);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00495}00495\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00497}00497\ \ \ \ \ \textcolor{comment}{//pointer\ to\ mc\ init\ task}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00498}00498\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ MC\_init\_args\ =\ (\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*)args;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00499}00499\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ queue\ =\ MC\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00501}00501\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structuv__init__task__response}{uv\_init\_task\_response}}\ rx;}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00502}00502\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ID\ of\ responding\ device}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00503}00503\ \ \ \ \ \ \ \ \ rx.\mbox{\hyperlink{structuv__init__task__response_adfcb943d08344e528ad3d49c5c428918}{device}}\ =\ \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a9c632ecb370b78547a390d1b5cf59671}{MOTOR\_CONTROLLER}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00504}00504\ \ \ \ \ \ \ \ \ rx.\mbox{\hyperlink{structuv__init__task__response_a56b3df74c10cdc59e8e1b9d4c1f36af7}{status}}\ =\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00505}00505\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00506}00506\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Request\ serial\ number\ and\ firmware\ version.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00507}00507\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(\mbox{\hyperlink{motor__controller_8h_aab8c03dc3480e25a7a75b60edbf51cb3}{SERIAL\_NUMBER\_REGISTER}});}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(10);\ \textcolor{comment}{//delay}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00509}00509\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Request\ device\ serial\ number\ servo}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00510}00510\ \ \ \ \ \ \ \ \ \textcolor{comment}{//MC\_Request\_Data(0x62);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00511}00511\ \ \ \ \ \ \ \ \ \textcolor{comment}{//vTaskDelay(10);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00513}00513\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(\mbox{\hyperlink{motor__controller_8h_a829d1af845327949015b4e83bb6fc43d}{FIRMWARE\_VERSION\_REGISTER}});}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00514}00514\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(10);\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00515}00515\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00516}00516\ \ \ \ \ \ \ \ \ \textcolor{comment}{//clear\ error\ list}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00517}00517\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0x8E,\ 0x444d);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00518}00518\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00519}00519\ \ \ \ \ \ \ \ \ \textcolor{comment}{//sendTorqueToMotorController(0);\ //set\ initial\ speed\ to\ 0}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00520}00520\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00521}00521\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00522}00522\ \ \ \ \ \ \ \ \ \textcolor{comment}{//set\ and\ verify\ tests}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00523}00523\ \ \ \ \ \ \ \ \ \textcolor{comment}{//MC\_SetAndVerify\_Param(0x31,\ 0x0CCD);\ \ //\ 10\%\ speed\ N\_Set}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00524}00524\ \ \ \ \ \ \ \ \ \textcolor{comment}{//MC\_SetAndVerify\_Param(0x6A,\ 15);\ \ \ //\ Kp}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00525}00525\ \ \ \ \ \ \ \ \ \textcolor{comment}{//MC\_SetAndVerify\_Param(0x6B,\ 501);\ \ //\ Ki}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00526}00526\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00527}00527\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Request\ error\ data\ (if\ desired,\ e.g.,\ using\ the\ error/warning\ register).}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00528}00528\ \ \ \ \ \ \ \ \ \textcolor{comment}{//MC\_Request\_Data((uint8\_t)motor\_controller\_errors\_warnings);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00529}00529\ \ \ \ \ \ \ \ \ \textcolor{comment}{//MC\_Request\_Data(0x82)\ //check\ errors\ should\ see\ 82\ \#\#\ \#\#}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00530}00530\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00531}00531\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Signal\ success\ via\ an\ RTOS\ queue\ here...}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00532}00532\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{queue_8h_af7eb49d3249351176992950d9185abe9}{xQueueSend}}(queue,\&rx,0);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00533}00533\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00534}00534\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Suspend\ this\ task\ so\ it\ does\ not\ run\ repeatedly.}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00535}00535\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_a84d4e660b04630be2939d91b3c2412f8}{vTaskSuspend}}(NULL);}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00536}00536\ \}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00537}00537\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00548}\mbox{\hyperlink{motor__controller_8h_ad5f29647a349035990d49fe100bb740b}{00548}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor__controller_8c_ad5f29647a349035990d49fe100bb740b}{MC\_Shutdown}}(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00549}00549\ \{}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00550}00550\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1.\ Stop\ all\ cyclic\ transmission}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00551}00551\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_aeaf0ac96c53381d0e43d5d7944923d86}{MC\_EnableCyclicSpeedTransmission}}(0xFF);\ \ \textcolor{comment}{//\ 0xFF\ disables\ periodic\ streaming}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00552}00552\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00553}00553\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00554}00554\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.\ Set\ speed\ or\ torque\ to\ zero}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00555}00555\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Use\ one\ of\ these\ depending\ on\ your\ control\ mode:}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00556}00556\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ If\ using\ speed\ mode:}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00557}00557\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0x31,\ 0x0000);\ \ \textcolor{comment}{//\ N\_set\ =\ 0}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00558}00558\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ If\ using\ torque\ mode\ (comment\ out\ one\ or\ the\ other):}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00559}00559\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uint16\_t\ sendTorqueToMotorController(0.0f);}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00560}00560\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00561}00561\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00562}00562\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00563}00563\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3.\ Disable\ controller}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00564}00564\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\_Set\_Param}}(0x51,\ 0x0004);\ \ \textcolor{comment}{//\ Disable\ command}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00565}00565\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00566}00566\ }
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00567}00567\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4.\ Optional:\ Request\ error/warning\ register\ after\ shutdown}}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00568}00568\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\_Request\_Data}}(\mbox{\hyperlink{motor__controller_8h_a5e2fbf1b4105e76b330bcb6547533dffa595211bb6640ca05c1c3344b47e2890f}{motor\_controller\_errors\_warnings}});}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00569}00569\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(\mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(10));}
+\DoxyCodeLine{\Hypertarget{motor__controller_8c_source_l00570}00570\ \}}
+
+\end{DoxyCode}

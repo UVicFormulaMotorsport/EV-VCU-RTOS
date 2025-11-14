@@ -8,13 +8,47 @@
 
 typedef enum uv_status_t uv_status;
 
+//This is the abstract layer of a conifer channel
+typedef struct abstract_conifer_channel{
+	uint16_t status_control_reg;
+	uint16_t hardware_mapping;
+	uint16_t ilim;
+	uint16_t duty;
+}abstract_conifer_channel;
+
+//Macros for use with the conifer_status_control_reg
+#define CONIFER_CH_EN_BIT (0x0001U<<0)
+#define CONIFER_CH_IS_CRIT_BIT (0x0001U<<1)
+#define CONIFER_CH_PSRC_BIT (0x0001U<<2)
+#define CONIFER_CH_HB_DIR_MASK ((0x0001U<<3)|(0x0001U<<4))
+#define CONIFER_CH_EN_OCP (0x0001U<<5)
+#define CONIFER_CH_FLT_BIT (0x0001U<<6)
+#define CONIFER_CH_ILIM_BIT (0x0001U<<7)
+#define CONIFER_CH_ALLOW_LOAD_SHED (0x0001U<<8)
+#define CONIFER_CH_LS_ACTIVE (0x0001U<<9)
+
+//Macros for usage with the hardware_mapping field of the abstract_conifer_channel
+#define CONIFER_CH_IN_USE (0x0001U<<15)
+#define CONIFER_CH_LOC_MASK (0x0700U)
+#define CONIFER_HW_CH_ID_MASK (0x00FF)
+
+#define IS_CONIFER_CH_USED(ch) (ch->hardware_mapping&CONIFER_CH_IN_USE)
+#define GET_CONIFER_CH_LOC(ch) ((ch->hardware_mapping&CONIFER_CH_LOC_MASK)>>8)
+
+typedef struct conifer_ch_setting{
+	struct abstract_conifer_channel ch_dat;
+	uint16_t ch;
+	uint16_t reserved;
+}conifer_ch_setting;
+
 //Enum that is the human readable names of the abstract conifer outputs
 typedef enum CONIFER_OUTPUT{
 	VCU_SAFETY,
 	BAMO_RFE,
 	BAMO_RUN,
 	BAMO_PWR,
-	SDC_START,
+	SDC_BOARD_PWR,
+	HVIL_PWR,
 	DCDC_EN,
 	COOLANT_PUMP1,
 	COOLANT_PUMP2,
@@ -26,15 +60,15 @@ typedef enum CONIFER_OUTPUT{
 	ACCU_FANS2,
 	BRAKE_LIGHT,
 	HORN,
-	DRS_FL1,
-	DRS_FL2,
-	DRS_FR1,
-	DRS_FR2,
-	DRS_R1,
-	DRS_R2,
-	DRS_R3,
-	BMS_ALWAYS_ON,
-	BMS_DISCHARGE_PWR,
+	//DRS_FL1,
+	//DRS_FL2,
+	//DRS_FR1,
+	//DRS_FR2,
+	//DRS_R1,
+	//DRS_R2,
+	//DRS_R3,
+	//BMS_ALWAYS_ON,
+	//BMS_DISCHARGE_PWR,
 	IMD_PWR,
 	GENERAL_ACCU_PWR1,
 	GENERAL_ACCU_PWR2,
@@ -68,32 +102,46 @@ typedef enum conifer_driver_ecode{
 
 //The base config settings for CONIFER
 typedef struct conifer_settings{
-	uint32_t conif_flags;
+	uint32_t conif_flags; //4
 
 	//These variables are from the future, you wouldnt understand them yet
 	uint16_t OCP_flt_time; //ms
-	uint16_t OCP_load_shed_time; //ms
+	uint16_t OCP_load_shed_time; //ms //8
 
 
 	uint16_t sys_fault_current; //Fault current of entire sys
 	uint16_t sys_cont_current; //Continous Current Rating of system
+	//12
+
 	uint16_t sys_excess_I2T; //in A*ms
 	uint16_t sys_ocp_timeout;
+	//16
 
 	uint16_t sys_max_voltage;
 	uint16_t sys_lv_threshold_voltage; //If V_SYS drops below this value, it will trigger emergency load shedding
-	uint16_t sys_cutoff_voltage; //If V_SYS drops below this voltage
+	//20
 
+	uint16_t sys_cutoff_voltage; //If V_SYS drops below this voltage
 	uint16_t regbusA_target_voltage;
+	//24
+
 	uint16_t regbusA_fault_current;
 	uint16_t regbusA_continous_current;
+	//28
 
 	uint16_t regbusB_target_voltage;
 	uint16_t regbusB_fault_current;
-	uint16_t regbusB_continous_current;
+	//32
 
+	uint16_t regbusB_continous_current;
 	uint8_t n_ch;
 	uint8_t pdu_bus;
+	//36
+
+	uint8_t dpms_bus;
+	uint8_t ecumaster_bus;
+
+	struct conifer_ch_setting ch_list[32]; //The 55 puts us to exactly 256 bytes
 
 }conifer_settings;
 
@@ -109,27 +157,14 @@ typedef enum conifer_ch_location{
 	INVALID_MAPPING = 0b111
 }conifer_ch_location;
 
+//typedef enum conifer_stat_flags{
+//
+//};
 
-//This is the abstract layer of a conifer channel
-typedef struct abstract_conifer_channel{
-	uint16_t status_control_reg;
-	uint16_t hardware_mapping;
-}abstract_conifer_channel;
-
-//Macros for use with the conifer_status_control_reg
-#define CONIFER_CH_EN_BIT (0x0001U<<0)
-#define CONIFER_CH_IS_CRIT_BIT (0x0001U<<1)
-#define CONIFER_CH_PSRC_BIT (0x0001U<<2)
-#define CONIFER_CH_HB_DIR_MASK ((0x0001U<<3)|(0x0001U<<4))
-#define CONIFER_CH_EN_OCP (0x0001U<<5)
-
-//Macros for usage with the hardware_mapping field of the abstract_conifer_channel
-#define CONIFER_CH_IN_USE (0x0001U<<15)
-#define CONIFER_CH_LOC_MASK (0x0700U)
-#define CONIFER_HW_CH_ID_MASK (0x00FF)
-
-#define IS_CONIFER_CH_USED(ch) (ch->hardware_mapping&CONIFER_CH_IN_USE)
-#define GET_CONIFER_CH_LOC(ch) ((ch->hardware_mapping&CONIFER_CH_LOC_MASK)>>8)
+typedef struct conifer_state{
+	uint32_t status_flags;
+	uint8_t load_shedding;
+}conifer_state;
 
 typedef enum conifer_hw_ch_type{ //This represents the type of a hardware channel
 	BIN_CH = 0x00,
@@ -147,6 +182,8 @@ typedef struct conifer_hw_channel{
 	uint16_t ch_info_reg;
 
 }conifer_hw_channel;
+
+
 
 #define CONIFER_CH_TYPE_MASK 0x0007
 

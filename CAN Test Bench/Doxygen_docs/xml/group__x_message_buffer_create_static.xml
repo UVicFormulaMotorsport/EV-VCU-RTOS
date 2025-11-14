@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_message_buffer_create_static" kind="group">
     <compoundname>xMessageBufferCreateStatic</compoundname>
     <title>xMessageBufferCreateStatic</title>
@@ -8,9 +8,9 @@
     <detaileddescription>
 <para><ref refid="message__buffer_8h" kindref="compound">message_buffer.h</ref></para>
 <para><preformatted>
-MessageBufferHandle_t xMessageBufferCreateStatic( size_t xBufferSizeBytes,
+MessageBufferHandle_t <ref refid="message__buffer_8h_1acc84f4a15dbd39ecbad35f7337e78b2c" kindref="member">xMessageBufferCreateStatic( size_t xBufferSizeBytes,
                                                   uint8_t *pucMessageBufferStorageArea,
-                                                  StaticMessageBuffer_t *pxStaticMessageBuffer );
+                                                  StaticMessageBuffer_t *pxStaticMessageBuffer )</ref>;
 </preformatted> Creates a new message buffer using statically allocated memory. See <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate()</ref> for a version that uses dynamically allocated memory.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
@@ -39,27 +39,35 @@ MessageBufferHandle_t xMessageBufferCreateStatic( size_t xBufferSizeBytes,
 </parameterlist>
 <simplesect kind="return"><para>If the message buffer is created successfully then a handle to the created message buffer is returned. If either pucMessageBufferStorageArea or pxStaticmessageBuffer are NULL then NULL is returned.</para>
 </simplesect>
-Example use: <preformatted></preformatted></para>
-<para><preformatted>// Used to dimension the array used to hold the messages.  The available space
+Example use: <preformatted>
+
+// Used to dimension the array used to hold the messages.  The available space
 // will actually be one less than this, so 999.
-#define STORAGE_SIZE_BYTES 1000</preformatted></para>
-<para><preformatted>// Defines the memory that will actually hold the messages within the message
+#define STORAGE_SIZE_BYTES 1000
+
+// Defines the memory that will actually hold the messages within the message
 // buffer.
-static uint8_t ucStorageBuffer[ STORAGE_SIZE_BYTES ];</preformatted></para>
-<para><preformatted>// The variable used to hold the message buffer structure.
-StaticMessageBuffer_t xMessageBufferStruct;</preformatted></para>
-<para><preformatted>void MyFunction( void )
+static uint8_t ucStorageBuffer[ STORAGE_SIZE_BYTES ];
+
+// The variable used to hold the message buffer structure.
+StaticMessageBuffer_t xMessageBufferStruct;
+
+void MyFunction( void )
 {
-MessageBufferHandle_t xMessageBuffer;</preformatted></para>
-<para><preformatted>    xMessageBuffer = xMessageBufferCreateStatic( sizeof( ucBufferStorage ),
+MessageBufferHandle_t xMessageBuffer;
+
+    xMessageBuffer = <ref refid="message__buffer_8h_1acc84f4a15dbd39ecbad35f7337e78b2c" kindref="member">xMessageBufferCreateStatic( sizeof( ucBufferStorage ),
                                                  ucBufferStorage,
-                                                 &amp;xMessageBufferStruct );</preformatted></para>
-<para><preformatted>    // As neither the pucMessageBufferStorageArea or pxStaticMessageBuffer
+                                                 &amp;xMessageBufferStruct )</ref>;
+
+    // As neither the pucMessageBufferStorageArea or pxStaticMessageBuffer
     // parameters were NULL, xMessageBuffer will not be NULL, and can be used to
-    // reference the created message buffer in other message buffer API calls.</preformatted></para>
-<para><preformatted>    // Other code that uses the message buffer can go here.
-}</preformatted></para>
-<para><preformatted></preformatted> </para>
+    // reference the created message buffer in other message buffer API calls.
+
+    // Other code that uses the message buffer can go here.
+}
+
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

@@ -1,0 +1,280 @@
+\doxysection{atomic.\+h}
+\hypertarget{atomic_8h_source}{}\label{atomic_8h_source}\index{Core/FreeRTOS/Source/include/atomic.h@{Core/FreeRTOS/Source/include/atomic.h}}
+\mbox{\hyperlink{atomic_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00002}00002\ \textcolor{comment}{\ *\ FreeRTOS\ Kernel\ V10.3.1}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00003}00003\ \textcolor{comment}{\ *\ Copyright\ (C)\ 2020\ Amazon.com,\ Inc.\ or\ its\ affiliates.\ \ All\ Rights\ Reserved.}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00004}00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00005}00005\ \textcolor{comment}{\ *\ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00006}00006\ \textcolor{comment}{\ *\ this\ software\ and\ associated\ documentation\ files\ (the\ "{}Software"{}),\ to\ deal\ in}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00007}00007\ \textcolor{comment}{\ *\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights\ to}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00008}00008\ \textcolor{comment}{\ *\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,\ and/or\ sell\ copies\ of}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00009}00009\ \textcolor{comment}{\ *\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00010}00010\ \textcolor{comment}{\ *\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00011}00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00012}00012\ \textcolor{comment}{\ *\ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00013}00013\ \textcolor{comment}{\ *\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00014}00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00015}00015\ \textcolor{comment}{\ *\ THE\ SOFTWARE\ IS\ PROVIDED\ "{}AS\ IS"{},\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00016}00016\ \textcolor{comment}{\ *\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,\ FITNESS}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00017}00017\ \textcolor{comment}{\ *\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00018}00018\ \textcolor{comment}{\ *\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,\ WHETHER}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00019}00019\ \textcolor{comment}{\ *\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00020}00020\ \textcolor{comment}{\ *\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00021}00021\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00022}00022\ \textcolor{comment}{\ *\ http://www.FreeRTOS.org}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00023}00023\ \textcolor{comment}{\ *\ http://aws.amazon.com/freertos}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00024}00024\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00025}00025\ \textcolor{comment}{\ *\ 1\ tab\ ==\ 4\ spaces!}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00026}00026\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00037}00037\ \textcolor{preprocessor}{\#ifndef\ ATOMIC\_H}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00038}00038\ \textcolor{preprocessor}{\#define\ ATOMIC\_H}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00040}00040\ \textcolor{preprocessor}{\#ifndef\ INC\_FREERTOS\_H}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00041}00041\ \textcolor{preprocessor}{\ \ \ \ \#error\ "{}include\ FreeRTOS.h\ must\ appear\ in\ source\ files\ before\ include\ atomic.h"{}}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00042}00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00044}00044\ \textcolor{comment}{/*\ Standard\ includes.\ */}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00045}00045\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00047}00047\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00048}00048\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00049}00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00051}00051\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00052}00052\ \textcolor{comment}{\ *\ Port\ specific\ definitions\ -\/-\/\ entering/exiting\ critical\ section.}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00053}00053\ \textcolor{comment}{\ *\ Refer\ template\ -\/-\/\ ./lib/FreeRTOS/portable/Compiler/Arch/portmacro.h}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00054}00054\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00055}00055\ \textcolor{comment}{\ *\ Every\ call\ to\ ATOMIC\_EXIT\_CRITICAL()\ must\ be\ closely\ paired\ with}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00056}00056\ \textcolor{comment}{\ *\ ATOMIC\_ENTER\_CRITICAL().}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00057}00057\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00058}00058\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00059}00059\ \textcolor{preprocessor}{\#if\ defined(\ portSET\_INTERRUPT\_MASK\_FROM\_ISR\ )}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00061}00061\ \ \ \ \ \textcolor{comment}{/*\ Nested\ interrupt\ scheme\ is\ supported\ in\ this\ port.\ */}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00062}00062\ \textcolor{preprocessor}{\ \ \ \ \#define\ ATOMIC\_ENTER\_CRITICAL()\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00063}00063\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ UBaseType\_t\ uxCriticalSectionType\ =\ portSET\_INTERRUPT\_MASK\_FROM\_ISR()}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00065}00065\ \textcolor{preprocessor}{\ \ \ \ \#define\ ATOMIC\_EXIT\_CRITICAL()\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00066}00066\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ portCLEAR\_INTERRUPT\_MASK\_FROM\_ISR(\ uxCriticalSectionType\ )}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00068}00068\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00070}00070\ \ \ \ \ \textcolor{comment}{/*\ Nested\ interrupt\ scheme\ is\ NOT\ supported\ in\ this\ port.\ */}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00071}\mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{00071}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ ATOMIC\_ENTER\_CRITICAL()\ \ portENTER\_CRITICAL()}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00072}\mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{00072}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ ATOMIC\_EXIT\_CRITICAL()\ \ \ \ portEXIT\_CRITICAL()}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00074}00074\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ portSET\_INTERRUPT\_MASK\_FROM\_ISR()\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00076}00076\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00077}00077\ \textcolor{comment}{\ *\ Port\ specific\ definition\ -\/-\/\ "{}always\ inline"{}.}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00078}00078\ \textcolor{comment}{\ *\ Inline\ is\ compiler\ specific,\ and\ may\ not\ always\ get\ inlined\ depending\ on\ your}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00079}00079\ \textcolor{comment}{\ *\ optimization\ level.\ \ Also,\ inline\ is\ considered\ as\ performance\ optimization}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00080}00080\ \textcolor{comment}{\ *\ for\ atomic.\ \ Thus,\ if\ portFORCE\_INLINE\ is\ not\ provided\ by\ portmacro.h,}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00081}00081\ \textcolor{comment}{\ *\ instead\ of\ resulting\ error,\ simply\ define\ it\ away.}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00082}00082\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00083}00083\ \textcolor{preprocessor}{\#ifndef\ portFORCE\_INLINE}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00084}\mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{00084}}\ \textcolor{preprocessor}{\ \ \ \ \#define\ portFORCE\_INLINE}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00085}00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00087}\mbox{\hyperlink{atomic_8h_a2d30f083e50b866caf8822ec31a75969}{00087}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS\ \ 0x1U\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00088}\mbox{\hyperlink{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}{00088}}\ \textcolor{preprocessor}{\#define\ ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE\ \ 0x0U\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00090}00090\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Swap\ \&\&\ CAS\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00107}\mbox{\hyperlink{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}{00107}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}{Atomic\_CompareAndSwap\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulExchange,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulComparand\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00110}00110\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00111}00111\ uint32\_t\ ulReturnValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00113}00113\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00114}00114\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ *pulDestination\ ==\ ulComparand\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00116}00116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ *pulDestination\ =\ ulExchange;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ ulReturnValue\ =\ \mbox{\hyperlink{atomic_8h_a2d30f083e50b866caf8822ec31a75969}{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00119}00119\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00121}00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ ulReturnValue\ =\ \mbox{\hyperlink{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}};}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00127}00127\ \ \ \ \ \textcolor{keywordflow}{return}\ ulReturnValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00128}00128\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00129}00129\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00143}\mbox{\hyperlink{atomic_8h_a98fb15ac72c617dd96a2a4ad55787b86}{00143}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ \textcolor{keywordtype}{void}\ *\ \mbox{\hyperlink{atomic_8h_a98fb15ac72c617dd96a2a4ad55787b86}{Atomic\_SwapPointers\_p32}}(\ \textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{volatile}\ *\ ppvDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00144}00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ pvExchange\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00145}00145\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00146}00146\ \textcolor{keywordtype}{void}\ *\ pReturnValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00148}00148\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00149}00149\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00150}00150\ \ \ \ \ \ \ \ \ pReturnValue\ =\ *ppvDestination;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00151}00151\ \ \ \ \ \ \ \ \ *ppvDestination\ =\ pvExchange;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00152}00152\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00153}00153\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00155}00155\ \ \ \ \ \textcolor{keywordflow}{return}\ pReturnValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00156}00156\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00157}00157\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00175}\mbox{\hyperlink{atomic_8h_a0dfb0b26706475d490792af561a143d5}{00175}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a0dfb0b26706475d490792af561a143d5}{Atomic\_CompareAndSwapPointers\_p32}}(\ \textcolor{keywordtype}{void}\ *\ \textcolor{keyword}{volatile}\ *\ ppvDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ pvExchange,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *\ pvComparand\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00178}00178\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00179}00179\ uint32\_t\ ulReturnValue\ =\ \mbox{\hyperlink{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}};}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00181}00181\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00182}00182\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ *ppvDestination\ ==\ pvComparand\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00184}00184\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ *ppvDestination\ =\ pvExchange;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ ulReturnValue\ =\ \mbox{\hyperlink{atomic_8h_a2d30f083e50b866caf8822ec31a75969}{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}};}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00187}00187\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00188}00188\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00189}00189\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00191}00191\ \ \ \ \ \textcolor{keywordflow}{return}\ ulReturnValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00192}00192\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00195}00195\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Arithmetic\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00208}\mbox{\hyperlink{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}{00208}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}{Atomic\_Add\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulAddend,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulCount\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00210}00210\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00211}00211\ \ \ \ \ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00212}00212\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00213}00213\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00214}00214\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00215}00215\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulAddend;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00216}00216\ \ \ \ \ \ \ \ \ *pulAddend\ +=\ ulCount;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00217}00217\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00218}00218\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00220}00220\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00221}00221\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00222}00222\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00223}00223\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00236}\mbox{\hyperlink{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}{00236}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}{Atomic\_Subtract\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulAddend,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulCount\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00238}00238\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00239}00239\ \ \ \ \ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00241}00241\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00242}00242\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00243}00243\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulAddend;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00244}00244\ \ \ \ \ \ \ \ \ *pulAddend\ -\/=\ ulCount;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00245}00245\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00246}00246\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00248}00248\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00249}00249\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00250}00250\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00251}00251\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00262}\mbox{\hyperlink{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}{00262}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}{Atomic\_Increment\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulAddend\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00263}00263\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00264}00264\ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00266}00266\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00267}00267\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00268}00268\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulAddend;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00269}00269\ \ \ \ \ \ \ \ \ *pulAddend\ +=\ 1;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00270}00270\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00271}00271\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00274}00274\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00275}00275\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00287}\mbox{\hyperlink{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}{00287}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}{Atomic\_Decrement\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulAddend\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00288}00288\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00289}00289\ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00290}00290\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00291}00291\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00292}00292\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00293}00293\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulAddend;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00294}00294\ \ \ \ \ \ \ \ \ *pulAddend\ -\/=\ 1;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00295}00295\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00296}00296\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00297}00297\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00298}00298\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00299}00299\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00300}00300\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00301}00301\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Bitwise\ Logical\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00302}00302\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00314}\mbox{\hyperlink{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}{00314}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}{Atomic\_OR\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00315}00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulValue\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00316}00316\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00317}00317\ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00318}00318\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00319}00319\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00320}00320\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00321}00321\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulDestination;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00322}00322\ \ \ \ \ \ \ \ \ *pulDestination\ |=\ ulValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00323}00323\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00324}00324\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00325}00325\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00326}00326\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00327}00327\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00328}00328\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00329}00329\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00341}\mbox{\hyperlink{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}{00341}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}{Atomic\_AND\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulValue\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00343}00343\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00344}00344\ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00346}00346\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00347}00347\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00348}00348\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulDestination;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00349}00349\ \ \ \ \ \ \ \ \ *pulDestination\ \&=\ ulValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00350}00350\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00351}00351\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00353}00353\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00354}00354\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00355}00355\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00356}00356\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00368}\mbox{\hyperlink{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}{00368}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}{Atomic\_NAND\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulValue\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00370}00370\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00371}00371\ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00373}00373\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00374}00374\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00375}00375\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulDestination;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00376}00376\ \ \ \ \ \ \ \ \ *pulDestination\ =\ \string~(\ ulCurrent\ \&\ ulValue\ );}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00377}00377\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00378}00378\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00380}00380\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00381}00381\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00382}00382\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00395}\mbox{\hyperlink{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}{00395}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{portFORCE\_INLINE}}\ uint32\_t\ \mbox{\hyperlink{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}{Atomic\_XOR\_u32}}(\ uint32\_t\ \textcolor{keyword}{volatile}\ *\ pulDestination,}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00396}00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ulValue\ )}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00397}00397\ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00398}00398\ uint32\_t\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00400}00400\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\_ENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00401}00401\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00402}00402\ \ \ \ \ \ \ \ \ ulCurrent\ =\ *pulDestination;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00403}00403\ \ \ \ \ \ \ \ \ *pulDestination\ \string^=\ ulValue;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00404}00404\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00405}00405\ \ \ \ \ \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\_EXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00407}00407\ \ \ \ \ \textcolor{keywordflow}{return}\ ulCurrent;}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00408}00408\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00409}00409\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00410}00410\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00411}00411\ \}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00412}00412\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{atomic_8h_source_l00414}00414\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ ATOMIC\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

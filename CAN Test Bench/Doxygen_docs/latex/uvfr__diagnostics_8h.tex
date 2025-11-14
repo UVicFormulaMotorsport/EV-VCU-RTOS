@@ -1,0 +1,197 @@
+\doxysection{Core/\+Inc/uvfr\+\_\+diagnostics.h File Reference}
+\hypertarget{uvfr__diagnostics_8h}{}\label{uvfr__diagnostics_8h}\index{Core/Inc/uvfr\_diagnostics.h@{Core/Inc/uvfr\_diagnostics.h}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{uvfr__diagnostics_8h_ab7254c23f6e867574f6cb163745e6dba}{DIAGNOSTIC\+\_\+\+RX\+\_\+\+MSG\+\_\+\+ID}}~0x421
+\item 
+\#define \mbox{\hyperlink{uvfr__diagnostics_8h_ab4767d10c46b575829963c79c30d6b11}{DIAGNOSTIC\+\_\+\+TX\+\_\+\+MSG\+\_\+\+ID}}~0x521
+\item 
+\#define \mbox{\hyperlink{uvfr__diagnostics_8h_a94253da7c896b6bad6f37138776820b4}{TEXTIFY}}(A)
+\item 
+\#define \mbox{\hyperlink{uvfr__diagnostics_8h_a20dda0f49a0be7fa70a22f050ef9f96d}{uv\+Assert}}(x)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4}{diagnostic\+\_\+cmd}} \{ \newline
+\mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869}{ENTER\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}
+, \mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c}{EXIT\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}
+, \mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463}{REQUEST\+\_\+\+STATE\+\_\+\+CHANGE}}
+, \mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6}{FORCE\+\_\+\+STATE\+\_\+\+CHANGE}}
+, \newline
+\mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c}{d\+CLEAR\+\_\+\+FAULTS}}
+ \}
+\item 
+enum \mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3}{logged\+\_\+event\+\_\+type}} \{ \newline
+\mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3ac58a40c151a8445666c3a3d82887151e}{LOG\+\_\+\+FATAL\+\_\+\+ERROR}}
+, \mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3a230506cce5c68c3bac5a821c42ed3473}{LOG\+\_\+\+ERROR}}
+, \mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3a8f6fe15bfe15104da6d1b360194a5400}{LOG\+\_\+\+WARNING}}
+, \mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3aafe9472e1fcfcbcb15e1b66ae7a58e3a}{LOG\+\_\+\+STATE\+\_\+\+CHANGE}}
+, \newline
+\mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3a6e3eec990bf6cbd5f339303cc9fd3bc1}{LOG\+\_\+\+GENERIC\+\_\+\+EVENT}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__diagnostics_8h_a7ad14988beab0a9306cabebf1525133f}{uv\+Init\+Diagnostics}} ()
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__diagnostics_8h_a98c6d4943e1119a43bb560d7aa2998e5}{log\+Diagnostic\+Event}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{uvfr__diagnostics_8h_ab7254c23f6e867574f6cb163745e6dba}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!DIAGNOSTIC\_RX\_MSG\_ID@{DIAGNOSTIC\_RX\_MSG\_ID}}
+\index{DIAGNOSTIC\_RX\_MSG\_ID@{DIAGNOSTIC\_RX\_MSG\_ID}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{DIAGNOSTIC\_RX\_MSG\_ID}{DIAGNOSTIC\_RX\_MSG\_ID}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_ab7254c23f6e867574f6cb163745e6dba} 
+\#define DIAGNOSTIC\+\_\+\+RX\+\_\+\+MSG\+\_\+\+ID~0x421}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00011}{11}} of file \mbox{\hyperlink{uvfr__diagnostics_8h_source}{uvfr\+\_\+diagnostics.\+h}}.
+
+\Hypertarget{uvfr__diagnostics_8h_ab4767d10c46b575829963c79c30d6b11}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!DIAGNOSTIC\_TX\_MSG\_ID@{DIAGNOSTIC\_TX\_MSG\_ID}}
+\index{DIAGNOSTIC\_TX\_MSG\_ID@{DIAGNOSTIC\_TX\_MSG\_ID}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{DIAGNOSTIC\_TX\_MSG\_ID}{DIAGNOSTIC\_TX\_MSG\_ID}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_ab4767d10c46b575829963c79c30d6b11} 
+\#define DIAGNOSTIC\+\_\+\+TX\+\_\+\+MSG\+\_\+\+ID~0x521}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00012}{12}} of file \mbox{\hyperlink{uvfr__diagnostics_8h_source}{uvfr\+\_\+diagnostics.\+h}}.
+
+\Hypertarget{uvfr__diagnostics_8h_a94253da7c896b6bad6f37138776820b4}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!TEXTIFY@{TEXTIFY}}
+\index{TEXTIFY@{TEXTIFY}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{TEXTIFY}{TEXTIFY}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_a94253da7c896b6bad6f37138776820b4} 
+\#define TEXTIFY(\begin{DoxyParamCaption}\item[{}]{A}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#A}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00019}{19}} of file \mbox{\hyperlink{uvfr__diagnostics_8h_source}{uvfr\+\_\+diagnostics.\+h}}.
+
+\Hypertarget{uvfr__diagnostics_8h_a20dda0f49a0be7fa70a22f050ef9f96d}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!uvAssert@{uvAssert}}
+\index{uvAssert@{uvAssert}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{uvAssert}{uvAssert}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_a20dda0f49a0be7fa70a22f050ef9f96d} 
+\#define uv\+Assert(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}((x)\ ==\ 0)\{\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}{uvAssertFailed}}(\textcolor{keywordtype}{char}*\ file,\ uint16\_t\ line,\ \mbox{\hyperlink{structtsk_task_control_block}{TaskHandle\_t}}\ task,\ \textcolor{keywordtype}{char}*\ condition);\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structtsk_task_control_block}{TaskHandle\_t}}\ ctask\ =\ \mbox{\hyperlink{task_8h_a85a0f9c9f817b18686efbf8f37c72dfc}{xTaskGetCurrentTaskHandle}}();\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ uvAssertFailed(\mbox{\hyperlink{main_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\_\_UV\_FILENAME\_\_}},\ \_\_LINE\_\_,\ ctask,\ \mbox{\hyperlink{uvfr__diagnostics_8h_a94253da7c896b6bad6f37138776820b4}{TEXTIFY}}(x));\(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00024}{24}} of file \mbox{\hyperlink{uvfr__diagnostics_8h_source}{uvfr\+\_\+diagnostics.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!diagnostic\_cmd@{diagnostic\_cmd}}
+\index{diagnostic\_cmd@{diagnostic\_cmd}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{diagnostic\_cmd}{diagnostic\_cmd}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4} 
+enum \mbox{\hyperlink{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4}{diagnostic\+\_\+cmd}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENTER\_DIAGNOSTICS\_MODE@{ENTER\_DIAGNOSTICS\_MODE}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!ENTER\_DIAGNOSTICS\_MODE@{ENTER\_DIAGNOSTICS\_MODE}}}\Hypertarget{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869}\label{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4} 
+ENTER\+\_\+\+DIAGNOSTICS\+\_\+\+MODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EXIT\_DIAGNOSTICS\_MODE@{EXIT\_DIAGNOSTICS\_MODE}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!EXIT\_DIAGNOSTICS\_MODE@{EXIT\_DIAGNOSTICS\_MODE}}}\Hypertarget{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c}\label{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4} 
+EXIT\+\_\+\+DIAGNOSTICS\+\_\+\+MODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REQUEST\_STATE\_CHANGE@{REQUEST\_STATE\_CHANGE}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!REQUEST\_STATE\_CHANGE@{REQUEST\_STATE\_CHANGE}}}\Hypertarget{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463}\label{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4} 
+REQUEST\+\_\+\+STATE\+\_\+\+CHANGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FORCE\_STATE\_CHANGE@{FORCE\_STATE\_CHANGE}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!FORCE\_STATE\_CHANGE@{FORCE\_STATE\_CHANGE}}}\Hypertarget{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6}\label{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4} 
+FORCE\+\_\+\+STATE\+\_\+\+CHANGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{dCLEAR\_FAULTS@{dCLEAR\_FAULTS}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!dCLEAR\_FAULTS@{dCLEAR\_FAULTS}}}\Hypertarget{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c}\label{uvfr__diagnostics_8h_a3b2b204ae896d9984f6a6d1f2c0aefc4} 
+d\+CLEAR\+\_\+\+FAULTS&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00031}{31}} of file \mbox{\hyperlink{uvfr__diagnostics_8h_source}{uvfr\+\_\+diagnostics.\+h}}.
+
+\Hypertarget{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!logged\_event\_type@{logged\_event\_type}}
+\index{logged\_event\_type@{logged\_event\_type}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{logged\_event\_type}{logged\_event\_type}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3} 
+enum \mbox{\hyperlink{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3}{logged\+\_\+event\+\_\+type}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_FATAL\_ERROR@{LOG\_FATAL\_ERROR}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!LOG\_FATAL\_ERROR@{LOG\_FATAL\_ERROR}}}\Hypertarget{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3ac58a40c151a8445666c3a3d82887151e}\label{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3} 
+LOG\+\_\+\+FATAL\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_ERROR@{LOG\_ERROR}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!LOG\_ERROR@{LOG\_ERROR}}}\Hypertarget{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3a230506cce5c68c3bac5a821c42ed3473}\label{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3} 
+LOG\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_WARNING@{LOG\_WARNING}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!LOG\_WARNING@{LOG\_WARNING}}}\Hypertarget{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3a8f6fe15bfe15104da6d1b360194a5400}\label{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3} 
+LOG\+\_\+\+WARNING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_STATE\_CHANGE@{LOG\_STATE\_CHANGE}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!LOG\_STATE\_CHANGE@{LOG\_STATE\_CHANGE}}}\Hypertarget{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3aafe9472e1fcfcbcb15e1b66ae7a58e3a}\label{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3} 
+LOG\+\_\+\+STATE\+\_\+\+CHANGE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOG\_GENERIC\_EVENT@{LOG\_GENERIC\_EVENT}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!LOG\_GENERIC\_EVENT@{LOG\_GENERIC\_EVENT}}}\Hypertarget{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3a6e3eec990bf6cbd5f339303cc9fd3bc1}\label{uvfr__diagnostics_8h_acc4ce274eb7ac16b639502ff3dbdbdf3} 
+LOG\+\_\+\+GENERIC\+\_\+\+EVENT&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00039}{39}} of file \mbox{\hyperlink{uvfr__diagnostics_8h_source}{uvfr\+\_\+diagnostics.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{uvfr__diagnostics_8h_a98c6d4943e1119a43bb560d7aa2998e5}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!logDiagnosticEvent@{logDiagnosticEvent}}
+\index{logDiagnosticEvent@{logDiagnosticEvent}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{logDiagnosticEvent()}{logDiagnosticEvent()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_a98c6d4943e1119a43bb560d7aa2998e5} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} log\+Diagnostic\+Event (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__diagnostics_8h_a7ad14988beab0a9306cabebf1525133f}\index{uvfr\_diagnostics.h@{uvfr\_diagnostics.h}!uvInitDiagnostics@{uvInitDiagnostics}}
+\index{uvInitDiagnostics@{uvInitDiagnostics}!uvfr\_diagnostics.h@{uvfr\_diagnostics.h}}
+\doxysubsubsection{\texorpdfstring{uvInitDiagnostics()}{uvInitDiagnostics()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8h_a7ad14988beab0a9306cabebf1525133f} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Init\+Diagnostics (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{18}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+

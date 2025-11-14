@@ -1,28 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="structstate__change__daemon__args" kind="struct" language="C++" prot="public">
     <compoundname>state_change_daemon_args</compoundname>
-      <sectiondef kind="public-attrib">
+    <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structstate__change__daemon__args_1aa19a15c725f1fdc8dcc05227584153bc" prot="public" static="no" mutable="no">
-        <type>TaskHandle_t</type>
+        <type><ref refid="task_8h_1a25b35e6e19ecf894173e7ff95edb96ef" kindref="member">TaskHandle_t</ref></type>
         <definition>TaskHandle_t state_change_daemon_args::meta_task_handle</definition>
         <argsstring></argsstring>
         <name>meta_task_handle</name>
+        <qualifiedname>state_change_daemon_args::meta_task_handle</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/uvfr_state_engine.c" line="74" column="14" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="74" bodyend="-1"/>
-        <referencedby refid="group__state__engine__api_1gaa3ad3e8df75177c00265881c16563212" compoundref="uvfr__state__engine_8c" startline="101" endline="163">changeVehicleState</referencedby>
+        <location file="Core/Src/uvfr_state_engine.c" line="65" column="14" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="65" bodyend="-1"/>
+        <referencedby refid="group__state__engine__api_1gaa3ad3e8df75177c00265881c16563212" compoundref="uvfr__state__engine_8c" startline="92" endline="158">changeVehicleState</referencedby>
       </memberdef>
-      </sectiondef>
+    </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="Core/Src/uvfr_state_engine.c" line="73" column="39" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="73" bodyend="75"/>
+    <collaborationgraph>
+      <node id="1">
+        <label>state_change_daemon_args</label>
+        <link refid="structstate__change__daemon__args"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>meta_task_handle</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>tskTaskControlBlock</label>
+        <link refid="structtsk_task_control_block"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>xEventListItem</edgelabel>
+          <edgelabel>xStateListItem</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>xLIST</label>
+        <link refid="structx_l_i_s_t"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>pxIndex</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>xListEnd</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>xLIST_ITEM</label>
+        <link refid="structx_l_i_s_t___i_t_e_m"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>pxNext</edgelabel>
+          <edgelabel>pxPrevious</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>pxContainer</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>xMINI_LIST_ITEM</label>
+        <link refid="structx_m_i_n_i___l_i_s_t___i_t_e_m"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>pxNext</edgelabel>
+          <edgelabel>pxPrevious</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Core/Src/uvfr_state_engine.c" line="64" column="1" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="64" bodyend="66"/>
     <listofallmembers>
       <member refid="structstate__change__daemon__args_1aa19a15c725f1fdc8dcc05227584153bc" prot="public" virt="non-virtual"><scope>state_change_daemon_args</scope><name>meta_task_handle</name></member>
     </listofallmembers>

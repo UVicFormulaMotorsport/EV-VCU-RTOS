@@ -1,10 +1,10 @@
-\hypertarget{group__v_task_end_scheduler}{}\doxysection{v\+Task\+End\+Scheduler}
-\label{group__v_task_end_scheduler}\index{vTaskEndScheduler@{vTaskEndScheduler}}
+\doxysection{v\+Task\+End\+Scheduler}
+\hypertarget{group__v_task_end_scheduler}{}\label{group__v_task_end_scheduler}\index{vTaskEndScheduler@{vTaskEndScheduler}}
 task. h 
-\begin{DoxyPre}void \mbox{\hyperlink{task_8h_a1651e13c7ccd6273f53a62425ec79a15}{vTaskEndScheduler( void )}};\end{DoxyPre}
+\begin{DoxyPre}void \doxylink{task_8h_a1651e13c7ccd6273f53a62425ec79a15}{vTaskEndScheduler( void )};\end{DoxyPre}
 
 
-N\+O\+TE\+: At the time of writing only the x86 real mode port, which runs on a PC in place of D\+OS, implements this function.
+NOTE\+: At the time of writing only the x86 real mode port, which runs on a PC in place of DOS, implements this function.
 
 Stops the real time kernel tick. All created tasks will be automatically deleted and multitasking (either preemptive or cooperative) will stop. Execution then resumes from the point where v\+Task\+Start\+Scheduler () was called, as if v\+Task\+Start\+Scheduler () had just returned.
 
@@ -20,33 +20,24 @@ void vTaskCode( void * pvParameters )
 \{
     for( ;; )
     \{
-     // Task code goes here.\end{DoxyPre}
+     // Task code goes here.
 
-
-
-\begin{DoxyPre}     // At some point we want to end the real time kernel processing
+     // At some point we want to end the real time kernel processing
      // so call ...
      vTaskEndScheduler ();
     \}
-\}\end{DoxyPre}
+\}
 
-
-
-\begin{DoxyPre}void vAFunction( void )
+void vAFunction( void )
 \{
     // Create at least one task before starting the kernel.
-    xTaskCreate( vTaskCode, "NAME", STACK\_SIZE, NULL, tskIDLE\_PRIORITY, NULL );\end{DoxyPre}
+    xTaskCreate( vTaskCode, "{}NAME"{}, STACK\_SIZE, NULL, tskIDLE\_PRIORITY, NULL );
 
+    // Start the real time kernel with preemption.
+    vTaskStartScheduler ();
 
-
-\begin{DoxyPre}    // Start the real time kernel with preemption.
-    vTaskStartScheduler ();\end{DoxyPre}
-
-
-
-\begin{DoxyPre}    // Will only get here when the vTaskCode () task has called
+    // Will only get here when the vTaskCode () task has called
     // vTaskEndScheduler ().  When we get here we are back to single task
     // execution.
 \}
   \end{DoxyPre}
- 

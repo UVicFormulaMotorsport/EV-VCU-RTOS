@@ -1,565 +1,782 @@
-\hypertarget{queue_8h}{}\doxysection{Middlewares/\+Third\+\_\+\+Party/\+Free\+R\+T\+O\+S/\+Source/include/queue.h File Reference}
-\label{queue_8h}\index{Middlewares/Third\_Party/FreeRTOS/Source/include/queue.h@{Middlewares/Third\_Party/FreeRTOS/Source/include/queue.h}}
-{\ttfamily \#include \char`\"{}task.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
+\doxysection{Core/\+Free\+RTOS/\+Source/include/queue.h File Reference}
+\hypertarget{queue_8h}{}\label{queue_8h}\index{Core/FreeRTOS/Source/include/queue.h@{Core/FreeRTOS/Source/include/queue.h}}
+{\ttfamily \#include "{}task.\+h"{}}\newline
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}}~( ( Base\+Type\+\_\+t ) 0 )
+\#define \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+SEND\+\_\+\+TO\+\_\+\+BACK}}~( ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 0 )
 \item 
-\#define \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+F\+R\+O\+NT}}~( ( Base\+Type\+\_\+t ) 1 )
+\#define \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queue\+SEND\+\_\+\+TO\+\_\+\+FRONT}}~( ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 1 )
 \item 
-\#define \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queue\+O\+V\+E\+R\+W\+R\+I\+TE}}~( ( Base\+Type\+\_\+t ) 2 )
+\#define \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queue\+OVERWRITE}}~( ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 2 )
 \item 
-\#define \mbox{\hyperlink{queue_8h_a3f926bea6ffa4e2f1af900431d0d90a5}{queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+A\+SE}}~( ( uint8\+\_\+t ) 0U )
+\#define \mbox{\hyperlink{queue_8h_a3f926bea6ffa4e2f1af900431d0d90a5}{queue\+QUEUE\+\_\+\+TYPE\+\_\+\+BASE}}~( ( uint8\+\_\+t ) 0U )
 \item 
-\#define \mbox{\hyperlink{queue_8h_a9b8e1b1d5d9952bd0121ae71cf3aba8d}{queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+ET}}~( ( uint8\+\_\+t ) 0U )
+\#define \mbox{\hyperlink{queue_8h_a9b8e1b1d5d9952bd0121ae71cf3aba8d}{queue\+QUEUE\+\_\+\+TYPE\+\_\+\+SET}}~( ( uint8\+\_\+t ) 0U )
 \item 
-\#define \mbox{\hyperlink{queue_8h_ae9c10f504e758fb69271024dc8d8a8c9}{queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+U\+T\+EX}}~( ( uint8\+\_\+t ) 1U )
+\#define \mbox{\hyperlink{queue_8h_ae9c10f504e758fb69271024dc8d8a8c9}{queue\+QUEUE\+\_\+\+TYPE\+\_\+\+MUTEX}}~( ( uint8\+\_\+t ) 1U )
 \item 
-\#define \mbox{\hyperlink{queue_8h_abccf1c95aa0942f8df163d414010542b}{queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+N\+T\+I\+N\+G\+\_\+\+S\+E\+M\+A\+P\+H\+O\+RE}}~( ( uint8\+\_\+t ) 2U )
+\#define \mbox{\hyperlink{queue_8h_abccf1c95aa0942f8df163d414010542b}{queue\+QUEUE\+\_\+\+TYPE\+\_\+\+COUNTING\+\_\+\+SEMAPHORE}}~( ( uint8\+\_\+t ) 2U )
 \item 
-\#define \mbox{\hyperlink{queue_8h_a8af9c6a83fce59c386da4f22248b56ae}{queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+N\+A\+R\+Y\+\_\+\+S\+E\+M\+A\+P\+H\+O\+RE}}~( ( uint8\+\_\+t ) 3U )
+\#define \mbox{\hyperlink{queue_8h_a8af9c6a83fce59c386da4f22248b56ae}{queue\+QUEUE\+\_\+\+TYPE\+\_\+\+BINARY\+\_\+\+SEMAPHORE}}~( ( uint8\+\_\+t ) 3U )
 \item 
-\#define \mbox{\hyperlink{queue_8h_a6f68aa65394f83b57e34061d9ff44b47}{queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+C\+U\+R\+S\+I\+V\+E\+\_\+\+M\+U\+T\+EX}}~( ( uint8\+\_\+t ) 4U )
+\#define \mbox{\hyperlink{queue_8h_a6f68aa65394f83b57e34061d9ff44b47}{queue\+QUEUE\+\_\+\+TYPE\+\_\+\+RECURSIVE\+\_\+\+MUTEX}}~( ( uint8\+\_\+t ) 4U )
 \item 
-\#define \mbox{\hyperlink{queue_8h_aa612fcc2b1ceee0200f34b942e300b41}{x\+Queue\+Send\+To\+Front}}(x\+Queue,  pv\+Item\+To\+Queue,  x\+Ticks\+To\+Wait)~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( x\+Ticks\+To\+Wait ), \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+F\+R\+O\+NT}} )
+\#define \mbox{\hyperlink{queue_8h_aa612fcc2b1ceee0200f34b942e300b41}{x\+Queue\+Send\+To\+Front}}(x\+Queue,  pv\+Item\+To\+Queue,  x\+Ticks\+To\+Wait)
 \item 
-\#define \mbox{\hyperlink{queue_8h_a81d24a2c1199d58efb76fbee15853112}{x\+Queue\+Send\+To\+Back}}(x\+Queue,  pv\+Item\+To\+Queue,  x\+Ticks\+To\+Wait)~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( x\+Ticks\+To\+Wait ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )
+\#define \mbox{\hyperlink{queue_8h_a81d24a2c1199d58efb76fbee15853112}{x\+Queue\+Send\+To\+Back}}(x\+Queue,  pv\+Item\+To\+Queue,  x\+Ticks\+To\+Wait)
 \item 
-\#define \mbox{\hyperlink{queue_8h_af7eb49d3249351176992950d9185abe9}{x\+Queue\+Send}}(x\+Queue,  pv\+Item\+To\+Queue,  x\+Ticks\+To\+Wait)~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( x\+Ticks\+To\+Wait ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )
+\#define \mbox{\hyperlink{queue_8h_af7eb49d3249351176992950d9185abe9}{x\+Queue\+Send}}(x\+Queue,  pv\+Item\+To\+Queue,  x\+Ticks\+To\+Wait)
 \item 
-\#define \mbox{\hyperlink{queue_8h_a8e9ced123b5a0e37a36d3bbdb2e56b4e}{x\+Queue\+Overwrite}}(x\+Queue,  pv\+Item\+To\+Queue)~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), 0, \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queue\+O\+V\+E\+R\+W\+R\+I\+TE}} )
+\#define \mbox{\hyperlink{queue_8h_a8e9ced123b5a0e37a36d3bbdb2e56b4e}{x\+Queue\+Overwrite}}(x\+Queue,  pv\+Item\+To\+Queue)
 \item 
-\#define \mbox{\hyperlink{queue_8h_af03b83396462affe9e28302660e7b9c6}{x\+Queue\+Send\+To\+Front\+From\+I\+SR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+F\+R\+O\+NT}} )
+\#define \mbox{\hyperlink{queue_8h_af03b83396462affe9e28302660e7b9c6}{x\+Queue\+Send\+To\+Front\+From\+ISR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)
 \item 
-\#define \mbox{\hyperlink{queue_8h_a51e9f73417b11441a181cdc4f33a68e9}{x\+Queue\+Send\+To\+Back\+From\+I\+SR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )
+\#define \mbox{\hyperlink{queue_8h_a51e9f73417b11441a181cdc4f33a68e9}{x\+Queue\+Send\+To\+Back\+From\+ISR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)
 \item 
-\#define \mbox{\hyperlink{queue_8h_abdcd6a86ef82034d002193e79cfd3ce8}{x\+Queue\+Overwrite\+From\+I\+SR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queue\+O\+V\+E\+R\+W\+R\+I\+TE}} )
+\#define \mbox{\hyperlink{queue_8h_abdcd6a86ef82034d002193e79cfd3ce8}{x\+Queue\+Overwrite\+From\+ISR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)
 \item 
-\#define \mbox{\hyperlink{queue_8h_a21d5919ed26c21d121df4a4debeb643c}{x\+Queue\+Send\+From\+I\+SR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )
+\#define \mbox{\hyperlink{queue_8h_a21d5919ed26c21d121df4a4debeb643c}{x\+Queue\+Send\+From\+ISR}}(x\+Queue,  pv\+Item\+To\+Queue,  px\+Higher\+Priority\+Task\+Woken)
 \item 
-\#define \mbox{\hyperlink{queue_8h_a94df8d8bc938424151f8196db2f1177b}{x\+Queue\+Reset}}(x\+Queue)~\mbox{\hyperlink{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}{x\+Queue\+Generic\+Reset}}( x\+Queue, \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+F\+A\+L\+SE}} )
+\#define \mbox{\hyperlink{queue_8h_a94df8d8bc938424151f8196db2f1177b}{x\+Queue\+Reset}}(x\+Queue)
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct Queue\+Definition $\ast$ \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}
+typedef struct \mbox{\hyperlink{struct_queue_definition}{Queue\+Definition}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}
 \item 
-typedef struct Queue\+Definition $\ast$ \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}
+typedef struct \mbox{\hyperlink{struct_queue_definition}{Queue\+Definition}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}
 \item 
-typedef struct Queue\+Definition $\ast$ \mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}
+typedef struct \mbox{\hyperlink{struct_queue_definition}{Queue\+Definition}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void $\ast$const pv\+Item\+To\+Queue, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait, const Base\+Type\+\_\+t x\+Copy\+Position) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void \texorpdfstring{$\ast$}{*}const pv\+Item\+To\+Queue, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Copy\+Position) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a3f9e430276fe5244417fd82644ec8a75}{x\+Queue\+Peek}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void $\ast$const pv\+Buffer, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a3f9e430276fe5244417fd82644ec8a75}{x\+Queue\+Peek}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void \texorpdfstring{$\ast$}{*}const pv\+Buffer, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_ac402adf98be1fb8ca0345f30dc11a9dc}{x\+Queue\+Peek\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void $\ast$const pv\+Buffer) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_ac402adf98be1fb8ca0345f30dc11a9dc}{x\+Queue\+Peek\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void \texorpdfstring{$\ast$}{*}const pv\+Buffer) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}{x\+Queue\+Receive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void $\ast$const pv\+Buffer, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}{x\+Queue\+Receive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void \texorpdfstring{$\ast$}{*}const pv\+Buffer, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-U\+Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_add7ee0701ba35904d190811b9e5a4eda}{ux\+Queue\+Messages\+Waiting}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_add7ee0701ba35904d190811b9e5a4eda}{ux\+Queue\+Messages\+Waiting}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-U\+Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_aae75791e91707c1e0bb31d761921531c}{ux\+Queue\+Spaces\+Available}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_aae75791e91707c1e0bb31d761921531c}{ux\+Queue\+Spaces\+Available}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-void \mbox{\hyperlink{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}{v\+Queue\+Delete}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}{v\+Queue\+Delete}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void $\ast$const pv\+Item\+To\+Queue, Base\+Type\+\_\+t $\ast$const px\+Higher\+Priority\+Task\+Woken, const Base\+Type\+\_\+t x\+Copy\+Position) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void \texorpdfstring{$\ast$}{*}const pv\+Item\+To\+Queue, \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Higher\+Priority\+Task\+Woken, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Copy\+Position) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_ad14ae1174c2772cffc9e0c2c45dc55a6}{x\+Queue\+Give\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, Base\+Type\+\_\+t $\ast$const px\+Higher\+Priority\+Task\+Woken) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_ad14ae1174c2772cffc9e0c2c45dc55a6}{x\+Queue\+Give\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Higher\+Priority\+Task\+Woken) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_acdf528f5c91131ae2f31c669cfd65758}{x\+Queue\+Receive\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void $\ast$const pv\+Buffer, Base\+Type\+\_\+t $\ast$const px\+Higher\+Priority\+Task\+Woken) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_acdf528f5c91131ae2f31c669cfd65758}{x\+Queue\+Receive\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void \texorpdfstring{$\ast$}{*}const pv\+Buffer, \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Higher\+Priority\+Task\+Woken) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_aa11139c58f4eecaa0c50078f2976d010}{x\+Queue\+Is\+Queue\+Empty\+From\+I\+SR}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_aa11139c58f4eecaa0c50078f2976d010}{x\+Queue\+Is\+Queue\+Empty\+From\+ISR}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a81319b3aa562733957c5a12a088516d3}{x\+Queue\+Is\+Queue\+Full\+From\+I\+SR}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a81319b3aa562733957c5a12a088516d3}{x\+Queue\+Is\+Queue\+Full\+From\+ISR}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-U\+Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a3e89b6189166f9544f283435e2732f9a}{ux\+Queue\+Messages\+Waiting\+From\+I\+SR}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a3e89b6189166f9544f283435e2732f9a}{ux\+Queue\+Messages\+Waiting\+From\+ISR}} (const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a80af2aff3f472600a12dea0642fa8b27}{x\+Queue\+C\+R\+Send\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void $\ast$pv\+Item\+To\+Queue, Base\+Type\+\_\+t x\+Co\+Routine\+Previously\+Woken)
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a80af2aff3f472600a12dea0642fa8b27}{x\+Queue\+CRSend\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void \texorpdfstring{$\ast$}{*}pv\+Item\+To\+Queue, \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Co\+Routine\+Previously\+Woken)
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_ad66b08c1d6a17efa8985605bf182b997}{x\+Queue\+C\+R\+Receive\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void $\ast$pv\+Buffer, Base\+Type\+\_\+t $\ast$px\+Task\+Woken)
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_ad66b08c1d6a17efa8985605bf182b997}{x\+Queue\+CRReceive\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void \texorpdfstring{$\ast$}{*}pv\+Buffer, \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Task\+Woken)
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_abb5d7bd9b62f2b642104fde73c1c666b}{x\+Queue\+C\+R\+Send}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void $\ast$pv\+Item\+To\+Queue, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait)
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_abb5d7bd9b62f2b642104fde73c1c666b}{x\+Queue\+CRSend}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, const void \texorpdfstring{$\ast$}{*}pv\+Item\+To\+Queue, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait)
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a88a02b37c486c38b8c4112e16dfed099}{x\+Queue\+C\+R\+Receive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void $\ast$pv\+Buffer, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait)
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a88a02b37c486c38b8c4112e16dfed099}{x\+Queue\+CRReceive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, void \texorpdfstring{$\ast$}{*}pv\+Buffer, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait)
 \item 
-\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_acac7df114346b4219bc2aab79cac35b5}{x\+Queue\+Create\+Mutex}} (const uint8\+\_\+t uc\+Queue\+Type) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_acac7df114346b4219bc2aab79cac35b5}{x\+Queue\+Create\+Mutex}} (const uint8\+\_\+t uc\+Queue\+Type) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_af92945589381b740932a7cc41e212a37}{x\+Queue\+Create\+Mutex\+Static}} (const uint8\+\_\+t uc\+Queue\+Type, \mbox{\hyperlink{_free_r_t_o_s_8h_a9deecb4f17c68b05469a3019cc674bac}{Static\+Queue\+\_\+t}} $\ast$px\+Static\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_af92945589381b740932a7cc41e212a37}{x\+Queue\+Create\+Mutex\+Static}} (const uint8\+\_\+t uc\+Queue\+Type, \mbox{\hyperlink{_free_r_t_o_s_8h_a22e8979e2849d002747c0dd4c7c37908}{Static\+Queue\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Static\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ac74677a8d243c76843c25fdb06436043}{x\+Queue\+Create\+Counting\+Semaphore}} (const U\+Base\+Type\+\_\+t ux\+Max\+Count, const U\+Base\+Type\+\_\+t ux\+Initial\+Count) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ac74677a8d243c76843c25fdb06436043}{x\+Queue\+Create\+Counting\+Semaphore}} (const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Max\+Count, const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Initial\+Count) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_a601cb15993988a393676a9df74b067bd}{x\+Queue\+Create\+Counting\+Semaphore\+Static}} (const U\+Base\+Type\+\_\+t ux\+Max\+Count, const U\+Base\+Type\+\_\+t ux\+Initial\+Count, \mbox{\hyperlink{_free_r_t_o_s_8h_a9deecb4f17c68b05469a3019cc674bac}{Static\+Queue\+\_\+t}} $\ast$px\+Static\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_a601cb15993988a393676a9df74b067bd}{x\+Queue\+Create\+Counting\+Semaphore\+Static}} (const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Max\+Count, const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Initial\+Count, \mbox{\hyperlink{_free_r_t_o_s_8h_a22e8979e2849d002747c0dd4c7c37908}{Static\+Queue\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Static\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a124567e9fc3a37b99f7e184ae98de9f8}{x\+Queue\+Semaphore\+Take}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a124567e9fc3a37b99f7e184ae98de9f8}{x\+Queue\+Semaphore\+Take}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ac49b15e4005be658fd04e68407ef4fb1}{x\+Queue\+Get\+Mutex\+Holder}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Semaphore) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ac49b15e4005be658fd04e68407ef4fb1}{x\+Queue\+Get\+Mutex\+Holder}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Semaphore) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_a8ccb06cf46ba1c052809a3809954bd07}{x\+Queue\+Get\+Mutex\+Holder\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Semaphore) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_a8ccb06cf46ba1c052809a3809954bd07}{x\+Queue\+Get\+Mutex\+Holder\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Semaphore) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a74e27d539a884589ebbbdfcc371a48cd}{x\+Queue\+Take\+Mutex\+Recursive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Mutex, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a74e27d539a884589ebbbdfcc371a48cd}{x\+Queue\+Take\+Mutex\+Recursive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Mutex, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a51adeb17e9d3bb1077969e6e53f61c3b}{x\+Queue\+Give\+Mutex\+Recursive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Mutex) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a51adeb17e9d3bb1077969e6e53f61c3b}{x\+Queue\+Give\+Mutex\+Recursive}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Mutex) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ad4208ad97f737af942a13e64b45e83e8}{x\+Queue\+Create\+Set}} (const U\+Base\+Type\+\_\+t ux\+Event\+Queue\+Length) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ad4208ad97f737af942a13e64b45e83e8}{x\+Queue\+Create\+Set}} (const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Event\+Queue\+Length) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}{x\+Queue\+Add\+To\+Set}} (\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Or\+Semaphore, \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}{x\+Queue\+Add\+To\+Set}} (\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Or\+Semaphore, \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_ab16fdd17b9b6d74a82c8366f47cda162}{x\+Queue\+Remove\+From\+Set}} (\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Or\+Semaphore, \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_ab16fdd17b9b6d74a82c8366f47cda162}{x\+Queue\+Remove\+From\+Set}} (\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Or\+Semaphore, \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_a71f56e6277ed4e419c707c8d0c785065}{x\+Queue\+Select\+From\+Set}} (\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set, const Tick\+Type\+\_\+t x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_a71f56e6277ed4e419c707c8d0c785065}{x\+Queue\+Select\+From\+Set}} (\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set, const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ac58b34fd733cf460cddab1abb9a899b3}{x\+Queue\+Select\+From\+Set\+From\+I\+SR}} (\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} \mbox{\hyperlink{queue_8h_ac58b34fd733cf460cddab1abb9a899b3}{x\+Queue\+Select\+From\+Set\+From\+ISR}} (\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Set) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-void \mbox{\hyperlink{queue_8h_abaa0f8224837d82e60cf799127185546}{v\+Queue\+Wait\+For\+Message\+Restricted}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, Tick\+Type\+\_\+t x\+Ticks\+To\+Wait, const Base\+Type\+\_\+t x\+Wait\+Indefinitely) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{queue_8h_abaa0f8224837d82e60cf799127185546}{v\+Queue\+Wait\+For\+Message\+Restricted}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Wait\+Indefinitely) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}{x\+Queue\+Generic\+Reset}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, Base\+Type\+\_\+t x\+New\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}{x\+Queue\+Generic\+Reset}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+New\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-void \mbox{\hyperlink{queue_8h_a37c8b0ea8f2e6c5fa5082afb9721f986}{v\+Queue\+Set\+Queue\+Number}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, U\+Base\+Type\+\_\+t ux\+Queue\+Number) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{queue_8h_a37c8b0ea8f2e6c5fa5082afb9721f986}{v\+Queue\+Set\+Queue\+Number}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue, \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Queue\+Number) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-U\+Base\+Type\+\_\+t \mbox{\hyperlink{queue_8h_a7f7a4d9b75dcfbcefb2384da5df5290e}{ux\+Queue\+Get\+Queue\+Number}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{queue_8h_a7f7a4d9b75dcfbcefb2384da5df5290e}{ux\+Queue\+Get\+Queue\+Number}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-uint8\+\_\+t \mbox{\hyperlink{queue_8h_a9730db0a2f63acbf7197fa4150d7fe08}{uc\+Queue\+Get\+Queue\+Type}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+uint8\+\_\+t \mbox{\hyperlink{queue_8h_a9730db0a2f63acbf7197fa4150d7fe08}{uc\+Queue\+Get\+Queue\+Type}} (\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}\label{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}} 
-\index{queue.h@{queue.h}!queueOVERWRITE@{queueOVERWRITE}}
+\Hypertarget{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}\index{queue.h@{queue.h}!queueOVERWRITE@{queueOVERWRITE}}
 \index{queueOVERWRITE@{queueOVERWRITE}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueOVERWRITE}{queueOVERWRITE}}
-{\footnotesize\ttfamily \#define queue\+O\+V\+E\+R\+W\+R\+I\+TE~( ( Base\+Type\+\_\+t ) 2 )}
+{\footnotesize\ttfamily \label{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef} 
+\#define queue\+OVERWRITE~( ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 2 )}
 
 
 
-Definition at line 67 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00067}{67}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a3f926bea6ffa4e2f1af900431d0d90a5}\label{queue_8h_a3f926bea6ffa4e2f1af900431d0d90a5}} 
-\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_BASE@{queueQUEUE\_TYPE\_BASE}}
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, and \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}.
+
+\Hypertarget{queue_8h_a3f926bea6ffa4e2f1af900431d0d90a5}\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_BASE@{queueQUEUE\_TYPE\_BASE}}
 \index{queueQUEUE\_TYPE\_BASE@{queueQUEUE\_TYPE\_BASE}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueQUEUE\_TYPE\_BASE}{queueQUEUE\_TYPE\_BASE}}
-{\footnotesize\ttfamily \#define queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+A\+SE~( ( uint8\+\_\+t ) 0U )}
+{\footnotesize\ttfamily \label{queue_8h_a3f926bea6ffa4e2f1af900431d0d90a5} 
+\#define queue\+QUEUE\+\_\+\+TYPE\+\_\+\+BASE~( ( uint8\+\_\+t ) 0U )}
 
 
 
-Definition at line 70 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00070}{70}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a8af9c6a83fce59c386da4f22248b56ae}\label{queue_8h_a8af9c6a83fce59c386da4f22248b56ae}} 
-\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_BINARY\_SEMAPHORE@{queueQUEUE\_TYPE\_BINARY\_SEMAPHORE}}
+\Hypertarget{queue_8h_a8af9c6a83fce59c386da4f22248b56ae}\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_BINARY\_SEMAPHORE@{queueQUEUE\_TYPE\_BINARY\_SEMAPHORE}}
 \index{queueQUEUE\_TYPE\_BINARY\_SEMAPHORE@{queueQUEUE\_TYPE\_BINARY\_SEMAPHORE}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueQUEUE\_TYPE\_BINARY\_SEMAPHORE}{queueQUEUE\_TYPE\_BINARY\_SEMAPHORE}}
-{\footnotesize\ttfamily \#define queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+B\+I\+N\+A\+R\+Y\+\_\+\+S\+E\+M\+A\+P\+H\+O\+RE~( ( uint8\+\_\+t ) 3U )}
+{\footnotesize\ttfamily \label{queue_8h_a8af9c6a83fce59c386da4f22248b56ae} 
+\#define queue\+QUEUE\+\_\+\+TYPE\+\_\+\+BINARY\+\_\+\+SEMAPHORE~( ( uint8\+\_\+t ) 3U )}
 
 
 
-Definition at line 74 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00074}{74}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_abccf1c95aa0942f8df163d414010542b}\label{queue_8h_abccf1c95aa0942f8df163d414010542b}} 
-\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE@{queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE}}
+\Hypertarget{queue_8h_abccf1c95aa0942f8df163d414010542b}\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE@{queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE}}
 \index{queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE@{queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE}{queueQUEUE\_TYPE\_COUNTING\_SEMAPHORE}}
-{\footnotesize\ttfamily \#define queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+C\+O\+U\+N\+T\+I\+N\+G\+\_\+\+S\+E\+M\+A\+P\+H\+O\+RE~( ( uint8\+\_\+t ) 2U )}
+{\footnotesize\ttfamily \label{queue_8h_abccf1c95aa0942f8df163d414010542b} 
+\#define queue\+QUEUE\+\_\+\+TYPE\+\_\+\+COUNTING\+\_\+\+SEMAPHORE~( ( uint8\+\_\+t ) 2U )}
 
 
 
-Definition at line 73 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00073}{73}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_ae9c10f504e758fb69271024dc8d8a8c9}\label{queue_8h_ae9c10f504e758fb69271024dc8d8a8c9}} 
-\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_MUTEX@{queueQUEUE\_TYPE\_MUTEX}}
+\Hypertarget{queue_8h_ae9c10f504e758fb69271024dc8d8a8c9}\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_MUTEX@{queueQUEUE\_TYPE\_MUTEX}}
 \index{queueQUEUE\_TYPE\_MUTEX@{queueQUEUE\_TYPE\_MUTEX}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueQUEUE\_TYPE\_MUTEX}{queueQUEUE\_TYPE\_MUTEX}}
-{\footnotesize\ttfamily \#define queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+M\+U\+T\+EX~( ( uint8\+\_\+t ) 1U )}
+{\footnotesize\ttfamily \label{queue_8h_ae9c10f504e758fb69271024dc8d8a8c9} 
+\#define queue\+QUEUE\+\_\+\+TYPE\+\_\+\+MUTEX~( ( uint8\+\_\+t ) 1U )}
 
 
 
-Definition at line 72 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00072}{72}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a6f68aa65394f83b57e34061d9ff44b47}\label{queue_8h_a6f68aa65394f83b57e34061d9ff44b47}} 
-\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_RECURSIVE\_MUTEX@{queueQUEUE\_TYPE\_RECURSIVE\_MUTEX}}
+\Hypertarget{queue_8h_a6f68aa65394f83b57e34061d9ff44b47}\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_RECURSIVE\_MUTEX@{queueQUEUE\_TYPE\_RECURSIVE\_MUTEX}}
 \index{queueQUEUE\_TYPE\_RECURSIVE\_MUTEX@{queueQUEUE\_TYPE\_RECURSIVE\_MUTEX}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueQUEUE\_TYPE\_RECURSIVE\_MUTEX}{queueQUEUE\_TYPE\_RECURSIVE\_MUTEX}}
-{\footnotesize\ttfamily \#define queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+R\+E\+C\+U\+R\+S\+I\+V\+E\+\_\+\+M\+U\+T\+EX~( ( uint8\+\_\+t ) 4U )}
+{\footnotesize\ttfamily \label{queue_8h_a6f68aa65394f83b57e34061d9ff44b47} 
+\#define queue\+QUEUE\+\_\+\+TYPE\+\_\+\+RECURSIVE\+\_\+\+MUTEX~( ( uint8\+\_\+t ) 4U )}
 
 
 
-Definition at line 75 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00075}{75}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a9b8e1b1d5d9952bd0121ae71cf3aba8d}\label{queue_8h_a9b8e1b1d5d9952bd0121ae71cf3aba8d}} 
-\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_SET@{queueQUEUE\_TYPE\_SET}}
+\Hypertarget{queue_8h_a9b8e1b1d5d9952bd0121ae71cf3aba8d}\index{queue.h@{queue.h}!queueQUEUE\_TYPE\_SET@{queueQUEUE\_TYPE\_SET}}
 \index{queueQUEUE\_TYPE\_SET@{queueQUEUE\_TYPE\_SET}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueQUEUE\_TYPE\_SET}{queueQUEUE\_TYPE\_SET}}
-{\footnotesize\ttfamily \#define queue\+Q\+U\+E\+U\+E\+\_\+\+T\+Y\+P\+E\+\_\+\+S\+ET~( ( uint8\+\_\+t ) 0U )}
+{\footnotesize\ttfamily \label{queue_8h_a9b8e1b1d5d9952bd0121ae71cf3aba8d} 
+\#define queue\+QUEUE\+\_\+\+TYPE\+\_\+\+SET~( ( uint8\+\_\+t ) 0U )}
 
 
 
-Definition at line 71 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00071}{71}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}\label{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}} 
-\index{queue.h@{queue.h}!queueSEND\_TO\_BACK@{queueSEND\_TO\_BACK}}
+\Hypertarget{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}\index{queue.h@{queue.h}!queueSEND\_TO\_BACK@{queueSEND\_TO\_BACK}}
 \index{queueSEND\_TO\_BACK@{queueSEND\_TO\_BACK}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueSEND\_TO\_BACK}{queueSEND\_TO\_BACK}}
-{\footnotesize\ttfamily \#define queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK~( ( Base\+Type\+\_\+t ) 0 )}
+{\footnotesize\ttfamily \label{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12} 
+\#define queue\+SEND\+\_\+\+TO\+\_\+\+BACK~( ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 0 )}
 
 
 
-Definition at line 65 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00065}{65}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}\label{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}} 
-\index{queue.h@{queue.h}!queueSEND\_TO\_FRONT@{queueSEND\_TO\_FRONT}}
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}.
+
+\Hypertarget{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}\index{queue.h@{queue.h}!queueSEND\_TO\_FRONT@{queueSEND\_TO\_FRONT}}
 \index{queueSEND\_TO\_FRONT@{queueSEND\_TO\_FRONT}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{queueSEND\_TO\_FRONT}{queueSEND\_TO\_FRONT}}
-{\footnotesize\ttfamily \#define queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+F\+R\+O\+NT~( ( Base\+Type\+\_\+t ) 1 )}
+{\footnotesize\ttfamily \label{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14} 
+\#define queue\+SEND\+\_\+\+TO\+\_\+\+FRONT~( ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 1 )}
 
 
 
-Definition at line 66 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00066}{66}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a8e9ced123b5a0e37a36d3bbdb2e56b4e}\label{queue_8h_a8e9ced123b5a0e37a36d3bbdb2e56b4e}} 
-\index{queue.h@{queue.h}!xQueueOverwrite@{xQueueOverwrite}}
+\Hypertarget{queue_8h_a8e9ced123b5a0e37a36d3bbdb2e56b4e}\index{queue.h@{queue.h}!xQueueOverwrite@{xQueueOverwrite}}
 \index{xQueueOverwrite@{xQueueOverwrite}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueOverwrite}{xQueueOverwrite}}
-{\footnotesize\ttfamily \#define x\+Queue\+Overwrite(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), 0, \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queue\+O\+V\+E\+R\+W\+R\+I\+TE}} )}
+{\footnotesize\ttfamily \label{queue_8h_a8e9ced123b5a0e37a36d3bbdb2e56b4e} 
+\#define x\+Queue\+Overwrite(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{xQueueGenericSend}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ 0,\ \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queueOVERWRITE}}\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{queue_8h_source_l00562}{562}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-Definition at line 562 of file queue.\+h.
-
-\mbox{\Hypertarget{queue_8h_abdcd6a86ef82034d002193e79cfd3ce8}\label{queue_8h_abdcd6a86ef82034d002193e79cfd3ce8}} 
-\index{queue.h@{queue.h}!xQueueOverwriteFromISR@{xQueueOverwriteFromISR}}
+\Hypertarget{queue_8h_abdcd6a86ef82034d002193e79cfd3ce8}\index{queue.h@{queue.h}!xQueueOverwriteFromISR@{xQueueOverwriteFromISR}}
 \index{xQueueOverwriteFromISR@{xQueueOverwriteFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueOverwriteFromISR}{xQueueOverwriteFromISR}}
-{\footnotesize\ttfamily \#define x\+Queue\+Overwrite\+From\+I\+SR(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{px\+Higher\+Priority\+Task\+Woken }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queue\+O\+V\+E\+R\+W\+R\+I\+TE}} )}
+{\footnotesize\ttfamily \label{queue_8h_abdcd6a86ef82034d002193e79cfd3ce8} 
+\#define x\+Queue\+Overwrite\+From\+ISR(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{px\+Higher\+Priority\+Task\+Woken}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{xQueueGenericSendFromISR}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ pxHigherPriorityTaskWoken\ ),\ \mbox{\hyperlink{queue_8h_a5bb1c4a46d4b08b6d35cf586983476ef}{queueOVERWRITE}}\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{queue_8h_source_l01142}{1142}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-Definition at line 1142 of file queue.\+h.
-
-\mbox{\Hypertarget{queue_8h_a94df8d8bc938424151f8196db2f1177b}\label{queue_8h_a94df8d8bc938424151f8196db2f1177b}} 
-\index{queue.h@{queue.h}!xQueueReset@{xQueueReset}}
+\Hypertarget{queue_8h_a94df8d8bc938424151f8196db2f1177b}\index{queue.h@{queue.h}!xQueueReset@{xQueueReset}}
 \index{xQueueReset@{xQueueReset}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueReset}{xQueueReset}}
-{\footnotesize\ttfamily \#define x\+Queue\+Reset(\begin{DoxyParamCaption}\item[{}]{x\+Queue }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}{x\+Queue\+Generic\+Reset}}( x\+Queue, \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+F\+A\+L\+SE}} )}
+{\footnotesize\ttfamily \label{queue_8h_a94df8d8bc938424151f8196db2f1177b} 
+\#define x\+Queue\+Reset(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}{xQueueGenericReset}}(\ xQueue,\ \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pdFALSE}}\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{queue_8h_source_l01433}{1433}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-Definition at line 1433 of file queue.\+h.
-
-\mbox{\Hypertarget{queue_8h_af7eb49d3249351176992950d9185abe9}\label{queue_8h_af7eb49d3249351176992950d9185abe9}} 
-\index{queue.h@{queue.h}!xQueueSend@{xQueueSend}}
+\Hypertarget{queue_8h_af7eb49d3249351176992950d9185abe9}\index{queue.h@{queue.h}!xQueueSend@{xQueueSend}}
 \index{xQueueSend@{xQueueSend}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSend}{xQueueSend}}
-{\footnotesize\ttfamily \#define x\+Queue\+Send(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( x\+Ticks\+To\+Wait ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )}
+{\footnotesize\ttfamily \label{queue_8h_af7eb49d3249351176992950d9185abe9} 
+\#define x\+Queue\+Send(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{xQueueGenericSend}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ xTicksToWait\ ),\ \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queueSEND\_TO\_BACK}}\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{queue_8h_source_l00479}{479}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
 
 
-Definition at line 479 of file queue.\+h.
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01258}{os\+Mail\+Put()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01068}{os\+Message\+Put()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}.
 
-\mbox{\Hypertarget{queue_8h_a21d5919ed26c21d121df4a4debeb643c}\label{queue_8h_a21d5919ed26c21d121df4a4debeb643c}} 
-\index{queue.h@{queue.h}!xQueueSendFromISR@{xQueueSendFromISR}}
+\Hypertarget{queue_8h_a21d5919ed26c21d121df4a4debeb643c}\index{queue.h@{queue.h}!xQueueSendFromISR@{xQueueSendFromISR}}
 \index{xQueueSendFromISR@{xQueueSendFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSendFromISR}{xQueueSendFromISR}}
-{\footnotesize\ttfamily \#define x\+Queue\+Send\+From\+I\+SR(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{px\+Higher\+Priority\+Task\+Woken }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )}
+{\footnotesize\ttfamily \label{queue_8h_a21d5919ed26c21d121df4a4debeb643c} 
+\#define x\+Queue\+Send\+From\+ISR(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{px\+Higher\+Priority\+Task\+Woken}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{xQueueGenericSendFromISR}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ pxHigherPriorityTaskWoken\ ),\ \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queueSEND\_TO\_BACK}}\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{queue_8h_source_l01216}{1216}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
 
 
-Definition at line 1216 of file queue.\+h.
+Referenced by \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01258}{os\+Mail\+Put()}}, and \mbox{\hyperlink{cmsis__os_8c_source_l01068}{os\+Message\+Put()}}.
 
-\mbox{\Hypertarget{queue_8h_a81d24a2c1199d58efb76fbee15853112}\label{queue_8h_a81d24a2c1199d58efb76fbee15853112}} 
-\index{queue.h@{queue.h}!xQueueSendToBack@{xQueueSendToBack}}
+\Hypertarget{queue_8h_a81d24a2c1199d58efb76fbee15853112}\index{queue.h@{queue.h}!xQueueSendToBack@{xQueueSendToBack}}
 \index{xQueueSendToBack@{xQueueSendToBack}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSendToBack}{xQueueSendToBack}}
-{\footnotesize\ttfamily \#define x\+Queue\+Send\+To\+Back(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( x\+Ticks\+To\+Wait ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )}
+{\footnotesize\ttfamily \label{queue_8h_a81d24a2c1199d58efb76fbee15853112} 
+\#define x\+Queue\+Send\+To\+Back(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{xQueueGenericSend}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ xTicksToWait\ ),\ \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queueSEND\_TO\_BACK}}\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{queue_8h_source_l00395}{395}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
 
 
-Definition at line 395 of file queue.\+h.
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{imd_8c_source_l00559}{init\+IMD()}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
 
-\mbox{\Hypertarget{queue_8h_a51e9f73417b11441a181cdc4f33a68e9}\label{queue_8h_a51e9f73417b11441a181cdc4f33a68e9}} 
-\index{queue.h@{queue.h}!xQueueSendToBackFromISR@{xQueueSendToBackFromISR}}
+\Hypertarget{queue_8h_a51e9f73417b11441a181cdc4f33a68e9}\index{queue.h@{queue.h}!xQueueSendToBackFromISR@{xQueueSendToBackFromISR}}
 \index{xQueueSendToBackFromISR@{xQueueSendToBackFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSendToBackFromISR}{xQueueSendToBackFromISR}}
-{\footnotesize\ttfamily \#define x\+Queue\+Send\+To\+Back\+From\+I\+SR(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{px\+Higher\+Priority\+Task\+Woken }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+B\+A\+CK}} )}
+{\footnotesize\ttfamily \label{queue_8h_a51e9f73417b11441a181cdc4f33a68e9} 
+\#define x\+Queue\+Send\+To\+Back\+From\+ISR(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{px\+Higher\+Priority\+Task\+Woken}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{xQueueGenericSendFromISR}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ pxHigherPriorityTaskWoken\ ),\ \mbox{\hyperlink{queue_8h_a4d78fa863fbeb90425a2dda08fae8b12}{queueSEND\_TO\_BACK}}\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{queue_8h_source_l01055}{1055}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
 
 
-Definition at line 1055 of file queue.\+h.
+Referenced by \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
 
-\mbox{\Hypertarget{queue_8h_aa612fcc2b1ceee0200f34b942e300b41}\label{queue_8h_aa612fcc2b1ceee0200f34b942e300b41}} 
-\index{queue.h@{queue.h}!xQueueSendToFront@{xQueueSendToFront}}
+\Hypertarget{queue_8h_aa612fcc2b1ceee0200f34b942e300b41}\index{queue.h@{queue.h}!xQueueSendToFront@{xQueueSendToFront}}
 \index{xQueueSendToFront@{xQueueSendToFront}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSendToFront}{xQueueSendToFront}}
-{\footnotesize\ttfamily \#define x\+Queue\+Send\+To\+Front(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{x\+Queue\+Generic\+Send}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( x\+Ticks\+To\+Wait ), \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+F\+R\+O\+NT}} )}
+{\footnotesize\ttfamily \label{queue_8h_aa612fcc2b1ceee0200f34b942e300b41} 
+\#define x\+Queue\+Send\+To\+Front(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}{xQueueGenericSend}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ xTicksToWait\ ),\ \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queueSEND\_TO\_FRONT}}\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{queue_8h_source_l00313}{313}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-Definition at line 313 of file queue.\+h.
-
-\mbox{\Hypertarget{queue_8h_af03b83396462affe9e28302660e7b9c6}\label{queue_8h_af03b83396462affe9e28302660e7b9c6}} 
-\index{queue.h@{queue.h}!xQueueSendToFrontFromISR@{xQueueSendToFrontFromISR}}
+\Hypertarget{queue_8h_af03b83396462affe9e28302660e7b9c6}\index{queue.h@{queue.h}!xQueueSendToFrontFromISR@{xQueueSendToFrontFromISR}}
 \index{xQueueSendToFrontFromISR@{xQueueSendToFrontFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSendToFrontFromISR}{xQueueSendToFrontFromISR}}
-{\footnotesize\ttfamily \#define x\+Queue\+Send\+To\+Front\+From\+I\+SR(\begin{DoxyParamCaption}\item[{}]{x\+Queue,  }\item[{}]{pv\+Item\+To\+Queue,  }\item[{}]{px\+Higher\+Priority\+Task\+Woken }\end{DoxyParamCaption})~\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{x\+Queue\+Generic\+Send\+From\+I\+SR}}( ( x\+Queue ), ( pv\+Item\+To\+Queue ), ( px\+Higher\+Priority\+Task\+Woken ), \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queue\+S\+E\+N\+D\+\_\+\+T\+O\+\_\+\+F\+R\+O\+NT}} )}
+{\footnotesize\ttfamily \label{queue_8h_af03b83396462affe9e28302660e7b9c6} 
+\#define x\+Queue\+Send\+To\+Front\+From\+ISR(\begin{DoxyParamCaption}\item[{}]{x\+Queue}{, }\item[{}]{pv\+Item\+To\+Queue}{, }\item[{}]{px\+Higher\+Priority\+Task\+Woken}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{queue_8h_a263711eb0124112e828a18fd4b8ab29d}{xQueueGenericSendFromISR}}(\ (\ xQueue\ ),\ (\ pvItemToQueue\ ),\ (\ pxHigherPriorityTaskWoken\ ),\ \mbox{\hyperlink{queue_8h_a6bae395a00f1a4455f0e7fe3c9e76c14}{queueSEND\_TO\_FRONT}}\ )}
+
+\end{DoxyCode}
 
 
-
-Definition at line 984 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00984}{984}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{queue_8h_a57349603001f8ddf51c888c49e2804d7}\label{queue_8h_a57349603001f8ddf51c888c49e2804d7}} 
-\index{queue.h@{queue.h}!QueueHandle\_t@{QueueHandle\_t}}
+\Hypertarget{queue_8h_a57349603001f8ddf51c888c49e2804d7}\index{queue.h@{queue.h}!QueueHandle\_t@{QueueHandle\_t}}
 \index{QueueHandle\_t@{QueueHandle\_t}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{QueueHandle\_t}{QueueHandle\_t}}
-{\footnotesize\ttfamily typedef struct Queue\+Definition$\ast$ \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}
+{\footnotesize\ttfamily \label{queue_8h_a57349603001f8ddf51c888c49e2804d7} 
+typedef struct \mbox{\hyperlink{struct_queue_definition}{Queue\+Definition}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}
 
 
 
-Definition at line 48 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00048}{48}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_a1ae056fb02b2467993003b85111dde16}\label{queue_8h_a1ae056fb02b2467993003b85111dde16}} 
-\index{queue.h@{queue.h}!QueueSetHandle\_t@{QueueSetHandle\_t}}
+\Hypertarget{queue_8h_a1ae056fb02b2467993003b85111dde16}\index{queue.h@{queue.h}!QueueSetHandle\_t@{QueueSetHandle\_t}}
 \index{QueueSetHandle\_t@{QueueSetHandle\_t}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{QueueSetHandle\_t}{QueueSetHandle\_t}}
-{\footnotesize\ttfamily typedef struct Queue\+Definition$\ast$ \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}
+{\footnotesize\ttfamily \label{queue_8h_a1ae056fb02b2467993003b85111dde16} 
+typedef struct \mbox{\hyperlink{struct_queue_definition}{Queue\+Definition}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}
 
-Type by which queue sets are referenced. For example, a call to \mbox{\hyperlink{queue_8h_ad4208ad97f737af942a13e64b45e83e8}{x\+Queue\+Create\+Set()}} returns an x\+Queue\+Set variable that can then be used as a parameter to \mbox{\hyperlink{queue_8h_a71f56e6277ed4e419c707c8d0c785065}{x\+Queue\+Select\+From\+Set()}}, \mbox{\hyperlink{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}{x\+Queue\+Add\+To\+Set()}}, etc. 
+Type by which queue sets are referenced. For example, a call to \doxylink{queue_8h_ad4208ad97f737af942a13e64b45e83e8}{x\+Queue\+Create\+Set()} returns an x\+Queue\+Set variable that can then be used as a parameter to \doxylink{queue_8h_a71f56e6277ed4e419c707c8d0c785065}{x\+Queue\+Select\+From\+Set()}, \doxylink{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}{x\+Queue\+Add\+To\+Set()}, etc. 
 
-Definition at line 55 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00055}{55}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
-\mbox{\Hypertarget{queue_8h_afac7ec7649e5c57381315eb011c36ef5}\label{queue_8h_afac7ec7649e5c57381315eb011c36ef5}} 
-\index{queue.h@{queue.h}!QueueSetMemberHandle\_t@{QueueSetMemberHandle\_t}}
+\Hypertarget{queue_8h_afac7ec7649e5c57381315eb011c36ef5}\index{queue.h@{queue.h}!QueueSetMemberHandle\_t@{QueueSetMemberHandle\_t}}
 \index{QueueSetMemberHandle\_t@{QueueSetMemberHandle\_t}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{QueueSetMemberHandle\_t}{QueueSetMemberHandle\_t}}
-{\footnotesize\ttfamily typedef struct Queue\+Definition$\ast$ \mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}}
+{\footnotesize\ttfamily \label{queue_8h_afac7ec7649e5c57381315eb011c36ef5} 
+typedef struct \mbox{\hyperlink{struct_queue_definition}{Queue\+Definition}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}}
 
 Queue sets can contain both queues and semaphores, so the Queue\+Set\+Member\+Handle\+\_\+t is defined as a type to be used where a parameter or return value can be either an Queue\+Handle\+\_\+t or an Semaphore\+Handle\+\_\+t. 
 
-Definition at line 62 of file queue.\+h.
+Definition at line \mbox{\hyperlink{queue_8h_source_l00062}{62}} of file \mbox{\hyperlink{queue_8h_source}{queue.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{queue_8h_a9730db0a2f63acbf7197fa4150d7fe08}\label{queue_8h_a9730db0a2f63acbf7197fa4150d7fe08}} 
-\index{queue.h@{queue.h}!ucQueueGetQueueType@{ucQueueGetQueueType}}
+\Hypertarget{queue_8h_a9730db0a2f63acbf7197fa4150d7fe08}\index{queue.h@{queue.h}!ucQueueGetQueueType@{ucQueueGetQueueType}}
 \index{ucQueueGetQueueType@{ucQueueGetQueueType}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{ucQueueGetQueueType()}{ucQueueGetQueueType()}}
-{\footnotesize\ttfamily uint8\+\_\+t uc\+Queue\+Get\+Queue\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a9730db0a2f63acbf7197fa4150d7fe08} 
+uint8\+\_\+t uc\+Queue\+Get\+Queue\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a7f7a4d9b75dcfbcefb2384da5df5290e}\label{queue_8h_a7f7a4d9b75dcfbcefb2384da5df5290e}} 
-\index{queue.h@{queue.h}!uxQueueGetQueueNumber@{uxQueueGetQueueNumber}}
+\Hypertarget{queue_8h_a7f7a4d9b75dcfbcefb2384da5df5290e}\index{queue.h@{queue.h}!uxQueueGetQueueNumber@{uxQueueGetQueueNumber}}
 \index{uxQueueGetQueueNumber@{uxQueueGetQueueNumber}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{uxQueueGetQueueNumber()}{uxQueueGetQueueNumber()}}
-{\footnotesize\ttfamily U\+Base\+Type\+\_\+t ux\+Queue\+Get\+Queue\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a7f7a4d9b75dcfbcefb2384da5df5290e} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Queue\+Get\+Queue\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_add7ee0701ba35904d190811b9e5a4eda}\label{queue_8h_add7ee0701ba35904d190811b9e5a4eda}} 
-\index{queue.h@{queue.h}!uxQueueMessagesWaiting@{uxQueueMessagesWaiting}}
+\Hypertarget{queue_8h_add7ee0701ba35904d190811b9e5a4eda}\index{queue.h@{queue.h}!uxQueueMessagesWaiting@{uxQueueMessagesWaiting}}
 \index{uxQueueMessagesWaiting@{uxQueueMessagesWaiting}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{uxQueueMessagesWaiting()}{uxQueueMessagesWaiting()}}
-{\footnotesize\ttfamily U\+Base\+Type\+\_\+t ux\+Queue\+Messages\+Waiting (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_add7ee0701ba35904d190811b9e5a4eda} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Queue\+Messages\+Waiting (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a3e89b6189166f9544f283435e2732f9a}\label{queue_8h_a3e89b6189166f9544f283435e2732f9a}} 
-\index{queue.h@{queue.h}!uxQueueMessagesWaitingFromISR@{uxQueueMessagesWaitingFromISR}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01930}{1930}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}.
+
+
+
+Referenced by \mbox{\hyperlink{cmsis__os_8c_source_l01597}{os\+Message\+Waiting()}}.
+
+\Hypertarget{queue_8h_a3e89b6189166f9544f283435e2732f9a}\index{queue.h@{queue.h}!uxQueueMessagesWaitingFromISR@{uxQueueMessagesWaitingFromISR}}
 \index{uxQueueMessagesWaitingFromISR@{uxQueueMessagesWaitingFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{uxQueueMessagesWaitingFromISR()}{uxQueueMessagesWaitingFromISR()}}
-{\footnotesize\ttfamily U\+Base\+Type\+\_\+t ux\+Queue\+Messages\+Waiting\+From\+I\+SR (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a3e89b6189166f9544f283435e2732f9a} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Queue\+Messages\+Waiting\+From\+ISR (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_aae75791e91707c1e0bb31d761921531c}\label{queue_8h_aae75791e91707c1e0bb31d761921531c}} 
-\index{queue.h@{queue.h}!uxQueueSpacesAvailable@{uxQueueSpacesAvailable}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01963}{1963}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, and \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}.
+
+
+
+Referenced by \mbox{\hyperlink{cmsis__os_8c_source_l01597}{os\+Message\+Waiting()}}.
+
+\Hypertarget{queue_8h_aae75791e91707c1e0bb31d761921531c}\index{queue.h@{queue.h}!uxQueueSpacesAvailable@{uxQueueSpacesAvailable}}
 \index{uxQueueSpacesAvailable@{uxQueueSpacesAvailable}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{uxQueueSpacesAvailable()}{uxQueueSpacesAvailable()}}
-{\footnotesize\ttfamily U\+Base\+Type\+\_\+t ux\+Queue\+Spaces\+Available (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_aae75791e91707c1e0bb31d761921531c} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Queue\+Spaces\+Available (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}\label{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}} 
-\index{queue.h@{queue.h}!vQueueDelete@{vQueueDelete}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01946}{1946}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{queue_8c_source_l00112}{Queue\+Definition\+::ux\+Length}}, and \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}.
+
+
+
+Referenced by \mbox{\hyperlink{cmsis__os_8c_source_l01613}{os\+Message\+Available\+Space()}}.
+
+\Hypertarget{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}\index{queue.h@{queue.h}!vQueueDelete@{vQueueDelete}}
 \index{vQueueDelete@{vQueueDelete}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{vQueueDelete()}{vQueueDelete()}}
-{\footnotesize\ttfamily void v\+Queue\+Delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22} 
+void v\+Queue\+Delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a37c8b0ea8f2e6c5fa5082afb9721f986}\label{queue_8h_a37c8b0ea8f2e6c5fa5082afb9721f986}} 
-\index{queue.h@{queue.h}!vQueueSetQueueNumber@{vQueueSetQueueNumber}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01975}{1975}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00508}{trace\+QUEUE\+\_\+\+DELETE}}, and \mbox{\hyperlink{heap__4_8c_source_l00266}{v\+Port\+Free()}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01623}{os\+Message\+Delete()}}, and \mbox{\hyperlink{cmsis__os_8c_source_l00691}{os\+Mutex\+Delete()}}.
+
+\Hypertarget{queue_8h_a37c8b0ea8f2e6c5fa5082afb9721f986}\index{queue.h@{queue.h}!vQueueSetQueueNumber@{vQueueSetQueueNumber}}
 \index{vQueueSetQueueNumber@{vQueueSetQueueNumber}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{vQueueSetQueueNumber()}{vQueueSetQueueNumber()}}
-{\footnotesize\ttfamily void v\+Queue\+Set\+Queue\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{U\+Base\+Type\+\_\+t}]{ux\+Queue\+Number }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a37c8b0ea8f2e6c5fa5082afb9721f986} 
+void v\+Queue\+Set\+Queue\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}}}]{ux\+Queue\+Number}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_abaa0f8224837d82e60cf799127185546}\label{queue_8h_abaa0f8224837d82e60cf799127185546}} 
-\index{queue.h@{queue.h}!vQueueWaitForMessageRestricted@{vQueueWaitForMessageRestricted}}
+\Hypertarget{queue_8h_abaa0f8224837d82e60cf799127185546}\index{queue.h@{queue.h}!vQueueWaitForMessageRestricted@{vQueueWaitForMessageRestricted}}
 \index{vQueueWaitForMessageRestricted@{vQueueWaitForMessageRestricted}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{vQueueWaitForMessageRestricted()}{vQueueWaitForMessageRestricted()}}
-{\footnotesize\ttfamily void v\+Queue\+Wait\+For\+Message\+Restricted (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait,  }\item[{const Base\+Type\+\_\+t}]{x\+Wait\+Indefinitely }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_abaa0f8224837d82e60cf799127185546} 
+void v\+Queue\+Wait\+For\+Message\+Restricted (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Wait\+Indefinitely}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}\label{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}} 
-\index{queue.h@{queue.h}!xQueueAddToSet@{xQueueAddToSet}}
+\Hypertarget{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb}\index{queue.h@{queue.h}!xQueueAddToSet@{xQueueAddToSet}}
 \index{xQueueAddToSet@{xQueueAddToSet}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueAddToSet()}{xQueueAddToSet()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Add\+To\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}}]{x\+Queue\+Or\+Semaphore,  }\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ae07b563e6bbe42a977f7c46853aa11eb} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Add\+To\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}}]{x\+Queue\+Or\+Semaphore}{, }\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ac74677a8d243c76843c25fdb06436043}\label{queue_8h_ac74677a8d243c76843c25fdb06436043}} 
-\index{queue.h@{queue.h}!xQueueCreateCountingSemaphore@{xQueueCreateCountingSemaphore}}
+\Hypertarget{queue_8h_ac74677a8d243c76843c25fdb06436043}\index{queue.h@{queue.h}!xQueueCreateCountingSemaphore@{xQueueCreateCountingSemaphore}}
 \index{xQueueCreateCountingSemaphore@{xQueueCreateCountingSemaphore}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCreateCountingSemaphore()}{xQueueCreateCountingSemaphore()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Counting\+Semaphore (\begin{DoxyParamCaption}\item[{const U\+Base\+Type\+\_\+t}]{ux\+Max\+Count,  }\item[{const U\+Base\+Type\+\_\+t}]{ux\+Initial\+Count }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ac74677a8d243c76843c25fdb06436043} 
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Counting\+Semaphore (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}}}]{ux\+Max\+Count}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}}}]{ux\+Initial\+Count}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a601cb15993988a393676a9df74b067bd}\label{queue_8h_a601cb15993988a393676a9df74b067bd}} 
-\index{queue.h@{queue.h}!xQueueCreateCountingSemaphoreStatic@{xQueueCreateCountingSemaphoreStatic}}
+\Hypertarget{queue_8h_a601cb15993988a393676a9df74b067bd}\index{queue.h@{queue.h}!xQueueCreateCountingSemaphoreStatic@{xQueueCreateCountingSemaphoreStatic}}
 \index{xQueueCreateCountingSemaphoreStatic@{xQueueCreateCountingSemaphoreStatic}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCreateCountingSemaphoreStatic()}{xQueueCreateCountingSemaphoreStatic()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Counting\+Semaphore\+Static (\begin{DoxyParamCaption}\item[{const U\+Base\+Type\+\_\+t}]{ux\+Max\+Count,  }\item[{const U\+Base\+Type\+\_\+t}]{ux\+Initial\+Count,  }\item[{\mbox{\hyperlink{_free_r_t_o_s_8h_a9deecb4f17c68b05469a3019cc674bac}{Static\+Queue\+\_\+t}} $\ast$}]{px\+Static\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a601cb15993988a393676a9df74b067bd} 
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Counting\+Semaphore\+Static (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}}}]{ux\+Max\+Count}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}}}]{ux\+Initial\+Count}{, }\item[{\mbox{\hyperlink{_free_r_t_o_s_8h_a22e8979e2849d002747c0dd4c7c37908}{Static\+Queue\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Static\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_acac7df114346b4219bc2aab79cac35b5}\label{queue_8h_acac7df114346b4219bc2aab79cac35b5}} 
-\index{queue.h@{queue.h}!xQueueCreateMutex@{xQueueCreateMutex}}
+\Hypertarget{queue_8h_acac7df114346b4219bc2aab79cac35b5}\index{queue.h@{queue.h}!xQueueCreateMutex@{xQueueCreateMutex}}
 \index{xQueueCreateMutex@{xQueueCreateMutex}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCreateMutex()}{xQueueCreateMutex()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Mutex (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{uc\+Queue\+Type }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_acac7df114346b4219bc2aab79cac35b5} 
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Mutex (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{uc\+Queue\+Type}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_af92945589381b740932a7cc41e212a37}\label{queue_8h_af92945589381b740932a7cc41e212a37}} 
-\index{queue.h@{queue.h}!xQueueCreateMutexStatic@{xQueueCreateMutexStatic}}
+\Hypertarget{queue_8h_af92945589381b740932a7cc41e212a37}\index{queue.h@{queue.h}!xQueueCreateMutexStatic@{xQueueCreateMutexStatic}}
 \index{xQueueCreateMutexStatic@{xQueueCreateMutexStatic}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCreateMutexStatic()}{xQueueCreateMutexStatic()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Mutex\+Static (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{uc\+Queue\+Type,  }\item[{\mbox{\hyperlink{_free_r_t_o_s_8h_a9deecb4f17c68b05469a3019cc674bac}{Static\+Queue\+\_\+t}} $\ast$}]{px\+Static\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_af92945589381b740932a7cc41e212a37} 
+\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}} x\+Queue\+Create\+Mutex\+Static (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t}]{uc\+Queue\+Type}{, }\item[{\mbox{\hyperlink{_free_r_t_o_s_8h_a22e8979e2849d002747c0dd4c7c37908}{Static\+Queue\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Static\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ad4208ad97f737af942a13e64b45e83e8}\label{queue_8h_ad4208ad97f737af942a13e64b45e83e8}} 
-\index{queue.h@{queue.h}!xQueueCreateSet@{xQueueCreateSet}}
+\Hypertarget{queue_8h_ad4208ad97f737af942a13e64b45e83e8}\index{queue.h@{queue.h}!xQueueCreateSet@{xQueueCreateSet}}
 \index{xQueueCreateSet@{xQueueCreateSet}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCreateSet()}{xQueueCreateSet()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Create\+Set (\begin{DoxyParamCaption}\item[{const U\+Base\+Type\+\_\+t}]{ux\+Event\+Queue\+Length }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ad4208ad97f737af942a13e64b45e83e8} 
+\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}} x\+Queue\+Create\+Set (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}}}]{ux\+Event\+Queue\+Length}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a88a02b37c486c38b8c4112e16dfed099}\label{queue_8h_a88a02b37c486c38b8c4112e16dfed099}} 
-\index{queue.h@{queue.h}!xQueueCRReceive@{xQueueCRReceive}}
+\Hypertarget{queue_8h_a88a02b37c486c38b8c4112e16dfed099}\index{queue.h@{queue.h}!xQueueCRReceive@{xQueueCRReceive}}
 \index{xQueueCRReceive@{xQueueCRReceive}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCRReceive()}{xQueueCRReceive()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+C\+R\+Receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{void $\ast$}]{pv\+Buffer,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a88a02b37c486c38b8c4112e16dfed099} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+CRReceive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Buffer}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ad66b08c1d6a17efa8985605bf182b997}\label{queue_8h_ad66b08c1d6a17efa8985605bf182b997}} 
-\index{queue.h@{queue.h}!xQueueCRReceiveFromISR@{xQueueCRReceiveFromISR}}
+\Hypertarget{queue_8h_ad66b08c1d6a17efa8985605bf182b997}\index{queue.h@{queue.h}!xQueueCRReceiveFromISR@{xQueueCRReceiveFromISR}}
 \index{xQueueCRReceiveFromISR@{xQueueCRReceiveFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCRReceiveFromISR()}{xQueueCRReceiveFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+C\+R\+Receive\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{void $\ast$}]{pv\+Buffer,  }\item[{Base\+Type\+\_\+t $\ast$}]{px\+Task\+Woken }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ad66b08c1d6a17efa8985605bf182b997} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+CRReceive\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Buffer}{, }\item[{\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Task\+Woken}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_abb5d7bd9b62f2b642104fde73c1c666b}\label{queue_8h_abb5d7bd9b62f2b642104fde73c1c666b}} 
-\index{queue.h@{queue.h}!xQueueCRSend@{xQueueCRSend}}
+\Hypertarget{queue_8h_abb5d7bd9b62f2b642104fde73c1c666b}\index{queue.h@{queue.h}!xQueueCRSend@{xQueueCRSend}}
 \index{xQueueCRSend@{xQueueCRSend}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCRSend()}{xQueueCRSend()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+C\+R\+Send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{const void $\ast$}]{pv\+Item\+To\+Queue,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_abb5d7bd9b62f2b642104fde73c1c666b} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+CRSend (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{pv\+Item\+To\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a80af2aff3f472600a12dea0642fa8b27}\label{queue_8h_a80af2aff3f472600a12dea0642fa8b27}} 
-\index{queue.h@{queue.h}!xQueueCRSendFromISR@{xQueueCRSendFromISR}}
+\Hypertarget{queue_8h_a80af2aff3f472600a12dea0642fa8b27}\index{queue.h@{queue.h}!xQueueCRSendFromISR@{xQueueCRSendFromISR}}
 \index{xQueueCRSendFromISR@{xQueueCRSendFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueCRSendFromISR()}{xQueueCRSendFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+C\+R\+Send\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{const void $\ast$}]{pv\+Item\+To\+Queue,  }\item[{Base\+Type\+\_\+t}]{x\+Co\+Routine\+Previously\+Woken }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a80af2aff3f472600a12dea0642fa8b27} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+CRSend\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{const void \texorpdfstring{$\ast$}{*}}]{pv\+Item\+To\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Co\+Routine\+Previously\+Woken}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}\label{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}} 
-\index{queue.h@{queue.h}!xQueueGenericReset@{xQueueGenericReset}}
+\Hypertarget{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599}\index{queue.h@{queue.h}!xQueueGenericReset@{xQueueGenericReset}}
 \index{xQueueGenericReset@{xQueueGenericReset}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGenericReset()}{xQueueGenericReset()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Generic\+Reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{Base\+Type\+\_\+t}]{x\+New\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a3c13a9fe455ec2d35b5f8386a1040599} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Generic\+Reset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+New\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}\label{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}} 
-\index{queue.h@{queue.h}!xQueueGenericSend@{xQueueGenericSend}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00255}{255}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{queue_8c_source_l00115}{Queue\+Definition\+::c\+Rx\+Lock}}, \mbox{\hyperlink{queue_8c_source_l00116}{Queue\+Definition\+::c\+Tx\+Lock}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{queue_8c_source_l00099}{Queue\+Definition\+::pc\+Head}}, \mbox{\hyperlink{queue_8c_source_l00070}{Queue\+Pointers\+::pc\+Read\+From}}, \mbox{\hyperlink{queue_8c_source_l00069}{Queue\+Pointers\+::pc\+Tail}}, \mbox{\hyperlink{queue_8c_source_l00100}{Queue\+Definition\+::pc\+Write\+To}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{queue_8c_source_l00052}{queue\+UNLOCKED}}, \mbox{\hyperlink{queue_8c_source_l00087}{queue\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}{Queue\+Definition\+::u}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00112}{Queue\+Definition\+::ux\+Length}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{list_8c_source_l00041}{v\+List\+Initialise()}}, \mbox{\hyperlink{queue_8c_source_l00104}{Queue\+Definition\+::x\+Queue}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}, and \mbox{\hyperlink{queue_8c_source_l00108}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Send}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l00422}{prv\+Initialise\+New\+Queue()}}.
+
+\Hypertarget{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3}\index{queue.h@{queue.h}!xQueueGenericSend@{xQueueGenericSend}}
 \index{xQueueGenericSend@{xQueueGenericSend}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGenericSend()}{xQueueGenericSend()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Generic\+Send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{const void $\ast$const}]{pv\+Item\+To\+Queue,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait,  }\item[{const Base\+Type\+\_\+t}]{x\+Copy\+Position }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a7ce86d1026e0c3055a523935bf53c0b3} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Generic\+Send (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{const void \texorpdfstring{$\ast$}{*}const}]{pv\+Item\+To\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Copy\+Position}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a263711eb0124112e828a18fd4b8ab29d}\label{queue_8h_a263711eb0124112e828a18fd4b8ab29d}} 
-\index{queue.h@{queue.h}!xQueueGenericSendFromISR@{xQueueGenericSendFromISR}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00740}{740}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00050}{err\+QUEUE\+\_\+\+FULL}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00746}{port\+YIELD\+\_\+\+WITHIN\+\_\+\+API}}, \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02331}{prv\+Is\+Queue\+Full()}}, \mbox{\hyperlink{queue_8c_source_l00240}{prv\+Lock\+Queue}}, \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8h_source_l00067}{queue\+OVERWRITE}}, \mbox{\hyperlink{queue_8c_source_l00087}{queue\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00227}{task\+SCHEDULER\+\_\+\+SUSPENDED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00394}{trace\+BLOCKING\+\_\+\+ON\+\_\+\+QUEUE\+\_\+\+SEND}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00460}{trace\+QUEUE\+\_\+\+SEND}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00464}{trace\+QUEUE\+\_\+\+SEND\+\_\+\+FAILED}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00112}{Queue\+Definition\+::ux\+Length}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}, \mbox{\hyperlink{task_8h_a0241000e08a261372186d34825a35979}{x\+Task\+Get\+Scheduler\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}, and \mbox{\hyperlink{queue_8c_source_l00108}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Send}}.
+
+\Hypertarget{queue_8h_a263711eb0124112e828a18fd4b8ab29d}\index{queue.h@{queue.h}!xQueueGenericSendFromISR@{xQueueGenericSendFromISR}}
 \index{xQueueGenericSendFromISR@{xQueueGenericSendFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGenericSendFromISR()}{xQueueGenericSendFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Generic\+Send\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{const void $\ast$const}]{pv\+Item\+To\+Queue,  }\item[{Base\+Type\+\_\+t $\ast$const}]{px\+Higher\+Priority\+Task\+Woken,  }\item[{const Base\+Type\+\_\+t}]{x\+Copy\+Position }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a263711eb0124112e828a18fd4b8ab29d} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Generic\+Send\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{const void \texorpdfstring{$\ast$}{*}const}]{pv\+Item\+To\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Higher\+Priority\+Task\+Woken}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Copy\+Position}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ac49b15e4005be658fd04e68407ef4fb1}\label{queue_8h_ac49b15e4005be658fd04e68407ef4fb1}} 
-\index{queue.h@{queue.h}!xQueueGetMutexHolder@{xQueueGetMutexHolder}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00950}{950}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{queue_8c_source_l00116}{Queue\+Definition\+::c\+Tx\+Lock}}, \mbox{\hyperlink{projdefs_8h_source_l00050}{err\+QUEUE\+\_\+\+FULL}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{portmacro_8h_source_l00101}{port\+CLEAR\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{portmacro_8h_source_l00100}{port\+SET\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8h_source_l00067}{queue\+OVERWRITE}}, \mbox{\hyperlink{queue_8c_source_l00052}{queue\+UNLOCKED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00488}{trace\+QUEUE\+\_\+\+SEND\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00492}{trace\+QUEUE\+\_\+\+SEND\+\_\+\+FROM\+\_\+\+ISR\+\_\+\+FAILED}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00112}{Queue\+Definition\+::ux\+Length}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}.
+
+\Hypertarget{queue_8h_ac49b15e4005be658fd04e68407ef4fb1}\index{queue.h@{queue.h}!xQueueGetMutexHolder@{xQueueGetMutexHolder}}
 \index{xQueueGetMutexHolder@{xQueueGetMutexHolder}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGetMutexHolder()}{xQueueGetMutexHolder()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Queue\+Get\+Mutex\+Holder (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Semaphore }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ac49b15e4005be658fd04e68407ef4fb1} 
+\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Queue\+Get\+Mutex\+Holder (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Semaphore}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a8ccb06cf46ba1c052809a3809954bd07}\label{queue_8h_a8ccb06cf46ba1c052809a3809954bd07}} 
-\index{queue.h@{queue.h}!xQueueGetMutexHolderFromISR@{xQueueGetMutexHolderFromISR}}
+\Hypertarget{queue_8h_a8ccb06cf46ba1c052809a3809954bd07}\index{queue.h@{queue.h}!xQueueGetMutexHolderFromISR@{xQueueGetMutexHolderFromISR}}
 \index{xQueueGetMutexHolderFromISR@{xQueueGetMutexHolderFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGetMutexHolderFromISR()}{xQueueGetMutexHolderFromISR()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Queue\+Get\+Mutex\+Holder\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Semaphore }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a8ccb06cf46ba1c052809a3809954bd07} 
+\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Queue\+Get\+Mutex\+Holder\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Semaphore}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ad14ae1174c2772cffc9e0c2c45dc55a6}\label{queue_8h_ad14ae1174c2772cffc9e0c2c45dc55a6}} 
-\index{queue.h@{queue.h}!xQueueGiveFromISR@{xQueueGiveFromISR}}
+\Hypertarget{queue_8h_ad14ae1174c2772cffc9e0c2c45dc55a6}\index{queue.h@{queue.h}!xQueueGiveFromISR@{xQueueGiveFromISR}}
 \index{xQueueGiveFromISR@{xQueueGiveFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGiveFromISR()}{xQueueGiveFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Give\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{Base\+Type\+\_\+t $\ast$const}]{px\+Higher\+Priority\+Task\+Woken }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ad14ae1174c2772cffc9e0c2c45dc55a6} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Give\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Higher\+Priority\+Task\+Woken}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a51adeb17e9d3bb1077969e6e53f61c3b}\label{queue_8h_a51adeb17e9d3bb1077969e6e53f61c3b}} 
-\index{queue.h@{queue.h}!xQueueGiveMutexRecursive@{xQueueGiveMutexRecursive}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01112}{1112}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{queue_8c_source_l00116}{Queue\+Definition\+::c\+Tx\+Lock}}, \mbox{\hyperlink{projdefs_8h_source_l00050}{err\+QUEUE\+\_\+\+FULL}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{portmacro_8h_source_l00101}{port\+CLEAR\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{portmacro_8h_source_l00100}{port\+SET\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{queue_8c_source_l00065}{queue\+QUEUE\+\_\+\+IS\+\_\+\+MUTEX}}, \mbox{\hyperlink{queue_8c_source_l00052}{queue\+UNLOCKED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00488}{trace\+QUEUE\+\_\+\+SEND\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00492}{trace\+QUEUE\+\_\+\+SEND\+\_\+\+FROM\+\_\+\+ISR\+\_\+\+FAILED}}, \mbox{\hyperlink{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}{Queue\+Definition\+::u}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{queue_8c_source_l00075}{Semaphore\+Data\+::x\+Mutex\+Holder}}, \mbox{\hyperlink{queue_8c_source_l00105}{Queue\+Definition\+::x\+Semaphore}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}.
+
+\Hypertarget{queue_8h_a51adeb17e9d3bb1077969e6e53f61c3b}\index{queue.h@{queue.h}!xQueueGiveMutexRecursive@{xQueueGiveMutexRecursive}}
 \index{xQueueGiveMutexRecursive@{xQueueGiveMutexRecursive}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueGiveMutexRecursive()}{xQueueGiveMutexRecursive()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Give\+Mutex\+Recursive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Mutex }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a51adeb17e9d3bb1077969e6e53f61c3b} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Give\+Mutex\+Recursive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Mutex}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_aa11139c58f4eecaa0c50078f2976d010}\label{queue_8h_aa11139c58f4eecaa0c50078f2976d010}} 
-\index{queue.h@{queue.h}!xQueueIsQueueEmptyFromISR@{xQueueIsQueueEmptyFromISR}}
+\Hypertarget{queue_8h_aa11139c58f4eecaa0c50078f2976d010}\index{queue.h@{queue.h}!xQueueIsQueueEmptyFromISR@{xQueueIsQueueEmptyFromISR}}
 \index{xQueueIsQueueEmptyFromISR@{xQueueIsQueueEmptyFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueIsQueueEmptyFromISR()}{xQueueIsQueueEmptyFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Is\+Queue\+Empty\+From\+I\+SR (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_aa11139c58f4eecaa0c50078f2976d010} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Is\+Queue\+Empty\+From\+ISR (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a81319b3aa562733957c5a12a088516d3}\label{queue_8h_a81319b3aa562733957c5a12a088516d3}} 
-\index{queue.h@{queue.h}!xQueueIsQueueFullFromISR@{xQueueIsQueueFullFromISR}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l02312}{2312}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, and \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}.
+
+\Hypertarget{queue_8h_a81319b3aa562733957c5a12a088516d3}\index{queue.h@{queue.h}!xQueueIsQueueFullFromISR@{xQueueIsQueueFullFromISR}}
 \index{xQueueIsQueueFullFromISR@{xQueueIsQueueFullFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueIsQueueFullFromISR()}{xQueueIsQueueFullFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Is\+Queue\+Full\+From\+I\+SR (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a81319b3aa562733957c5a12a088516d3} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Is\+Queue\+Full\+From\+ISR (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a3f9e430276fe5244417fd82644ec8a75}\label{queue_8h_a3f9e430276fe5244417fd82644ec8a75}} 
-\index{queue.h@{queue.h}!xQueuePeek@{xQueuePeek}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l02352}{2352}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{queue_8c_source_l00112}{Queue\+Definition\+::ux\+Length}}, and \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}.
+
+\Hypertarget{queue_8h_a3f9e430276fe5244417fd82644ec8a75}\index{queue.h@{queue.h}!xQueuePeek@{xQueuePeek}}
 \index{xQueuePeek@{xQueuePeek}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueuePeek()}{xQueuePeek()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Peek (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{void $\ast$const}]{pv\+Buffer,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a3f9e430276fe5244417fd82644ec8a75} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Peek (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{void \texorpdfstring{$\ast$}{*}const}]{pv\+Buffer}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ac402adf98be1fb8ca0345f30dc11a9dc}\label{queue_8h_ac402adf98be1fb8ca0345f30dc11a9dc}} 
-\index{queue.h@{queue.h}!xQueuePeekFromISR@{xQueuePeekFromISR}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01636}{1636}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00049}{err\+QUEUE\+\_\+\+EMPTY}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{queue_8c_source_l00070}{Queue\+Pointers\+::pc\+Read\+From}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00746}{port\+YIELD\+\_\+\+WITHIN\+\_\+\+API}}, \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02291}{prv\+Is\+Queue\+Empty()}}, \mbox{\hyperlink{queue_8c_source_l00240}{prv\+Lock\+Queue}}, \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00087}{queue\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00227}{task\+SCHEDULER\+\_\+\+SUSPENDED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00386}{trace\+BLOCKING\+\_\+\+ON\+\_\+\+QUEUE\+\_\+\+PEEK}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00472}{trace\+QUEUE\+\_\+\+PEEK}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00476}{trace\+QUEUE\+\_\+\+PEEK\+\_\+\+FAILED}}, \mbox{\hyperlink{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}{Queue\+Definition\+::u}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{queue_8c_source_l00104}{Queue\+Definition\+::x\+Queue}}, \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}, \mbox{\hyperlink{task_8h_a0241000e08a261372186d34825a35979}{x\+Task\+Get\+Scheduler\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, and \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}.
+
+
+
+Referenced by \mbox{\hyperlink{cmsis__os_8c_source_l01556}{os\+Message\+Peek()}}.
+
+\Hypertarget{queue_8h_ac402adf98be1fb8ca0345f30dc11a9dc}\index{queue.h@{queue.h}!xQueuePeekFromISR@{xQueuePeekFromISR}}
 \index{xQueuePeekFromISR@{xQueuePeekFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueuePeekFromISR()}{xQueuePeekFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Peek\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{void $\ast$const}]{pv\+Buffer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ac402adf98be1fb8ca0345f30dc11a9dc} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Peek\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{void \texorpdfstring{$\ast$}{*}const}]{pv\+Buffer}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}\label{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}} 
-\index{queue.h@{queue.h}!xQueueReceive@{xQueueReceive}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01876}{1876}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{queue_8c_source_l00070}{Queue\+Pointers\+::pc\+Read\+From}}, \mbox{\hyperlink{projdefs_8h_source_l00048}{pd\+FAIL}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{portmacro_8h_source_l00101}{port\+CLEAR\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{portmacro_8h_source_l00100}{port\+SET\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00480}{trace\+QUEUE\+\_\+\+PEEK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00504}{trace\+QUEUE\+\_\+\+PEEK\+\_\+\+FROM\+\_\+\+ISR\+\_\+\+FAILED}}, \mbox{\hyperlink{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}{Queue\+Definition\+::u}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, and \mbox{\hyperlink{queue_8c_source_l00104}{Queue\+Definition\+::x\+Queue}}.
+
+\Hypertarget{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}\index{queue.h@{queue.h}!xQueueReceive@{xQueueReceive}}
 \index{xQueueReceive@{xQueueReceive}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueReceive()}{xQueueReceive()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{void $\ast$const}]{pv\+Buffer,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Receive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{void \texorpdfstring{$\ast$}{*}const}]{pv\+Buffer}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 
 
 
-Referenced by \+\_\+state\+Change\+Daemon(), C\+A\+Nbus\+Tx\+Svc\+Daemon(), uv\+Init(), and uv\+Task\+Manager().
+Definition at line \mbox{\hyperlink{queue_8c_source_l01277}{1277}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
 
-\mbox{\Hypertarget{queue_8h_acdf528f5c91131ae2f31c669cfd65758}\label{queue_8h_acdf528f5c91131ae2f31c669cfd65758}} 
-\index{queue.h@{queue.h}!xQueueReceiveFromISR@{xQueueReceiveFromISR}}
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00049}{err\+QUEUE\+\_\+\+EMPTY}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00746}{port\+YIELD\+\_\+\+WITHIN\+\_\+\+API}}, \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02291}{prv\+Is\+Queue\+Empty()}}, \mbox{\hyperlink{queue_8c_source_l00240}{prv\+Lock\+Queue}}, \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00087}{queue\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00227}{task\+SCHEDULER\+\_\+\+SUSPENDED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00378}{trace\+BLOCKING\+\_\+\+ON\+\_\+\+QUEUE\+\_\+\+RECEIVE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00468}{trace\+QUEUE\+\_\+\+RECEIVE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00484}{trace\+QUEUE\+\_\+\+RECEIVE\+\_\+\+FAILED}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}, \mbox{\hyperlink{task_8h_a0241000e08a261372186d34825a35979}{x\+Task\+Get\+Scheduler\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}, and \mbox{\hyperlink{queue_8c_source_l00108}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Send}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01291}{os\+Mail\+Get()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01100}{os\+Message\+Get()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{queue_8h_acdf528f5c91131ae2f31c669cfd65758}\index{queue.h@{queue.h}!xQueueReceiveFromISR@{xQueueReceiveFromISR}}
 \index{xQueueReceiveFromISR@{xQueueReceiveFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueReceiveFromISR()}{xQueueReceiveFromISR()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Receive\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{void $\ast$const}]{pv\+Buffer,  }\item[{Base\+Type\+\_\+t $\ast$const}]{px\+Higher\+Priority\+Task\+Woken }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_acdf528f5c91131ae2f31c669cfd65758} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Receive\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{void \texorpdfstring{$\ast$}{*}const}]{pv\+Buffer}{, }\item[{\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Higher\+Priority\+Task\+Woken}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ab16fdd17b9b6d74a82c8366f47cda162}\label{queue_8h_ab16fdd17b9b6d74a82c8366f47cda162}} 
-\index{queue.h@{queue.h}!xQueueRemoveFromSet@{xQueueRemoveFromSet}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01785}{1785}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{queue_8c_source_l00115}{Queue\+Definition\+::c\+Rx\+Lock}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00048}{pd\+FAIL}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{portmacro_8h_source_l00101}{port\+CLEAR\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{portmacro_8h_source_l00100}{port\+SET\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00052}{queue\+UNLOCKED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00496}{trace\+QUEUE\+\_\+\+RECEIVE\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00500}{trace\+QUEUE\+\_\+\+RECEIVE\+\_\+\+FROM\+\_\+\+ISR\+\_\+\+FAILED}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{queue_8c_source_l00108}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Send}}.
+
+
+
+Referenced by \mbox{\hyperlink{cmsis__os_8c_source_l01291}{os\+Mail\+Get()}}, and \mbox{\hyperlink{cmsis__os_8c_source_l01100}{os\+Message\+Get()}}.
+
+\Hypertarget{queue_8h_ab16fdd17b9b6d74a82c8366f47cda162}\index{queue.h@{queue.h}!xQueueRemoveFromSet@{xQueueRemoveFromSet}}
 \index{xQueueRemoveFromSet@{xQueueRemoveFromSet}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueRemoveFromSet()}{xQueueRemoveFromSet()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Remove\+From\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}}]{x\+Queue\+Or\+Semaphore,  }\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ab16fdd17b9b6d74a82c8366f47cda162} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Remove\+From\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}}}]{x\+Queue\+Or\+Semaphore}{, }\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a71f56e6277ed4e419c707c8d0c785065}\label{queue_8h_a71f56e6277ed4e419c707c8d0c785065}} 
-\index{queue.h@{queue.h}!xQueueSelectFromSet@{xQueueSelectFromSet}}
+\Hypertarget{queue_8h_a71f56e6277ed4e419c707c8d0c785065}\index{queue.h@{queue.h}!xQueueSelectFromSet@{xQueueSelectFromSet}}
 \index{xQueueSelectFromSet@{xQueueSelectFromSet}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSelectFromSet()}{xQueueSelectFromSet()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Select\+From\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set,  }\item[{const Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a71f56e6277ed4e419c707c8d0c785065} 
+\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Select\+From\+Set (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set}{, }\item[{const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_ac58b34fd733cf460cddab1abb9a899b3}\label{queue_8h_ac58b34fd733cf460cddab1abb9a899b3}} 
-\index{queue.h@{queue.h}!xQueueSelectFromSetFromISR@{xQueueSelectFromSetFromISR}}
+\Hypertarget{queue_8h_ac58b34fd733cf460cddab1abb9a899b3}\index{queue.h@{queue.h}!xQueueSelectFromSetFromISR@{xQueueSelectFromSetFromISR}}
 \index{xQueueSelectFromSetFromISR@{xQueueSelectFromSetFromISR}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSelectFromSetFromISR()}{xQueueSelectFromSetFromISR()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Select\+From\+Set\+From\+I\+SR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_ac58b34fd733cf460cddab1abb9a899b3} 
+\mbox{\hyperlink{queue_8h_afac7ec7649e5c57381315eb011c36ef5}{Queue\+Set\+Member\+Handle\+\_\+t}} x\+Queue\+Select\+From\+Set\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a1ae056fb02b2467993003b85111dde16}{Queue\+Set\+Handle\+\_\+t}}}]{x\+Queue\+Set}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a124567e9fc3a37b99f7e184ae98de9f8}\label{queue_8h_a124567e9fc3a37b99f7e184ae98de9f8}} 
-\index{queue.h@{queue.h}!xQueueSemaphoreTake@{xQueueSemaphoreTake}}
+\Hypertarget{queue_8h_a124567e9fc3a37b99f7e184ae98de9f8}\index{queue.h@{queue.h}!xQueueSemaphoreTake@{xQueueSemaphoreTake}}
 \index{xQueueSemaphoreTake@{xQueueSemaphoreTake}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueSemaphoreTake()}{xQueueSemaphoreTake()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Semaphore\+Take (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a124567e9fc3a37b99f7e184ae98de9f8} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Semaphore\+Take (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Queue}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{queue_8h_a74e27d539a884589ebbbdfcc371a48cd}\label{queue_8h_a74e27d539a884589ebbbdfcc371a48cd}} 
-\index{queue.h@{queue.h}!xQueueTakeMutexRecursive@{xQueueTakeMutexRecursive}}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l01418}{1418}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00049}{err\+QUEUE\+\_\+\+EMPTY}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00746}{port\+YIELD\+\_\+\+WITHIN\+\_\+\+API}}, \mbox{\hyperlink{queue_8c_source_l02291}{prv\+Is\+Queue\+Empty()}}, \mbox{\hyperlink{queue_8c_source_l00240}{prv\+Lock\+Queue}}, \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{task_8h_a54430b124666d513049dcbf888e6935f}{pv\+Task\+Increment\+Mutex\+Held\+Count()}}, \mbox{\hyperlink{queue_8c_source_l00065}{queue\+QUEUE\+\_\+\+IS\+\_\+\+MUTEX}}, \mbox{\hyperlink{queue_8c_source_l00087}{queue\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00227}{task\+SCHEDULER\+\_\+\+SUSPENDED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00378}{trace\+BLOCKING\+\_\+\+ON\+\_\+\+QUEUE\+\_\+\+RECEIVE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00468}{trace\+QUEUE\+\_\+\+RECEIVE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00484}{trace\+QUEUE\+\_\+\+RECEIVE\+\_\+\+FAILED}}, \mbox{\hyperlink{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}{Queue\+Definition\+::u}}, \mbox{\hyperlink{queue_8c_source_l00113}{Queue\+Definition\+::ux\+Item\+Size}}, \mbox{\hyperlink{queue_8c_source_l00111}{Queue\+Definition\+::ux\+Messages\+Waiting}}, \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}, \mbox{\hyperlink{task_8h_aa11e6a58d2534fe91ed8ee3a02c9b5e0}{v\+Task\+Priority\+Disinherit\+After\+Timeout()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{queue_8c_source_l00075}{Semaphore\+Data\+::x\+Mutex\+Holder}}, \mbox{\hyperlink{queue_8c_source_l00105}{Queue\+Definition\+::x\+Semaphore}}, \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}, \mbox{\hyperlink{task_8h_a0241000e08a261372186d34825a35979}{x\+Task\+Get\+Scheduler\+State()}}, \mbox{\hyperlink{task_8h_aa715a488a6014df5a9393ca38c5938c0}{x\+Task\+Priority\+Inherit()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, \mbox{\hyperlink{queue_8c_source_l00109}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}}, and \mbox{\hyperlink{queue_8c_source_l00108}{Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Send}}.
+
+\Hypertarget{queue_8h_a74e27d539a884589ebbbdfcc371a48cd}\index{queue.h@{queue.h}!xQueueTakeMutexRecursive@{xQueueTakeMutexRecursive}}
 \index{xQueueTakeMutexRecursive@{xQueueTakeMutexRecursive}!queue.h@{queue.h}}
 \doxysubsubsection{\texorpdfstring{xQueueTakeMutexRecursive()}{xQueueTakeMutexRecursive()}}
-{\footnotesize\ttfamily Base\+Type\+\_\+t x\+Queue\+Take\+Mutex\+Recursive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Mutex,  }\item[{Tick\+Type\+\_\+t}]{x\+Ticks\+To\+Wait }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{queue_8h_a74e27d539a884589ebbbdfcc371a48cd} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Queue\+Take\+Mutex\+Recursive (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{queue_8h_a57349603001f8ddf51c888c49e2804d7}{Queue\+Handle\+\_\+t}}}]{x\+Mutex}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
 

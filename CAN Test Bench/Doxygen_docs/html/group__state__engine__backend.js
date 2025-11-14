@@ -1,19 +1,18 @@
 var group__state__engine__backend =
 [
-    [ "__uvPanic", "group__state__engine__backend.html#gab2449f66698295ebfaff451c2f63607f", null ],
+    [ "__uvPanic", "group__state__engine__backend.html#ga6d712c440ee3ae92eae5d820f4745eb9", null ],
     [ "_stateChangeDaemon", "group__state__engine__backend.html#ga8519c96858b096f2fccb96d3334df93a", null ],
     [ "_uvValidateSpecificTask", "group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37", null ],
     [ "addTaskToTaskRegister", "group__state__engine__backend.html#ga8e41e95f69723171fab38aba3b00a091", null ],
-    [ "killEmAll", "group__state__engine__backend.html#gab8a03e5812e395199b3b0003cd8266cb", null ],
     [ "killSelf", "group__state__engine__backend.html#ga5f35b34432afed7f18f91fb8607f096f", null ],
     [ "proccessSCDMsg", "group__state__engine__backend.html#ga2e8a31626909ac17be499f2941d359d0", null ],
     [ "suspendSelf", "group__state__engine__backend.html#gad6117850b55ad52be51d93915bcc313c", null ],
     [ "uvAbortTaskDeletion", "group__state__engine__backend.html#ga40d4bc9be9f3b81c51aef7ed7c37172f", null ],
-    [ "uvCreateServiceTask", "group__state__engine__backend.html#ga20334b4aff0cfdab7be1d2864089c5ce", null ],
+    [ "uvCreateServiceTask", "group__state__engine__backend.html#ga43cdd5f23929fee4ba86d4fd0b60d6ad", null ],
     [ "uvDeleteSVCTask", "group__state__engine__backend.html#ga02ceb2f70d4474d4734de6494aca8978", null ],
     [ "uvDeleteTask", "group__state__engine__backend.html#ga6291142ec714ce1450099943b1b8d00a", null ],
-    [ "uvGetTaskFromName", "group__state__engine__backend.html#ga273ef3bc881c3188a46e1707a8a6c0d4", null ],
-    [ "uvGetTaskFromRTOSHandle", "group__state__engine__backend.html#gab212c58efa87a2bc8ab5d256733a0b0a", null ],
+    [ "uvGetTaskFromName", "group__state__engine__backend.html#ga6edf594e7dcaaa6397384eadfbe0e984", null ],
+    [ "uvGetTaskFromRTOSHandle", "group__state__engine__backend.html#ga35ebd76bbdf6f6d800a0ee2f5c5b1253", null ],
     [ "uvKillTaskViolently", "group__state__engine__backend.html#gae0caac28206291f3dc5c416f11892edd", null ],
     [ "uvLateTaskHandler", "group__state__engine__backend.html#ga7dff9a1c0653941c1559398025cdec4c", null ],
     [ "uvRestartSVCTask", "group__state__engine__backend.html#gad930776c44487128dbb60294a66a68e3", null ],
@@ -24,7 +23,7 @@ var group__state__engine__backend =
     [ "uvSuspendSVCTask", "group__state__engine__backend.html#ga87455110c1a898b9294c66c14043f02a", null ],
     [ "uvSuspendTask", "group__state__engine__backend.html#gafd67eecbab2e6e6915bc6bc71806b715", null ],
     [ "uvTaskCrashHandler", "group__state__engine__backend.html#gac1a1157d12026b20c6bbb5542c9f7efb", null ],
-    [ "uvTaskManager", "group__state__engine__backend.html#gaf2dbdd0d9d9aa8bcbef120661117fc5e", null ],
     [ "uvThrottleNonCritTasks", "group__state__engine__backend.html#gace2b4c6c8f012fb6650049e5272b88e4", null ],
-    [ "uvValidateManagedTasks", "group__state__engine__backend.html#ga8c1618caac0d7f29836107f1a44833e8", null ]
+    [ "uvValidateManagedTasks", "group__state__engine__backend.html#ga8c1618caac0d7f29836107f1a44833e8", null ],
+    [ "is_can_ok", "group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966", null ]
 ];

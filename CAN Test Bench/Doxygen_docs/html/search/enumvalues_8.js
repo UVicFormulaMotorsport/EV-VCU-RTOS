@@ -1,9 +1,26 @@
 var searchData=
 [
-  ['leakage_5finductance_5fph_5fph_1850',['leakage_inductance_ph_ph',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741a3ec5a6a666356eb8bb08c36f0066f1f1',1,'motor_controller.h']]],
-  ['limp_1851',['limp',['../uvfr__utils_8h.html#acd907d24ac9b557d684429bb0cd1ddb1af5d257c586a4a993f56fac4a77d35531',1,'uvfr_utils.h']]],
-  ['linear_5fspeed_5fmap_1852',['linear_speed_map',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800a24491cb716ed427ea52ef6cdbf415b52',1,'driving_loop.h']]],
-  ['linear_5ftorque_5fmap_1853',['linear_torque_map',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800a02e428d0c5cf187b04a2e9825079d26a',1,'driving_loop.h']]],
-  ['low_5fbattery_5fvoltage_1854',['Low_Battery_Voltage',['../imd_8h.html#acf7b0534a43397021a0e474a499218beacb8278060f1d4f8f423c3f7943618d0a',1,'imd.h']]],
-  ['low_5fpriority_1855',['LOW_PRIORITY',['../group__state__engine__api.html#gga6166ed80f8e3bd62f1e7e6122c8817f6adb8ee22a232a2787f32ba28da55c43c1',1,'uvfr_state_engine.h']]]
+  ['idle_5ftask_5fpriority_0',['IDLE_TASK_PRIORITY',['../group__state__engine__api.html#gga6166ed80f8e3bd62f1e7e6122c8817f6ae1e0864e3b20ced26bebc93aa0766aec',1,'uvfr_state_engine.h']]],
+  ['igbt_5ftemp_5fmax_5flimit_1',['IGBT_temp_max_limit',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa54a5ca5981535fd231b00a1040622950',1,'motor_controller.h']]],
+  ['igbt_5ftemperature_2',['igbt_temperature',['../motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645a349799caa493b390c9527db251fd128c',1,'motor_controller.h']]],
+  ['igbt_5ftemperature_5fwarning_3',['IGBT_temperature_warning',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa298d28f3aa38960b5d1349a04cbbca95',1,'motor_controller.h']]],
+  ['imd_4',['IMD',['../uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a8c41c05a63a15c5d188d02f6f4db4303',1,'uvfr_utils.h']]],
+  ['imd_5fcan_5fid_5frx_5',['IMD_CAN_ID_Rx',['../constants_8h.html#a1d489aa29fe8cf552f71b550e8088272a0bce8b96d081881e0395e5ed297850e1',1,'constants.h']]],
+  ['imd_5fcan_5fid_5ftx_6',['IMD_CAN_ID_Tx',['../constants_8h.html#a1d489aa29fe8cf552f71b550e8088272a242c64f8aaa09a26d5f586483d692f83',1,'constants.h']]],
+  ['imd_5ferrors_7',['IMD_ERRORS',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9aa011e4b7e1270618e9bff78cfd8c2053',1,'daq.h']]],
+  ['imd_5fpwr_8',['IMD_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a618aeca28ae1505c852157ef219ef9f3',1,'uvfr_conifer.h']]],
+  ['imd_5fstatus_9',['IMD_STATUS',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a601de91a52bb4c0f528e9791ef5e92ec',1,'daq.h']]],
+  ['imd_5fvoltage_10',['IMD_VOLTAGE',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a0b2d565572d0eb211e6b8384d085d4d1',1,'daq.h']]],
+  ['implausible_11',['Implausible',['../driving__loop_8h.html#adef4571b048b5b1f2b712713741296c7a6425b90f597e6400cfb9422ec518334f',1,'driving_loop.h']]],
+  ['independent_5freg_5fch_12',['INDEPENDENT_REG_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993abc13c27231221b422ccfb59c73c29027',1,'uvfr_conifer.h']]],
+  ['inorder_13',['INORDER',['../rb__tree_8h.html#ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b',1,'rb_tree.h']]],
+  ['integral_5fmemory_5fmax_14',['integral_memory_max',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521aa1022b52e56d3a918c7a62177a88bb9e',1,'motor_controller.h']]],
+  ['integral_5ftime_5fconstant_15',['integral_time_constant',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521a39318ae4bc4582c26c32b7748f64c8d4',1,'motor_controller.h']]],
+  ['internal_5fhardware_5fvoltage_5fproblem_16',['internal_hardware_voltage_problem',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa18df3363e2a0048a813dcef5a41785ce',1,'motor_controller.h']]],
+  ['invalid_5fmapping_17',['INVALID_MAPPING',['../uvfr__conifer_8h.html#ad680594c0a6a302d6b54680198a166a6a49c0df99970050592c6c748d7cda9ea7',1,'uvfr_conifer.h']]],
+  ['isolation_5fcapacitances_18',['isolation_capacitances',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c',1,'imd.h']]],
+  ['isolation_5fresistances_19',['isolation_resistances',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae',1,'imd.h']]],
+  ['isolation_5fstate_20',['isolation_state',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38',1,'imd.h']]],
+  ['isolation_5fstatus_5fbit0_21',['Isolation_status_bit0',['../imd_8h.html#acf7b0534a43397021a0e474a499218beafdb68e8ed34ae72c318cbd4a4d6fc250',1,'imd.h']]],
+  ['isolation_5fstatus_5fbit1_22',['Isolation_status_bit1',['../imd_8h.html#acf7b0534a43397021a0e474a499218bea2d0990734ac774c2740c9e541e8700b3',1,'imd.h']]]
 ];

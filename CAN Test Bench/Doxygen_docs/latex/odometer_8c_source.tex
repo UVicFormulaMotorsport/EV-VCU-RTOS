@@ -1,0 +1,69 @@
+\doxysection{odometer.\+c}
+\hypertarget{odometer_8c_source}{}\label{odometer_8c_source}\index{Core/Src/odometer.c@{Core/Src/odometer.c}}
+\mbox{\hyperlink{odometer_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00002}00002\ \textcolor{comment}{\ *\ odometer.c}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Nov\ 7,\ 2024}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ byo10}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00011}\mbox{\hyperlink{odometer_8h_ace344890a9a3f03e059a4eb44af85e00}{00011}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{odometer_8c_ace344890a9a3f03e059a4eb44af85e00}{initOdometer}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00013}00013\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ odom\_task\ =\ \mbox{\hyperlink{group__state__engine__api_gac977eb33c99a9ac0a5f51a7db20e24d6}{uvCreateTask}}();}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{if}(odom\_task\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Oh\ dear\ lawd}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//DO\ NOT\ TOUCH\ ANY\ OF\ THE\ FIELDS\ WE\ HAVENT\ ALREADY\ MENTIONED\ HERE.\ FOR\ THE\ LOVE\ OF\ GOD.}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00022}00022\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_ad24b438130bb3098ee5e855222dff21d}{task\_name}}\ =\ \textcolor{stringliteral}{"{}Odometer"{}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00025}00025\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_afcd240d2b6b01b4acea600ef4dfe8fbc}{task\_function}}\ =\ \mbox{\hyperlink{odometer_8c_a56d2ca9f89394f6519acb2ba11320d55}{odometerTask}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00026}00026\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_aff45751f7189980589d55379d1d5a355}{task\_priority}}\ =\ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa45a2895ad30c79fb97de18cac7cc19f1}{osPriorityNormal}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00029}00029\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_a353ec6bf2c42ab0920f3d1e671e568a3}{stack\_size}}\ =\ \mbox{\hyperlink{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00031}00031\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_ab24dea3bde4de2d839bf15e65c2df0d6}{active\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00032}00032\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_aafd4e2d916f50b54b99fd02d63831e43}{suspension\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{UV\_ERROR\_STATE}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00033}00033\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_a6986d7216c7f889164931b37ab752c29}{deletion\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a7ff39f8abdc9adbfd693e412e4aaeb6e}{UV\_LAUNCH\_CONTROL}}\ ;}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00035}00035\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}}\ =\ 100;}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00037}00037\ \ \ \ \ odom\_task-\/>\mbox{\hyperlink{structuv__task__info_ae255dff9b38fc8c0754085060e8ae699}{task\_args}}\ =\ NULL;\ \textcolor{comment}{//TODO:\ Add\ actual\ settings\ dipshit}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00040}00040\ \}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00046}\mbox{\hyperlink{odometer_8h_a56d2ca9f89394f6519acb2ba11320d55}{00046}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{odometer_8c_a56d2ca9f89394f6519acb2ba11320d55}{odometerTask}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ params\ =\ (\mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*)\ args;\ \textcolor{comment}{//Evil\ pointer\ typecast}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00054}00054\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ tick\_period\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(params-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}});\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ last\_time\ =\ \mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}();}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00057}00057\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(params);}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspendSelf}}(params);}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{vTaskDelayUntil}}(\ \&last\_time,\ tick\_period);}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ \textcolor{comment}{//whatever\ you\ want}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ HAL\_GPIO\_TogglePin(GPIOD,GPIO\_PIN\_13);}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{odometer_8c_source_l00071}00071\ \}}
+
+\end{DoxyCode}

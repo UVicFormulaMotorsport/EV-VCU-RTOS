@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_create_counting" kind="group">
     <compoundname>xSemaphoreCreateCounting</compoundname>
     <title>xSemaphoreCreateCounting</title>
@@ -35,21 +35,24 @@
 <simplesect kind="return"><para>Handle to the created semaphore. Null if the semaphore could not be created.</para>
 </simplesect>
 Example usage: <preformatted>
-SemaphoreHandle_t xSemaphore;</preformatted></para>
-<para><preformatted>void vATask( void * pvParameters )
+SemaphoreHandle_t xSemaphore;
+
+void vATask( void * pvParameters )
 {
-SemaphoreHandle_t xSemaphore = NULL;</preformatted></para>
-<para><preformatted>   // Semaphore cannot be used before a call to xSemaphoreCreateCounting().
+SemaphoreHandle_t xSemaphore = NULL;
+
+   // Semaphore cannot be used before a call to xSemaphoreCreateCounting().
    // The max value to which the semaphore can count should be 10, and the
    // initial value assigned to the count should be 0.
-   xSemaphore = xSemaphoreCreateCounting( 10, 0 );</preformatted></para>
-<para><preformatted>   if( xSemaphore != NULL )
+   xSemaphore = xSemaphoreCreateCounting( 10, 0 );
+
+   if( xSemaphore != NULL )
    {
        // The semaphore was created successfully.
        // The semaphore can now be used.
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

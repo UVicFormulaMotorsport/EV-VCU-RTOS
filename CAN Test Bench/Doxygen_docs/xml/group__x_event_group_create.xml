@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_event_group_create" kind="group">
     <compoundname>xEventGroupCreate</compoundname>
     <title>xEventGroupCreate</title>
@@ -16,10 +16,12 @@ EventGroupHandle_t xEventGroupCreate( void );
 </simplesect>
 Example usage: <preformatted>
    // Declare a variable to hold the created event group.
-   EventGroupHandle_t xCreatedEventGroup;</preformatted></para>
-<para><preformatted>   // Attempt to create the event group.
-   xCreatedEventGroup = xEventGroupCreate();</preformatted></para>
-<para><preformatted>   // Was the event group created successfully?
+   EventGroupHandle_t xCreatedEventGroup;
+
+   // Attempt to create the event group.
+   xCreatedEventGroup = xEventGroupCreate();
+
+   // Was the event group created successfully?
    if( xCreatedEventGroup == NULL )
    {
     // The event group was not created because there was insufficient
@@ -29,7 +31,7 @@ Example usage: <preformatted>
    {
     // The event group was created.
    }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

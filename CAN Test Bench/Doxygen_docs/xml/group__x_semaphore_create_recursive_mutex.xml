@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_create_recursive_mutex" kind="group">
     <compoundname>xSemaphoreCreateRecursiveMutex</compoundname>
     <title>xSemaphoreCreateRecursiveMutex</title>
@@ -17,19 +17,21 @@
 <para><simplesect kind="return"><para>xSemaphore Handle to the created mutex semaphore. Should be of type SemaphoreHandle_t.</para>
 </simplesect>
 Example usage: <preformatted>
-SemaphoreHandle_t xSemaphore;</preformatted></para>
-<para><preformatted>void vATask( void * pvParameters )
+SemaphoreHandle_t xSemaphore;
+
+void vATask( void * pvParameters )
 {
    // Semaphore cannot be used before a call to xSemaphoreCreateMutex().
    // This is a macro so pass the variable in directly.
-   xSemaphore = xSemaphoreCreateRecursiveMutex();</preformatted></para>
-<para><preformatted>   if( xSemaphore != NULL )
+   xSemaphore = xSemaphoreCreateRecursiveMutex();
+
+   if( xSemaphore != NULL )
    {
        // The semaphore was created successfully.
        // The semaphore can now be used.
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

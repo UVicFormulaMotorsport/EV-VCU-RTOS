@@ -1,0 +1,118 @@
+\doxysection{driving\+\_\+loop.\+h}
+\hypertarget{driving__loop_8h_source}{}\label{driving__loop_8h_source}\index{Core/Inc/driving\_loop.h@{Core/Inc/driving\_loop.h}}
+\mbox{\hyperlink{driving__loop_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00002}00002\ \textcolor{comment}{\ *\ driving\_loop.h}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Oct\ 14,\ 2024}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ byo10}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ INC\_DRIVING\_LOOP\_H\_}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ INC\_DRIVING\_LOOP\_H\_}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{motor__controller_8h}{motor\_controller.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00014}\mbox{\hyperlink{driving__loop_8h_a5ec2330fa2301c68498a6ff0825998c9}{00014}}\ \textcolor{keyword}{typedef}\ uint16\_t\ \mbox{\hyperlink{driving__loop_8h_a5ec2330fa2301c68498a6ff0825998c9}{MC\_Torque}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00015}\mbox{\hyperlink{driving__loop_8h_abd1701d9bbc137696fe99b6df6eb7d3e}{00015}}\ \textcolor{keyword}{typedef}\ uint16\_t\ \mbox{\hyperlink{driving__loop_8h_abd1701d9bbc137696fe99b6df6eb7d3e}{MC\_RPM}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00016}\mbox{\hyperlink{driving__loop_8h_a93f3b2b453b1ad01d8555f12e529dfed}{00016}}\ \textcolor{keyword}{typedef}\ uint16\_t\ \mbox{\hyperlink{driving__loop_8h_a93f3b2b453b1ad01d8555f12e529dfed}{MC\_POWER}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00026}00026\ \textcolor{comment}{//\#define\ DEFAULT\_PERIOD\ 50}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00033}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800}{00033}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800}{map\_mode}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00034}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a24491cb716ed427ea52ef6cdbf415b52}{00034}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a24491cb716ed427ea52ef6cdbf415b52}{linear\_speed\_map}},}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00035}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a20916d6e654ff6402aa120d8710a81a0}{00035}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a20916d6e654ff6402aa120d8710a81a0}{s\_curve\_speed\_map}},}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00036}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a260f2e914699db0b53b3cb852559b40f}{00036}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a260f2e914699db0b53b3cb852559b40f}{exp\_speed\_map}},}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00037}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a02e428d0c5cf187b04a2e9825079d26a}{00037}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a02e428d0c5cf187b04a2e9825079d26a}{linear\_torque\_map}},}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00038}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a97cb36a9ac4fbbe2e7b481a2677993f9}{00038}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a97cb36a9ac4fbbe2e7b481a2677993f9}{s\_curve\_torque\_map}},}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a22ffbb99cbb49917aac9c53aba81df32}{exp\_torque\_map}}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00040}\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a22ffbb99cbb49917aac9c53aba81df32}{00040}}\ \};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00042}\mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{00042}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\_internal\_state}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00043}\mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a51000915ad3f7b4a5874322723d879ca}{00043}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a51000915ad3f7b4a5874322723d879ca}{Plausible}}\ =\ 0x01,}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00044}\mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a6425b90f597e6400cfb9422ec518334f}{00044}}\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a6425b90f597e6400cfb9422ec518334f}{Implausible}}\ =\ 0x02,}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7abb3086179f14a3715ce589bd10c3ec98}{Erroneous}}\ =\ 0x04}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00046}\mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7abb3086179f14a3715ce589bd10c3ec98}{00046}}\ \};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00048}\mbox{\hyperlink{structlinear__torque__map__args}{00048}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlinear__torque__map__args}{linear\_torque\_map\_args}}\{\ \textcolor{comment}{//y\ =\ mx\ +\ b\ bitch}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00049}\mbox{\hyperlink{structlinear__torque__map__args_a74b1dff208ef6cc80939af7490a7f3ba}{00049}}\ \ \ \ \ int32\_t\ \mbox{\hyperlink{structlinear__torque__map__args_a74b1dff208ef6cc80939af7490a7f3ba}{offset}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00050}\mbox{\hyperlink{structlinear__torque__map__args_a0ada1fc97e0519e952e77f491175b1ff}{00050}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structlinear__torque__map__args_a0ada1fc97e0519e952e77f491175b1ff}{slope}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00051}\mbox{\hyperlink{driving__loop_8h_a21e30cbee7e12df40656ce0e97c8c1ea}{00051}}\ \}\mbox{\hyperlink{driving__loop_8h_a21e30cbee7e12df40656ce0e97c8c1ea}{linear\_torque\_map\_args}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00056}\mbox{\hyperlink{structexp__torque__map__args}{00056}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structexp__torque__map__args}{exp\_torque\_map\_args}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00057}\mbox{\hyperlink{structexp__torque__map__args_a7bc571c9ed496329919c71232b437867}{00057}}\ \ \ \ \ int32\_t\ \mbox{\hyperlink{structexp__torque__map__args_a7bc571c9ed496329919c71232b437867}{offset}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00058}\mbox{\hyperlink{structexp__torque__map__args_a534a8b780b891202f1dcc3f926a7e222}{00058}}\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structexp__torque__map__args_a534a8b780b891202f1dcc3f926a7e222}{gamma}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00061}\mbox{\hyperlink{driving__loop_8h_aa86f54df15fe3c127ae83c1fecbb5d24}{00061}}\ \}\mbox{\hyperlink{driving__loop_8h_aa86f54df15fe3c127ae83c1fecbb5d24}{exp\_torque\_map\_args}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00066}\mbox{\hyperlink{structs__curve__torque__map__args}{00066}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__curve__torque__map__args}{s\_curve\_torque\_map\_args}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00067}\mbox{\hyperlink{structs__curve__torque__map__args_a72beec452e0e5cf16e198fc92a1785a2}{00067}}\ \ \ \ \ int32\_t\ \mbox{\hyperlink{structs__curve__torque__map__args_a72beec452e0e5cf16e198fc92a1785a2}{a}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00068}\mbox{\hyperlink{structs__curve__torque__map__args_afe95ac783888f2b17831c9d8e50de827}{00068}}\ \ \ \ \ int32\_t\ \mbox{\hyperlink{structs__curve__torque__map__args_afe95ac783888f2b17831c9d8e50de827}{b}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00069}\mbox{\hyperlink{structs__curve__torque__map__args_a1a923153d39da6e36db00c644834189c}{00069}}\ \ \ \ \ int32\_t\ \mbox{\hyperlink{structs__curve__torque__map__args_a1a923153d39da6e36db00c644834189c}{c}}[16];}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00070}\mbox{\hyperlink{driving__loop_8h_a32f012927e4624d674120b51cb6ee8c0}{00070}}\ \}\mbox{\hyperlink{driving__loop_8h_a32f012927e4624d674120b51cb6ee8c0}{s\_curve\_torque\_map\_args}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00075}\mbox{\hyperlink{uniondriving_mode_params}{00075}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\mbox{\hyperlink{uniondriving_mode_params}{drivingModeParams}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00076}00076\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structlinear__torque__map__args}{linear\_torque\_map\_args}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00077}00077\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structexp__torque__map__args}{exp\_torque\_map\_args}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00078}00078\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structs__curve__torque__map__args}{s\_curve\_torque\_map\_args}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00079}\mbox{\hyperlink{driving__loop_8h_af90b0e528bd940abca8f5e2cf4bce18c}{00079}}\ \}\mbox{\hyperlink{driving__loop_8h_af90b0e528bd940abca8f5e2cf4bce18c}{drivingModeParams}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00085}\mbox{\hyperlink{structdriving_mode}{00085}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdriving_mode}{drivingMode}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00086}\mbox{\hyperlink{structdriving_mode_afe09b8e23f97ae6d60c225a7ac8a7d9a}{00086}}\ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{structdriving_mode_afe09b8e23f97ae6d60c225a7ac8a7d9a}{dm\_name}}[16];\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00087}\mbox{\hyperlink{structdriving_mode_a6ef9f1d0875e8b329738830343254708}{00087}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving_mode_a6ef9f1d0875e8b329738830343254708}{max\_acc\_pwr}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00088}\mbox{\hyperlink{structdriving_mode_a4523c0c6d5187fcd80cda47913d541c1}{00088}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving_mode_a4523c0c6d5187fcd80cda47913d541c1}{max\_motor\_torque}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00089}\mbox{\hyperlink{structdriving_mode_a45d9f3871594d9504c5a2fe61a001c17}{00089}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving_mode_a45d9f3871594d9504c5a2fe61a001c17}{max\_current}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00092}\mbox{\hyperlink{structdriving_mode_aa1bd42a95b3d00fc3ace7c78df51d2ef}{00092}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving_mode_aa1bd42a95b3d00fc3ace7c78df51d2ef}{flags}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00094}\mbox{\hyperlink{structdriving_mode_af6beb6da5ca338294c86b89f1b6fa4d1}{00094}}\ \ \ \ \ \mbox{\hyperlink{uniondriving_mode_params}{drivingModeParams}}\ \mbox{\hyperlink{structdriving_mode_af6beb6da5ca338294c86b89f1b6fa4d1}{map\_fn\_params}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00095}\mbox{\hyperlink{structdriving_mode_ab4201b3227dd0ff7239f8c6060d30ed8}{00095}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structdriving_mode_ab4201b3227dd0ff7239f8c6060d30ed8}{control\_map\_fn}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00096}\mbox{\hyperlink{driving__loop_8h_a29e04283e579e9092d205b1937c785c6}{00096}}\ \}\mbox{\hyperlink{driving__loop_8h_a29e04283e579e9092d205b1937c785c6}{drivingMode}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00108}\mbox{\hyperlink{structdriving__loop__args}{00108}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00109}\mbox{\hyperlink{structdriving__loop__args_a752f04c3eb17d10e5cf742631bbb0010}{00109}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving__loop__args_a752f04c3eb17d10e5cf742631bbb0010}{absolute\_max\_acc\_pwr}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00110}\mbox{\hyperlink{structdriving__loop__args_aa02edefb5d12e375c67b0dede9f3d980}{00110}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving__loop__args_aa02edefb5d12e375c67b0dede9f3d980}{absolute\_max\_motor\_torque}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00111}\mbox{\hyperlink{structdriving__loop__args_a4a3475004f3c81d79ff330bed11bb9e4}{00111}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving__loop__args_a4a3475004f3c81d79ff330bed11bb9e4}{absolute\_max\_accum\_current}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00112}\mbox{\hyperlink{structdriving__loop__args_a8e4b68476ab4d6af8283768b33d9614f}{00112}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structdriving__loop__args_a8e4b68476ab4d6af8283768b33d9614f}{max\_accum\_current\_5s}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00115}\mbox{\hyperlink{structdriving__loop__args_aa4d4e7eda2e88ea5d3d8a9f5fe6babcb}{00115}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_aa4d4e7eda2e88ea5d3d8a9f5fe6babcb}{absolute\_max\_motor\_rpm}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00116}\mbox{\hyperlink{structdriving__loop__args_a32bfaf9f08eb7be125e58d1048186556}{00116}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a32bfaf9f08eb7be125e58d1048186556}{regen\_rpm\_cutoff}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00119}00119\ \ \ \ \ \textcolor{comment}{//uint8\_t\ current\_driving\_mode;\ //what\ is\ the\ driving\ mode?}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00120}\mbox{\hyperlink{structdriving__loop__args_a483c9a4d7fe91e4a57512d054b010a13}{00120}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a483c9a4d7fe91e4a57512d054b010a13}{min\_apps\_offset}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00121}\mbox{\hyperlink{structdriving__loop__args_a51c8b3e55f33482df7a938d0d3e7bbd9}{00121}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a51c8b3e55f33482df7a938d0d3e7bbd9}{max\_apps\_offset}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00122}\mbox{\hyperlink{structdriving__loop__args_a93bcc08ec8e62f33cf11efde02d61178}{00122}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a93bcc08ec8e62f33cf11efde02d61178}{min\_apps\_value}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00123}\mbox{\hyperlink{structdriving__loop__args_a70ae4d1a92c418ef515a8c0f2d951263}{00123}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a70ae4d1a92c418ef515a8c0f2d951263}{apps1\_abs\_max\_val}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00124}\mbox{\hyperlink{structdriving__loop__args_a8e1b82dee59e5bea208a6fa139776ab4}{00124}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a8e1b82dee59e5bea208a6fa139776ab4}{apps1\_abs\_min\_val}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00125}\mbox{\hyperlink{structdriving__loop__args_a646402ccf12a59028c96b664de080d34}{00125}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a646402ccf12a59028c96b664de080d34}{apps2\_abs\_min\_val}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00126}\mbox{\hyperlink{structdriving__loop__args_af336ae113e3026f60e2444e526ee5996}{00126}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_af336ae113e3026f60e2444e526ee5996}{apps2\_abs\_max\_val}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00127}\mbox{\hyperlink{structdriving__loop__args_abdde53b1e1a9b649a8d780331362a966}{00127}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_abdde53b1e1a9b649a8d780331362a966}{min\_BPS\_value}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00128}\mbox{\hyperlink{structdriving__loop__args_ac91f79da4c6beb38683e87ab2e09b0a2}{00128}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_ac91f79da4c6beb38683e87ab2e09b0a2}{max\_BPS\_value}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00130}\mbox{\hyperlink{structdriving__loop__args_a266baa1377ef0b8dfede97dc8ce19d71}{00130}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a266baa1377ef0b8dfede97dc8ce19d71}{apps1\_top}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00131}\mbox{\hyperlink{structdriving__loop__args_a0ef506df345933d47b3f6c3737907d3a}{00131}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a0ef506df345933d47b3f6c3737907d3a}{apps1\_bottom}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00133}\mbox{\hyperlink{structdriving__loop__args_ada3df1218570a9844ee1fcc59f4b200d}{00133}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_ada3df1218570a9844ee1fcc59f4b200d}{apps2\_top}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00134}\mbox{\hyperlink{structdriving__loop__args_a900041f1cbbe7cd8a9806135085c1f4f}{00134}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a900041f1cbbe7cd8a9806135085c1f4f}{apps2\_bottom}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00136}\mbox{\hyperlink{structdriving__loop__args_a8f28e6a24ae53940bab83117ae86d0c6}{00136}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a8f28e6a24ae53940bab83117ae86d0c6}{apps\_plausibility\_check\_threshold}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00137}\mbox{\hyperlink{structdriving__loop__args_aecaae9549609b56d961d739f91e73f92}{00137}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_aecaae9549609b56d961d739f91e73f92}{bps\_plausibility\_check\_threshold}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00139}\mbox{\hyperlink{structdriving__loop__args_a931bede548cff8c75ce2a6b564a65dba}{00139}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a931bede548cff8c75ce2a6b564a65dba}{bps\_implausibility\_recovery\_threshold}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00140}\mbox{\hyperlink{structdriving__loop__args_a1ff455145095acdd450a9c207ad682d5}{00140}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structdriving__loop__args_a1ff455145095acdd450a9c207ad682d5}{apps\_implausibility\_recovery\_threshold}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00142}\mbox{\hyperlink{structdriving__loop__args_af726a5bebacb81eb0c4aff8697007aba}{00142}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structdriving__loop__args_af726a5bebacb81eb0c4aff8697007aba}{num\_driving\_modes}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00143}\mbox{\hyperlink{structdriving__loop__args_af3aed836070373949c93b77ca01eea24}{00143}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structdriving__loop__args_af3aed836070373949c93b77ca01eea24}{period}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00144}\mbox{\hyperlink{structdriving__loop__args_a22916cc0996f907807373d06e96602e9}{00144}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structdriving__loop__args_a22916cc0996f907807373d06e96602e9}{accum\_regen\_soc\_threshold}};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00147}\mbox{\hyperlink{structdriving__loop__args_a5f2e74a032f39217dd49b9d6b10921ce}{00147}}\ \ \ \ \ \mbox{\hyperlink{structdriving_mode}{drivingMode}}\ \mbox{\hyperlink{structdriving__loop__args_a5f2e74a032f39217dd49b9d6b10921ce}{dmodes}}[8];\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00149}\mbox{\hyperlink{driving__loop_8h_aa421e50f529a1770ef0b2a00a44a0601}{00149}}\ \}\mbox{\hyperlink{driving__loop_8h_aa421e50f529a1770ef0b2a00a44a0601}{driving\_loop\_args}};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00151}00151\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\_status\_t}}\ \mbox{\hyperlink{driving__loop_8h_af580185fb5bb1cfba30ee1709d90628c}{initDrivingLoop}}(\textcolor{keywordtype}{void}\ *argument);}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00153}00153\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{driving__loop_8h_a80cc48f06202edc29bcad26a956bcc98}{StartDrivingLoop}}(\textcolor{keywordtype}{void}\ *argument);}
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8h_source_l00155}00155\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_DRIVING\_LOOP\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['imd_5ferror_5fflags_1725',['imd_error_flags',['../imd_8h.html#a4456d255c2ceb447ad52b68087531b61',1,'imd.h']]],
-  ['imd_5fhigh_5fresolution_5fmeasurements_1726',['imd_high_resolution_measurements',['../imd_8h.html#af8e85b806bce9c9cad944c261ff0aa0c',1,'imd.h']]],
-  ['imd_5fmanufacturer_5frequests_1727',['imd_manufacturer_requests',['../imd_8h.html#a975959819df682c9adec7c667028674e',1,'imd.h']]],
-  ['imd_5fstatus_5fbits_1728',['imd_status_bits',['../imd_8h.html#acf7b0534a43397021a0e474a499218be',1,'imd.h']]],
-  ['imd_5fstatus_5frequests_1729',['imd_status_requests',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26a',1,'imd.h']]]
+  ['enotifyaction_0',['eNotifyAction',['../task_8h.html#ae8abc4f7da5b6880467daafbf19cd233',1,'task.h']]],
+  ['esleepmodestatus_1',['eSleepModeStatus',['../task_8h.html#afd168a210ae0f2fb0fca242860a8178e',1,'task.h']]],
+  ['etaskstate_2',['eTaskState',['../task_8h.html#a1749369458e2282a22e862a619a3892c',1,'task.h']]]
 ];

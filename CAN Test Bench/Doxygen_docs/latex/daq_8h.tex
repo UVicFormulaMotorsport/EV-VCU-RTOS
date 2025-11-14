@@ -1,297 +1,483 @@
-\hypertarget{daq_8h}{}\doxysection{Core/\+Inc/daq.h File Reference}
-\label{daq_8h}\index{Core/Inc/daq.h@{Core/Inc/daq.h}}
-{\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}rb\+\_\+tree.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
+\doxysection{Core/\+Inc/daq.h File Reference}
+\hypertarget{daq_8h}{}\label{daq_8h}\index{Core/Inc/daq.h@{Core/Inc/daq.h}}
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}rb\+\_\+tree.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
-\item 
-struct \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}}
 \item 
 struct \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}}
-\begin{DoxyCompactList}\small\item\em This struct holds info of what needs to be logged. \end{DoxyCompactList}\item 
+\item 
 struct \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}}
-\item 
-struct \mbox{\hyperlink{structdaq__child__task}{daq\+\_\+child\+\_\+task}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\begin{DoxyCompactList}\small\item\em This struct holds info of what needs to be logged. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{daq_8h_a81ace76d60c42037a62eaeb1687a96ce}{\+\_\+\+N\+U\+M\+\_\+\+L\+O\+G\+G\+A\+B\+L\+E\+\_\+\+P\+A\+R\+A\+MS}}
+\#define \mbox{\hyperlink{daq_8h_a81ace76d60c42037a62eaeb1687a96ce}{\+\_\+\+NUM\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \mbox{\hyperlink{daq_8h_a4a7e5c4a5e65c315010bab902f2268a6}{daq\+\_\+param\+\_\+list\+\_\+node}}
+typedef struct daq\+\_\+datapoint \mbox{\hyperlink{daq_8h_ad3bc3bc1c9ab04b22cc999a6f7c82c40}{daq\+\_\+datapoint}}
 \item 
-typedef struct \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \mbox{\hyperlink{daq_8h_ad3bc3bc1c9ab04b22cc999a6f7c82c40}{daq\+\_\+datapoint}}
-\begin{DoxyCompactList}\small\item\em This struct holds info of what needs to be logged. \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}} \mbox{\hyperlink{daq_8h_a8895dc742d7ce8449057f317e7f9c81b}{daq\+\_\+loop\+\_\+args}}
-\item 
-typedef struct \mbox{\hyperlink{structdaq__child__task}{daq\+\_\+child\+\_\+task}} \mbox{\hyperlink{daq_8h_a2104fed000d8cb392baf5d14e06193c1}{daq\+\_\+child\+\_\+task}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
+typedef struct daq\+\_\+loop\+\_\+args \mbox{\hyperlink{daq_8h_a8895dc742d7ce8449057f317e7f9c81b}{daq\+\_\+loop\+\_\+args}}
+\begin{DoxyCompactList}\small\item\em This struct holds info of what needs to be logged. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9}{loggable\+\_\+params}} \{ \newline
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2237bba50d7e27353f72b7d26837fee4}{M\+O\+T\+O\+R\+\_\+\+R\+PM}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1b5652598a4eb9009556ed9d79bc3481}{M\+O\+T\+O\+R\+\_\+\+T\+E\+MP}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9af753a5d3c1a828a48de12e24724ca9fa}{M\+O\+T\+O\+R\+\_\+\+C\+U\+R\+R\+E\+NT}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa74badbb2f7ca3577612ade967c76aa0}{M\+C\+\_\+\+V\+O\+L\+T\+A\+GE}}, 
-\newline
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab63fa780a7f16ee35fe9ef429cca5642}{M\+C\+\_\+\+C\+U\+R\+R\+E\+NT}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9af299eda494c1accd4296669bfce3c874}{M\+C\+\_\+\+T\+E\+MP}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3c3a6d5acba65131b33bf8ee304a535b}{M\+C\+\_\+\+E\+R\+R\+O\+RS}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff}{B\+M\+S\+\_\+\+C\+U\+R\+R\+E\+NT}}, 
-\newline
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d}{B\+M\+S\+\_\+\+V\+O\+L\+T\+A\+GE}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663}{B\+M\+S\+\_\+\+E\+R\+R\+O\+RS}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9afe28f8aaa8c772e8fc42b5f47d2898ed}{M\+A\+X\+\_\+\+C\+E\+L\+L\+\_\+\+T\+E\+MP}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2834d7adb4c1ad0ac9300d6085d52d3a}{M\+I\+N\+\_\+\+C\+E\+L\+L\+\_\+\+T\+E\+MP}}, 
-\newline
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d}{A\+V\+G\+\_\+\+C\+E\+L\+L\+\_\+\+T\+E\+MP}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4ef281749693cf7082dc226a1ab26974}{A\+C\+C\+\_\+\+P\+O\+W\+ER}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aef39c43ab7f393dc2bf798232d6af580}{A\+C\+C\+\_\+\+P\+O\+W\+E\+R\+\_\+\+L\+I\+M\+IT}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331}{A\+P\+P\+S1\+\_\+\+A\+D\+C\+\_\+\+V\+AL}}, 
-\newline
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c}{A\+P\+P\+S2\+\_\+\+A\+D\+C\+\_\+\+V\+AL}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929}{B\+P\+S1\+\_\+\+A\+D\+C\+\_\+\+V\+AL}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7}{B\+P\+S2\+\_\+\+A\+D\+C\+\_\+\+V\+AL}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9addc059db90f422ed0d251cd94a2022cf}{A\+C\+C\+E\+L\+E\+R\+A\+T\+O\+R\+\_\+\+P\+E\+D\+A\+L\+\_\+\+R\+A\+T\+IO}}, 
-\newline
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101}{B\+R\+A\+K\+E\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+PA}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a9dd0829e0b91b1c3c07d12aa6dd7effb}{P\+O\+W\+E\+R\+\_\+\+D\+E\+R\+A\+T\+E\+\_\+\+F\+A\+C\+T\+OR}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00}{C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+R\+I\+V\+I\+N\+G\+\_\+\+M\+O\+DE}}, 
-\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502}{M\+A\+X\+\_\+\+L\+O\+G\+G\+A\+B\+L\+E\+\_\+\+P\+A\+R\+A\+MS}}
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382}{VCU\+\_\+\+VEHICLE\+\_\+\+STATE}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0e0864ffb7986f19129bc6b59a5fa77b}{VCU\+\_\+\+ERROR\+\_\+\+BITFIELD1}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9acdcc0525deb76aea20f6a5239d32312d}{VCU\+\_\+\+ERROR\+\_\+\+BITFIELD2}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3515cf175fd12745ba64715a44137958}{VCU\+\_\+\+ERROR\+\_\+\+BITFIELD3}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3a9f7ef2405971218360d917a12802a3}{VCU\+\_\+\+ERROR\+\_\+\+BITFIELD4}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad8aa245503fd95eebbc274e9dc6cffc3}{VCU\+\_\+\+CURRENT\+\_\+\+UPTIME}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a53a54b13295e369b1b05d22b9b9c344f}{VCU\+\_\+\+TOTAL\+\_\+\+UPTIME}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2d4284eacab0912745267bd4d6f128e8}{OS\+\_\+\+AVAILABLE\+\_\+\+HEAP}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a130f6c0aa732800d133c91a00af5ddee}{OS\+\_\+\+LARGEST\+\_\+\+FREE\+\_\+\+BLOCK}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ada14298a2526c89e86820dc39b9e8757}{OS\+\_\+\+SMALLEST\+\_\+\+FREE\+\_\+\+BLOCK}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0a6e6cc1ea14ade7ba7e243bb67b6a43}{OS\+\_\+\+NUM\+\_\+\+FREE\+\_\+\+BLOCKS}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ada6f14782fe0bcb2fdce7f4ab8621fc4}{OS\+\_\+\+MIN\+\_\+\+EVER\+\_\+\+FREE\+\_\+\+BYTES}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa2144536c6b66d5a0613c89b68c64339}{OS\+\_\+\+NUM\+\_\+\+SUCCESSFUL\+\_\+\+ALLOCS}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa434b5060d4a0c9d18f897c4f67e9ea1}{OS\+\_\+\+NUM\+\_\+\+SUCCESSFUL\+\_\+\+FREES}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a28fea9f840239eeee80ef78dd75a3247}{VEH\+\_\+\+DISTANCE\+\_\+\+RUN}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9acdd1817d078c39ea68589fc78229d433}{VEH\+\_\+\+DISTANCE\+\_\+\+TOTAL}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1342110df0aa36f1aac1f15cbd8415e7}{VEH\+\_\+\+LAPNUM}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a181ccc02a81f078677f8259feae961ee}{VEH\+\_\+\+SPEED}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2237bba50d7e27353f72b7d26837fee4}{MOTOR\+\_\+\+RPM}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1b5652598a4eb9009556ed9d79bc3481}{MOTOR\+\_\+\+TEMP}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9af753a5d3c1a828a48de12e24724ca9fa}{MOTOR\+\_\+\+CURRENT}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa74badbb2f7ca3577612ade967c76aa0}{MC\+\_\+\+VOLTAGE}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab63fa780a7f16ee35fe9ef429cca5642}{MC\+\_\+\+CURRENT}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9af299eda494c1accd4296669bfce3c874}{MC\+\_\+\+TEMP}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3c3a6d5acba65131b33bf8ee304a535b}{MC\+\_\+\+ERRORS}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff}{BMS\+\_\+\+CURRENT}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d}{BMS\+\_\+\+VOLTAGE}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663}{BMS\+\_\+\+ERRORS}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9afe28f8aaa8c772e8fc42b5f47d2898ed}{MAX\+\_\+\+CELL\+\_\+\+TEMP}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2834d7adb4c1ad0ac9300d6085d52d3a}{MIN\+\_\+\+CELL\+\_\+\+TEMP}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d}{AVG\+\_\+\+CELL\+\_\+\+TEMP}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aec9d5009b2d929a992c7b1112cba60a6}{ACCUM\+\_\+\+SOC}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a60204d11329b5d77eef412829a462ac2}{ACCUM\+\_\+\+SOH}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad15a7f488ce2e3fa4cdbf9da2cc3b4e8}{ACCUM\+\_\+\+POWER}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9af03ef2b58e3ed66d861ac83000e90bb3}{ACCUM\+\_\+\+POWER\+\_\+\+LIMIT}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331}{APPS1\+\_\+\+ADC\+\_\+\+VAL}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c}{APPS2\+\_\+\+ADC\+\_\+\+VAL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929}{BPS1\+\_\+\+ADC\+\_\+\+VAL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7}{BPS2\+\_\+\+ADC\+\_\+\+VAL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a5bdd2cd7badbaa890b54c82af7da4035}{COOLANT\+\_\+\+TEMP\+\_\+\+ADC}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6e2e0d55959021b3a1926482664a3e03}{MOTOR\+\_\+\+TEMP\+\_\+\+ADC}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9addc059db90f422ed0d251cd94a2022cf}{ACCELERATOR\+\_\+\+PEDAL\+\_\+\+RATIO}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101}{BRAKE\+\_\+\+PRESSURE\+\_\+\+PA}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a9dd0829e0b91b1c3c07d12aa6dd7effb}{POWER\+\_\+\+DERATE\+\_\+\+FACTOR}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00}{CURRENT\+\_\+\+DRIVING\+\_\+\+MODE}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0b2d565572d0eb211e6b8384d085d4d1}{IMD\+\_\+\+VOLTAGE}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a601de91a52bb4c0f528e9791ef5e92ec}{IMD\+\_\+\+STATUS}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa011e4b7e1270618e9bff78cfd8c2053}{IMD\+\_\+\+ERRORS}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9acf95addd76af58fb001226d0977588ff}{SUS\+\_\+\+DAMPER\+\_\+\+FL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0ee8a955209c64582c234f8f86bd7453}{SUS\+\_\+\+DUMPER\+\_\+\+FR}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a8fb053ba15c1a4fe47bf4e636fd48d8e}{SUS\+\_\+\+DAMPER\+\_\+\+RL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6139f8cd6529f2e67551806156d0f522}{SUS\+\_\+\+DAMPER\+\_\+\+RR}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a5f234ecc55da7be78bf6b2a3b5fa7174}{WSS\+\_\+\+FR}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3576a153551299293a7c9692e8f08ce6}{WSS\+\_\+\+FL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a46eff224c7a33ef06adaa74ccb9aeedd}{WSS\+\_\+\+RL}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9acbd7f6945b95e86ffe38e6646458ab36}{WSS\+\_\+\+RR}}
+, \newline
+\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a873bf319948580dc7b092ab7adbfd734}{WSS\+\_\+\+F\+\_\+\+AVG}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa7245912d873d42b396d2e22d829e681}{WSS\+\_\+\+R\+\_\+\+AVG}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9aae51bec2609e8310092bf819fd8f411c}{WSS\+\_\+\+SLIP}}
+, \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502}{MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{daq_8h_adecae26482eb2c3289131a2a486ac8b3}{init\+Daq\+Task}} (void $\ast$args)
-\begin{DoxyCompactList}\small\item\em initializes the master D\+AQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{daq_8h_a433bb586ceab47aed8d633fa2ff8ce56}{daq\+Master\+Task}} (void $\ast$args)
-\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
-\begin{DoxyCompactItemize}
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{daq_8h_a56ca1193de01115c27ceb3768994017f}{associate\+Daq\+Param\+With\+Var}} (uint16\+\_\+t param\+ID, void \texorpdfstring{$\ast$}{*}var)
 \item 
-void $\ast$ \mbox{\hyperlink{daq_8h_a07e7f750fa90de582a1e994dcf9b57d0}{param\+\_\+\+L\+UT}} \mbox{[}126\mbox{]}
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{daq_8h_af2c619df9f3d115dcbc511b0bb738e87}{init\+Daq\+Task}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em initializes the master DAQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{daq_8h_a433bb586ceab47aed8d633fa2ff8ce56}{daq\+Master\+Task}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Controls the Daq. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{daq_8h_a81ace76d60c42037a62eaeb1687a96ce}\label{daq_8h_a81ace76d60c42037a62eaeb1687a96ce}} 
-\index{daq.h@{daq.h}!\_NUM\_LOGGABLE\_PARAMS@{\_NUM\_LOGGABLE\_PARAMS}}
+\Hypertarget{daq_8h_a81ace76d60c42037a62eaeb1687a96ce}\index{daq.h@{daq.h}!\_NUM\_LOGGABLE\_PARAMS@{\_NUM\_LOGGABLE\_PARAMS}}
 \index{\_NUM\_LOGGABLE\_PARAMS@{\_NUM\_LOGGABLE\_PARAMS}!daq.h@{daq.h}}
 \doxysubsubsection{\texorpdfstring{\_NUM\_LOGGABLE\_PARAMS}{\_NUM\_LOGGABLE\_PARAMS}}
-{\footnotesize\ttfamily \#define \+\_\+\+N\+U\+M\+\_\+\+L\+O\+G\+G\+A\+B\+L\+E\+\_\+\+P\+A\+R\+A\+MS}
+{\footnotesize\ttfamily \label{daq_8h_a81ace76d60c42037a62eaeb1687a96ce} 
+\#define \+\_\+\+NUM\+\_\+\+LOGGABLE\+\_\+\+PARAMS}
 
 
 
-Definition at line 14 of file daq.\+h.
+Definition at line \mbox{\hyperlink{daq_8h_source_l00014}{14}} of file \mbox{\hyperlink{daq_8h_source}{daq.\+h}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{daq_8h_a2104fed000d8cb392baf5d14e06193c1}\label{daq_8h_a2104fed000d8cb392baf5d14e06193c1}} 
-\index{daq.h@{daq.h}!daq\_child\_task@{daq\_child\_task}}
-\index{daq\_child\_task@{daq\_child\_task}!daq.h@{daq.h}}
-\doxysubsubsection{\texorpdfstring{daq\_child\_task}{daq\_child\_task}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structdaq__child__task}{daq\+\_\+child\+\_\+task}} \mbox{\hyperlink{structdaq__child__task}{daq\+\_\+child\+\_\+task}}}
-
-\mbox{\Hypertarget{daq_8h_ad3bc3bc1c9ab04b22cc999a6f7c82c40}\label{daq_8h_ad3bc3bc1c9ab04b22cc999a6f7c82c40}} 
-\index{daq.h@{daq.h}!daq\_datapoint@{daq\_datapoint}}
+\Hypertarget{daq_8h_ad3bc3bc1c9ab04b22cc999a6f7c82c40}\index{daq.h@{daq.h}!daq\_datapoint@{daq\_datapoint}}
 \index{daq\_datapoint@{daq\_datapoint}!daq.h@{daq.h}}
 \doxysubsubsection{\texorpdfstring{daq\_datapoint}{daq\_datapoint}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}}}
+{\footnotesize\ttfamily \label{daq_8h_ad3bc3bc1c9ab04b22cc999a6f7c82c40} 
+typedef struct daq\+\_\+datapoint daq\+\_\+datapoint}
+
+\Hypertarget{daq_8h_a8895dc742d7ce8449057f317e7f9c81b}\index{daq.h@{daq.h}!daq\_loop\_args@{daq\_loop\_args}}
+\index{daq\_loop\_args@{daq\_loop\_args}!daq.h@{daq.h}}
+\doxysubsubsection{\texorpdfstring{daq\_loop\_args}{daq\_loop\_args}}
+{\footnotesize\ttfamily \label{daq_8h_a8895dc742d7ce8449057f317e7f9c81b} 
+typedef struct daq\+\_\+loop\+\_\+args daq\+\_\+loop\+\_\+args}
 
 
 
 This struct holds info of what needs to be logged. 
 
-\mbox{\Hypertarget{daq_8h_a8895dc742d7ce8449057f317e7f9c81b}\label{daq_8h_a8895dc742d7ce8449057f317e7f9c81b}} 
-\index{daq.h@{daq.h}!daq\_loop\_args@{daq\_loop\_args}}
-\index{daq\_loop\_args@{daq\_loop\_args}!daq.h@{daq.h}}
-\doxysubsubsection{\texorpdfstring{daq\_loop\_args}{daq\_loop\_args}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}} \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}}}
-
-\mbox{\Hypertarget{daq_8h_a4a7e5c4a5e65c315010bab902f2268a6}\label{daq_8h_a4a7e5c4a5e65c315010bab902f2268a6}} 
-\index{daq.h@{daq.h}!daq\_param\_list\_node@{daq\_param\_list\_node}}
-\index{daq\_param\_list\_node@{daq\_param\_list\_node}!daq.h@{daq.h}}
-\doxysubsubsection{\texorpdfstring{daq\_param\_list\_node}{daq\_param\_list\_node}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}}}
-
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9}} 
-\index{daq.h@{daq.h}!loggable\_params@{loggable\_params}}
+\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9}\index{daq.h@{daq.h}!loggable\_params@{loggable\_params}}
 \index{loggable\_params@{loggable\_params}!daq.h@{daq.h}}
 \doxysubsubsection{\texorpdfstring{loggable\_params}{loggable\_params}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9}{loggable\+\_\+params}}}
+{\footnotesize\ttfamily \label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+enum \mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9}{loggable\+\_\+params}}}
 
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_RPM@{MOTOR\_RPM}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_RPM@{MOTOR\_RPM}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2237bba50d7e27353f72b7d26837fee4}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2237bba50d7e27353f72b7d26837fee4}} 
-M\+O\+T\+O\+R\+\_\+\+R\+PM&\\
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_VEHICLE\_STATE@{VCU\_VEHICLE\_STATE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_VEHICLE\_STATE@{VCU\_VEHICLE\_STATE}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+VEHICLE\+\_\+\+STATE&VCU Current Vehicle State \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_TEMP@{MOTOR\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_TEMP@{MOTOR\_TEMP}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1b5652598a4eb9009556ed9d79bc3481}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1b5652598a4eb9009556ed9d79bc3481}} 
-M\+O\+T\+O\+R\+\_\+\+T\+E\+MP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_ERROR\_BITFIELD1@{VCU\_ERROR\_BITFIELD1}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_ERROR\_BITFIELD1@{VCU\_ERROR\_BITFIELD1}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0e0864ffb7986f19129bc6b59a5fa77b}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+ERROR\+\_\+\+BITFIELD1&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_CURRENT@{MOTOR\_CURRENT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_CURRENT@{MOTOR\_CURRENT}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9af753a5d3c1a828a48de12e24724ca9fa}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9af753a5d3c1a828a48de12e24724ca9fa}} 
-M\+O\+T\+O\+R\+\_\+\+C\+U\+R\+R\+E\+NT&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_ERROR\_BITFIELD2@{VCU\_ERROR\_BITFIELD2}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_ERROR\_BITFIELD2@{VCU\_ERROR\_BITFIELD2}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9acdcc0525deb76aea20f6a5239d32312d}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+ERROR\+\_\+\+BITFIELD2&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_VOLTAGE@{MC\_VOLTAGE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_VOLTAGE@{MC\_VOLTAGE}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa74badbb2f7ca3577612ade967c76aa0}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa74badbb2f7ca3577612ade967c76aa0}} 
-M\+C\+\_\+\+V\+O\+L\+T\+A\+GE&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_ERROR\_BITFIELD3@{VCU\_ERROR\_BITFIELD3}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_ERROR\_BITFIELD3@{VCU\_ERROR\_BITFIELD3}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3515cf175fd12745ba64715a44137958}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+ERROR\+\_\+\+BITFIELD3&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_CURRENT@{MC\_CURRENT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_CURRENT@{MC\_CURRENT}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab63fa780a7f16ee35fe9ef429cca5642}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab63fa780a7f16ee35fe9ef429cca5642}} 
-M\+C\+\_\+\+C\+U\+R\+R\+E\+NT&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_ERROR\_BITFIELD4@{VCU\_ERROR\_BITFIELD4}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_ERROR\_BITFIELD4@{VCU\_ERROR\_BITFIELD4}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3a9f7ef2405971218360d917a12802a3}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+ERROR\+\_\+\+BITFIELD4&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_TEMP@{MC\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_TEMP@{MC\_TEMP}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9af299eda494c1accd4296669bfce3c874}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9af299eda494c1accd4296669bfce3c874}} 
-M\+C\+\_\+\+T\+E\+MP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_CURRENT\_UPTIME@{VCU\_CURRENT\_UPTIME}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_CURRENT\_UPTIME@{VCU\_CURRENT\_UPTIME}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad8aa245503fd95eebbc274e9dc6cffc3}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+CURRENT\+\_\+\+UPTIME&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_ERRORS@{MC\_ERRORS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_ERRORS@{MC\_ERRORS}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3c3a6d5acba65131b33bf8ee304a535b}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3c3a6d5acba65131b33bf8ee304a535b}} 
-M\+C\+\_\+\+E\+R\+R\+O\+RS&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VCU\_TOTAL\_UPTIME@{VCU\_TOTAL\_UPTIME}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VCU\_TOTAL\_UPTIME@{VCU\_TOTAL\_UPTIME}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a53a54b13295e369b1b05d22b9b9c344f}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VCU\+\_\+\+TOTAL\+\_\+\+UPTIME&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_CURRENT@{BMS\_CURRENT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BMS\_CURRENT@{BMS\_CURRENT}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff}} 
-B\+M\+S\+\_\+\+C\+U\+R\+R\+E\+NT&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_AVAILABLE\_HEAP@{OS\_AVAILABLE\_HEAP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_AVAILABLE\_HEAP@{OS\_AVAILABLE\_HEAP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2d4284eacab0912745267bd4d6f128e8}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+AVAILABLE\+\_\+\+HEAP&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_VOLTAGE@{BMS\_VOLTAGE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BMS\_VOLTAGE@{BMS\_VOLTAGE}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d}} 
-B\+M\+S\+\_\+\+V\+O\+L\+T\+A\+GE&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_LARGEST\_FREE\_BLOCK@{OS\_LARGEST\_FREE\_BLOCK}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_LARGEST\_FREE\_BLOCK@{OS\_LARGEST\_FREE\_BLOCK}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a130f6c0aa732800d133c91a00af5ddee}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+LARGEST\+\_\+\+FREE\+\_\+\+BLOCK&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_ERRORS@{BMS\_ERRORS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BMS\_ERRORS@{BMS\_ERRORS}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663}} 
-B\+M\+S\+\_\+\+E\+R\+R\+O\+RS&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_SMALLEST\_FREE\_BLOCK@{OS\_SMALLEST\_FREE\_BLOCK}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_SMALLEST\_FREE\_BLOCK@{OS\_SMALLEST\_FREE\_BLOCK}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ada14298a2526c89e86820dc39b9e8757}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+SMALLEST\+\_\+\+FREE\+\_\+\+BLOCK&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_CELL\_TEMP@{MAX\_CELL\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MAX\_CELL\_TEMP@{MAX\_CELL\_TEMP}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9afe28f8aaa8c772e8fc42b5f47d2898ed}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9afe28f8aaa8c772e8fc42b5f47d2898ed}} 
-M\+A\+X\+\_\+\+C\+E\+L\+L\+\_\+\+T\+E\+MP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_NUM\_FREE\_BLOCKS@{OS\_NUM\_FREE\_BLOCKS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_NUM\_FREE\_BLOCKS@{OS\_NUM\_FREE\_BLOCKS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0a6e6cc1ea14ade7ba7e243bb67b6a43}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+NUM\+\_\+\+FREE\+\_\+\+BLOCKS&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MIN\_CELL\_TEMP@{MIN\_CELL\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MIN\_CELL\_TEMP@{MIN\_CELL\_TEMP}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2834d7adb4c1ad0ac9300d6085d52d3a}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2834d7adb4c1ad0ac9300d6085d52d3a}} 
-M\+I\+N\+\_\+\+C\+E\+L\+L\+\_\+\+T\+E\+MP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_MIN\_EVER\_FREE\_BYTES@{OS\_MIN\_EVER\_FREE\_BYTES}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_MIN\_EVER\_FREE\_BYTES@{OS\_MIN\_EVER\_FREE\_BYTES}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ada6f14782fe0bcb2fdce7f4ab8621fc4}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+MIN\+\_\+\+EVER\+\_\+\+FREE\+\_\+\+BYTES&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{AVG\_CELL\_TEMP@{AVG\_CELL\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!AVG\_CELL\_TEMP@{AVG\_CELL\_TEMP}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d}} 
-A\+V\+G\+\_\+\+C\+E\+L\+L\+\_\+\+T\+E\+MP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_NUM\_SUCCESSFUL\_ALLOCS@{OS\_NUM\_SUCCESSFUL\_ALLOCS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_NUM\_SUCCESSFUL\_ALLOCS@{OS\_NUM\_SUCCESSFUL\_ALLOCS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa2144536c6b66d5a0613c89b68c64339}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+NUM\+\_\+\+SUCCESSFUL\+\_\+\+ALLOCS&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_POWER@{ACC\_POWER}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACC\_POWER@{ACC\_POWER}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4ef281749693cf7082dc226a1ab26974}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4ef281749693cf7082dc226a1ab26974}} 
-A\+C\+C\+\_\+\+P\+O\+W\+ER&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OS\_NUM\_SUCCESSFUL\_FREES@{OS\_NUM\_SUCCESSFUL\_FREES}!daq.h@{daq.h}}\index{daq.h@{daq.h}!OS\_NUM\_SUCCESSFUL\_FREES@{OS\_NUM\_SUCCESSFUL\_FREES}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa434b5060d4a0c9d18f897c4f67e9ea1}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+OS\+\_\+\+NUM\+\_\+\+SUCCESSFUL\+\_\+\+FREES&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACC\_POWER\_LIMIT@{ACC\_POWER\_LIMIT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACC\_POWER\_LIMIT@{ACC\_POWER\_LIMIT}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aef39c43ab7f393dc2bf798232d6af580}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9aef39c43ab7f393dc2bf798232d6af580}} 
-A\+C\+C\+\_\+\+P\+O\+W\+E\+R\+\_\+\+L\+I\+M\+IT&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VEH\_DISTANCE\_RUN@{VEH\_DISTANCE\_RUN}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VEH\_DISTANCE\_RUN@{VEH\_DISTANCE\_RUN}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a28fea9f840239eeee80ef78dd75a3247}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VEH\+\_\+\+DISTANCE\+\_\+\+RUN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{APPS1\_ADC\_VAL@{APPS1\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!APPS1\_ADC\_VAL@{APPS1\_ADC\_VAL}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331}} 
-A\+P\+P\+S1\+\_\+\+A\+D\+C\+\_\+\+V\+AL&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VEH\_DISTANCE\_TOTAL@{VEH\_DISTANCE\_TOTAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VEH\_DISTANCE\_TOTAL@{VEH\_DISTANCE\_TOTAL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9acdd1817d078c39ea68589fc78229d433}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VEH\+\_\+\+DISTANCE\+\_\+\+TOTAL&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{APPS2\_ADC\_VAL@{APPS2\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!APPS2\_ADC\_VAL@{APPS2\_ADC\_VAL}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c}} 
-A\+P\+P\+S2\+\_\+\+A\+D\+C\+\_\+\+V\+AL&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VEH\_LAPNUM@{VEH\_LAPNUM}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VEH\_LAPNUM@{VEH\_LAPNUM}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1342110df0aa36f1aac1f15cbd8415e7}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VEH\+\_\+\+LAPNUM&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BPS1\_ADC\_VAL@{BPS1\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BPS1\_ADC\_VAL@{BPS1\_ADC\_VAL}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929}} 
-B\+P\+S1\+\_\+\+A\+D\+C\+\_\+\+V\+AL&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VEH\_SPEED@{VEH\_SPEED}!daq.h@{daq.h}}\index{daq.h@{daq.h}!VEH\_SPEED@{VEH\_SPEED}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a181ccc02a81f078677f8259feae961ee}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+VEH\+\_\+\+SPEED&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BPS2\_ADC\_VAL@{BPS2\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BPS2\_ADC\_VAL@{BPS2\_ADC\_VAL}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7}} 
-B\+P\+S2\+\_\+\+A\+D\+C\+\_\+\+V\+AL&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_RPM@{MOTOR\_RPM}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_RPM@{MOTOR\_RPM}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2237bba50d7e27353f72b7d26837fee4}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MOTOR\+\_\+\+RPM&RPM as reported by motor controller \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCELERATOR\_PEDAL\_RATIO@{ACCELERATOR\_PEDAL\_RATIO}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACCELERATOR\_PEDAL\_RATIO@{ACCELERATOR\_PEDAL\_RATIO}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9addc059db90f422ed0d251cd94a2022cf}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9addc059db90f422ed0d251cd94a2022cf}} 
-A\+C\+C\+E\+L\+E\+R\+A\+T\+O\+R\+\_\+\+P\+E\+D\+A\+L\+\_\+\+R\+A\+T\+IO&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_TEMP@{MOTOR\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_TEMP@{MOTOR\_TEMP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a1b5652598a4eb9009556ed9d79bc3481}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MOTOR\+\_\+\+TEMP&Motor Temp as reported by motor controller \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BRAKE\_PRESSURE\_PA@{BRAKE\_PRESSURE\_PA}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BRAKE\_PRESSURE\_PA@{BRAKE\_PRESSURE\_PA}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101}} 
-B\+R\+A\+K\+E\+\_\+\+P\+R\+E\+S\+S\+U\+R\+E\+\_\+\+PA&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_CURRENT@{MOTOR\_CURRENT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_CURRENT@{MOTOR\_CURRENT}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9af753a5d3c1a828a48de12e24724ca9fa}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MOTOR\+\_\+\+CURRENT&Motor Phase currents as reported by motor controller \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{POWER\_DERATE\_FACTOR@{POWER\_DERATE\_FACTOR}!daq.h@{daq.h}}\index{daq.h@{daq.h}!POWER\_DERATE\_FACTOR@{POWER\_DERATE\_FACTOR}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a9dd0829e0b91b1c3c07d12aa6dd7effb}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9a9dd0829e0b91b1c3c07d12aa6dd7effb}} 
-P\+O\+W\+E\+R\+\_\+\+D\+E\+R\+A\+T\+E\+\_\+\+F\+A\+C\+T\+OR&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_VOLTAGE@{MC\_VOLTAGE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_VOLTAGE@{MC\_VOLTAGE}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa74badbb2f7ca3577612ade967c76aa0}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MC\+\_\+\+VOLTAGE&Pack voltage as measured by motor\+\_\+controller \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{CURRENT\_DRIVING\_MODE@{CURRENT\_DRIVING\_MODE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!CURRENT\_DRIVING\_MODE@{CURRENT\_DRIVING\_MODE}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00}} 
-C\+U\+R\+R\+E\+N\+T\+\_\+\+D\+R\+I\+V\+I\+N\+G\+\_\+\+M\+O\+DE&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_CURRENT@{MC\_CURRENT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_CURRENT@{MC\_CURRENT}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab63fa780a7f16ee35fe9ef429cca5642}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MC\+\_\+\+CURRENT&Pack current as measured by motor\+\_\+controller \\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_LOGGABLE\_PARAMS@{MAX\_LOGGABLE\_PARAMS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MAX\_LOGGABLE\_PARAMS@{MAX\_LOGGABLE\_PARAMS}}}\mbox{\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502}} 
-M\+A\+X\+\_\+\+L\+O\+G\+G\+A\+B\+L\+E\+\_\+\+P\+A\+R\+A\+MS&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_TEMP@{MC\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_TEMP@{MC\_TEMP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9af299eda494c1accd4296669bfce3c874}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MC\+\_\+\+TEMP&Motor controller temperature \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MC\_ERRORS@{MC\_ERRORS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MC\_ERRORS@{MC\_ERRORS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3c3a6d5acba65131b33bf8ee304a535b}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MC\+\_\+\+ERRORS&Motor controller errors bitfield \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_CURRENT@{BMS\_CURRENT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BMS\_CURRENT@{BMS\_CURRENT}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+BMS\+\_\+\+CURRENT&Pack current measured by BMS \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_VOLTAGE@{BMS\_VOLTAGE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BMS\_VOLTAGE@{BMS\_VOLTAGE}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+BMS\+\_\+\+VOLTAGE&Pack voltage as measured by BMS \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_ERRORS@{BMS\_ERRORS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BMS\_ERRORS@{BMS\_ERRORS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+BMS\+\_\+\+ERRORS&Error codes in BMS \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_CELL\_TEMP@{MAX\_CELL\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MAX\_CELL\_TEMP@{MAX\_CELL\_TEMP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9afe28f8aaa8c772e8fc42b5f47d2898ed}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MAX\+\_\+\+CELL\+\_\+\+TEMP&Max Temperature of a cell from BMS \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MIN\_CELL\_TEMP@{MIN\_CELL\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MIN\_CELL\_TEMP@{MIN\_CELL\_TEMP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a2834d7adb4c1ad0ac9300d6085d52d3a}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MIN\+\_\+\+CELL\+\_\+\+TEMP&Min Temperature of a cell \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{AVG\_CELL\_TEMP@{AVG\_CELL\_TEMP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!AVG\_CELL\_TEMP@{AVG\_CELL\_TEMP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+AVG\+\_\+\+CELL\+\_\+\+TEMP&Average Cell Temp \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCUM\_SOC@{ACCUM\_SOC}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACCUM\_SOC@{ACCUM\_SOC}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aec9d5009b2d929a992c7b1112cba60a6}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+ACCUM\+\_\+\+SOC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCUM\_SOH@{ACCUM\_SOH}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACCUM\_SOH@{ACCUM\_SOH}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a60204d11329b5d77eef412829a462ac2}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+ACCUM\+\_\+\+SOH&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCUM\_POWER@{ACCUM\_POWER}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACCUM\_POWER@{ACCUM\_POWER}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad15a7f488ce2e3fa4cdbf9da2cc3b4e8}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+ACCUM\+\_\+\+POWER&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCUM\_POWER\_LIMIT@{ACCUM\_POWER\_LIMIT}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACCUM\_POWER\_LIMIT@{ACCUM\_POWER\_LIMIT}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9af03ef2b58e3ed66d861ac83000e90bb3}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+ACCUM\+\_\+\+POWER\+\_\+\+LIMIT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APPS1\_ADC\_VAL@{APPS1\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!APPS1\_ADC\_VAL@{APPS1\_ADC\_VAL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+APPS1\+\_\+\+ADC\+\_\+\+VAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{APPS2\_ADC\_VAL@{APPS2\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!APPS2\_ADC\_VAL@{APPS2\_ADC\_VAL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+APPS2\+\_\+\+ADC\+\_\+\+VAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BPS1\_ADC\_VAL@{BPS1\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BPS1\_ADC\_VAL@{BPS1\_ADC\_VAL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+BPS1\+\_\+\+ADC\+\_\+\+VAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BPS2\_ADC\_VAL@{BPS2\_ADC\_VAL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BPS2\_ADC\_VAL@{BPS2\_ADC\_VAL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+BPS2\+\_\+\+ADC\+\_\+\+VAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{COOLANT\_TEMP\_ADC@{COOLANT\_TEMP\_ADC}!daq.h@{daq.h}}\index{daq.h@{daq.h}!COOLANT\_TEMP\_ADC@{COOLANT\_TEMP\_ADC}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a5bdd2cd7badbaa890b54c82af7da4035}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+COOLANT\+\_\+\+TEMP\+\_\+\+ADC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MOTOR\_TEMP\_ADC@{MOTOR\_TEMP\_ADC}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MOTOR\_TEMP\_ADC@{MOTOR\_TEMP\_ADC}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6e2e0d55959021b3a1926482664a3e03}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MOTOR\+\_\+\+TEMP\+\_\+\+ADC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ACCELERATOR\_PEDAL\_RATIO@{ACCELERATOR\_PEDAL\_RATIO}!daq.h@{daq.h}}\index{daq.h@{daq.h}!ACCELERATOR\_PEDAL\_RATIO@{ACCELERATOR\_PEDAL\_RATIO}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9addc059db90f422ed0d251cd94a2022cf}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+ACCELERATOR\+\_\+\+PEDAL\+\_\+\+RATIO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BRAKE\_PRESSURE\_PA@{BRAKE\_PRESSURE\_PA}!daq.h@{daq.h}}\index{daq.h@{daq.h}!BRAKE\_PRESSURE\_PA@{BRAKE\_PRESSURE\_PA}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+BRAKE\+\_\+\+PRESSURE\+\_\+\+PA&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{POWER\_DERATE\_FACTOR@{POWER\_DERATE\_FACTOR}!daq.h@{daq.h}}\index{daq.h@{daq.h}!POWER\_DERATE\_FACTOR@{POWER\_DERATE\_FACTOR}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a9dd0829e0b91b1c3c07d12aa6dd7effb}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+POWER\+\_\+\+DERATE\+\_\+\+FACTOR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CURRENT\_DRIVING\_MODE@{CURRENT\_DRIVING\_MODE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!CURRENT\_DRIVING\_MODE@{CURRENT\_DRIVING\_MODE}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+CURRENT\+\_\+\+DRIVING\+\_\+\+MODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IMD\_VOLTAGE@{IMD\_VOLTAGE}!daq.h@{daq.h}}\index{daq.h@{daq.h}!IMD\_VOLTAGE@{IMD\_VOLTAGE}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0b2d565572d0eb211e6b8384d085d4d1}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+IMD\+\_\+\+VOLTAGE&Accumulator voltage as measured by IMD \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IMD\_STATUS@{IMD\_STATUS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!IMD\_STATUS@{IMD\_STATUS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a601de91a52bb4c0f528e9791ef5e92ec}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+IMD\+\_\+\+STATUS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{IMD\_ERRORS@{IMD\_ERRORS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!IMD\_ERRORS@{IMD\_ERRORS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa011e4b7e1270618e9bff78cfd8c2053}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+IMD\+\_\+\+ERRORS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUS\_DAMPER\_FL@{SUS\_DAMPER\_FL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!SUS\_DAMPER\_FL@{SUS\_DAMPER\_FL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9acf95addd76af58fb001226d0977588ff}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+SUS\+\_\+\+DAMPER\+\_\+\+FL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUS\_DUMPER\_FR@{SUS\_DUMPER\_FR}!daq.h@{daq.h}}\index{daq.h@{daq.h}!SUS\_DUMPER\_FR@{SUS\_DUMPER\_FR}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a0ee8a955209c64582c234f8f86bd7453}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+SUS\+\_\+\+DUMPER\+\_\+\+FR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUS\_DAMPER\_RL@{SUS\_DAMPER\_RL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!SUS\_DAMPER\_RL@{SUS\_DAMPER\_RL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a8fb053ba15c1a4fe47bf4e636fd48d8e}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+SUS\+\_\+\+DAMPER\+\_\+\+RL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SUS\_DAMPER\_RR@{SUS\_DAMPER\_RR}!daq.h@{daq.h}}\index{daq.h@{daq.h}!SUS\_DAMPER\_RR@{SUS\_DAMPER\_RR}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a6139f8cd6529f2e67551806156d0f522}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+SUS\+\_\+\+DAMPER\+\_\+\+RR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_FR@{WSS\_FR}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_FR@{WSS\_FR}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a5f234ecc55da7be78bf6b2a3b5fa7174}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+FR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_FL@{WSS\_FL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_FL@{WSS\_FL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a3576a153551299293a7c9692e8f08ce6}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+FL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_RL@{WSS\_RL}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_RL@{WSS\_RL}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a46eff224c7a33ef06adaa74ccb9aeedd}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+RL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_RR@{WSS\_RR}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_RR@{WSS\_RR}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9acbd7f6945b95e86ffe38e6646458ab36}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+RR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_F\_AVG@{WSS\_F\_AVG}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_F\_AVG@{WSS\_F\_AVG}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9a873bf319948580dc7b092ab7adbfd734}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+F\+\_\+\+AVG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_R\_AVG@{WSS\_R\_AVG}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_R\_AVG@{WSS\_R\_AVG}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aa7245912d873d42b396d2e22d829e681}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+R\+\_\+\+AVG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WSS\_SLIP@{WSS\_SLIP}!daq.h@{daq.h}}\index{daq.h@{daq.h}!WSS\_SLIP@{WSS\_SLIP}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9aae51bec2609e8310092bf819fd8f411c}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+WSS\+\_\+\+SLIP&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MAX\_LOGGABLE\_PARAMS@{MAX\_LOGGABLE\_PARAMS}!daq.h@{daq.h}}\index{daq.h@{daq.h}!MAX\_LOGGABLE\_PARAMS@{MAX\_LOGGABLE\_PARAMS}}}\Hypertarget{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502}\label{daq_8h_a5249d5d3ad44df9d4479b814028469a9} 
+MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS&THIS MUST BE THE FINAL PARAM \\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 18 of file daq.\+h.
+Definition at line \mbox{\hyperlink{daq_8h_source_l00018}{18}} of file \mbox{\hyperlink{daq_8h_source}{daq.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{daq_8h_a433bb586ceab47aed8d633fa2ff8ce56}\label{daq_8h_a433bb586ceab47aed8d633fa2ff8ce56}} 
-\index{daq.h@{daq.h}!daqMasterTask@{daqMasterTask}}
+\Hypertarget{daq_8h_a56ca1193de01115c27ceb3768994017f}\index{daq.h@{daq.h}!associateDaqParamWithVar@{associateDaqParamWithVar}}
+\index{associateDaqParamWithVar@{associateDaqParamWithVar}!daq.h@{daq.h}}
+\doxysubsubsection{\texorpdfstring{associateDaqParamWithVar()}{associateDaqParamWithVar()}}
+{\footnotesize\ttfamily \label{daq_8h_a56ca1193de01115c27ceb3768994017f} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} associate\+Daq\+Param\+With\+Var (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{param\+ID}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{var}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{daq_8c_source_l00125}{125}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+
+
+
+References \mbox{\hyperlink{daq_8h_source_l00079}{MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}, \mbox{\hyperlink{daq_8c_source_l00112}{param\+\_\+ptrs}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00480}{uv\+Is\+PTRValid()}}.
+
+
+
+Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
+
+\Hypertarget{daq_8h_a433bb586ceab47aed8d633fa2ff8ce56}\index{daq.h@{daq.h}!daqMasterTask@{daqMasterTask}}
 \index{daqMasterTask@{daqMasterTask}!daq.h@{daq.h}}
 \doxysubsubsection{\texorpdfstring{daqMasterTask()}{daqMasterTask()}}
-{\footnotesize\ttfamily void daq\+Master\+Task (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{daq_8h_a433bb586ceab47aed8d633fa2ff8ce56} 
+void daq\+Master\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Controls the Daq. 
 
 These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task execution actually takes
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{ */}
-\DoxyCodeLine{TickType\_t tick\_period = pdMS\_TO\_TICKS(params-\/>task\_period); \textcolor{comment}{//Convert ms of period to the RTOS ticks}}
-\DoxyCodeLine{\textcolor{comment}{//TickType\_t last\_time = xTaskGetTickCount();       /**}}
+\DoxyCodeLine{\ */}
+\DoxyCodeLine{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ tick\_period\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(params-\/>task\_period);\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
+\DoxyCodeLine{\textcolor{comment}{//TickType\_t\ last\_time\ =\ xTaskGetTickCount();\ \ \ \ \ \ \ /**}}
+
 \end{DoxyCode}
 
 
-Definition at line 62 of file daq.\+c.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00336}{336}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References change\+Vehicle\+State(), uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, kill\+Self(), suspend\+Self(), uv\+\_\+task\+\_\+info\+::task\+\_\+period, U\+V\+\_\+\+D\+R\+I\+V\+I\+NG, U\+V\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+A\+TE, U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD, U\+V\+\_\+\+R\+E\+A\+DY, U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+\_\+\+C\+MD, and vehicle\+\_\+state.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{daq_8c_source_l00245}{start\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00295}{uv\+Task\+Delay}}, and \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}.
 
 
 
-Referenced by init\+Daq\+Task().
+Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
 
-\mbox{\Hypertarget{daq_8h_adecae26482eb2c3289131a2a486ac8b3}\label{daq_8h_adecae26482eb2c3289131a2a486ac8b3}} 
-\index{daq.h@{daq.h}!initDaqTask@{initDaqTask}}
+\Hypertarget{daq_8h_af2c619df9f3d115dcbc511b0bb738e87}\index{daq.h@{daq.h}!initDaqTask@{initDaqTask}}
 \index{initDaqTask@{initDaqTask}!daq.h@{daq.h}}
 \doxysubsubsection{\texorpdfstring{initDaqTask()}{initDaqTask()}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} init\+Daq\+Task (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{daq_8h_af2c619df9f3d115dcbc511b0bb738e87} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} init\+Daq\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
-initializes the master D\+AQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks 
+initializes the master DAQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks 
 
-This is a fairly standard function 
+This is a fairly standard function. Here are the things that it does in order\+:
 
-Definition at line 30 of file daq.\+c.
+Step 1\+: Get Daq settings.
 
+Step 2\+: Create and configure DAQ task.
 
+Step 3\+: Read which parameters we want to read.
 
-References \+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE, uv\+\_\+task\+\_\+info\+::active\+\_\+states, daq\+Master\+Task(), uv\+\_\+task\+\_\+info\+::deletion\+\_\+states, P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, uv\+\_\+task\+\_\+info\+::stack\+\_\+size, uv\+\_\+task\+\_\+info\+::suspension\+\_\+states, uv\+\_\+task\+\_\+info\+::task\+\_\+args, uv\+\_\+task\+\_\+info\+::task\+\_\+function, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+\_\+task\+\_\+info\+::task\+\_\+period, uv\+\_\+task\+\_\+info\+::task\+\_\+priority, U\+V\+\_\+\+D\+R\+I\+V\+I\+NG, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+A\+TE, U\+V\+\_\+\+L\+A\+U\+N\+C\+H\+\_\+\+C\+O\+N\+T\+R\+OL, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, and uv\+Create\+Task().
+Step 4\+: Generate Subtask Metadata
 
+Step 5\+: Assign params to subtasks 
 
-
-Referenced by uv\+Init\+State\+Engine().
-
-
-
-\doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{daq_8h_a07e7f750fa90de582a1e994dcf9b57d0}\label{daq_8h_a07e7f750fa90de582a1e994dcf9b57d0}} 
-\index{daq.h@{daq.h}!param\_LUT@{param\_LUT}}
-\index{param\_LUT@{param\_LUT}!daq.h@{daq.h}}
-\doxysubsubsection{\texorpdfstring{param\_LUT}{param\_LUT}}
-{\footnotesize\ttfamily void$\ast$ param\+\_\+\+L\+UT\mbox{[}126\mbox{]}}
+Definition at line \mbox{\hyperlink{daq_8c_source_l00288}{288}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Definition at line 7 of file daq.\+c.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{daq_8c_source_l00125}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00100}{daq\+\_\+loop\+\_\+args\+::can\+\_\+channel}}, \mbox{\hyperlink{daq_8c_source_l00218}{configure\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{daq_8h_source_l00059}{COOLANT\+\_\+\+TEMP\+\_\+\+ADC}}, \mbox{\hyperlink{daq_8c_source_l00015}{coolant\+\_\+temp\+\_\+adc}}, \mbox{\hyperlink{daq_8c_source_l00043}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{daq_8h_source_l00101}{daq\+\_\+loop\+\_\+args\+::daq\+\_\+child\+\_\+priority}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00163}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00336}{daq\+Master\+Task()}}, \mbox{\hyperlink{daq_8c_source_l00116}{datapoints}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{daq_8h_source_l00060}{MOTOR\+\_\+\+TEMP\+\_\+\+ADC}}, \mbox{\hyperlink{daq_8c_source_l00016}{motor\+\_\+temp\+\_\+adc}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{daq_8c_source_l00271}{tmp\+\_\+daq\+\_\+msg}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
 

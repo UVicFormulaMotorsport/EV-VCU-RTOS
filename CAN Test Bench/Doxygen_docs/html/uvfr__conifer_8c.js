@@ -1,0 +1,23 @@
+var uvfr__conifer_8c =
+[
+    [ "__ch_list", "uvfr__conifer_8c.html#abb9099bb5f07f6c726d11166c48f2338", null ],
+    [ "__dcs", "uvfr__conifer_8c.html#ad547454272c1bf1f4e633a1005eeca2c", null ],
+    [ "__attribute__", "uvfr__conifer_8c.html#a083b2e840cc4afee2f08f66c46f4d64d", null ],
+    [ "coniferDeInit", "uvfr__conifer_8c.html#abd58786ab480f925351564f049e4008f", null ],
+    [ "coniferDisChannel", "uvfr__conifer_8c.html#ad79a0176a2fa65ec8bfd500844aeec59", null ],
+    [ "coniferEnChannel", "uvfr__conifer_8c.html#a713d196fd2dbb7c1fbf9c21cc3c7b478", null ],
+    [ "coniferGetChannelCurrent", "uvfr__conifer_8c.html#a23d4a2b69794b9d34a93a03a214c0430", null ],
+    [ "coniferGetChannelFaults", "uvfr__conifer_8c.html#ad5baa963f5e3be5ecd3ab47672fb0a7c", null ],
+    [ "coniferGetChannelFbck", "uvfr__conifer_8c.html#abb000d9c9f4b27e22b79af0c31c85b7a", null ],
+    [ "coniferInit", "uvfr__conifer_8c.html#a4108d6134c6ebfb361e77d5c78be0ff2", null ],
+    [ "coniferInvalidChLocCallback", "uvfr__conifer_8c.html#a68449e8e796a831d9f3cbd63eed0e391", null ],
+    [ "coniferSetDirection", "uvfr__conifer_8c.html#a19b26b92f262172a014bc40d286bced0", null ],
+    [ "coniferSetDutyCycle", "uvfr__conifer_8c.html#ac38837d66ac0cec4b361b468c132663e", null ],
+    [ "coniferSetDutyCycleAndDirection", "uvfr__conifer_8c.html#ab598961c57873287afab07e8e6598d0e", null ],
+    [ "coniferToggleChannel", "uvfr__conifer_8c.html#a4962a2f4670cdb0d2666a75cf5b34ee0", null ],
+    [ "coniferUpdateChannel", "uvfr__conifer_8c.html#a0b4e966f33682552edd3611584f8063f", null ],
+    [ "ch_table", "uvfr__conifer_8c.html#af165acc981d55f60b47f4d4539377fd5", null ],
+    [ "ch_updaters", "uvfr__conifer_8c.html#a0d4576b3201affa2e0120a637bc47cec", null ],
+    [ "current_getters", "uvfr__conifer_8c.html#a47839973a8a94e0775184cb6f01638ed", null ],
+    [ "default_conifer_settings", "uvfr__conifer_8c.html#af1159e0fffb524777de5dcf9d869a738", null ]
+];

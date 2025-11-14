@@ -8,12 +8,15 @@ var group__state__engine =
     [ "MAX_NUM_MANAGED_TASKS", "group__state__engine.html#ga8a80fe70c2d06583bbcd00c5162860c5", null ],
     [ "state_change_daemon_args", "group__state__engine.html#gac9bd88d7c454ec151183930fce544c9c", null ],
     [ "compareTaskByName", "group__state__engine.html#ga9f31832194c2c9dddce43bf53eb86d5b", null ],
+    [ "killEmAll", "group__state__engine.html#gab8a03e5812e395199b3b0003cd8266cb", null ],
     [ "uvSVCTaskManager", "group__state__engine.html#gaff684308203d45e9e16ad3d115c54279", null ],
+    [ "uvTaskManager", "group__state__engine.html#gaf2dbdd0d9d9aa8bcbef120661117fc5e", null ],
     [ "uvTaskPeriodEnd", "group__state__engine.html#ga0e6167ef18c2ec8b65fbe070d0ffb6c9", null ],
     [ "_next_svc_task_id", "group__state__engine.html#gae48b13e362d2b9d10ec61f516ea5c09f", null ],
     [ "_next_task_id", "group__state__engine.html#gaf070a24ce066297b4a8276ddcb884b0c", null ],
     [ "_task_register", "group__state__engine.html#ga6b49ab568bed9d9189782eebb90545b5", null ],
     [ "default_os_settings", "group__state__engine.html#gad9e02be6d2d0bc1ab5cd9fd8cae34230", null ],
+    [ "error_bitfield", "group__state__engine.html#gad05ab0da0046c01c52191148bbd0c36d", null ],
     [ "last_task_end_times", "group__state__engine.html#ga0ae08e3e5e1cb6e0228da97c7e4326e0", null ],
     [ "last_task_start_times", "group__state__engine.html#gac5868023f8ec284bd14c50db7a815e78", null ],
     [ "nc_throttling", "group__state__engine.html#ga6f4abbac22d8261c588c551b1d153ef6", null ],
@@ -28,5 +31,6 @@ var group__state__engine =
     [ "task_name_tree", "group__state__engine.html#gaaed35d33599a21d98d0500c5f0a1385a", null ],
     [ "task_tardiness", "group__state__engine.html#gaf622d52254e824f6da1204abc93b18db", null ],
     [ "throttle_daq", "group__state__engine.html#ga23b0c19ff219812065d876d2daaa26fd", null ],
-    [ "vehicle_state", "group__state__engine.html#ga2f58cf65b3566bc390600f877f8bed35", null ]
+    [ "vehicle_state", "group__state__engine.html#ga2f58cf65b3566bc390600f877f8bed35", null ],
+    [ "xHeapStats", "group__state__engine.html#gace30759073ddac097d29f042acc4142d", null ]
 ];

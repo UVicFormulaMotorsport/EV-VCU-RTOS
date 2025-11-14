@@ -1,0 +1,1235 @@
+\doxysection{Core/\+Free\+RTOS/\+Source/tasks.c File Reference}
+\hypertarget{tasks_8c}{}\label{tasks_8c}\index{Core/FreeRTOS/Source/tasks.c@{Core/FreeRTOS/Source/tasks.c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}task.\+h"{}}\newline
+{\ttfamily \#include "{}timers.\+h"{}}\newline
+{\ttfamily \#include "{}stack\+\_\+macros.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtsk_task_control_block}{tsk\+Task\+Control\+Block}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tasks_8c_ab622d8c674f2a417a666a7ed89109e79}{MPU\+\_\+\+WRAPPERS\+\_\+\+INCLUDED\+\_\+\+FROM\+\_\+\+API\+\_\+\+FILE}}
+\item 
+\#define \mbox{\hyperlink{tasks_8c_acd0c920e40647de517ac633965b52273}{task\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}()
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a4f2f023143b2cd2367a441e104f8cf2c}{task\+NOT\+\_\+\+WAITING\+\_\+\+NOTIFICATION}}~( ( uint8\+\_\+t ) 0 )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_acee66205293e253c13626e74798a0cf0}{task\+WAITING\+\_\+\+NOTIFICATION}}~( ( uint8\+\_\+t ) 1 )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_aa62ac91d5f644c98b5459c28ae4f689e}{task\+NOTIFICATION\+\_\+\+RECEIVED}}~( ( uint8\+\_\+t ) 2 )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_ad3b1c99066f14855be098ccca1685fac}{tsk\+STACK\+\_\+\+FILL\+\_\+\+BYTE}}~( 0xa5U )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_af06a1633d2fb92f67712e62f3d1c3777}{tsk\+DYNAMICALLY\+\_\+\+ALLOCATED\+\_\+\+STACK\+\_\+\+AND\+\_\+\+TCB}}~( ( uint8\+\_\+t ) 0 )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_ad65be2320d426aca4e0e72d29ccd04de}{tsk\+STATICALLY\+\_\+\+ALLOCATED\+\_\+\+STACK\+\_\+\+ONLY}}~( ( uint8\+\_\+t ) 1 )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a9851e50775136d536fed623e1ac598aa}{tsk\+STATICALLY\+\_\+\+ALLOCATED\+\_\+\+STACK\+\_\+\+AND\+\_\+\+TCB}}~( ( uint8\+\_\+t ) 2 )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a95d95c8702f95db8a8a446e1d083245a}{tsk\+SET\+\_\+\+NEW\+\_\+\+STACKS\+\_\+\+TO\+\_\+\+KNOWN\+\_\+\+VALUE}}~0
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a13f2f32dab5dee7a9b2c848c88ef9bcc}{tsk\+RUNNING\+\_\+\+CHAR}}~( \textquotesingle{}X\textquotesingle{} )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a4cd87df39bdffff557d06f4ff15a30b0}{tsk\+BLOCKED\+\_\+\+CHAR}}~( \textquotesingle{}B\textquotesingle{} )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a2fd6c7a58ad28dd1f2c1e322b1ab3fcb}{tsk\+READY\+\_\+\+CHAR}}~( \textquotesingle{}R\textquotesingle{} )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a9aba572191d065741f5a3e94c416d455}{tsk\+DELETED\+\_\+\+CHAR}}~( \textquotesingle{}D\textquotesingle{} )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a3613b4b66406c8f6cc73e5c3e9f208db}{tsk\+SUSPENDED\+\_\+\+CHAR}}~( \textquotesingle{}S\textquotesingle{} )
+\item 
+\#define \mbox{\hyperlink{tasks_8c_aa637612832bcdd420acc9e6cc4361071}{config\+IDLE\+\_\+\+TASK\+\_\+\+NAME}}~"{}IDLE"{}
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a80c883536b1faef436fcd47b16a10f98}{task\+RECORD\+\_\+\+READY\+\_\+\+PRIORITY}}(ux\+Priority)
+\item 
+\#define \mbox{\hyperlink{tasks_8c_adace394d56a7fe7a8f8ee83edba3537c}{task\+SELECT\+\_\+\+HIGHEST\+\_\+\+PRIORITY\+\_\+\+TASK}}()
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a9517fc40d713aff9dd8182223948f9c8}{task\+RESET\+\_\+\+READY\+\_\+\+PRIORITY}}(ux\+Priority)
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a27f854590fc6fcb8b4c7955b5f13b98e}{port\+RESET\+\_\+\+READY\+\_\+\+PRIORITY}}(ux\+Priority,  \mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{ux\+Top\+Ready\+Priority}})
+\item 
+\#define \mbox{\hyperlink{tasks_8c_aa604b7713b82e63154a290e21ecf700c}{task\+SWITCH\+\_\+\+DELAYED\+\_\+\+LISTS}}()
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a94afc7269fff7c906c5eb0d9d315624b}{prv\+Add\+Task\+To\+Ready\+List}}(px\+TCB)
+\item 
+\#define \mbox{\hyperlink{tasks_8c_ad910f5e908283f1dfabd642fe1b11c6b}{prv\+Get\+TCBFrom\+Handle}}(px\+Handle)
+\item 
+\#define \mbox{\hyperlink{tasks_8c_a3e36f3eda563e810a24ab36ee7c978d4}{task\+EVENT\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE\+\_\+\+IN\+\_\+\+USE}}~0x80000000\+UL
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structtsk_task_control_block}{tsk\+Task\+Control\+Block}} \mbox{\hyperlink{tasks_8c_a67b1ddede4e49c946dd720d83c5838a5}{tsk\+TCB}}
+\item 
+typedef \mbox{\hyperlink{tasks_8c_a67b1ddede4e49c946dd720d83c5838a5}{tsk\+TCB}} \mbox{\hyperlink{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}{TCB\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{tasks_8c_a1ceb56c5c7ff2581a5ea837db4f721c1}{prv\+Initialise\+Task\+Lists}} (static void \mbox{\hyperlink{tasks_8c_a903096c962a2bc907f4b902a7d42302a}{prv\+Check\+Tasks\+Waiting\+Termination}} void)
+\item 
+static void \mbox{\hyperlink{tasks_8c_a132d136b8d2586e0778ce369e5cb8a1e}{prv\+Add\+New\+Task\+To\+Ready\+List}} (\mbox{\hyperlink{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}{TCB\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+New\+TCB)
+\item 
+void \mbox{\hyperlink{tasks_8c_a598661cdd2a6af95a077245d11e3d142}{v\+Task\+Start\+Scheduler}} (void)
+\item 
+void \mbox{\hyperlink{tasks_8c_aeadc53d3d0d0ea3a6c7702a9eacbf452}{v\+Task\+End\+Scheduler}} (void)
+\item 
+void \mbox{\hyperlink{tasks_8c_a084d232640bd1d04bcac0b8784417015}{v\+Task\+Suspend\+All}} (void)
+\item 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_adf830ea0f150fcdfdaa944667137f080}{x\+Task\+Resume\+All}} (void)
+\item 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a5fa24e36d5e1eeb57f5b73b72ea048e7}{x\+Task\+Get\+Tick\+Count}} (void)
+\item 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_ad58fd766b8f438b5703276f585738762}{x\+Task\+Get\+Tick\+Count\+From\+ISR}} (void)
+\item 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a4b660446c721df74158dddb9fc189c1e}{ux\+Task\+Get\+Number\+Of\+Tasks}} (void)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{tasks_8c_acb1be57d03f6f1a3161b69e98df6ccb9}{pc\+Task\+Get\+Name}} (\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Task\+To\+Query)
+\item 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_aea7126047f4a766a28f579a0027f00c3}{x\+Task\+Catch\+Up\+Ticks}} (\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Catch\+Up)
+\item 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a54f31e9aef0eb7b87e48c7d68ecc84c1}{x\+Task\+Increment\+Tick}} (void)
+\item 
+void \mbox{\hyperlink{tasks_8c_a9c86137bc3c1cbffc39fff22627cb885}{v\+Task\+Switch\+Context}} (void)
+\item 
+void \mbox{\hyperlink{tasks_8c_adc9eb47ceecf7dd7ee325bebff9eafc5}{v\+Task\+Place\+On\+Event\+List}} (\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Event\+List, const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait)
+\item 
+void \mbox{\hyperlink{tasks_8c_a0896d9cd10d789ef8dbb95c4959c3ce5}{v\+Task\+Place\+On\+Unordered\+Event\+List}} (\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Event\+List, const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Item\+Value, const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait)
+\item 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a6d21c9054b62d8bc1bfb2724e11578d9}{x\+Task\+Remove\+From\+Event\+List}} (const \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Event\+List)
+\item 
+void \mbox{\hyperlink{tasks_8c_a82d239ddcdd2d68abe14789b1257b11f}{v\+Task\+Remove\+From\+Unordered\+Event\+List}} (\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}px\+Event\+List\+Item, const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Item\+Value)
+\item 
+void \mbox{\hyperlink{tasks_8c_a5dfb2b9e41fb002318d9c55452a91c83}{v\+Task\+Set\+Time\+Out\+State}} (\mbox{\hyperlink{task_8h_a558b407b5433bee1696535e3c4816bdf}{Time\+Out\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Time\+Out)
+\item 
+void \mbox{\hyperlink{tasks_8c_a91fbc7c4b65e32fae51b7d43ebdcb131}{v\+Task\+Internal\+Set\+Time\+Out\+State}} (\mbox{\hyperlink{task_8h_a558b407b5433bee1696535e3c4816bdf}{Time\+Out\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Time\+Out)
+\item 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_acfc8de487c86355713d0e8546506d9e4}{x\+Task\+Check\+For\+Time\+Out}} (\mbox{\hyperlink{task_8h_a558b407b5433bee1696535e3c4816bdf}{Time\+Out\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Time\+Out, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Ticks\+To\+Wait)
+\item 
+void \mbox{\hyperlink{tasks_8c_a33c369f5f08ab96659f94093fdb985af}{v\+Task\+Missed\+Yield}} (void)
+\item 
+static \mbox{\hyperlink{tasks_8c_a36c7cc58985d41c2cb1b263563dbbaa1}{port\+TASK\+\_\+\+FUNCTION}} (prv\+Idle\+Task, pv\+Parameters)
+\item 
+static void \mbox{\hyperlink{tasks_8c_af4a1bd397cb871d893fc24e5f86e4f19}{prv\+Initialise\+Task\+Lists}} (void)
+\item 
+static void \mbox{\hyperlink{tasks_8c_a903096c962a2bc907f4b902a7d42302a}{prv\+Check\+Tasks\+Waiting\+Termination}} (void)
+\item 
+static void \mbox{\hyperlink{tasks_8c_ad1b2e4995f863a99cf980836efe330d7}{prv\+Reset\+Next\+Task\+Unblock\+Time}} (void)
+\item 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a7ffe39eff8b9037b2de04f15a10ba717}{ux\+Task\+Reset\+Event\+Item\+Value}} (void)
+\item 
+static void \mbox{\hyperlink{tasks_8c_ab4574e77d9aea876272e563c68f639da}{prv\+Add\+Current\+Task\+To\+Delayed\+List}} (\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Can\+Block\+Indefinitely)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}{TCB\+\_\+t}} \texorpdfstring{$\ast$}{*}volatile \mbox{\hyperlink{tasks_8c_acdecf2afe97343aba42b111bc6df9eea}{px\+Current\+TCB}} = NULL
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \mbox{\hyperlink{tasks_8c_a7c4a2488f96216742ad8ffff360a98e6}{px\+Ready\+Tasks\+Lists}} \mbox{[}\mbox{\hyperlink{_free_r_t_o_s_config_8h_a9a78f5ac61e6cb172dadf2a51f11db38}{config\+MAX\+\_\+\+PRIORITIES}}\mbox{]}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \mbox{\hyperlink{tasks_8c_aa632b40f050382cce625ffb3c2ea8c7a}{x\+Delayed\+Task\+List1}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \mbox{\hyperlink{tasks_8c_a52144ecca109402fbab49fa548175f82}{x\+Delayed\+Task\+List2}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}volatile \mbox{\hyperlink{tasks_8c_adce0027ea7792541f2851462ac3581a6}{px\+Delayed\+Task\+List}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}volatile \mbox{\hyperlink{tasks_8c_a807ccd06933ebea592c86f91004f85aa}{px\+Overflow\+Delayed\+Task\+List}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \mbox{\hyperlink{tasks_8c_af0a50cd44e760ae9c7adf77de3e91785}{x\+Pending\+Ready\+List}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_adb7afbe7f26cb6bef5c4e367d5a6550c}{ux\+Current\+Number\+Of\+Tasks}} = ( \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ) 0U
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a98b55fbbd701ac74b2b6ab1ffc8d5a65}{x\+Tick\+Count}} = ( \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ) \mbox{\hyperlink{_free_r_t_o_s_8h_ae52c1acd13b26e8758dc66b60b0e3417}{config\+INITIAL\+\_\+\+TICK\+\_\+\+COUNT}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{ux\+Top\+Ready\+Priority}} = \mbox{\hyperlink{task_8h_a94ed0b9b3b4e8ccc859c322f18583e67}{tsk\+IDLE\+\_\+\+PRIORITY}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_adc51acc8c40b26506a2a05aae91593fd}{x\+Scheduler\+Running}} = \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+FALSE}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_aa7a2317195d855e6961dd8bcaab9496a}{x\+Pended\+Ticks}} = ( \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ) 0U
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a228b369b272bd560709d52837b3ac48c}{x\+Yield\+Pending}} = \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+FALSE}}
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_aba03b8cb535f03f1921f11868c98b0ef}{x\+Num\+Of\+Overflows}} = ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 0
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_a43097b97496231e1af2dff1fac62bcc6}{ux\+Task\+Number}} = ( \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ) 0U
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_ac9869547a39abae93ce9ad092d580445}{x\+Next\+Task\+Unblock\+Time}} = ( \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ) 0U
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} \mbox{\hyperlink{tasks_8c_ac90c8a23419d8fa71919e020c433f1a6}{x\+Idle\+Task\+Handle}} = NULL
+\item 
+static \mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{tasks_8c_ac177740d1c0f453ad4ee8b96183bc666}{ux\+Scheduler\+Suspended}} = ( \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ) \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+FALSE}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tasks_8c_aa637612832bcdd420acc9e6cc4361071}\index{tasks.c@{tasks.c}!configIDLE\_TASK\_NAME@{configIDLE\_TASK\_NAME}}
+\index{configIDLE\_TASK\_NAME@{configIDLE\_TASK\_NAME}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{configIDLE\_TASK\_NAME}{configIDLE\_TASK\_NAME}}
+{\footnotesize\ttfamily \label{tasks_8c_aa637612832bcdd420acc9e6cc4361071} 
+\#define config\+IDLE\+\_\+\+TASK\+\_\+\+NAME~"{}IDLE"{}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00112}{112}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01974}{v\+Task\+Start\+Scheduler()}}.
+
+\Hypertarget{tasks_8c_ab622d8c674f2a417a666a7ed89109e79}\index{tasks.c@{tasks.c}!MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE@{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}}
+\index{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE@{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}}
+{\footnotesize\ttfamily \label{tasks_8c_ab622d8c674f2a417a666a7ed89109e79} 
+\#define MPU\+\_\+\+WRAPPERS\+\_\+\+INCLUDED\+\_\+\+FROM\+\_\+\+API\+\_\+\+FILE}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00035}{35}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a27f854590fc6fcb8b4c7955b5f13b98e}\index{tasks.c@{tasks.c}!portRESET\_READY\_PRIORITY@{portRESET\_READY\_PRIORITY}}
+\index{portRESET\_READY\_PRIORITY@{portRESET\_READY\_PRIORITY}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{portRESET\_READY\_PRIORITY}{portRESET\_READY\_PRIORITY}}
+{\footnotesize\ttfamily \label{tasks_8c_a27f854590fc6fcb8b4c7955b5f13b98e} 
+\#define port\+RESET\+\_\+\+READY\+\_\+\+PRIORITY(\begin{DoxyParamCaption}\item[{}]{ux\+Priority}{, }\item[{}]{\mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{ux\+Top\+Ready\+Priority}}}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00155}{155}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}.
+
+\Hypertarget{tasks_8c_a94afc7269fff7c906c5eb0d9d315624b}\index{tasks.c@{tasks.c}!prvAddTaskToReadyList@{prvAddTaskToReadyList}}
+\index{prvAddTaskToReadyList@{prvAddTaskToReadyList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvAddTaskToReadyList}{prvAddTaskToReadyList}}
+{\footnotesize\ttfamily \label{tasks_8c_a94afc7269fff7c906c5eb0d9d315624b} 
+\#define prv\+Add\+Task\+To\+Ready\+List(\begin{DoxyParamCaption}\item[{}]{px\+TCB}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{_free_r_t_o_s_8h_a8c5050de556ff7e7cdbc7de55f46709d}{traceMOVED\_TASK\_TO\_READY\_STATE}}(\ pxTCB\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ taskRECORD\_READY\_PRIORITY(\ (\ pxTCB\ )-\/>uxPriority\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ vListInsertEnd(\ \&(\ \mbox{\hyperlink{tasks_8c_a7c4a2488f96216742ad8ffff360a98e6}{pxReadyTasksLists}}[\ (\ pxTCB\ )-\/>uxPriority\ ]\ ),\ \&(\ (\ pxTCB\ )-\/>xStateListItem\ )\ );\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ tracePOST\_MOVED\_TASK\_TO\_READY\_STATE(\ pxTCB\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00217}{217}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_ad910f5e908283f1dfabd642fe1b11c6b}\index{tasks.c@{tasks.c}!prvGetTCBFromHandle@{prvGetTCBFromHandle}}
+\index{prvGetTCBFromHandle@{prvGetTCBFromHandle}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvGetTCBFromHandle}{prvGetTCBFromHandle}}
+{\footnotesize\ttfamily \label{tasks_8c_ad910f5e908283f1dfabd642fe1b11c6b} 
+\#define prv\+Get\+TCBFrom\+Handle(\begin{DoxyParamCaption}\item[{}]{px\+Handle}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ (\ pxHandle\ )\ ==\ NULL\ )\ ?\ \mbox{\hyperlink{tasks_8c_acdecf2afe97343aba42b111bc6df9eea}{pxCurrentTCB}}\ :\ (\ pxHandle\ )\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00230}{230}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l02357}{pc\+Task\+Get\+Name()}}.
+
+\Hypertarget{tasks_8c_a3e36f3eda563e810a24ab36ee7c978d4}\index{tasks.c@{tasks.c}!taskEVENT\_LIST\_ITEM\_VALUE\_IN\_USE@{taskEVENT\_LIST\_ITEM\_VALUE\_IN\_USE}}
+\index{taskEVENT\_LIST\_ITEM\_VALUE\_IN\_USE@{taskEVENT\_LIST\_ITEM\_VALUE\_IN\_USE}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskEVENT\_LIST\_ITEM\_VALUE\_IN\_USE}{taskEVENT\_LIST\_ITEM\_VALUE\_IN\_USE}}
+{\footnotesize\ttfamily \label{tasks_8c_a3e36f3eda563e810a24ab36ee7c978d4} 
+\#define task\+EVENT\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE\+\_\+\+IN\+\_\+\+USE~0x80000000\+UL}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00243}{243}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}.
+
+\Hypertarget{tasks_8c_a4f2f023143b2cd2367a441e104f8cf2c}\index{tasks.c@{tasks.c}!taskNOT\_WAITING\_NOTIFICATION@{taskNOT\_WAITING\_NOTIFICATION}}
+\index{taskNOT\_WAITING\_NOTIFICATION@{taskNOT\_WAITING\_NOTIFICATION}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskNOT\_WAITING\_NOTIFICATION}{taskNOT\_WAITING\_NOTIFICATION}}
+{\footnotesize\ttfamily \label{tasks_8c_a4f2f023143b2cd2367a441e104f8cf2c} 
+\#define task\+NOT\+\_\+\+WAITING\+\_\+\+NOTIFICATION~( ( uint8\+\_\+t ) 0 )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00068}{68}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_aa62ac91d5f644c98b5459c28ae4f689e}\index{tasks.c@{tasks.c}!taskNOTIFICATION\_RECEIVED@{taskNOTIFICATION\_RECEIVED}}
+\index{taskNOTIFICATION\_RECEIVED@{taskNOTIFICATION\_RECEIVED}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskNOTIFICATION\_RECEIVED}{taskNOTIFICATION\_RECEIVED}}
+{\footnotesize\ttfamily \label{tasks_8c_aa62ac91d5f644c98b5459c28ae4f689e} 
+\#define task\+NOTIFICATION\+\_\+\+RECEIVED~( ( uint8\+\_\+t ) 2 )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00070}{70}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a80c883536b1faef436fcd47b16a10f98}\index{tasks.c@{tasks.c}!taskRECORD\_READY\_PRIORITY@{taskRECORD\_READY\_PRIORITY}}
+\index{taskRECORD\_READY\_PRIORITY@{taskRECORD\_READY\_PRIORITY}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskRECORD\_READY\_PRIORITY}{taskRECORD\_READY\_PRIORITY}}
+{\footnotesize\ttfamily \label{tasks_8c_a80c883536b1faef436fcd47b16a10f98} 
+\#define task\+RECORD\+\_\+\+READY\+\_\+\+PRIORITY(\begin{DoxyParamCaption}\item[{}]{ux\+Priority}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ if(\ (\ uxPriority\ )\ >\ \mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{uxTopReadyPriority}}\ )\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{uxTopReadyPriority}}\ =\ (\ uxPriority\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{comment}{/*\ taskRECORD\_READY\_PRIORITY\ */}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00123}{123}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a9517fc40d713aff9dd8182223948f9c8}\index{tasks.c@{tasks.c}!taskRESET\_READY\_PRIORITY@{taskRESET\_READY\_PRIORITY}}
+\index{taskRESET\_READY\_PRIORITY@{taskRESET\_READY\_PRIORITY}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskRESET\_READY\_PRIORITY}{taskRESET\_READY\_PRIORITY}}
+{\footnotesize\ttfamily \label{tasks_8c_a9517fc40d713aff9dd8182223948f9c8} 
+\#define task\+RESET\+\_\+\+READY\+\_\+\+PRIORITY(\begin{DoxyParamCaption}\item[{}]{ux\+Priority}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00154}{154}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_adace394d56a7fe7a8f8ee83edba3537c}\index{tasks.c@{tasks.c}!taskSELECT\_HIGHEST\_PRIORITY\_TASK@{taskSELECT\_HIGHEST\_PRIORITY\_TASK}}
+\index{taskSELECT\_HIGHEST\_PRIORITY\_TASK@{taskSELECT\_HIGHEST\_PRIORITY\_TASK}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskSELECT\_HIGHEST\_PRIORITY\_TASK}{taskSELECT\_HIGHEST\_PRIORITY\_TASK}}
+{\footnotesize\ttfamily \label{tasks_8c_adace394d56a7fe7a8f8ee83edba3537c} 
+\#define task\+SELECT\+\_\+\+HIGHEST\+\_\+\+PRIORITY\+\_\+\+TASK(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBaseType\_t}}\ uxTopPriority\ =\ \mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{uxTopReadyPriority}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Find\ the\ highest\ priority\ queue\ that\ contains\ ready\ tasks.\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ while(\ \mbox{\hyperlink{list_8h_aaba6eb05d67ebc8026bea29193eca28f}{listLIST\_IS\_EMPTY}}(\ \&(\ \mbox{\hyperlink{tasks_8c_a7c4a2488f96216742ad8ffff360a98e6}{pxReadyTasksLists}}[\ uxTopPriority\ ]\ )\ )\ )\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ configASSERT(\ uxTopPriority\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ -\/-\/uxTopPriority;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ listGET\_OWNER\_OF\_NEXT\_ENTRY\ indexes\ through\ the\ list,\ so\ the\ tasks\ of\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{\textcolor{comment}{\ \ \ \ \ \ \ \ the\ same\ priority\ get\ an\ equal\ share\ of\ the\ processor\ time.\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ listGET\_OWNER\_OF\_NEXT\_ENTRY(\ \mbox{\hyperlink{tasks_8c_acdecf2afe97343aba42b111bc6df9eea}{pxCurrentTCB}},\ \&(\ \mbox{\hyperlink{tasks_8c_a7c4a2488f96216742ad8ffff360a98e6}{pxReadyTasksLists}}[\ uxTopPriority\ ]\ )\ );\ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \mbox{\hyperlink{tasks_8c_aa63dabfd96985451f96aaf74c2293642}{uxTopReadyPriority}}\ =\ uxTopPriority;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{comment}{/*\ taskSELECT\_HIGHEST\_PRIORITY\_TASK\ */}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00133}{133}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l02988}{v\+Task\+Switch\+Context()}}.
+
+\Hypertarget{tasks_8c_aa604b7713b82e63154a290e21ecf700c}\index{tasks.c@{tasks.c}!taskSWITCH\_DELAYED\_LISTS@{taskSWITCH\_DELAYED\_LISTS}}
+\index{taskSWITCH\_DELAYED\_LISTS@{taskSWITCH\_DELAYED\_LISTS}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskSWITCH\_DELAYED\_LISTS}{taskSWITCH\_DELAYED\_LISTS}}
+{\footnotesize\ttfamily \label{tasks_8c_aa604b7713b82e63154a290e21ecf700c} 
+\#define task\+SWITCH\+\_\+\+DELAYED\+\_\+\+LISTS(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structx_l_i_s_t}{List\_t}}\ *pxTemp;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ The\ delayed\ tasks\ list\ should\ be\ empty\ when\ the\ lists\ are\ switched.\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ configASSERT(\ (\ \mbox{\hyperlink{list_8h_aaba6eb05d67ebc8026bea29193eca28f}{listLIST\_IS\_EMPTY}}(\ \mbox{\hyperlink{tasks_8c_adce0027ea7792541f2851462ac3581a6}{pxDelayedTaskList}}\ )\ )\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ pxTemp\ =\ \mbox{\hyperlink{tasks_8c_adce0027ea7792541f2851462ac3581a6}{pxDelayedTaskList}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{tasks_8c_adce0027ea7792541f2851462ac3581a6}{pxDelayedTaskList}}\ =\ \mbox{\hyperlink{tasks_8c_a807ccd06933ebea592c86f91004f85aa}{pxOverflowDelayedTaskList}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{tasks_8c_a807ccd06933ebea592c86f91004f85aa}{pxOverflowDelayedTaskList}}\ =\ pxTemp;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{tasks_8c_aba03b8cb535f03f1921f11868c98b0ef}{xNumOfOverflows}}++;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ prvResetNextTaskUnblockTime();\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00197}{197}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{tasks_8c_acee66205293e253c13626e74798a0cf0}\index{tasks.c@{tasks.c}!taskWAITING\_NOTIFICATION@{taskWAITING\_NOTIFICATION}}
+\index{taskWAITING\_NOTIFICATION@{taskWAITING\_NOTIFICATION}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskWAITING\_NOTIFICATION}{taskWAITING\_NOTIFICATION}}
+{\footnotesize\ttfamily \label{tasks_8c_acee66205293e253c13626e74798a0cf0} 
+\#define task\+WAITING\+\_\+\+NOTIFICATION~( ( uint8\+\_\+t ) 1 )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00069}{69}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_acd0c920e40647de517ac633965b52273}\index{tasks.c@{tasks.c}!taskYIELD\_IF\_USING\_PREEMPTION@{taskYIELD\_IF\_USING\_PREEMPTION}}
+\index{taskYIELD\_IF\_USING\_PREEMPTION@{taskYIELD\_IF\_USING\_PREEMPTION}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{taskYIELD\_IF\_USING\_PREEMPTION}{taskYIELD\_IF\_USING\_PREEMPTION}}
+{\footnotesize\ttfamily \label{tasks_8c_acd0c920e40647de517ac633965b52273} 
+\#define task\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00062}{62}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_a4cd87df39bdffff557d06f4ff15a30b0}\index{tasks.c@{tasks.c}!tskBLOCKED\_CHAR@{tskBLOCKED\_CHAR}}
+\index{tskBLOCKED\_CHAR@{tskBLOCKED\_CHAR}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskBLOCKED\_CHAR}{tskBLOCKED\_CHAR}}
+{\footnotesize\ttfamily \label{tasks_8c_a4cd87df39bdffff557d06f4ff15a30b0} 
+\#define tsk\+BLOCKED\+\_\+\+CHAR~( \textquotesingle{}B\textquotesingle{} )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00096}{96}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a9aba572191d065741f5a3e94c416d455}\index{tasks.c@{tasks.c}!tskDELETED\_CHAR@{tskDELETED\_CHAR}}
+\index{tskDELETED\_CHAR@{tskDELETED\_CHAR}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskDELETED\_CHAR}{tskDELETED\_CHAR}}
+{\footnotesize\ttfamily \label{tasks_8c_a9aba572191d065741f5a3e94c416d455} 
+\#define tsk\+DELETED\+\_\+\+CHAR~( \textquotesingle{}D\textquotesingle{} )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00098}{98}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_af06a1633d2fb92f67712e62f3d1c3777}\index{tasks.c@{tasks.c}!tskDYNAMICALLY\_ALLOCATED\_STACK\_AND\_TCB@{tskDYNAMICALLY\_ALLOCATED\_STACK\_AND\_TCB}}
+\index{tskDYNAMICALLY\_ALLOCATED\_STACK\_AND\_TCB@{tskDYNAMICALLY\_ALLOCATED\_STACK\_AND\_TCB}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskDYNAMICALLY\_ALLOCATED\_STACK\_AND\_TCB}{tskDYNAMICALLY\_ALLOCATED\_STACK\_AND\_TCB}}
+{\footnotesize\ttfamily \label{tasks_8c_af06a1633d2fb92f67712e62f3d1c3777} 
+\#define tsk\+DYNAMICALLY\+\_\+\+ALLOCATED\+\_\+\+STACK\+\_\+\+AND\+\_\+\+TCB~( ( uint8\+\_\+t ) 0 )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00079}{79}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a2fd6c7a58ad28dd1f2c1e322b1ab3fcb}\index{tasks.c@{tasks.c}!tskREADY\_CHAR@{tskREADY\_CHAR}}
+\index{tskREADY\_CHAR@{tskREADY\_CHAR}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskREADY\_CHAR}{tskREADY\_CHAR}}
+{\footnotesize\ttfamily \label{tasks_8c_a2fd6c7a58ad28dd1f2c1e322b1ab3fcb} 
+\#define tsk\+READY\+\_\+\+CHAR~( \textquotesingle{}R\textquotesingle{} )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00097}{97}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a13f2f32dab5dee7a9b2c848c88ef9bcc}\index{tasks.c@{tasks.c}!tskRUNNING\_CHAR@{tskRUNNING\_CHAR}}
+\index{tskRUNNING\_CHAR@{tskRUNNING\_CHAR}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskRUNNING\_CHAR}{tskRUNNING\_CHAR}}
+{\footnotesize\ttfamily \label{tasks_8c_a13f2f32dab5dee7a9b2c848c88ef9bcc} 
+\#define tsk\+RUNNING\+\_\+\+CHAR~( \textquotesingle{}X\textquotesingle{} )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00095}{95}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a95d95c8702f95db8a8a446e1d083245a}\index{tasks.c@{tasks.c}!tskSET\_NEW\_STACKS\_TO\_KNOWN\_VALUE@{tskSET\_NEW\_STACKS\_TO\_KNOWN\_VALUE}}
+\index{tskSET\_NEW\_STACKS\_TO\_KNOWN\_VALUE@{tskSET\_NEW\_STACKS\_TO\_KNOWN\_VALUE}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskSET\_NEW\_STACKS\_TO\_KNOWN\_VALUE}{tskSET\_NEW\_STACKS\_TO\_KNOWN\_VALUE}}
+{\footnotesize\ttfamily \label{tasks_8c_a95d95c8702f95db8a8a446e1d083245a} 
+\#define tsk\+SET\+\_\+\+NEW\+\_\+\+STACKS\+\_\+\+TO\+\_\+\+KNOWN\+\_\+\+VALUE~0}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00089}{89}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_ad3b1c99066f14855be098ccca1685fac}\index{tasks.c@{tasks.c}!tskSTACK\_FILL\_BYTE@{tskSTACK\_FILL\_BYTE}}
+\index{tskSTACK\_FILL\_BYTE@{tskSTACK\_FILL\_BYTE}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskSTACK\_FILL\_BYTE}{tskSTACK\_FILL\_BYTE}}
+{\footnotesize\ttfamily \label{tasks_8c_ad3b1c99066f14855be098ccca1685fac} 
+\#define tsk\+STACK\+\_\+\+FILL\+\_\+\+BYTE~( 0xa5U )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00076}{76}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a9851e50775136d536fed623e1ac598aa}\index{tasks.c@{tasks.c}!tskSTATICALLY\_ALLOCATED\_STACK\_AND\_TCB@{tskSTATICALLY\_ALLOCATED\_STACK\_AND\_TCB}}
+\index{tskSTATICALLY\_ALLOCATED\_STACK\_AND\_TCB@{tskSTATICALLY\_ALLOCATED\_STACK\_AND\_TCB}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskSTATICALLY\_ALLOCATED\_STACK\_AND\_TCB}{tskSTATICALLY\_ALLOCATED\_STACK\_AND\_TCB}}
+{\footnotesize\ttfamily \label{tasks_8c_a9851e50775136d536fed623e1ac598aa} 
+\#define tsk\+STATICALLY\+\_\+\+ALLOCATED\+\_\+\+STACK\+\_\+\+AND\+\_\+\+TCB~( ( uint8\+\_\+t ) 2 )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00081}{81}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_ad65be2320d426aca4e0e72d29ccd04de}\index{tasks.c@{tasks.c}!tskSTATICALLY\_ALLOCATED\_STACK\_ONLY@{tskSTATICALLY\_ALLOCATED\_STACK\_ONLY}}
+\index{tskSTATICALLY\_ALLOCATED\_STACK\_ONLY@{tskSTATICALLY\_ALLOCATED\_STACK\_ONLY}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskSTATICALLY\_ALLOCATED\_STACK\_ONLY}{tskSTATICALLY\_ALLOCATED\_STACK\_ONLY}}
+{\footnotesize\ttfamily \label{tasks_8c_ad65be2320d426aca4e0e72d29ccd04de} 
+\#define tsk\+STATICALLY\+\_\+\+ALLOCATED\+\_\+\+STACK\+\_\+\+ONLY~( ( uint8\+\_\+t ) 1 )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00080}{80}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a3613b4b66406c8f6cc73e5c3e9f208db}\index{tasks.c@{tasks.c}!tskSUSPENDED\_CHAR@{tskSUSPENDED\_CHAR}}
+\index{tskSUSPENDED\_CHAR@{tskSUSPENDED\_CHAR}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskSUSPENDED\_CHAR}{tskSUSPENDED\_CHAR}}
+{\footnotesize\ttfamily \label{tasks_8c_a3613b4b66406c8f6cc73e5c3e9f208db} 
+\#define tsk\+SUSPENDED\+\_\+\+CHAR~( \textquotesingle{}S\textquotesingle{} )}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00099}{99}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}\index{tasks.c@{tasks.c}!TCB\_t@{TCB\_t}}
+\index{TCB\_t@{TCB\_t}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{TCB\_t}{TCB\_t}}
+{\footnotesize\ttfamily \label{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453} 
+typedef \mbox{\hyperlink{tasks_8c_a67b1ddede4e49c946dd720d83c5838a5}{tsk\+TCB}} \mbox{\hyperlink{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}{TCB\+\_\+t}}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00332}{332}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_a67b1ddede4e49c946dd720d83c5838a5}\index{tasks.c@{tasks.c}!tskTCB@{tskTCB}}
+\index{tskTCB@{tskTCB}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{tskTCB}{tskTCB}}
+{\footnotesize\ttfamily \label{tasks_8c_a67b1ddede4e49c946dd720d83c5838a5} 
+typedef struct \mbox{\hyperlink{structtsk_task_control_block}{tsk\+Task\+Control\+Block}} \mbox{\hyperlink{tasks_8c_a67b1ddede4e49c946dd720d83c5838a5}{tsk\+TCB}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tasks_8c_acb1be57d03f6f1a3161b69e98df6ccb9}\index{tasks.c@{tasks.c}!pcTaskGetName@{pcTaskGetName}}
+\index{pcTaskGetName@{pcTaskGetName}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{pcTaskGetName()}{pcTaskGetName()}}
+{\footnotesize\ttfamily \label{tasks_8c_acb1be57d03f6f1a3161b69e98df6ccb9} 
+char \texorpdfstring{$\ast$}{*} pc\+Task\+Get\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}}}]{x\+Task\+To\+Query}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02357}{2357}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{tasks_8c_source_l00263}{tsk\+Task\+Control\+Block\+::pc\+Task\+Name}}, and \mbox{\hyperlink{tasks_8c_source_l00230}{prv\+Get\+TCBFrom\+Handle}}.
+
+\Hypertarget{tasks_8c_a36c7cc58985d41c2cb1b263563dbbaa1}\index{tasks.c@{tasks.c}!portTASK\_FUNCTION@{portTASK\_FUNCTION}}
+\index{portTASK\_FUNCTION@{portTASK\_FUNCTION}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{portTASK\_FUNCTION()}{portTASK\_FUNCTION()}}
+{\footnotesize\ttfamily \label{tasks_8c_a36c7cc58985d41c2cb1b263563dbbaa1} 
+static port\+TASK\+\_\+\+FUNCTION (\begin{DoxyParamCaption}\item[{prv\+Idle\+Task}]{}{, }\item[{pv\+Parameters}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+THIS IS THE RTOS IDLE TASK -\/ WHICH IS CREATED AUTOMATICALLY WHEN THE SCHEDULER IS STARTED.
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03391}{3391}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00754}{config\+EXPECTED\+\_\+\+IDLE\+\_\+\+TIME\+\_\+\+BEFORE\+\_\+\+SLEEP}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00766}{config\+PRE\+\_\+\+SUPPRESS\+\_\+\+TICKS\+\_\+\+AND\+\_\+\+SLEEP\+\_\+\+PROCESSING}}, \mbox{\hyperlink{list_8h_source_l00255}{list\+CURRENT\+\_\+\+LIST\+\_\+\+LENGTH}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00786}{port\+ALLOCATE\+\_\+\+SECURE\+\_\+\+CONTEXT}}, \mbox{\hyperlink{portmacro_8h_source_l00119}{port\+SUPPRESS\+\_\+\+TICKS\+\_\+\+AND\+\_\+\+SLEEP}}, \mbox{\hyperlink{tasks_8c_source_l03638}{prv\+Check\+Tasks\+Waiting\+Termination()}}, \mbox{\hyperlink{tasks_8c_source_l00342}{px\+Ready\+Tasks\+Lists}}, \mbox{\hyperlink{task_8h_source_l00173}{task\+YIELD}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00342}{trace\+LOW\+\_\+\+POWER\+\_\+\+IDLE\+\_\+\+BEGIN}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00347}{trace\+LOW\+\_\+\+POWER\+\_\+\+IDLE\+\_\+\+END}}, \mbox{\hyperlink{task_8h_source_l00163}{tsk\+IDLE\+\_\+\+PRIORITY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01512}{v\+Application\+Idle\+Hook()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l00377}{x\+Next\+Task\+Unblock\+Time}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, and \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}.
+
+\Hypertarget{tasks_8c_ab4574e77d9aea876272e563c68f639da}\index{tasks.c@{tasks.c}!prvAddCurrentTaskToDelayedList@{prvAddCurrentTaskToDelayedList}}
+\index{prvAddCurrentTaskToDelayedList@{prvAddCurrentTaskToDelayedList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvAddCurrentTaskToDelayedList()}{prvAddCurrentTaskToDelayedList()}}
+{\footnotesize\ttfamily \label{tasks_8c_ab4574e77d9aea876272e563c68f639da} 
+static void prv\+Add\+Current\+Task\+To\+Delayed\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Can\+Block\+Indefinitely}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l05176}{5176}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00198}{list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{tasks_8c_source_l00155}{port\+RESET\+\_\+\+READY\+\_\+\+PRIORITY}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{tasks_8c_source_l00345}{px\+Delayed\+Task\+List}}, \mbox{\hyperlink{tasks_8c_source_l00346}{px\+Overflow\+Delayed\+Task\+List}}, \mbox{\hyperlink{list_8c_source_l00174}{ux\+List\+Remove()}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, \mbox{\hyperlink{tasks_8c_source_l00371}{ux\+Top\+Ready\+Priority}}, \mbox{\hyperlink{list_8c_source_l00107}{v\+List\+Insert()}}, \mbox{\hyperlink{list_8c_source_l00078}{v\+List\+Insert\+End()}}, \mbox{\hyperlink{tasks_8c_source_l00377}{x\+Next\+Task\+Unblock\+Time}}, \mbox{\hyperlink{tasks_8c_source_l00259}{tsk\+Task\+Control\+Block\+::x\+State\+List\+Item}}, and \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}.
+
+\Hypertarget{tasks_8c_a132d136b8d2586e0778ce369e5cb8a1e}\index{tasks.c@{tasks.c}!prvAddNewTaskToReadyList@{prvAddNewTaskToReadyList}}
+\index{prvAddNewTaskToReadyList@{prvAddNewTaskToReadyList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvAddNewTaskToReadyList()}{prvAddNewTaskToReadyList()}}
+{\footnotesize\ttfamily \label{tasks_8c_a132d136b8d2586e0778ce369e5cb8a1e} 
+static void prv\+Add\+New\+Task\+To\+Ready\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}{TCB\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+New\+TCB}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l01076}{1076}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00298}{port\+SETUP\+\_\+\+TCB}}, \mbox{\hyperlink{tasks_8c_source_l00217}{prv\+Add\+Task\+To\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{tasks_8c_source_l00062}{task\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00512}{trace\+TASK\+\_\+\+CREATE}}, \mbox{\hyperlink{tasks_8c_source_l00369}{ux\+Current\+Number\+Of\+Tasks}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, \mbox{\hyperlink{tasks_8c_source_l00376}{ux\+Task\+Number}}, and \mbox{\hyperlink{tasks_8c_source_l00372}{x\+Scheduler\+Running}}.
+
+\Hypertarget{tasks_8c_a903096c962a2bc907f4b902a7d42302a}\index{tasks.c@{tasks.c}!prvCheckTasksWaitingTermination@{prvCheckTasksWaitingTermination}}
+\index{prvCheckTasksWaitingTermination@{prvCheckTasksWaitingTermination}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvCheckTasksWaitingTermination()}{prvCheckTasksWaitingTermination()}}
+{\footnotesize\ttfamily \label{tasks_8c_a903096c962a2bc907f4b902a7d42302a} 
+static void prv\+Check\+Tasks\+Waiting\+Termination (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+THIS FUNCTION IS CALLED FROM THE RTOS IDLE TASK
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03638}{3638}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00307}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{tasks_8c_source_l00369}{ux\+Current\+Number\+Of\+Tasks}}, \mbox{\hyperlink{list_8c_source_l00174}{ux\+List\+Remove()}}, and \mbox{\hyperlink{tasks_8c_source_l00259}{tsk\+Task\+Control\+Block\+::x\+State\+List\+Item}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}.
+
+\Hypertarget{tasks_8c_a1ceb56c5c7ff2581a5ea837db4f721c1}\index{tasks.c@{tasks.c}!prvInitialiseTaskLists@{prvInitialiseTaskLists}}
+\index{prvInitialiseTaskLists@{prvInitialiseTaskLists}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvInitialiseTaskLists()}{prvInitialiseTaskLists()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{tasks_8c_a1ceb56c5c7ff2581a5ea837db4f721c1} 
+static void prv\+Initialise\+Task\+Lists (\begin{DoxyParamCaption}\item[{static void \mbox{\hyperlink{tasks_8c_a903096c962a2bc907f4b902a7d42302a}{prv\+Check\+Tasks\+Waiting\+Termination}}}]{void}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Utility task that simply returns pd\+TRUE if the task referenced by x\+Task is currently in the Suspended state, or pd\+FALSE if the task referenced by x\+Task is in any other state. 
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00439}{439}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+\Hypertarget{tasks_8c_af4a1bd397cb871d893fc24e5f86e4f19}\index{tasks.c@{tasks.c}!prvInitialiseTaskLists@{prvInitialiseTaskLists}}
+\index{prvInitialiseTaskLists@{prvInitialiseTaskLists}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvInitialiseTaskLists()}{prvInitialiseTaskLists()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{tasks_8c_af4a1bd397cb871d893fc24e5f86e4f19} 
+static void prv\+Initialise\+Task\+Lists (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03606}{3606}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00026}{config\+MAX\+\_\+\+PRIORITIES}}, \mbox{\hyperlink{tasks_8c_source_l00345}{px\+Delayed\+Task\+List}}, \mbox{\hyperlink{tasks_8c_source_l00346}{px\+Overflow\+Delayed\+Task\+List}}, \mbox{\hyperlink{tasks_8c_source_l00342}{px\+Ready\+Tasks\+Lists}}, \mbox{\hyperlink{list_8c_source_l00041}{v\+List\+Initialise()}}, \mbox{\hyperlink{tasks_8c_source_l00343}{x\+Delayed\+Task\+List1}}, \mbox{\hyperlink{tasks_8c_source_l00344}{x\+Delayed\+Task\+List2}}, and \mbox{\hyperlink{tasks_8c_source_l00347}{x\+Pending\+Ready\+List}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}.
+
+\Hypertarget{tasks_8c_ad1b2e4995f863a99cf980836efe330d7}\index{tasks.c@{tasks.c}!prvResetNextTaskUnblockTime@{prvResetNextTaskUnblockTime}}
+\index{prvResetNextTaskUnblockTime@{prvResetNextTaskUnblockTime}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{prvResetNextTaskUnblockTime()}{prvResetNextTaskUnblockTime()}}
+{\footnotesize\ttfamily \label{tasks_8c_ad1b2e4995f863a99cf980836efe330d7} 
+static void prv\+Reset\+Next\+Task\+Unblock\+Time (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03942}{3942}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00208}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{list_8h_source_l00307}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{tasks_8c_source_l00345}{px\+Delayed\+Task\+List}}, and \mbox{\hyperlink{tasks_8c_source_l00377}{x\+Next\+Task\+Unblock\+Time}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_a4b660446c721df74158dddb9fc189c1e}\index{tasks.c@{tasks.c}!uxTaskGetNumberOfTasks@{uxTaskGetNumberOfTasks}}
+\index{uxTaskGetNumberOfTasks@{uxTaskGetNumberOfTasks}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{uxTaskGetNumberOfTasks()}{uxTaskGetNumberOfTasks()}}
+{\footnotesize\ttfamily \label{tasks_8c_a4b660446c721df74158dddb9fc189c1e} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Task\+Get\+Number\+Of\+Tasks (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02349}{2349}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{tasks_8c_source_l00369}{ux\+Current\+Number\+Of\+Tasks}}.
+
+\Hypertarget{tasks_8c_a7ffe39eff8b9037b2de04f15a10ba717}\index{tasks.c@{tasks.c}!uxTaskResetEventItemValue@{uxTaskResetEventItemValue}}
+\index{uxTaskResetEventItemValue@{uxTaskResetEventItemValue}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{uxTaskResetEventItemValue()}{uxTaskResetEventItemValue()}}
+{\footnotesize\ttfamily \label{tasks_8c_a7ffe39eff8b9037b2de04f15a10ba717} 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ux\+Task\+Reset\+Event\+Item\+Value (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l04601}{4601}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00026}{config\+MAX\+\_\+\+PRIORITIES}}, \mbox{\hyperlink{list_8h_source_l00208}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{list_8h_source_l00198}{list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, and \mbox{\hyperlink{tasks_8c_source_l00260}{tsk\+Task\+Control\+Block\+::x\+Event\+List\+Item}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, and \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{tasks_8c_aeadc53d3d0d0ea3a6c7702a9eacbf452}\index{tasks.c@{tasks.c}!vTaskEndScheduler@{vTaskEndScheduler}}
+\index{vTaskEndScheduler@{vTaskEndScheduler}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskEndScheduler()}{vTaskEndScheduler()}}
+{\footnotesize\ttfamily \label{tasks_8c_aeadc53d3d0d0ea3a6c7702a9eacbf452} 
+void v\+Task\+End\+Scheduler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02098}{2098}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{portmacro_8h_source_l00102}{port\+DISABLE\+\_\+\+INTERRUPTS}}, \mbox{\hyperlink{port_8c_source_l00395}{v\+Port\+End\+Scheduler()}}, and \mbox{\hyperlink{tasks_8c_source_l00372}{x\+Scheduler\+Running}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00350}{\+\_\+\+\_\+uv\+Init\+Panic()}}.
+
+\Hypertarget{tasks_8c_a91fbc7c4b65e32fae51b7d43ebdcb131}\index{tasks.c@{tasks.c}!vTaskInternalSetTimeOutState@{vTaskInternalSetTimeOutState}}
+\index{vTaskInternalSetTimeOutState@{vTaskInternalSetTimeOutState}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskInternalSetTimeOutState()}{vTaskInternalSetTimeOutState()}}
+{\footnotesize\ttfamily \label{tasks_8c_a91fbc7c4b65e32fae51b7d43ebdcb131} 
+void v\+Task\+Internal\+Set\+Time\+Out\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{task_8h_a558b407b5433bee1696535e3c4816bdf}{Time\+Out\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Time\+Out}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03265}{3265}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{tasks_8c_source_l00375}{x\+Num\+Of\+Overflows}}, \mbox{\hyperlink{task_8h_source_l00104}{x\+TIME\+\_\+\+OUT\+::x\+Overflow\+Count}}, \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}, and \mbox{\hyperlink{task_8h_source_l00105}{x\+TIME\+\_\+\+OUT\+::x\+Time\+On\+Entering}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}, and \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}.
+
+\Hypertarget{tasks_8c_a33c369f5f08ab96659f94093fdb985af}\index{tasks.c@{tasks.c}!vTaskMissedYield@{vTaskMissedYield}}
+\index{vTaskMissedYield@{vTaskMissedYield}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskMissedYield()}{vTaskMissedYield()}}
+{\footnotesize\ttfamily \label{tasks_8c_a33c369f5f08ab96659f94093fdb985af} 
+void v\+Task\+Missed\+Yield (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03336}{3336}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, and \mbox{\hyperlink{tasks_8c_source_l00374}{x\+Yield\+Pending}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}.
+
+\Hypertarget{tasks_8c_adc9eb47ceecf7dd7ee325bebff9eafc5}\index{tasks.c@{tasks.c}!vTaskPlaceOnEventList@{vTaskPlaceOnEventList}}
+\index{vTaskPlaceOnEventList@{vTaskPlaceOnEventList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskPlaceOnEventList()}{vTaskPlaceOnEventList()}}
+{\footnotesize\ttfamily \label{tasks_8c_adc9eb47ceecf7dd7ee325bebff9eafc5} 
+void v\+Task\+Place\+On\+Event\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Event\+List}{, }\item[{const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03063}{3063}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{list_8c_source_l00107}{v\+List\+Insert()}}, and \mbox{\hyperlink{tasks_8c_source_l00260}{tsk\+Task\+Control\+Block\+::x\+Event\+List\+Item}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{tasks_8c_a0896d9cd10d789ef8dbb95c4959c3ce5}\index{tasks.c@{tasks.c}!vTaskPlaceOnUnorderedEventList@{vTaskPlaceOnUnorderedEventList}}
+\index{vTaskPlaceOnUnorderedEventList@{vTaskPlaceOnUnorderedEventList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskPlaceOnUnorderedEventList()}{vTaskPlaceOnUnorderedEventList()}}
+{\footnotesize\ttfamily \label{tasks_8c_a0896d9cd10d789ef8dbb95c4959c3ce5} 
+void v\+Task\+Place\+On\+Unordered\+Event\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Event\+List}{, }\item[{const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Item\+Value}{, }\item[{const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03080}{3080}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{list_8h_source_l00198}{list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{tasks_8c_source_l00243}{task\+EVENT\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE\+\_\+\+IN\+\_\+\+USE}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, \mbox{\hyperlink{list_8c_source_l00078}{v\+List\+Insert\+End()}}, and \mbox{\hyperlink{tasks_8c_source_l00260}{tsk\+Task\+Control\+Block\+::x\+Event\+List\+Item}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, and \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{tasks_8c_a82d239ddcdd2d68abe14789b1257b11f}\index{tasks.c@{tasks.c}!vTaskRemoveFromUnorderedEventList@{vTaskRemoveFromUnorderedEventList}}
+\index{vTaskRemoveFromUnorderedEventList@{vTaskRemoveFromUnorderedEventList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskRemoveFromUnorderedEventList()}{vTaskRemoveFromUnorderedEventList()}}
+{\footnotesize\ttfamily \label{tasks_8c_a82d239ddcdd2d68abe14789b1257b11f} 
+void v\+Task\+Remove\+From\+Unordered\+Event\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{px\+Event\+List\+Item}{, }\item[{const \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Item\+Value}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03205}{3205}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{list_8h_source_l00189}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+OWNER}}, \mbox{\hyperlink{list_8h_source_l00198}{list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{tasks_8c_source_l00217}{prv\+Add\+Task\+To\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{tasks_8c_source_l00243}{task\+EVENT\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE\+\_\+\+IN\+\_\+\+USE}}, \mbox{\hyperlink{list_8c_source_l00174}{ux\+List\+Remove()}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, \mbox{\hyperlink{tasks_8c_source_l00259}{tsk\+Task\+Control\+Block\+::x\+State\+List\+Item}}, and \mbox{\hyperlink{tasks_8c_source_l00374}{x\+Yield\+Pending}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00613}{v\+Event\+Group\+Delete()}}, and \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}.
+
+\Hypertarget{tasks_8c_a5dfb2b9e41fb002318d9c55452a91c83}\index{tasks.c@{tasks.c}!vTaskSetTimeOutState@{vTaskSetTimeOutState}}
+\index{vTaskSetTimeOutState@{vTaskSetTimeOutState}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskSetTimeOutState()}{vTaskSetTimeOutState()}}
+{\footnotesize\ttfamily \label{tasks_8c_a5dfb2b9e41fb002318d9c55452a91c83} 
+void v\+Task\+Set\+Time\+Out\+State (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{task_8h_a558b407b5433bee1696535e3c4816bdf}{Time\+Out\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Time\+Out}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03253}{3253}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{tasks_8c_source_l00375}{x\+Num\+Of\+Overflows}}, \mbox{\hyperlink{task_8h_source_l00104}{x\+TIME\+\_\+\+OUT\+::x\+Overflow\+Count}}, \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}, and \mbox{\hyperlink{task_8h_source_l00105}{x\+TIME\+\_\+\+OUT\+::x\+Time\+On\+Entering}}.
+
+
+
+Referenced by \mbox{\hyperlink{stream__buffer_8c_source_l00506}{x\+Stream\+Buffer\+Send()}}.
+
+\Hypertarget{tasks_8c_a598661cdd2a6af95a077245d11e3d142}\index{tasks.c@{tasks.c}!vTaskStartScheduler@{vTaskStartScheduler}}
+\index{vTaskStartScheduler@{vTaskStartScheduler}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskStartScheduler()}{vTaskStartScheduler()}}
+{\footnotesize\ttfamily \label{tasks_8c_a598661cdd2a6af95a077245d11e3d142} 
+void v\+Task\+Start\+Scheduler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l01974}{1974}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{tasks_8c_source_l00112}{config\+IDLE\+\_\+\+TASK\+\_\+\+NAME}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00884}{config\+INITIAL\+\_\+\+TICK\+\_\+\+COUNT}}, \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00027}{config\+MINIMAL\+\_\+\+STACK\+\_\+\+SIZE}}, \mbox{\hyperlink{projdefs_8h_source_l00053}{err\+COULD\+\_\+\+NOT\+\_\+\+ALLOCATE\+\_\+\+REQUIRED\+\_\+\+MEMORY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00048}{pd\+FAIL}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00734}{port\+CONFIGURE\+\_\+\+TIMER\+\_\+\+FOR\+\_\+\+RUN\+\_\+\+TIME\+\_\+\+STATS}}, \mbox{\hyperlink{portmacro_8h_source_l00102}{port\+DISABLE\+\_\+\+INTERRUPTS}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00742}{port\+PRIVILEGE\+\_\+\+BIT}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00331}{trace\+TASK\+\_\+\+SWITCHED\+\_\+\+IN}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01520}{v\+Application\+Get\+Idle\+Task\+Memory()}}, \mbox{\hyperlink{tasks_8c_source_l00378}{x\+Idle\+Task\+Handle}}, \mbox{\hyperlink{tasks_8c_source_l00377}{x\+Next\+Task\+Unblock\+Time}}, \mbox{\hyperlink{port_8c_source_l00287}{x\+Port\+Start\+Scheduler()}}, \mbox{\hyperlink{tasks_8c_source_l00372}{x\+Scheduler\+Running}}, \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}, and \mbox{\hyperlink{timers_8h_af777ab3e9ac04abd5dd21be739fa1321}{x\+Timer\+Create\+Timer\+Task()}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}, and \mbox{\hyperlink{cmsis__os_8c_source_l00151}{os\+Kernel\+Start()}}.
+
+\Hypertarget{tasks_8c_a084d232640bd1d04bcac0b8784417015}\index{tasks.c@{tasks.c}!vTaskSuspendAll@{vTaskSuspendAll}}
+\index{vTaskSuspendAll@{vTaskSuspendAll}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskSuspendAll()}{vTaskSuspendAll()}}
+{\footnotesize\ttfamily \label{tasks_8c_a084d232640bd1d04bcac0b8784417015} 
+void v\+Task\+Suspend\+All (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02109}{2109}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{portmacro_8h_source_l00237}{port\+MEMORY\+\_\+\+BARRIER}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00261}{port\+SOFTWARE\+\_\+\+BARRIER}}, and \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00407}{\+\_\+\+\_\+uv\+Free\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00371}{\+\_\+\+\_\+uv\+Malloc\+Crit\+Section()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01473}{os\+Thread\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}, \mbox{\hyperlink{heap__4_8c_source_l00115}{pv\+Port\+Malloc()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00324}{uv\+Utils\+Reset()}}, \mbox{\hyperlink{event__groups_8c_source_l00613}{v\+Event\+Group\+Delete()}}, \mbox{\hyperlink{heap__4_8c_source_l00266}{v\+Port\+Free()}}, \mbox{\hyperlink{heap__4_8c_source_l00442}{v\+Port\+Get\+Heap\+Stats()}}, \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}, and \mbox{\hyperlink{tasks_8c_source_l02608}{x\+Task\+Catch\+Up\+Ticks()}}.
+
+\Hypertarget{tasks_8c_a9c86137bc3c1cbffc39fff22627cb885}\index{tasks.c@{tasks.c}!vTaskSwitchContext@{vTaskSwitchContext}}
+\index{vTaskSwitchContext@{vTaskSwitchContext}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{vTaskSwitchContext()}{vTaskSwitchContext()}}
+{\footnotesize\ttfamily \label{tasks_8c_a9c86137bc3c1cbffc39fff22627cb885} 
+void v\+Task\+Switch\+Context (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02988}{2988}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{stack__macros_8h_source_l00123}{task\+CHECK\+\_\+\+FOR\+\_\+\+STACK\+\_\+\+OVERFLOW}}, \mbox{\hyperlink{tasks_8c_source_l00133}{task\+SELECT\+\_\+\+HIGHEST\+\_\+\+PRIORITY\+\_\+\+TASK}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00331}{trace\+TASK\+\_\+\+SWITCHED\+\_\+\+IN}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00353}{trace\+TASK\+\_\+\+SWITCHED\+\_\+\+OUT}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, and \mbox{\hyperlink{tasks_8c_source_l00374}{x\+Yield\+Pending}}.
+
+
+
+Referenced by \mbox{\hyperlink{port_8c_source_l00287}{x\+Port\+Start\+Scheduler()}}.
+
+\Hypertarget{tasks_8c_aea7126047f4a766a28f579a0027f00c3}\index{tasks.c@{tasks.c}!xTaskCatchUpTicks@{xTaskCatchUpTicks}}
+\index{xTaskCatchUpTicks@{xTaskCatchUpTicks}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskCatchUpTicks()}{xTaskCatchUpTicks()}}
+{\footnotesize\ttfamily \label{tasks_8c_aea7126047f4a766a28f579a0027f00c3} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Task\+Catch\+Up\+Ticks (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Catch\+Up}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02608}{2608}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l00373}{x\+Pended\+Ticks}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_acfc8de487c86355713d0e8546506d9e4}\index{tasks.c@{tasks.c}!xTaskCheckForTimeOut@{xTaskCheckForTimeOut}}
+\index{xTaskCheckForTimeOut@{xTaskCheckForTimeOut}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskCheckForTimeOut()}{xTaskCheckForTimeOut()}}
+{\footnotesize\ttfamily \label{tasks_8c_acfc8de487c86355713d0e8546506d9e4} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Task\+Check\+For\+Time\+Out (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{task_8h_a558b407b5433bee1696535e3c4816bdf}{Time\+Out\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Time\+Out}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03273}{3273}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l00375}{x\+Num\+Of\+Overflows}}, \mbox{\hyperlink{task_8h_source_l00104}{x\+TIME\+\_\+\+OUT\+::x\+Overflow\+Count}}, \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}, and \mbox{\hyperlink{task_8h_source_l00105}{x\+TIME\+\_\+\+OUT\+::x\+Time\+On\+Entering}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}, and \mbox{\hyperlink{stream__buffer_8c_source_l00506}{x\+Stream\+Buffer\+Send()}}.
+
+\Hypertarget{tasks_8c_a5fa24e36d5e1eeb57f5b73b72ea048e7}\index{tasks.c@{tasks.c}!xTaskGetTickCount@{xTaskGetTickCount}}
+\index{xTaskGetTickCount@{xTaskGetTickCount}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskGetTickCount()}{xTaskGetTickCount()}}
+{\footnotesize\ttfamily \label{tasks_8c_a5fa24e36d5e1eeb57f5b73b72ea048e7} 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Task\+Get\+Tick\+Count (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02303}{2303}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00898}{port\+TICK\+\_\+\+TYPE\+\_\+\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00899}{port\+TICK\+\_\+\+TYPE\+\_\+\+EXIT\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}, \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{daq_8c_source_l00428}{daq\+Sub\+Task()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00097}{log\+Vehicle\+Fault()}}, \mbox{\hyperlink{odometer_8c_source_l00046}{odometer\+Task()}}, \mbox{\hyperlink{cmsis__os_8c_source_l00185}{os\+Kernel\+Sys\+Tick()}}, \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}, \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00401}{uv\+Start\+Task()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{uv\+Task\+Manager()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01469}{uv\+Task\+Period\+End()}}.
+
+\Hypertarget{tasks_8c_ad58fd766b8f438b5703276f585738762}\index{tasks.c@{tasks.c}!xTaskGetTickCountFromISR@{xTaskGetTickCountFromISR}}
+\index{xTaskGetTickCountFromISR@{xTaskGetTickCountFromISR}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskGetTickCountFromISR()}{xTaskGetTickCountFromISR()}}
+{\footnotesize\ttfamily \label{tasks_8c_ad58fd766b8f438b5703276f585738762} 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Task\+Get\+Tick\+Count\+From\+ISR (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02318}{2318}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00901}{port\+TICK\+\_\+\+TYPE\+\_\+\+CLEAR\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00900}{port\+TICK\+\_\+\+TYPE\+\_\+\+SET\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, and \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}.
+
+
+
+Referenced by \mbox{\hyperlink{cmsis__os_8c_source_l00185}{os\+Kernel\+Sys\+Tick()}}.
+
+\Hypertarget{tasks_8c_a54f31e9aef0eb7b87e48c7d68ecc84c1}\index{tasks.c@{tasks.c}!xTaskIncrementTick@{xTaskIncrementTick}}
+\index{xTaskIncrementTick@{xTaskIncrementTick}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskIncrementTick()}{xTaskIncrementTick()}}
+{\footnotesize\ttfamily \label{tasks_8c_a54f31e9aef0eb7b87e48c7d68ecc84c1} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Task\+Increment\+Tick (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02706}{2706}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00255}{list\+CURRENT\+\_\+\+LIST\+\_\+\+LENGTH}}, \mbox{\hyperlink{list_8h_source_l00208}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{list_8h_source_l00307}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{list_8h_source_l00326}{list\+LIST\+\_\+\+ITEM\+\_\+\+CONTAINER}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{tasks_8c_source_l00217}{prv\+Add\+Task\+To\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{tasks_8c_source_l00345}{px\+Delayed\+Task\+List}}, \mbox{\hyperlink{tasks_8c_source_l00342}{px\+Ready\+Tasks\+Lists}}, \mbox{\hyperlink{tasks_8c_source_l00197}{task\+SWITCH\+\_\+\+DELAYED\+\_\+\+LISTS}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00548}{trace\+TASK\+\_\+\+INCREMENT\+\_\+\+TICK}}, \mbox{\hyperlink{list_8c_source_l00174}{ux\+List\+Remove()}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00098}{v\+Application\+Tick\+Hook()}}, \mbox{\hyperlink{tasks_8c_source_l00260}{tsk\+Task\+Control\+Block\+::x\+Event\+List\+Item}}, \mbox{\hyperlink{tasks_8c_source_l00377}{x\+Next\+Task\+Unblock\+Time}}, \mbox{\hyperlink{tasks_8c_source_l00373}{x\+Pended\+Ticks}}, \mbox{\hyperlink{tasks_8c_source_l00259}{tsk\+Task\+Control\+Block\+::x\+State\+List\+Item}}, \mbox{\hyperlink{tasks_8c_source_l00370}{x\+Tick\+Count}}, and \mbox{\hyperlink{tasks_8c_source_l00374}{x\+Yield\+Pending}}.
+
+
+
+Referenced by \mbox{\hyperlink{port_8c_source_l00488}{x\+Port\+Sys\+Tick\+Handler()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_a6d21c9054b62d8bc1bfb2724e11578d9}\index{tasks.c@{tasks.c}!xTaskRemoveFromEventList@{xTaskRemoveFromEventList}}
+\index{xTaskRemoveFromEventList@{xTaskRemoveFromEventList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskRemoveFromEventList()}{xTaskRemoveFromEventList()}}
+{\footnotesize\ttfamily \label{tasks_8c_a6d21c9054b62d8bc1bfb2724e11578d9} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Task\+Remove\+From\+Event\+List (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Event\+List}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l03137}{3137}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{list_8h_source_l00307}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{tasks_8c_source_l00217}{prv\+Add\+Task\+To\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{list_8c_source_l00174}{ux\+List\+Remove()}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, \mbox{\hyperlink{list_8c_source_l00078}{v\+List\+Insert\+End()}}, \mbox{\hyperlink{tasks_8c_source_l00260}{tsk\+Task\+Control\+Block\+::x\+Event\+List\+Item}}, \mbox{\hyperlink{tasks_8c_source_l00347}{x\+Pending\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l00259}{tsk\+Task\+Control\+Block\+::x\+State\+List\+Item}}, and \mbox{\hyperlink{tasks_8c_source_l00374}{x\+Yield\+Pending}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01785}{x\+Queue\+Receive\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{tasks_8c_adf830ea0f150fcdfdaa944667137f080}\index{tasks.c@{tasks.c}!xTaskResumeAll@{xTaskResumeAll}}
+\index{xTaskResumeAll@{xTaskResumeAll}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTaskResumeAll()}{xTaskResumeAll()}}
+{\footnotesize\ttfamily \label{tasks_8c_adf830ea0f150fcdfdaa944667137f080} 
+\mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Task\+Resume\+All (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l02193}{2193}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{list_8h_source_l00307}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}, \mbox{\hyperlink{list_8h_source_l00250}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{tasks_8c_source_l00217}{prv\+Add\+Task\+To\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{tasks_8c_source_l00336}{px\+Current\+TCB}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{tasks_8c_source_l00062}{task\+YIELD\+\_\+\+IF\+\_\+\+USING\+\_\+\+PREEMPTION}}, \mbox{\hyperlink{tasks_8c_source_l00369}{ux\+Current\+Number\+Of\+Tasks}}, \mbox{\hyperlink{list_8c_source_l00174}{ux\+List\+Remove()}}, \mbox{\hyperlink{tasks_8c_source_l00261}{tsk\+Task\+Control\+Block\+::ux\+Priority}}, \mbox{\hyperlink{tasks_8c_source_l00388}{ux\+Scheduler\+Suspended}}, \mbox{\hyperlink{tasks_8c_source_l00260}{tsk\+Task\+Control\+Block\+::x\+Event\+List\+Item}}, \mbox{\hyperlink{tasks_8c_source_l00373}{x\+Pended\+Ticks}}, \mbox{\hyperlink{tasks_8c_source_l00347}{x\+Pending\+Ready\+List}}, \mbox{\hyperlink{tasks_8c_source_l00259}{tsk\+Task\+Control\+Block\+::x\+State\+List\+Item}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, and \mbox{\hyperlink{tasks_8c_source_l00374}{x\+Yield\+Pending}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00407}{\+\_\+\+\_\+uv\+Free\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00371}{\+\_\+\+\_\+uv\+Malloc\+Crit\+Section()}}, \mbox{\hyperlink{cmsis__os_8c_source_l01484}{os\+Thread\+Resume\+All()}}, \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}, \mbox{\hyperlink{heap__4_8c_source_l00115}{pv\+Port\+Malloc()}}, \mbox{\hyperlink{event__groups_8c_source_l00613}{v\+Event\+Group\+Delete()}}, \mbox{\hyperlink{heap__4_8c_source_l00266}{v\+Port\+Free()}}, \mbox{\hyperlink{heap__4_8c_source_l00442}{v\+Port\+Get\+Heap\+Stats()}}, \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}, and \mbox{\hyperlink{tasks_8c_source_l02608}{x\+Task\+Catch\+Up\+Ticks()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{tasks_8c_acdecf2afe97343aba42b111bc6df9eea}\index{tasks.c@{tasks.c}!pxCurrentTCB@{pxCurrentTCB}}
+\index{pxCurrentTCB@{pxCurrentTCB}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{pxCurrentTCB}{pxCurrentTCB}}
+{\footnotesize\ttfamily \label{tasks_8c_acdecf2afe97343aba42b111bc6df9eea} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{tasks_8c_aa3c2dda92a6dc22860bbdb36e42a0453}{TCB\+\_\+t}}\texorpdfstring{$\ast$}{*} volatile px\+Current\+TCB = NULL}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00336}{336}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}, \mbox{\hyperlink{tasks_8c_source_l04601}{ux\+Task\+Reset\+Event\+Item\+Value()}}, \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l01974}{v\+Task\+Start\+Scheduler()}}, \mbox{\hyperlink{tasks_8c_source_l02988}{v\+Task\+Switch\+Context()}}, \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_adce0027ea7792541f2851462ac3581a6}\index{tasks.c@{tasks.c}!pxDelayedTaskList@{pxDelayedTaskList}}
+\index{pxDelayedTaskList@{pxDelayedTaskList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{pxDelayedTaskList}{pxDelayedTaskList}}
+{\footnotesize\ttfamily \label{tasks_8c_adce0027ea7792541f2851462ac3581a6} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}}\texorpdfstring{$\ast$}{*} volatile px\+Delayed\+Task\+List\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00345}{345}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}, \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, and \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{tasks_8c_a807ccd06933ebea592c86f91004f85aa}\index{tasks.c@{tasks.c}!pxOverflowDelayedTaskList@{pxOverflowDelayedTaskList}}
+\index{pxOverflowDelayedTaskList@{pxOverflowDelayedTaskList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{pxOverflowDelayedTaskList}{pxOverflowDelayedTaskList}}
+{\footnotesize\ttfamily \label{tasks_8c_a807ccd06933ebea592c86f91004f85aa} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}}\texorpdfstring{$\ast$}{*} volatile px\+Overflow\+Delayed\+Task\+List\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00346}{346}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}.
+
+\Hypertarget{tasks_8c_a7c4a2488f96216742ad8ffff360a98e6}\index{tasks.c@{tasks.c}!pxReadyTasksLists@{pxReadyTasksLists}}
+\index{pxReadyTasksLists@{pxReadyTasksLists}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{pxReadyTasksLists}{pxReadyTasksLists}}
+{\footnotesize\ttfamily \label{tasks_8c_a7c4a2488f96216742ad8ffff360a98e6} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} px\+Ready\+Tasks\+Lists\mbox{[}\mbox{\hyperlink{_free_r_t_o_s_config_8h_a9a78f5ac61e6cb172dadf2a51f11db38}{config\+MAX\+\_\+\+PRIORITIES}}\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00342}{342}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}, \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}, and \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{tasks_8c_adb7afbe7f26cb6bef5c4e367d5a6550c}\index{tasks.c@{tasks.c}!uxCurrentNumberOfTasks@{uxCurrentNumberOfTasks}}
+\index{uxCurrentNumberOfTasks@{uxCurrentNumberOfTasks}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{uxCurrentNumberOfTasks}{uxCurrentNumberOfTasks}}
+{\footnotesize\ttfamily \label{tasks_8c_adb7afbe7f26cb6bef5c4e367d5a6550c} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Current\+Number\+Of\+Tasks = ( \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ) 0U\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00369}{369}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03638}{prv\+Check\+Tasks\+Waiting\+Termination()}}, \mbox{\hyperlink{tasks_8c_source_l02349}{ux\+Task\+Get\+Number\+Of\+Tasks()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_ac177740d1c0f453ad4ee8b96183bc666}\index{tasks.c@{tasks.c}!uxSchedulerSuspended@{uxSchedulerSuspended}}
+\index{uxSchedulerSuspended@{uxSchedulerSuspended}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{uxSchedulerSuspended}{uxSchedulerSuspended}}
+{\footnotesize\ttfamily \label{tasks_8c_ac177740d1c0f453ad4ee8b96183bc666} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Scheduler\+Suspended = ( \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ) \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+FALSE}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00388}{388}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l02988}{v\+Task\+Switch\+Context()}}, \mbox{\hyperlink{tasks_8c_source_l02608}{x\+Task\+Catch\+Up\+Ticks()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_a43097b97496231e1af2dff1fac62bcc6}\index{tasks.c@{tasks.c}!uxTaskNumber@{uxTaskNumber}}
+\index{uxTaskNumber@{uxTaskNumber}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{uxTaskNumber}{uxTaskNumber}}
+{\footnotesize\ttfamily \label{tasks_8c_a43097b97496231e1af2dff1fac62bcc6} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Task\+Number = ( \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ) 0U\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00376}{376}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}.
+
+\Hypertarget{tasks_8c_aa63dabfd96985451f96aaf74c2293642}\index{tasks.c@{tasks.c}!uxTopReadyPriority@{uxTopReadyPriority}}
+\index{uxTopReadyPriority@{uxTopReadyPriority}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{uxTopReadyPriority}{uxTopReadyPriority}}
+{\footnotesize\ttfamily \label{tasks_8c_aa63dabfd96985451f96aaf74c2293642} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+Top\+Ready\+Priority = \mbox{\hyperlink{task_8h_a94ed0b9b3b4e8ccc859c322f18583e67}{tsk\+IDLE\+\_\+\+PRIORITY}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00371}{371}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}.
+
+\Hypertarget{tasks_8c_aa632b40f050382cce625ffb3c2ea8c7a}\index{tasks.c@{tasks.c}!xDelayedTaskList1@{xDelayedTaskList1}}
+\index{xDelayedTaskList1@{xDelayedTaskList1}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xDelayedTaskList1}{xDelayedTaskList1}}
+{\footnotesize\ttfamily \label{tasks_8c_aa632b40f050382cce625ffb3c2ea8c7a} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} x\+Delayed\+Task\+List1\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00343}{343}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}.
+
+\Hypertarget{tasks_8c_a52144ecca109402fbab49fa548175f82}\index{tasks.c@{tasks.c}!xDelayedTaskList2@{xDelayedTaskList2}}
+\index{xDelayedTaskList2@{xDelayedTaskList2}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xDelayedTaskList2}{xDelayedTaskList2}}
+{\footnotesize\ttfamily \label{tasks_8c_a52144ecca109402fbab49fa548175f82} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} x\+Delayed\+Task\+List2\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00344}{344}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}.
+
+\Hypertarget{tasks_8c_ac90c8a23419d8fa71919e020c433f1a6}\index{tasks.c@{tasks.c}!xIdleTaskHandle@{xIdleTaskHandle}}
+\index{xIdleTaskHandle@{xIdleTaskHandle}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xIdleTaskHandle}{xIdleTaskHandle}}
+{\footnotesize\ttfamily \label{tasks_8c_ac90c8a23419d8fa71919e020c433f1a6} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Idle\+Task\+Handle = NULL\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00378}{378}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01974}{v\+Task\+Start\+Scheduler()}}.
+
+\Hypertarget{tasks_8c_ac9869547a39abae93ce9ad092d580445}\index{tasks.c@{tasks.c}!xNextTaskUnblockTime@{xNextTaskUnblockTime}}
+\index{xNextTaskUnblockTime@{xNextTaskUnblockTime}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xNextTaskUnblockTime}{xNextTaskUnblockTime}}
+{\footnotesize\ttfamily \label{tasks_8c_ac9869547a39abae93ce9ad092d580445} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Next\+Task\+Unblock\+Time = ( \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ) 0U\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00377}{377}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}, \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{tasks_8c_source_l01974}{v\+Task\+Start\+Scheduler()}}, and \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{tasks_8c_aba03b8cb535f03f1921f11868c98b0ef}\index{tasks.c@{tasks.c}!xNumOfOverflows@{xNumOfOverflows}}
+\index{xNumOfOverflows@{xNumOfOverflows}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xNumOfOverflows}{xNumOfOverflows}}
+{\footnotesize\ttfamily \label{tasks_8c_aba03b8cb535f03f1921f11868c98b0ef} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Num\+Of\+Overflows = ( \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} ) 0\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00375}{375}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03253}{v\+Task\+Set\+Time\+Out\+State()}}, and \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}.
+
+\Hypertarget{tasks_8c_aa7a2317195d855e6961dd8bcaab9496a}\index{tasks.c@{tasks.c}!xPendedTicks@{xPendedTicks}}
+\index{xPendedTicks@{xPendedTicks}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xPendedTicks}{xPendedTicks}}
+{\footnotesize\ttfamily \label{tasks_8c_aa7a2317195d855e6961dd8bcaab9496a} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Pended\+Ticks = ( \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ) 0U\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00373}{373}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l02608}{x\+Task\+Catch\+Up\+Ticks()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_af0a50cd44e760ae9c7adf77de3e91785}\index{tasks.c@{tasks.c}!xPendingReadyList@{xPendingReadyList}}
+\index{xPendingReadyList@{xPendingReadyList}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xPendingReadyList}{xPendingReadyList}}
+{\footnotesize\ttfamily \label{tasks_8c_af0a50cd44e760ae9c7adf77de3e91785} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} x\+Pending\+Ready\+List\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00347}{347}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{tasks_8c_adc51acc8c40b26506a2a05aae91593fd}\index{tasks.c@{tasks.c}!xSchedulerRunning@{xSchedulerRunning}}
+\index{xSchedulerRunning@{xSchedulerRunning}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xSchedulerRunning}{xSchedulerRunning}}
+{\footnotesize\ttfamily \label{tasks_8c_adc51acc8c40b26506a2a05aae91593fd} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Scheduler\+Running = \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+FALSE}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00372}{372}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l01076}{prv\+Add\+New\+Task\+To\+Ready\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02098}{v\+Task\+End\+Scheduler()}}, and \mbox{\hyperlink{tasks_8c_source_l01974}{v\+Task\+Start\+Scheduler()}}.
+
+\Hypertarget{tasks_8c_a98b55fbbd701ac74b2b6ab1ffc8d5a65}\index{tasks.c@{tasks.c}!xTickCount@{xTickCount}}
+\index{xTickCount@{xTickCount}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xTickCount}{xTickCount}}
+{\footnotesize\ttfamily \label{tasks_8c_a98b55fbbd701ac74b2b6ab1ffc8d5a65} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Tick\+Count = ( \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} ) \mbox{\hyperlink{_free_r_t_o_s_8h_ae52c1acd13b26e8758dc66b60b0e3417}{config\+INITIAL\+\_\+\+TICK\+\_\+\+COUNT}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00370}{370}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}, \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03265}{v\+Task\+Internal\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l03253}{v\+Task\+Set\+Time\+Out\+State()}}, \mbox{\hyperlink{tasks_8c_source_l01974}{v\+Task\+Start\+Scheduler()}}, \mbox{\hyperlink{tasks_8c_source_l03273}{x\+Task\+Check\+For\+Time\+Out()}}, \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}, \mbox{\hyperlink{tasks_8c_source_l02318}{x\+Task\+Get\+Tick\+Count\+From\+ISR()}}, and \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{tasks_8c_a228b369b272bd560709d52837b3ac48c}\index{tasks.c@{tasks.c}!xYieldPending@{xYieldPending}}
+\index{xYieldPending@{xYieldPending}!tasks.c@{tasks.c}}
+\doxysubsubsection{\texorpdfstring{xYieldPending}{xYieldPending}}
+{\footnotesize\ttfamily \label{tasks_8c_a228b369b272bd560709d52837b3ac48c} 
+\mbox{\hyperlink{mpu__wrappers_8h_a56a0b54ca924c56d192d4389ba585ed5}{PRIVILEGED\+\_\+\+DATA}} volatile \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Yield\+Pending = \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+FALSE}}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{tasks_8c_source_l00374}{374}} of file \mbox{\hyperlink{tasks_8c_source}{tasks.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03336}{v\+Task\+Missed\+Yield()}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02988}{v\+Task\+Switch\+Context()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+

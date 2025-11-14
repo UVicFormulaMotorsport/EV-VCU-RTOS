@@ -12,7 +12,7 @@ var rb__tree_8h =
     [ "RB_NIL", "rb__tree_8h.html#ae2ed7bcede5a254e9a5bac33d78e21f3", null ],
     [ "RB_ROOT", "rb__tree_8h.html#a98eb926978664a4bb7da0a93ec4b2239", null ],
     [ "RED", "rb__tree_8h.html#a8d23feea868a983c8c2b661e1e16972f", null ],
-    [ "rbnode", "rb__tree_8h.html#ad9b704a4502a7a016ca03de9acf95897", null ],
+    [ "rbnode", "rb__tree_8h.html#aa8fd449f208c005d3fa5001e0c8a3a48", null ],
     [ "rbtraversal", "rb__tree_8h.html#ae7a3c3e2ca387d6507c8c8e61e3f87b5", [
       [ "PREORDER", "rb__tree_8h.html#ae7a3c3e2ca387d6507c8c8e61e3f87b5acd9d91cf59c093fdfa2b1736a26125ce", null ],
       [ "INORDER", "rb__tree_8h.html#ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b", null ],
@@ -21,11 +21,11 @@ var rb__tree_8h =
     [ "rbApplyNode", "rb__tree_8h.html#a659f2a6354fea183df8cfbfba2801484", null ],
     [ "rbCheckBlackHeight", "rb__tree_8h.html#aa02803c2713094e61fa50807fa7a5116", null ],
     [ "rbCheckOrder", "rb__tree_8h.html#a0eb9842e366817eb18eac0e319fb04db", null ],
-    [ "rbCreate", "rb__tree_8h.html#acfdf75dcc32d990f4818270cac09cf86", null ],
-    [ "rbDelete", "rb__tree_8h.html#a8b7898139f560f35aa433a637c2a5381", null ],
+    [ "rbCreate", "rb__tree_8h.html#a07589b261fdbe522bf27f4d31e83b848", null ],
+    [ "rbDelete", "rb__tree_8h.html#aef2e33c201c30397f2a57cb76225d751", null ],
     [ "rbDestroy", "rb__tree_8h.html#a9a58d42acc5dd251bf885a0f58c6abfb", null ],
-    [ "rbFind", "rb__tree_8h.html#ad7470a946dc18fdea53de8efa48ba4eb", null ],
-    [ "rbInsert", "rb__tree_8h.html#aeb5491e8c286b8dbc868df0c31dba799", null ],
+    [ "rbFind", "rb__tree_8h.html#a160c4acd7beeb7b413a62c735899e98d", null ],
+    [ "rbInsert", "rb__tree_8h.html#a3063d25955cfd94b1f10c556de95249e", null ],
     [ "rbPrint", "rb__tree_8h.html#a447d21f412285d3455356d2975a6ced3", null ],
-    [ "rbSuccessor", "rb__tree_8h.html#a70293914fa5f96508b9b502d7f3bb5dc", null ]
+    [ "rbSuccessor", "rb__tree_8h.html#a9f06a15af5108e7e29d69fa9c29129e8", null ]
 ];

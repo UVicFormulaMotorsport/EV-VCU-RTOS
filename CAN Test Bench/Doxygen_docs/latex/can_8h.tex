@@ -1,226 +1,282 @@
-\hypertarget{can_8h}{}\doxysection{Core/\+Inc/can.h File Reference}
-\label{can_8h}\index{Core/Inc/can.h@{Core/Inc/can.h}}
+\doxysection{Core/\+Inc/can.h File Reference}
+\hypertarget{can_8h}{}\label{can_8h}\index{Core/Inc/can.h@{Core/Inc/can.h}}
 
 
-This file contains all the function prototypes for the \mbox{\hyperlink{can_8c}{can.\+c}} file.  
+This file contains all the function prototypes for the \doxylink{can_8c}{can.\+c} file.  
 
 
-{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}constants.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{can_8h_a8258cafd2b5e0bfb1e4228e7a45750bf}{C\+A\+N\+\_\+\+T\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME}}~\char`\"{}Can\+Tx\+Daemon\char`\"{}
+\#define \mbox{\hyperlink{can_8h_a8258cafd2b5e0bfb1e4228e7a45750bf}{CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME}}~"{}Can\+Tx\+Daemon"{}
 \item 
-\#define \mbox{\hyperlink{can_8h_a3cb7727094f40357f18ece08758738cc}{C\+A\+N\+\_\+\+R\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME}}~\char`\"{}Can\+Rx\+Daemon\char`\"{}
+\#define \mbox{\hyperlink{can_8h_a3cb7727094f40357f18ece08758738cc}{CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME}}~"{}Can\+Rx\+Daemon"{}
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} \mbox{\hyperlink{can_8h_ad857192b5d0529e73642f1293d6bed75}{uv\+\_\+\+C\+A\+N\+\_\+msg}}
-\item 
+typedef struct uv\+\_\+\+CAN\+\_\+msg \mbox{\hyperlink{can_8h_ad857192b5d0529e73642f1293d6bed75}{uv\+\_\+\+CAN\+\_\+msg}}
+\begin{DoxyCompactList}\small\item\em Representative of a CAN message. \end{DoxyCompactList}\item 
 typedef enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}}
-\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\begin{DoxyCompactList}\small\item\em This is meant to be a return type from functions that indicates what is actually going on. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{can_8h_a1ee5cd592134235b6c07f676784d47c3}{M\+X\+\_\+\+C\+A\+N2\+\_\+\+Init}} (void)
+void \mbox{\hyperlink{can_8h_a030a62a0956ab83394eb8354a0e97902}{MX\+\_\+\+CAN1\+\_\+\+Init}} (void)
 \item 
-void \mbox{\hyperlink{can_8h_a4e0742fef0f265347a75b7fa12012229}{H\+A\+L\+\_\+\+C\+A\+N\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback}} (C\+A\+N\+\_\+\+Handle\+Type\+Def $\ast$\mbox{\hyperlink{stm32f4xx__it_8c_ab77168d14df04ccca5d48612ee21ced8}{hcan2}})
+void \mbox{\hyperlink{can_8h_a1ee5cd592134235b6c07f676784d47c3}{MX\+\_\+\+CAN2\+\_\+\+Init}} (void)
 \item 
-void \mbox{\hyperlink{can_8h_a4c51ef84434a42d4c5f9524d361c0703}{H\+A\+L\+\_\+\+C\+A\+N\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback}} (C\+A\+N\+\_\+\+Handle\+Type\+Def $\ast$\mbox{\hyperlink{stm32f4xx__it_8c_ab77168d14df04ccca5d48612ee21ced8}{hcan2}})
+void \mbox{\hyperlink{can_8h_a4e0742fef0f265347a75b7fa12012229}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback}} (CAN\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}})
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uv\+Send\+Can\+M\+SG}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$msg)
-\begin{DoxyCompactList}\small\item\em Function to send C\+AN message. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{can_8h_a2357e197a9ac26277eec808769fe409f}{C\+A\+Nbus\+Tx\+Svc\+Daemon}} (void $\ast$args)
-\begin{DoxyCompactList}\small\item\em Background task that handles any C\+AN messages that are being sent. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{can_8h_a2b32305988f51945b7c220ca60ab68e8}{C\+A\+Nbus\+Rx\+Svc\+Daemon}} (void $\ast$args)
-\begin{DoxyCompactList}\small\item\em Background task that executes the C\+AN message callback functions. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{group__uvfr__can__api_ga81adc4a577110ce8fe1158b0dc302cc2}{insert\+C\+A\+N\+Message\+Handler}} (uint32\+\_\+t id, void $\ast$handlerfunc)
+void \mbox{\hyperlink{can_8h_a4c51ef84434a42d4c5f9524d361c0703}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback}} (CAN\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}})
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uv\+Send\+Can\+MSG}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\begin{DoxyCompactList}\small\item\em Function to send CAN message. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can_8h_a2357e197a9ac26277eec808769fe409f}{CANbus\+Tx\+Svc\+Daemon}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Background task that handles any CAN messages that are being sent. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{can_8h_a2b32305988f51945b7c220ca60ab68e8}{CANbus\+Rx\+Svc\+Daemon}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Background task that executes the CAN message callback functions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insert\+CANMessage\+Handler}} (uint32\+\_\+t id, void \texorpdfstring{$\ast$}{*}handlerfunc, int can\+\_\+num)
 \begin{DoxyCompactList}\small\item\em Function to insert an id and function into the lookup table of callback functions. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{can_8h_acadda9ab3aa926b92a84e3f192c66547}{nuke\+\_\+hash\+\_\+table}} ()
+void \mbox{\hyperlink{can_8h_af6b10418988114bc5b82f13501b99bdd}{nuke\+\_\+hash\+\_\+table}} (int can\+\_\+num)
 \end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-C\+A\+N\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}}
+CAN\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{can_8h_a1618d731d18d69e906e8a357b7cd3c8d}{hcan1}}
+\item 
+CAN\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{can_8h_ab77168d14df04ccca5d48612ee21ced8}{hcan2}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-This file contains all the function prototypes for the \mbox{\hyperlink{can_8c}{can.\+c}} file. 
+This file contains all the function prototypes for the \doxylink{can_8c}{can.\+c} file. 
 
 \begin{DoxyAttention}{Attention}
 
 \end{DoxyAttention}
-Copyright (c) 2023 S\+T\+Microelectronics. All rights reserved.
+Copyright (c) 2023 STMicroelectronics. All rights reserved.
 
-This software is licensed under terms that can be found in the L\+I\+C\+E\+N\+SE file in the root directory of this software component. If no L\+I\+C\+E\+N\+SE file comes with this software, it is provided A\+S-\/\+IS.
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
 
-/ /$\ast$ U\+S\+ER C\+O\+DE E\+ND Header 
+Definition in file \mbox{\hyperlink{can_8h_source}{can.\+h}}.
+
+
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{can_8h_a3cb7727094f40357f18ece08758738cc}\label{can_8h_a3cb7727094f40357f18ece08758738cc}} 
-\index{can.h@{can.h}!CAN\_RX\_DAEMON\_NAME@{CAN\_RX\_DAEMON\_NAME}}
+\Hypertarget{can_8h_a3cb7727094f40357f18ece08758738cc}\index{can.h@{can.h}!CAN\_RX\_DAEMON\_NAME@{CAN\_RX\_DAEMON\_NAME}}
 \index{CAN\_RX\_DAEMON\_NAME@{CAN\_RX\_DAEMON\_NAME}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{CAN\_RX\_DAEMON\_NAME}{CAN\_RX\_DAEMON\_NAME}}
-{\footnotesize\ttfamily \#define C\+A\+N\+\_\+\+R\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME~\char`\"{}Can\+Rx\+Daemon\char`\"{}}
+{\footnotesize\ttfamily \label{can_8h_a3cb7727094f40357f18ece08758738cc} 
+\#define CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME~"{}Can\+Rx\+Daemon"{}}
 
 
 
-Definition at line 41 of file can.\+h.
+Definition at line \mbox{\hyperlink{can_8h_source_l00043}{43}} of file \mbox{\hyperlink{can_8h_source}{can.\+h}}.
 
-\mbox{\Hypertarget{can_8h_a8258cafd2b5e0bfb1e4228e7a45750bf}\label{can_8h_a8258cafd2b5e0bfb1e4228e7a45750bf}} 
-\index{can.h@{can.h}!CAN\_TX\_DAEMON\_NAME@{CAN\_TX\_DAEMON\_NAME}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+
+\Hypertarget{can_8h_a8258cafd2b5e0bfb1e4228e7a45750bf}\index{can.h@{can.h}!CAN\_TX\_DAEMON\_NAME@{CAN\_TX\_DAEMON\_NAME}}
 \index{CAN\_TX\_DAEMON\_NAME@{CAN\_TX\_DAEMON\_NAME}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{CAN\_TX\_DAEMON\_NAME}{CAN\_TX\_DAEMON\_NAME}}
-{\footnotesize\ttfamily \#define C\+A\+N\+\_\+\+T\+X\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+N\+A\+ME~\char`\"{}Can\+Tx\+Daemon\char`\"{}}
+{\footnotesize\ttfamily \label{can_8h_a8258cafd2b5e0bfb1e4228e7a45750bf} 
+\#define CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME~"{}Can\+Tx\+Daemon"{}}
 
 
 
-Definition at line 40 of file can.\+h.
+Definition at line \mbox{\hyperlink{can_8h_source_l00042}{42}} of file \mbox{\hyperlink{can_8h_source}{can.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{can_8h_ad857192b5d0529e73642f1293d6bed75}\label{can_8h_ad857192b5d0529e73642f1293d6bed75}} 
-\index{can.h@{can.h}!uv\_CAN\_msg@{uv\_CAN\_msg}}
+\Hypertarget{can_8h_ad857192b5d0529e73642f1293d6bed75}\index{can.h@{can.h}!uv\_CAN\_msg@{uv\_CAN\_msg}}
 \index{uv\_CAN\_msg@{uv\_CAN\_msg}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{uv\_CAN\_msg}{uv\_CAN\_msg}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}}}
+{\footnotesize\ttfamily \label{can_8h_ad857192b5d0529e73642f1293d6bed75} 
+typedef struct uv\+\_\+\+CAN\+\_\+msg uv\+\_\+\+CAN\+\_\+msg}
 
 
 
-Definition at line 43 of file can.\+h.
+Representative of a CAN message. 
 
-\mbox{\Hypertarget{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}\label{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}} 
-\index{can.h@{can.h}!uv\_status@{uv\_status}}
+
+
+Definition at line \mbox{\hyperlink{can_8h_source_l00045}{45}} of file \mbox{\hyperlink{can_8h_source}{can.\+h}}.
+
+\Hypertarget{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}\index{can.h@{can.h}!uv\_status@{uv\_status}}
 \index{uv\_status@{uv\_status}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{uv\_status}{uv\_status}}
-{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}}}
+{\footnotesize\ttfamily \label{can_8h_aef3770e45bbacbf527fd93dd80eea9b9} 
+typedef enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}}}
 
 
 
-Definition at line 44 of file can.\+h.
+This is meant to be a return type from functions that indicates what is actually going on. 
+
+Use this as a return value for functions you want to know the success of. In general, any function you write must return something, as well as account for any possible errors that may have occurred. 
+
+Definition at line \mbox{\hyperlink{can_8h_source_l00046}{46}} of file \mbox{\hyperlink{can_8h_source}{can.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{can_8h_a2b32305988f51945b7c220ca60ab68e8}\label{can_8h_a2b32305988f51945b7c220ca60ab68e8}} 
-\index{can.h@{can.h}!CANbusRxSvcDaemon@{CANbusRxSvcDaemon}}
+\Hypertarget{can_8h_a2b32305988f51945b7c220ca60ab68e8}\index{can.h@{can.h}!CANbusRxSvcDaemon@{CANbusRxSvcDaemon}}
 \index{CANbusRxSvcDaemon@{CANbusRxSvcDaemon}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{CANbusRxSvcDaemon()}{CANbusRxSvcDaemon()}}
-{\footnotesize\ttfamily void C\+A\+Nbus\+Rx\+Svc\+Daemon (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{can_8h_a2b32305988f51945b7c220ca60ab68e8} 
+void CANbus\+Rx\+Svc\+Daemon (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
-Background task that executes the C\+AN message callback functions. 
+Background task that executes the CAN message callback functions. 
 
-Basically just snoops through the hash table 
+dequeue can message to call function 
 
-Definition at line 618 of file can.\+c.
-
-
-
-References callback\+\_\+table\+\_\+mutex, call\+Function\+From\+C\+A\+Nid(), uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, kill\+Self(), Rx\+\_\+msg\+\_\+queue, suspend\+Self(), uv\+\_\+task\+\_\+info\+::task\+\_\+handle, U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD, U\+V\+\_\+\+OK, and U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+\_\+\+C\+MD.
+Definition at line \mbox{\hyperlink{can_8c_source_l01045}{1045}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-Referenced by uv\+S\+V\+C\+Task\+Manager().
+References \mbox{\hyperlink{can_8c_source_l00070}{callback\+\_\+table\+\_\+1\+\_\+mutex}}, \mbox{\hyperlink{can_8c_source_l00071}{callback\+\_\+table\+\_\+2\+\_\+mutex}}, \mbox{\hyperlink{can_8c_source_l00592}{call\+Function\+From\+CANid()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{can_8c_source_l00048}{Rx\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00246}{uv\+\_\+task\+\_\+info\+::task\+\_\+handle}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{queue_8c_source_l01975}{v\+Queue\+Delete()}}, \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{v\+Task\+Delete()}}, and \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}.
 
-\mbox{\Hypertarget{can_8h_a2357e197a9ac26277eec808769fe409f}\label{can_8h_a2357e197a9ac26277eec808769fe409f}} 
-\index{can.h@{can.h}!CANbusTxSvcDaemon@{CANbusTxSvcDaemon}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+
+\Hypertarget{can_8h_a2357e197a9ac26277eec808769fe409f}\index{can.h@{can.h}!CANbusTxSvcDaemon@{CANbusTxSvcDaemon}}
 \index{CANbusTxSvcDaemon@{CANbusTxSvcDaemon}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{CANbusTxSvcDaemon()}{CANbusTxSvcDaemon()}}
-{\footnotesize\ttfamily void C\+A\+Nbus\+Tx\+Svc\+Daemon (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{can_8h_a2357e197a9ac26277eec808769fe409f} 
+void CANbus\+Tx\+Svc\+Daemon (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
-Background task that handles any C\+AN messages that are being sent. 
+Background task that handles any CAN messages that are being sent. 
 
-This task sits idle, until the time is right (it receives a notification from the uv\+Send\+Can\+M\+SG function) Once this condition has been met, it will actually call the {\ttfamily H\+A\+L\+\_\+\+C\+A\+N\+\_\+\+Add\+Tx\+Message} function. This is a very high priority task, meaning that it will pause whatever other code is going in order to run 
+This task sits idle, until the time is right (it receives a notification from the uv\+Send\+Can\+MSG function) Once this condition has been met, it will actually call the {\ttfamily HAL\+\_\+\+CAN\+\_\+\+Add\+Tx\+Message} function. This is a very high priority task, meaning that it will pause whatever other code is going in order to run
 
-Definition at line 551 of file can.\+c.
+dequeue can message to put into can bus 
 
-
-
-References uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, uv\+\_\+\+C\+A\+N\+\_\+msg\+::flags, hcan2, kill\+Self(), uv\+\_\+\+C\+A\+N\+\_\+msg\+::msg\+\_\+id, suspend\+Self(), Tx\+\_\+msg\+\_\+queue, Tx\+Header, Tx\+Mailbox, U\+V\+\_\+\+C\+A\+N\+\_\+\+E\+X\+T\+E\+N\+D\+E\+D\+\_\+\+ID, U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD, and U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+\_\+\+C\+MD.
+Definition at line \mbox{\hyperlink{can_8c_source_l00920}{920}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-Referenced by uv\+S\+V\+C\+Task\+Manager().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{can_8c_source_l00152}{hcan1}}, \mbox{\hyperlink{can_8c_source_l00153}{hcan2}}, \mbox{\hyperlink{can_8c_source_l00074}{is\+\_\+can\+\_\+ok}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}, \mbox{\hyperlink{can_8c_source_l00047}{Tx\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}, \mbox{\hyperlink{constants_8c_source_l00005}{Tx\+Header2}}, \mbox{\hyperlink{constants_8c_source_l00011}{Tx\+Mailbox}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00269}{UV\+\_\+\+CAN\+\_\+\+EXTENDED\+\_\+\+ID}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{queue_8c_source_l01975}{v\+Queue\+Delete()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
 
-\mbox{\Hypertarget{can_8h_a4e0742fef0f265347a75b7fa12012229}\label{can_8h_a4e0742fef0f265347a75b7fa12012229}} 
-\index{can.h@{can.h}!HAL\_CAN\_RxFifo0MsgPendingCallback@{HAL\_CAN\_RxFifo0MsgPendingCallback}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+
+\Hypertarget{can_8h_a4e0742fef0f265347a75b7fa12012229}\index{can.h@{can.h}!HAL\_CAN\_RxFifo0MsgPendingCallback@{HAL\_CAN\_RxFifo0MsgPendingCallback}}
 \index{HAL\_CAN\_RxFifo0MsgPendingCallback@{HAL\_CAN\_RxFifo0MsgPendingCallback}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{HAL\_CAN\_RxFifo0MsgPendingCallback()}{HAL\_CAN\_RxFifo0MsgPendingCallback()}}
-{\footnotesize\ttfamily void H\+A\+L\+\_\+\+C\+A\+N\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback (\begin{DoxyParamCaption}\item[{C\+A\+N\+\_\+\+Handle\+Type\+Def $\ast$}]{hcan2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{can_8h_a4e0742fef0f265347a75b7fa12012229} 
+void HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback (\begin{DoxyParamCaption}\item[{CAN\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{hcan2}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 298 of file can.\+c.
+Definition at line \mbox{\hyperlink{can_8c_source_l00456}{456}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-References uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, Error\+\_\+\+Handler(), hcan2, uv\+\_\+\+C\+A\+N\+\_\+msg\+::msg\+\_\+id, Rx\+\_\+msg\+\_\+queue, and Rx\+Header.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00272}{CAN\+\_\+\+BUS\+\_\+2}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{main_8c_source_l00364}{Error\+\_\+\+Handler()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{can_8c_source_l00152}{hcan1}}, \mbox{\hyperlink{can_8c_source_l00074}{is\+\_\+can\+\_\+ok}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{can_8c_source_l00048}{Rx\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{constants_8c_source_l00006}{Rx\+Header}}, \mbox{\hyperlink{constants_8c_source_l00007}{Rx\+Header2}}, \mbox{\hyperlink{task_8h_source_l00173}{task\+YIELD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00269}{UV\+\_\+\+CAN\+\_\+\+EXTENDED\+\_\+\+ID}}, and \mbox{\hyperlink{queue_8h_source_l01216}{x\+Queue\+Send\+From\+ISR}}.
 
-\mbox{\Hypertarget{can_8h_a4c51ef84434a42d4c5f9524d361c0703}\label{can_8h_a4c51ef84434a42d4c5f9524d361c0703}} 
-\index{can.h@{can.h}!HAL\_CAN\_RxFifo1MsgPendingCallback@{HAL\_CAN\_RxFifo1MsgPendingCallback}}
+\Hypertarget{can_8h_a4c51ef84434a42d4c5f9524d361c0703}\index{can.h@{can.h}!HAL\_CAN\_RxFifo1MsgPendingCallback@{HAL\_CAN\_RxFifo1MsgPendingCallback}}
 \index{HAL\_CAN\_RxFifo1MsgPendingCallback@{HAL\_CAN\_RxFifo1MsgPendingCallback}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{HAL\_CAN\_RxFifo1MsgPendingCallback()}{HAL\_CAN\_RxFifo1MsgPendingCallback()}}
-{\footnotesize\ttfamily void H\+A\+L\+\_\+\+C\+A\+N\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback (\begin{DoxyParamCaption}\item[{C\+A\+N\+\_\+\+Handle\+Type\+Def $\ast$}]{hcan2 }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{can_8h_a4c51ef84434a42d4c5f9524d361c0703} 
+void HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback (\begin{DoxyParamCaption}\item[{CAN\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{hcan2}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 338 of file can.\+c.
+Definition at line \mbox{\hyperlink{can_8c_source_l00512}{512}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
-\mbox{\Hypertarget{can_8h_a1ee5cd592134235b6c07f676784d47c3}\label{can_8h_a1ee5cd592134235b6c07f676784d47c3}} 
-\index{can.h@{can.h}!MX\_CAN2\_Init@{MX\_CAN2\_Init}}
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00272}{CAN\+\_\+\+BUS\+\_\+2}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{main_8c_source_l00364}{Error\+\_\+\+Handler()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{can_8c_source_l00152}{hcan1}}, \mbox{\hyperlink{can_8c_source_l00074}{is\+\_\+can\+\_\+ok}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{can_8c_source_l00048}{Rx\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{constants_8c_source_l00006}{Rx\+Header}}, \mbox{\hyperlink{constants_8c_source_l00007}{Rx\+Header2}}, \mbox{\hyperlink{task_8h_source_l00173}{task\+YIELD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00269}{UV\+\_\+\+CAN\+\_\+\+EXTENDED\+\_\+\+ID}}, and \mbox{\hyperlink{queue_8h_source_l01216}{x\+Queue\+Send\+From\+ISR}}.
+
+\Hypertarget{can_8h_a030a62a0956ab83394eb8354a0e97902}\index{can.h@{can.h}!MX\_CAN1\_Init@{MX\_CAN1\_Init}}
+\index{MX\_CAN1\_Init@{MX\_CAN1\_Init}!can.h@{can.h}}
+\doxysubsubsection{\texorpdfstring{MX\_CAN1\_Init()}{MX\_CAN1\_Init()}}
+{\footnotesize\ttfamily \label{can_8h_a030a62a0956ab83394eb8354a0e97902} 
+void MX\+\_\+\+CAN1\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{can_8c_source_l00156}{156}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
+
+
+
+References \mbox{\hyperlink{main_8c_source_l00364}{Error\+\_\+\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00152}{hcan1}}, and \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+
+\Hypertarget{can_8h_a1ee5cd592134235b6c07f676784d47c3}\index{can.h@{can.h}!MX\_CAN2\_Init@{MX\_CAN2\_Init}}
 \index{MX\_CAN2\_Init@{MX\_CAN2\_Init}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{MX\_CAN2\_Init()}{MX\_CAN2\_Init()}}
-{\footnotesize\ttfamily void M\+X\+\_\+\+C\+A\+N2\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{can_8h_a1ee5cd592134235b6c07f676784d47c3} 
+void MX\+\_\+\+CAN2\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 150 of file can.\+c.
+Definition at line \mbox{\hyperlink{can_8c_source_l00232}{232}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-References Error\+\_\+\+Handler(), hcan2, and Tx\+Header.
+References \mbox{\hyperlink{main_8c_source_l00364}{Error\+\_\+\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00153}{hcan2}}, and \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}.
 
 
 
-Referenced by main().
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
 
-\mbox{\Hypertarget{can_8h_acadda9ab3aa926b92a84e3f192c66547}\label{can_8h_acadda9ab3aa926b92a84e3f192c66547}} 
-\index{can.h@{can.h}!nuke\_hash\_table@{nuke\_hash\_table}}
+\Hypertarget{can_8h_af6b10418988114bc5b82f13501b99bdd}\index{can.h@{can.h}!nuke\_hash\_table@{nuke\_hash\_table}}
 \index{nuke\_hash\_table@{nuke\_hash\_table}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{nuke\_hash\_table()}{nuke\_hash\_table()}}
-{\footnotesize\ttfamily void nuke\+\_\+hash\+\_\+table (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{can_8h_af6b10418988114bc5b82f13501b99bdd} 
+void nuke\+\_\+hash\+\_\+table (\begin{DoxyParamCaption}\item[{int}]{can\+\_\+num}{}\end{DoxyParamCaption})}
 
 Function to free all malloced memory Index through the hash table and free all the malloced memory at each index 
 
-Definition at line 453 of file can.\+c.
+Definition at line \mbox{\hyperlink{can_8c_source_l00773}{773}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-References C\+A\+N\+\_\+callback\+\_\+table, C\+A\+N\+\_\+\+Callback\+::next, and table\+\_\+size.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00272}{CAN\+\_\+\+BUS\+\_\+2}}, \mbox{\hyperlink{can_8c_source_l00066}{CAN\+\_\+callback\+\_\+table\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00068}{CAN\+\_\+callback\+\_\+table\+\_\+2}}, \mbox{\hyperlink{can_8c_source_l00058}{CAN\+\_\+\+Callback\+::next}}, and \mbox{\hyperlink{can_8c_source_l00051}{table\+\_\+size}}.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{can_8h_ab77168d14df04ccca5d48612ee21ced8}\label{can_8h_ab77168d14df04ccca5d48612ee21ced8}} 
-\index{can.h@{can.h}!hcan2@{hcan2}}
+\Hypertarget{can_8h_a1618d731d18d69e906e8a357b7cd3c8d}\index{can.h@{can.h}!hcan1@{hcan1}}
+\index{hcan1@{hcan1}!can.h@{can.h}}
+\doxysubsubsection{\texorpdfstring{hcan1}{hcan1}}
+{\footnotesize\ttfamily \label{can_8h_a1618d731d18d69e906e8a357b7cd3c8d} 
+CAN\+\_\+\+Handle\+Type\+Def hcan1\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{can_8c_source_l00152}{152}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
+
+\Hypertarget{can_8h_ab77168d14df04ccca5d48612ee21ced8}\index{can.h@{can.h}!hcan2@{hcan2}}
 \index{hcan2@{hcan2}!can.h@{can.h}}
 \doxysubsubsection{\texorpdfstring{hcan2}{hcan2}}
-{\footnotesize\ttfamily C\+A\+N\+\_\+\+Handle\+Type\+Def hcan2}
+{\footnotesize\ttfamily \label{can_8h_ab77168d14df04ccca5d48612ee21ced8} 
+CAN\+\_\+\+Handle\+Type\+Def hcan2\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 147 of file can.\+c.
+Definition at line \mbox{\hyperlink{can_8c_source_l00153}{153}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-Referenced by I\+M\+D\+\_\+\+Request\+\_\+\+Status(), main(), M\+C\+\_\+\+Request\+\_\+\+Data(), Motor\+Controller\+Spin\+Test(), P\+D\+U\+\_\+disable\+\_\+brake\+\_\+light(), P\+D\+U\+\_\+disable\+\_\+coolant\+\_\+pump(), P\+D\+U\+\_\+disable\+\_\+cooling\+\_\+fans(), P\+D\+U\+\_\+disable\+\_\+motor\+\_\+controller(), P\+D\+U\+\_\+disable\+\_\+shutdown\+\_\+circuit(), P\+D\+U\+\_\+enable\+\_\+brake\+\_\+light(), P\+D\+U\+\_\+enable\+\_\+coolant\+\_\+pump(), P\+D\+U\+\_\+enable\+\_\+cooling\+\_\+fans(), P\+D\+U\+\_\+enable\+\_\+motor\+\_\+controller(), P\+D\+U\+\_\+enable\+\_\+shutdown\+\_\+circuit(), P\+D\+U\+\_\+speaker\+\_\+chirp(), Update\+\_\+\+Batt\+\_\+\+Temp(), Update\+\_\+\+R\+P\+M(), and Update\+\_\+\+State\+\_\+\+Of\+\_\+\+Charge().
+Referenced by \mbox{\hyperlink{imd_8c_source_l00185}{IMD\+\_\+\+Request\+\_\+\+Status()}}, \mbox{\hyperlink{main_8c_source_l00111}{main()}}, \mbox{\hyperlink{dash_8c_source_l00029}{Update\+\_\+\+Batt\+\_\+\+Temp()}}, \mbox{\hyperlink{dash_8c_source_l00009}{Update\+\_\+\+RPM()}}, and \mbox{\hyperlink{dash_8c_source_l00048}{Update\+\_\+\+State\+\_\+\+Of\+\_\+\+Charge()}}.
 

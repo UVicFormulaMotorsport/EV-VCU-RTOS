@@ -1,4 +1,21 @@
 var searchData=
 [
-  ['veh_5fgen_5finfo_1719',['veh_gen_info',['../uvfr__settings_8h.html#a63c94a189304fb004523f327915010e0',1,'uvfr_settings.h']]]
+  ['s_5fcurve_5ftorque_5fmap_5fargs_0',['s_curve_torque_map_args',['../driving__loop_8h.html#a32f012927e4624d674120b51cb6ee8c0',1,'driving_loop.h']]],
+  ['semaphoredata_5ft_1',['SemaphoreData_t',['../queue_8c.html#a8806dcfc511df585a0b4daf54a9a909a',1,'queue.c']]],
+  ['semaphorehandle_5ft_2',['SemaphoreHandle_t',['../semphr_8h.html#ad88c6df4a04beedeac782918c8a332f5',1,'semphr.h']]],
+  ['setting_5fhelper_5ftask_3',['setting_helper_task',['../uvfr__settings_8c.html#aff5e0078d7c880f42cc79e084141a6bd',1,'uvfr_settings.c']]],
+  ['stacktype_5ft_4',['StackType_t',['../portmacro_8h.html#a84e9a8ba132feed0b2401c1f4e2ac63c',1,'portmacro.h']]],
+  ['state_5fchange_5fdaemon_5fargs_5',['state_change_daemon_args',['../group__state__engine.html#gac9bd88d7c454ec151183930fce544c9c',1,'uvfr_state_engine.c']]],
+  ['staticeventgroup_5ft_6',['StaticEventGroup_t',['../_free_r_t_o_s_8h.html#af87e218149130753afb4a7044e5569e6',1,'FreeRTOS.h']]],
+  ['staticlist_5ft_7',['StaticList_t',['../_free_r_t_o_s_8h.html#aabf8e8548f4ffaef73c3470172c4c8de',1,'FreeRTOS.h']]],
+  ['staticlistitem_5ft_8',['StaticListItem_t',['../_free_r_t_o_s_8h.html#a1d31bc0472385a87424518da484d9e09',1,'FreeRTOS.h']]],
+  ['staticmessagebuffer_5ft_9',['StaticMessageBuffer_t',['../_free_r_t_o_s_8h.html#aebe27a051714571e9051a8e33fe40bd9',1,'FreeRTOS.h']]],
+  ['staticminilistitem_5ft_10',['StaticMiniListItem_t',['../_free_r_t_o_s_8h.html#a9097f48f4dfa56e8e01d9179462c7994',1,'FreeRTOS.h']]],
+  ['staticqueue_5ft_11',['StaticQueue_t',['../_free_r_t_o_s_8h.html#a22e8979e2849d002747c0dd4c7c37908',1,'FreeRTOS.h']]],
+  ['staticsemaphore_5ft_12',['StaticSemaphore_t',['../_free_r_t_o_s_8h.html#a5899eefbfd03bc6eb83c9accffc8975e',1,'FreeRTOS.h']]],
+  ['staticstreambuffer_5ft_13',['StaticStreamBuffer_t',['../_free_r_t_o_s_8h.html#a3675ce07f6d3e0e7130bc6ea01162d34',1,'FreeRTOS.h']]],
+  ['statictask_5ft_14',['StaticTask_t',['../_free_r_t_o_s_8h.html#af0002e4ad72220b34b95fcdf43bcd82d',1,'FreeRTOS.h']]],
+  ['statictimer_5ft_15',['StaticTimer_t',['../_free_r_t_o_s_8h.html#a85fc227d111ec21647641e0deddcccc6',1,'FreeRTOS.h']]],
+  ['streambuffer_5ft_16',['StreamBuffer_t',['../stream__buffer_8c.html#ac30372f81bb381115f91d7daa384db2d',1,'stream_buffer.c']]],
+  ['streambufferhandle_5ft_17',['StreamBufferHandle_t',['../stream__buffer_8h.html#a8b80974e2278f073412293e6580ce56f',1,'stream_buffer.h']]]
 ];

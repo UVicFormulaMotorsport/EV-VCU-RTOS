@@ -1,66 +1,66 @@
-\hypertarget{group__uvfr__can__api}{}\doxysection{U\+V\+FR C\+A\+Nbus A\+PI}
-\label{group__uvfr__can__api}\index{UVFR CANbus API@{UVFR CANbus API}}
+\doxysection{UVFR CANbus API}
+\hypertarget{group__uvfr__can__api}{}\label{group__uvfr__can__api}\index{UVFR CANbus API@{UVFR CANbus API}}
 
 
-This is an api that simplifies usage of C\+A\+Nbus transmitting and receiving.  
+This is an api that simplifies usage of CANbus transmitting and receiving.  
 
 
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{group__uvfr__can__api_ga81adc4a577110ce8fe1158b0dc302cc2}{insert\+C\+A\+N\+Message\+Handler}} (uint32\+\_\+t id, void $\ast$handlerfunc)
+void \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insert\+CANMessage\+Handler}} (uint32\+\_\+t id, void \texorpdfstring{$\ast$}{*}handlerfunc, int can\+\_\+num)
 \begin{DoxyCompactList}\small\item\em Function to insert an id and function into the lookup table of callback functions. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uv\+Send\+Can\+M\+SG}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$tx\+\_\+msg)
-\begin{DoxyCompactList}\small\item\em Function to send C\+AN message. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uv\+Send\+Can\+MSG}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}tx\+\_\+msg)
+\begin{DoxyCompactList}\small\item\em Function to send CAN message. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-This is an api that simplifies usage of C\+A\+Nbus transmitting and receiving. 
+This is an api that simplifies usage of CANbus transmitting and receiving. 
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{group__uvfr__can__api_ga81adc4a577110ce8fe1158b0dc302cc2}\label{group__uvfr__can__api_ga81adc4a577110ce8fe1158b0dc302cc2}} 
-\index{UVFR CANbus API@{UVFR CANbus API}!insertCANMessageHandler@{insertCANMessageHandler}}
+\Hypertarget{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}\index{UVFR CANbus API@{UVFR CANbus API}!insertCANMessageHandler@{insertCANMessageHandler}}
 \index{insertCANMessageHandler@{insertCANMessageHandler}!UVFR CANbus API@{UVFR CANbus API}}
 \doxysubsubsection{\texorpdfstring{insertCANMessageHandler()}{insertCANMessageHandler()}}
-{\footnotesize\ttfamily void insert\+C\+A\+N\+Message\+Handler (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id,  }\item[{void $\ast$}]{handlerfunc }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6} 
+void insert\+CANMessage\+Handler (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{id}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{handlerfunc}{, }\item[{int}]{can\+\_\+num}{}\end{DoxyParamCaption})}
 
 
 
 Function to insert an id and function into the lookup table of callback functions. 
 
-Checks if specific hash id already exists in the hash table If not, insert the message If it already exists, check to see if the actual C\+AN id matches. If yes, then previous entries are overwritten If it does not exist, then each node in the hash table functions as it\textquotesingle{}s own linked list 
+Checks if specific hash id already exists in the hash table If not, insert the message If it already exists, check to see if the actual CAN id matches. If yes, then previous entries are overwritten If it does not exist, then each node in the hash table functions as it\textquotesingle{}s own linked list 
 
-Definition at line 395 of file can.\+c.
-
-
-
-References callback\+\_\+table\+\_\+mutex, C\+A\+N\+\_\+callback\+\_\+table, C\+A\+N\+\_\+\+Callback\+::\+C\+A\+N\+\_\+id, C\+A\+N\+\_\+\+Callback\+::function, generate\+Hash(), and C\+A\+N\+\_\+\+Callback\+::next.
+Definition at line \mbox{\hyperlink{can_8c_source_l00652}{652}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-Referenced by temp\+Monitor\+Task().
+References \mbox{\hyperlink{can_8c_source_l00070}{callback\+\_\+table\+\_\+1\+\_\+mutex}}, \mbox{\hyperlink{can_8c_source_l00071}{callback\+\_\+table\+\_\+2\+\_\+mutex}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00066}{CAN\+\_\+callback\+\_\+table\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00068}{CAN\+\_\+callback\+\_\+table\+\_\+2}}, \mbox{\hyperlink{can_8c_source_l00056}{CAN\+\_\+\+Callback\+::\+CAN\+\_\+id}}, \mbox{\hyperlink{can_8c_source_l00057}{CAN\+\_\+\+Callback\+::function}}, \mbox{\hyperlink{can_8c_source_l00577}{generate\+Hash()}}, \mbox{\hyperlink{can_8c_source_l00058}{CAN\+\_\+\+Callback\+::next}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{semphr_8h_source_l00447}{x\+Semaphore\+Give}}, and \mbox{\hyperlink{semphr_8h_source_l00289}{x\+Semaphore\+Take}}.
 
-\mbox{\Hypertarget{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}\label{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}} 
-\index{UVFR CANbus API@{UVFR CANbus API}!uvSendCanMSG@{uvSendCanMSG}}
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
+
+\Hypertarget{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}\index{UVFR CANbus API@{UVFR CANbus API}!uvSendCanMSG@{uvSendCanMSG}}
 \index{uvSendCanMSG@{uvSendCanMSG}!UVFR CANbus API@{UVFR CANbus API}}
 \doxysubsubsection{\texorpdfstring{uvSendCanMSG()}{uvSendCanMSG()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Send\+Can\+M\+SG (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$}]{tx\+\_\+msg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Send\+Can\+MSG (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{tx\+\_\+msg}{}\end{DoxyParamCaption})}
 
 
 
-Function to send C\+AN message. 
+Function to send CAN message. 
 
-This function is the canonical team method of sending a C\+AN message. It invokes the can\+Tx\+Daemon, to avoid any conflicts due to a context switch mid transmission Is it a little bit convoluted? Yes. Is that worth it? Still yes. 
+This function is the canonical team method of sending a CAN message. It invokes the can\+Tx\+Daemon, to avoid any conflicts due to a context switch mid transmission Is it a little bit convoluted? Yes. Is that worth it? Still yes. 
 
-Definition at line 513 of file can.\+c.
-
-
-
-References \+\_\+\+\_\+uv\+C\+A\+Ntx\+Crit\+Section(), Tx\+\_\+msg\+\_\+queue, U\+V\+\_\+\+E\+R\+R\+OR, and U\+V\+\_\+\+OK.
+Definition at line \mbox{\hyperlink{can_8c_source_l00864}{864}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-Referenced by temp\+Monitor\+Task(), and testfunc2().
+References \mbox{\hyperlink{can_8c_source_l00826}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section()}}, \mbox{\hyperlink{can_8c_source_l00074}{is\+\_\+can\+\_\+ok}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{can_8c_source_l00047}{Tx\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{queue_8h_source_l00395}{x\+Queue\+Send\+To\+Back}}, and \mbox{\hyperlink{queue_8h_source_l01055}{x\+Queue\+Send\+To\+Back\+From\+ISR}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{flush\+Logs\+To\+CAN()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{motor__controller_8c_source_l00407}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00110}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00141}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{daq_8c_source_l00390}{send\+Daq\+Msg()}}, \mbox{\hyperlink{motor__controller_8c_source_l00069}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00057}{testfunc2()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00070}{testfunc3()}}, \mbox{\hyperlink{pdu_8c_source_l00035}{u19update\+Pdu\+Channel()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00840}{uv\+Send\+Specific\+Param()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 

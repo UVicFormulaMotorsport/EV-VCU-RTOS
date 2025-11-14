@@ -1,313 +1,235 @@
-\hypertarget{pdu_8h}{}\doxysection{Core/\+Inc/pdu.h File Reference}
-\label{pdu_8h}\index{Core/Inc/pdu.h@{Core/Inc/pdu.h}}
-{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
-\doxysubsection*{Enumerations}
+\doxysection{Core/\+Inc/pdu.h File Reference}
+\hypertarget{pdu_8h}{}\label{pdu_8h}\index{Core/Inc/pdu.h@{Core/Inc/pdu.h}}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48}{pdu\+\_\+messages\+\_\+5A}} \{ \newline
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48afd52538722f49b70993ee24fd1533d29}{enable\+\_\+speaker\+\_\+msg}} = 0x1C, 
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48af4dab4ce5ee0966d1c1e9256fa916500}{disable\+\_\+speaker\+\_\+msg}} = 0x0C, 
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a57feb7349b7d37f8aacf96fabee1ae37}{enable\+\_\+brake\+\_\+light\+\_\+msg}} = 0x1B, 
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a7b020e5a7642d08fa93c5a2b02a4ba85}{disable\+\_\+brake\+\_\+light\+\_\+msg}} = 0x0B, 
-\newline
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a10bd3064fa0faf27494d6ca0aaf61047}{enable\+\_\+motor\+\_\+controller\+\_\+msg}} = 0x1E, 
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48ab0af732058b3fad72fd4872e4471653a}{disable\+\_\+motor\+\_\+controller\+\_\+msg}} = 0x0E, 
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48af94075d96d491d676ff5188dac627820}{enable\+\_\+shutdown\+\_\+circuit\+\_\+msg}} = 0x1F, 
-\mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48ac2ef53cf9e41b5b6a0c0eb4d6d981900}{disable\+\_\+shutdown\+\_\+circuit\+\_\+msg}} = 0x0F
- \}
-\item 
-enum \mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6}{pdu\+\_\+messages\+\_\+20A}} \{ \newline
-\mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a1b3de6d118ec94c8254a719eb4affdf6}{enable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg}} = 0x33, 
-\mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a7b960f0f0ff602f3a276e2a9a4a23967}{disable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg}} = 0x23, 
-\mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a15482c2204bbcaa786ec1659ab97b051}{enable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg}} = 0x34, 
-\mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a6fccdbe26ef1fe66ecd3ee62fb12007e}{disable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg}} = 0x24, 
-\newline
-\mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a09a6f1d46f6583f69ddb997adf4571c2}{enable\+\_\+coolant\+\_\+pump\+\_\+msg}} = 0x31, 
-\mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a2beb5f82c3d5098c13b0328938f72c6f}{disable\+\_\+coolant\+\_\+pump\+\_\+msg}} = 0x21
- \}
+struct \mbox{\hyperlink{structuv19__pdu__settings}{uv19\+\_\+pdu\+\_\+settings}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{pdu_8h_a42e33c33fc1dea26555ff7b20984b186}{P\+D\+U\+\_\+speaker\+\_\+chirp}} ()
+typedef struct abstract\+\_\+conifer\+\_\+channel \mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\+\_\+conifer\+\_\+channel}}
 \item 
-void \mbox{\hyperlink{pdu_8h_aa5479c0d6ab8d58683e99bf102d60db8}{P\+D\+U\+\_\+enable\+\_\+brake\+\_\+light}} ()
+typedef struct uv19\+\_\+pdu\+\_\+settings \mbox{\hyperlink{pdu_8h_aa0a9200cae8b8f6ce4757be92d17bab5}{uv19\+\_\+pdu\+\_\+settings}}
 \item 
-void \mbox{\hyperlink{pdu_8h_ad7b67b3c1618a7c50a5d6d9f9e13a89f}{P\+D\+U\+\_\+disable\+\_\+brake\+\_\+light}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_ae3eaaae4438e04d63fe04cc23a201810}{P\+D\+U\+\_\+enable\+\_\+motor\+\_\+controller}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_a6b189c4013c1cb97ff696a9bc05def5e}{P\+D\+U\+\_\+disable\+\_\+motor\+\_\+controller}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_a0f2b86f2db7ee86b014ccc246c8b674d}{P\+D\+U\+\_\+enable\+\_\+shutdown\+\_\+circuit}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_a67ed21c50014c891cc0031655a30aef9}{P\+D\+U\+\_\+disable\+\_\+shutdown\+\_\+circuit}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_a9d736981007eb7fc9691275dc7b6c05c}{P\+D\+U\+\_\+enable\+\_\+cooling\+\_\+fans}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_a3c665494b7f9fb4e025ff31d24c97072}{P\+D\+U\+\_\+disable\+\_\+cooling\+\_\+fans}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_aef2fd854287906cac1734f08a6edcf2a}{P\+D\+U\+\_\+enable\+\_\+coolant\+\_\+pump}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_aebeb35957c80be85dc938efe72c8e825}{P\+D\+U\+\_\+disable\+\_\+coolant\+\_\+pump}} ()
-\item 
-void \mbox{\hyperlink{pdu_8h_afaa6671d51bcd0687c87ac635ff70d95}{init\+P\+DU}} (void $\ast$args)
+typedef enum \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea}{u19\+\_\+\+PDU\+\_\+ch}} \mbox{\hyperlink{pdu_8h_ad173065a84d308bd01f5d6b95194ff22}{u19\+\_\+\+PDU\+\_\+ch}}
 \end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea}{u19\+\_\+\+PDU\+\_\+ch}} \{ \newline
+\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac23e55463e93039fcb121a26367b67b5}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+1}} = 0x00
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaa9c04a373228c700de346e19cdb0b935}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+2}} = 0x01
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa0c217a4768be18550377da16246d2fb6}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+3}} = 0x02
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaacab44d9b018118dc04c9d579630ccea}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+4}} = 0x03
+, \newline
+\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa4136ff58823d613a6690ce2c24c7677f}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+5}} = 0x04
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa02a051cf7f8f7e31f5c9e98b7b017e65}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+6}} = 0x05
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac40c98a9293ac951fd11a5d35499d650}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+7}} = 0x06
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaae545553bb6b36ebe52acf21c1a4c2d4b}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+8}} = 0x07
+, \newline
+\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa484c7d22cd2ddd47c63c7daea16990cb}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+9}} = 0x08
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa3a0f716512b63904048d3f895745fca3}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+10}} = 0x09
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa22ed06702ecd81fee7c8d01e337e5297}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+11}} = 0x0A
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac91e526507c56d14c838ab6cbfc7f6ea}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+12}} = 0x0B
+, \newline
+\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa1597b68efb75e67ef1d15b968f2bfa48}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+13}} = 0x0C
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaa63654c0498ee92b1a2f595706276ea3}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+14}} = 0x0D
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaab49884b3482f7d3935fc88ff148774c9}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+15}} = 0x0E
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa1cb71fc547ea7bad683ad263051f157a}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+16}} = 0x0F
+, \newline
+\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaccda06329558755bd5bdae4d68a70fcb}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+1}} = 0x20
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa05ed0de9c73e33e43212a470068b2f8c}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+2}} = 0x21
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa809b9c6ce040f2229d219703b587992a}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+3}} = 0x22
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa640828c56e9815cd6a6f359e23f68059}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+4}} = 0x23
+, \newline
+\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaffe85a9c78351c15900208678f7d2ca9}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+5}} = 0x24
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaaf92a0702634eebc7f444272ef0b2ed4}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+6}} = 0x25
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa3734b5f994d02c7fbad92ebad5cfe3a9}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+7}} = 0x26
+, \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa38b8dcce90f69fdc50dae802d9f4cc8e}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+8}} = 0x27
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{pdu_8h_a3d05c1a1776f19cc1437baf3c93c39e0}{u19update\+Pdu\+Channel}} (\mbox{\hyperlink{structabstract__conifer__channel}{abstract\+\_\+conifer\+\_\+channel}} \texorpdfstring{$\ast$}{*}ch\+\_\+ptr, uint32\+\_\+t \texorpdfstring{$\ast$}{*}ecode)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{pdu_8h_a1fe919a957b7055fcd240d738195d529}{init\+PDU}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}ecode)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}\index{pdu.h@{pdu.h}!abstract\_conifer\_channel@{abstract\_conifer\_channel}}
+\index{abstract\_conifer\_channel@{abstract\_conifer\_channel}!pdu.h@{pdu.h}}
+\doxysubsubsection{\texorpdfstring{abstract\_conifer\_channel}{abstract\_conifer\_channel}}
+{\footnotesize\ttfamily \label{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5} 
+typedef struct abstract\+\_\+conifer\+\_\+channel abstract\+\_\+conifer\+\_\+channel}
+
+
+
+Definition at line \mbox{\hyperlink{pdu_8h_source_l00009}{9}} of file \mbox{\hyperlink{pdu_8h_source}{pdu.\+h}}.
+
+\Hypertarget{pdu_8h_ad173065a84d308bd01f5d6b95194ff22}\index{pdu.h@{pdu.h}!u19\_PDU\_ch@{u19\_PDU\_ch}}
+\index{u19\_PDU\_ch@{u19\_PDU\_ch}!pdu.h@{pdu.h}}
+\doxysubsubsection{\texorpdfstring{u19\_PDU\_ch}{u19\_PDU\_ch}}
+{\footnotesize\ttfamily \label{pdu_8h_ad173065a84d308bd01f5d6b95194ff22} 
+typedef enum \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea}{u19\+\_\+\+PDU\+\_\+ch}} \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea}{u19\+\_\+\+PDU\+\_\+ch}}}
+
+\Hypertarget{pdu_8h_aa0a9200cae8b8f6ce4757be92d17bab5}\index{pdu.h@{pdu.h}!uv19\_pdu\_settings@{uv19\_pdu\_settings}}
+\index{uv19\_pdu\_settings@{uv19\_pdu\_settings}!pdu.h@{pdu.h}}
+\doxysubsubsection{\texorpdfstring{uv19\_pdu\_settings}{uv19\_pdu\_settings}}
+{\footnotesize\ttfamily \label{pdu_8h_aa0a9200cae8b8f6ce4757be92d17bab5} 
+typedef struct uv19\+\_\+pdu\+\_\+settings uv19\+\_\+pdu\+\_\+settings}
+
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6}} 
-\index{pdu.h@{pdu.h}!pdu\_messages\_20A@{pdu\_messages\_20A}}
-\index{pdu\_messages\_20A@{pdu\_messages\_20A}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{pdu\_messages\_20A}{pdu\_messages\_20A}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6}{pdu\+\_\+messages\+\_\+20A}}}
+\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea}\index{pdu.h@{pdu.h}!u19\_PDU\_ch@{u19\_PDU\_ch}}
+\index{u19\_PDU\_ch@{u19\_PDU\_ch}!pdu.h@{pdu.h}}
+\doxysubsubsection{\texorpdfstring{u19\_PDU\_ch}{u19\_PDU\_ch}}
+{\footnotesize\ttfamily \label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+enum \mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea}{u19\+\_\+\+PDU\+\_\+ch}}}
 
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_left\_cooling\_fan\_msg@{enable\_left\_cooling\_fan\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_left\_cooling\_fan\_msg@{enable\_left\_cooling\_fan\_msg}}}\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a1b3de6d118ec94c8254a719eb4affdf6}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a1b3de6d118ec94c8254a719eb4affdf6}} 
-enable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg&\\
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_1@{U19\_PDU\_5A\_1}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_1@{U19\_PDU\_5A\_1}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac23e55463e93039fcb121a26367b67b5}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+1&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_left\_cooling\_fan\_msg@{disable\_left\_cooling\_fan\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_left\_cooling\_fan\_msg@{disable\_left\_cooling\_fan\_msg}}}\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a7b960f0f0ff602f3a276e2a9a4a23967}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a7b960f0f0ff602f3a276e2a9a4a23967}} 
-disable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_2@{U19\_PDU\_5A\_2}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_2@{U19\_PDU\_5A\_2}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaa9c04a373228c700de346e19cdb0b935}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+2&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_right\_cooling\_fan\_msg@{enable\_right\_cooling\_fan\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_right\_cooling\_fan\_msg@{enable\_right\_cooling\_fan\_msg}}}\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a15482c2204bbcaa786ec1659ab97b051}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a15482c2204bbcaa786ec1659ab97b051}} 
-enable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_3@{U19\_PDU\_5A\_3}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_3@{U19\_PDU\_5A\_3}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa0c217a4768be18550377da16246d2fb6}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+3&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_right\_cooling\_fan\_msg@{disable\_right\_cooling\_fan\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_right\_cooling\_fan\_msg@{disable\_right\_cooling\_fan\_msg}}}\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a6fccdbe26ef1fe66ecd3ee62fb12007e}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a6fccdbe26ef1fe66ecd3ee62fb12007e}} 
-disable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_4@{U19\_PDU\_5A\_4}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_4@{U19\_PDU\_5A\_4}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaacab44d9b018118dc04c9d579630ccea}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+4&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_coolant\_pump\_msg@{enable\_coolant\_pump\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_coolant\_pump\_msg@{enable\_coolant\_pump\_msg}}}\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a09a6f1d46f6583f69ddb997adf4571c2}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a09a6f1d46f6583f69ddb997adf4571c2}} 
-enable\+\_\+coolant\+\_\+pump\+\_\+msg&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_5@{U19\_PDU\_5A\_5}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_5@{U19\_PDU\_5A\_5}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa4136ff58823d613a6690ce2c24c7677f}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+5&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_coolant\_pump\_msg@{disable\_coolant\_pump\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_coolant\_pump\_msg@{disable\_coolant\_pump\_msg}}}\mbox{\Hypertarget{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a2beb5f82c3d5098c13b0328938f72c6f}\label{pdu_8h_a9da17cdb854b14b04e25bc942810f7e6a2beb5f82c3d5098c13b0328938f72c6f}} 
-disable\+\_\+coolant\+\_\+pump\+\_\+msg&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_6@{U19\_PDU\_5A\_6}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_6@{U19\_PDU\_5A\_6}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa02a051cf7f8f7e31f5c9e98b7b017e65}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_7@{U19\_PDU\_5A\_7}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_7@{U19\_PDU\_5A\_7}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac40c98a9293ac951fd11a5d35499d650}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+7&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_8@{U19\_PDU\_5A\_8}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_8@{U19\_PDU\_5A\_8}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaae545553bb6b36ebe52acf21c1a4c2d4b}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+8&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_9@{U19\_PDU\_5A\_9}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_9@{U19\_PDU\_5A\_9}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa484c7d22cd2ddd47c63c7daea16990cb}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+9&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_10@{U19\_PDU\_5A\_10}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_10@{U19\_PDU\_5A\_10}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa3a0f716512b63904048d3f895745fca3}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+10&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_11@{U19\_PDU\_5A\_11}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_11@{U19\_PDU\_5A\_11}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa22ed06702ecd81fee7c8d01e337e5297}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+11&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_12@{U19\_PDU\_5A\_12}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_12@{U19\_PDU\_5A\_12}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac91e526507c56d14c838ab6cbfc7f6ea}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+12&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_13@{U19\_PDU\_5A\_13}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_13@{U19\_PDU\_5A\_13}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa1597b68efb75e67ef1d15b968f2bfa48}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+13&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_14@{U19\_PDU\_5A\_14}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_14@{U19\_PDU\_5A\_14}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaa63654c0498ee92b1a2f595706276ea3}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+14&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_15@{U19\_PDU\_5A\_15}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_15@{U19\_PDU\_5A\_15}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaab49884b3482f7d3935fc88ff148774c9}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+15&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_5A\_16@{U19\_PDU\_5A\_16}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_5A\_16@{U19\_PDU\_5A\_16}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa1cb71fc547ea7bad683ad263051f157a}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+5\+A\+\_\+16&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_1@{U19\_PDU\_20A\_1}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_1@{U19\_PDU\_20A\_1}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaccda06329558755bd5bdae4d68a70fcb}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+1&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_2@{U19\_PDU\_20A\_2}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_2@{U19\_PDU\_20A\_2}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa05ed0de9c73e33e43212a470068b2f8c}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+2&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_3@{U19\_PDU\_20A\_3}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_3@{U19\_PDU\_20A\_3}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa809b9c6ce040f2229d219703b587992a}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+3&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_4@{U19\_PDU\_20A\_4}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_4@{U19\_PDU\_20A\_4}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa640828c56e9815cd6a6f359e23f68059}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+4&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_5@{U19\_PDU\_20A\_5}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_5@{U19\_PDU\_20A\_5}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaffe85a9c78351c15900208678f7d2ca9}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+5&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_6@{U19\_PDU\_20A\_6}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_6@{U19\_PDU\_20A\_6}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaaf92a0702634eebc7f444272ef0b2ed4}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+6&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_7@{U19\_PDU\_20A\_7}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_7@{U19\_PDU\_20A\_7}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa3734b5f994d02c7fbad92ebad5cfe3a9}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+7&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{U19\_PDU\_20A\_8@{U19\_PDU\_20A\_8}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!U19\_PDU\_20A\_8@{U19\_PDU\_20A\_8}}}\Hypertarget{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa38b8dcce90f69fdc50dae802d9f4cc8e}\label{pdu_8h_a3e9aefba16c71c51565c8017e53ae6ea} 
+U19\+\_\+\+PDU\+\_\+20\+A\+\_\+8&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 24 of file pdu.\+h.
-
-\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48}} 
-\index{pdu.h@{pdu.h}!pdu\_messages\_5A@{pdu\_messages\_5A}}
-\index{pdu\_messages\_5A@{pdu\_messages\_5A}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{pdu\_messages\_5A}{pdu\_messages\_5A}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48}{pdu\+\_\+messages\+\_\+5A}}}
-
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_speaker\_msg@{enable\_speaker\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_speaker\_msg@{enable\_speaker\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48afd52538722f49b70993ee24fd1533d29}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48afd52538722f49b70993ee24fd1533d29}} 
-enable\+\_\+speaker\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_speaker\_msg@{disable\_speaker\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_speaker\_msg@{disable\_speaker\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48af4dab4ce5ee0966d1c1e9256fa916500}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48af4dab4ce5ee0966d1c1e9256fa916500}} 
-disable\+\_\+speaker\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_brake\_light\_msg@{enable\_brake\_light\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_brake\_light\_msg@{enable\_brake\_light\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a57feb7349b7d37f8aacf96fabee1ae37}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a57feb7349b7d37f8aacf96fabee1ae37}} 
-enable\+\_\+brake\+\_\+light\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_brake\_light\_msg@{disable\_brake\_light\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_brake\_light\_msg@{disable\_brake\_light\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a7b020e5a7642d08fa93c5a2b02a4ba85}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a7b020e5a7642d08fa93c5a2b02a4ba85}} 
-disable\+\_\+brake\+\_\+light\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_motor\_controller\_msg@{enable\_motor\_controller\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_motor\_controller\_msg@{enable\_motor\_controller\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a10bd3064fa0faf27494d6ca0aaf61047}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48a10bd3064fa0faf27494d6ca0aaf61047}} 
-enable\+\_\+motor\+\_\+controller\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_motor\_controller\_msg@{disable\_motor\_controller\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_motor\_controller\_msg@{disable\_motor\_controller\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48ab0af732058b3fad72fd4872e4471653a}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48ab0af732058b3fad72fd4872e4471653a}} 
-disable\+\_\+motor\+\_\+controller\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{enable\_shutdown\_circuit\_msg@{enable\_shutdown\_circuit\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!enable\_shutdown\_circuit\_msg@{enable\_shutdown\_circuit\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48af94075d96d491d676ff5188dac627820}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48af94075d96d491d676ff5188dac627820}} 
-enable\+\_\+shutdown\+\_\+circuit\+\_\+msg&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{disable\_shutdown\_circuit\_msg@{disable\_shutdown\_circuit\_msg}!pdu.h@{pdu.h}}\index{pdu.h@{pdu.h}!disable\_shutdown\_circuit\_msg@{disable\_shutdown\_circuit\_msg}}}\mbox{\Hypertarget{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48ac2ef53cf9e41b5b6a0c0eb4d6d981900}\label{pdu_8h_a572d423626195b99cf1a26b4b8eb7e48ac2ef53cf9e41b5b6a0c0eb4d6d981900}} 
-disable\+\_\+shutdown\+\_\+circuit\+\_\+msg&\\
-\hline
-
-\end{DoxyEnumFields}
-
-
-Definition at line 13 of file pdu.\+h.
+Definition at line \mbox{\hyperlink{pdu_8h_source_l00022}{22}} of file \mbox{\hyperlink{pdu_8h_source}{pdu.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{pdu_8h_afaa6671d51bcd0687c87ac635ff70d95}\label{pdu_8h_afaa6671d51bcd0687c87ac635ff70d95}} 
-\index{pdu.h@{pdu.h}!initPDU@{initPDU}}
+\Hypertarget{pdu_8h_a1fe919a957b7055fcd240d738195d529}\index{pdu.h@{pdu.h}!initPDU@{initPDU}}
 \index{initPDU@{initPDU}!pdu.h@{pdu.h}}
 \doxysubsubsection{\texorpdfstring{initPDU()}{initPDU()}}
-{\footnotesize\ttfamily void init\+P\+DU (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{pdu_8h_a1fe919a957b7055fcd240d738195d529} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} init\+PDU (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{ecode}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 183 of file pdu.\+c.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00087}{87}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
 
-References uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle, P\+DU, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__conifer_8h_source_l00085}{CONIFER\+\_\+\+DRV\+\_\+\+INIT\+\_\+\+ERR}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00007}{conifer\+\_\+params}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{pdu_8c_source_l00023}{msg\+\_\+to\+\_\+\+PDU}}, \mbox{\hyperlink{pdu_8c_source_l00021}{pdu\+\_\+tx\+\_\+mutex}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}.
 
 
 
-Referenced by uv\+Init().
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}.
 
-\mbox{\Hypertarget{pdu_8h_ad7b67b3c1618a7c50a5d6d9f9e13a89f}\label{pdu_8h_ad7b67b3c1618a7c50a5d6d9f9e13a89f}} 
-\index{pdu.h@{pdu.h}!PDU\_disable\_brake\_light@{PDU\_disable\_brake\_light}}
-\index{PDU\_disable\_brake\_light@{PDU\_disable\_brake\_light}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_brake\_light()}{PDU\_disable\_brake\_light()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+brake\+\_\+light (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{pdu_8h_a3d05c1a1776f19cc1437baf3c93c39e0}\index{pdu.h@{pdu.h}!u19updatePduChannel@{u19updatePduChannel}}
+\index{u19updatePduChannel@{u19updatePduChannel}!pdu.h@{pdu.h}}
+\doxysubsubsection{\texorpdfstring{u19updatePduChannel()}{u19updatePduChannel()}}
+{\footnotesize\ttfamily \label{pdu_8h_a3d05c1a1776f19cc1437baf3c93c39e0} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} u19update\+Pdu\+Channel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structabstract__conifer__channel}{abstract\+\_\+conifer\+\_\+channel}} \texorpdfstring{$\ast$}{*}}]{ch\+\_\+ptr}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{ecode}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 48 of file pdu.\+c.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00035}{35}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
 
-References disable\+\_\+brake\+\_\+light\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+References \mbox{\hyperlink{uvfr__conifer_8h_source_l00018}{CONIFER\+\_\+\+CH\+\_\+\+EN\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00081}{CONIFER\+\_\+\+DRV\+\_\+\+INVALID\+\_\+\+HW\+\_\+\+CH\+\_\+\+ID}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{pdu_8c_source_l00023}{msg\+\_\+to\+\_\+\+PDU}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{pdu_8c_source_l00021}{pdu\+\_\+tx\+\_\+mutex}}, \mbox{\hyperlink{pdu_8c_source_l00016}{set\+\_\+20\+A\+\_\+vals}}, \mbox{\hyperlink{pdu_8c_source_l00013}{set\+\_\+5\+A\+\_\+vals}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, \mbox{\hyperlink{pdu_8h_source_l00039}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+1}}, \mbox{\hyperlink{pdu_8h_source_l00046}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+8}}, \mbox{\hyperlink{pdu_8c_source_l00031}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+\+BIT}}, \mbox{\hyperlink{pdu_8h_source_l00038}{U19\+\_\+\+PDU\+\_\+5\+A\+\_\+16}}, \mbox{\hyperlink{pdu_8c_source_l00032}{U19\+\_\+\+PDU\+\_\+\+EN\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}, \mbox{\hyperlink{semphr_8h_source_l00447}{x\+Semaphore\+Give}}, and \mbox{\hyperlink{semphr_8h_source_l00289}{x\+Semaphore\+Take}}.
 
-\mbox{\Hypertarget{pdu_8h_aebeb35957c80be85dc938efe72c8e825}\label{pdu_8h_aebeb35957c80be85dc938efe72c8e825}} 
-\index{pdu.h@{pdu.h}!PDU\_disable\_coolant\_pump@{PDU\_disable\_coolant\_pump}}
-\index{PDU\_disable\_coolant\_pump@{PDU\_disable\_coolant\_pump}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_coolant\_pump()}{PDU\_disable\_coolant\_pump()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+coolant\+\_\+pump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
-
-Definition at line 170 of file pdu.\+c.
-
-
-
-References disable\+\_\+coolant\+\_\+pump\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_a3c665494b7f9fb4e025ff31d24c97072}\label{pdu_8h_a3c665494b7f9fb4e025ff31d24c97072}} 
-\index{pdu.h@{pdu.h}!PDU\_disable\_cooling\_fans@{PDU\_disable\_cooling\_fans}}
-\index{PDU\_disable\_cooling\_fans@{PDU\_disable\_cooling\_fans}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_cooling\_fans()}{PDU\_disable\_cooling\_fans()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+cooling\+\_\+fans (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 136 of file pdu.\+c.
-
-
-
-References disable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg, disable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_a6b189c4013c1cb97ff696a9bc05def5e}\label{pdu_8h_a6b189c4013c1cb97ff696a9bc05def5e}} 
-\index{pdu.h@{pdu.h}!PDU\_disable\_motor\_controller@{PDU\_disable\_motor\_controller}}
-\index{PDU\_disable\_motor\_controller@{PDU\_disable\_motor\_controller}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_motor\_controller()}{PDU\_disable\_motor\_controller()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+motor\+\_\+controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 74 of file pdu.\+c.
-
-
-
-References disable\+\_\+motor\+\_\+controller\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_a67ed21c50014c891cc0031655a30aef9}\label{pdu_8h_a67ed21c50014c891cc0031655a30aef9}} 
-\index{pdu.h@{pdu.h}!PDU\_disable\_shutdown\_circuit@{PDU\_disable\_shutdown\_circuit}}
-\index{PDU\_disable\_shutdown\_circuit@{PDU\_disable\_shutdown\_circuit}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_shutdown\_circuit()}{PDU\_disable\_shutdown\_circuit()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+shutdown\+\_\+circuit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 100 of file pdu.\+c.
-
-
-
-References disable\+\_\+shutdown\+\_\+circuit\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_aa5479c0d6ab8d58683e99bf102d60db8}\label{pdu_8h_aa5479c0d6ab8d58683e99bf102d60db8}} 
-\index{pdu.h@{pdu.h}!PDU\_enable\_brake\_light@{PDU\_enable\_brake\_light}}
-\index{PDU\_enable\_brake\_light@{PDU\_enable\_brake\_light}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_brake\_light()}{PDU\_enable\_brake\_light()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+brake\+\_\+light (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 34 of file pdu.\+c.
-
-
-
-References enable\+\_\+brake\+\_\+light\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_aef2fd854287906cac1734f08a6edcf2a}\label{pdu_8h_aef2fd854287906cac1734f08a6edcf2a}} 
-\index{pdu.h@{pdu.h}!PDU\_enable\_coolant\_pump@{PDU\_enable\_coolant\_pump}}
-\index{PDU\_enable\_coolant\_pump@{PDU\_enable\_coolant\_pump}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_coolant\_pump()}{PDU\_enable\_coolant\_pump()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+coolant\+\_\+pump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 158 of file pdu.\+c.
-
-
-
-References enable\+\_\+coolant\+\_\+pump\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_a9d736981007eb7fc9691275dc7b6c05c}\label{pdu_8h_a9d736981007eb7fc9691275dc7b6c05c}} 
-\index{pdu.h@{pdu.h}!PDU\_enable\_cooling\_fans@{PDU\_enable\_cooling\_fans}}
-\index{PDU\_enable\_cooling\_fans@{PDU\_enable\_cooling\_fans}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_cooling\_fans()}{PDU\_enable\_cooling\_fans()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+cooling\+\_\+fans (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 115 of file pdu.\+c.
-
-
-
-References enable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg, enable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_ae3eaaae4438e04d63fe04cc23a201810}\label{pdu_8h_ae3eaaae4438e04d63fe04cc23a201810}} 
-\index{pdu.h@{pdu.h}!PDU\_enable\_motor\_controller@{PDU\_enable\_motor\_controller}}
-\index{PDU\_enable\_motor\_controller@{PDU\_enable\_motor\_controller}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_motor\_controller()}{PDU\_enable\_motor\_controller()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+motor\+\_\+controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 62 of file pdu.\+c.
-
-
-
-References enable\+\_\+motor\+\_\+controller\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_a0f2b86f2db7ee86b014ccc246c8b674d}\label{pdu_8h_a0f2b86f2db7ee86b014ccc246c8b674d}} 
-\index{pdu.h@{pdu.h}!PDU\_enable\_shutdown\_circuit@{PDU\_enable\_shutdown\_circuit}}
-\index{PDU\_enable\_shutdown\_circuit@{PDU\_enable\_shutdown\_circuit}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_shutdown\_circuit()}{PDU\_enable\_shutdown\_circuit()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+shutdown\+\_\+circuit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 87 of file pdu.\+c.
-
-
-
-References enable\+\_\+shutdown\+\_\+circuit\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8h_a42e33c33fc1dea26555ff7b20984b186}\label{pdu_8h_a42e33c33fc1dea26555ff7b20984b186}} 
-\index{pdu.h@{pdu.h}!PDU\_speaker\_chirp@{PDU\_speaker\_chirp}}
-\index{PDU\_speaker\_chirp@{PDU\_speaker\_chirp}!pdu.h@{pdu.h}}
-\doxysubsubsection{\texorpdfstring{PDU\_speaker\_chirp()}{PDU\_speaker\_chirp()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+speaker\+\_\+chirp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 11 of file pdu.\+c.
-
-
-
-References disable\+\_\+speaker\+\_\+msg, enable\+\_\+speaker\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}.
 

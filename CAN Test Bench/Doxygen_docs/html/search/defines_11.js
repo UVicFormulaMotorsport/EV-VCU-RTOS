@@ -1,5 +1,26 @@
 var searchData=
 [
-  ['vdd_5fvalue_2243',['VDD_VALUE',['../stm32f4xx__hal__conf_8h.html#aae550dad9f96d52cfce5e539adadbbb4',1,'stm32f4xx_hal_conf.h']]],
-  ['vportsvchandler_2244',['vPortSVCHandler',['../_free_r_t_o_s_config_8h.html#ad43047b3ea0a146673e30637488bf754',1,'FreeRTOSConfig.h']]]
+  ['sbbytes_5fto_5fstore_5fmessage_5flength_0',['sbBYTES_TO_STORE_MESSAGE_LENGTH',['../stream__buffer_8c.html#aaa21967227eb06d02cdd038047b836f6',1,'stream_buffer.c']]],
+  ['sbflags_5fis_5fmessage_5fbuffer_1',['sbFLAGS_IS_MESSAGE_BUFFER',['../stream__buffer_8c.html#a4954c04e3f9f6b0d4a98b9441b35d896',1,'stream_buffer.c']]],
+  ['sbflags_5fis_5fstatically_5fallocated_2',['sbFLAGS_IS_STATICALLY_ALLOCATED',['../stream__buffer_8c.html#a80943e49aae8a493f02d78527b3fc01e',1,'stream_buffer.c']]],
+  ['sblock_5fcrc_5fregion_5foffset_3',['SBLOCK_CRC_REGION_OFFSET',['../uvfr__settings_8h.html#aebd62102e00795b30043cdceecace52f',1,'uvfr_settings.h']]],
+  ['sblock_5fcsr_5foffset_4',['SBLOCK_CSR_OFFSET',['../uvfr__settings_8h.html#acacc88fdb8b97ea07cf0be9f17a023cf',1,'uvfr_settings.h']]],
+  ['sbreceive_5fcompleted_5',['sbRECEIVE_COMPLETED',['../stream__buffer_8c.html#a4d6a29d283acfa2d4ef576476eedc789',1,'stream_buffer.c']]],
+  ['sbreceive_5fcompleted_5ffrom_5fisr_6',['sbRECEIVE_COMPLETED_FROM_ISR',['../stream__buffer_8c.html#ab72c363566113705c021596f90c6eb5a',1,'stream_buffer.c']]],
+  ['sbsend_5fcomplete_5ffrom_5fisr_7',['sbSEND_COMPLETE_FROM_ISR',['../stream__buffer_8c.html#aadd3cf567c5086402552c463c55dda7c',1,'stream_buffer.c']]],
+  ['sbsend_5fcompleted_8',['sbSEND_COMPLETED',['../stream__buffer_8c.html#aa75273dfbcd92710254df0165ae1da5d',1,'stream_buffer.c']]],
+  ['sembinary_5fsemaphore_5fqueue_5flength_9',['semBINARY_SEMAPHORE_QUEUE_LENGTH',['../semphr_8h.html#a73cfd14cf25a13f8dd4dc1d74b7fc04a',1,'semphr.h']]],
+  ['semgive_5fblock_5ftime_10',['semGIVE_BLOCK_TIME',['../semphr_8h.html#a124bb5bd7805baa06fbd3239840d6803',1,'semphr.h']]],
+  ['semsemaphore_5fqueue_5fitem_5flength_11',['semSEMAPHORE_QUEUE_ITEM_LENGTH',['../semphr_8h.html#a93bd07e28aed3084bdafa1f4e99700b2',1,'semphr.h']]],
+  ['serial_5fnumber_5fregister_12',['SERIAL_NUMBER_REGISTER',['../motor__controller_8h.html#aab8c03dc3480e25a7a75b60edbf51cb3',1,'motor_controller.h']]],
+  ['setting_5fbranch_5fsize_13',['SETTING_BRANCH_SIZE',['../uvfr__settings_8h.html#ae3422980a714e1a061dc8c4685a1d613',1,'uvfr_settings.h']]],
+  ['size_5fof_5fmgroup_14',['SIZE_OF_MGROUP',['../uvfr__settings_8h.html#a342e3921728e340ca4a2330e1c15b486',1,'uvfr_settings.h']]],
+  ['sizeof_5fsblock_15',['SIZEOF_SBLOCK',['../uvfr__settings_8h.html#a79779aaf637a0459db42ec96f3c10a99',1,'uvfr_settings.h']]],
+  ['sizeof_5fuser_5fflash_16',['SIZEOF_USER_FLASH',['../uvfr__settings_8h.html#a16f48a5f6f80f73072abfa3c5887fa43',1,'uvfr_settings.h']]],
+  ['src_5fuvfr_5fsettings_5fc_5f_17',['SRC_UVFR_SETTINGS_C_',['../uvfr__settings_8c.html#a7350f4a84cab7a08d99c9e88b248a180',1,'uvfr_settings.c']]],
+  ['start_5fof_5fuser_5fflash_18',['START_OF_USER_FLASH',['../uvfr__settings_8h.html#a3e4cc3b6b2019eb461b9cd99ff70f1e7',1,'uvfr_settings.h']]],
+  ['stm32_5ff407_19',['STM32_F407',['../uvfr__global__config_8h.html#ad2ffeade407a690d34c80397981a9326',1,'uvfr_global_config.h']]],
+  ['stm32_5fh7xx_20',['STM32_H7xx',['../uvfr__global__config_8h.html#a6d9ab034d353afd623acde9fc618176c',1,'uvfr_global_config.h']]],
+  ['svc_5ftask_5fmax_5fcheckin_5fperiod_21',['SVC_TASK_MAX_CHECKIN_PERIOD',['../uvfr__state__engine_8h.html#afa84e50f417bfe6026bd922b546e4daa',1,'uvfr_state_engine.h']]],
+  ['sys_5fdata_5foffset_22',['SYS_DATA_OFFSET',['../uvfr__settings_8h.html#a41cab1c170a91737c8209c8231be894a',1,'uvfr_settings.h']]]
 ];

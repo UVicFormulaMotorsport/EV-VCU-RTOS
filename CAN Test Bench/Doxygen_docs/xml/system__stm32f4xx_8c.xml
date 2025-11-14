@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="system__stm32f4xx_8c" kind="file" language="C++">
     <compoundname>system_stm32f4xx.c</compoundname>
     <includes local="yes">stm32f4xx.h</includes>
@@ -14,166 +14,50 @@
         <label>stm32f4xx.h</label>
       </node>
     </incdepgraph>
-      <sectiondef kind="define">
-      <memberdef kind="define" id="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" prot="public" static="no">
-        <name>HSE_VALUE</name>
-        <initializer>((uint32_t)25000000)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Default value of the External oscillator in Hz </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="51" column="11" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="51" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" prot="public" static="no">
-        <name>HSI_VALUE</name>
-        <initializer>((uint32_t)16000000)</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-<para>Value of the Internal oscillator in Hz </para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="55" column="11" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="55" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="var">
-      <memberdef kind="variable" id="group___s_t_m32_f4xx___system___private___variables_1gaa3cd3e43291e81e795d642b79b6088e6" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t SystemCoreClock</definition>
-        <argsstring></argsstring>
-        <name>SystemCoreClock</name>
-        <initializer>= 16000000</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="137" column="10" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="137" bodyend="-1"/>
-        <referencedby refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" compoundref="system__stm32f4xx_8c" startline="216" endline="262">SystemCoreClockUpdate</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="group___s_t_m32_f4xx___system___private___variables_1ga6e1d9cd666f0eacbfde31e9932a93466" prot="public" static="no" mutable="no">
-        <type>const uint8_t</type>
-        <definition>const uint8_t AHBPrescTable[16]</definition>
-        <argsstring>[16]</argsstring>
-        <name>AHBPrescTable</name>
-        <initializer>= {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="138" column="15" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="138" bodyend="-1"/>
-        <referencedby refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" compoundref="system__stm32f4xx_8c" startline="216" endline="262">SystemCoreClockUpdate</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="group___s_t_m32_f4xx___system___private___variables_1ga5b4f8b768465842cf854a8f993b375e9" prot="public" static="no" mutable="no">
-        <type>const uint8_t</type>
-        <definition>const uint8_t APBPrescTable[8]</definition>
-        <argsstring>[8]</argsstring>
-        <name>APBPrescTable</name>
-        <initializer>= {0, 0, 0, 0, 1, 2, 3, 4}</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="139" column="15" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="139" bodyend="-1"/>
-      </memberdef>
-      </sectiondef>
-      <sectiondef kind="func">
-      <memberdef kind="function" id="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void SystemInit</definition>
-        <argsstring>(void)</argsstring>
-        <name>SystemInit</name>
-        <param>
-          <type>void</type>
-        </param>
-        <briefdescription>
-<para>Setup the microcontroller system Initialize the FPU setting, vector table location and External memory configuration. </para>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="165" column="6" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="165" bodyend="180"/>
-      </memberdef>
-      <memberdef kind="function" id="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void SystemCoreClockUpdate</definition>
-        <argsstring>(void)</argsstring>
-        <name>SystemCoreClockUpdate</name>
-        <param>
-          <type>void</type>
-        </param>
-        <briefdescription>
-<para>Update SystemCoreClock variable according to Clock Register Values. The SystemCoreClock variable contains the core clock (HCLK), it can be used by the user application to setup the SysTick timer or configure other parameters. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><simplesect kind="note"><para>Each time the core clock (HCLK) changes, this function must be called to update SystemCoreClock variable value. Otherwise, any configuration based on this variable will be incorrect. <linebreak/>
-</para>
-</simplesect>
-<simplesect kind="note"><para>- The system frequency computed by this function is not the real frequency in the chip. It is calculated based on the predefined constant and the selected clock source:</para>
-</simplesect>
-<itemizedlist>
-<listitem><para>If SYSCLK source is HSI, SystemCoreClock will contain the <ref refid="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" kindref="member">HSI_VALUE(*)</ref></para>
-</listitem><listitem><para>If SYSCLK source is HSE, SystemCoreClock will contain the <ref refid="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" kindref="member">HSE_VALUE(**)</ref></para>
-</listitem><listitem><para>If SYSCLK source is PLL, SystemCoreClock will contain the <ref refid="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" kindref="member">HSE_VALUE(**)</ref> or <ref refid="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" kindref="member">HSI_VALUE(*)</ref> multiplied/divided by the PLL factors.</para>
-</listitem></itemizedlist>
-</para>
-<para>(*) HSI_VALUE is a constant defined in <ref refid="stm32f4xx__hal__conf_8h" kindref="compound">stm32f4xx_hal_conf.h</ref> file (default value 16 MHz) but the real value may vary depending on the variations in voltage and temperature. <linebreak/>
-</para>
-<para>(**) HSE_VALUE is a constant defined in <ref refid="stm32f4xx__hal__conf_8h" kindref="compound">stm32f4xx_hal_conf.h</ref> file (its value depends on the application requirements), user has to ensure that HSE_VALUE is same as the real frequency of the crystal used. Otherwise, this function may have wrong result.</para>
-<para><itemizedlist>
-<listitem><para>The result of this function could be not correct when using fractional value for HSE crystal. </para>
-</listitem></itemizedlist>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/system_stm32f4xx.c" line="216" column="6" bodyfile="Core/Src/system_stm32f4xx.c" bodystart="216" bodyend="262"/>
-        <references refid="group___s_t_m32_f4xx___system___private___variables_1ga6e1d9cd666f0eacbfde31e9932a93466" compoundref="system__stm32f4xx_8c" startline="138">AHBPrescTable</references>
-        <references refid="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" compoundref="system__stm32f4xx_8c" startline="51">HSE_VALUE</references>
-        <references refid="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" compoundref="system__stm32f4xx_8c" startline="55">HSI_VALUE</references>
-        <references refid="group___s_t_m32_f4xx___system___private___variables_1gaa3cd3e43291e81e795d642b79b6088e6" compoundref="system__stm32f4xx_8c" startline="137">SystemCoreClock</references>
-      </memberdef>
-      </sectiondef>
+    <sectiondef kind="define">
+      <member refid="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" kind="define"><name>HSE_VALUE</name></member>
+      <member refid="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" kind="define"><name>HSI_VALUE</name></member>
+    </sectiondef>
+    <sectiondef kind="var">
+      <member refid="group___s_t_m32_f4xx___system___private___variables_1gaa3cd3e43291e81e795d642b79b6088e6" kind="variable"><name>SystemCoreClock</name></member>
+      <member refid="group___s_t_m32_f4xx___system___private___variables_1ga6e1d9cd666f0eacbfde31e9932a93466" kind="variable"><name>AHBPrescTable</name></member>
+      <member refid="group___s_t_m32_f4xx___system___private___variables_1ga5b4f8b768465842cf854a8f993b375e9" kind="variable"><name>APBPrescTable</name></member>
+    </sectiondef>
+    <sectiondef kind="func">
+      <member refid="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" kind="function"><name>SystemInit</name></member>
+      <member refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" kind="function"><name>SystemCoreClockUpdate</name></member>
+    </sectiondef>
     <briefdescription>
 <para>CMSIS Cortex-M4 Device Peripheral Access Layer System Source File. </para>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>MCD Application Team This file provides two functions and one global variable to be called from user application:<itemizedlist>
+<para><simplesect kind="author"><para>MCD Application Team </para>
+</simplesect>
+This file provides two functions and one global variable to be called from user application:<itemizedlist>
 <listitem><para><ref refid="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" kindref="member">SystemInit()</ref>: This function is called at startup just after reset and before branch to main program. This call is made inside the &quot;startup_stm32f4xx.s&quot; file.</para>
 </listitem><listitem><para>SystemCoreClock variable: Contains the core clock (HCLK), it can be used by the user application to setup the SysTick timer or configure other parameters.</para>
 </listitem><listitem><para><ref refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" kindref="member">SystemCoreClockUpdate()</ref>: Updates the variable SystemCoreClock and must be called whenever the core clock is changed during program execution.</para>
 </listitem></itemizedlist>
 </para>
-</simplesect>
-<simplesect kind="attention"><para></para>
+<para><simplesect kind="attention"><para></para>
 </simplesect>
 Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <para>This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-IS. </para>
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"></codeline>
-<codeline lineno="48"><highlight class="preprocessor">#include<sp/>&quot;stm32f4xx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;stm32f4xx.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="49"><highlight class="normal"></highlight></codeline>
 <codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSE_VALUE)<sp/></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51" refid="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSE_VALUE<sp/><sp/><sp/><sp/>((uint32_t)25000000)<sp/></highlight></codeline>
-<codeline lineno="52"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSE_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="group___s_t_m32_f4xx___system___private___includes_1gaeafcff4f57440c60e64812dddd13e7cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSE_VALUE<sp/><sp/><sp/><sp/>((uint32_t)25000000)<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSE_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
 <codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSI_VALUE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="55" refid="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSI_VALUE<sp/><sp/><sp/><sp/>((uint32_t)16000000)<sp/></highlight></codeline>
-<codeline lineno="56"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSI_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="group___s_t_m32_f4xx___system___private___includes_1gaaa8c76e274d0f6dd2cefb5d0b17fbc37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSI_VALUE<sp/><sp/><sp/><sp/>((uint32_t)16000000)<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSI_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="comment">/*************************<sp/>Miscellaneous<sp/>Configuration<sp/>************************/</highlight></codeline>
-<codeline lineno="76"><highlight class="preprocessor">#if<sp/>defined(STM32F405xx)<sp/>||<sp/>defined(STM32F415xx)<sp/>||<sp/>defined(STM32F407xx)<sp/>||<sp/>defined(STM32F417xx)\</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*************************<sp/>Miscellaneous<sp/>Configuration<sp/>************************/</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(STM32F405xx)<sp/>||<sp/>defined(STM32F415xx)<sp/>||<sp/>defined(STM32F407xx)<sp/>||<sp/>defined(STM32F417xx)\</highlight></codeline>
 <codeline lineno="77"><highlight class="preprocessor"><sp/>||<sp/>defined(STM32F427xx)<sp/>||<sp/>defined(STM32F437xx)<sp/>||<sp/>defined(STM32F429xx)<sp/>||<sp/>defined(STM32F439xx)\</highlight></codeline>
 <codeline lineno="78"><highlight class="preprocessor"><sp/>||<sp/>defined(STM32F469xx)<sp/>||<sp/>defined(STM32F479xx)<sp/>||<sp/>defined(STM32F412Zx)<sp/>||<sp/>defined(STM32F412Vx)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>DATA_IN_ExtSRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -188,18 +72,17 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="88"><highlight class="normal"></highlight></codeline>
 <codeline lineno="89"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Note:<sp/>Following<sp/>vector<sp/>table<sp/>addresses<sp/>must<sp/>be<sp/>defined<sp/>in<sp/>line<sp/>with<sp/>linker</highlight></codeline>
 <codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>configuration.<sp/>*/</highlight></codeline>
-<codeline lineno="94"><highlight class="comment">/*<sp/>#define<sp/>USER_VECT_TAB_ADDRESS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>USER_VECT_TAB_ADDRESS<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="95"><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(USER_VECT_TAB_ADDRESS)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="97"><highlight class="normal"></highlight></codeline>
-<codeline lineno="99"><highlight class="comment">/*<sp/>#define<sp/>VECT_TAB_SRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(USER_VECT_TAB_ADDRESS)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>VECT_TAB_SRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(VECT_TAB_SRAM)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VECT_TAB_BASE_ADDRESS<sp/><sp/><sp/>SRAM_BASE<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="103"><highlight class="preprocessor">#define<sp/>VECT_TAB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="105"><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VECT_TAB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="106"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VECT_TAB_BASE_ADDRESS<sp/><sp/><sp/>FLASH_BASE<sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="108"><highlight class="preprocessor">#define<sp/>VECT_TAB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="110"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VECT_TAB_SRAM<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VECT_TAB_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00000000U<sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>VECT_TAB_SRAM<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>USER_VECT_TAB_ADDRESS<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="112"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
@@ -214,11 +97,11 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="137" refid="group___s_t_m32_f4xx___system___private___variables_1gaa3cd3e43291e81e795d642b79b6088e6" refkind="member"><highlight class="normal">uint32_t<sp/><ref refid="group___s_t_m32_f4xx___system___private___variables_1gaa3cd3e43291e81e795d642b79b6088e6" kindref="member">SystemCoreClock</ref><sp/>=<sp/>16000000;</highlight></codeline>
 <codeline lineno="138" refid="group___s_t_m32_f4xx___system___private___variables_1ga6e1d9cd666f0eacbfde31e9932a93466" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="group___s_t_m32_f4xx___system___private___variables_1ga6e1d9cd666f0eacbfde31e9932a93466" kindref="member">AHBPrescTable</ref>[16]<sp/>=<sp/>{0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>1,<sp/>2,<sp/>3,<sp/>4,<sp/>6,<sp/>7,<sp/>8,<sp/>9};</highlight></codeline>
 <codeline lineno="139" refid="group___s_t_m32_f4xx___system___private___variables_1ga5b4f8b768465842cf854a8f993b375e9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="group___s_t_m32_f4xx___system___private___variables_1ga5b4f8b768465842cf854a8f993b375e9" kindref="member">APBPrescTable</ref>[8]<sp/><sp/>=<sp/>{0,<sp/>0,<sp/>0,<sp/>0,<sp/>1,<sp/>2,<sp/>3,<sp/>4};</highlight></codeline>
-<codeline lineno="148"><highlight class="preprocessor">#if<sp/>defined<sp/>(DATA_IN_ExtSRAM)<sp/>||<sp/>defined<sp/>(DATA_IN_ExtSDRAM)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(DATA_IN_ExtSRAM)<sp/>||<sp/>defined<sp/>(DATA_IN_ExtSDRAM)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SystemInit_ExtMemCtl(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);<sp/></highlight></codeline>
 <codeline lineno="150"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DATA_IN_ExtSRAM<sp/>||<sp/>DATA_IN_ExtSDRAM<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="165" refid="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" kindref="member">SystemInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="165" refid="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___s_t_m32_f4xx___system___private___functions_1ga93f514700ccf00d08dbdcff7f1224eb2" kindref="member">SystemInit</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="166"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>FPU<sp/>settings<sp/>------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="168"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#if<sp/>(__FPU_PRESENT<sp/>==<sp/>1)<sp/>&amp;&amp;<sp/>(__FPU_USED<sp/>==<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
@@ -235,7 +118,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="179"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>USER_VECT_TAB_ADDRESS<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="180"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="216" refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" refkind="member"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" kindref="member">SystemCoreClockUpdate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="216" refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group___s_t_m32_f4xx___system___private___functions_1gae0c36a9591fe6e9c45ecb21a794f0f0f" kindref="member">SystemCoreClockUpdate</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="217"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="218"><highlight class="normal"><sp/><sp/>uint32_t<sp/>tmp<sp/>=<sp/>0,<sp/>pllvco<sp/>=<sp/>0,<sp/>pllp<sp/>=<sp/>2,<sp/>pllsource<sp/>=<sp/>0,<sp/>pllm<sp/>=<sp/>2;</highlight></codeline>
 <codeline lineno="219"><highlight class="normal"><sp/><sp/></highlight></codeline>
@@ -285,9 +168,8 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="263"><highlight class="normal"></highlight></codeline>
 <codeline lineno="264"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined<sp/>(DATA_IN_ExtSRAM)<sp/>&amp;&amp;<sp/>defined<sp/>(DATA_IN_ExtSDRAM)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="265"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(STM32F427xx)<sp/>||<sp/>defined(STM32F437xx)<sp/>||<sp/>defined(STM32F429xx)<sp/>||<sp/>defined(STM32F439xx)\</highlight></codeline>
-<codeline lineno="266"><highlight class="preprocessor"><sp/>||<sp/>defined(STM32F469xx)<sp/>||<sp/>defined(STM32F479xx)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="267"><highlight class="normal"></highlight></codeline>
-<codeline lineno="275"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SystemInit_ExtMemCtl(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="266"><highlight class="preprocessor"><sp/>||<sp/>defined(STM32F469xx)<sp/>||<sp/>defined(STM32F479xx)</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SystemInit_ExtMemCtl(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="276"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="277"><highlight class="normal"><sp/><sp/>__IO<sp/>uint32_t<sp/>tmp<sp/>=<sp/>0x00;</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"></highlight></codeline>
@@ -444,9 +326,8 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="429"><highlight class="normal"><sp/><sp/>(void)(tmp);<sp/></highlight></codeline>
 <codeline lineno="430"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="431"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>STM32F427xx<sp/>||<sp/>STM32F437xx<sp/>||<sp/>STM32F429xx<sp/>||<sp/>STM32F439xx<sp/>||<sp/>STM32F469xx<sp/>||<sp/>STM32F479xx<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="432"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(DATA_IN_ExtSRAM)<sp/>||<sp/>defined<sp/>(DATA_IN_ExtSDRAM)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="433"><highlight class="normal"></highlight></codeline>
-<codeline lineno="441"><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SystemInit_ExtMemCtl(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"></highlight><highlight class="preprocessor">#elif<sp/>defined<sp/>(DATA_IN_ExtSRAM)<sp/>||<sp/>defined<sp/>(DATA_IN_ExtSDRAM)</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>SystemInit_ExtMemCtl(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline lineno="442"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="443"><highlight class="normal"><sp/><sp/>__IO<sp/>uint32_t<sp/>tmp<sp/>=<sp/>0x00;</highlight></codeline>
 <codeline lineno="444"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>defined(STM32F427xx)<sp/>||<sp/>defined(STM32F437xx)<sp/>||<sp/>defined(STM32F429xx)<sp/>||<sp/>defined(STM32F439xx)\</highlight></codeline>
@@ -737,8 +618,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="729"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>STM32F429xx<sp/>||<sp/>STM32F439xx<sp/>||<sp/>STM32F469xx<sp/>||<sp/>STM32F479xx<sp/>||<sp/>STM32F412Zx<sp/>||<sp/>STM32F412Vx<sp/><sp/>*/</highlight><highlight class="preprocessor"><sp/></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="730"><highlight class="normal"><sp/><sp/>(void)(tmp);<sp/></highlight></codeline>
 <codeline lineno="731"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="732"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DATA_IN_ExtSRAM<sp/>&amp;&amp;<sp/>DATA_IN_ExtSDRAM<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="733"><highlight class="normal"></highlight></codeline>
+<codeline lineno="732"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>DATA_IN_ExtSRAM<sp/>&amp;&amp;<sp/>DATA_IN_ExtSDRAM<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
     </programlisting>
     <location file="Core/Src/system_stm32f4xx.c"/>
   </compounddef>

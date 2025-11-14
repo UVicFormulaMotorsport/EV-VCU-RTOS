@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['linear_5ftorque_5fmap_5fargs_1152',['linear_torque_map_args',['../structlinear__torque__map__args.html',1,'']]]
+  ['heapregion_0',['HeapRegion',['../struct_heap_region.html',1,'']]],
+  ['helper_5ftask_5fargs_1',['helper_task_args',['../unionhelper__task__args.html',1,'']]]
 ];

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_give_recursive" kind="group">
     <compoundname>xSemaphoreGiveRecursive</compoundname>
     <title>xSemaphoreGiveRecursive</title>
@@ -23,34 +23,39 @@
 <simplesect kind="return"><para>pdTRUE if the semaphore was given.</para>
 </simplesect>
 Example usage: <preformatted>
-SemaphoreHandle_t xMutex = NULL;</preformatted></para>
-<para><preformatted>// A task that creates a mutex.
+SemaphoreHandle_t xMutex = NULL;
+
+// A task that creates a mutex.
 void vATask( void * pvParameters )
 {
    // Create the mutex to guard a shared resource.
    xMutex = xSemaphoreCreateRecursiveMutex();
-}</preformatted></para>
-<para><preformatted>// A task that uses the mutex.
+}
+
+// A task that uses the mutex.
 void vAnotherTask( void * pvParameters )
 {
-   // ... Do other things.</preformatted></para>
-<para><preformatted>   if( xMutex != NULL )
+   // ... Do other things.
+
+   if( xMutex != NULL )
    {
        // See if we can obtain the mutex.  If the mutex is not available
        // wait 10 ticks to see if it becomes free.
        if( xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 ) == pdTRUE )
        {
            // We were able to obtain the mutex and can now access the
-           // shared resource.</preformatted></para>
-<para><preformatted>           // ...
+           // shared resource.
+
+           // ...
            // For some reason due to the nature of the code further calls to
         // xSemaphoreTakeRecursive() are made on the same mutex.  In real
         // code these would not be just sequential calls as this would make
         // no sense.  Instead the calls are likely to be buried inside
         // a more complex call structure.
            xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 );
-           xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 );</preformatted></para>
-<para><preformatted>           // The mutex has now been &apos;taken&apos; three times, so will not be
+           xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 );
+
+           // The mutex has now been &apos;taken&apos; three times, so will not be
         // available to another task until it has also been given back
         // three times.  Again it is unlikely that real code would have
         // these calls sequentially, it would be more likely that the calls
@@ -58,8 +63,9 @@ void vAnotherTask( void * pvParameters )
         // unwound.  This is just for demonstrative purposes.
            xSemaphoreGiveRecursive( xMutex );
         xSemaphoreGiveRecursive( xMutex );
-        xSemaphoreGiveRecursive( xMutex );</preformatted></para>
-<para><preformatted>        // Now the mutex can be taken by other tasks.
+        xSemaphoreGiveRecursive( xMutex );
+
+        // Now the mutex can be taken by other tasks.
        }
        else
        {
@@ -68,7 +74,7 @@ void vAnotherTask( void * pvParameters )
        }
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

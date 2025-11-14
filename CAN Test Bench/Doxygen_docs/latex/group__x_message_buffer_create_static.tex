@@ -1,14 +1,12 @@
-\hypertarget{group__x_message_buffer_create_static}{}\doxysection{x\+Message\+Buffer\+Create\+Static}
-\label{group__x_message_buffer_create_static}\index{xMessageBufferCreateStatic@{xMessageBufferCreateStatic}}
-\mbox{\hyperlink{message__buffer_8h}{message\+\_\+buffer.\+h}}
+\doxysection{x\+Message\+Buffer\+Create\+Static}
+\hypertarget{group__x_message_buffer_create_static}{}\label{group__x_message_buffer_create_static}\index{xMessageBufferCreateStatic@{xMessageBufferCreateStatic}}
+\doxylink{message__buffer_8h}{message\+\_\+buffer.\+h}
 
 
 \begin{DoxyPre}
-MessageBufferHandle\_t xMessageBufferCreateStatic( size\_t xBufferSizeBytes,
-                                                  uint8\_t *pucMessageBufferStorageArea,
-                                                  StaticMessageBuffer\_t *pxStaticMessageBuffer );
+MessageBufferHandle\_t \doxylink{message__buffer_8h_acc84f4a15dbd39ecbad35f7337e78b2c}{xMessageBufferCreateStatic( size\_t xBufferSizeBytes,                                                   uint8\_t *pucMessageBufferStorageArea,                                                   StaticMessageBuffer\_t *pxStaticMessageBuffer )};
 \end{DoxyPre}
- Creates a new message buffer using statically allocated memory. See \mbox{\hyperlink{message__buffer_8h_a2959cd0e3d2bd20d46908e5c9872be36}{x\+Message\+Buffer\+Create()}} for a version that uses dynamically allocated memory.
+ Creates a new message buffer using statically allocated memory. See \doxylink{message__buffer_8h_a2959cd0e3d2bd20d46908e5c9872be36}{x\+Message\+Buffer\+Create()} for a version that uses dynamically allocated memory.
 
 
 \begin{DoxyParams}{Parameters}
@@ -20,52 +18,34 @@ MessageBufferHandle\_t xMessageBufferCreateStatic( size\_t xBufferSizeBytes,
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-If the message buffer is created successfully then a handle to the created message buffer is returned. If either puc\+Message\+Buffer\+Storage\+Area or px\+Staticmessage\+Buffer are N\+U\+LL then N\+U\+LL is returned.
+If the message buffer is created successfully then a handle to the created message buffer is returned. If either puc\+Message\+Buffer\+Storage\+Area or px\+Staticmessage\+Buffer are NULL then NULL is returned.
 \end{DoxyReturn}
 Example use\+: 
-\begin{DoxyPre}\end{DoxyPre}
+\begin{DoxyPre}
 
-
-
-\begin{DoxyPre}// Used to dimension the array used to hold the messages.  The available space
+// Used to dimension the array used to hold the messages.  The available space
 // will actually be one less than this, so 999.
-\#define STORAGE\_SIZE\_BYTES 1000\end{DoxyPre}
+\#define STORAGE\_SIZE\_BYTES 1000
 
-
-
-\begin{DoxyPre}// Defines the memory that will actually hold the messages within the message
+// Defines the memory that will actually hold the messages within the message
 // buffer.
-static uint8\_t ucStorageBuffer[ STORAGE\_SIZE\_BYTES ];\end{DoxyPre}
+static uint8\_t ucStorageBuffer[ STORAGE\_SIZE\_BYTES ];
 
+// The variable used to hold the message buffer structure.
+StaticMessageBuffer\_t xMessageBufferStruct;
 
-
-\begin{DoxyPre}// The variable used to hold the message buffer structure.
-StaticMessageBuffer\_t xMessageBufferStruct;\end{DoxyPre}
-
-
-
-\begin{DoxyPre}void MyFunction( void )
+void MyFunction( void )
 \{
-MessageBufferHandle\_t xMessageBuffer;\end{DoxyPre}
+MessageBufferHandle\_t xMessageBuffer;
 
+    xMessageBuffer = \doxylink{message__buffer_8h_acc84f4a15dbd39ecbad35f7337e78b2c}{xMessageBufferCreateStatic( sizeof( ucBufferStorage ),                                                  ucBufferStorage,                                                  \&xMessageBufferStruct )};
 
-
-\begin{DoxyPre}    xMessageBuffer = xMessageBufferCreateStatic( sizeof( ucBufferStorage ),
-                                                 ucBufferStorage,
-                                                 \&xMessageBufferStruct );\end{DoxyPre}
-
-
-
-\begin{DoxyPre}    // As neither the pucMessageBufferStorageArea or pxStaticMessageBuffer
+    // As neither the pucMessageBufferStorageArea or pxStaticMessageBuffer
     // parameters were NULL, xMessageBuffer will not be NULL, and can be used to
-    // reference the created message buffer in other message buffer API calls.\end{DoxyPre}
+    // reference the created message buffer in other message buffer API calls.
 
+    // Other code that uses the message buffer can go here.
+\}
 
-
-\begin{DoxyPre}    // Other code that uses the message buffer can go here.
-\}\end{DoxyPre}
-
-
-
-\begin{DoxyPre}\end{DoxyPre}
- 
+\end{DoxyPre}
+   

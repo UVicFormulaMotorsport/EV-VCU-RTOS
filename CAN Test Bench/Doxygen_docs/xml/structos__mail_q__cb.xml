@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
+  <compounddef id="structos__mail_q__cb" kind="struct" language="C++" prot="public">
+    <compoundname>os_mailQ_cb</compoundname>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structos__mail_q__cb_1a3060a4a5e0ca2b2c9dd541b5ed7a199d" prot="public" static="no" mutable="no">
+        <type>const <ref refid="cmsis__os_8h_1ab6d3ddc7d8cea9901544118bed1a3d1c" kindref="member">osMailQDef_t</ref> *</type>
+        <definition>const osMailQDef_t* os_mailQ_cb::queue_def</definition>
+        <argsstring></argsstring>
+        <name>queue_def</name>
+        <qualifiedname>os_mailQ_cb::queue_def</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" line="1157" column="22" bodyfile="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" bodystart="1157" bodyend="-1"/>
+        <referencedby refid="cmsis__os_8c_1a8fde74f6fe5b9e88f75cc5eb8f2124fd" compoundref="cmsis__os_8c" startline="1237" endline="1249">osMailCAlloc</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structos__mail_q__cb_1a79d5b916bfe032b509a61ba8043b79cc" prot="public" static="no" mutable="no">
+        <type><ref refid="queue_8h_1a57349603001f8ddf51c888c49e2804d7" kindref="member">QueueHandle_t</ref></type>
+        <definition>QueueHandle_t os_mailQ_cb::handle</definition>
+        <argsstring></argsstring>
+        <name>handle</name>
+        <qualifiedname>os_mailQ_cb::handle</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" line="1158" column="17" bodyfile="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" bodystart="1158" bodyend="-1"/>
+        <referencedby refid="cmsis__os_8c_1ac6ad7e6e7d6c4a80e60da22c57a42ccd" compoundref="cmsis__os_8c" startline="1291" endline="1338">osMailGet</referencedby>
+        <referencedby refid="cmsis__os_8c_1a485ef6f81854ebda8ffbce4832181e02" compoundref="cmsis__os_8c" startline="1258" endline="1282">osMailPut</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="structos__mail_q__cb_1a70c4d714b7ba733bc9f9e010dde3b6a9" prot="public" static="no" mutable="no">
+        <type><ref refid="cmsis__os_8h_1a08d2e20fd9bbd96220fe068d420f3686" kindref="member">osPoolId</ref></type>
+        <definition>osPoolId os_mailQ_cb::pool</definition>
+        <argsstring></argsstring>
+        <name>pool</name>
+        <qualifiedname>os_mailQ_cb::pool</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" line="1159" column="12" bodyfile="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" bodystart="1159" bodyend="-1"/>
+        <referencedby refid="cmsis__os_8c_1adf5ce811bd6a56e617e902a1db6c2194" compoundref="cmsis__os_8c" startline="1215" endline="1228">osMailAlloc</referencedby>
+        <referencedby refid="cmsis__os_8c_1a27c1060cf21393f96b4fd1ed1c0167cc" compoundref="cmsis__os_8c" startline="1347" endline="1354">osMailFree</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="3">
+        <label>QueueDefinition</label>
+        <link refid="struct_queue_definition"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>xQueue</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>xSemaphore</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>xTasksWaitingToReceive</edgelabel>
+          <edgelabel>xTasksWaitingToSend</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>QueuePointers</label>
+        <link refid="struct_queue_pointers"/>
+      </node>
+      <node id="5">
+        <label>SemaphoreData</label>
+        <link refid="struct_semaphore_data"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>xMutexHolder</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>os_mailQ_cb</label>
+        <link refid="structos__mail_q__cb"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>queue_def</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>handle</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
+          <edgelabel>pool</edgelabel>
+        </childnode>
+      </node>
+      <node id="2">
+        <label>os_mailQ_def</label>
+        <link refid="structos__mail_q__def"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>cb</edgelabel>
+        </childnode>
+      </node>
+      <node id="10">
+        <label>os_pool_cb</label>
+        <link refid="structos__pool__cb"/>
+      </node>
+      <node id="6">
+        <label>tskTaskControlBlock</label>
+        <link refid="structtsk_task_control_block"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>xEventListItem</edgelabel>
+          <edgelabel>xStateListItem</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xLIST</label>
+        <link refid="structx_l_i_s_t"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>pxIndex</edgelabel>
+        </childnode>
+        <childnode refid="9" relation="usage">
+          <edgelabel>xListEnd</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xLIST_ITEM</label>
+        <link refid="structx_l_i_s_t___i_t_e_m"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>pxNext</edgelabel>
+          <edgelabel>pxPrevious</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>pxContainer</edgelabel>
+        </childnode>
+      </node>
+      <node id="9">
+        <label>xMINI_LIST_ITEM</label>
+        <link refid="structx_m_i_n_i___l_i_s_t___i_t_e_m"/>
+        <childnode refid="7" relation="usage">
+          <edgelabel>pxNext</edgelabel>
+          <edgelabel>pxPrevious</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" line="1156" column="1" bodyfile="Core/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c" bodystart="1156" bodyend="1160"/>
+    <listofallmembers>
+      <member refid="structos__mail_q__cb_1a79d5b916bfe032b509a61ba8043b79cc" prot="public" virt="non-virtual"><scope>os_mailQ_cb</scope><name>handle</name></member>
+      <member refid="structos__mail_q__cb_1a70c4d714b7ba733bc9f9e010dde3b6a9" prot="public" virt="non-virtual"><scope>os_mailQ_cb</scope><name>pool</name></member>
+      <member refid="structos__mail_q__cb_1a3060a4a5e0ca2b2c9dd541b5ed7a199d" prot="public" virt="non-virtual"><scope>os_mailQ_cb</scope><name>queue_def</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

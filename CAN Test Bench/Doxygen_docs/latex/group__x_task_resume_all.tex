@@ -1,15 +1,15 @@
-\hypertarget{group__x_task_resume_all}{}\doxysection{x\+Task\+Resume\+All}
-\label{group__x_task_resume_all}\index{xTaskResumeAll@{xTaskResumeAll}}
+\doxysection{x\+Task\+Resume\+All}
+\hypertarget{group__x_task_resume_all}{}\label{group__x_task_resume_all}\index{xTaskResumeAll@{xTaskResumeAll}}
 task. h 
-\begin{DoxyPre}BaseType\_t \mbox{\hyperlink{task_8h_a003f8ae6d649225abd030cc76e1c7d0e}{xTaskResumeAll( void )}};\end{DoxyPre}
+\begin{DoxyPre}BaseType\_t \doxylink{task_8h_a003f8ae6d649225abd030cc76e1c7d0e}{xTaskResumeAll( void )};\end{DoxyPre}
 
 
-Resumes scheduler activity after it was suspended by a call to \mbox{\hyperlink{task_8h_a366b302eba79d10b5ee2a3756f0fcc43}{v\+Task\+Suspend\+All()}}.
+Resumes scheduler activity after it was suspended by a call to \doxylink{task_8h_a366b302eba79d10b5ee2a3756f0fcc43}{v\+Task\+Suspend\+All()}.
 
-\mbox{\hyperlink{task_8h_a003f8ae6d649225abd030cc76e1c7d0e}{x\+Task\+Resume\+All()}} only resumes the scheduler. It does not unsuspend tasks that were previously suspended by a call to \mbox{\hyperlink{task_8h_a84d4e660b04630be2939d91b3c2412f8}{v\+Task\+Suspend()}}.
+\doxylink{task_8h_a003f8ae6d649225abd030cc76e1c7d0e}{x\+Task\+Resume\+All()} only resumes the scheduler. It does not unsuspend tasks that were previously suspended by a call to \doxylink{task_8h_a84d4e660b04630be2939d91b3c2412f8}{v\+Task\+Suspend()}.
 
 \begin{DoxyReturn}{Returns}
-If resuming the scheduler caused a context switch then pd\+T\+R\+UE is returned, otherwise pd\+F\+A\+L\+SE is returned.
+If resuming the scheduler caused a context switch then pd\+TRUE is returned, otherwise pd\+FALSE is returned.
 \end{DoxyReturn}
 Example usage\+: 
 \begin{DoxyPre}
@@ -17,39 +17,27 @@ void vTask1( void * pvParameters )
 \{
     for( ;; )
     \{
-     // Task code goes here.\end{DoxyPre}
+     // Task code goes here.
 
+     // ...
 
-
-\begin{DoxyPre}     // ...\end{DoxyPre}
-
-
-
-\begin{DoxyPre}     // At some point the task wants to perform a long operation during
+     // At some point the task wants to perform a long operation during
      // which it does not want to get swapped out.  It cannot use
      // taskENTER\_CRITICAL ()/taskEXIT\_CRITICAL () as the length of the
      // operation may cause interrupts to be missed -\/ including the
-     // ticks.\end{DoxyPre}
+     // ticks.
 
+     // Prevent the real time kernel swapping out the task.
+     vTaskSuspendAll ();
 
-
-\begin{DoxyPre}     // Prevent the real time kernel swapping out the task.
-     vTaskSuspendAll ();\end{DoxyPre}
-
-
-
-\begin{DoxyPre}     // Perform the operation here.  There is no need to use critical
+     // Perform the operation here.  There is no need to use critical
      // sections as we have all the microcontroller processing time.
      // During this time interrupts will still operate and the real
-     // time kernel tick count will be maintained.\end{DoxyPre}
+     // time kernel tick count will be maintained.
 
+     // ...
 
-
-\begin{DoxyPre}     // ...\end{DoxyPre}
-
-
-
-\begin{DoxyPre}     // The operation is complete.  Restart the kernel.  We want to force
+     // The operation is complete.  Restart the kernel.  We want to force
      // a context switch -\/ but there is no point if resuming the scheduler
      // caused a context switch already.
      if( !xTaskResumeAll () )
@@ -59,4 +47,4 @@ void vTask1( void * pvParameters )
     \}
 \}
   \end{DoxyPre}
- 
+   

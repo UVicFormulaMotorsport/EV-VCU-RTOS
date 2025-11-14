@@ -1,11 +1,11 @@
 var mpu__prototypes_8h =
 [
     [ "MPU_eTaskGetState", "mpu__prototypes_8h.html#a2fa518228b2b8cf0d56868d26744a9b5", null ],
-    [ "MPU_pcQueueGetName", "mpu__prototypes_8h.html#a62a20e00cd306108c5a3ec30c4d86a2c", null ],
-    [ "MPU_pcTaskGetName", "mpu__prototypes_8h.html#a881b88f1952798f3da1c459c0f4f20aa", null ],
-    [ "MPU_pcTimerGetName", "mpu__prototypes_8h.html#a430ba5639e79e2bb4ab0483ccb573771", null ],
-    [ "MPU_pvTaskGetThreadLocalStoragePointer", "mpu__prototypes_8h.html#aa812f838249da470c574c9e13d0e1dc9", null ],
-    [ "MPU_pvTimerGetTimerID", "mpu__prototypes_8h.html#a3384df4d03a4cc917085ca32b9c4c555", null ],
+    [ "MPU_pcQueueGetName", "mpu__prototypes_8h.html#ab9a042a08bd0c113b7cd9eb4fd9a3ed7", null ],
+    [ "MPU_pcTaskGetName", "mpu__prototypes_8h.html#a1b5d2f4bc4dde0a435298cebcf68073d", null ],
+    [ "MPU_pcTimerGetName", "mpu__prototypes_8h.html#a0b38b36f328cd390d9a7c8b08fcfa252", null ],
+    [ "MPU_pvTaskGetThreadLocalStoragePointer", "mpu__prototypes_8h.html#a2acc94cad7d66a2c51018c2d8e0de2a7", null ],
+    [ "MPU_pvTimerGetTimerID", "mpu__prototypes_8h.html#ac2d59e15a2cd5f67e17171d56e0caa1e", null ],
     [ "MPU_ucQueueGetQueueType", "mpu__prototypes_8h.html#ad6f448261df0ec3f071435664916ca88", null ],
     [ "MPU_ulTaskGetIdleRunTimeCounter", "mpu__prototypes_8h.html#a750a835c2aa49865d88f01278e3bb2bc", null ],
     [ "MPU_ulTaskNotifyTake", "mpu__prototypes_8h.html#aaf2f2946284b2684ffb04dc8b5461dd7", null ],

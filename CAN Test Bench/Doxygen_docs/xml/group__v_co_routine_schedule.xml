@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_co_routine_schedule" kind="group">
     <compoundname>vCoRoutineSchedule</compoundname>
     <title>vCoRoutineSchedule</title>
@@ -14,21 +14,22 @@ void <ref refid="croutine_8h_1a5333c649a2c063006ca3cd7a3b5b9240" kindref="member
 <para>Example usage: <preformatted>
 // This idle task hook will schedule a co-routine each time it is called.
 // The rest of the idle task will execute between co-routine calls.
-void <ref refid="freertos_8c_1a97fd430f36f8b065226e2bff9bad1de5" kindref="member">vApplicationIdleHook( void )</ref>
+void <ref refid="uvfr__state__engine_8c_1aed09350c45d767229fd9e382244de3f1" kindref="member">vApplicationIdleHook( void )</ref>
 {
    <ref refid="croutine_8h_1a5333c649a2c063006ca3cd7a3b5b9240" kindref="member">vCoRoutineSchedule()</ref>;
-}</preformatted></para>
-<para><preformatted>// Alternatively, if you do not require any other part of the idle task to
+}
+
+// Alternatively, if you do not require any other part of the idle task to
 // execute, the idle task hook can call <ref refid="croutine_8h_1a5333c649a2c063006ca3cd7a3b5b9240" kindref="member">vCoRoutineSchedule()</ref> within an
 // infinite loop.
-void <ref refid="freertos_8c_1a97fd430f36f8b065226e2bff9bad1de5" kindref="member">vApplicationIdleHook( void )</ref>
+void <ref refid="uvfr__state__engine_8c_1aed09350c45d767229fd9e382244de3f1" kindref="member">vApplicationIdleHook( void )</ref>
 {
    for( ;; )
    {
        <ref refid="croutine_8h_1a5333c649a2c063006ca3cd7a3b5b9240" kindref="member">vCoRoutineSchedule()</ref>;
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

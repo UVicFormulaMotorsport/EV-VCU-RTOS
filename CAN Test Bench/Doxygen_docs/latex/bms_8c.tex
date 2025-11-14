@@ -1,35 +1,310 @@
-\hypertarget{bms_8c}{}\doxysection{Core/\+Src/bms.c File Reference}
-\label{bms_8c}\index{Core/Src/bms.c@{Core/Src/bms.c}}
-{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}bms.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}pdu.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}can.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}tim.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}dash.\+h\char`\"{}}\newline
-\doxysubsection*{Functions}
+\doxysection{Core/\+Src/bms.c File Reference}
+\hypertarget{bms_8c}{}\label{bms_8c}\index{Core/Src/bms.c@{Core/Src/bms.c}}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}bms.\+h"{}}\newline
+{\ttfamily \#include "{}constants.\+h"{}}\newline
+{\ttfamily \#include "{}pdu.\+h"{}}\newline
+{\ttfamily \#include "{}can.\+h"{}}\newline
+{\ttfamily \#include "{}tim.\+h"{}}\newline
+{\ttfamily \#include "{}dash.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{bms_8c_aa9af83736568f74c94d41f3f16adf513}{B\+M\+S\+\_\+\+Init}} (void $\ast$args)
+\#define \mbox{\hyperlink{bms_8c_a79f5e585e6fa5d54c855cf1a3b16ff88}{bms\+\_\+settings}}~\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\+\_\+vehicle\+\_\+settings}}-\/$>$bms\+\_\+settings
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{bms_8c_a7a70ee75f60730eaf8489c863fceea7d}{BMS\+\_\+msg1}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+void \mbox{\hyperlink{bms_8c_a554435738960054c897ed84e3f5b1edf}{BMS\+\_\+msg2}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+void \mbox{\hyperlink{bms_8c_aa9af83736568f74c94d41f3f16adf513}{BMS\+\_\+\+Init}} (void \texorpdfstring{$\ast$}{*}args)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}} \mbox{\hyperlink{bms_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\+\_\+bms\+\_\+settings}}
+\item 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{bms_8c_a4081f615c3b206c0996bb9a22516f115}{bms\+\_\+last\+\_\+msg\+\_\+time}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{bms_8c_ab9364948a7d6cbb869d63a78be56501d}{is\+\_\+bms\+\_\+connected}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a2ef021ab39a98f64902d656ac099f8a9}{pack\+Current}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a178a2c12bb1a2c720fcde0ef2cd6f1f1}{pack\+Voltage}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}{state\+Of\+Charge}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a2bd3e52b9f7bb249a6c7a1108efb1995}{relay\+State}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a3db3406866b37db013bd594d7588ed00}{msg1corrupt}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a5b12ba8d86d6649ab8b4a0967484f3ec}{pack\+DCL}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}{low\+Temp}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a30221826d03df3708444924f408282c6}{high\+Temp}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{bms_8c_a8fa7b800b072c0c1449c7be149c703ba}{msg2corrupt}} = 0
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{bms_8c_a79f5e585e6fa5d54c855cf1a3b16ff88}\index{bms.c@{bms.c}!bms\_settings@{bms\_settings}}
+\index{bms\_settings@{bms\_settings}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{bms\_settings}{bms\_settings}}
+{\footnotesize\ttfamily \label{bms_8c_a79f5e585e6fa5d54c855cf1a3b16ff88} 
+\#define bms\+\_\+settings~\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\+\_\+vehicle\+\_\+settings}}-\/$>$bms\+\_\+settings}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00012}{12}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}.
+
+
+
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{bms_8c_aa9af83736568f74c94d41f3f16adf513}\label{bms_8c_aa9af83736568f74c94d41f3f16adf513}} 
-\index{bms.c@{bms.c}!BMS\_Init@{BMS\_Init}}
+\Hypertarget{bms_8c_aa9af83736568f74c94d41f3f16adf513}\index{bms.c@{bms.c}!BMS\_Init@{BMS\_Init}}
 \index{BMS\_Init@{BMS\_Init}!bms.c@{bms.c}}
 \doxysubsubsection{\texorpdfstring{BMS\_Init()}{BMS\_Init()}}
-{\footnotesize\ttfamily void B\+M\+S\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{bms_8c_aa9af83736568f74c94d41f3f16adf513} 
+void BMS\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 11 of file bms.\+c.
+Definition at line \mbox{\hyperlink{bms_8c_source_l00100}{100}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
 
 
 
-References B\+MS, uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}, \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}, \mbox{\hyperlink{bms_8c_source_l00012}{bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{bms_8c_source_l00032}{is\+\_\+bms\+\_\+connected}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{cmsis__os_8c_source_l00323}{os\+Delay()}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{task_8h_a84d4e660b04630be2939d91b3c2412f8}{v\+Task\+Suspend()}}, \mbox{\hyperlink{queue_8h_source_l00395}{x\+Queue\+Send\+To\+Back}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
 
 
 
-Referenced by uv\+Init().
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+
+\Hypertarget{bms_8c_a7a70ee75f60730eaf8489c863fceea7d}\index{bms.c@{bms.c}!BMS\_msg1@{BMS\_msg1}}
+\index{BMS\_msg1@{BMS\_msg1}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{BMS\_msg1()}{BMS\_msg1()}}
+{\footnotesize\ttfamily \label{bms_8c_a7a70ee75f60730eaf8489c863fceea7d} 
+void BMS\+\_\+msg1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00047}{47}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+References \mbox{\hyperlink{bms_8c_source_l00031}{bms\+\_\+last\+\_\+msg\+\_\+time}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{bms_8c_source_l00032}{is\+\_\+bms\+\_\+connected}}, \mbox{\hyperlink{bms_8c_source_l00038}{msg1corrupt}}, \mbox{\hyperlink{bms_8c_source_l00034}{pack\+Current}}, \mbox{\hyperlink{bms_8c_source_l00035}{pack\+Voltage}}, \mbox{\hyperlink{bms_8c_source_l00037}{relay\+State}}, \mbox{\hyperlink{bms_8c_source_l00036}{state\+Of\+Charge}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}.
+
+\Hypertarget{bms_8c_a554435738960054c897ed84e3f5b1edf}\index{bms.c@{bms.c}!BMS\_msg2@{BMS\_msg2}}
+\index{BMS\_msg2@{BMS\_msg2}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{BMS\_msg2()}{BMS\_msg2()}}
+{\footnotesize\ttfamily \label{bms_8c_a554435738960054c897ed84e3f5b1edf} 
+void BMS\+\_\+msg2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00075}{75}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+References \mbox{\hyperlink{bms_8c_source_l00031}{bms\+\_\+last\+\_\+msg\+\_\+time}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{bms_8c_source_l00042}{high\+Temp}}, \mbox{\hyperlink{bms_8c_source_l00032}{is\+\_\+bms\+\_\+connected}}, \mbox{\hyperlink{bms_8c_source_l00041}{low\+Temp}}, \mbox{\hyperlink{bms_8c_source_l00043}{msg2corrupt}}, \mbox{\hyperlink{bms_8c_source_l00040}{pack\+DCL}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{bms_8c_a4081f615c3b206c0996bb9a22516f115}\index{bms.c@{bms.c}!bms\_last\_msg\_time@{bms\_last\_msg\_time}}
+\index{bms\_last\_msg\_time@{bms\_last\_msg\_time}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{bms\_last\_msg\_time}{bms\_last\_msg\_time}}
+{\footnotesize\ttfamily \label{bms_8c_a4081f615c3b206c0996bb9a22516f115} 
+\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} bms\+\_\+last\+\_\+msg\+\_\+time = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00031}{31}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}, and \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}.
+
+\Hypertarget{bms_8c_a28e4314b233b9140e73e4fd0bab7e354}\index{bms.c@{bms.c}!default\_bms\_settings@{default\_bms\_settings}}
+\index{default\_bms\_settings@{default\_bms\_settings}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{default\_bms\_settings}{default\_bms\_settings}}
+{\footnotesize\ttfamily \label{bms_8c_a28e4314b233b9140e73e4fd0bab7e354} 
+\mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}} default\+\_\+bms\+\_\+settings}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{.BMS\_CAN\_timeout\ =\ 200,\ }
+\DoxyCodeLine{.max\_cell\_temp\ =\ 500,}
+\DoxyCodeLine{.min\_cell\_temp\ =\ -\/200,}
+\DoxyCodeLine{.min\_soc\ =\ 10,}
+\DoxyCodeLine{.min\_cell\_voltage\ =\ 2.5,}
+\DoxyCodeLine{.max\_cell\_voltage\ =\ 4.2,}
+\DoxyCodeLine{.max\_pack\_voltage\ =\ 5000,}
+\DoxyCodeLine{.max\_variance\_between\_cells\ =\ 1}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00014}{14}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
+
+\Hypertarget{bms_8c_a30221826d03df3708444924f408282c6}\index{bms.c@{bms.c}!highTemp@{highTemp}}
+\index{highTemp@{highTemp}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{highTemp}{highTemp}}
+{\footnotesize\ttfamily \label{bms_8c_a30221826d03df3708444924f408282c6} 
+uint16\+\_\+t high\+Temp = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00042}{42}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}.
+
+\Hypertarget{bms_8c_ab9364948a7d6cbb869d63a78be56501d}\index{bms.c@{bms.c}!is\_bms\_connected@{is\_bms\_connected}}
+\index{is\_bms\_connected@{is\_bms\_connected}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{is\_bms\_connected}{is\_bms\_connected}}
+{\footnotesize\ttfamily \label{bms_8c_ab9364948a7d6cbb869d63a78be56501d} 
+uint8\+\_\+t is\+\_\+bms\+\_\+connected = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00032}{32}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}, and \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}.
+
+\Hypertarget{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}\index{bms.c@{bms.c}!lowTemp@{lowTemp}}
+\index{lowTemp@{lowTemp}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{lowTemp}{lowTemp}}
+{\footnotesize\ttfamily \label{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e} 
+uint16\+\_\+t low\+Temp = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00041}{41}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}.
+
+\Hypertarget{bms_8c_a3db3406866b37db013bd594d7588ed00}\index{bms.c@{bms.c}!msg1corrupt@{msg1corrupt}}
+\index{msg1corrupt@{msg1corrupt}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{msg1corrupt}{msg1corrupt}}
+{\footnotesize\ttfamily \label{bms_8c_a3db3406866b37db013bd594d7588ed00} 
+uint16\+\_\+t msg1corrupt = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00038}{38}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}.
+
+\Hypertarget{bms_8c_a8fa7b800b072c0c1449c7be149c703ba}\index{bms.c@{bms.c}!msg2corrupt@{msg2corrupt}}
+\index{msg2corrupt@{msg2corrupt}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{msg2corrupt}{msg2corrupt}}
+{\footnotesize\ttfamily \label{bms_8c_a8fa7b800b072c0c1449c7be149c703ba} 
+uint16\+\_\+t msg2corrupt = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00043}{43}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}.
+
+\Hypertarget{bms_8c_a2ef021ab39a98f64902d656ac099f8a9}\index{bms.c@{bms.c}!packCurrent@{packCurrent}}
+\index{packCurrent@{packCurrent}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{packCurrent}{packCurrent}}
+{\footnotesize\ttfamily \label{bms_8c_a2ef021ab39a98f64902d656ac099f8a9} 
+uint16\+\_\+t pack\+Current = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00034}{34}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}.
+
+\Hypertarget{bms_8c_a5b12ba8d86d6649ab8b4a0967484f3ec}\index{bms.c@{bms.c}!packDCL@{packDCL}}
+\index{packDCL@{packDCL}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{packDCL}{packDCL}}
+{\footnotesize\ttfamily \label{bms_8c_a5b12ba8d86d6649ab8b4a0967484f3ec} 
+uint16\+\_\+t pack\+DCL = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00040}{40}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}.
+
+\Hypertarget{bms_8c_a178a2c12bb1a2c720fcde0ef2cd6f1f1}\index{bms.c@{bms.c}!packVoltage@{packVoltage}}
+\index{packVoltage@{packVoltage}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{packVoltage}{packVoltage}}
+{\footnotesize\ttfamily \label{bms_8c_a178a2c12bb1a2c720fcde0ef2cd6f1f1} 
+uint16\+\_\+t pack\+Voltage = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00035}{35}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}.
+
+\Hypertarget{bms_8c_a2bd3e52b9f7bb249a6c7a1108efb1995}\index{bms.c@{bms.c}!relayState@{relayState}}
+\index{relayState@{relayState}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{relayState}{relayState}}
+{\footnotesize\ttfamily \label{bms_8c_a2bd3e52b9f7bb249a6c7a1108efb1995} 
+uint16\+\_\+t relay\+State = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00037}{37}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}.
+
+\Hypertarget{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}\index{bms.c@{bms.c}!stateOfCharge@{stateOfCharge}}
+\index{stateOfCharge@{stateOfCharge}!bms.c@{bms.c}}
+\doxysubsubsection{\texorpdfstring{stateOfCharge}{stateOfCharge}}
+{\footnotesize\ttfamily \label{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e} 
+uint16\+\_\+t state\+Of\+Charge = 0}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00036}{36}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}.
 

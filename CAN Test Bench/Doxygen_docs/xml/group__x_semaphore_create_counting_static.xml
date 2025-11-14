@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_create_counting_static" kind="group">
     <compoundname>xSemaphoreCreateCountingStatic</compoundname>
     <title>xSemaphoreCreateCountingStatic</title>
@@ -44,21 +44,24 @@
 </simplesect>
 Example usage: <preformatted>
 SemaphoreHandle_t xSemaphore;
-StaticSemaphore_t xSemaphoreBuffer;</preformatted></para>
-<para><preformatted>void vATask( void * pvParameters )
+StaticSemaphore_t xSemaphoreBuffer;
+
+void vATask( void * pvParameters )
 {
-SemaphoreHandle_t xSemaphore = NULL;</preformatted></para>
-<para><preformatted>   // Counting semaphore cannot be used before they have been created.  Create
+SemaphoreHandle_t xSemaphore = NULL;
+
+   // Counting semaphore cannot be used before they have been created.  Create
    // a counting semaphore using xSemaphoreCreateCountingStatic().  The max
    // value to which the semaphore can count is 10, and the initial value
    // assigned to the count will be 0.  The address of xSemaphoreBuffer is
    // passed in and will be used to hold the semaphore structure, so no dynamic
    // memory allocation will be used.
-   xSemaphore = xSemaphoreCreateCounting( 10, 0, &amp;xSemaphoreBuffer );</preformatted></para>
-<para><preformatted>   // No memory allocation was attempted so xSemaphore cannot be NULL, so there
+   xSemaphore = xSemaphoreCreateCounting( 10, 0, &amp;xSemaphoreBuffer );
+
+   // No memory allocation was attempted so xSemaphore cannot be NULL, so there
    // is no need to check its value.
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

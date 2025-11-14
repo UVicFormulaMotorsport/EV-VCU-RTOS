@@ -2,7 +2,17 @@
 
 typedef struct output_channel_settings output_channel_settings;
 
-output_channel_settings default_output_channels;
+void BeepBeepMotherFucker(){
+	coniferEnChannel(HORN);
+	vTaskDelay(300);
+	coniferToggleChannel(HORN);
+	vTaskDelay(300);
+	coniferToggleChannel(HORN);
+	vTaskDelay(300);
+	coniferDisChannel(HORN);
+}
+
+
 /** @brief Function to put vehicle into safe state.
  *
  * Should perform the following functions in order:
@@ -14,8 +24,9 @@ void uvSecureVehicle(){
 	//Stop MCU Torque requests
 	MC_Shutdown();
 
-
+	coniferDisChannel(BAMO_RFE);
+	vTaskDelay(2);
 	//open SDC >:)
-	//uvOpenSDC();
+	uvOpenSDC();
 
 }

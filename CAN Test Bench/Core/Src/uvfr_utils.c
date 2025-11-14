@@ -8,6 +8,7 @@
 
 #define UV_UTILS_SRC_IMPLIMENTATION
 #include "uvfr_utils.h"
+#include "uvfr_conifer.h"
 
 
 void rtdTask(void* args);
@@ -47,10 +48,12 @@ const uint8_t data_size[] = {1,1, //UV_UINT8 and UV_INT8
  *	Pretty important shit if you ask me.
  */
 void uvInit(void * arguments){
-	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //For debugging purposes, I wanna see if we actually end up here at some point
+	//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //For debugging purposes, I wanna see if we actually end up here at some point
 
 	char* error_msg = NULL;
 	uint8_t msg_length = 0;
+
+	vTaskDelay(1);
 
 	/** First on the block is our settings. The uv_settings are a bit strange, in the following way.
 	 * We will check if we have saved custom settings, or if these settings are the default or not.
@@ -70,10 +73,14 @@ void uvInit(void * arguments){
 		 * initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged*/
 	}
 
+	vTaskDelay(1);
+
 	if(uvInitDiagnostics() != UV_OK){
 
 
 	}
+
+	vTaskDelay(1);
 
 	/** Next up we will attempt to initialize the state engine. If this fails, then we are in another case where we are genuinely unsafe to drive.
 	* This will create the prototypes for a bajillion tasks that will be started and stopped. Which tasks are currently running,
@@ -88,12 +95,16 @@ void uvInit(void * arguments){
 		 */
 	}
 
+	vTaskDelay(1);
+
 	/** Once the state machine is initialized we get to actually start the thing.
 	 *
 	 */
 	if(uvStartStateMachine() != UV_OK){
 		__uvInitPanic();
 	}
+
+	vTaskDelay(1);
 
 	/** Once we have initialized the state engine, what we want to do is create the prototypes of all the
 	 * tasks that will be running.
@@ -114,6 +125,22 @@ void uvInit(void * arguments){
 	uvStartTask(&var,canTxtask);
 	uvStartTask(&var,canRxtask);
 
+
+	vTaskDelay(1);
+	/**
+	 * Next we setup conifer and the associated drivers. This is needed, because we need to enable power
+	 * to devices such as the BMS, and motor controller so that we can talk to them over CANbus
+	 */
+
+	if(coniferInit() != UV_OK){
+		//RUHH ROHH
+		uvPanic("Failed to start conifer",0);
+	}
+
+	BeepBeepMotherFucker();
+
+	vTaskDelay(2); //Allow idle task to figure its shit out
+
 	/** Now we are going to create a bunch of tasks that will initialize our car's external devices.
 	 * The reason that these are RTOS tasks, is that it takes a buncha time to verify the existance of some devices.
 	 * As a direct result, we can sorta just wait around and check that each task sends a message confirming that it has successfully executed. :)
@@ -132,17 +159,20 @@ void uvInit(void * arguments){
 	 * @code */
 
 	BaseType_t retval;
+	uint16_t ext_devices_status = 0x0000; //Tracks which devices are currently setup
 	//osThreadDef_t MC_init_thread = {"MC_init",MC_Startup,osPriorityNormal,128,0};
 	uv_init_task_args* MC_init_args = uvMalloc(sizeof(uv_init_task_args));
 	MC_init_args->init_info_queue = init_validation_queue;
 	MC_init_args->specific_args = &(current_vehicle_settings->mc_settings);
-	//MC_init_args->meta_task_handle = osThreadCreate(&MC_init_thread,MC_init_args);
-	//vTaskResume( MC_init_args->meta_task_handle );
+
 	retval = xTaskCreate(MC_Startup,"MC_init",256,MC_init_args,osPriorityAboveNormal,&(MC_init_args->meta_task_handle));
 	if(retval != pdPASS){
 		//FUCK
 		error_msg = "bruh";
+	}else{
+		ext_devices_status |= 0x01U << MOTOR_CONTROLLER;
 	}
+
 	/** @endcode
 	 * This thread is for initializing the BMS
 	 * @code */
@@ -157,6 +187,8 @@ void uvInit(void * arguments){
 	if(retval != pdPASS){
 		//FUCK
 		error_msg = "bruh";
+	}else{
+		ext_devices_status |= 0x01U << BMS;
 	}
 	/** @endcode
 	* This variable is a tracker that tracks which devices have successfully initialized
@@ -169,20 +201,18 @@ void uvInit(void * arguments){
 	if(retval != pdPASS){
 			//FUCK
 		error_msg = "bruh";
+	}else{
+		ext_devices_status |= 0x01U << IMD;
 	}
 
-	uv_init_task_args* PDU_init_args = uvMalloc(sizeof(uv_init_task_args));
-	PDU_init_args->init_info_queue = init_validation_queue;
-	PDU_init_args->specific_args = &(current_vehicle_settings->imd_settings);
-	retval = xTaskCreate(initPDU,"PDU_init",128,PDU_init_args,osPriorityAboveNormal,&(PDU_init_args->meta_task_handle)); //pass in the right settings, dumdum
-	if(retval != pdPASS){
-			//FUCK
-		error_msg = "bruh";
-	}
-
-
-	uint16_t ext_devices_status = 0x000F; //Tracks which devices are currently setup
-
+//	uv_init_task_args* PDU_init_args = uvMalloc(sizeof(uv_init_task_args));
+//	PDU_init_args->init_info_queue = init_validation_queue;
+//	PDU_init_args->specific_args = &(current_vehicle_settings->imd_settings);
+//	retval = xTaskCreate(initPDU,"PDU_init",128,PDU_init_args,osPriorityAboveNormal,&(PDU_init_args->meta_task_handle)); //pass in the right settings, dumdum
+//	if(retval != pdPASS){
+//			//FUCK
+//		error_msg = "bruh";
+//	}
 
 	initADCTask(); //START THE ADCs
 
@@ -199,7 +229,7 @@ void uvInit(void * arguments){
 		__uvInitPanic();
 	}
 
-	if(BMS_init_args->meta_task_handle == NULL || MC_init_args->meta_task_handle == NULL){
+	if(BMS_init_args->meta_task_handle == NULL || MC_init_args->meta_task_handle == NULL || IMD_init_args->meta_task_handle == NULL){
 		__uvInitPanic();
 	}
 	/** We allocate space for a response from the initialization.
@@ -235,7 +265,7 @@ void uvInit(void * arguments){
 			//GTFO
 			break;
 		}else{
-
+			//Not all external devices initialized!!!
 		}
 	}
 	//If we get here, then we have timed out
@@ -257,8 +287,8 @@ void uvInit(void * arguments){
 	vTaskDelete(IMD_init_args->meta_task_handle);
 	uvFree(IMD_init_args);
 
-	vTaskDelete(PDU_init_args->meta_task_handle);
-	uvFree(PDU_init_args);
+	//vTaskDelete(PDU_init_args->meta_task_handle);
+	//uvFree(PDU_init_args);
 
 
 

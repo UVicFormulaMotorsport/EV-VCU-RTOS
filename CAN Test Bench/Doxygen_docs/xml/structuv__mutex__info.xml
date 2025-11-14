@@ -1,28 +1,100 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="structuv__mutex__info" kind="struct" language="C++" prot="public">
     <compoundname>uv_mutex_info</compoundname>
     <includes refid="uvfr__utils_8h" local="no">uvfr_utils.h</includes>
-      <sectiondef kind="public-attrib">
+    <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structuv__mutex__info_1af10ace48777aeac50d43a95573251885" prot="public" static="no" mutable="no">
-        <type>SemaphoreHandle_t</type>
+        <type><ref refid="semphr_8h_1ad88c6df4a04beedeac782918c8a332f5" kindref="member">SemaphoreHandle_t</ref></type>
         <definition>SemaphoreHandle_t uv_mutex_info::handle</definition>
         <argsstring></argsstring>
         <name>handle</name>
+        <qualifiedname>uv_mutex_info::handle</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="240" column="19" bodyfile="Core/Inc/uvfr_utils.h" bodystart="240" bodyend="-1"/>
+        <location file="Core/Inc/uvfr_utils.h" line="247" column="19" bodyfile="Core/Inc/uvfr_utils.h" bodystart="247" bodyend="-1"/>
       </memberdef>
-      </sectiondef>
+    </sectiondef>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="Core/Inc/uvfr_utils.h" line="239" column="20" bodyfile="Core/Inc/uvfr_utils.h" bodystart="239" bodyend="242"/>
+    <collaborationgraph>
+      <node id="2">
+        <label>QueueDefinition</label>
+        <link refid="struct_queue_definition"/>
+        <childnode refid="3" relation="usage">
+          <edgelabel>xQueue</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>xSemaphore</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>xTasksWaitingToReceive</edgelabel>
+          <edgelabel>xTasksWaitingToSend</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>QueuePointers</label>
+        <link refid="struct_queue_pointers"/>
+      </node>
+      <node id="4">
+        <label>SemaphoreData</label>
+        <link refid="struct_semaphore_data"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>xMutexHolder</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>tskTaskControlBlock</label>
+        <link refid="structtsk_task_control_block"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>xEventListItem</edgelabel>
+          <edgelabel>xStateListItem</edgelabel>
+        </childnode>
+      </node>
+      <node id="1">
+        <label>uv_mutex_info</label>
+        <link refid="structuv__mutex__info"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>handle</edgelabel>
+        </childnode>
+      </node>
+      <node id="7">
+        <label>xLIST</label>
+        <link refid="structx_l_i_s_t"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>pxIndex</edgelabel>
+        </childnode>
+        <childnode refid="8" relation="usage">
+          <edgelabel>xListEnd</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>xLIST_ITEM</label>
+        <link refid="structx_l_i_s_t___i_t_e_m"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>pxNext</edgelabel>
+          <edgelabel>pxPrevious</edgelabel>
+        </childnode>
+        <childnode refid="7" relation="usage">
+          <edgelabel>pxContainer</edgelabel>
+        </childnode>
+      </node>
+      <node id="8">
+        <label>xMINI_LIST_ITEM</label>
+        <link refid="structx_m_i_n_i___l_i_s_t___i_t_e_m"/>
+        <childnode refid="6" relation="usage">
+          <edgelabel>pxNext</edgelabel>
+          <edgelabel>pxPrevious</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="Core/Inc/uvfr_utils.h" line="246" column="1" bodyfile="Core/Inc/uvfr_utils.h" bodystart="246" bodyend="249"/>
     <listofallmembers>
       <member refid="structuv__mutex__info_1af10ace48777aeac50d43a95573251885" prot="public" virt="non-virtual"><scope>uv_mutex_info</scope><name>handle</name></member>
     </listofallmembers>
