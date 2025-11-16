@@ -26,7 +26,6 @@ uv_status initTempMonitor(void * arguments){
 		return UV_ERROR;
 	}
 
-
 		//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
 	tm_task->task_name = "Temp_monitor";
 
@@ -94,12 +93,14 @@ void tempMonitorTask(void* args){
 
 	//optimal theshold estimates
 
+	// Celsius
+
 	//coolant 20 - 45
-	//motor 40 - 90
+	//motor 30 - 50 
 	//inverter 35 - 65
 
-	float max_MI_thres = 65;
-	float min_MI_thres = 35;
+	float max_MI_thres = 40;
+	float min_MI_thres = 25;
 
 	float max_cool_thres = 45;
 	float min_cool_thres = 20;
@@ -163,15 +164,12 @@ void tempMonitorTask(void* args){
 
 			if (is_pump_on == false){
 				uvStartCoolantPump();
-
 			}
-
 
 		} else if (mc_motor_temp < min_MI_thres && mc_igbt_temp < min_MI_thres){
 
 			if (is_pump_on == true){
 				uvStopCoolantPump();
-
 			}
 
 		}
@@ -180,9 +178,7 @@ void tempMonitorTask(void* args){
 
 			if(is_fan_on == false){
 				uvStartFans(x);
-
 			}
-
 
 		} else if (adc_coolant_temp1 < min_cool_thres && adc_coolant_temp2 < min_cool_thres){
 
