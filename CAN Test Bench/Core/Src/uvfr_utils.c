@@ -75,6 +75,9 @@ void uvInit(void * arguments){
 
 	vTaskDelay(1);
 
+	/** The second thing initialized is internal diagnostics and telemetry.
+	 *
+	 */
 	if(uvInitDiagnostics() != UV_OK){
 
 
@@ -138,6 +141,12 @@ void uvInit(void * arguments){
 	}
 
 	BeepBeepMotherFucker();
+
+	//coniferEnChannel(COOLANT_PUMP1);
+	coniferEnChannel(BAMO_RUN);
+	coniferEnChannel(BAMO_RFE);
+	coniferEnChannel(SDC_BOARD_PWR);
+	coniferEnChannel(HVIL_PWR);
 
 	vTaskDelay(2); //Allow idle task to figure its shit out
 
