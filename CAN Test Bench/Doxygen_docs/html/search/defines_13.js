@@ -56,7 +56,6 @@ var searchData=
   ['uv_5futils_5fsrc_5fimplimentation_53',['UV_UTILS_SRC_IMPLIMENTATION',['../uvfr__utils_8c.html#af0c3770bb8c05b338afd53946909189c',1,'uvfr_utils.c']]],
   ['uvassert_54',['uvAssert',['../uvfr__diagnostics_8h.html#a20dda0f49a0be7fa70a22f050ef9f96d',1,'uvfr_diagnostics.h']]],
   ['uvfr_5fstate_5fmachine_5fimplimentation_55',['UVFR_STATE_MACHINE_IMPLIMENTATION',['../uvfr__state__engine_8c.html#a6cd439d1fb18334cd13cf3539aebca5c',1,'uvfr_state_engine.c']]],
-  ['uvopensdc_56',['uvOpenSDC',['../uvfr__vehicle__commands_8h.html#aef33c5773dc84e4e8771bf0303bb5211',1,'uvfr_vehicle_commands.h']]],
-  ['uxqueuetype_57',['uxQueueType',['../queue_8c.html#afe3f7afb2a02c085f2d634003902cbc0',1,'queue.c']]],
-  ['uxsemaphoregetcount_58',['uxSemaphoreGetCount',['../semphr_8h.html#aa26a3d7cf9b5595a652daeb7f81229f3',1,'semphr.h']]]
+  ['uxqueuetype_56',['uxQueueType',['../queue_8c.html#afe3f7afb2a02c085f2d634003902cbc0',1,'queue.c']]],
+  ['uxsemaphoregetcount_57',['uxSemaphoreGetCount',['../semphr_8h.html#aa26a3d7cf9b5595a652daeb7f81229f3',1,'semphr.h']]]
 ];

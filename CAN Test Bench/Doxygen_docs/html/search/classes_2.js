@@ -4,5 +4,6 @@ var searchData=
   ['conifer_5fch_5fsetting_1',['conifer_ch_setting',['../structconifer__ch__setting.html',1,'']]],
   ['conifer_5fhw_5fchannel_2',['conifer_hw_channel',['../structconifer__hw__channel.html',1,'']]],
   ['conifer_5fsettings_3',['conifer_settings',['../structconifer__settings.html',1,'']]],
-  ['corcoroutinecontrolblock_4',['corCoRoutineControlBlock',['../structcor_co_routine_control_block.html',1,'']]]
+  ['conifer_5fstate_4',['conifer_state',['../structconifer__state.html',1,'']]],
+  ['corcoroutinecontrolblock_5',['corCoRoutineControlBlock',['../structcor_co_routine_control_block.html',1,'']]]
 ];

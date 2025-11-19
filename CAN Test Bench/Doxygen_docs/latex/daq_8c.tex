@@ -18,6 +18,8 @@ struct \mbox{\hyperlink{structdaq__child__task}{daq\+\_\+child\+\_\+task}}
 \begin{DoxyCompactItemize}
 \item 
 \#define \mbox{\hyperlink{daq_8c_a5a6490a76926af0287e58c4b1af260bd}{\+\_\+\+SRC\+\_\+\+UVFR\+\_\+\+DAQ}}
+\item 
+\#define \mbox{\hyperlink{daq_8c_aba239cbf28dfdbe0359593717f8705d5}{INV\+\_\+\+DAQ\+\_\+P}}~0x\+FFFF
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -30,12 +32,12 @@ typedef struct daq\+\_\+child\+\_\+task \mbox{\hyperlink{daq_8c_a2104fed000d8cb3
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{daq_8c_a740f6299f5ce19d6d94d148e13231dd9}{daq\+Sub\+Task}} (void \texorpdfstring{$\ast$}{*}args)
-\item 
+\begin{DoxyCompactList}\small\item\em Child Task responsible for sending DAQ messages at a set period. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{daq_8c_a56ca1193de01115c27ceb3768994017f}{associate\+Daq\+Param\+With\+Var}} (uint16\+\_\+t param\+ID, void \texorpdfstring{$\ast$}{*}var)
 \item 
 static void \mbox{\hyperlink{daq_8c_adcd689b5d7e750a2970e1f9e05c16c55}{insert\+Param\+To\+Param\+List}} (\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}list)
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{daq_8c_ab60ac31cdb244a3123d9d014d9019b2c}{insert\+Param\+To\+Register}} (\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \texorpdfstring{$\ast$}{*}datapoint)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{daq_8c_ab5fd6b7e1a2b15c2c834291f9386d1ef}{insert\+Param\+To\+Register}} (\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}node, \mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} \texorpdfstring{$\ast$}{*}datapoint)
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{daq_8c_a9e1cd582f8748d018266ba4ab15561ae}{configure\+Daq\+Sub\+Tasks}} ()
 \begin{DoxyCompactList}\small\item\em This pre-\/allocates parameters to one of the daq subtasks. \end{DoxyCompactList}\item 
@@ -47,12 +49,14 @@ static void \mbox{\hyperlink{daq_8c_adcd689b5d7e750a2970e1f9e05c16c55}{insert\+P
 \begin{DoxyCompactList}\small\item\em initializes the master DAQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{daq_8c_a433bb586ceab47aed8d633fa2ff8ce56}{daq\+Master\+Task}} (void \texorpdfstring{$\ast$}{*}args)
 \begin{DoxyCompactList}\small\item\em Controls the Daq. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{daq_8c_a3264ce2e91867c895df43ce7ddc3dd86}{send\+Daq\+Msg}} (\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}param)
+static void \mbox{\hyperlink{daq_8c_a35e09915fc9dccafc842112110511923}{send\+Daq\+Msg}} (\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}dmsg)
 \item 
 static void \mbox{\hyperlink{daq_8c_ae7274a95a4e4881bc3fe84c9021d4a6c}{send\+All\+Params\+From\+List}} (\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}list)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{daq_8c_a08de9f1889def4ee8d79962e6044bb0f}{constant\+\_\+zero}} = 0
 \item 
 volatile uint16\+\_\+t \mbox{\hyperlink{daq_8c_a2273a53b295e470100af298a0be7d8d7}{coolant\+\_\+temp\+\_\+adc}} = 0
 \item 
@@ -64,13 +68,13 @@ ADC\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{daq_8c_a22b804736f5648d52f639b2647
 \item 
 \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}} \mbox{\hyperlink{daq_8c_a22b4a1eccdbbbf445f1847cc3a49c3e0}{default\+\_\+daq\+\_\+settings}}
 \item 
-\mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \mbox{\hyperlink{daq_8c_af5ab2cd7ec858145d49d4e585e4bef94}{default\+\_\+datapoints}} \mbox{[}$\,$\mbox{]}
+\mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} \mbox{\hyperlink{daq_8c_af2240542724a20552b90fafa9642884d}{default\+\_\+datapoints}} \mbox{[}$\,$\mbox{]}
 \item 
 static void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{daq_8c_aeed531c2be2a5177eebeaacd47c04526}{param\+\_\+ptrs}} \mbox{[}\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502}{MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}\mbox{]}
 \item 
 static \mbox{\hyperlink{structdaq__child__task}{daq\+\_\+child\+\_\+task}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{daq_8c_a912bd9ed0555d1bedc46ec216962c5f1}{daq\+\_\+tlist}} = NULL
 \item 
-static \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{daq_8c_ad6cbbc8d3571452db9a10c35551f721e}{datapoints}} = NULL
+static \mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{daq_8c_ac392727a4f2b768d9702e3796feca27c}{datapoints}} = NULL
 \item 
 static \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{daq_8c_a463311a3d81da8e08c8c9c78d447fc59}{param\+\_\+bank}} = NULL
 \item 
@@ -88,6 +92,16 @@ static \mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+
 
 
 Definition at line \mbox{\hyperlink{daq_8c_source_l00001}{1}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+
+\Hypertarget{daq_8c_aba239cbf28dfdbe0359593717f8705d5}\index{daq.c@{daq.c}!INV\_DAQ\_P@{INV\_DAQ\_P}}
+\index{INV\_DAQ\_P@{INV\_DAQ\_P}!daq.c@{daq.c}}
+\doxysubsubsection{\texorpdfstring{INV\_DAQ\_P}{INV\_DAQ\_P}}
+{\footnotesize\ttfamily \label{daq_8c_aba239cbf28dfdbe0359593717f8705d5} 
+\#define INV\+\_\+\+DAQ\+\_\+P~0x\+FFFF}
+
+
+
+Definition at line \mbox{\hyperlink{daq_8c_source_l00012}{12}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
@@ -115,15 +129,15 @@ typedef struct daq\+\_\+param\+\_\+list\+\_\+node daq\+\_\+param\+\_\+list\+\_\+
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00125}{125}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00087}{87}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8h_source_l00079}{MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}, \mbox{\hyperlink{daq_8c_source_l00112}{param\+\_\+ptrs}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00480}{uv\+Is\+PTRValid()}}.
+References \mbox{\hyperlink{daq_8h_source_l00079}{MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}, \mbox{\hyperlink{daq_8c_source_l00074}{param\+\_\+ptrs}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00487}{uv\+Is\+PTRValid()}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
 
 \Hypertarget{daq_8c_a9e1cd582f8748d018266ba4ab15561ae}\index{daq.c@{daq.c}!configureDaqSubTasks@{configureDaqSubTasks}}
 \index{configureDaqSubTasks@{configureDaqSubTasks}!daq.c@{daq.c}}
@@ -137,15 +151,15 @@ This pre-\/allocates parameters to one of the daq subtasks.
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00218}{218}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00183}{183}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00043}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{daq_8c_source_l00162}{insert\+Param\+To\+Register()}}, \mbox{\hyperlink{daq_8c_source_l00118}{param\+\_\+bank}}, \mbox{\hyperlink{daq_8h_source_l00097}{daq\+\_\+loop\+\_\+args\+::total\+\_\+params\+\_\+logged}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{daq_8c_source_l00046}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{daq_8c_source_l00124}{insert\+Param\+To\+Register()}}, \mbox{\hyperlink{daq_8c_source_l00080}{param\+\_\+bank}}, \mbox{\hyperlink{daq_8h_source_l00098}{daq\+\_\+loop\+\_\+args\+::total\+\_\+params\+\_\+logged}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}.
 
 \Hypertarget{daq_8c_a433bb586ceab47aed8d633fa2ff8ce56}\index{daq.c@{daq.c}!daqMasterTask@{daqMasterTask}}
 \index{daqMasterTask@{daqMasterTask}!daq.c@{daq.c}}
@@ -162,21 +176,21 @@ These here lines set the delay. This task executes exactly at the period specifi
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\ */}
-\DoxyCodeLine{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ tick\_period\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(params-\/>task\_period);\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
+\DoxyCodeLine{\textcolor{comment}{//TickType\_t\ tick\_period\ =\ pdMS\_TO\_TICKS(params-\/>task\_period);\ //Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
 \DoxyCodeLine{\textcolor{comment}{//TickType\_t\ last\_time\ =\ xTaskGetTickCount();\ \ \ \ \ \ \ /**}}
 
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00336}{336}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00305}{305}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{daq_8c_source_l00245}{start\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00295}{uv\+Task\+Delay}}, and \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{daq_8c_source_l00210}{start\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00295}{uv\+Task\+Delay}}, and \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}.
 
 \Hypertarget{daq_8c_a740f6299f5ce19d6d94d148e13231dd9}\index{daq.c@{daq.c}!daqSubTask@{daqSubTask}}
 \index{daqSubTask@{daqSubTask}!daq.c@{daq.c}}
@@ -186,15 +200,19 @@ void daq\+Sub\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00428}{428}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Child Task responsible for sending DAQ messages at a set period. 
+
+One task per period 
+
+Definition at line \mbox{\hyperlink{daq_8c_source_l00441}{441}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00038}{daq\+\_\+child\+\_\+task\+::param\+\_\+list}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{daq_8c_source_l00037}{daq\+\_\+child\+\_\+task\+::period}}, \mbox{\hyperlink{daq_8c_source_l00413}{send\+All\+Params\+From\+List()}}, \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{v\+Task\+Delay\+Until()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
+References \mbox{\hyperlink{daq_8c_source_l00041}{daq\+\_\+child\+\_\+task\+::param\+\_\+list}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{daq_8c_source_l00040}{daq\+\_\+child\+\_\+task\+::period}}, \mbox{\hyperlink{daq_8c_source_l00423}{send\+All\+Params\+From\+List()}}, \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{v\+Task\+Delay\+Until()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00245}{start\+Daq\+Sub\+Tasks()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00210}{start\+Daq\+Sub\+Tasks()}}.
 
 \Hypertarget{daq_8c_af2c619df9f3d115dcbc511b0bb738e87}\index{daq.c@{daq.c}!initDaqTask@{initDaqTask}}
 \index{initDaqTask@{initDaqTask}!daq.c@{daq.c}}
@@ -218,11 +236,11 @@ Step 4\+: Generate Subtask Metadata
 
 Step 5\+: Assign params to subtasks 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00288}{288}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00257}{257}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{daq_8c_source_l00125}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00100}{daq\+\_\+loop\+\_\+args\+::can\+\_\+channel}}, \mbox{\hyperlink{daq_8c_source_l00218}{configure\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{daq_8h_source_l00059}{COOLANT\+\_\+\+TEMP\+\_\+\+ADC}}, \mbox{\hyperlink{daq_8c_source_l00015}{coolant\+\_\+temp\+\_\+adc}}, \mbox{\hyperlink{daq_8c_source_l00043}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{daq_8h_source_l00101}{daq\+\_\+loop\+\_\+args\+::daq\+\_\+child\+\_\+priority}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00163}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00336}{daq\+Master\+Task()}}, \mbox{\hyperlink{daq_8c_source_l00116}{datapoints}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{daq_8h_source_l00060}{MOTOR\+\_\+\+TEMP\+\_\+\+ADC}}, \mbox{\hyperlink{daq_8c_source_l00016}{motor\+\_\+temp\+\_\+adc}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{daq_8c_source_l00271}{tmp\+\_\+daq\+\_\+msg}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00101}{daq\+\_\+loop\+\_\+args\+::can\+\_\+channel}}, \mbox{\hyperlink{daq_8c_source_l00183}{configure\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{daq_8h_source_l00059}{COOLANT\+\_\+\+TEMP\+\_\+\+ADC}}, \mbox{\hyperlink{daq_8c_source_l00018}{coolant\+\_\+temp\+\_\+adc}}, \mbox{\hyperlink{daq_8c_source_l00046}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{daq_8h_source_l00102}{daq\+\_\+loop\+\_\+args\+::daq\+\_\+child\+\_\+priority}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00163}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00305}{daq\+Master\+Task()}}, \mbox{\hyperlink{daq_8c_source_l00078}{datapoints}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{daq_8h_source_l00060}{MOTOR\+\_\+\+TEMP\+\_\+\+ADC}}, \mbox{\hyperlink{daq_8c_source_l00019}{motor\+\_\+temp\+\_\+adc}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{daq_8c_source_l00240}{tmp\+\_\+daq\+\_\+msg}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
 
 
 
@@ -236,33 +254,33 @@ static void insert\+Param\+To\+Param\+List (\begin{DoxyParamCaption}\item[{\mbox
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00142}{142}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00104}{104}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00026}{daq\+\_\+param\+\_\+list\+\_\+node\+::next}}.
+References \mbox{\hyperlink{daq_8c_source_l00029}{daq\+\_\+param\+\_\+list\+\_\+node\+::next}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00162}{insert\+Param\+To\+Register()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00124}{insert\+Param\+To\+Register()}}.
 
-\Hypertarget{daq_8c_ab60ac31cdb244a3123d9d014d9019b2c}\index{daq.c@{daq.c}!insertParamToRegister@{insertParamToRegister}}
+\Hypertarget{daq_8c_ab5fd6b7e1a2b15c2c834291f9386d1ef}\index{daq.c@{daq.c}!insertParamToRegister@{insertParamToRegister}}
 \index{insertParamToRegister@{insertParamToRegister}!daq.c@{daq.c}}
 \doxysubsubsection{\texorpdfstring{insertParamToRegister()}{insertParamToRegister()}}
-{\footnotesize\ttfamily \label{daq_8c_ab60ac31cdb244a3123d9d014d9019b2c} 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} insert\+Param\+To\+Register (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}}]{node}{, }\item[{\mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \texorpdfstring{$\ast$}{*}}]{datapoint}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{daq_8c_ab5fd6b7e1a2b15c2c834291f9386d1ef} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} insert\+Param\+To\+Register (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}}]{node}{, }\item[{\mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{datapoint}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00162}{162}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00124}{124}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8h_source_l00084}{daq\+\_\+datapoint\+::can\+\_\+id}}, \mbox{\hyperlink{daq_8c_source_l00028}{daq\+\_\+param\+\_\+list\+\_\+node\+::can\+\_\+id}}, \mbox{\hyperlink{daq_8c_source_l00114}{daq\+\_\+tlist}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00021}{data\+\_\+size}}, \mbox{\hyperlink{daq_8c_source_l00142}{insert\+Param\+To\+Param\+List()}}, \mbox{\hyperlink{daq_8c_source_l00026}{daq\+\_\+param\+\_\+list\+\_\+node\+::next}}, \mbox{\hyperlink{daq_8c_source_l00035}{daq\+\_\+child\+\_\+task\+::next\+\_\+task}}, \mbox{\hyperlink{daq_8h_source_l00085}{daq\+\_\+datapoint\+::param}}, \mbox{\hyperlink{daq_8c_source_l00029}{daq\+\_\+param\+\_\+list\+\_\+node\+::param}}, \mbox{\hyperlink{daq_8c_source_l00038}{daq\+\_\+child\+\_\+task\+::param\+\_\+list}}, \mbox{\hyperlink{daq_8c_source_l00037}{daq\+\_\+child\+\_\+task\+::period}}, \mbox{\hyperlink{daq_8h_source_l00086}{daq\+\_\+datapoint\+::period}}, \mbox{\hyperlink{daq_8c_source_l00031}{daq\+\_\+param\+\_\+list\+\_\+node\+::size}}, \mbox{\hyperlink{daq_8h_source_l00087}{daq\+\_\+datapoint\+::type}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{daq_8h_source_l00084}{daq\+\_\+msg\+::can\+\_\+id}}, \mbox{\hyperlink{daq_8c_source_l00031}{daq\+\_\+param\+\_\+list\+\_\+node\+::can\+\_\+id}}, \mbox{\hyperlink{daq_8c_source_l00076}{daq\+\_\+tlist}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00021}{data\+\_\+size}}, \mbox{\hyperlink{daq_8c_source_l00104}{insert\+Param\+To\+Param\+List()}}, \mbox{\hyperlink{daq_8c_source_l00029}{daq\+\_\+param\+\_\+list\+\_\+node\+::next}}, \mbox{\hyperlink{daq_8c_source_l00038}{daq\+\_\+child\+\_\+task\+::next\+\_\+task}}, \mbox{\hyperlink{daq_8h_source_l00085}{daq\+\_\+msg\+::param}}, \mbox{\hyperlink{daq_8c_source_l00032}{daq\+\_\+param\+\_\+list\+\_\+node\+::param}}, \mbox{\hyperlink{daq_8c_source_l00041}{daq\+\_\+child\+\_\+task\+::param\+\_\+list}}, \mbox{\hyperlink{daq_8c_source_l00040}{daq\+\_\+child\+\_\+task\+::period}}, \mbox{\hyperlink{daq_8h_source_l00087}{daq\+\_\+msg\+::period}}, \mbox{\hyperlink{daq_8c_source_l00034}{daq\+\_\+param\+\_\+list\+\_\+node\+::size}}, \mbox{\hyperlink{daq_8h_source_l00086}{daq\+\_\+msg\+::type}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00218}{configure\+Daq\+Sub\+Tasks()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00183}{configure\+Daq\+Sub\+Tasks()}}.
 
 \Hypertarget{daq_8c_ae7274a95a4e4881bc3fe84c9021d4a6c}\index{daq.c@{daq.c}!sendAllParamsFromList@{sendAllParamsFromList}}
 \index{sendAllParamsFromList@{sendAllParamsFromList}!daq.c@{daq.c}}
@@ -272,33 +290,33 @@ static void send\+All\+Params\+From\+List (\begin{DoxyParamCaption}\item[{\mbox{
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00413}{413}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00423}{423}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00026}{daq\+\_\+param\+\_\+list\+\_\+node\+::next}}, and \mbox{\hyperlink{daq_8c_source_l00390}{send\+Daq\+Msg()}}.
+References \mbox{\hyperlink{daq_8c_source_l00029}{daq\+\_\+param\+\_\+list\+\_\+node\+::next}}, and \mbox{\hyperlink{daq_8c_source_l00359}{send\+Daq\+Msg()}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00428}{daq\+Sub\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00441}{daq\+Sub\+Task()}}.
 
-\Hypertarget{daq_8c_a3264ce2e91867c895df43ce7ddc3dd86}\index{daq.c@{daq.c}!sendDaqMsg@{sendDaqMsg}}
+\Hypertarget{daq_8c_a35e09915fc9dccafc842112110511923}\index{daq.c@{daq.c}!sendDaqMsg@{sendDaqMsg}}
 \index{sendDaqMsg@{sendDaqMsg}!daq.c@{daq.c}}
 \doxysubsubsection{\texorpdfstring{sendDaqMsg()}{sendDaqMsg()}}
-{\footnotesize\ttfamily \label{daq_8c_a3264ce2e91867c895df43ce7ddc3dd86} 
-static void send\+Daq\+Msg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}}]{param}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+{\footnotesize\ttfamily \label{daq_8c_a35e09915fc9dccafc842112110511923} 
+static void send\+Daq\+Msg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structdaq__param__list__node}{daq\+\_\+param\+\_\+list\+\_\+node}} \texorpdfstring{$\ast$}{*}}]{dmsg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00390}{390}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00359}{359}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00028}{daq\+\_\+param\+\_\+list\+\_\+node\+::can\+\_\+id}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{daq_8c_source_l00029}{daq\+\_\+param\+\_\+list\+\_\+node\+::param}}, \mbox{\hyperlink{daq_8c_source_l00112}{param\+\_\+ptrs}}, \mbox{\hyperlink{daq_8c_source_l00031}{daq\+\_\+param\+\_\+list\+\_\+node\+::size}}, \mbox{\hyperlink{daq_8c_source_l00271}{tmp\+\_\+daq\+\_\+msg}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
+References \mbox{\hyperlink{daq_8h_source_l00101}{daq\+\_\+loop\+\_\+args\+::can\+\_\+channel}}, \mbox{\hyperlink{daq_8c_source_l00031}{daq\+\_\+param\+\_\+list\+\_\+node\+::can\+\_\+id}}, \mbox{\hyperlink{daq_8c_source_l00016}{constant\+\_\+zero}}, \mbox{\hyperlink{daq_8c_source_l00046}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{daq_8h_source_l00079}{MAX\+\_\+\+LOGGABLE\+\_\+\+PARAMS}}, \mbox{\hyperlink{daq_8c_source_l00032}{daq\+\_\+param\+\_\+list\+\_\+node\+::param}}, \mbox{\hyperlink{daq_8c_source_l00074}{param\+\_\+ptrs}}, \mbox{\hyperlink{daq_8c_source_l00034}{daq\+\_\+param\+\_\+list\+\_\+node\+::size}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00413}{send\+All\+Params\+From\+List()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00423}{send\+All\+Params\+From\+List()}}.
 
 \Hypertarget{daq_8c_a65df75bcd76d421bf28fca5704c8ff95}\index{daq.c@{daq.c}!startDaqSubTasks@{startDaqSubTasks}}
 \index{startDaqSubTasks@{startDaqSubTasks}!daq.c@{daq.c}}
@@ -312,15 +330,15 @@ Function that starts up all the subtasks.
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00245}{245}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00210}{210}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00043}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{daq_8h_source_l00101}{daq\+\_\+loop\+\_\+args\+::daq\+\_\+child\+\_\+priority}}, \mbox{\hyperlink{daq_8c_source_l00114}{daq\+\_\+tlist}}, \mbox{\hyperlink{daq_8c_source_l00428}{daq\+Sub\+Task()}}, \mbox{\hyperlink{daq_8c_source_l00036}{daq\+\_\+child\+\_\+task\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{daq_8c_source_l00035}{daq\+\_\+child\+\_\+task\+::next\+\_\+task}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{daq_8c_source_l00046}{curr\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{daq_8h_source_l00102}{daq\+\_\+loop\+\_\+args\+::daq\+\_\+child\+\_\+priority}}, \mbox{\hyperlink{daq_8c_source_l00076}{daq\+\_\+tlist}}, \mbox{\hyperlink{daq_8c_source_l00441}{daq\+Sub\+Task()}}, \mbox{\hyperlink{daq_8c_source_l00039}{daq\+\_\+child\+\_\+task\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{daq_8c_source_l00038}{daq\+\_\+child\+\_\+task\+::next\+\_\+task}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00336}{daq\+Master\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00305}{daq\+Master\+Task()}}.
 
 \Hypertarget{daq_8c_ad3997ae047f3e30136b3f2b668c8030a}\index{daq.c@{daq.c}!stopDaqSubTasks@{stopDaqSubTasks}}
 \index{stopDaqSubTasks@{stopDaqSubTasks}!daq.c@{daq.c}}
@@ -334,15 +352,29 @@ Function that shuts down the subtasks.
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00262}{262}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00231}{231}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-References \mbox{\hyperlink{daq_8c_source_l00114}{daq\+\_\+tlist}}, \mbox{\hyperlink{daq_8c_source_l00036}{daq\+\_\+child\+\_\+task\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{v\+Task\+Delete()}}.
+References \mbox{\hyperlink{daq_8c_source_l00076}{daq\+\_\+tlist}}, \mbox{\hyperlink{daq_8c_source_l00039}{daq\+\_\+child\+\_\+task\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{v\+Task\+Delete()}}.
 
 
 
 \doxysubsection{Variable Documentation}
+\Hypertarget{daq_8c_a08de9f1889def4ee8d79962e6044bb0f}\index{daq.c@{daq.c}!constant\_zero@{constant\_zero}}
+\index{constant\_zero@{constant\_zero}!daq.c@{daq.c}}
+\doxysubsubsection{\texorpdfstring{constant\_zero}{constant\_zero}}
+{\footnotesize\ttfamily \label{daq_8c_a08de9f1889def4ee8d79962e6044bb0f} 
+uint64\+\_\+t constant\+\_\+zero = 0}
+
+
+
+Definition at line \mbox{\hyperlink{daq_8c_source_l00016}{16}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{daq_8c_source_l00359}{send\+Daq\+Msg()}}.
+
 \Hypertarget{daq_8c_a2273a53b295e470100af298a0be7d8d7}\index{daq.c@{daq.c}!coolant\_temp\_adc@{coolant\_temp\_adc}}
 \index{coolant\_temp\_adc@{coolant\_temp\_adc}!daq.c@{daq.c}}
 \doxysubsubsection{\texorpdfstring{coolant\_temp\_adc}{coolant\_temp\_adc}}
@@ -351,11 +383,11 @@ volatile uint16\+\_\+t coolant\+\_\+temp\+\_\+adc = 0}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00015}{15}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00018}{18}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}.
 
 \Hypertarget{daq_8c_a5a9a97f4494923c066b5c4faaaaf8f88}\index{daq.c@{daq.c}!curr\_daq\_settings@{curr\_daq\_settings}}
 \index{curr\_daq\_settings@{curr\_daq\_settings}!daq.c@{daq.c}}
@@ -365,11 +397,11 @@ Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00043}{43}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00046}{46}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00218}{configure\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}, and \mbox{\hyperlink{daq_8c_source_l00245}{start\+Daq\+Sub\+Tasks()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00183}{configure\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}, \mbox{\hyperlink{daq_8c_source_l00359}{send\+Daq\+Msg()}}, and \mbox{\hyperlink{daq_8c_source_l00210}{start\+Daq\+Sub\+Tasks()}}.
 
 \Hypertarget{daq_8c_a912bd9ed0555d1bedc46ec216962c5f1}\index{daq.c@{daq.c}!daq\_tlist@{daq\_tlist}}
 \index{daq\_tlist@{daq\_tlist}!daq.c@{daq.c}}
@@ -379,25 +411,25 @@ Referenced by \mbox{\hyperlink{daq_8c_source_l00218}{configure\+Daq\+Sub\+Tasks(
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00114}{114}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00076}{76}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00162}{insert\+Param\+To\+Register()}}, \mbox{\hyperlink{daq_8c_source_l00245}{start\+Daq\+Sub\+Tasks()}}, and \mbox{\hyperlink{daq_8c_source_l00262}{stop\+Daq\+Sub\+Tasks()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00124}{insert\+Param\+To\+Register()}}, \mbox{\hyperlink{daq_8c_source_l00210}{start\+Daq\+Sub\+Tasks()}}, and \mbox{\hyperlink{daq_8c_source_l00231}{stop\+Daq\+Sub\+Tasks()}}.
 
-\Hypertarget{daq_8c_ad6cbbc8d3571452db9a10c35551f721e}\index{daq.c@{daq.c}!datapoints@{datapoints}}
+\Hypertarget{daq_8c_ac392727a4f2b768d9702e3796feca27c}\index{daq.c@{daq.c}!datapoints@{datapoints}}
 \index{datapoints@{datapoints}!daq.c@{daq.c}}
 \doxysubsubsection{\texorpdfstring{datapoints}{datapoints}}
-{\footnotesize\ttfamily \label{daq_8c_ad6cbbc8d3571452db9a10c35551f721e} 
-\mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}}\texorpdfstring{$\ast$}{*} datapoints = NULL\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{daq_8c_ac392727a4f2b768d9702e3796feca27c} 
+\mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}}\texorpdfstring{$\ast$}{*} datapoints = NULL\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00116}{116}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00078}{78}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}.
 
 \Hypertarget{daq_8c_a22b4a1eccdbbbf445f1847cc3a49c3e0}\index{daq.c@{daq.c}!default\_daq\_settings@{default\_daq\_settings}}
 \index{default\_daq\_settings@{default\_daq\_settings}!daq.c@{daq.c}}
@@ -418,21 +450,42 @@ Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00045}{45}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00048}{48}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
 Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\Hypertarget{daq_8c_af5ab2cd7ec858145d49d4e585e4bef94}\index{daq.c@{daq.c}!default\_datapoints@{default\_datapoints}}
+\Hypertarget{daq_8c_af2240542724a20552b90fafa9642884d}\index{daq.c@{daq.c}!default\_datapoints@{default\_datapoints}}
 \index{default\_datapoints@{default\_datapoints}!daq.c@{daq.c}}
 \doxysubsubsection{\texorpdfstring{default\_datapoints}{default\_datapoints}}
-{\footnotesize\ttfamily \label{daq_8c_af5ab2cd7ec858145d49d4e585e4bef94} 
-\mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} default\+\_\+datapoints\mbox{[}$\,$\mbox{]}}
+{\footnotesize\ttfamily \label{daq_8c_af2240542724a20552b90fafa9642884d} 
+\mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} default\+\_\+datapoints\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\{}
+\DoxyCodeLine{\ \ \ \ \{.can\_id\ =\ 0x530,}
+\DoxyCodeLine{\ \ \ \ .param\ =\ \{\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331}{APPS1\_ADC\_VAL}},\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c}{APPS2\_ADC\_VAL}},\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929}{BPS1\_ADC\_VAL}},\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7}{BPS2\_ADC\_VAL}}\},}
+\DoxyCodeLine{\ \ \ \ .period\ =\ 50,}
+\DoxyCodeLine{\ \ \ \ .type\ =\ \{\mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0}{UV\_UINT16}},\mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0}{UV\_UINT16}},\mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0}{UV\_UINT16}},\mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0}{UV\_UINT16}}\}\},}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \{.can\_id\ =\ 0x540,}
+\DoxyCodeLine{\ \ \ \ .param\ =\ \{\mbox{\hyperlink{daq_8h_a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382}{VCU\_VEHICLE\_STATE}},\mbox{\hyperlink{daq_8c_aba239cbf28dfdbe0359593717f8705d5}{INV\_DAQ\_P}},\mbox{\hyperlink{daq_8c_aba239cbf28dfdbe0359593717f8705d5}{INV\_DAQ\_P}},\mbox{\hyperlink{daq_8c_aba239cbf28dfdbe0359593717f8705d5}{INV\_DAQ\_P}}\},}
+\DoxyCodeLine{\ \ \ \ .period\ =\ 100,}
+\DoxyCodeLine{\ \ \ \ .type\ =\ \{\mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0}{UV\_UINT16}},0,0,0\}\},}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
 
 
-
-Definition at line \mbox{\hyperlink{daq_8c_source_l00053}{53}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00056}{56}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
@@ -446,11 +499,11 @@ ADC\+\_\+\+Handle\+Type\+Def hadc1}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00019}{19}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00022}{22}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{stm32f4xx__it_8c_source_l00213}{ADC\+\_\+\+IRQHandler()}}, \mbox{\hyperlink{main_8c_source_l00294}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback()}}, and \mbox{\hyperlink{main_8c_source_l00316}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}.
+Referenced by \mbox{\hyperlink{stm32f4xx__it_8c_source_l00213}{ADC\+\_\+\+IRQHandler()}}, \mbox{\hyperlink{main_8c_source_l00295}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback()}}, and \mbox{\hyperlink{main_8c_source_l00317}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}.
 
 \Hypertarget{daq_8c_a0611933f2919b8900cd5e667043747fe}\index{daq.c@{daq.c}!motor\_temp\_adc@{motor\_temp\_adc}}
 \index{motor\_temp\_adc@{motor\_temp\_adc}!daq.c@{daq.c}}
@@ -460,11 +513,11 @@ volatile uint16\+\_\+t motor\+\_\+temp\+\_\+adc = 0}
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00016}{16}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00019}{19}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}.
 
 \Hypertarget{daq_8c_a463311a3d81da8e08c8c9c78d447fc59}\index{daq.c@{daq.c}!param\_bank@{param\_bank}}
 \index{param\_bank@{param\_bank}!daq.c@{daq.c}}
@@ -474,11 +527,11 @@ Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}.
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00118}{118}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00080}{80}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00218}{configure\+Daq\+Sub\+Tasks()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00183}{configure\+Daq\+Sub\+Tasks()}}.
 
 \Hypertarget{daq_8c_aeed531c2be2a5177eebeaacd47c04526}\index{daq.c@{daq.c}!param\_ptrs@{param\_ptrs}}
 \index{param\_ptrs@{param\_ptrs}!daq.c@{daq.c}}
@@ -488,11 +541,11 @@ void\texorpdfstring{$\ast$}{*} param\+\_\+ptrs\mbox{[}\mbox{\hyperlink{daq_8h_a5
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00112}{112}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00074}{74}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00125}{associate\+Daq\+Param\+With\+Var()}}, and \mbox{\hyperlink{daq_8c_source_l00390}{send\+Daq\+Msg()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, and \mbox{\hyperlink{daq_8c_source_l00359}{send\+Daq\+Msg()}}.
 
 \Hypertarget{daq_8c_a46330ae75c3716f15677e104e8cced32}\index{daq.c@{daq.c}!tmp\_daq\_msg@{tmp\_daq\_msg}}
 \index{tmp\_daq\_msg@{tmp\_daq\_msg}!daq.c@{daq.c}}
@@ -502,9 +555,9 @@ Referenced by \mbox{\hyperlink{daq_8c_source_l00125}{associate\+Daq\+Param\+With
 
 
 
-Definition at line \mbox{\hyperlink{daq_8c_source_l00271}{271}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00240}{240}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00288}{init\+Daq\+Task()}}, and \mbox{\hyperlink{daq_8c_source_l00390}{send\+Daq\+Msg()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}.
 

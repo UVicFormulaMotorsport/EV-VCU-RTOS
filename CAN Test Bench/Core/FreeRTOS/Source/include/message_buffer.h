@@ -87,6 +87,7 @@ typedef void * MessageBufferHandle_t;
  * message_buffer.h
  *
 <pre>
+\defgroup MessageBufferManagement MessageBufferManagement
 MessageBufferHandle_t xMessageBufferCreate( size_t xBufferSizeBytes );
 </pre>
  *
@@ -303,6 +304,7 @@ const TickType_t x100ms = pdMS_TO_TICKS( 100 );
 </pre>
  * \defgroup xMessageBufferSend xMessageBufferSend
  * \ingroup MessageBufferManagement
+ </pre>
  */
 #define xMessageBufferSend( xMessageBuffer, pvTxData, xDataLengthBytes, xTicksToWait ) xStreamBufferSend( ( StreamBufferHandle_t ) xMessageBuffer, pvTxData, xDataLengthBytes, xTicksToWait )
 
@@ -405,8 +407,11 @@ BaseType_t xHigherPriorityTaskWoken = pdFALSE; // Initialised to pdFALSE.
     portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 }
 </pre>
+</pre>
+</pre>
  * \defgroup xMessageBufferSendFromISR xMessageBufferSendFromISR
  * \ingroup MessageBufferManagement
+</pre>
  */
 #define xMessageBufferSendFromISR( xMessageBuffer, pvTxData, xDataLengthBytes, pxHigherPriorityTaskWoken ) xStreamBufferSendFromISR( ( StreamBufferHandle_t ) xMessageBuffer, pvTxData, xDataLengthBytes, pxHigherPriorityTaskWoken )
 

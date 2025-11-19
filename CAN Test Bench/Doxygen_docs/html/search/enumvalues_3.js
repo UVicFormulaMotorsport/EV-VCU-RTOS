@@ -11,13 +11,6 @@ var searchData=
   ['discard_5fnew_5fsettings_8',['DISCARD_NEW_SETTINGS',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a485f41f6d806239622abbac7aef60557',1,'uvfr_settings.h']]],
   ['discard_5fnew_5fsettings_5fand_5fexit_9',['DISCARD_NEW_SETTINGS_AND_EXIT',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694abe34f5f2d055215f2ff2e2d85401199a',1,'uvfr_settings.h']]],
   ['dismantling_5framp_10',['dismantling_ramp',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521a3c22e464cac79207d52cf4ff8d64d430',1,'motor_controller.h']]],
-  ['drs_5ffl1_11',['DRS_FL1',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a35603189f0c1a932b1f089e27d17e855',1,'uvfr_conifer.h']]],
-  ['drs_5ffl2_12',['DRS_FL2',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a977b1207fd0dedd6080f51908647a8f1',1,'uvfr_conifer.h']]],
-  ['drs_5ffr1_13',['DRS_FR1',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ae09946966f6a7201de617327bc78daca',1,'uvfr_conifer.h']]],
-  ['drs_5ffr2_14',['DRS_FR2',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a27b8e70eba788b1ba9f093ec94577c66',1,'uvfr_conifer.h']]],
-  ['drs_5fr1_15',['DRS_R1',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a9ab5c08db3a2ad0ac5b83804af8bc326',1,'uvfr_conifer.h']]],
-  ['drs_5fr2_16',['DRS_R2',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ac1b581e58cd3247f11bfd7a2d94fae1b',1,'uvfr_conifer.h']]],
-  ['drs_5fr3_17',['DRS_R3',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ac432c1142a607bb8dc713228a18c4d93',1,'uvfr_conifer.h']]],
-  ['dual_5fbus_5fch_18',['DUAL_BUS_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993a5e5d084764b79dbc9afcdc165cef295a',1,'uvfr_conifer.h']]],
-  ['dual_5fbus_5fpwm_5fch_19',['DUAL_BUS_PWM_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993ac75d51d2640976702f07bab7da278e95',1,'uvfr_conifer.h']]]
+  ['dual_5fbus_5fch_11',['DUAL_BUS_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993a5e5d084764b79dbc9afcdc165cef295a',1,'uvfr_conifer.h']]],
+  ['dual_5fbus_5fpwm_5fch_12',['DUAL_BUS_PWM_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993ac75d51d2640976702f07bab7da278e95',1,'uvfr_conifer.h']]]
 ];

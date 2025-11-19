@@ -61,7 +61,7 @@ var uvfr__settings_8c =
     [ "default_bms_settings", "uvfr__settings_8c.html#a28e4314b233b9140e73e4fd0bab7e354", null ],
     [ "default_conifer_settings", "uvfr__settings_8c.html#af1159e0fffb524777de5dcf9d869a738", null ],
     [ "default_daq_settings", "uvfr__settings_8c.html#ad795c6981571499e4a90ef72698b6ea1", null ],
-    [ "default_datapoints", "uvfr__settings_8c.html#af5ab2cd7ec858145d49d4e585e4bef94", null ],
+    [ "default_datapoints", "uvfr__settings_8c.html#af2240542724a20552b90fafa9642884d", null ],
     [ "default_dl_settings", "uvfr__settings_8c.html#a44daa1a9c68be860616e7bc627d9b8f4", null ],
     [ "default_imd_settings", "uvfr__settings_8c.html#a1071bc1cceac3198de98d9c0753044d6", null ],
     [ "default_os_settings", "group__state__engine.html#gad9e02be6d2d0bc1ab5cd9fd8cae34230", null ],

@@ -59,13 +59,14 @@ var searchData=
   ['high_5fbattery_5fvoltage_56',['High_Battery_Voltage',['../imd_8h.html#acf7b0534a43397021a0e474a499218bea446905b0f3e9fe48a178f0a6799324b4',1,'imd.h']]],
   ['high_5fpriority_57',['HIGH_PRIORITY',['../group__state__engine__api.html#gga6166ed80f8e3bd62f1e7e6122c8817f6acb1785f11dd02aa7f5d164fb314c594e',1,'uvfr_state_engine.h']]],
   ['high_5funcertainty_58',['High_Uncertainty',['../imd_8h.html#acf7b0534a43397021a0e474a499218bea4c7193d6f28bf43ed6de8e1291917846',1,'imd.h']]],
-  ['hightemp_59',['highTemp',['../bms_8c.html#a30221826d03df3708444924f408282c6',1,'bms.c']]],
-  ['horn_60',['HORN',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b',1,'uvfr_conifer.h']]],
-  ['hse_5fstartup_5ftimeout_61',['HSE_STARTUP_TIMEOUT',['../stm32f4xx__hal__conf_8h.html#a68ecbc9b0a1a40a1ec9d18d5e9747c4f',1,'stm32f4xx_hal_conf.h']]],
-  ['hse_5fvalue_62',['HSE_VALUE',['../stm32f4xx__hal__conf_8h.html#aeafcff4f57440c60e64812dddd13e7cb',1,'HSE_VALUE:&#160;stm32f4xx_hal_conf.h'],['../group___s_t_m32_f4xx___system___private___includes.html#gaeafcff4f57440c60e64812dddd13e7cb',1,'HSE_VALUE:&#160;system_stm32f4xx.c']]],
-  ['hsi_5fvalue_63',['HSI_VALUE',['../stm32f4xx__hal__conf_8h.html#aaa8c76e274d0f6dd2cefb5d0b17fbc37',1,'HSI_VALUE:&#160;stm32f4xx_hal_conf.h'],['../group___s_t_m32_f4xx___system___private___includes.html#gaaa8c76e274d0f6dd2cefb5d0b17fbc37',1,'HSI_VALUE:&#160;system_stm32f4xx.c']]],
-  ['htim1_64',['htim1',['../stm32f4xx__hal__timebase__tim_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1:&#160;stm32f4xx_hal_timebase_tim.c'],['../stm32f4xx__it_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1:&#160;stm32f4xx_hal_timebase_tim.c']]],
-  ['htim11_65',['htim11',['../tim_8h.html#a2f22f985c4f33318fdcd4cc996623bf4',1,'htim11:&#160;tim.c'],['../tim_8c.html#a2f22f985c4f33318fdcd4cc996623bf4',1,'htim11:&#160;tim.c']]],
-  ['htim3_66',['htim3',['../tim_8h.html#aac3d2c59ee0e3bbae1b99529a154eb62',1,'htim3:&#160;tim.c'],['../tim_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62',1,'htim3:&#160;tim.c']]],
-  ['hvil_5fpower_67',['HVIL_POWER',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a5fd0a41b6130dd67b5af39513dafcf82',1,'uvfr_conifer.h']]]
+  ['highest_5fch_59',['HIGHEST_CH',['../pdu_8c.html#a627e824d1da0b03a662b47db524e213c',1,'pdu.c']]],
+  ['hightemp_60',['highTemp',['../bms_8c.html#a30221826d03df3708444924f408282c6',1,'bms.c']]],
+  ['horn_61',['HORN',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b',1,'uvfr_conifer.h']]],
+  ['hse_5fstartup_5ftimeout_62',['HSE_STARTUP_TIMEOUT',['../stm32f4xx__hal__conf_8h.html#a68ecbc9b0a1a40a1ec9d18d5e9747c4f',1,'stm32f4xx_hal_conf.h']]],
+  ['hse_5fvalue_63',['HSE_VALUE',['../stm32f4xx__hal__conf_8h.html#aeafcff4f57440c60e64812dddd13e7cb',1,'HSE_VALUE:&#160;stm32f4xx_hal_conf.h'],['../group___s_t_m32_f4xx___system___private___includes.html#gaeafcff4f57440c60e64812dddd13e7cb',1,'HSE_VALUE:&#160;system_stm32f4xx.c']]],
+  ['hsi_5fvalue_64',['HSI_VALUE',['../stm32f4xx__hal__conf_8h.html#aaa8c76e274d0f6dd2cefb5d0b17fbc37',1,'HSI_VALUE:&#160;stm32f4xx_hal_conf.h'],['../group___s_t_m32_f4xx___system___private___includes.html#gaaa8c76e274d0f6dd2cefb5d0b17fbc37',1,'HSI_VALUE:&#160;system_stm32f4xx.c']]],
+  ['htim1_65',['htim1',['../stm32f4xx__hal__timebase__tim_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1:&#160;stm32f4xx_hal_timebase_tim.c'],['../stm32f4xx__it_8c.html#a25fc663547539bc49fecc0011bd76ab5',1,'htim1:&#160;stm32f4xx_hal_timebase_tim.c']]],
+  ['htim11_66',['htim11',['../tim_8h.html#a2f22f985c4f33318fdcd4cc996623bf4',1,'htim11:&#160;tim.c'],['../tim_8c.html#a2f22f985c4f33318fdcd4cc996623bf4',1,'htim11:&#160;tim.c']]],
+  ['htim3_67',['htim3',['../tim_8h.html#aac3d2c59ee0e3bbae1b99529a154eb62',1,'htim3:&#160;tim.c'],['../tim_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62',1,'htim3:&#160;tim.c']]],
+  ['hvil_5fpwr_68',['HVIL_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a17df0cef80e70f5cc3a5b7170dfcbfbb',1,'uvfr_conifer.h']]]
 ];

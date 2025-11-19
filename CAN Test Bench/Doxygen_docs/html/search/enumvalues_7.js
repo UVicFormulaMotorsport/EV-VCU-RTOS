@@ -7,5 +7,5 @@ var searchData=
   ['high_5fpriority_4',['HIGH_PRIORITY',['../group__state__engine__api.html#gga6166ed80f8e3bd62f1e7e6122c8817f6acb1785f11dd02aa7f5d164fb314c594e',1,'uvfr_state_engine.h']]],
   ['high_5funcertainty_5',['High_Uncertainty',['../imd_8h.html#acf7b0534a43397021a0e474a499218bea4c7193d6f28bf43ed6de8e1291917846',1,'imd.h']]],
   ['horn_6',['HORN',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b',1,'uvfr_conifer.h']]],
-  ['hvil_5fpower_7',['HVIL_POWER',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a5fd0a41b6130dd67b5af39513dafcf82',1,'uvfr_conifer.h']]]
+  ['hvil_5fpwr_7',['HVIL_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a17df0cef80e70f5cc3a5b7170dfcbfbb',1,'uvfr_conifer.h']]]
 ];

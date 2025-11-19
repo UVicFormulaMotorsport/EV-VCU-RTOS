@@ -1,5 +1,7 @@
 var NAVTREEINDEX3 =
 {
+"driving__loop_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30":[4,0,0,2,7,17],
+"driving__loop_8c.html#aa5e709aa0b6ce54eee6f0396eedc37df":[4,0,0,2,7,26],
 "driving__loop_8c.html#aaa0cf1ce25f6295e6f5bc62ff3e5fd34":[4,0,0,2,7,25],
 "driving__loop_8c.html#ab8788a0f246816c11002008cb43d1886":[4,0,0,2,7,20],
 "driving__loop_8c.html#abdb111971b9caeabf750f90e1ae5756c":[4,0,0,2,7,7],
@@ -242,12 +244,10 @@ var NAVTREEINDEX3 =
 "gpio_8h.html":[4,0,0,1,9],
 "gpio_8h.html#ac724e431d2af879252de35615be2bdea":[4,0,0,1,9,0],
 "gpio_8h_source.html":[4,0,0,1,9],
-"group___c_m_s_i_s.html":[2,106],
+"group___c_m_s_i_s.html":[2,98],
 "group___event_group.html":[2,8],
 "group___event_group_handle__t.html":[2,8,0],
-"group___s_t_m32_f4xx___system___private___defines.html":[2,106,0,2],
-"group___s_t_m32_f4xx___system___private___function_prototypes.html":[2,106,0,5],
-"group___s_t_m32_f4xx___system___private___functions.html":[2,106,0,6],
-"group___s_t_m32_f4xx___system___private___functions.html#ga93f514700ccf00d08dbdcff7f1224eb2":[2,106,0,6,1],
-"group___s_t_m32_f4xx___system___private___functions.html#gae0c36a9591fe6e9c45ecb21a794f0f0f":[2,106,0,6,0]
+"group___message_buffer_management.html":[2,9],
+"group___s_t_m32_f4xx___system___private___defines.html":[2,98,0,2],
+"group___s_t_m32_f4xx___system___private___function_prototypes.html":[2,98,0,5]
 };

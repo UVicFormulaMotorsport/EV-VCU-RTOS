@@ -1,10 +1,10 @@
 var daq_8h =
 [
-    [ "daq_datapoint", "structdaq__datapoint.html", "structdaq__datapoint" ],
+    [ "daq_msg", "structdaq__msg.html", "structdaq__msg" ],
     [ "daq_loop_args", "structdaq__loop__args.html", "structdaq__loop__args" ],
     [ "_NUM_LOGGABLE_PARAMS", "daq_8h.html#a81ace76d60c42037a62eaeb1687a96ce", null ],
-    [ "daq_datapoint", "daq_8h.html#ad3bc3bc1c9ab04b22cc999a6f7c82c40", null ],
     [ "daq_loop_args", "daq_8h.html#a8895dc742d7ce8449057f317e7f9c81b", null ],
+    [ "daq_msg", "daq_8h.html#a9d27fcca9da1125d3fd507f58f312647", null ],
     [ "loggable_params", "daq_8h.html#a5249d5d3ad44df9d4479b814028469a9", [
       [ "VCU_VEHICLE_STATE", "daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382", null ],
       [ "VCU_ERROR_BITFIELD1", "daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a0e0864ffb7986f19129bc6b59a5fa77b", null ],

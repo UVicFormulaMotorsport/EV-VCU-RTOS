@@ -46,5 +46,5 @@ var searchData=
   ['txheader_43',['TxHeader',['../constants_8h.html#a3e35a666d459f2ac92fc7c35334ff0ff',1,'TxHeader:&#160;constants.c'],['../constants_8c.html#a3e35a666d459f2ac92fc7c35334ff0ff',1,'TxHeader:&#160;constants.c']]],
   ['txheader2_44',['TxHeader2',['../constants_8h.html#a5a72324e39bf00fcdbefc7081bb3d600',1,'TxHeader2:&#160;constants.c'],['../can_8c.html#a5a72324e39bf00fcdbefc7081bb3d600',1,'TxHeader2:&#160;constants.c'],['../constants_8c.html#a5a72324e39bf00fcdbefc7081bb3d600',1,'TxHeader2:&#160;constants.c']]],
   ['txmailbox_45',['TxMailbox',['../constants_8h.html#aedd1e4ac418a9697f9f41a2713d49569',1,'TxMailbox:&#160;constants.c'],['../constants_8c.html#aedd1e4ac418a9697f9f41a2713d49569',1,'TxMailbox:&#160;constants.c']]],
-  ['type_46',['type',['../structdaq__datapoint.html#a44606584203d50acb9b885e45068846b',1,'daq_datapoint::type'],['../structvehicle__log__entry.html#aceb0c65f1e1c3efef4292b87c469f2e6',1,'vehicle_log_entry::type']]]
+  ['type_46',['type',['../structdaq__msg.html#a25218bd34b7e1104ba182806065950ad',1,'daq_msg::type'],['../structvehicle__log__entry.html#aceb0c65f1e1c3efef4292b87c469f2e6',1,'vehicle_log_entry::type']]]
 ];

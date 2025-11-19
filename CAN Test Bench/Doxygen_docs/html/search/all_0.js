@@ -48,7 +48,6 @@ var searchData=
   ['_5fuv_5fdefault_5ftask_5fperiod_45',['_UV_DEFAULT_TASK_PERIOD',['../uvfr__state__engine_8h.html#a3ecc1e9c72ff5ba01649bf037186b015',1,'uvfr_state_engine.h']]],
   ['_5fuv_5fdefault_5ftask_5fstack_5fsize_46',['_UV_DEFAULT_TASK_STACK_SIZE',['../uvfr__state__engine_8h.html#a32571accb85a2d8f479c6066d7a46238',1,'uvfr_state_engine.h']]],
   ['_5fuv_5fmin_5ftask_5fperiod_47',['_UV_MIN_TASK_PERIOD',['../uvfr__state__engine_8h.html#a7aab8d4b97eeacffeb153a91f70b5e6b',1,'uvfr_state_engine.h']]],
-  ['_5fuvclosesdc_5fcanbased_48',['_uvCloseSDC_canBased',['../uvfr__vehicle__commands_8h.html#a47c0b0e03b584b9da6a7528241e9f394',1,'uvfr_vehicle_commands.h']]],
-  ['_5fuvvalidatespecifictask_49',['_uvValidateSpecificTask',['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uint8_t id):&#160;uvfr_state_engine.c'],['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uv_task_id id):&#160;uvfr_state_engine.c']]],
-  ['_5fwait_50',['_wait',['../syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72',1,'syscalls.c']]]
+  ['_5fuvvalidatespecifictask_48',['_uvValidateSpecificTask',['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uint8_t id):&#160;uvfr_state_engine.c'],['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uv_task_id id):&#160;uvfr_state_engine.c']]],
+  ['_5fwait_49',['_wait',['../syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72',1,'syscalls.c']]]
 ];

@@ -231,7 +231,7 @@ int main(void)
 
 /**
   * @brief System Clock Configuration
-  * @retval None
+  *
   */
 void SystemClock_Config(void)
 {
@@ -259,7 +259,8 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /** Initializes the CPU, AHB and APB buses clocks
+  /**
+   * Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;

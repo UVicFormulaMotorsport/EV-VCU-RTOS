@@ -11,6 +11,8 @@ struct \mbox{\hyperlink{structconifer__ch__setting}{conifer\+\_\+ch\+\_\+setting
 \item 
 struct \mbox{\hyperlink{structconifer__settings}{conifer\+\_\+settings}}
 \item 
+struct \mbox{\hyperlink{structconifer__state}{conifer\+\_\+state}}
+\item 
 struct \mbox{\hyperlink{structconifer__hw__channel}{conifer\+\_\+hw\+\_\+channel}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Macros}
@@ -27,6 +29,14 @@ struct \mbox{\hyperlink{structconifer__hw__channel}{conifer\+\_\+hw\+\_\+channel
 \#define \mbox{\hyperlink{uvfr__conifer_8h_acf9e94e7a612bb76c20c58c1bdb40887}{CONIFER\+\_\+\+CH\+\_\+\+HB\+\_\+\+DIR\+\_\+\+MASK}}~((0x0001U$<$$<$3)\texorpdfstring{$\vert$}{|}(0x0001U$<$$<$4))
 \item 
 \#define \mbox{\hyperlink{uvfr__conifer_8h_ad96c8d4c8dad3edb7e35c8d50d39f073}{CONIFER\+\_\+\+CH\+\_\+\+EN\+\_\+\+OCP}}~(0x0001U$<$$<$5)
+\item 
+\#define \mbox{\hyperlink{uvfr__conifer_8h_aedd8818b5d30e875593cdba02d74304d}{CONIFER\+\_\+\+CH\+\_\+\+FLT\+\_\+\+BIT}}~(0x0001U$<$$<$6)
+\item 
+\#define \mbox{\hyperlink{uvfr__conifer_8h_abfa0215e0537568a23066624f69fbb35}{CONIFER\+\_\+\+CH\+\_\+\+ILIM\+\_\+\+BIT}}~(0x0001U$<$$<$7)
+\item 
+\#define \mbox{\hyperlink{uvfr__conifer_8h_a001cbd7a34dd6ccf71bf99055eaedd69}{CONIFER\+\_\+\+CH\+\_\+\+ALLOW\+\_\+\+LOAD\+\_\+\+SHED}}~(0x0001U$<$$<$8)
+\item 
+\#define \mbox{\hyperlink{uvfr__conifer_8h_a7148d38b3ab27a38dfd4ae9d52802ff0}{CONIFER\+\_\+\+CH\+\_\+\+LS\+\_\+\+ACTIVE}}~(0x0001U$<$$<$9)
 \item 
 \#define \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\+\_\+\+CH\+\_\+\+IN\+\_\+\+USE}}~(0x0001U$<$$<$15)
 \item 
@@ -65,6 +75,8 @@ typedef struct conifer\+\_\+settings \mbox{\hyperlink{uvfr__conifer_8h_a8beafb16
 \item 
 typedef enum \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6}{conifer\+\_\+ch\+\_\+location}} \mbox{\hyperlink{uvfr__conifer_8h_a57b9329a240ce8fd519304cacea03bef}{conifer\+\_\+ch\+\_\+location}}
 \item 
+typedef struct conifer\+\_\+state \mbox{\hyperlink{uvfr__conifer_8h_a5ca4f654da991cee2c09b09cf9f2b7ae}{conifer\+\_\+state}}
+\item 
 typedef enum \mbox{\hyperlink{uvfr__conifer_8h_af92dfd0488124cef581d8e910350c993}{conifer\+\_\+hw\+\_\+ch\+\_\+type}} \mbox{\hyperlink{uvfr__conifer_8h_a3046810e5cf73c7c6561dec481f38db1}{conifer\+\_\+hw\+\_\+ch\+\_\+type}}
 \item 
 typedef struct conifer\+\_\+hw\+\_\+channel \mbox{\hyperlink{uvfr__conifer_8h_a00b0f6870b31dab018640445619d644f}{conifer\+\_\+hw\+\_\+channel}}
@@ -79,7 +91,7 @@ enum \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82}{CONIFE
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82aacc5f66512007fff1b447f07f352e705}{BAMO\+\_\+\+PWR}}
 , \newline
 \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82af1aee45a32a3f8deb65c757088c55e69}{SDC\+\_\+\+BOARD\+\_\+\+PWR}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a5fd0a41b6130dd67b5af39513dafcf82}{HVIL\+\_\+\+POWER}}
+, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a17df0cef80e70f5cc3a5b7170dfcbfbb}{HVIL\+\_\+\+PWR}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a25d5b94b5a32530ecb9720b6d712fcbb}{DCDC\+\_\+\+EN}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a93a22d07555bc0324619287d998826e6}{COOLANT\+\_\+\+PUMP1}}
 , \newline
@@ -94,27 +106,16 @@ enum \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82}{CONIFE
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82af5f559918ccbaf60dbb75e64cf1b83cd}{BRAKE\+\_\+\+LIGHT}}
 , \newline
 \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b}{HORN}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a35603189f0c1a932b1f089e27d17e855}{DRS\+\_\+\+FL1}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a977b1207fd0dedd6080f51908647a8f1}{DRS\+\_\+\+FL2}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae09946966f6a7201de617327bc78daca}{DRS\+\_\+\+FR1}}
-, \newline
-\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a27b8e70eba788b1ba9f093ec94577c66}{DRS\+\_\+\+FR2}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a9ab5c08db3a2ad0ac5b83804af8bc326}{DRS\+\_\+\+R1}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ac1b581e58cd3247f11bfd7a2d94fae1b}{DRS\+\_\+\+R2}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ac432c1142a607bb8dc713228a18c4d93}{DRS\+\_\+\+R3}}
-, \newline
-\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ad16583c3e4791bfa3d8d76e48bbb7b6b}{BMS\+\_\+\+ALWAYS\+\_\+\+ON}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82aa8d4a64b5f6ea20f4d173e87b6c2622a}{BMS\+\_\+\+DISCHARGE\+\_\+\+PWR}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a618aeca28ae1505c852157ef219ef9f3}{IMD\+\_\+\+PWR}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a16602958804f71eb4532dcffa8bd572b}{GENERAL\+\_\+\+ACCU\+\_\+\+PWR1}}
+, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a775b7763ca539c748c345882324d3950}{GENERAL\+\_\+\+ACCU\+\_\+\+PWR2}}
 , \newline
-\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a775b7763ca539c748c345882324d3950}{GENERAL\+\_\+\+ACCU\+\_\+\+PWR2}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae50d82b1011181ba9d18cd72dbc8eb47}{VCU\+\_\+\+PWR}}
+\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae50d82b1011181ba9d18cd72dbc8eb47}{VCU\+\_\+\+PWR}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ab6d37d305ce54563b7a04d81c0490a47}{RTML\+\_\+\+PWR}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afd88ff19a8e2c166fe27059fc00df8e3}{TSSI\+\_\+\+PWR}}
+, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae4f705d148337ffac979cd8db01c8b99}{BSPD\+\_\+\+PWR}}
 , \newline
-\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae4f705d148337ffac979cd8db01c8b99}{BSPD\+\_\+\+PWR}}
-, \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a50f7e13ddbfb5bf68a29ab5204f0bcfa}{DASH\+\_\+\+PWR}}
+\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a50f7e13ddbfb5bf68a29ab5204f0bcfa}{DASH\+\_\+\+PWR}}
 , \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\+\_\+\+CONIFER\+\_\+\+OUTPUT}}
  \}
 \item 
@@ -181,6 +182,20 @@ uint16\+\_\+t \mbox{\hyperlink{uvfr__conifer_8h_ad5baa963f5e3be5ecd3ab47672fb0a7
 
 
 \doxysubsection{Macro Definition Documentation}
+\Hypertarget{uvfr__conifer_8h_a001cbd7a34dd6ccf71bf99055eaedd69}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_ALLOW\_LOAD\_SHED@{CONIFER\_CH\_ALLOW\_LOAD\_SHED}}
+\index{CONIFER\_CH\_ALLOW\_LOAD\_SHED@{CONIFER\_CH\_ALLOW\_LOAD\_SHED}!uvfr\_conifer.h@{uvfr\_conifer.h}}
+\doxysubsubsection{\texorpdfstring{CONIFER\_CH\_ALLOW\_LOAD\_SHED}{CONIFER\_CH\_ALLOW\_LOAD\_SHED}}
+{\footnotesize\ttfamily \label{uvfr__conifer_8h_a001cbd7a34dd6ccf71bf99055eaedd69} 
+\#define CONIFER\+\_\+\+CH\+\_\+\+ALLOW\+\_\+\+LOAD\+\_\+\+SHED~(0x0001U$<$$<$8)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00027}{27}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00041}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}, and \mbox{\hyperlink{uvfr__conifer_8c_source_l00236}{conifer\+En\+Load\+Shedding()}}.
+
 \Hypertarget{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_EN\_BIT@{CONIFER\_CH\_EN\_BIT}}
 \index{CONIFER\_CH\_EN\_BIT@{CONIFER\_CH\_EN\_BIT}!uvfr\_conifer.h@{uvfr\_conifer.h}}
 \doxysubsubsection{\texorpdfstring{CONIFER\_CH\_EN\_BIT}{CONIFER\_CH\_EN\_BIT}}
@@ -189,11 +204,11 @@ uint16\+\_\+t \mbox{\hyperlink{uvfr__conifer_8h_ad5baa963f5e3be5ecd3ab47672fb0a7
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00018}{18}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00020}{20}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00036}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}, and \mbox{\hyperlink{pdu_8c_source_l00035}{u19update\+Pdu\+Channel()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00041}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00314}{conifer\+Toggle\+Channel()}}, and \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 
 \Hypertarget{uvfr__conifer_8h_ad96c8d4c8dad3edb7e35c8d50d39f073}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_EN\_OCP@{CONIFER\_CH\_EN\_OCP}}
 \index{CONIFER\_CH\_EN\_OCP@{CONIFER\_CH\_EN\_OCP}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -203,7 +218,21 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00036}{\+\_\+\+\_\+attri
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00022}{22}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00024}{24}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+
+\Hypertarget{uvfr__conifer_8h_aedd8818b5d30e875593cdba02d74304d}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_FLT\_BIT@{CONIFER\_CH\_FLT\_BIT}}
+\index{CONIFER\_CH\_FLT\_BIT@{CONIFER\_CH\_FLT\_BIT}!uvfr\_conifer.h@{uvfr\_conifer.h}}
+\doxysubsubsection{\texorpdfstring{CONIFER\_CH\_FLT\_BIT}{CONIFER\_CH\_FLT\_BIT}}
+{\footnotesize\ttfamily \label{uvfr__conifer_8h_aedd8818b5d30e875593cdba02d74304d} 
+\#define CONIFER\+\_\+\+CH\+\_\+\+FLT\+\_\+\+BIT~(0x0001U$<$$<$6)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00025}{25}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 
 \Hypertarget{uvfr__conifer_8h_acf9e94e7a612bb76c20c58c1bdb40887}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_HB\_DIR\_MASK@{CONIFER\_CH\_HB\_DIR\_MASK}}
 \index{CONIFER\_CH\_HB\_DIR\_MASK@{CONIFER\_CH\_HB\_DIR\_MASK}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -213,7 +242,17 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00022}{22}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00021}{21}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00023}{23}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+
+\Hypertarget{uvfr__conifer_8h_abfa0215e0537568a23066624f69fbb35}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_ILIM\_BIT@{CONIFER\_CH\_ILIM\_BIT}}
+\index{CONIFER\_CH\_ILIM\_BIT@{CONIFER\_CH\_ILIM\_BIT}!uvfr\_conifer.h@{uvfr\_conifer.h}}
+\doxysubsubsection{\texorpdfstring{CONIFER\_CH\_ILIM\_BIT}{CONIFER\_CH\_ILIM\_BIT}}
+{\footnotesize\ttfamily \label{uvfr__conifer_8h_abfa0215e0537568a23066624f69fbb35} 
+\#define CONIFER\+\_\+\+CH\+\_\+\+ILIM\+\_\+\+BIT~(0x0001U$<$$<$7)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00026}{26}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_IN\_USE@{CONIFER\_CH\_IN\_USE}}
 \index{CONIFER\_CH\_IN\_USE@{CONIFER\_CH\_IN\_USE}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -223,11 +262,11 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00021}{21}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00025}{25}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00031}{31}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00036}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00041}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}.
 
 \Hypertarget{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_IS\_CRIT\_BIT@{CONIFER\_CH\_IS\_CRIT\_BIT}}
 \index{CONIFER\_CH\_IS\_CRIT\_BIT@{CONIFER\_CH\_IS\_CRIT\_BIT}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -237,11 +276,11 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00036}{\+\_\+\+\_\+attri
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00019}{19}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00021}{21}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00036}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00041}{\+\_\+\+\_\+attribute\+\_\+\+\_\+()}}, and \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}.
 
 \Hypertarget{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_LOC\_MASK@{CONIFER\_CH\_LOC\_MASK}}
 \index{CONIFER\_CH\_LOC\_MASK@{CONIFER\_CH\_LOC\_MASK}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -251,11 +290,25 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00036}{\+\_\+\+\_\+attri
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00026}{26}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00032}{32}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00293}{conifer\+Get\+Channel\+Current()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00317}{conifer\+Get\+Channel\+Fbck()}}, and \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00362}{conifer\+Get\+Channel\+Current()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00386}{conifer\+Get\+Channel\+Fbck()}}, and \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}.
+
+\Hypertarget{uvfr__conifer_8h_a7148d38b3ab27a38dfd4ae9d52802ff0}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_LS\_ACTIVE@{CONIFER\_CH\_LS\_ACTIVE}}
+\index{CONIFER\_CH\_LS\_ACTIVE@{CONIFER\_CH\_LS\_ACTIVE}!uvfr\_conifer.h@{uvfr\_conifer.h}}
+\doxysubsubsection{\texorpdfstring{CONIFER\_CH\_LS\_ACTIVE}{CONIFER\_CH\_LS\_ACTIVE}}
+{\footnotesize\ttfamily \label{uvfr__conifer_8h_a7148d38b3ab27a38dfd4ae9d52802ff0} 
+\#define CONIFER\+\_\+\+CH\+\_\+\+LS\+\_\+\+ACTIVE~(0x0001U$<$$<$9)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00028}{28}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00258}{conifer\+Dis\+Load\+Shedding()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00236}{conifer\+En\+Load\+Shedding()}}, and \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 
 \Hypertarget{uvfr__conifer_8h_ac27a6291893b4a3492577b4777f8ac2a}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_PSRC\_BIT@{CONIFER\_CH\_PSRC\_BIT}}
 \index{CONIFER\_CH\_PSRC\_BIT@{CONIFER\_CH\_PSRC\_BIT}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -265,7 +318,7 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00293}{conifer\+Get\+Cha
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00020}{20}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00022}{22}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a425982cafd0153f4afca238f76d3e8a7}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_CH\_TYPE\_MASK@{CONIFER\_CH\_TYPE\_MASK}}
 \index{CONIFER\_CH\_TYPE\_MASK@{CONIFER\_CH\_TYPE\_MASK}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -275,7 +328,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00020}{20}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00174}{174}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00188}{188}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_ad6d6d63402945844c03cb9f3494c71b2}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_HW\_CH\_ID\_MASK@{CONIFER\_HW\_CH\_ID\_MASK}}
 \index{CONIFER\_HW\_CH\_ID\_MASK@{CONIFER\_HW\_CH\_ID\_MASK}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -285,7 +338,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00174}{174}} of fil
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00027}{27}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00033}{33}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!conifer\_params@{conifer\_params}}
 \index{conifer\_params@{conifer\_params}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -299,7 +352,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00007}{7}} of file 
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}, and \mbox{\hyperlink{pdu_8c_source_l00087}{init\+PDU()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}, and \mbox{\hyperlink{pdu_8c_source_l00100}{init\+PDU()}}.
 
 \Hypertarget{uvfr__conifer_8h_a734e1fd25626cf2eccabedff3dbcdd13}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!EN\_DYNAMIC\_LOAD\_SHEDDING@{EN\_DYNAMIC\_LOAD\_SHEDDING}}
 \index{EN\_DYNAMIC\_LOAD\_SHEDDING@{EN\_DYNAMIC\_LOAD\_SHEDDING}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -309,7 +362,7 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00091}{91}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00097}{97}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a724bd0e13526c6cd1213d3aa5ab00ed9}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!EN\_SW\_OCP@{EN\_SW\_OCP}}
 \index{EN\_SW\_OCP@{EN\_SW\_OCP}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -319,7 +372,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00091}{91}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00090}{90}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00096}{96}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a3c84e7b7aa958e79f39313e6244e518b}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!EXPECT\_ECUMASTER\_PMU16@{EXPECT\_ECUMASTER\_PMU16}}
 \index{EXPECT\_ECUMASTER\_PMU16@{EXPECT\_ECUMASTER\_PMU16}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -329,7 +382,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00090}{90}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00089}{89}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00095}{95}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a2005fc8582aab9e788f0eb1f5e01d857}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!EXPECT\_UV19PDU@{EXPECT\_UV19PDU}}
 \index{EXPECT\_UV19PDU@{EXPECT\_UV19PDU}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -339,11 +392,11 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00089}{89}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00088}{88}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00094}{94}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}.
 
 \Hypertarget{uvfr__conifer_8h_a28289444efaa2573988a854473f7f841}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!GET\_CONIFER\_CH\_LOC@{GET\_CONIFER\_CH\_LOC}}
 \index{GET\_CONIFER\_CH\_LOC@{GET\_CONIFER\_CH\_LOC}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -358,7 +411,7 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00030}{30}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00036}{36}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!IS\_CONIFER\_CH\_USED@{IS\_CONIFER\_CH\_USED}}
 \index{IS\_CONIFER\_CH\_USED@{IS\_CONIFER\_CH\_USED}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -373,11 +426,11 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00030}{30}} of file
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{29}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{35}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00235}{conifer\+Dis\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00219}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00293}{conifer\+Get\+Channel\+Current()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00271}{conifer\+Set\+Direction()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00259}{conifer\+Set\+Duty\+Cycle()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00283}{conifer\+Set\+Duty\+Cycle\+And\+Direction()}}, and \mbox{\hyperlink{uvfr__conifer_8c_source_l00248}{conifer\+Toggle\+Channel()}}.
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00300}{conifer\+Dis\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00362}{conifer\+Get\+Channel\+Current()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00340}{conifer\+Set\+Direction()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00328}{conifer\+Set\+Duty\+Cycle()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00352}{conifer\+Set\+Duty\+Cycle\+And\+Direction()}}, and \mbox{\hyperlink{uvfr__conifer_8c_source_l00314}{conifer\+Toggle\+Channel()}}.
 
 \Hypertarget{uvfr__conifer_8h_a1025cd01a1d6b2c40141061cdff4d6ff}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!ROUND\_PWM\_ON\_BINARY\_CHANNELS@{ROUND\_PWM\_ON\_BINARY\_CHANNELS}}
 \index{ROUND\_PWM\_ON\_BINARY\_CHANNELS@{ROUND\_PWM\_ON\_BINARY\_CHANNELS}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -387,7 +440,7 @@ Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00235}{conifer\+Dis\+Cha
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00093}{93}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00099}{99}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a2241f57265ac1661428a93f9f822bbd3}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!USE\_ABS\_VAL\_MAPPING\_HBRIDGE\_TO\_PWM@{USE\_ABS\_VAL\_MAPPING\_HBRIDGE\_TO\_PWM}}
 \index{USE\_ABS\_VAL\_MAPPING\_HBRIDGE\_TO\_PWM@{USE\_ABS\_VAL\_MAPPING\_HBRIDGE\_TO\_PWM}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -397,7 +450,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00093}{93}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00094}{94}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00100}{100}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
@@ -444,6 +497,12 @@ typedef enum \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82
 {\footnotesize\ttfamily \label{uvfr__conifer_8h_a8beafb16a2c0717a78ec93efea9b6013} 
 typedef struct conifer\+\_\+settings conifer\+\_\+settings}
 
+\Hypertarget{uvfr__conifer_8h_a5ca4f654da991cee2c09b09cf9f2b7ae}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!conifer\_state@{conifer\_state}}
+\index{conifer\_state@{conifer\_state}!uvfr\_conifer.h@{uvfr\_conifer.h}}
+\doxysubsubsection{\texorpdfstring{conifer\_state}{conifer\_state}}
+{\footnotesize\ttfamily \label{uvfr__conifer_8h_a5ca4f654da991cee2c09b09cf9f2b7ae} 
+typedef struct conifer\+\_\+state conifer\+\_\+state}
+
 
 
 \doxysubsection{Enumeration Type Documentation}
@@ -489,7 +548,7 @@ INVALID\+\_\+\+MAPPING&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00143}{143}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00149}{149}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a90a4fb6acd14a5771c4d515a7ff5b3ad}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!conifer\_driver\_ecode@{conifer\_driver\_ecode}}
 \index{conifer\_driver\_ecode@{conifer\_driver\_ecode}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -529,7 +588,7 @@ CONIFER\+\_\+\+DRV\+\_\+\+INIT\+\_\+\+ERR&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00078}{78}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00084}{84}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_af92dfd0488124cef581d8e910350c993}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!conifer\_hw\_ch\_type@{conifer\_hw\_ch\_type}}
 \index{conifer\_hw\_ch\_type@{conifer\_hw\_ch\_type}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -573,7 +632,7 @@ SPECIAL&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00157}{157}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00169}{169}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 \Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!CONIFER\_OUTPUT@{CONIFER\_OUTPUT}}
 \index{CONIFER\_OUTPUT@{CONIFER\_OUTPUT}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -602,8 +661,8 @@ BAMO\+\_\+\+PWR&\\
 SDC\+\_\+\+BOARD\+\_\+\+PWR&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{HVIL\_POWER@{HVIL\_POWER}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!HVIL\_POWER@{HVIL\_POWER}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a5fd0a41b6130dd67b5af39513dafcf82}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-HVIL\+\_\+\+POWER&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{HVIL\_PWR@{HVIL\_PWR}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!HVIL\_PWR@{HVIL\_PWR}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a17df0cef80e70f5cc3a5b7170dfcbfbb}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
+HVIL\+\_\+\+PWR&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{DCDC\_EN@{DCDC\_EN}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DCDC\_EN@{DCDC\_EN}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a25d5b94b5a32530ecb9720b6d712fcbb}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
@@ -650,42 +709,6 @@ BRAKE\+\_\+\+LIGHT&\\
 HORN&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_FL1@{DRS\_FL1}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_FL1@{DRS\_FL1}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a35603189f0c1a932b1f089e27d17e855}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+FL1&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_FL2@{DRS\_FL2}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_FL2@{DRS\_FL2}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a977b1207fd0dedd6080f51908647a8f1}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+FL2&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_FR1@{DRS\_FR1}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_FR1@{DRS\_FR1}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae09946966f6a7201de617327bc78daca}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+FR1&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_FR2@{DRS\_FR2}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_FR2@{DRS\_FR2}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a27b8e70eba788b1ba9f093ec94577c66}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+FR2&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_R1@{DRS\_R1}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_R1@{DRS\_R1}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a9ab5c08db3a2ad0ac5b83804af8bc326}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+R1&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_R2@{DRS\_R2}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_R2@{DRS\_R2}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ac1b581e58cd3247f11bfd7a2d94fae1b}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+R2&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{DRS\_R3@{DRS\_R3}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!DRS\_R3@{DRS\_R3}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ac432c1142a607bb8dc713228a18c4d93}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-DRS\+\_\+\+R3&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_ALWAYS\_ON@{BMS\_ALWAYS\_ON}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!BMS\_ALWAYS\_ON@{BMS\_ALWAYS\_ON}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ad16583c3e4791bfa3d8d76e48bbb7b6b}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-BMS\+\_\+\+ALWAYS\+\_\+\+ON&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{BMS\_DISCHARGE\_PWR@{BMS\_DISCHARGE\_PWR}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!BMS\_DISCHARGE\_PWR@{BMS\_DISCHARGE\_PWR}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82aa8d4a64b5f6ea20f4d173e87b6c2622a}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
-BMS\+\_\+\+DISCHARGE\+\_\+\+PWR&\\
-\hline
-
 \raisebox{\heightof{T}}[0pt][0pt]{\index{IMD\_PWR@{IMD\_PWR}!uvfr\_conifer.h@{uvfr\_conifer.h}}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!IMD\_PWR@{IMD\_PWR}}}\Hypertarget{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a618aeca28ae1505c852157ef219ef9f3}\label{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82} 
 IMD\+\_\+\+PWR&\\
 \hline
@@ -725,7 +748,7 @@ FINAL\+\_\+\+CONIFER\+\_\+\+OUTPUT&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00039}{39}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00045}{45}} of file \mbox{\hyperlink{uvfr__conifer_8h_source}{uvfr\+\_\+conifer.\+h}}.
 
 
 
@@ -738,7 +761,7 @@ Definition at line \mbox{\hyperlink{uvfr__conifer_8h_source_l00039}{39}} of file
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00212}{212}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00232}{232}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
@@ -756,11 +779,15 @@ Disables a conifer output channel.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00235}{235}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00300}{300}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}, and \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00023}{uv\+Secure\+Vehicle()}}.
 
 \Hypertarget{uvfr__conifer_8h_a713d196fd2dbb7c1fbf9c21cc3c7b478}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferEnChannel@{coniferEnChannel}}
 \index{coniferEnChannel@{coniferEnChannel}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -774,11 +801,15 @@ Enables a conifer output channel.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00219}{219}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{285}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00020}{CONIFER\+\_\+\+CH\+\_\+\+EN\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 
 \Hypertarget{uvfr__conifer_8h_a23d4a2b69794b9d34a93a03a214c0430}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferGetChannelCurrent@{coniferGetChannelCurrent}}
 \index{coniferGetChannelCurrent@{coniferGetChannelCurrent}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -788,11 +819,11 @@ uint16\+\_\+t conifer\+Get\+Channel\+Current (\begin{DoxyParamCaption}\item[{\mb
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00293}{293}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00362}{362}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00026}{CONIFER\+\_\+\+CH\+\_\+\+LOC\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00146}{ECUMASTER\+\_\+\+PMU16\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00144}{LOCAL\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00145}{UV19\+\_\+\+PDU\+\_\+\+CH}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00032}{CONIFER\+\_\+\+CH\+\_\+\+LOC\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00152}{ECUMASTER\+\_\+\+PMU16\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00150}{LOCAL\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00151}{UV19\+\_\+\+PDU\+\_\+\+CH}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
 
 \Hypertarget{uvfr__conifer_8h_ad5baa963f5e3be5ecd3ab47672fb0a7c}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferGetChannelFaults@{coniferGetChannelFaults}}
 \index{coniferGetChannelFaults@{coniferGetChannelFaults}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -802,7 +833,7 @@ uint16\+\_\+t conifer\+Get\+Channel\+Faults (\begin{DoxyParamCaption}\item[{\mbo
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00338}{338}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00407}{407}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 \Hypertarget{uvfr__conifer_8h_abb000d9c9f4b27e22b79af0c31c85b7a}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferGetChannelFbck@{coniferGetChannelFbck}}
 \index{coniferGetChannelFbck@{coniferGetChannelFbck}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -812,11 +843,11 @@ uint16\+\_\+t conifer\+Get\+Channel\+Fbck (\begin{DoxyParamCaption}\item[{\mbox{
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00317}{317}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00386}{386}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00026}{CONIFER\+\_\+\+CH\+\_\+\+LOC\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00146}{ECUMASTER\+\_\+\+PMU16\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00144}{LOCAL\+\_\+\+CH}}, and \mbox{\hyperlink{uvfr__conifer_8h_source_l00145}{UV19\+\_\+\+PDU\+\_\+\+CH}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00032}{CONIFER\+\_\+\+CH\+\_\+\+LOC\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00152}{ECUMASTER\+\_\+\+PMU16\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00150}{LOCAL\+\_\+\+CH}}, and \mbox{\hyperlink{uvfr__conifer_8h_source_l00151}{UV19\+\_\+\+PDU\+\_\+\+CH}}.
 
 \Hypertarget{uvfr__conifer_8h_a4108d6134c6ebfb361e77d5c78be0ff2}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferInit@{coniferInit}}
 \index{coniferInit@{coniferInit}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -830,11 +861,11 @@ Initializes the conifer library.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{153}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{173}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00028}{ch\+\_\+updaters}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00007}{conifer\+\_\+params}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00088}{EXPECT\+\_\+\+UV19\+PDU}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00075}{FINAL\+\_\+\+CONIFER\+\_\+\+OUTPUT}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{pdu_8c_source_l00087}{init\+PDU()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, \mbox{\hyperlink{pdu_8c_source_l00035}{u19update\+Pdu\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00145}{UV19\+\_\+\+PDU\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00033}{ch\+\_\+updaters}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00007}{conifer\+\_\+params}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00094}{EXPECT\+\_\+\+UV19\+PDU}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00081}{FINAL\+\_\+\+CONIFER\+\_\+\+OUTPUT}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{pdu_8c_source_l00100}{init\+PDU()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00151}{UV19\+\_\+\+PDU\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}.
 
 
 
@@ -852,11 +883,11 @@ Sets direction of a conifer managed H-\/bridge output.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00271}{271}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00340}{340}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
 
 \Hypertarget{uvfr__conifer_8h_ac38837d66ac0cec4b361b468c132663e}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferSetDutyCycle@{coniferSetDutyCycle}}
 \index{coniferSetDutyCycle@{coniferSetDutyCycle}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -870,11 +901,11 @@ Sets Duty Cycle of a conifer managed PWM output.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00259}{259}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00328}{328}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
 
 \Hypertarget{uvfr__conifer_8h_ab598961c57873287afab07e8e6598d0e}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferSetDutyCycleAndDirection@{coniferSetDutyCycleAndDirection}}
 \index{coniferSetDutyCycleAndDirection@{coniferSetDutyCycleAndDirection}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -888,11 +919,11 @@ Set duty cycle and direction of a conifer managed.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00283}{283}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00352}{352}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
 
 \Hypertarget{uvfr__conifer_8h_a4962a2f4670cdb0d2666a75cf5b34ee0}\index{uvfr\_conifer.h@{uvfr\_conifer.h}!coniferToggleChannel@{coniferToggleChannel}}
 \index{coniferToggleChannel@{coniferToggleChannel}!uvfr\_conifer.h@{uvfr\_conifer.h}}
@@ -906,9 +937,13 @@ Toggles a conifer output channel.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00248}{248}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00314}{314}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__conifer_8c_source_l00025}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00125}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00029}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
+References \mbox{\hyperlink{uvfr__conifer_8c_source_l00030}{ch\+\_\+table}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00020}{CONIFER\+\_\+\+CH\+\_\+\+EN\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00142}{conifer\+Update\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00035}{IS\+\_\+\+CONIFER\+\_\+\+CH\+\_\+\+USED}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}.
 

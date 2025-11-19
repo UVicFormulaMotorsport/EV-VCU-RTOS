@@ -9,14 +9,12 @@ var searchData=
   ['bleed_5fresistor_5foverload_6',['bleed_resistor_overload',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa150953c78b7fcc8ae97a50a5b5765264',1,'motor_controller.h']]],
   ['bleeder_5fresistor_5fwarning_7',['bleeder_resistor_warning',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffae0c6a82b11d3fb69b758c350960f5a2a',1,'motor_controller.h']]],
   ['bms_8',['BMS',['../uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e',1,'uvfr_utils.h']]],
-  ['bms_5falways_5fon_9',['BMS_ALWAYS_ON',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ad16583c3e4791bfa3d8d76e48bbb7b6b',1,'uvfr_conifer.h']]],
-  ['bms_5fcurrent_10',['BMS_CURRENT',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff',1,'daq.h']]],
-  ['bms_5fdischarge_5fpwr_11',['BMS_DISCHARGE_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82aa8d4a64b5f6ea20f4d173e87b6c2622a',1,'uvfr_conifer.h']]],
-  ['bms_5ferrors_12',['BMS_ERRORS',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663',1,'daq.h']]],
-  ['bms_5fvoltage_13',['BMS_VOLTAGE',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d',1,'daq.h']]],
-  ['bps1_5fadc_5fval_14',['BPS1_ADC_VAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929',1,'daq.h']]],
-  ['bps2_5fadc_5fval_15',['BPS2_ADC_VAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7',1,'daq.h']]],
-  ['brake_5flight_16',['BRAKE_LIGHT',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82af5f559918ccbaf60dbb75e64cf1b83cd',1,'uvfr_conifer.h']]],
-  ['brake_5fpressure_5fpa_17',['BRAKE_PRESSURE_PA',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101',1,'daq.h']]],
-  ['bspd_5fpwr_18',['BSPD_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ae4f705d148337ffac979cd8db01c8b99',1,'uvfr_conifer.h']]]
+  ['bms_5fcurrent_9',['BMS_CURRENT',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a0f5f85010ae23f1b49eae8057df620ff',1,'daq.h']]],
+  ['bms_5ferrors_10',['BMS_ERRORS',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a7d1c4ad6640f0879f3d74f49fe3d5663',1,'daq.h']]],
+  ['bms_5fvoltage_11',['BMS_VOLTAGE',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a6bdcb863dc969154ade799d6a547510d',1,'daq.h']]],
+  ['bps1_5fadc_5fval_12',['BPS1_ADC_VAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929',1,'daq.h']]],
+  ['bps2_5fadc_5fval_13',['BPS2_ADC_VAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7',1,'daq.h']]],
+  ['brake_5flight_14',['BRAKE_LIGHT',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82af5f559918ccbaf60dbb75e64cf1b83cd',1,'uvfr_conifer.h']]],
+  ['brake_5fpressure_5fpa_15',['BRAKE_PRESSURE_PA',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a032b8af77af595ca0945a474d4c10101',1,'daq.h']]],
+  ['bspd_5fpwr_16',['BSPD_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ae4f705d148337ffac979cd8db01c8b99',1,'uvfr_conifer.h']]]
 ];

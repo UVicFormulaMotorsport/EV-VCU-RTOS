@@ -30,6 +30,6 @@ var searchData=
   ['inittempmonitor_27',['initTempMonitor',['../temp__monitoring_8h.html#a4d862a74e85fea73d9089ed437f9859b',1,'initTempMonitor(void *args):&#160;temp_monitoring.c'],['../temp__monitoring_8c.html#a979dc6ff14a3ef1f72e3cbea884871b0',1,'initTempMonitor(void *arguments):&#160;temp_monitoring.c']]],
   ['insertcanmessagehandler_28',['insertCANMessageHandler',['../group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6',1,'insertCANMessageHandler(uint32_t id, void *handlerfunc, int can_num):&#160;can.c'],['../group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6',1,'insertCANMessageHandler(uint32_t id, void *handlerfunc, int can_num):&#160;can.c']]],
   ['insertparamtoparamlist_29',['insertParamToParamList',['../daq_8c.html#adcd689b5d7e750a2970e1f9e05c16c55',1,'daq.c']]],
-  ['insertparamtoregister_30',['insertParamToRegister',['../daq_8c.html#ab60ac31cdb244a3123d9d014d9019b2c',1,'daq.c']]],
+  ['insertparamtoregister_30',['insertParamToRegister',['../daq_8c.html#ab5fd6b7e1a2b15c2c834291f9386d1ef',1,'daq.c']]],
   ['insertrepair_31',['insertRepair',['../rb__tree_8c.html#ab13cb365d1f3498f2061dbc67b0b64f3',1,'rb_tree.c']]]
 ];

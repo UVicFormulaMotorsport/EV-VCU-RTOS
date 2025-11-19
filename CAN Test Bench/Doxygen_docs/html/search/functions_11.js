@@ -2,7 +2,7 @@ var searchData=
 [
   ['sendallparamsfromlist_0',['sendAllParamsFromList',['../daq_8c.html#ae7274a95a4e4881bc3fe84c9021d4a6c',1,'daq.c']]],
   ['sendallsettingsworker_1',['sendAllSettingsWorker',['../uvfr__settings_8c.html#a4610dbfba4a1c427386d906bfc656b77',1,'uvfr_settings.c']]],
-  ['senddaqmsg_2',['sendDaqMsg',['../daq_8c.html#a3264ce2e91867c895df43ce7ddc3dd86',1,'daq.c']]],
+  ['senddaqmsg_2',['sendDaqMsg',['../daq_8c.html#a35e09915fc9dccafc842112110511923',1,'daq.c']]],
   ['sendjournalworker_3',['sendJournalWorker',['../uvfr__settings_8c.html#a632dfb21b35fd170c003515ef4bdc291',1,'uvfr_settings.c']]],
   ['sendtorquetomotorcontroller_4',['sendTorqueToMotorController',['../motor__controller_8h.html#ae71f2a8631fd64b7d7ce321470d4fab0',1,'sendTorqueToMotorController(float T_filtered):&#160;motor_controller.c'],['../motor__controller_8c.html#ae71f2a8631fd64b7d7ce321470d4fab0',1,'sendTorqueToMotorController(float T_filtered):&#160;motor_controller.c']]],
   ['settingcopy_5',['settingCopy',['../uvfr__settings_8c.html#a854e0900506f03ff53ff3ed1a9dc97ca',1,'uvfr_settings.c']]],

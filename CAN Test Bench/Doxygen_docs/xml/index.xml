@@ -7,6 +7,8 @@
   <compound refid="structabstract__conifer__channel" kind="struct"><name>abstract_conifer_channel</name>
     <member refid="structabstract__conifer__channel_1ad14cb76fe2271d8ad0864d7ae25ec65b" kind="variable"><name>status_control_reg</name></member>
     <member refid="structabstract__conifer__channel_1adb5e363930fc0076960d4046c983ea68" kind="variable"><name>hardware_mapping</name></member>
+    <member refid="structabstract__conifer__channel_1a7bd621d2c56efdb7c815360c19888253" kind="variable"><name>ilim</name></member>
+    <member refid="structabstract__conifer__channel_1af4f14ebca6a5e67d53c5424c1ded0d9c" kind="variable"><name>duty</name></member>
   </compound>
   <compound refid="unionaccess__control__info" kind="union"><name>access_control_info</name>
     <member refid="unionaccess__control__info_1af0d083b46d231baa8e040c8666cbbdb3" kind="variable"><name>mutex</name></member>
@@ -60,6 +62,10 @@
     <member refid="structconifer__settings_1a5e494586ddd3b99ba374196b50012172" kind="variable"><name>ecumaster_bus</name></member>
     <member refid="structconifer__settings_1ab96961eab632c97ef99070c630eda539" kind="variable"><name>ch_list</name></member>
   </compound>
+  <compound refid="structconifer__state" kind="struct"><name>conifer_state</name>
+    <member refid="structconifer__state_1a8ee9f8131cf703ab71061b6fedf424d3" kind="variable"><name>status_flags</name></member>
+    <member refid="structconifer__state_1acae2c02ee41ca52c442a751c8755fbf4" kind="variable"><name>load_shedding</name></member>
+  </compound>
   <compound refid="structcor_co_routine_control_block" kind="struct"><name>corCoRoutineControlBlock</name>
     <member refid="structcor_co_routine_control_block_1acc98c7364cd88e8e034a5f9bba113832" kind="variable"><name>pxCoRoutineFunction</name></member>
     <member refid="structcor_co_routine_control_block_1aa2900494db8782eeb8ef12d482501406" kind="variable"><name>xGenericListItem</name></member>
@@ -74,12 +80,6 @@
     <member refid="structdaq__child__task_1ada97dc181bb6a3919f978fb17431d336" kind="variable"><name>period</name></member>
     <member refid="structdaq__child__task_1ab58febeab8b66376a3b3520e9cff950f" kind="variable"><name>param_list</name></member>
   </compound>
-  <compound refid="structdaq__datapoint" kind="struct"><name>daq_datapoint</name>
-    <member refid="structdaq__datapoint_1aa58405f37b6a17c09e4f112d35671e2b" kind="variable"><name>can_id</name></member>
-    <member refid="structdaq__datapoint_1aef9003d6af949de34d576de6a1eb9fc2" kind="variable"><name>param</name></member>
-    <member refid="structdaq__datapoint_1a8f1ff0b0cde6cc45079cd85c764b2ebe" kind="variable"><name>period</name></member>
-    <member refid="structdaq__datapoint_1a44606584203d50acb9b885e45068846b" kind="variable"><name>type</name></member>
-  </compound>
   <compound refid="structdaq__loop__args" kind="struct"><name>daq_loop_args</name>
     <member refid="structdaq__loop__args_1acb7bf20ade7a6544c747aebc165b7faf" kind="variable"><name>total_params_logged</name></member>
     <member refid="structdaq__loop__args_1a8bb73e70ee9f47ffa9916c6067ff3eb5" kind="variable"><name>throttle_daq_to_preserve_performance</name></member>
@@ -87,11 +87,17 @@
     <member refid="structdaq__loop__args_1ac6e97a06cf45265c74de1ac1f13fad81" kind="variable"><name>can_channel</name></member>
     <member refid="structdaq__loop__args_1af3ed9db4033594f8f7db2649a1ca59c0" kind="variable"><name>daq_child_priority</name></member>
   </compound>
+  <compound refid="structdaq__msg" kind="struct"><name>daq_msg</name>
+    <member refid="structdaq__msg_1aa0d10ac95162c7b964551a3281237bbd" kind="variable"><name>can_id</name></member>
+    <member refid="structdaq__msg_1ad40de4162a6b6c6c34ae4d05ccb4892a" kind="variable"><name>param</name></member>
+    <member refid="structdaq__msg_1a25218bd34b7e1104ba182806065950ad" kind="variable"><name>type</name></member>
+    <member refid="structdaq__msg_1af9db1e60fe6df3c871d1ac3c07b4747e" kind="variable"><name>period</name></member>
+  </compound>
   <compound refid="structdaq__param__list__node" kind="struct"><name>daq_param_list_node</name>
     <member refid="structdaq__param__list__node_1aa70718d4adff315eb53a8c00e4b1021a" kind="variable"><name>next</name></member>
     <member refid="structdaq__param__list__node_1a6b52773cafc7e69fdb4eca2d64a2fab3" kind="variable"><name>can_id</name></member>
-    <member refid="structdaq__param__list__node_1a4a500221ca5a1327ac953045d1cb6d5e" kind="variable"><name>param</name></member>
-    <member refid="structdaq__param__list__node_1a4f12dbd7428c303f9b679ad5dfa1b790" kind="variable"><name>size</name></member>
+    <member refid="structdaq__param__list__node_1a8e1cf08361b1b644c795742ab1406c66" kind="variable"><name>param</name></member>
+    <member refid="structdaq__param__list__node_1a5264395f002b308398fb581559eafc37" kind="variable"><name>size</name></member>
   </compound>
   <compound refid="structdriving__loop__args" kind="struct"><name>driving_loop_args</name>
     <member refid="structdriving__loop__args_1a752f04c3eb17d10e5cf742631bbb0010" kind="variable"><name>absolute_max_acc_pwr</name></member>
@@ -421,7 +427,7 @@
     <member refid="structuv__vehicle__settings_1af8dbf93ac51eb9fdc8911644d096486d" kind="variable"><name>imd_settings</name></member>
     <member refid="structuv__vehicle__settings_1a6cdca5b5474080f1dff4d19ef96435e1" kind="variable"><name>bms_settings</name></member>
     <member refid="structuv__vehicle__settings_1a6caecf0c9fd669e421c4005600d81b71" kind="variable"><name>daq_settings</name></member>
-    <member refid="structuv__vehicle__settings_1a191aefb9e6f4516a91157e5d6d68205b" kind="variable"><name>daq_param_list</name></member>
+    <member refid="structuv__vehicle__settings_1a7af5e3466cb7d152a26970be33ca9f5e" kind="variable"><name>daq_param_list</name></member>
     <member refid="structuv__vehicle__settings_1a21e28594f9cfafad8609f3f687e913b7" kind="variable"><name>conifer_settings</name></member>
     <member refid="structuv__vehicle__settings_1ae0c9377c4f8df54ad4b59d4ac4ab39fe" kind="variable"><name>flags</name></member>
   </compound>
@@ -1925,7 +1931,7 @@
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aa7245912d873d42b396d2e22d829e681" kind="enumvalue"><name>WSS_R_AVG</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9aae51bec2609e8310092bf819fd8f411c" kind="enumvalue"><name>WSS_SLIP</name></member>
     <member refid="daq_8h_1a5249d5d3ad44df9d4479b814028469a9ab17c72af1b52d361cceed996a9cbc502" kind="enumvalue"><name>MAX_LOGGABLE_PARAMS</name></member>
-    <member refid="daq_8h_1ad3bc3bc1c9ab04b22cc999a6f7c82c40" kind="typedef"><name>daq_datapoint</name></member>
+    <member refid="daq_8h_1a9d27fcca9da1125d3fd507f58f312647" kind="typedef"><name>daq_msg</name></member>
     <member refid="daq_8h_1a8895dc742d7ce8449057f317e7f9c81b" kind="typedef"><name>daq_loop_args</name></member>
     <member refid="daq_8h_1a56ca1193de01115c27ceb3768994017f" kind="function"><name>associateDaqParamWithVar</name></member>
     <member refid="daq_8h_1af2c619df9f3d115dcbc511b0bb738e87" kind="function"><name>initDaqTask</name></member>
@@ -2377,6 +2383,10 @@
     <member refid="uvfr__conifer_8h_1ac27a6291893b4a3492577b4777f8ac2a" kind="define"><name>CONIFER_CH_PSRC_BIT</name></member>
     <member refid="uvfr__conifer_8h_1acf9e94e7a612bb76c20c58c1bdb40887" kind="define"><name>CONIFER_CH_HB_DIR_MASK</name></member>
     <member refid="uvfr__conifer_8h_1ad96c8d4c8dad3edb7e35c8d50d39f073" kind="define"><name>CONIFER_CH_EN_OCP</name></member>
+    <member refid="uvfr__conifer_8h_1aedd8818b5d30e875593cdba02d74304d" kind="define"><name>CONIFER_CH_FLT_BIT</name></member>
+    <member refid="uvfr__conifer_8h_1abfa0215e0537568a23066624f69fbb35" kind="define"><name>CONIFER_CH_ILIM_BIT</name></member>
+    <member refid="uvfr__conifer_8h_1a001cbd7a34dd6ccf71bf99055eaedd69" kind="define"><name>CONIFER_CH_ALLOW_LOAD_SHED</name></member>
+    <member refid="uvfr__conifer_8h_1a7148d38b3ab27a38dfd4ae9d52802ff0" kind="define"><name>CONIFER_CH_LS_ACTIVE</name></member>
     <member refid="uvfr__conifer_8h_1a1602c42214f1b60a9da441d147c32137" kind="define"><name>CONIFER_CH_IN_USE</name></member>
     <member refid="uvfr__conifer_8h_1aa46bfa9c4b23444ffac77a88613a7dc4" kind="define"><name>CONIFER_CH_LOC_MASK</name></member>
     <member refid="uvfr__conifer_8h_1ad6d6d63402945844c03cb9f3494c71b2" kind="define"><name>CONIFER_HW_CH_ID_MASK</name></member>
@@ -2395,7 +2405,7 @@
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a3d7055361058cc335db060658fd83e63" kind="enumvalue"><name>BAMO_RUN</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82aacc5f66512007fff1b447f07f352e705" kind="enumvalue"><name>BAMO_PWR</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82af1aee45a32a3f8deb65c757088c55e69" kind="enumvalue"><name>SDC_BOARD_PWR</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a5fd0a41b6130dd67b5af39513dafcf82" kind="enumvalue"><name>HVIL_POWER</name></member>
+    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a17df0cef80e70f5cc3a5b7170dfcbfbb" kind="enumvalue"><name>HVIL_PWR</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a25d5b94b5a32530ecb9720b6d712fcbb" kind="enumvalue"><name>DCDC_EN</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a93a22d07555bc0324619287d998826e6" kind="enumvalue"><name>COOLANT_PUMP1</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a8895bde82e1fa2fd98131c0ca5ceddf0" kind="enumvalue"><name>COOLANT_PUMP2</name></member>
@@ -2407,15 +2417,6 @@
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a2f43c5c0a48747fd422dd821e4fbdedc" kind="enumvalue"><name>ACCU_FANS2</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82af5f559918ccbaf60dbb75e64cf1b83cd" kind="enumvalue"><name>BRAKE_LIGHT</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b" kind="enumvalue"><name>HORN</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a35603189f0c1a932b1f089e27d17e855" kind="enumvalue"><name>DRS_FL1</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a977b1207fd0dedd6080f51908647a8f1" kind="enumvalue"><name>DRS_FL2</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82ae09946966f6a7201de617327bc78daca" kind="enumvalue"><name>DRS_FR1</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a27b8e70eba788b1ba9f093ec94577c66" kind="enumvalue"><name>DRS_FR2</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a9ab5c08db3a2ad0ac5b83804af8bc326" kind="enumvalue"><name>DRS_R1</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82ac1b581e58cd3247f11bfd7a2d94fae1b" kind="enumvalue"><name>DRS_R2</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82ac432c1142a607bb8dc713228a18c4d93" kind="enumvalue"><name>DRS_R3</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82ad16583c3e4791bfa3d8d76e48bbb7b6b" kind="enumvalue"><name>BMS_ALWAYS_ON</name></member>
-    <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82aa8d4a64b5f6ea20f4d173e87b6c2622a" kind="enumvalue"><name>BMS_DISCHARGE_PWR</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a618aeca28ae1505c852157ef219ef9f3" kind="enumvalue"><name>IMD_PWR</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a16602958804f71eb4532dcffa8bd572b" kind="enumvalue"><name>GENERAL_ACCU_PWR1</name></member>
     <member refid="uvfr__conifer_8h_1a01a3838c8a1056886c2ded0b14270a82a775b7763ca539c748c345882324d3950" kind="enumvalue"><name>GENERAL_ACCU_PWR2</name></member>
@@ -2456,6 +2457,7 @@
     <member refid="uvfr__conifer_8h_1ad54343ae344eea456a16b020e8e3211d" kind="typedef"><name>conifer_driver_ecode</name></member>
     <member refid="uvfr__conifer_8h_1a8beafb16a2c0717a78ec93efea9b6013" kind="typedef"><name>conifer_settings</name></member>
     <member refid="uvfr__conifer_8h_1a57b9329a240ce8fd519304cacea03bef" kind="typedef"><name>conifer_ch_location</name></member>
+    <member refid="uvfr__conifer_8h_1a5ca4f654da991cee2c09b09cf9f2b7ae" kind="typedef"><name>conifer_state</name></member>
     <member refid="uvfr__conifer_8h_1a3046810e5cf73c7c6561dec481f38db1" kind="typedef"><name>conifer_hw_ch_type</name></member>
     <member refid="uvfr__conifer_8h_1a00b0f6870b31dab018640445619d644f" kind="typedef"><name>conifer_hw_channel</name></member>
     <member refid="uvfr__conifer_8h_1a4108d6134c6ebfb361e77d5c78be0ff2" kind="function"><name>coniferInit</name></member>
@@ -2760,10 +2762,11 @@
     <member refid="uvfr__utils_8h_1a0186c036688c7852cf0ceaee96b343a3" kind="function"><name>uvIsPTRValid</name></member>
   </compound>
   <compound refid="uvfr__vehicle__commands_8h" kind="file"><name>uvfr_vehicle_commands.h</name>
-    <member refid="uvfr__vehicle__commands_8h_1aef33c5773dc84e4e8771bf0303bb5211" kind="define"><name>uvOpenSDC</name></member>
     <member refid="uvfr__vehicle__commands_8h_1a6b1378dce06d1dca7653b85a347c3a66" kind="typedef"><name>output_channel</name></member>
     <member refid="uvfr__vehicle__commands_8h_1a336bc13c0755e0e0a267af2c12343365" kind="typedef"><name>output_channel_settings</name></member>
-    <member refid="uvfr__vehicle__commands_8h_1a47c0b0e03b584b9da6a7528241e9f394" kind="function"><name>_uvCloseSDC_canBased</name></member>
+    <member refid="uvfr__vehicle__commands_8h_1a7cecf05ccf8405504b25797917b3e51e" kind="function"><name>uvActivateHorn</name></member>
+    <member refid="uvfr__vehicle__commands_8h_1a0de3eb318076c9d332b2ce45b9d81360" kind="function"><name>uvSilenceHorn</name></member>
+    <member refid="uvfr__vehicle__commands_8h_1a1cde44db449a9346f104360423fc5ea0" kind="function"><name>BeepBeepMotherFucker</name></member>
     <member refid="uvfr__vehicle__commands_8h_1a8073be27b31b156bee66e3b3038144c9" kind="function"><name>uvSecureVehicle</name></member>
   </compound>
   <compound refid="uvfr__vehicle__logger_8h" kind="file"><name>uvfr_vehicle_logger.h</name>
@@ -2882,29 +2885,31 @@
   </compound>
   <compound refid="daq_8c" kind="file"><name>daq.c</name>
     <member refid="daq_8c_1a5a6490a76926af0287e58c4b1af260bd" kind="define"><name>_SRC_UVFR_DAQ</name></member>
+    <member refid="daq_8c_1aba239cbf28dfdbe0359593717f8705d5" kind="define"><name>INV_DAQ_P</name></member>
     <member refid="daq_8c_1a4a7e5c4a5e65c315010bab902f2268a6" kind="typedef"><name>daq_param_list_node</name></member>
     <member refid="daq_8c_1a2104fed000d8cb392baf5d14e06193c1" kind="typedef"><name>daq_child_task</name></member>
+    <member refid="daq_8c_1a08de9f1889def4ee8d79962e6044bb0f" kind="variable"><name>constant_zero</name></member>
     <member refid="daq_8c_1a2273a53b295e470100af298a0be7d8d7" kind="variable"><name>coolant_temp_adc</name></member>
     <member refid="daq_8c_1a0611933f2919b8900cd5e667043747fe" kind="variable"><name>motor_temp_adc</name></member>
     <member refid="daq_8c_1a22b804736f5648d52f639b2647d4ed13" kind="variable"><name>hadc1</name></member>
     <member refid="daq_8c_1a5a9a97f4494923c066b5c4faaaaf8f88" kind="variable"><name>curr_daq_settings</name></member>
     <member refid="daq_8c_1a22b4a1eccdbbbf445f1847cc3a49c3e0" kind="variable"><name>default_daq_settings</name></member>
-    <member refid="daq_8c_1af5ab2cd7ec858145d49d4e585e4bef94" kind="variable"><name>default_datapoints</name></member>
+    <member refid="daq_8c_1af2240542724a20552b90fafa9642884d" kind="variable"><name>default_datapoints</name></member>
     <member refid="daq_8c_1aeed531c2be2a5177eebeaacd47c04526" kind="variable"><name>param_ptrs</name></member>
     <member refid="daq_8c_1a912bd9ed0555d1bedc46ec216962c5f1" kind="variable"><name>daq_tlist</name></member>
-    <member refid="daq_8c_1ad6cbbc8d3571452db9a10c35551f721e" kind="variable"><name>datapoints</name></member>
+    <member refid="daq_8c_1ac392727a4f2b768d9702e3796feca27c" kind="variable"><name>datapoints</name></member>
     <member refid="daq_8c_1a463311a3d81da8e08c8c9c78d447fc59" kind="variable"><name>param_bank</name></member>
     <member refid="daq_8c_1a46330ae75c3716f15677e104e8cced32" kind="variable"><name>tmp_daq_msg</name></member>
     <member refid="daq_8c_1a740f6299f5ce19d6d94d148e13231dd9" kind="function"><name>daqSubTask</name></member>
     <member refid="daq_8c_1a56ca1193de01115c27ceb3768994017f" kind="function"><name>associateDaqParamWithVar</name></member>
     <member refid="daq_8c_1adcd689b5d7e750a2970e1f9e05c16c55" kind="function"><name>insertParamToParamList</name></member>
-    <member refid="daq_8c_1ab60ac31cdb244a3123d9d014d9019b2c" kind="function"><name>insertParamToRegister</name></member>
+    <member refid="daq_8c_1ab5fd6b7e1a2b15c2c834291f9386d1ef" kind="function"><name>insertParamToRegister</name></member>
     <member refid="daq_8c_1a9e1cd582f8748d018266ba4ab15561ae" kind="function"><name>configureDaqSubTasks</name></member>
     <member refid="daq_8c_1a65df75bcd76d421bf28fca5704c8ff95" kind="function"><name>startDaqSubTasks</name></member>
     <member refid="daq_8c_1ad3997ae047f3e30136b3f2b668c8030a" kind="function"><name>stopDaqSubTasks</name></member>
     <member refid="daq_8c_1af2c619df9f3d115dcbc511b0bb738e87" kind="function"><name>initDaqTask</name></member>
     <member refid="daq_8c_1a433bb586ceab47aed8d633fa2ff8ce56" kind="function"><name>daqMasterTask</name></member>
-    <member refid="daq_8c_1a3264ce2e91867c895df43ce7ddc3dd86" kind="function"><name>sendDaqMsg</name></member>
+    <member refid="daq_8c_1a35e09915fc9dccafc842112110511923" kind="function"><name>sendDaqMsg</name></member>
     <member refid="daq_8c_1ae7274a95a4e4881bc3fe84c9021d4a6c" kind="function"><name>sendAllParamsFromList</name></member>
   </compound>
   <compound refid="dash_8c" kind="file"><name>dash.c</name>
@@ -3056,6 +3061,8 @@
   <compound refid="pdu_8c" kind="file"><name>pdu.c</name>
     <member refid="pdu_8c_1a4be4453fd393a9705e3ce4146cce40c8" kind="define"><name>U19_PDU_20A_BIT</name></member>
     <member refid="pdu_8c_1a847c8eaa8d2029dd5d8b1b782aae2c9b" kind="define"><name>U19_PDU_EN_BIT</name></member>
+    <member refid="pdu_8c_1a627e824d1da0b03a662b47db524e213c" kind="define"><name>HIGHEST_CH</name></member>
+    <member refid="pdu_8c_1a5a3ac33c553f70682dc9e1bfe20d2bd5" kind="define"><name>FIRST_20A_CH</name></member>
     <member refid="pdu_8c_1a5e0b76d0cfbe5852aca54c518f3ebfd8" kind="variable"><name>read_5A_vals</name></member>
     <member refid="pdu_8c_1a5ec56ae805d39218abf3c5b4853bd1bc" kind="variable"><name>set_5A_vals</name></member>
     <member refid="pdu_8c_1a1da857742290329216cb538e70930f23" kind="variable"><name>read_20A_vals</name></member>
@@ -3194,14 +3201,18 @@
     <member refid="uvfr__conifer_8c_1ad547454272c1bf1f4e633a1005eeca2c" kind="define"><name>__dcs</name></member>
     <member refid="uvfr__conifer_8c_1abb9099bb5f07f6c726d11166c48f2338" kind="define"><name>__ch_list</name></member>
     <member refid="uvfr__conifer_8c_1af1159e0fffb524777de5dcf9d869a738" kind="variable"><name>default_conifer_settings</name></member>
+    <member refid="uvfr__conifer_8c_1a18cdcc1e2d7aa04c7bbf948689063288" kind="variable"><name>cstate</name></member>
     <member refid="uvfr__conifer_8c_1af165acc981d55f60b47f4d4539377fd5" kind="variable"><name>ch_table</name></member>
     <member refid="uvfr__conifer_8c_1a0d4576b3201affa2e0120a637bc47cec" kind="variable"><name>ch_updaters</name></member>
     <member refid="uvfr__conifer_8c_1a47839973a8a94e0775184cb6f01638ed" kind="variable"><name>current_getters</name></member>
     <member refid="uvfr__conifer_8c_1a083b2e840cc4afee2f08f66c46f4d64d" kind="function"><name>__attribute__</name></member>
     <member refid="uvfr__conifer_8c_1a68449e8e796a831d9f3cbd63eed0e391" kind="function"><name>coniferInvalidChLocCallback</name></member>
     <member refid="uvfr__conifer_8c_1a0b4e966f33682552edd3611584f8063f" kind="function"><name>coniferUpdateChannel</name></member>
+    <member refid="uvfr__conifer_8c_1a2e01f51a929e3237a7fac511eac4f288" kind="function"><name>theScrimDonguloder</name></member>
     <member refid="uvfr__conifer_8c_1a4108d6134c6ebfb361e77d5c78be0ff2" kind="function"><name>coniferInit</name></member>
     <member refid="uvfr__conifer_8c_1abd58786ab480f925351564f049e4008f" kind="function"><name>coniferDeInit</name></member>
+    <member refid="uvfr__conifer_8c_1a5110f59207bf83206886edfce4ca0fec" kind="function"><name>coniferEnLoadShedding</name></member>
+    <member refid="uvfr__conifer_8c_1a7b722107967fa84381a798301dd0b57a" kind="function"><name>coniferDisLoadShedding</name></member>
     <member refid="uvfr__conifer_8c_1a713d196fd2dbb7c1fbf9c21cc3c7b478" kind="function"><name>coniferEnChannel</name></member>
     <member refid="uvfr__conifer_8c_1ad79a0176a2fa65ec8bfd500844aeec59" kind="function"><name>coniferDisChannel</name></member>
     <member refid="uvfr__conifer_8c_1a4962a2f4670cdb0d2666a75cf5b34ee0" kind="function"><name>coniferToggleChannel</name></member>
@@ -3255,7 +3266,7 @@
     <member refid="uvfr__settings_8c_1a1071bc1cceac3198de98d9c0753044d6" kind="variable"><name>default_imd_settings</name></member>
     <member refid="uvfr__settings_8c_1a28e4314b233b9140e73e4fd0bab7e354" kind="variable"><name>default_bms_settings</name></member>
     <member refid="uvfr__settings_8c_1af1159e0fffb524777de5dcf9d869a738" kind="variable"><name>default_conifer_settings</name></member>
-    <member refid="uvfr__settings_8c_1af5ab2cd7ec858145d49d4e585e4bef94" kind="variable"><name>default_datapoints</name></member>
+    <member refid="uvfr__settings_8c_1af2240542724a20552b90fafa9642884d" kind="variable"><name>default_datapoints</name></member>
     <member refid="uvfr__settings_8c_1a550e75d7673e407aad1a5240ff83db23" kind="variable"><name>default_vehicle</name></member>
     <member refid="uvfr__settings_8c_1ad566fc47eb8eb3464e5b48f088ddbb83" kind="variable"><name>is_laptop_connected</name></member>
     <member refid="uvfr__settings_8c_1a4a1aa886008fc488d72c502d5af2aa52" kind="variable"><name>last_contact_with_laptop</name></member>
@@ -3384,7 +3395,7 @@
     <member refid="uvfr__utils_8c_1a0186c036688c7852cf0ceaee96b343a3" kind="function"><name>uvIsPTRValid</name></member>
   </compound>
   <compound refid="uvfr__vehicle__commands_8c" kind="file"><name>uvfr_vehicle_commands.c</name>
-    <member refid="uvfr__vehicle__commands_8c_1a3ea4a3c078788f0274d0e3b487db4132" kind="variable"><name>default_output_channels</name></member>
+    <member refid="uvfr__vehicle__commands_8c_1a1cde44db449a9346f104360423fc5ea0" kind="function"><name>BeepBeepMotherFucker</name></member>
     <member refid="uvfr__vehicle__commands_8c_1a8073be27b31b156bee66e3b3038144c9" kind="function"><name>uvSecureVehicle</name></member>
   </compound>
   <compound refid="uvfr__vehicle__logger_8c" kind="file"><name>uvfr_vehicle_logger.c</name>
@@ -3439,6 +3450,8 @@
   <compound refid="group__x_event_group_get_bits" kind="group"><name>xEventGroupGetBits</name>
   </compound>
   <compound refid="group__x_event_group_get_bits_from_i_s_r" kind="group"><name>xEventGroupGetBitsFromISR</name>
+  </compound>
+  <compound refid="group___message_buffer_management" kind="group"><name>MessageBufferManagement</name>
   </compound>
   <compound refid="group__x_message_buffer_create" kind="group"><name>xMessageBufferCreate</name>
   </compound>

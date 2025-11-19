@@ -12,7 +12,8 @@ var searchData=
   ['last_5fthrottle_5fpercent_9',['last_throttle_percent',['../driving__loop_8c.html#aaa0cf1ce25f6295e6f5bc62ff3e5fd34',1,'driving_loop.c']]],
   ['left_10',['left',['../structrbnode.html#a079337ce0b6a84f59162a3ca60445011',1,'rbnode']]],
   ['line_11',['line',['../structvehicle__log__entry.html#add39f449b3658225f7faef8b618b327f',1,'vehicle_log_entry']]],
-  ['log_5fbuffer_12',['log_buffer',['../uvfr__vehicle__logger_8c.html#a0941ffaf550e6d8f8470cc42c8fd1c41',1,'uvfr_vehicle_logger.c']]],
-  ['log_5fwrite_5findex_13',['log_write_index',['../uvfr__vehicle__logger_8c.html#a0f5ea1bc09b4dbb7670f89a4f395b7d9',1,'uvfr_vehicle_logger.c']]],
-  ['lowtemp_14',['lowTemp',['../bms_8c.html#a09f4da3365fb5890a0fd8c5f5871d25e',1,'bms.c']]]
+  ['load_5fshedding_12',['load_shedding',['../structconifer__state.html#acae2c02ee41ca52c442a751c8755fbf4',1,'conifer_state']]],
+  ['log_5fbuffer_13',['log_buffer',['../uvfr__vehicle__logger_8c.html#a0941ffaf550e6d8f8470cc42c8fd1c41',1,'uvfr_vehicle_logger.c']]],
+  ['log_5fwrite_5findex_14',['log_write_index',['../uvfr__vehicle__logger_8c.html#a0f5ea1bc09b4dbb7670f89a4f395b7d9',1,'uvfr_vehicle_logger.c']]],
+  ['lowtemp_15',['lowTemp',['../bms_8c.html#a09f4da3365fb5890a0fd8c5f5871d25e',1,'bms.c']]]
 ];

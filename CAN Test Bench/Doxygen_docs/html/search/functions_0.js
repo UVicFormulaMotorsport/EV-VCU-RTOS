@@ -26,7 +26,6 @@ var searchData=
   ['_5fstatechangedaemon_23',['_stateChangeDaemon',['../group__state__engine__backend.html#ga8519c96858b096f2fccb96d3334df93a',1,'uvfr_state_engine.c']]],
   ['_5ftimes_24',['_times',['../syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69',1,'syscalls.c']]],
   ['_5funlink_25',['_unlink',['../syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc',1,'syscalls.c']]],
-  ['_5fuvclosesdc_5fcanbased_26',['_uvCloseSDC_canBased',['../uvfr__vehicle__commands_8h.html#a47c0b0e03b584b9da6a7528241e9f394',1,'uvfr_vehicle_commands.h']]],
-  ['_5fuvvalidatespecifictask_27',['_uvValidateSpecificTask',['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uint8_t id):&#160;uvfr_state_engine.c'],['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uv_task_id id):&#160;uvfr_state_engine.c']]],
-  ['_5fwait_28',['_wait',['../syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72',1,'syscalls.c']]]
+  ['_5fuvvalidatespecifictask_26',['_uvValidateSpecificTask',['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uint8_t id):&#160;uvfr_state_engine.c'],['../group__state__engine__backend.html#gaf342326f88e8accc1efa35e02cdd6c37',1,'_uvValidateSpecificTask(uv_task_id id):&#160;uvfr_state_engine.c']]],
+  ['_5fwait_27',['_wait',['../syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72',1,'syscalls.c']]]
 ];

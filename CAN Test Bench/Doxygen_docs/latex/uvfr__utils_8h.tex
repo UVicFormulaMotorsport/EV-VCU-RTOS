@@ -733,7 +733,7 @@ Calling \+\_\+uv\+Init\+Panic() is irreversable and will cause the vehicle to ha
 \end{DoxyAttention}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00350}{350}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{357}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
 
 
 
@@ -770,6 +770,8 @@ Pretty important shit if you ask me.
 If it is unable to return even to factory default settings, then we are in HUGE trouble, and some catastrophic bug has occurred. If it fails to even start this, it will not be safe to drive We must therefore panic.
 
 Once the settings are initialized, we will initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged
+
+The second thing initialized is internal diagnostics and telemetry.
 
 Next up we will attempt to initialize the state engine. If this fails, then we are in another case where we are genuinely unsafe to drive. This will create the prototypes for a bajillion tasks that will be started and stopped. Which tasks are currently running, depends on the whims of the state engine. Since the state engine is critical to our ability to handle errors and implausibilitys, we cannot proceed without a fully operational state engine.
 
@@ -855,10 +857,6 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \DoxyCodeLine{\textcolor{comment}{//\ \ \ \ \ \ error\_msg\ =\ "{}bruh"{};}}
 \DoxyCodeLine{\textcolor{comment}{//\ \ \}}}
 \DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{adc_8h_a4ba1683325a3553851abf884b905f1b1}{initADCTask}}();\ \textcolor{comment}{//START\ THE\ ADCs}}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
@@ -876,7 +874,7 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{50}} of file \
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8c_source_l00350}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{can_8h_source_l00043}{CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8h_source_l00042}{CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00153}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00369}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00371}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00214}{IMD}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00153}{INIT\+\_\+\+CHECK\+\_\+\+PERIOD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{imd_8c_source_l00559}{init\+IMD()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00152}{MAX\+\_\+\+INIT\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00212}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00370}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{cmsis__os_8h_source_l00178}{os\+Priority\+Above\+Normal}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00342}{uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00368}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{uv\+Init\+Diagnostics()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00401}{uv\+Start\+Task()}}, \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}, \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{v\+Task\+Delay\+Until()}}, \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{v\+Task\+Delete()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
+References \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00047}{BAMO\+\_\+\+RFE}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00048}{BAMO\+\_\+\+RUN}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{can_8h_source_l00043}{CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8h_source_l00042}{CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00369}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00371}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00051}{HVIL\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00214}{IMD}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00153}{INIT\+\_\+\+CHECK\+\_\+\+PERIOD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{imd_8c_source_l00559}{init\+IMD()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00152}{MAX\+\_\+\+INIT\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00212}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00370}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{cmsis__os_8h_source_l00178}{os\+Priority\+Above\+Normal}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00050}{SDC\+\_\+\+BOARD\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00342}{uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00368}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{uv\+Init\+Diagnostics()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00401}{uv\+Start\+Task()}}, \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}, \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{v\+Task\+Delay\+Until()}}, \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{v\+Task\+Delete()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
 
 
 
@@ -896,7 +894,7 @@ The primary motivation for this is to avoid trying to dereference a pointer that
 
 Exiting gracefully can be pretty neat sometimes. 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00480}{480}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00487}{487}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
 
 
 
@@ -904,7 +902,7 @@ References \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mb
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00407}{\+\_\+\+\_\+uv\+Free\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00458}{\+\_\+\+\_\+uv\+Free\+OS()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00432}{\+\_\+\+\_\+uv\+Malloc\+OS()}}, \mbox{\hyperlink{daq_8c_source_l00125}{associate\+Daq\+Param\+With\+Var()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00799}{uv\+Create\+Tmp\+Settings\+Copy()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00414}{\+\_\+\+\_\+uv\+Free\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00465}{\+\_\+\+\_\+uv\+Free\+OS()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00439}{\+\_\+\+\_\+uv\+Malloc\+OS()}}, \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00799}{uv\+Create\+Tmp\+Settings\+Copy()}}.
 
 
 
@@ -921,7 +919,7 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00021}{21}} of file \
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00162}{insert\+Param\+To\+Register()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00124}{insert\+Param\+To\+Register()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 
 \Hypertarget{uvfr__utils_8h_a660f31748ce0b90d471a4f5441ee3cb1}\index{uvfr\_utils.h@{uvfr\_utils.h}!global\_context@{global\_context}}
 \index{global\_context@{global\_context}!uvfr\_utils.h@{uvfr\_utils.h}}

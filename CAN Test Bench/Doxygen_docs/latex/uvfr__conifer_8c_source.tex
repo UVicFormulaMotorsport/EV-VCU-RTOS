@@ -26,292 +26,361 @@
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00022}\mbox{\hyperlink{uvfr__conifer_8c_ad547454272c1bf1f4e633a1005eeca2c}{00022}}\ \textcolor{preprocessor}{\#define\ \_\_dcs\ default\_conifer\_settings}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00023}\mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{00023}}\ \textcolor{preprocessor}{\#define\ \_\_ch\_list\ default\_conifer\_settings.ch\_list}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00024}00024\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00025}\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{00025}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}}];}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00026}00026\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00027}00027\ \textcolor{comment}{//Driver\ function\ lookup\ tables}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00028}\mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{00028}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ (*\mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{ch\_updaters}}[8])(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint32\_t*)\ =\ \{0,0,0,0,0,0,0,0\};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00029}\mbox{\hyperlink{uvfr__conifer_8c_a47839973a8a94e0775184cb6f01638ed}{00029}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ (*\mbox{\hyperlink{uvfr__conifer_8c_a47839973a8a94e0775184cb6f01638ed}{current\_getters}}[8])\ (\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint32\_t*)\ =\ \{0,0,0,0,0,0,0,0\};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00031}00031\ \textcolor{comment}{//typedef\ enum\ uv\_status\_t\ uv\_status;}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00032}00032\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00036}\mbox{\hyperlink{uvfr__conifer_8c_a083b2e840cc4afee2f08f66c46f4d64d}{00036}}\ \mbox{\hyperlink{uvfr__conifer_8c_a083b2e840cc4afee2f08f66c46f4d64d}{\_\_attribute\_\_}}((constructor))\ \textcolor{keywordtype}{void}\ coniferGenerateDefaults()\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00037}00037\ \ \ \ \ uint8\_t\ n\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00038}00038\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//Accumulator\ power}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a16602958804f71eb4532dcffa8bd572b}{GENERAL\_ACCU\_PWR1}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00041}00041\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00042}00042\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00043}00043\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00044}00044\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00045}00045\ \ \ \ \ \textcolor{comment}{//Motor\ controller\ power}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82aacc5f66512007fff1b447f07f352e705}{BAMO\_PWR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00047}00047\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00049}00049\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00050}00050\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00051}00051\ \ \ \ \ \textcolor{comment}{//RFE}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82acab3972cd0a6e89d2badca2b21ace61b}{BAMO\_RFE}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00054}00054\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00055}00055\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00056}00056\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00057}00057\ \ \ \ \ \textcolor{comment}{//RUN}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a3d7055361058cc335db060658fd83e63}{BAMO\_RUN}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00059}00059\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00061}00061\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00062}00062\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//BSPD}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00064}00064\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae4f705d148337ffac979cd8db01c8b99}{BSPD\_PWR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00065}00065\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00066}00066\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00067}00067\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00069}00069\ \ \ \ \ \textcolor{comment}{//DASH\ +\ Steering\ wheel}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a50f7e13ddbfb5bf68a29ab5204f0bcfa}{DASH\_PWR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00071}00071\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00072}00072\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00073}00073\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00074}00074\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//VCU}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00076}00076\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae50d82b1011181ba9d18cd72dbc8eb47}{VCU\_PWR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00077}00077\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00078}00078\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00079}00079\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00080}00080\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00081}00081\ \ \ \ \ \textcolor{comment}{//BRAKE\ LIGHT}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82af5f559918ccbaf60dbb75e64cf1b83cd}{BRAKE\_LIGHT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00085}00085\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00086}00086\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//RTD\ BUZZER}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00088}00088\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b}{HORN}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00089}00089\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00090}00090\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00091}00091\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00092}00092\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//COOLANT\ PUMP}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00094}00094\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a93a22d07555bc0324619287d998826e6}{COOLANT\_PUMP1}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00095}00095\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00096}00096\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00097}00097\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00098}00098\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00099}00099\ \ \ \ \ \textcolor{comment}{//RAD\ FAN\ 1}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00100}00100\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a16e567c78e803de5e890b5edf3d3d42b}{RAD\_FANS1}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00101}00101\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00102}00102\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00103}00103\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00104}00104\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00105}00105\ \ \ \ \ \textcolor{comment}{//RAD\ FAN\ 2}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00106}00106\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a5a6f6d5107fb97ed627a8b5137374dba}{RAD\_FANS2}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00107}00107\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00108}00108\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00109}00109\ \ \ \ \ n++;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00110}00110\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00111}00111\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_ad547454272c1bf1f4e633a1005eeca2c}{\_\_dcs}}.n\_ch\ =\ n;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00113}00113\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00114}00114\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00115}\mbox{\hyperlink{uvfr__conifer_8c_a68449e8e796a831d9f3cbd63eed0e391}{00115}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a68449e8e796a831d9f3cbd63eed0e391}{coniferInvalidChLocCallback}}(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint8\_t)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00117}00117\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00118}00118\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00125}\mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{00125}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00126}00126\ \ \ \ \ uint8\_t\ src\ =\ (ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\&\mbox{\hyperlink{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}{CONIFER\_CH\_LOC\_MASK}})>>8;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00127}00127\ \ \ \ \ uint32\_t\ ecode\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a90a4fb6acd14a5771c4d515a7ff5b3ada09f50082ea105939a0745b2fb9da2ff6}{CONIFER\_DRV\_OK}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00128}00128\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ (*update\_func)(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint32\_t*)\ =\ \mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{ch\_updaters}}[src];}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00129}00129\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00130}00130\ \ \ \ \ \textcolor{keywordflow}{if}(update\_func\ ==\ NULL)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00131}00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00132}00132\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00133}00133\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00134}00134\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ retval\ =\ update\_func(ch\_ptr,\&ecode);\textcolor{comment}{//Me\ executing\ the\ random\ ass\ callback\ func}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(ecode)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_a90a4fb6acd14a5771c4d515a7ff5b3ada09f50082ea105939a0745b2fb9da2ff6}{CONIFER\_DRV\_OK}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00138}00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_a90a4fb6acd14a5771c4d515a7ff5b3ada4598cbd8d9606f38b278174d82fce19f}{CONIFER\_DRV\_INVALID\_HW\_LOC}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_a90a4fb6acd14a5771c4d515a7ff5b3ada711a7bda8e3e2292d599ecfebbb6e696}{CONIFER\_DRV\_INVALID\_HW\_CH\_ID}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00142}00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00145}00145\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00146}00146\ \ \ \ \ \textcolor{keywordflow}{return}\ retval;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00147}00147\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00148}00148\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00149}00149\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00153}\mbox{\hyperlink{uvfr__conifer_8h_a4108d6134c6ebfb361e77d5c78be0ff2}{00153}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a4108d6134c6ebfb361e77d5c78be0ff2}{coniferInit}}()\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00154}00154\ \ \ \ \ uint32\_t\ init\_ecode;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00155}00155\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00156}00156\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(1);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00157}00157\ \ \ \ \ \textcolor{comment}{//STEP\ 1:\ Init\ the\ ch\_table\ to\ something\ normal.\ Set\ all\ outputs\ as\ "{}not\ in\ use"{}}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00158}00158\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}};i++)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00159}00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[i];}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00160}00160\ \ \ \ \ \ \ \ \ ch-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ =\ 0x0700;\ \textcolor{comment}{//Makes\ channel\ as\ not\ in\ use\ and\ sets\ location\ as\ invalid}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00161}00161\ \ \ \ \ \ \ \ \ ch-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00162}00162\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00025}\mbox{\hyperlink{uvfr__conifer_8c_a18cdcc1e2d7aa04c7bbf948689063288}{00025}}\ \mbox{\hyperlink{structconifer__state}{conifer\_state}}\ \mbox{\hyperlink{uvfr__conifer_8c_a18cdcc1e2d7aa04c7bbf948689063288}{cstate}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00026}00026\ \ \ \ \ .status\_flags\ =\ 0,}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00027}00027\ \ \ \ \ .load\_shedding\ =\ 0}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00028}00028\ \};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00030}\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{00030}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[\mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}}];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00032}00032\ \textcolor{comment}{//Driver\ function\ lookup\ tables}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00033}\mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{00033}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ (*\mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{ch\_updaters}}[8])(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint32\_t*)\ =\ \{0,0,0,0,0,0,0,0\};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00034}\mbox{\hyperlink{uvfr__conifer_8c_a47839973a8a94e0775184cb6f01638ed}{00034}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ (*\mbox{\hyperlink{uvfr__conifer_8c_a47839973a8a94e0775184cb6f01638ed}{current\_getters}}[8])\ (\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint32\_t*)\ =\ \{0,0,0,0,0,0,0,0\};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00036}00036\ \textcolor{comment}{//typedef\ enum\ uv\_status\_t\ uv\_status;}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00041}\mbox{\hyperlink{uvfr__conifer_8c_a083b2e840cc4afee2f08f66c46f4d64d}{00041}}\ \mbox{\hyperlink{uvfr__conifer_8c_a083b2e840cc4afee2f08f66c46f4d64d}{\_\_attribute\_\_}}((constructor))\ \textcolor{keywordtype}{void}\ coniferGenerateDefaults()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00042}00042\ \ \ \ \ uint8\_t\ n\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//Accumulator\ power}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00045}00045\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a16602958804f71eb4532dcffa8bd572b}{GENERAL\_ACCU\_PWR1}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaffe85a9c78351c15900208678f7d2ca9}{U19\_PDU\_20A\_5}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00047}00047\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00048}00048\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//Motor\ controller\ power}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82aacc5f66512007fff1b447f07f352e705}{BAMO\_PWR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa3734b5f994d02c7fbad92ebad5cfe3a9}{U19\_PDU\_20A\_7}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00053}00053\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00054}00054\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00056}00056\ \ \ \ \ \textcolor{comment}{//RFE}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82acab3972cd0a6e89d2badca2b21ace61b}{BAMO\_RFE}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa22ed06702ecd81fee7c8d01e337e5297}{U19\_PDU\_5A\_11}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00059}00059\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00060}00060\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00062}00062\ \ \ \ \ \textcolor{comment}{//RUN}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a3d7055361058cc335db060658fd83e63}{BAMO\_RUN}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00064}00064\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaab49884b3482f7d3935fc88ff148774c9}{U19\_PDU\_5A\_15}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00065}00065\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00066}00066\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00068}00068\ \ \ \ \ \textcolor{comment}{//BSPD}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00069}00069\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae4f705d148337ffac979cd8db01c8b99}{BSPD\_PWR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa1597b68efb75e67ef1d15b968f2bfa48}{U19\_PDU\_5A\_13}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00071}00071\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00072}00072\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00074}00074\ \ \ \ \ \textcolor{comment}{//DASH\ +\ Steering\ wheel}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00075}00075\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a50f7e13ddbfb5bf68a29ab5204f0bcfa}{DASH\_PWR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00076}00076\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa3a0f716512b63904048d3f895745fca3}{U19\_PDU\_5A\_10}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00077}00077\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00078}00078\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00080}00080\ \ \ \ \ \textcolor{comment}{//VCU}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00081}00081\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82ae50d82b1011181ba9d18cd72dbc8eb47}{VCU\_PWR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaaf92a0702634eebc7f444272ef0b2ed4}{U19\_PDU\_20A\_6}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}}|\mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00084}00084\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00086}00086\ \ \ \ \ \textcolor{comment}{//BRAKE\ LIGHT}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00087}00087\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82af5f559918ccbaf60dbb75e64cf1b83cd}{BRAKE\_LIGHT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00088}00088\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaac91e526507c56d14c838ab6cbfc7f6ea}{U19\_PDU\_5A\_12}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00089}00089\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00090}00090\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00092}00092\ \ \ \ \ \textcolor{comment}{//RTD\ BUZZER}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00093}00093\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a76476d198e80fb465561cb08dcace47b}{HORN}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00094}00094\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa484c7d22cd2ddd47c63c7daea16990cb}{U19\_PDU\_5A\_9}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00095}00095\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00096}00096\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//COOLANT\ PUMP}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00099}00099\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a93a22d07555bc0324619287d998826e6}{COOLANT\_PUMP1}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00100}00100\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaccda06329558755bd5bdae4d68a70fcb}{U19\_PDU\_20A\_1}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00101}00101\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00102}00102\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00104}00104\ \ \ \ \ \textcolor{comment}{//RAD\ FAN\ 1}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00105}00105\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a16e567c78e803de5e890b5edf3d3d42b}{RAD\_FANS1}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00106}00106\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa05ed0de9c73e33e43212a470068b2f8c}{U19\_PDU\_20A\_2}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00107}00107\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00108}00108\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00110}00110\ \ \ \ \ \textcolor{comment}{//RAD\ FAN\ 2}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00111}00111\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a5a6f6d5107fb97ed627a8b5137374dba}{RAD\_FANS2}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa809b9c6ce040f2229d219703b587992a}{U19\_PDU\_20A\_3}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00113}00113\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a001cbd7a34dd6ccf71bf99055eaedd69}{CONIFER\_CH\_ALLOW\_LOAD\_SHED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00114}00114\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00116}00116\ \ \ \ \ \textcolor{comment}{//SDC\ BOARD}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00117}00117\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82af1aee45a32a3f8deb65c757088c55e69}{SDC\_BOARD\_PWR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00118}00118\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaaa63654c0498ee92b1a2f595706276ea3}{U19\_PDU\_5A\_14}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00119}00119\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00120}00120\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00122}00122\ \ \ \ \ \textcolor{comment}{//SDC\ ORIGIN}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00123}00123\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82a17df0cef80e70f5cc3a5b7170dfcbfbb}{HVIL\_PWR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00124}00124\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.hardware\_mapping\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a1602c42214f1b60a9da441d147c32137}{CONIFER\_CH\_IN\_USE}}|(\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}<<8)|\mbox{\hyperlink{pdu_8h_a3e9aefba16c71c51565c8017e53ae6eaa1cb71fc547ea7bad683ad263051f157a}{U19\_PDU\_5A\_16}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_abb9099bb5f07f6c726d11166c48f2338}{\_\_ch\_list}}[n].ch\_dat.status\_control\_reg\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00126}00126\ \ \ \ \ n++;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00129}00129\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_ad547454272c1bf1f4e633a1005eeca2c}{\_\_dcs}}.n\_ch\ =\ n;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00130}00130\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00132}\mbox{\hyperlink{uvfr__conifer_8c_a68449e8e796a831d9f3cbd63eed0e391}{00132}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a68449e8e796a831d9f3cbd63eed0e391}{coniferInvalidChLocCallback}}(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint8\_t)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00142}\mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{00142}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00143}00143\ \ \ \ \ uint8\_t\ src\ =\ (ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\&\mbox{\hyperlink{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}{CONIFER\_CH\_LOC\_MASK}})>>8;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00144}00144\ \ \ \ \ uint32\_t\ ecode\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a90a4fb6acd14a5771c4d515a7ff5b3ada09f50082ea105939a0745b2fb9da2ff6}{CONIFER\_DRV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ (*update\_func)(\mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*,\ uint32\_t*)\ =\ \mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{ch\_updaters}}[src];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00147}00147\ \ \ \ \ \textcolor{keywordflow}{if}(update\_func\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00148}00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00149}00149\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00151}00151\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ retval\ =\ update\_func(ch\_ptr,\&ecode);\textcolor{comment}{//Me\ executing\ the\ random\ ass\ callback\ func}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00153}00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ \&\ \mbox{\hyperlink{uvfr__conifer_8h_a0e9e99ba47f2089b2e9689f666fd09e3}{CONIFER\_CH\_IS\_CRIT\_BIT}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}FATAL\ CONIFER\ FAULT"{}},0);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00156}00156\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea87c01f9029276637a8c9568fd67efcac}{UV\_WARNING}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00158}00158\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00159}00159\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00160}00160\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00162}00162\ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00163}00163\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00164}00164\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00165}00165\ \ \ \ \ \textcolor{comment}{//STEP\ 2:\ Pull\ up\ the\ relevant\ settings\ into\ the\ table}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00166}00166\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>n\_ch;\ i++)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00167}00167\ \ \ \ \ \ \ \ \ uint16\_t\ chID\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>ch\_list[i].ch;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00168}00168\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[chID].\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>ch\_list[i].ch\_dat.hardware\_mapping;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00169}00169\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[chID].\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>ch\_list[i].ch\_dat.status\_control\_reg;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00170}00170\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00171}00171\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00172}00172\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(1);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00173}00173\ \ \ \ \ \textcolor{comment}{//STEP\ 3:\ Configure\ Driver\ LUTs}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00174}00174\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00175}00175\ \ \ \ \ \textcolor{comment}{//Channel\ updaters}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00176}00176\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{ch\_updaters}}[\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}]\ =\ \mbox{\hyperlink{pdu_8h_a3d05c1a1776f19cc1437baf3c93c39e0}{u19updatePduChannel}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00177}00177\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(1);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00178}00178\ \ \ \ \ \textcolor{comment}{//Current\ getters}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00179}00179\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00180}00180\ \ \ \ \ \textcolor{comment}{//Step\ 4:\ Initialize\ and\ confirm\ existance\ of\ relevant\ external\ devices}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00181}00181\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ retval;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00182}00182\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00183}00183\ \ \ \ \ \textcolor{comment}{//Does\ the\ PDU\ exist?}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00184}00184\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>conif\_flags\ \&\ \mbox{\hyperlink{uvfr__conifer_8h_a2005fc8582aab9e788f0eb1f5e01d857}{EXPECT\_UV19PDU}})\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//retval}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ retval\ =\ \mbox{\hyperlink{pdu_8h_a1fe919a957b7055fcd240d738195d529}{initPDU}}(\&init\_ecode);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00187}00187\ \textcolor{comment}{//\ \ \ \ \ \ goto\ CONIFER\_INIT\_ERR;}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00188}00188\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00189}00189\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Bad\ bad\ not\ good}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00192}00192\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00193}00193\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00194}00194\ \ \ \ \ \textcolor{comment}{//STEP\ 5:\ Set\ system\ initial\ conditions\ to\ turn\ on/off\ the\ relevant\ channels}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00195}00195\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}};\ i++)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[i];}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00200}00200\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{comment}{//We\ will\ update\ all\ of\ the\ conifer\ channels\ now}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ the\ error}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00204}00204\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00205}00205\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00206}00206\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00207}00207\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00208}00208\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00164}\mbox{\hyperlink{uvfr__conifer_8c_a2e01f51a929e3237a7fac511eac4f288}{00164}}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{uvfr__conifer_8c_a2e01f51a929e3237a7fac511eac4f288}{theScrimDonguloder}}(\mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ task\_to\_scrimdongulode)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{if}(task\_to\_scrimdongulode\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00167}00167\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00168}00168\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00169}00169\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00173}\mbox{\hyperlink{uvfr__conifer_8h_a4108d6134c6ebfb361e77d5c78be0ff2}{00173}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a4108d6134c6ebfb361e77d5c78be0ff2}{coniferInit}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00174}00174\ \ \ \ \ uint32\_t\ init\_ecode;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00176}00176\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(1);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00177}00177\ \ \ \ \ \textcolor{comment}{//STEP\ 1:\ Init\ the\ ch\_table\ to\ something\ normal.\ Set\ all\ outputs\ as\ "{}not\ in\ use"{}}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00178}00178\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}};i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[i];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ ch-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ =\ 0x0700;\ \textcolor{comment}{//Makes\ channel\ as\ not\ in\ use\ and\ sets\ location\ as\ invalid}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ ch-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00182}00182\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00185}00185\ \ \ \ \ \textcolor{comment}{//STEP\ 2:\ Pull\ up\ the\ relevant\ settings\ into\ the\ table}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00186}00186\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>n\_ch;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00187}00187\ \ \ \ \ \ \ \ \ uint16\_t\ chID\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>ch\_list[i].ch;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00188}00188\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[chID].\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>ch\_list[i].ch\_dat.hardware\_mapping;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[chID].\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ =\ \mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>ch\_list[i].ch\_dat.status\_control\_reg;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00190}00190\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00191}00191\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00192}00192\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(1);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00193}00193\ \ \ \ \ \textcolor{comment}{//STEP\ 3:\ Configure\ Driver\ LUTs}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00194}00194\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00195}00195\ \ \ \ \ \textcolor{comment}{//Channel\ updaters}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00196}00196\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0d4576b3201affa2e0120a637bc47cec}{ch\_updaters}}[\mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}]\ =\ \mbox{\hyperlink{pdu_8h_a3d05c1a1776f19cc1437baf3c93c39e0}{u19updatePduChannel}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00197}00197\ \ \ \ \ \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{vTaskDelay}}(1);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00198}00198\ \ \ \ \ \textcolor{comment}{//Current\ getters}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00199}00199\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00200}00200\ \ \ \ \ \textcolor{comment}{//Step\ 4:\ Initialize\ and\ confirm\ existance\ of\ relevant\ external\ devices}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00201}00201\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ retval\ =\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00202}00202\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00203}00203\ \ \ \ \ \textcolor{comment}{//Does\ the\ PDU\ exist?}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00204}00204\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8h_a5a8b2a4b56cf0bc4a64f3948d3e23519}{conifer\_params}}-\/>conif\_flags\ \&\ \mbox{\hyperlink{uvfr__conifer_8h_a2005fc8582aab9e788f0eb1f5e01d857}{EXPECT\_UV19PDU}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00205}00205\ \ \ \ \ \ \ \ \ \textcolor{comment}{//retval}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ retval\ =\ \mbox{\hyperlink{pdu_8h_a1fe919a957b7055fcd240d738195d529}{initPDU}}(\&init\_ecode);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00207}00207\ \textcolor{comment}{//\ \ \ \ \ \ goto\ CONIFER\_INIT\_ERR;}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00208}00208\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00209}00209\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00210}00210\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00211}00211\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00212}\mbox{\hyperlink{uvfr__conifer_8h_abd58786ab480f925351564f049e4008f}{00212}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_abd58786ab480f925351564f049e4008f}{coniferDeInit}}()\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00214}00214\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00215}00215\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00219}\mbox{\hyperlink{uvfr__conifer_8h_a713d196fd2dbb7c1fbf9c21cc3c7b478}{00219}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a713d196fd2dbb7c1fbf9c21cc3c7b478}{coniferEnChannel}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00220}00220\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00221}00221\ \ \ \ \ \textcolor{comment}{//uint8\_t\ src\ =\ 7;}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00222}00222\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00224}00224\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00210}00210\ \ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Bad\ bad\ not\ good}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00212}00212\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00214}00214\ \ \ \ \ \textcolor{comment}{//STEP\ 5:\ Set\ system\ initial\ conditions\ to\ turn\ on/off\ the\ relevant\ channels}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00215}00215\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}};\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[i];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00220}00220\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00221}00221\ \ \ \ \ \ \ \ \ \textcolor{comment}{//We\ will\ update\ all\ of\ the\ conifer\ channels\ now}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00222}00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ the\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00225}00225\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00226}00226\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00227}00227\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00228}00228\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00229}00229\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00227}00227\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00228}00228\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00229}00229\ }
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00230}00230\ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00231}00231\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00235}\mbox{\hyperlink{uvfr__conifer_8h_ad79a0176a2fa65ec8bfd500844aeec59}{00235}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_ad79a0176a2fa65ec8bfd500844aeec59}{coniferDisChannel}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00236}00236\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00237}00237\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00232}\mbox{\hyperlink{uvfr__conifer_8h_abd58786ab480f925351564f049e4008f}{00232}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_abd58786ab480f925351564f049e4008f}{coniferDeInit}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00233}00233\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00234}00234\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00236}\mbox{\hyperlink{uvfr__conifer_8c_a5110f59207bf83206886edfce4ca0fec}{00236}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a5110f59207bf83206886edfce4ca0fec}{coniferEnLoadShedding}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00237}00237\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8c_a18cdcc1e2d7aa04c7bbf948689063288}{cstate}}.\mbox{\hyperlink{structconifer__state_acae2c02ee41ca52c442a751c8755fbf4}{load\_shedding}}\ !=\ 0)\{}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00239}00239\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00240}00240\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00241}00241\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00242}00242\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00243}00243\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00244}00244\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00248}\mbox{\hyperlink{uvfr__conifer_8h_a4962a2f4670cdb0d2666a75cf5b34ee0}{00248}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a4962a2f4670cdb0d2666a75cf5b34ee0}{coniferToggleChannel}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00249}00249\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00250}00250\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00252}00252\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00253}00253\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00254}00254\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00255}00255\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00259}\mbox{\hyperlink{uvfr__conifer_8h_ac38837d66ac0cec4b361b468c132663e}{00259}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_ac38837d66ac0cec4b361b468c132663e}{coniferSetDutyCycle}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch,\ uint8\_t\ duty)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00260}00260\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00261}00261\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00263}00263\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00264}00264\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00265}00265\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00266}00266\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00242}00242\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a18cdcc1e2d7aa04c7bbf948689063288}{cstate}}.\mbox{\hyperlink{structconifer__state_acae2c02ee41ca52c442a751c8755fbf4}{load\_shedding}}\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00243}00243\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}};i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00244}00244\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[i];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00245}00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\&\mbox{\hyperlink{uvfr__conifer_8h_a001cbd7a34dd6ccf71bf99055eaedd69}{CONIFER\_CH\_ALLOW\_LOAD\_SHED}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ |=\ \mbox{\hyperlink{uvfr__conifer_8h_a7148d38b3ab27a38dfd4ae9d52802ff0}{CONIFER\_CH\_LS\_ACTIVE}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00247}00247\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00249}00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00251}00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ the\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00253}00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00254}00254\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00255}00255\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00256}00256\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00257}00257\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00258}\mbox{\hyperlink{uvfr__conifer_8c_a7b722107967fa84381a798301dd0b57a}{00258}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a7b722107967fa84381a798301dd0b57a}{coniferDisLoadShedding}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00259}00259\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8c_a18cdcc1e2d7aa04c7bbf948689063288}{cstate}}.\mbox{\hyperlink{structconifer__state_acae2c02ee41ca52c442a751c8755fbf4}{load\_shedding}}\ ==\ 0)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00260}00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00261}00261\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00262}00262\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00264}00264\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a18cdcc1e2d7aa04c7bbf948689063288}{cstate}}.\mbox{\hyperlink{structconifer__state_acae2c02ee41ca52c442a751c8755fbf4}{load\_shedding}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00265}00265\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<\ \mbox{\hyperlink{uvfr__conifer_8h_a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583}{FINAL\_CONIFER\_OUTPUT}};i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[i];}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00267}00267\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00271}\mbox{\hyperlink{uvfr__conifer_8h_a19b26b92f262172a014bc40d286bced0}{00271}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a19b26b92f262172a014bc40d286bced0}{coniferSetDirection}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch,\ uint8\_t\ dir)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00272}00272\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00273}00273\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00275}00275\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00276}00276\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00278}00278\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00279}00279\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00283}\mbox{\hyperlink{uvfr__conifer_8h_ab598961c57873287afab07e8e6598d0e}{00283}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_ab598961c57873287afab07e8e6598d0e}{coniferSetDutyCycleAndDirection}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch,\ uint8\_t\ duty,\ uint8\_t\ dir)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00284}00284\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00285}00285\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00287}00287\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00288}00288\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00289}00289\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00290}00290\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00268}00268\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!(ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\&\mbox{\hyperlink{uvfr__conifer_8h_a7148d38b3ab27a38dfd4ae9d52802ff0}{CONIFER\_CH\_LS\_ACTIVE}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00270}00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00272}00272\ \ \ \ \ \ \ \ \ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\&=\ (\string~CONIFER\_CH\_LS\_ACTIVE);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00274}00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ the\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00276}00276\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00277}00277\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00279}00279\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00280}00280\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00285}\mbox{\hyperlink{uvfr__conifer_8h_a713d196fd2dbb7c1fbf9c21cc3c7b478}{00285}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a713d196fd2dbb7c1fbf9c21cc3c7b478}{coniferEnChannel}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00286}00286\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[ch];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00287}00287\ \ \ \ \ \textcolor{comment}{//uint8\_t\ src\ =\ 7;}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00288}00288\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00289}00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00290}00290\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00291}00291\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00292}00292\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00293}\mbox{\hyperlink{uvfr__conifer_8h_a23d4a2b69794b9d34a93a03a214c0430}{00293}}\ uint16\_t\ \mbox{\hyperlink{uvfr__conifer_8c_a23d4a2b69794b9d34a93a03a214c0430}{coniferGetChannelCurrent}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00294}00294\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00295}00295\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00296}00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00297}00297\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00298}00298\ \ \ \ \ uint8\_t\ src\ =\ (ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\&\mbox{\hyperlink{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}{CONIFER\_CH\_LOC\_MASK}})>>8;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00299}00299\ \ \ \ \ \ \ \ \ uint8\_t\ ch\_id\ =\ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ \&\ 0x00FF;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00300}00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(src)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00301}00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a085fee53e6ca1f85307f6d9647d482ee}{LOCAL\_CH}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00302}00302\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00304}00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00292}00292\ \ \ \ \ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ |=\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00293}00293\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00294}00294\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00295}00295\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00296}00296\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00300}\mbox{\hyperlink{uvfr__conifer_8h_ad79a0176a2fa65ec8bfd500844aeec59}{00300}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_ad79a0176a2fa65ec8bfd500844aeec59}{coniferDisChannel}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00301}00301\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[ch];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00302}00302\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00303}00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00304}00304\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00305}00305\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00306}00306\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00307}00307\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a3966f9398736c1a98d6c290d91699074}{ECUMASTER\_PMU16\_CH}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00308}00308\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00309}00309\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00310}00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00311}00311\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00312}00312\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00313}00313\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00314}00314\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00315}00315\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00316}00316\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00317}\mbox{\hyperlink{uvfr__conifer_8h_abb000d9c9f4b27e22b79af0c31c85b7a}{00317}}\ uint16\_t\ \mbox{\hyperlink{uvfr__conifer_8c_abb000d9c9f4b27e22b79af0c31c85b7a}{coniferGetChannelFbck}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00318}00318\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00319}00319\ \ \ \ \ uint8\_t\ src\ =\ (ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\&\mbox{\hyperlink{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}{CONIFER\_CH\_LOC\_MASK}})>>8;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00320}00320\ \ \ \ \ uint8\_t\ ch\_id\ =\ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ \&\ 0x00FF;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00321}00321\ \ \ \ \ \textcolor{keywordflow}{switch}(src)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00322}00322\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a085fee53e6ca1f85307f6d9647d482ee}{LOCAL\_CH}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00323}00323\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00324}00324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00325}00325\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00326}00326\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00327}00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00328}00328\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a3966f9398736c1a98d6c290d91699074}{ECUMASTER\_PMU16\_CH}}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00329}00329\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00332}00332\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00333}00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00334}00334\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00335}00335\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00336}00336\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00337}00337\ }
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00338}\mbox{\hyperlink{uvfr__conifer_8h_ad5baa963f5e3be5ecd3ab47672fb0a7c}{00338}}\ uint16\_t\ \mbox{\hyperlink{uvfr__conifer_8c_ad5baa963f5e3be5ecd3ab47672fb0a7c}{coniferGetChannelFaults}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00339}00339\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00340}00340\ \}}
-\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00306}00306\ \ \ \ \ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ \&=\ \string~CONIFER\_CH\_EN\_BIT;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00307}00307\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00308}00308\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00309}00309\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00314}\mbox{\hyperlink{uvfr__conifer_8h_a4962a2f4670cdb0d2666a75cf5b34ee0}{00314}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a4962a2f4670cdb0d2666a75cf5b34ee0}{coniferToggleChannel}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00315}00315\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \&\mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}[ch];}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00316}00316\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00317}00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00318}00318\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00320}00320\ \ \ \ \ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_ad14cb76fe2271d8ad0864d7ae25ec65b}{status\_control\_reg}}\ \string^=\ \mbox{\hyperlink{uvfr__conifer_8h_a56c578223ad7a17a60a23eb446eb233e}{CONIFER\_CH\_EN\_BIT}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00322}00322\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00323}00323\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00328}\mbox{\hyperlink{uvfr__conifer_8h_ac38837d66ac0cec4b361b468c132663e}{00328}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_ac38837d66ac0cec4b361b468c132663e}{coniferSetDutyCycle}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch,\ uint8\_t\ duty)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00329}00329\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00330}00330\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00332}00332\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00333}00333\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00334}00334\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00335}00335\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00340}\mbox{\hyperlink{uvfr__conifer_8h_a19b26b92f262172a014bc40d286bced0}{00340}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_a19b26b92f262172a014bc40d286bced0}{coniferSetDirection}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch,\ uint8\_t\ dir)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00341}00341\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00342}00342\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00343}00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00344}00344\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00345}00345\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00346}00346\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00347}00347\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00352}\mbox{\hyperlink{uvfr__conifer_8h_ab598961c57873287afab07e8e6598d0e}{00352}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__conifer_8c_ab598961c57873287afab07e8e6598d0e}{coniferSetDutyCycleAndDirection}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch,\ uint8\_t\ duty,\ uint8\_t\ dir)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00353}00353\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00354}00354\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00356}00356\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00357}00357\ \ \ \ \ \mbox{\hyperlink{uvfr__conifer_8c_a0b4e966f33682552edd3611584f8063f}{coniferUpdateChannel}}(ch\_ptr);}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00358}00358\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00359}00359\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00361}00361\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00362}\mbox{\hyperlink{uvfr__conifer_8h_a23d4a2b69794b9d34a93a03a214c0430}{00362}}\ uint16\_t\ \mbox{\hyperlink{uvfr__conifer_8c_a23d4a2b69794b9d34a93a03a214c0430}{coniferGetChannelCurrent}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00363}00363\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00364}00364\ \ \ \ \ \textcolor{keywordflow}{if}(!\mbox{\hyperlink{uvfr__conifer_8h_ada2d5fd5f2f424853c596389058ce4f1}{IS\_CONIFER\_CH\_USED}}(ch\_ptr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00365}00365\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00366}00366\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00367}00367\ \ \ \ \ uint8\_t\ src\ =\ (ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\&\mbox{\hyperlink{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}{CONIFER\_CH\_LOC\_MASK}})>>8;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00368}00368\ \ \ \ \ \ \ \ \ uint8\_t\ ch\_id\ =\ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ \&\ 0x00FF;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00369}00369\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(src)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00370}00370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a085fee53e6ca1f85307f6d9647d482ee}{LOCAL\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00374}00374\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00376}00376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a3966f9398736c1a98d6c290d91699074}{ECUMASTER\_PMU16\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00377}00377\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00378}00378\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00379}00379\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00380}00380\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00381}00381\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00382}00382\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00383}00383\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00384}00384\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00386}\mbox{\hyperlink{uvfr__conifer_8h_abb000d9c9f4b27e22b79af0c31c85b7a}{00386}}\ uint16\_t\ \mbox{\hyperlink{uvfr__conifer_8c_abb000d9c9f4b27e22b79af0c31c85b7a}{coniferGetChannelFbck}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00387}00387\ \ \ \ \ \mbox{\hyperlink{structabstract__conifer__channel}{abstract\_conifer\_channel}}*\ ch\_ptr\ =\ \mbox{\hyperlink{uvfr__conifer_8c_af165acc981d55f60b47f4d4539377fd5}{ch\_table}}\ +\ ch*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{pdu_8h_aafe1bcc0eb61a1c9651137f4974224e5}{abstract\_conifer\_channel}});}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00388}00388\ \ \ \ \ uint8\_t\ src\ =\ (ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\&\mbox{\hyperlink{uvfr__conifer_8h_aa46bfa9c4b23444ffac77a88613a7dc4}{CONIFER\_CH\_LOC\_MASK}})>>8;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00389}00389\ \ \ \ \ uint8\_t\ ch\_id\ =\ ch\_ptr-\/>\mbox{\hyperlink{structabstract__conifer__channel_adb5e363930fc0076960d4046c983ea68}{hardware\_mapping}}\ \&\ 0x00FF;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00390}00390\ \ \ \ \ \textcolor{keywordflow}{switch}(src)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00391}00391\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a085fee53e6ca1f85307f6d9647d482ee}{LOCAL\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00392}00392\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00393}00393\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00394}00394\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6ab5557b21093b24e16890ad83fe6fb24c}{UV19\_PDU\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00395}00395\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00396}00396\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00397}00397\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__conifer_8h_ad680594c0a6a302d6b54680198a166a6a3966f9398736c1a98d6c290d91699074}{ECUMASTER\_PMU16\_CH}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00398}00398\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00399}00399\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00400}00400\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00402}00402\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00403}00403\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00404}00404\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00405}00405\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00406}00406\ }
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00407}\mbox{\hyperlink{uvfr__conifer_8h_ad5baa963f5e3be5ecd3ab47672fb0a7c}{00407}}\ uint16\_t\ \mbox{\hyperlink{uvfr__conifer_8c_ad5baa963f5e3be5ecd3ab47672fb0a7c}{coniferGetChannelFaults}}(\mbox{\hyperlink{uvfr__conifer_8h_a82813b6e5ed7998989aa866fcaca27ea}{conifer\_output\_channel}}\ ch)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00408}00408\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00409}00409\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__conifer_8c_source_l00410}00410\ }
 
 \end{DoxyCode}
