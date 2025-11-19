@@ -47,7 +47,7 @@ typedef enum u19_PDU_ch{
 }u19_PDU_ch;
 
 
-// PDU functions (5 Amp)
+//Update a PDU channel to match it's conifer abstraction
 uv_status u19updatePduChannel(abstract_conifer_channel* ch_ptr, uint32_t* ecode);
 
 uv_status initPDU(uint32_t* ecode);

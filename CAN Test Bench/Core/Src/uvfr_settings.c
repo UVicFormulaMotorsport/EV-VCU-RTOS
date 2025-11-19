@@ -32,7 +32,7 @@ extern struct daq_loop_args default_daq_settings;
 extern struct uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
 extern struct conifer_settings default_conifer_settings;
-extern daq_datapoint default_datapoints[];
+extern daq_msg default_datapoints[];
 
 /** These are arguments passed to the "Transmit All Settings Over CANbus"
  * Subroutine.
@@ -625,7 +625,7 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	*((uint8_t*)(tmp + 20)) = sizeof(uv_imd_settings);
 	*((uint8_t*)(tmp + 21)) = sizeof(bms_settings_t);
 	*((uint8_t*)(tmp + 22)) = sizeof(daq_loop_args);
-	*((uint8_t*)(tmp + 23)) = sizeof(daq_datapoint);
+	*((uint8_t*)(tmp + 23)) = sizeof(daq_msg);
 	*((uint8_t*)(tmp + 24)) = sizeof(output_channel_settings);
 
 
@@ -907,7 +907,7 @@ uv_status uvValidateFlashSettings(){
 		return UV_ERROR;
 	}
 
-	if(*((uint8_t*)(tmp + 23)) != sizeof(daq_datapoint)){
+	if(*((uint8_t*)(tmp + 23)) != sizeof(daq_msg)){
 		return UV_ERROR;
 	}
 
@@ -1294,7 +1294,7 @@ void sendAllSettingsWorker(void* args){
 	}
 
 	//Next is whatever in god's green earth the DAQ_datapoints are up to (Me when the edge case hits just right)
-	uint16_t remaining_bytes = (((daq_loop_args*)(origin + 256*DAQ_HEAD_MGROUP + DAQ_HEAD_OFFSET))->total_params_logged)*sizeof(daq_datapoint);
+	uint16_t remaining_bytes = (((daq_loop_args*)(origin + 256*DAQ_HEAD_MGROUP + DAQ_HEAD_OFFSET))->total_params_logged)*sizeof(daq_msg);
 
 	uint8_t t_mgroup = DAQ_PARAMS1_MGROUP;
 

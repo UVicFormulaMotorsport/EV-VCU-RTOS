@@ -162,7 +162,7 @@ typedef struct uv_vehicle_settings{
 
 	daq_loop_args* daq_settings;
 
-	daq_datapoint* daq_param_list;
+	daq_msg* daq_param_list;
 
 
 	struct conifer_settings* conifer_settings;
