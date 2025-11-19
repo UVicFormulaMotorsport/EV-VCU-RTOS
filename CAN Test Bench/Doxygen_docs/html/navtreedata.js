@@ -25,7 +25,6 @@
 var NAVTREE =
 [
   [ "EV RTOS Project", "index.html", [
-    [ "Header File Template: cmsis_os.h", "cmsis_os_h.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "Topics", "topics.html", "topics" ],
     [ "Data Structures", "annotated.html", [
@@ -53,21 +52,15 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_free_r_t_o_s_8h.html",
-"adc_8c.html#adeffbae91619fcbc1647f8b964aa896b",
-"cmsis__os_8h.html#a9f129fcad4730fbd1048ad4fa262f36a",
-"driving__loop_8c.html#a8567d6e2f5ad8bd53f71ecc2b2b0ae30",
-"group___s_t_m32_f4xx___system___private___functions.html",
-"group__x_queue_receive_from_i_s_r.html",
-"main_8c.html#abf17ebb52454739180f1dc73b3ecbeb4",
-"mpu__prototypes_8h.html#ab7648c05a9be0e8fd5f81645ca45f475",
-"projdefs_8h.html#aa367bb36d26bc86c9346916fc7c5792c",
-"stm32f4xx__hal__conf_8h.html#a95cbcf73c2ae3aea55fb62502ed224a2",
-"structdaq__loop__args.html",
-"structuv__vehicle__settings.html#a6cdca5b5474080f1dff4d19ef96435e1",
-"task_8h.html#aedab278c23c41dcbfdf312d383bdb342",
-"uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada513d52fd089b84f7b7f0c73286db2b12",
-"uvfr__state__engine_8h.html#a2b86418bd482f9d4a2a36f35e786798e"
+"adc_8c.html",
+"dir_b596f468b52957496e4f78b80e029268.html",
+"group__state__engine.html#gad05ab0da0046c01c52191148bbd0c36d",
+"imd_8h.html#acf7b0534a43397021a0e474a499218beafdb68e8ed34ae72c318cbd4a4d6fc250",
+"rb__tree_8c.html#a0eb9842e366817eb18eac0e319fb04db",
+"structconifer__settings.html#abd4c3d194c252cc87d700584ccba430c",
+"syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb",
+"uvfr__settings_8c.html#a632dfb21b35fd170c003515ef4bdc291",
+"uvfr__vehicle__logger_8c.html#a0740a0b8e0f90b9d10e5c6d833f354a1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

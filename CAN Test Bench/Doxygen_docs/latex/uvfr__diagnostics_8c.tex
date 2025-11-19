@@ -1,6 +1,8 @@
 \doxysection{Core/\+Src/uvfr\+\_\+diagnostics.c File Reference}
 \hypertarget{uvfr__diagnostics_8c}{}\label{uvfr__diagnostics_8c}\index{Core/Src/uvfr\_diagnostics.c@{Core/Src/uvfr\_diagnostics.c}}
 {\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+diagnostics.\+c\+:
+% FIG 0
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -14,9 +16,9 @@ void \mbox{\hyperlink{uvfr__diagnostics_8c_ac227fb16a61fc925f514f8b28a854c3d}{ha
 \item 
 void \mbox{\hyperlink{uvfr__diagnostics_8c_abf1701b70ec9b0030b205da2a1e20d17}{uv\+Event\+Log\+Daemon}} (void \texorpdfstring{$\ast$}{*}args)
 \item 
-void \mbox{\hyperlink{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}{uv\+Assert\+Failed}} (char \texorpdfstring{$\ast$}{*}file, uint16\+\_\+t line, \mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} task, char \texorpdfstring{$\ast$}{*}condition)
+void \mbox{\hyperlink{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}{uv\+Assert\+Failed}} (char \texorpdfstring{$\ast$}{*}file, uint16\+\_\+t line, Task\+Handle\+\_\+t task, char \texorpdfstring{$\ast$}{*}condition)
 \item 
-void \mbox{\hyperlink{uvfr__diagnostics_8c_a54b14b665d04a631991869b21065bf90}{v\+Application\+Stack\+Overflow\+Hook}} (\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}} x\+Task, char \texorpdfstring{$\ast$}{*}pc\+Task\+Name)
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a54b14b665d04a631991869b21065bf90}{v\+Application\+Stack\+Overflow\+Hook}} (Task\+Handle\+\_\+t x\+Task, char \texorpdfstring{$\ast$}{*}pc\+Task\+Name)
 \item 
 void \mbox{\hyperlink{uvfr__diagnostics_8c_a73f6aa45470ada02a5d6f3a522d8f13c}{v\+Application\+Malloc\+Failed\+Hook}} ()
 \item 
@@ -39,11 +41,13 @@ Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00024}{24}} of 
 
 References \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00036}{d\+CLEAR\+\_\+\+FAULTS}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00032}{ENTER\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00033}{EXIT\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00035}{FORCE\+\_\+\+STATE\+\_\+\+CHANGE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00034}{REQUEST\+\_\+\+STATE\+\_\+\+CHANGE}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
+Here is the call graph for this function\+:
+% FIG 1
 \Hypertarget{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvAssertFailed@{uvAssertFailed}}
 \index{uvAssertFailed@{uvAssertFailed}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
 \doxysubsubsection{\texorpdfstring{uvAssertFailed()}{uvAssertFailed()}}
 {\footnotesize\ttfamily \label{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a} 
-void uv\+Assert\+Failed (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{uint16\+\_\+t}]{line}{, }\item[{\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}}}]{task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{condition}{}\end{DoxyParamCaption})}
+void uv\+Assert\+Failed (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{uint16\+\_\+t}]{line}{, }\item[{Task\+Handle\+\_\+t}]{task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{condition}{}\end{DoxyParamCaption})}
 
 
 
@@ -115,15 +119,11 @@ void v\+Application\+Malloc\+Failed\+Hook (\begin{DoxyParamCaption}{}{}\end{Doxy
 
 Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00085}{85}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
-
-
-Referenced by \mbox{\hyperlink{heap__4_8c_source_l00115}{pv\+Port\+Malloc()}}.
-
 \Hypertarget{uvfr__diagnostics_8c_a54b14b665d04a631991869b21065bf90}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!vApplicationStackOverflowHook@{vApplicationStackOverflowHook}}
 \index{vApplicationStackOverflowHook@{vApplicationStackOverflowHook}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
 \doxysubsubsection{\texorpdfstring{vApplicationStackOverflowHook()}{vApplicationStackOverflowHook()}}
 {\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a54b14b665d04a631991869b21065bf90} 
-void v\+Application\+Stack\+Overflow\+Hook (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{task_8h_a25b35e6e19ecf894173e7ff95edb96ef}{Task\+Handle\+\_\+t}}}]{x\+Task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pc\+Task\+Name}{}\end{DoxyParamCaption})}
+void v\+Application\+Stack\+Overflow\+Hook (\begin{DoxyParamCaption}\item[{Task\+Handle\+\_\+t}]{x\+Task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{pc\+Task\+Name}{}\end{DoxyParamCaption})}
 
 
 
@@ -138,8 +138,4 @@ void v\+Application\+Tick\+Hook (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00098}{98}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
 

@@ -2,115 +2,36 @@
 \hypertarget{group__x_message_buffer_send_from_i_s_r}{}\label{group__x_message_buffer_send_from_i_s_r}\index{xMessageBufferSendFromISR@{xMessageBufferSendFromISR}}
 \doxylink{message__buffer_8h}{message\+\_\+buffer.\+h}
 
+size\+\_\+t \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR( Message\+Buffer\+Handle\+\_\+t x\+Message\+Buffer,                                   const void \texorpdfstring{$\ast$}{*}pv\+Tx\+Data,                                   size\+\_\+t x\+Data\+Length\+Bytes,                                   Base\+Type\+\_\+t \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken )};
 
-\begin{DoxyPre}
-size\_t \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR( MessageBufferHandle\_t xMessageBuffer,                                   const void *pvTxData,                                   size\_t xDataLengthBytes,                                   BaseType\_t *pxHigherPriorityTaskWoken )};
+Interrupt safe version of the API function that sends a discrete message to the message buffer. The message can be any length that fits within the buffer\textquotesingle{}s free space, and is copied into the buffer.
 
-\begin{DoxyPre}
+{\itshape {\bfseries{NOTE}}}\+: Uniquely among Free\+RTOS objects, the stream buffer implementation (so also the message buffer implementation, as message buffers are built on top of stream buffers) assumes there is only one task or interrupt that will write to the buffer (the writer), and only one task or interrupt that will read from the buffer (the reader). It is safe for the writer and reader to be different tasks or interrupts, but, unlike other Free\+RTOS objects, it is not safe to have multiple different writers or multiple different readers. If there are to be multiple different writers then the application writer must place each call to a writing API function (such as \doxylink{message__buffer_8h_a858f6da6fe24a226c45caf1634ea1605}{x\+Message\+Buffer\+Send()}) inside a critical section and set the send block time to 0. Likewise, if there are to be multiple different readers then the application writer must place each call to a reading API function (such as x\+Message\+Buffer\+Read()) inside a critical section and set the receive block time to 0.
 
-   Interrupt safe version of the API function that sends a discrete message to
-   the message buffer.  The message can be any length that fits within the
-   buffer's free space, and is copied into the buffer.
-
-   ***NOTE***:  Uniquely among FreeRTOS objects, the stream buffer
-   implementation (so also the message buffer implementation, as message buffers
-   are built on top of stream buffers) assumes there is only one task or
-   interrupt that will write to the buffer (the writer), and only one task or
-   interrupt that will read from the buffer (the reader).  It is safe for the
-   writer and reader to be different tasks or interrupts, but, unlike other
-   FreeRTOS objects, it is not safe to have multiple different writers or
-   multiple different readers.  If there are to be multiple different writers
-   then the application writer must place each call to a writing API function
-   (such as \doxylink{message__buffer_8h_a858f6da6fe24a226c45caf1634ea1605}{xMessageBufferSend()}) inside a critical section and set the send
-   block time to 0.  Likewise, if there are to be multiple different readers
-   then the application writer must place each call to a reading API function
-   (such as xMessageBufferRead()) inside a critical section and set the receive
-   block time to 0.
-
-   Use \doxylink{message__buffer_8h_a858f6da6fe24a226c45caf1634ea1605}{xMessageBufferSend()} to write to a message buffer from a task.  Use
-   \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR()} to write to a message buffer from an interrupt
-   service routine (ISR).
+Use \doxylink{message__buffer_8h_a858f6da6fe24a226c45caf1634ea1605}{x\+Message\+Buffer\+Send()} to write to a message buffer from a task. Use \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR()} to write to a message buffer from an interrupt service routine (ISR).
 
 
 \begin{DoxyParams}{Parameters}
-{\em xMessageBuffer} & The handle of the message buffer to which a message is
-   being sent.
-
-\\
+{\em x\+Message\+Buffer} & The handle of the message buffer to which a message is being sent.\\
 \hline
-{\em pvTxData} & A pointer to the message that is to be copied into the
-   message buffer.
-
-\\
+{\em pv\+Tx\+Data} & A pointer to the message that is to be copied into the message buffer.\\
 \hline
-{\em xDataLengthBytes} & The length of the message.  That is, the number of
-   bytes to copy from pvTxData into the message buffer.  When a message is
-   written to the message buffer an additional sizeof( size\_t ) bytes are also
-   written to store the message's length.  sizeof( size\_t ) is typically 4 bytes
-   on a 32-\/bit architecture, so on most 32-\/bit architecture setting
-   xDataLengthBytes to 20 will reduce the free space in the message buffer by 24
-   bytes (20 bytes of message data and 4 bytes to hold the message length).
-
-\\
+{\em x\+Data\+Length\+Bytes} & The length of the message. That is, the number of bytes to copy from pv\+Tx\+Data into the message buffer. When a message is written to the message buffer an additional sizeof( size\+\_\+t ) bytes are also written to store the message\textquotesingle{}s length. sizeof( size\+\_\+t ) is typically 4 bytes on a 32-\/bit architecture, so on most 32-\/bit architecture setting x\+Data\+Length\+Bytes to 20 will reduce the free space in the message buffer by 24 bytes (20 bytes of message data and 4 bytes to hold the message length).\\
 \hline
-{\em pxHigherPriorityTaskWoken} &  It is possible that a message buffer will
-   have a task blocked on it waiting for data.  Calling
-   \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR()} can make data available, and so cause a task that
-   was waiting for data to leave the Blocked state.  If calling
-   \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR()} causes a task to leave the Blocked state, and the
-   unblocked task has a priority higher than the currently executing task (the
-   task that was interrupted), then, internally, \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR()}
-   will set *pxHigherPriorityTaskWoken to pdTRUE.  If
-   \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR()} sets this value to pdTRUE, then normally a
-   context switch should be performed before the interrupt is exited.  This will
-   ensure that the interrupt returns directly to the highest priority Ready
-   state task.  *pxHigherPriorityTaskWoken should be set to pdFALSE before it
-   is passed into the function.  See the code example below for an example.
-
-   \\
+{\em px\+Higher\+Priority\+Task\+Woken} & It is possible that a message buffer will have a task blocked on it waiting for data. Calling \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR()} can make data available, and so cause a task that was waiting for data to leave the Blocked state. If calling \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR()} causes a task to leave the Blocked state, and the unblocked task has a priority higher than the currently executing task (the task that was interrupted), then, internally, \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR()} will set \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken to pd\+TRUE. If \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR()} sets this value to pd\+TRUE, then normally a context switch should be performed before the interrupt is exited. This will ensure that the interrupt returns directly to the highest priority Ready state task. \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken should be set to pd\+FALSE before it is passed into the function. See the code example below for an example.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
- The number of bytes actually written to the message buffer.  If the
-   message buffer didn't have enough free space for the message to be stored
-   then 0 is returned, otherwise xDataLengthBytes is returned.
-
-   Example use:
-
-\begin{DoxyPre}
-// A message buffer that has already been created.
-MessageBufferHandle\_t xMessageBuffer;
-
-void vAnInterruptServiceRoutine( void )
-\{
-size\_t xBytesSent;
-char *pcStringToSend = "{}String to send"{};
-BaseType\_t xHigherPriorityTaskWoken = pdFALSE; // Initialised to pdFALSE.
-
-    // Attempt to send the string to the message buffer.
-    xBytesSent = xMessageBufferSendFromISR( xMessageBuffer,
-                                            ( void * ) pcStringToSend,
-                                            strlen( pcStringToSend ),
-                                            \&xHigherPriorityTaskWoken );
-
-    if( xBytesSent != strlen( pcStringToSend ) )
-    \{
-        // The string could not be added to the message buffer because there was
-        // not enough free space in the buffer.
-    \}
-
-    // If xHigherPriorityTaskWoken was set to pdTRUE inside
-    // \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{xMessageBufferSendFromISR()} then a task that has a priority above the
-    // priority of the currently executing task was unblocked and a context
-    // switch should be performed to ensure the ISR returns to the unblocked
-    // task.  In most FreeRTOS ports this is done by simply passing
-    // xHigherPriorityTaskWoken into \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{portYIELD\_FROM\_ISR()}, which will test the
-    // variables value, and perform the context switch if necessary.  Check the
-    // documentation for the port in use for port specific instructions.
-    \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{portYIELD\_FROM\_ISR( xHigherPriorityTaskWoken )};
-\}
-\end{DoxyPre}
-    
+The number of bytes actually written to the message buffer. If the message buffer didn\textquotesingle{}t have enough free space for the message to be stored then 0 is returned, otherwise x\+Data\+Length\+Bytes is returned.
 \end{DoxyReturn}
-\end{DoxyPre}
- \end{DoxyPre}
+Example use\+:
+
+A message buffer that has already been created. Message\+Buffer\+Handle\+\_\+t x\+Message\+Buffer;
+
+void v\+An\+Interrupt\+Service\+Routine( void ) \{ size\+\_\+t x\+Bytes\+Sent; char \texorpdfstring{$\ast$}{*}pc\+String\+To\+Send = "{}\+String to send"{}; Base\+Type\+\_\+t x\+Higher\+Priority\+Task\+Woken = pd\+FALSE; // Initialised to pd\+FALSE.
+
+Attempt to send the string to the message buffer. x\+Bytes\+Sent = x\+Message\+Buffer\+Send\+From\+ISR( x\+Message\+Buffer, ( void \texorpdfstring{$\ast$}{*} ) pc\+String\+To\+Send, strlen( pc\+String\+To\+Send ), \&x\+Higher\+Priority\+Task\+Woken );
+
+if( x\+Bytes\+Sent != strlen( pc\+String\+To\+Send ) ) \{ The string could not be added to the message buffer because there was not enough free space in the buffer. \}
+
+If x\+Higher\+Priority\+Task\+Woken was set to pd\+TRUE inside \doxylink{message__buffer_8h_aeef5b0c4f8c2db6ca2230a8874813e79}{x\+Message\+Buffer\+Send\+From\+ISR()} then a task that has a priority above the priority of the currently executing task was unblocked and a context switch should be performed to ensure the ISR returns to the unblocked task. In most Free\+RTOS ports this is done by simply passing x\+Higher\+Priority\+Task\+Woken into \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{port\+YIELD\+\_\+\+FROM\+\_\+\+ISR()}, which will test the variables value, and perform the context switch if necessary. Check the documentation for the port in use for port specific instructions. \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{port\+YIELD\+\_\+\+FROM\+\_\+\+ISR( x\+Higher\+Priority\+Task\+Woken )}; \}

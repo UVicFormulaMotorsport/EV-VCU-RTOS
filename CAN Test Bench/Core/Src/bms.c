@@ -1,5 +1,5 @@
 // This where the code to handle BMS errors and such will go
-
+#define __UV_FILENAME__ "bms.c"
 #include "main.h"
 #include "bms.h"
 #include "constants.h"

@@ -16,10 +16,7 @@
     </briefdescription>
     <detaileddescription>
 <para><ref refid="message__buffer_8h" kindref="compound">message_buffer.h</ref></para>
-<para><preformatted>
-  \ilinebr 
-MessageBufferHandle_t <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate( size_t xBufferSizeBytes )</ref>;
-</preformatted></para>
+<para>MessageBufferHandle_t <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate( size_t xBufferSizeBytes )</ref>;</para>
 <para>Creates a new message buffer using dynamically allocated memory. See <ref refid="message__buffer_8h_1acc84f4a15dbd39ecbad35f7337e78b2c" kindref="member">xMessageBufferCreateStatic()</ref> for a version that uses statically allocated memory (memory that is allocated at compile time).</para>
 <para>configSUPPORT_DYNAMIC_ALLOCATION must be set to 1 or left undefined in <ref refid="_free_r_t_o_s_config_8h" kindref="compound">FreeRTOSConfig.h</ref> for <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate()</ref> to be available.</para>
 <para><parameterlist kind="param"><parameteritem>
@@ -33,30 +30,10 @@ MessageBufferHandle_t <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9
 </parameterlist>
 <simplesect kind="return"><para>If NULL is returned, then the message buffer cannot be created because there is insufficient heap memory available for FreeRTOS to allocate the message buffer data structures and storage area. A non-NULL value being returned indicates that the message buffer has been created successfully - the returned value should be stored as the handle to the created message buffer.</para>
 </simplesect>
-Example use: <preformatted>
-
-void vAFunction( void )
-{
-MessageBufferHandle_t xMessageBuffer;
-const size_t xMessageBufferSizeBytes = 100;
-
-    // Create a message buffer that can hold 100 bytes.  The memory used to hold
-    // both the message buffer structure and the messages themselves is allocated
-    // dynamically.  Each message added to the buffer consumes an additional 4
-    // bytes which are used to hold the lengh of the message.
-    xMessageBuffer = <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate( xMessageBufferSizeBytes )</ref>;
-
-    if( xMessageBuffer == NULL )
-    {
-        // There was not enough heap memory space available to create the
-        // message buffer.
-    }
-    else
-    {
-        // The message buffer was created successfully and can now be used.
-    }
-
-</preformatted> </para>
+Example use:</para>
+<para>void vAFunction( void ) { MessageBufferHandle_t xMessageBuffer; const size_t xMessageBufferSizeBytes = 100;</para>
+<para>Create a message buffer that can hold 100 bytes. The memory used to hold both the message buffer structure and the messages themselves is allocated dynamically. Each message added to the buffer consumes an additional 4 bytes which are used to hold the lengh of the message. xMessageBuffer = <ref refid="message__buffer_8h_1a2959cd0e3d2bd20d46908e5c9872be36" kindref="member">xMessageBufferCreate( xMessageBufferSizeBytes )</ref>;</para>
+<para>if( xMessageBuffer == NULL ) { There was not enough heap memory space available to create the message buffer. } else { The message buffer was created successfully and can now be used. } </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

@@ -2,7 +2,7 @@
  *  @brief File containing the meat and potatoes driving loop thread, and all supporting functions
  *
  */
-
+#define __UV_FILENAME__ "driving_loop.c"
 
 
 #include "main.h"

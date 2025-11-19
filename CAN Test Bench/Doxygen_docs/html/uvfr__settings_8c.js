@@ -29,7 +29,6 @@ var uvfr__settings_8c =
     [ "nukeSettings", "uvfr__settings_8c.html#a4648237563030182a8309d8c75e12205", null ],
     [ "sendAllSettingsWorker", "uvfr__settings_8c.html#a4610dbfba4a1c427386d906bfc656b77", null ],
     [ "sendJournalWorker", "uvfr__settings_8c.html#a632dfb21b35fd170c003515ef4bdc291", null ],
-    [ "settingCopy", "uvfr__settings_8c.html#a854e0900506f03ff53ff3ed1a9dc97ca", null ],
     [ "setupDefaultSettings", "uvfr__settings_8c.html#add1ebdaa7f93f2a43ca6afc6e05fdd44", null ],
     [ "uvAwaitLaptopAckMsg", "uvfr__settings_8c.html#a66126a25eee9ffcb3c5fa49314fc998b", null ],
     [ "uvComputeChunkChecksum", "uvfr__settings_8c.html#aec8886c47c65892251b444760cb30116", null ],
@@ -55,8 +54,6 @@ var uvfr__settings_8c =
     [ "uvValidateFlashSettings", "uvfr__settings_8c.html#a0be2604cded239f54f4f4ab61460a85c", null ],
     [ "_e_uvdata", "uvfr__settings_8c.html#a32dcb66c3240af325158ccd12dcb3c68", null ],
     [ "_s_uvdata", "uvfr__settings_8c.html#a7c9185b38cc68d3a0c2c205746d25494", null ],
-    [ "child_task_active", "uvfr__settings_8c.html#af0cbf7f4ea57695f3b1d2d3c83844000", null ],
-    [ "child_task_handle", "uvfr__settings_8c.html#a19de39f55cc05851f5fa6a40070681e3", null ],
     [ "current_vehicle_settings", "uvfr__settings_8c.html#a03566822d1b8893362970a459bd67daf", null ],
     [ "default_bms_settings", "uvfr__settings_8c.html#a28e4314b233b9140e73e4fd0bab7e354", null ],
     [ "default_conifer_settings", "uvfr__settings_8c.html#af1159e0fffb524777de5dcf9d869a738", null ],
@@ -66,11 +63,8 @@ var uvfr__settings_8c =
     [ "default_imd_settings", "uvfr__settings_8c.html#a1071bc1cceac3198de98d9c0753044d6", null ],
     [ "default_os_settings", "group__state__engine.html#gad9e02be6d2d0bc1ab5cd9fd8cae34230", null ],
     [ "default_vehicle", "uvfr__settings_8c.html#a550e75d7673e407aad1a5240ff83db23", null ],
-    [ "is_laptop_connected", "uvfr__settings_8c.html#ad566fc47eb8eb3464e5b48f088ddbb83", null ],
     [ "last_contact_with_laptop", "uvfr__settings_8c.html#a4a1aa886008fc488d72c502d5af2aa52", null ],
     [ "mc_default_settings", "uvfr__settings_8c.html#a1c7fecf890841f27a4ca39fc66e8cc1b", null ],
-    [ "ptask_handle", "uvfr__settings_8c.html#a6726b669a3c5795c3326238ab974f382", null ],
-    [ "settings_queue", "uvfr__settings_8c.html#aa3e729b05a7d2931a9a1e55f52bca3c7", null ],
     [ "vcu_ack_failed_msg", "uvfr__settings_8c.html#af7c7d49fd92c65119717ab40db8725f5", null ],
     [ "vcu_ack_msg", "uvfr__settings_8c.html#af3e753b2f0a1841e5e54714979b93491", null ]
 ];

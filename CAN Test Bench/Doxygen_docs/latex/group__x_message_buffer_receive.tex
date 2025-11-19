@@ -2,11 +2,7 @@
 \hypertarget{group__x_message_buffer_receive}{}\label{group__x_message_buffer_receive}\index{xMessageBufferReceive@{xMessageBufferReceive}}
 \doxylink{message__buffer_8h}{message\+\_\+buffer.\+h}
 
-
-\begin{DoxyPre}
-size\_t \doxylink{message__buffer_8h_af12a227ba511a95cbea5aa81c7f3ba12}{xMessageBufferReceive( MessageBufferHandle\_t xMessageBuffer,                               void *pvRxData,                               size\_t xBufferLengthBytes,                               TickType\_t xTicksToWait )};
-\end{DoxyPre}
-
+size\+\_\+t \doxylink{message__buffer_8h_af12a227ba511a95cbea5aa81c7f3ba12}{x\+Message\+Buffer\+Receive( Message\+Buffer\+Handle\+\_\+t x\+Message\+Buffer,                               void \texorpdfstring{$\ast$}{*}pv\+Rx\+Data,                               size\+\_\+t x\+Buffer\+Length\+Bytes,                               Tick\+Type\+\_\+t x\+Ticks\+To\+Wait )};
 
 Receives a discrete message from a message buffer. Messages can be of variable length and are copied out of the buffer.
 
@@ -28,27 +24,10 @@ Use \doxylink{message__buffer_8h_af12a227ba511a95cbea5aa81c7f3ba12}{x\+Message\+
 \begin{DoxyReturn}{Returns}
 The length, in bytes, of the message read from the message buffer, if any. If \doxylink{message__buffer_8h_af12a227ba511a95cbea5aa81c7f3ba12}{x\+Message\+Buffer\+Receive()} times out before a message became available then zero is returned. If the length of the message is greater than x\+Buffer\+Length\+Bytes then the message will be left in the message buffer and zero is returned.
 \end{DoxyReturn}
-Example use\+: 
-\begin{DoxyPre}
-void vAFunction( MessageBuffer\_t xMessageBuffer )
-\{
-uint8\_t ucRxData[ 20 ];
-size\_t xReceivedBytes;
-const TickType\_t xBlockTime = \doxylink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS( 20 )};
+Example use\+:
 
-    // Receive the next message from the message buffer.  Wait in the Blocked
-    // state (so not using any CPU processing time) for a maximum of 100ms for
-    // a message to become available.
-    xReceivedBytes = xMessageBufferReceive( xMessageBuffer,
-                                            ( void * ) ucRxData,
-                                            sizeof( ucRxData ),
-                                            xBlockTime );
+void v\+AFunction( Message\+Buffer\+\_\+t x\+Message\+Buffer ) \{ uint8\+\_\+t uc\+Rx\+Data\mbox{[} 20 \mbox{]}; size\+\_\+t x\+Received\+Bytes; const Tick\+Type\+\_\+t x\+Block\+Time = \doxylink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS( 20 )};
 
-    if( xReceivedBytes > 0 )
-    \{
-        // A ucRxData contains a message that is xReceivedBytes long.  Process
-        // the message here....
-    \}
-\}
-\end{DoxyPre}
-   
+Receive the next message from the message buffer. Wait in the Blocked state (so not using any CPU processing time) for a maximum of 100ms for a message to become available. x\+Received\+Bytes = x\+Message\+Buffer\+Receive( x\+Message\+Buffer, ( void \texorpdfstring{$\ast$}{*} ) uc\+Rx\+Data, sizeof( uc\+Rx\+Data ), x\+Block\+Time );
+
+if( x\+Received\+Bytes $>$ 0 ) \{ A uc\+Rx\+Data contains a message that is x\+Received\+Bytes long. Process the message here.... \} \}

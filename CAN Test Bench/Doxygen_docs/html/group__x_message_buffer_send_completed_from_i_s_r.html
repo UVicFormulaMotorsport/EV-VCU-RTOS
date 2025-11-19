@@ -100,9 +100,8 @@ $(function(){initNavTree('group__x_message_buffer_send_completed_from_i_s_r.html
 </div><!--header-->
 <div class="contents">
 <p><a class="el" href="message__buffer_8h.html">message_buffer.h</a></p>
-<pre>
-BaseType_t <a class="el" href="message__buffer_8h.html#a45918d12bf530cb2b4bf21c0936460a9">xMessageBufferSendCompletedFromISR( MessageBufferHandle_t xStreamBuffer, BaseType_t *pxHigherPriorityTaskWoken )</a>;
-</pre><p>For advanced users only.</p>
+<p>BaseType_t <a class="el" href="message__buffer_8h.html#a45918d12bf530cb2b4bf21c0936460a9">xMessageBufferSendCompletedFromISR( MessageBufferHandle_t xStreamBuffer, BaseType_t *pxHigherPriorityTaskWoken )</a>;</p>
+<p>For advanced users only.</p>
 <p>The <a class="el" href="stream__buffer_8c.html#aa75273dfbcd92710254df0165ae1da5d">sbSEND_COMPLETED()</a> macro is called from within the FreeRTOS APIs when data is sent to a message buffer or stream buffer. If there was a task that was blocked on the message or stream buffer waiting for data to arrive then the <a class="el" href="stream__buffer_8c.html#aa75273dfbcd92710254df0165ae1da5d">sbSEND_COMPLETED()</a> macro sends a notification to the task to remove it from the Blocked state. <a class="el" href="message__buffer_8h.html#a45918d12bf530cb2b4bf21c0936460a9">xMessageBufferSendCompletedFromISR()</a> does the same thing. It is provided to enable application writers to implement their own version of <a class="el" href="stream__buffer_8c.html#aa75273dfbcd92710254df0165ae1da5d">sbSEND_COMPLETED()</a>, and MUST NOT BE USED AT ANY OTHER TIME.</p>
 <p>See the example implemented in FreeRTOS/Demo/Minimal/MessageBufferAMP.c for additional information.</p>
 <dl class="params"><dt>Parameters</dt><dd>

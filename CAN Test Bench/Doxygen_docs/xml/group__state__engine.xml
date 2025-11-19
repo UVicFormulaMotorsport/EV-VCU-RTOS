@@ -23,7 +23,7 @@
     </sectiondef>
     <sectiondef kind="var">
       <memberdef kind="variable" id="group__state__engine_1gace30759073ddac097d29f042acc4142d" prot="public" static="no" mutable="no">
-        <type><ref refid="portable_8h_1aebfa6771f45f6a5ac026e91ee2fd57f4" kindref="member">HeapStats_t</ref></type>
+        <type>HeapStats_t</type>
         <definition>HeapStats_t xHeapStats</definition>
         <argsstring></argsstring>
         <name>xHeapStats</name>
@@ -34,6 +34,7 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="13" column="13" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="13" bodyend="-1"/>
+        <referencedby refid="group__state__engine__api_1ga5c608f3832c45eac6e2da198d4ef1ba0" compoundref="uvfr__state__engine_8c" startline="168" endline="202">uvInitStateEngine</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1gaf070a24ce066297b4a8276ddcb884b0c" prot="public" static="yes" mutable="no">
         <type><ref refid="uvfr__state__engine_8h_1aa6ffd72eb4909ddb38c37a1369e13f09" kindref="member">uv_task_id</ref></type>
@@ -48,12 +49,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="16" column="19" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="16" bodyend="-1"/>
-        <referencedby refid="group__state__engine__backend_1ga8519c96858b096f2fccb96d3334df93a" compoundref="uvfr__state__engine_8c" startline="881" endline="1060">_stateChangeDaemon</referencedby>
-        <referencedby refid="group__state__engine_1gab8a03e5812e395199b3b0003cd8266cb" compoundref="uvfr__state__engine_8c" startline="473" endline="485">killEmAll</referencedby>
-        <referencedby refid="group__state__engine__backend_1ga43cdd5f23929fee4ba86d4fd0b60d6ad" compoundref="uvfr__state__engine_8c" startline="1217" endline="1252">uvCreateServiceTask</referencedby>
-        <referencedby refid="group__state__engine__api_1gac977eb33c99a9ac0a5f51a7db20e24d6" compoundref="uvfr__state__engine_8c" startline="285" endline="323">uvCreateTask</referencedby>
-        <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
-        <referencedby refid="group__state__engine__backend_1ga8c1618caac0d7f29836107f1a44833e8" compoundref="uvfr__state__engine_8c" startline="379" endline="392">uvValidateManagedTasks</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1ga6b49ab568bed9d9189782eebb90545b5" prot="public" static="yes" mutable="no">
         <type><ref refid="structuv__task__info" kindref="compound">uv_task_info</ref> *</type>
@@ -68,18 +63,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="17" column="21" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="17" bodyend="-1"/>
-        <referencedby refid="group__state__engine__backend_1ga8519c96858b096f2fccb96d3334df93a" compoundref="uvfr__state__engine_8c" startline="881" endline="1060">_stateChangeDaemon</referencedby>
-        <referencedby refid="group__state__engine__backend_1gaf342326f88e8accc1efa35e02cdd6c37" compoundref="uvfr__state__engine_8c" startline="344" endline="374">_uvValidateSpecificTask</referencedby>
-        <referencedby refid="group__state__engine_1gab8a03e5812e395199b3b0003cd8266cb" compoundref="uvfr__state__engine_8c" startline="473" endline="485">killEmAll</referencedby>
-        <referencedby refid="group__state__engine__backend_1ga2e8a31626909ac17be499f2941d359d0" compoundref="uvfr__state__engine_8c" startline="808" endline="863">proccessSCDMsg</referencedby>
-        <referencedby refid="group__state__engine__backend_1ga43cdd5f23929fee4ba86d4fd0b60d6ad" compoundref="uvfr__state__engine_8c" startline="1217" endline="1252">uvCreateServiceTask</referencedby>
-        <referencedby refid="group__state__engine__api_1gac977eb33c99a9ac0a5f51a7db20e24d6" compoundref="uvfr__state__engine_8c" startline="285" endline="323">uvCreateTask</referencedby>
-        <referencedby refid="group__state__engine__api_1ga5c608f3832c45eac6e2da198d4ef1ba0" compoundref="uvfr__state__engine_8c" startline="168" endline="202">uvInitStateEngine</referencedby>
-        <referencedby refid="group__state__engine_1gaff684308203d45e9e16ad3d115c54279" compoundref="uvfr__state__engine_8c" startline="1365" endline="1410">uvSVCTaskManager</referencedby>
-        <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1gac5868023f8ec284bd14c50db7a815e78" prot="public" static="yes" mutable="no">
-        <type><ref refid="portmacro_8h_1aa69c48c6e902ce54f70886e6573c92a9" kindref="member">TickType_t</ref> *</type>
+        <type>TickType_t *</type>
         <definition>TickType_t* last_task_start_times</definition>
         <argsstring></argsstring>
         <name>last_task_start_times</name>
@@ -91,10 +77,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="19" column="19" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="19" bodyend="-1"/>
-        <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1ga0ae08e3e5e1cb6e0228da97c7e4326e0" prot="public" static="yes" mutable="no">
-        <type><ref refid="portmacro_8h_1aa69c48c6e902ce54f70886e6573c92a9" kindref="member">TickType_t</ref> *</type>
+        <type>TickType_t *</type>
         <definition>TickType_t* last_task_end_times</definition>
         <argsstring></argsstring>
         <name>last_task_end_times</name>
@@ -106,7 +91,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="20" column="19" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="20" bodyend="-1"/>
-        <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1gaf622d52254e824f6da1204abc93b18db" prot="public" static="no" mutable="no">
         <type>uint8_t *</type>
@@ -137,10 +121,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="23" column="19" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="23" bodyend="-1"/>
-        <referencedby refid="group__state__engine__backend_1ga43cdd5f23929fee4ba86d4fd0b60d6ad" compoundref="uvfr__state__engine_8c" startline="1217" endline="1252">uvCreateServiceTask</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1gac204f3b14ce9bf370b2e5477dc87afea" prot="public" static="no" mutable="no">
-        <type><ref refid="task_8h_1a25b35e6e19ecf894173e7ff95edb96ef" kindref="member">TaskHandle_t</ref> *</type>
+        <type>TaskHandle_t *</type>
         <definition>TaskHandle_t* scd_handle_ptr</definition>
         <argsstring></argsstring>
         <name>scd_handle_ptr</name>
@@ -165,7 +148,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="29" column="22" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="29" bodyend="-1"/>
-        <referencedby refid="group__state__engine__backend_1ga8519c96858b096f2fccb96d3334df93a" compoundref="uvfr__state__engine_8c" startline="881" endline="1060">_stateChangeDaemon</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1ga23b0c19ff219812065d876d2daaa26fd" prot="public" static="yes" mutable="no">
         <type>volatile <ref refid="uvfr__utils_8h_1a0ecf26b576b9a54eca656b9be7ba6a06" kindref="member">bool</ref></type>
@@ -194,11 +176,9 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="31" column="22" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="31" bodyend="-1"/>
-        <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
-        <referencedby refid="group__state__engine__api_1ga0e6167ef18c2ec8b65fbe070d0ffb6c9" compoundref="uvfr__state__engine_8c" startline="1469" endline="1502">uvTaskPeriodEnd</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1ga6837d935e61f84062544da8971a18560" prot="public" static="yes" mutable="no">
-        <type><ref refid="queue_8h_1a57349603001f8ddf51c888c49e2804d7" kindref="member">QueueHandle_t</ref></type>
+        <type>QueueHandle_t</type>
         <definition>QueueHandle_t state_change_queue</definition>
         <argsstring></argsstring>
         <name>state_change_queue</name>
@@ -210,9 +190,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="32" column="22" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="32" bodyend="-1"/>
-        <referencedby refid="group__state__engine__backend_1ga8519c96858b096f2fccb96d3334df93a" compoundref="uvfr__state__engine_8c" startline="881" endline="1060">_stateChangeDaemon</referencedby>
-        <referencedby refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="724" endline="757">killSelf</referencedby>
-        <referencedby refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="765" endline="796">suspendSelf</referencedby>
       </memberdef>
       <memberdef kind="variable" id="group__state__engine_1ga168524a5d658247db44217e643b6396f" prot="public" static="no" mutable="no">
         <type><ref refid="structrbtree" kindref="compound">rbtree</ref> *</type>
@@ -380,8 +357,6 @@
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="473" column="11" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="473" bodyend="485" declfile="Core/Src/uvfr_state_engine.c" declline="59" declcolumn="11"/>
         <references refid="group__utility__macros_1ga581e5838a8a85f12137dd310b210024d" compoundref="uvfr__utils_8h" startline="74">_BV_32</references>
-        <references refid="group__state__engine_1gaf070a24ce066297b4a8276ddcb884b0c" compoundref="uvfr__state__engine_8c" startline="16">_next_task_id</references>
-        <references refid="group__state__engine_1ga6b49ab568bed9d9189782eebb90545b5" compoundref="uvfr__state__engine_8c" startline="17">_task_register</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="176">UV_ERROR</references>
         <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="174">UV_OK</references>
         <references refid="group__state__engine__backend_1ga6291142ec714ce1450099943b1b8d00a" compoundref="uvfr__state__engine_8c" startline="519" endline="572">uvDeleteTask</references>
@@ -414,10 +389,7 @@
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="1365" column="6" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="1365" bodyend="1410" declfile="Core/Src/uvfr_state_engine.c" declline="60" declcolumn="6"/>
         <references refid="uvfr__utils_8h_1a92b5ac44171d49acd084c274385a043a" compoundref="uvfr__utils_8c" startline="357" endline="371">__uvInitPanic</references>
-        <references refid="group__state__engine_1ga6b49ab568bed9d9189782eebb90545b5" compoundref="uvfr__state__engine_8c" startline="17">_task_register</references>
         <references refid="structtask__management__info_1a29b374b2d26cc5a52c75160816da83aa" compoundref="uvfr__state__engine_8h" startline="162">task_management_info::task_handle</references>
-        <references refid="task_8h_1aa154068cecd7f31446a7a84af44ab1a3">vTaskDelay</references>
-        <references refid="task_8h_1a27ff4ebce26565bef136bda84201ff80">vTaskDelete</references>
         <referencedby refid="group__state__engine__api_1ga2ad1d74b5783a51355c047be6642fab8" compoundref="uvfr__state__engine_8c" startline="213" endline="267">uvStartStateMachine</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -445,18 +417,12 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="1102" column="6" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="1102" bodyend="1211" declfile="Core/Src/uvfr_state_engine.c" declline="61" declcolumn="6"/>
-        <references refid="group__state__engine_1gaf070a24ce066297b4a8276ddcb884b0c" compoundref="uvfr__state__engine_8c" startline="16">_next_task_id</references>
-        <references refid="group__state__engine_1ga6b49ab568bed9d9189782eebb90545b5" compoundref="uvfr__state__engine_8c" startline="17">_task_register</references>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="248">uv_task_info::cmd_data</references>
         <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="724" endline="757">killSelf</references>
         <references refid="structuv__task__info_1a569da5121095d94816ad0985a5d9ddf0" compoundref="uvfr__state__engine_8h" startline="256">uv_task_info::last_execution_time</references>
-        <references refid="group__state__engine_1ga0ae08e3e5e1cb6e0228da97c7e4326e0" compoundref="uvfr__state__engine_8c" startline="20">last_task_end_times</references>
-        <references refid="group__state__engine_1gac5868023f8ec284bd14c50db7a815e78" compoundref="uvfr__state__engine_8c" startline="19">last_task_start_times</references>
         <references refid="group__state__engine_1ga8a80fe70c2d06583bbcd00c5162860c5" compoundref="uvfr__state__engine_8c" startline="11">MAX_NUM_MANAGED_TASKS</references>
-        <references refid="group__state__engine_1ga6f4abbac22d8261c588c551b1d153ef6" compoundref="uvfr__state__engine_8c" startline="31">nc_throttling</references>
         <references refid="group__state__engine_1ga026f8ea8b80f88c90cb35e3ec3588237" compoundref="uvfr__state__engine_8c" startline="46">os_settings</references>
         <references refid="structtask__management__info_1a82d650741c82974c81a22c6bdd8c556d" compoundref="uvfr__state__engine_8h" startline="163">task_management_info::parent_msg_queue</references>
-        <references refid="portmacro_8h_1a72723ba1e4a85ca14f25c2b9e066613d" compoundref="portmacro_8h" startline="66">portMAX_DELAY</references>
         <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="765" endline="796">suspendSelf</references>
         <references refid="structuv__task__info_1a6567a294eec7b11ac0d4bc3b927ef9e9" compoundref="uvfr__state__engine_8h" startline="262">uv_task_info::task_flags</references>
         <references refid="structtask__management__info_1a29b374b2d26cc5a52c75160816da83aa" compoundref="uvfr__state__engine_8h" startline="162">task_management_info::task_handle</references>
@@ -476,8 +442,6 @@
         <references refid="group__state__engine__api_1ga253c75b331d0976b9a414657cef780cd" compoundref="uvfr__state__engine_8h" startline="199">UV_TASK_VEHICLE_APPLICATION</references>
         <references refid="group__state__engine__backend_1ga7dff9a1c0653941c1559398025cdec4c" compoundref="uvfr__state__engine_8c" startline="1068" endline="1088">uvLateTaskHandler</references>
         <references refid="group__state__engine_1ga0e6167ef18c2ec8b65fbe070d0ffb6c9" compoundref="uvfr__state__engine_8c" startline="1469" endline="1502">uvTaskPeriodEnd</references>
-        <references refid="task_8h_1a84d4e660b04630be2939d91b3c2412f8">vTaskSuspend</references>
-        <references refid="task_8h_1a753ecfe23e7386066ecccad5d16422f7" compoundref="tasks_8c" startline="2303" endline="2315">xTaskGetTickCount</references>
         <referencedby refid="group__state__engine__api_1ga2ad1d74b5783a51355c047be6642fab8" compoundref="uvfr__state__engine_8c" startline="213" endline="267">uvStartStateMachine</referencedby>
       </memberdef>
       <memberdef kind="function" id="group__state__engine_1ga9f31832194c2c9dddce43bf53eb86d5b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -521,15 +485,11 @@
         </inbodydescription>
         <location file="Core/Src/uvfr_state_engine.c" line="1469" column="6" bodyfile="Core/Src/uvfr_state_engine.c" bodystart="1469" bodyend="1502"/>
         <references refid="structuv__task__info_1a569da5121095d94816ad0985a5d9ddf0" compoundref="uvfr__state__engine_8h" startline="256">uv_task_info::last_execution_time</references>
-        <references refid="group__state__engine_1ga6f4abbac22d8261c588c551b1d153ef6" compoundref="uvfr__state__engine_8c" startline="31">nc_throttling</references>
-        <references refid="projdefs_8h_1a353d0f62b82a402cb3db63706c81ec3f" compoundref="projdefs_8h" startline="41">pdMS_TO_TICKS</references>
         <references refid="structuv__task__info_1a8ed5c619d9eea62c2beb08fa2db6b092" compoundref="uvfr__state__engine_8h" startline="228">uv_task_info::task_id</references>
         <references refid="structuv__task__info_1ad157811debce6672bb6d00da7e90b6ca" compoundref="uvfr__state__engine_8h" startline="231">uv_task_info::task_period</references>
         <references refid="group__state__engine_1gaf622d52254e824f6da1204abc93b18db" compoundref="uvfr__state__engine_8c" startline="21">task_tardiness</references>
         <references refid="group__state__engine__api_1ga2d3d223399d12a0af224266487f35483" compoundref="uvfr__state__engine_8h" startline="286">uvTaskResetDelayBit</references>
         <references refid="group__state__engine__api_1ga3cab3b3fd6589348dceaf91b14e2a6ef" compoundref="uvfr__state__engine_8h" startline="284">uvTaskSetDelayBit</references>
-        <references refid="task_8h_1a067da3e949e248096ec6c01f9cb75a47">vTaskDelayUntil</references>
-        <references refid="task_8h_1a753ecfe23e7386066ecccad5d16422f7" compoundref="tasks_8c" startline="2303" endline="2315">xTaskGetTickCount</references>
         <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
       </memberdef>
     </sectiondef>

@@ -16,6 +16,8 @@ File containing the meat and potatoes driving loop thread, and all supporting fu
 {\ttfamily \#include "{}../\+Free\+RTOS/\+Source/\+CMSIS\+\_\+\+RTOS/cmsis\+\_\+os.\+h"{}}\newline
 {\ttfamily \#include "{}../\+Free\+RTOS/\+Source/include/\+Free\+RTOS.\+h"{}}\newline
 {\ttfamily \#include "{}../\+Free\+RTOS/\+Source/include/task.\+h"{}}\newline
+Include dependency graph for driving\+\_\+loop.\+c\+:
+% FIG 0
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -44,14 +46,8 @@ float \mbox{\hyperlink{driving__loop_8c_a4f65fe44f806e3c040579c36f6134349}{calcu
 \item 
 \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} \mbox{\hyperlink{driving__loop_8c_ac9c776513f26edd5cf75280eea26275b}{perform\+Safety\+Checks}} (\mbox{\hyperlink{structdriving__loop__args}{driving\+\_\+loop\+\_\+args}} \texorpdfstring{$\ast$}{*}dl\+\_\+params, uint16\+\_\+t apps1\+\_\+value, uint16\+\_\+t apps2\+\_\+value, uint16\+\_\+t bps1\+\_\+value, uint16\+\_\+t bps2\+\_\+value, enum \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\+\_\+internal\+\_\+state}} \texorpdfstring{$\ast$}{*}dl\+\_\+status)
 \begin{DoxyCompactList}\small\item\em Performs safety checks on APPS (Throttle) and BPS (Brake) sensors. \end{DoxyCompactList}\item 
-static float \mbox{\hyperlink{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd}{get\+KValue}} (int race\+Mode)
-\item 
 enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{driving__loop_8c_af580185fb5bb1cfba30ee1709d90628c}{init\+Driving\+Loop}} (void \texorpdfstring{$\ast$}{*}argument)
 \item 
-static float \mbox{\hyperlink{driving__loop_8c_a14bdb2b38c226aa850a0c25207afd1fa}{map\+Throttle\+To\+Torque}} (float throttle\+\_\+percent)
-\item 
-static float \mbox{\hyperlink{driving__loop_8c_a42c4321a28da09906e185c9c5971fce9}{apply\+Torque\+Filter}} (float T\+\_\+req, float T\+\_\+prev, \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} is\+\_\+accelearting)
-\begin{DoxyCompactList}\small\item\em Applies filtering to smooth torque transitions. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{driving__loop_8c_a80cc48f06202edc29bcad26a956bcc98}{Start\+Driving\+Loop}} (void \texorpdfstring{$\ast$}{*}argument)
 \begin{DoxyCompactList}\small\item\em Sends the filtered torque value to the motor controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
@@ -74,16 +70,6 @@ uint16\+\_\+t \mbox{\hyperlink{driving__loop_8c_a277f7921a7a1e0fb8a6f953943dc06d
 float \mbox{\hyperlink{driving__loop_8c_afb126e9ab9acbc2c02585ce5728a538a}{T\+\_\+\+PREV}} = 0
 \item 
 float \mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\+\_\+\+REQ}} = 0
-\item 
-static \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} \mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\+\_\+inhibit\+\_\+active}} = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}
-\item 
-static \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} \mbox{\hyperlink{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}{last\+\_\+input\+\_\+change\+\_\+time}} = 0
-\item 
-static float \mbox{\hyperlink{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34}{last\+\_\+throttle\+\_\+percent}} = 0.\+0f
-\item 
-static float \mbox{\hyperlink{driving__loop_8c_acebecb0a23929da61d8512ddded82450}{last\+\_\+brake\+\_\+percent}} = 0.\+0f
-\item 
-static \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} \mbox{\hyperlink{driving__loop_8c_aa5e709aa0b6ce54eee6f0396eedc37df}{sent\+\_\+zero\+\_\+torque}} = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}
 \end{DoxyCompactItemize}
 
 
@@ -107,10 +93,6 @@ Definition in file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\
 
 Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00156}{156}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
 
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00161}{get\+KValue()}}.
-
 \Hypertarget{driving__loop_8c_a7c627c95d1731c3c24a41b8aa86a5fd5}\index{driving\_loop.c@{driving\_loop.c}!AUTOCROSS@{AUTOCROSS}}
 \index{AUTOCROSS@{AUTOCROSS}!driving\_loop.c@{driving\_loop.c}}
 \doxysubsubsection{\texorpdfstring{AUTOCROSS}{AUTOCROSS}}
@@ -120,10 +102,6 @@ Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00161}{get\+KValue()}}.
 
 
 Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00157}{157}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00161}{get\+KValue()}}.
 
 \Hypertarget{driving__loop_8c_a4bf993c3531318a98fc092ffde90602f}\index{driving\_loop.c@{driving\_loop.c}!BRAKE\_CHANGE\_THRESHOLD@{BRAKE\_CHANGE\_THRESHOLD}}
 \index{BRAKE\_CHANGE\_THRESHOLD@{BRAKE\_CHANGE\_THRESHOLD}!driving\_loop.c@{driving\_loop.c}}
@@ -148,10 +126,6 @@ Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+L
 
 
 Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00158}{158}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00161}{get\+KValue()}}.
 
 \Hypertarget{driving__loop_8c_aeac6e5795cef1c6971bde245d54de5d5}\index{driving\_loop.c@{driving\_loop.c}!INPUT\_TIMEOUT\_MS@{INPUT\_TIMEOUT\_MS}}
 \index{INPUT\_TIMEOUT\_MS@{INPUT\_TIMEOUT\_MS}!driving\_loop.c@{driving\_loop.c}}
@@ -204,38 +178,6 @@ Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00052}{52}} of file
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{driving__loop_8c_a42c4321a28da09906e185c9c5971fce9}\index{driving\_loop.c@{driving\_loop.c}!applyTorqueFilter@{applyTorqueFilter}}
-\index{applyTorqueFilter@{applyTorqueFilter}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{applyTorqueFilter()}{applyTorqueFilter()}}
-{\footnotesize\ttfamily \label{driving__loop_8c_a42c4321a28da09906e185c9c5971fce9} 
-static float apply\+Torque\+Filter (\begin{DoxyParamCaption}\item[{float}]{T\+\_\+req}{, }\item[{float}]{T\+\_\+prev}{, }\item[{\mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}}}]{is\+\_\+accelearting}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-
-
-Applies filtering to smooth torque transitions. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em T\+\_\+req} & Requested torque before filtering. \\
-\hline
-{\em T\+\_\+prev} & Previous filtered torque value.\\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-Smoothed torque value. 
-\end{DoxyReturn}
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00222}{222}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-References \mbox{\hyperlink{driving__loop_8c_source_l00161}{get\+KValue()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00033}{is\+\_\+accelerating}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
 \Hypertarget{driving__loop_8c_a4f65fe44f806e3c040579c36f6134349}\index{driving\_loop.c@{driving\_loop.c}!calculateBrakePercentage@{calculateBrakePercentage}}
 \index{calculateBrakePercentage@{calculateBrakePercentage}!driving\_loop.c@{driving\_loop.c}}
 \doxysubsubsection{\texorpdfstring{calculateBrakePercentage()}{calculateBrakePercentage()}}
@@ -272,24 +214,6 @@ References \mbox{\hyperlink{driving__loop_8h_source_l00131}{driving\+\_\+loop\+\
 
 Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00432}{perform\+Safety\+Checks()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 
-\Hypertarget{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd}\index{driving\_loop.c@{driving\_loop.c}!getKValue@{getKValue}}
-\index{getKValue@{getKValue}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{getKValue()}{getKValue()}}
-{\footnotesize\ttfamily \label{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd} 
-float get\+KValue (\begin{DoxyParamCaption}\item[{int}]{race\+Mode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00161}{161}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-References \mbox{\hyperlink{driving__loop_8c_source_l00156}{ACCELERATION}}, \mbox{\hyperlink{driving__loop_8c_source_l00157}{AUTOCROSS}}, and \mbox{\hyperlink{driving__loop_8c_source_l00158}{ENDURANCE}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00222}{apply\+Torque\+Filter()}}.
-
 \Hypertarget{driving__loop_8c_af580185fb5bb1cfba30ee1709d90628c}\index{driving\_loop.c@{driving\_loop.c}!initDrivingLoop@{initDrivingLoop}}
 \index{initDrivingLoop@{initDrivingLoop}!driving\_loop.c@{driving\_loop.c}}
 \doxysubsubsection{\texorpdfstring{initDrivingLoop()}{initDrivingLoop()}}
@@ -302,30 +226,14 @@ Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00108}{108}} of fil
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{daq_8h_source_l00055}{APPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00056}{APPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00057}{BPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00058}{BPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{driving__loop_8c_source_l00031}{driving\+\_\+args}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{cmsis__os_8h_source_l00179}{os\+Priority\+High}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00089}{UV\+\_\+\+INIT}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00093}{UV\+\_\+\+SUSPENDED}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{daq_8h_source_l00055}{APPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00056}{APPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00057}{BPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00058}{BPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{driving__loop_8c_source_l00031}{driving\+\_\+args}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00089}{UV\+\_\+\+INIT}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00093}{UV\+\_\+\+SUSPENDED}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
 
 
 
 Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
 
-\Hypertarget{driving__loop_8c_a14bdb2b38c226aa850a0c25207afd1fa}\index{driving\_loop.c@{driving\_loop.c}!mapThrottleToTorque@{mapThrottleToTorque}}
-\index{mapThrottleToTorque@{mapThrottleToTorque}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{mapThrottleToTorque()}{mapThrottleToTorque()}}
-{\footnotesize\ttfamily \label{driving__loop_8c_a14bdb2b38c226aa850a0c25207afd1fa} 
-static float map\+Throttle\+To\+Torque (\begin{DoxyParamCaption}\item[{float}]{throttle\+\_\+percent}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00142}{142}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-References \mbox{\hyperlink{driving__loop_8h_source_l00110}{driving\+\_\+loop\+\_\+args\+::absolute\+\_\+max\+\_\+motor\+\_\+torque}}, and \mbox{\hyperlink{driving__loop_8c_source_l00031}{driving\+\_\+args}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
+Here is the call graph for this function\+:
+% FIG 1
 \Hypertarget{driving__loop_8c_ac9c776513f26edd5cf75280eea26275b}\index{driving\_loop.c@{driving\_loop.c}!performSafetyChecks@{performSafetyChecks}}
 \index{performSafetyChecks@{performSafetyChecks}!driving\_loop.c@{driving\_loop.c}}
 \doxysubsubsection{\texorpdfstring{performSafetyChecks()}{performSafetyChecks()}}
@@ -391,12 +299,14 @@ Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00432}{432}} of fil
 
 
 
-References \mbox{\hyperlink{driving__loop_8h_source_l00123}{driving\+\_\+loop\+\_\+args\+::apps1\+\_\+abs\+\_\+max\+\_\+val}}, \mbox{\hyperlink{driving__loop_8h_source_l00131}{driving\+\_\+loop\+\_\+args\+::apps1\+\_\+bottom}}, \mbox{\hyperlink{driving__loop_8h_source_l00130}{driving\+\_\+loop\+\_\+args\+::apps1\+\_\+top}}, \mbox{\hyperlink{driving__loop_8h_source_l00126}{driving\+\_\+loop\+\_\+args\+::apps2\+\_\+abs\+\_\+max\+\_\+val}}, \mbox{\hyperlink{driving__loop_8h_source_l00134}{driving\+\_\+loop\+\_\+args\+::apps2\+\_\+bottom}}, \mbox{\hyperlink{driving__loop_8h_source_l00133}{driving\+\_\+loop\+\_\+args\+::apps2\+\_\+top}}, \mbox{\hyperlink{driving__loop_8h_source_l00136}{driving\+\_\+loop\+\_\+args\+::apps\+\_\+plausibility\+\_\+check\+\_\+threshold}}, \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, \mbox{\hyperlink{driving__loop_8h_source_l00128}{driving\+\_\+loop\+\_\+args\+::max\+\_\+\+BPS\+\_\+value}}, \mbox{\hyperlink{motor__controller_8c_source_l00548}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00037}{torque\+\_\+inhibit\+\_\+active}}.
+References \mbox{\hyperlink{driving__loop_8h_source_l00123}{driving\+\_\+loop\+\_\+args\+::apps1\+\_\+abs\+\_\+max\+\_\+val}}, \mbox{\hyperlink{driving__loop_8h_source_l00131}{driving\+\_\+loop\+\_\+args\+::apps1\+\_\+bottom}}, \mbox{\hyperlink{driving__loop_8h_source_l00130}{driving\+\_\+loop\+\_\+args\+::apps1\+\_\+top}}, \mbox{\hyperlink{driving__loop_8h_source_l00126}{driving\+\_\+loop\+\_\+args\+::apps2\+\_\+abs\+\_\+max\+\_\+val}}, \mbox{\hyperlink{driving__loop_8h_source_l00134}{driving\+\_\+loop\+\_\+args\+::apps2\+\_\+bottom}}, \mbox{\hyperlink{driving__loop_8h_source_l00133}{driving\+\_\+loop\+\_\+args\+::apps2\+\_\+top}}, \mbox{\hyperlink{driving__loop_8h_source_l00136}{driving\+\_\+loop\+\_\+args\+::apps\+\_\+plausibility\+\_\+check\+\_\+threshold}}, \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, \mbox{\hyperlink{driving__loop_8h_source_l00128}{driving\+\_\+loop\+\_\+args\+::max\+\_\+\+BPS\+\_\+value}}, and \mbox{\hyperlink{motor__controller_8c_source_l00548}{MC\+\_\+\+Shutdown()}}.
 
 
 
 Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 
+Here is the call graph for this function\+:
+% FIG 2
 \Hypertarget{driving__loop_8c_a80cc48f06202edc29bcad26a956bcc98}\index{driving\_loop.c@{driving\_loop.c}!StartDrivingLoop@{StartDrivingLoop}}
 \index{StartDrivingLoop@{StartDrivingLoop}!driving\_loop.c@{driving\_loop.c}}
 \doxysubsubsection{\texorpdfstring{StartDrivingLoop()}{StartDrivingLoop()}}
@@ -424,9 +334,9 @@ This line extracts the specific driving loop parameters as specified in the vehi
 \DoxyCodeLine{\textcolor{comment}{//static\ float\ last\_throttle\_percent\ =\ 0.0f;}}
 \DoxyCodeLine{\textcolor{comment}{//static\ float\ last\_brake\_percent\ =\ 0.0f;}}
 \DoxyCodeLine{}
-\DoxyCodeLine{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ tick\_period\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(params-\/>task\_period);\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
-\DoxyCodeLine{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ last\_time\ =\ \mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}();}
-\DoxyCodeLine{\mbox{\hyperlink{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}{last\_input\_change\_time}}\ =\ last\_time;}
+\DoxyCodeLine{TickType\_t\ tick\_period\ =\ pdMS\_TO\_TICKS(params-\/>task\_period);\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
+\DoxyCodeLine{TickType\_t\ last\_time\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{last\_input\_change\_time\ =\ last\_time;}
 \DoxyCodeLine{}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{/**}}
@@ -438,12 +348,14 @@ Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00254}{254}} of fil
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{driving__loop_8c_source_l00222}{apply\+Torque\+Filter()}}, \mbox{\hyperlink{driving__loop_8c_source_l00045}{BRAKE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{driving__loop_8c_source_l00043}{INPUT\+\_\+\+TIMEOUT\+\_\+\+MS}}, \mbox{\hyperlink{driving__loop_8c_source_l00033}{is\+\_\+accelerating}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{driving__loop_8c_source_l00050}{last\+\_\+brake\+\_\+percent}}, \mbox{\hyperlink{motor__controller_8c_source_l00024}{last\+\_\+driver\+\_\+input\+\_\+time}}, \mbox{\hyperlink{driving__loop_8c_source_l00048}{last\+\_\+input\+\_\+change\+\_\+time}}, \mbox{\hyperlink{driving__loop_8c_source_l00049}{last\+\_\+throttle\+\_\+percent}}, \mbox{\hyperlink{driving__loop_8c_source_l00142}{map\+Throttle\+To\+Torque()}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{driving__loop_8c_source_l00432}{perform\+Safety\+Checks()}}, \mbox{\hyperlink{driving__loop_8h_source_l00043}{Plausible}}, \mbox{\hyperlink{motor__controller_8c_source_l00069}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{driving__loop_8c_source_l00054}{sent\+\_\+zero\+\_\+torque}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}, \mbox{\hyperlink{driving__loop_8c_source_l00034}{T\+\_\+\+PREV}}, \mbox{\hyperlink{driving__loop_8c_source_l00035}{T\+\_\+\+REQ}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{driving__loop_8c_source_l00044}{THROTTLE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{driving__loop_8c_source_l00037}{torque\+\_\+inhibit\+\_\+active}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{vehicle\+\_\+state}}, \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{v\+Task\+Delay\+Until()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
+References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{driving__loop_8c_source_l00045}{BRAKE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{driving__loop_8c_source_l00043}{INPUT\+\_\+\+TIMEOUT\+\_\+\+MS}}, \mbox{\hyperlink{driving__loop_8c_source_l00033}{is\+\_\+accelerating}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{motor__controller_8c_source_l00024}{last\+\_\+driver\+\_\+input\+\_\+time}}, \mbox{\hyperlink{driving__loop_8c_source_l00432}{perform\+Safety\+Checks()}}, \mbox{\hyperlink{driving__loop_8h_source_l00043}{Plausible}}, \mbox{\hyperlink{motor__controller_8c_source_l00069}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}, \mbox{\hyperlink{driving__loop_8c_source_l00034}{T\+\_\+\+PREV}}, \mbox{\hyperlink{driving__loop_8c_source_l00035}{T\+\_\+\+REQ}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{driving__loop_8c_source_l00044}{THROTTLE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{vehicle\+\_\+state}}.
 
 
 
 Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}.
 
+Here is the call graph for this function\+:
+% FIG 3
 
 
 \doxysubsection{Variable Documentation}
@@ -529,7 +441,7 @@ Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00031}{31}} of file
 
 
 
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00142}{map\+Throttle\+To\+Torque()}}.
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}.
 
 \Hypertarget{driving__loop_8c_a15e200c9bf4f5d49b02215e273d2d841}\index{driving\_loop.c@{driving\_loop.c}!is\_accelerating@{is\_accelerating}}
 \index{is\_accelerating@{is\_accelerating}!driving\_loop.c@{driving\_loop.c}}
@@ -540,62 +452,6 @@ Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\
 
 
 Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00033}{33}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00222}{apply\+Torque\+Filter()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
-\Hypertarget{driving__loop_8c_acebecb0a23929da61d8512ddded82450}\index{driving\_loop.c@{driving\_loop.c}!last\_brake\_percent@{last\_brake\_percent}}
-\index{last\_brake\_percent@{last\_brake\_percent}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{last\_brake\_percent}{last\_brake\_percent}}
-{\footnotesize\ttfamily \label{driving__loop_8c_acebecb0a23929da61d8512ddded82450} 
-float last\+\_\+brake\+\_\+percent = 0.\+0f\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00050}{50}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
-\Hypertarget{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}\index{driving\_loop.c@{driving\_loop.c}!last\_input\_change\_time@{last\_input\_change\_time}}
-\index{last\_input\_change\_time@{last\_input\_change\_time}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{last\_input\_change\_time}{last\_input\_change\_time}}
-{\footnotesize\ttfamily \label{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8} 
-\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} last\+\_\+input\+\_\+change\+\_\+time = 0\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00048}{48}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
-\Hypertarget{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34}\index{driving\_loop.c@{driving\_loop.c}!last\_throttle\_percent@{last\_throttle\_percent}}
-\index{last\_throttle\_percent@{last\_throttle\_percent}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{last\_throttle\_percent}{last\_throttle\_percent}}
-{\footnotesize\ttfamily \label{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34} 
-float last\+\_\+throttle\+\_\+percent = 0.\+0f\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00049}{49}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
-\Hypertarget{driving__loop_8c_aa5e709aa0b6ce54eee6f0396eedc37df}\index{driving\_loop.c@{driving\_loop.c}!sent\_zero\_torque@{sent\_zero\_torque}}
-\index{sent\_zero\_torque@{sent\_zero\_torque}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{sent\_zero\_torque}{sent\_zero\_torque}}
-{\footnotesize\ttfamily \label{driving__loop_8c_aa5e709aa0b6ce54eee6f0396eedc37df} 
-\mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} sent\+\_\+zero\+\_\+torque = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00054}{54}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
 
 
 
@@ -628,18 +484,4 @@ Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00035}{35}} of file
 
 
 Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
-
-\Hypertarget{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}\index{driving\_loop.c@{driving\_loop.c}!torque\_inhibit\_active@{torque\_inhibit\_active}}
-\index{torque\_inhibit\_active@{torque\_inhibit\_active}!driving\_loop.c@{driving\_loop.c}}
-\doxysubsubsection{\texorpdfstring{torque\_inhibit\_active}{torque\_inhibit\_active}}
-{\footnotesize\ttfamily \label{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661} 
-\mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} torque\+\_\+inhibit\+\_\+active = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00037}{37}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00432}{perform\+Safety\+Checks()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 

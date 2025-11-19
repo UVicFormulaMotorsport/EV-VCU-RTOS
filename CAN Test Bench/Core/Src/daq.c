@@ -1,3 +1,5 @@
+#define __UV_FILENAME__ "daq.c"
+
 #define _SRC_UVFR_DAQ
 
 

@@ -1,5 +1,21 @@
 var searchData=
 [
-  ['queue_5fdef_0',['queue_def',['../structos__mail_q__cb.html#a3060a4a5e0ca2b2c9dd541b5ed7a199d',1,'os_mailQ_cb']]],
-  ['queue_5fsz_1',['queue_sz',['../structos__message_q__def.html#afc8e51d4d45e959fab77977baf8eb970',1,'os_messageQ_def::queue_sz'],['../structos__mail_q__def.html#a2614df3d7904500621666abc01808f22',1,'os_mailQ_def::queue_sz']]]
+  ['read_5f20a_5fvals_0',['read_20A_vals',['../pdu_8c.html#a1da857742290329216cb538e70930f23',1,'pdu.c']]],
+  ['read_5f5a_5fvals_1',['read_5A_vals',['../pdu_8c.html#a5e0b76d0cfbe5852aca54c518f3ebfd8',1,'pdu.c']]],
+  ['regbusa_5fcontinous_5fcurrent_2',['regbusA_continous_current',['../structconifer__settings.html#a8ad8791e5855add3f56bdaac9f71358e',1,'conifer_settings']]],
+  ['regbusa_5ffault_5fcurrent_3',['regbusA_fault_current',['../structconifer__settings.html#aa372b944551a47bb4eb6d9e191c90d1d',1,'conifer_settings']]],
+  ['regbusa_5ftarget_5fvoltage_4',['regbusA_target_voltage',['../structconifer__settings.html#a45117afb6f395d1b318f92eb7ba631ba',1,'conifer_settings']]],
+  ['regbusb_5fcontinous_5fcurrent_5',['regbusB_continous_current',['../structconifer__settings.html#a9422208a1b75c96272441ea083622efc',1,'conifer_settings']]],
+  ['regbusb_5ffault_5fcurrent_6',['regbusB_fault_current',['../structconifer__settings.html#ad79823877db1e4d759c1571d7608cc12',1,'conifer_settings']]],
+  ['regbusb_5ftarget_5fvoltage_7',['regbusB_target_voltage',['../structconifer__settings.html#a1b796682beb66fa516b7956d316a20a7',1,'conifer_settings']]],
+  ['regen_5frpm_5fcutoff_8',['regen_rpm_cutoff',['../structdriving__loop__args.html#a32bfaf9f08eb7be125e58d1048186556',1,'driving_loop_args']]],
+  ['relaystate_9',['relayState',['../bms_8c.html#a2bd3e52b9f7bb249a6c7a1108efb1995',1,'bms.c']]],
+  ['reserved_10',['reserved',['../structconifer__ch__setting.html#a23e08b8061268ed3d33ae4ed4b357750',1,'conifer_ch_setting']]],
+  ['reset_5fhandle_11',['reset_handle',['../uvfr__utils_8c.html#a4e2f70766df64229ab99dfe80c0c012a',1,'uvfr_utils.c']]],
+  ['response_5fval_12',['response_val',['../structuv__scd__response.html#a92a8d03f9ffbbd860cb0bbe48f90bd7e',1,'uv_scd_response']]],
+  ['right_13',['right',['../structrbnode.html#a76b1a4f6c0dcadb4f06b25c183d59a6e',1,'rbnode']]],
+  ['root_14',['root',['../structrbtree.html#ad865f18384b6a5872aceefe23ade18d9',1,'rbtree']]],
+  ['rxdata_15',['RxData',['../constants_8h.html#a14629afcc7f0b2d62c2b617b07d98184',1,'RxData:&#160;constants.c'],['../constants_8c.html#a14629afcc7f0b2d62c2b617b07d98184',1,'RxData:&#160;constants.c']]],
+  ['rxheader_16',['RxHeader',['../constants_8h.html#a6ee6e13063b860648180eea65852cc71',1,'RxHeader:&#160;constants.c'],['../constants_8c.html#a6ee6e13063b860648180eea65852cc71',1,'RxHeader:&#160;constants.c']]],
+  ['rxheader2_17',['RxHeader2',['../constants_8h.html#a8f5077b3cfe923f607bbeb35706a4c70',1,'RxHeader2:&#160;constants.c'],['../constants_8c.html#a8f5077b3cfe923f607bbeb35706a4c70',1,'RxHeader2:&#160;constants.c']]]
 ];

@@ -2,11 +2,7 @@
 \hypertarget{group__x_message_buffer_receive_from_i_s_r}{}\label{group__x_message_buffer_receive_from_i_s_r}\index{xMessageBufferReceiveFromISR@{xMessageBufferReceiveFromISR}}
 \doxylink{message__buffer_8h}{message\+\_\+buffer.\+h}
 
-
-\begin{DoxyPre}
-size\_t \doxylink{message__buffer_8h_adf596c00c44752a3c8c542cc6b5df234}{xMessageBufferReceiveFromISR( MessageBufferHandle\_t xMessageBuffer,                                      void *pvRxData,                                      size\_t xBufferLengthBytes,                                      BaseType\_t *pxHigherPriorityTaskWoken )};
-\end{DoxyPre}
-
+size\+\_\+t \doxylink{message__buffer_8h_adf596c00c44752a3c8c542cc6b5df234}{x\+Message\+Buffer\+Receive\+From\+ISR( Message\+Buffer\+Handle\+\_\+t x\+Message\+Buffer,                                      void \texorpdfstring{$\ast$}{*}pv\+Rx\+Data,                                      size\+\_\+t x\+Buffer\+Length\+Bytes,                                      Base\+Type\+\_\+t \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken )};
 
 An interrupt safe version of the API function that receives a discrete message from a message buffer. Messages can be of variable length and are copied out of the buffer.
 
@@ -28,38 +24,14 @@ Use \doxylink{message__buffer_8h_af12a227ba511a95cbea5aa81c7f3ba12}{x\+Message\+
 \begin{DoxyReturn}{Returns}
 The length, in bytes, of the message read from the message buffer, if any.
 \end{DoxyReturn}
-Example use\+: 
-\begin{DoxyPre}
-// A message buffer that has already been created.
-MessageBuffer\_t xMessageBuffer;
+Example use\+:
 
-void vAnInterruptServiceRoutine( void )
-\{
-uint8\_t ucRxData[ 20 ];
-size\_t xReceivedBytes;
-BaseType\_t xHigherPriorityTaskWoken = pdFALSE;  // Initialised to pdFALSE.
+A message buffer that has already been created. Message\+Buffer\+\_\+t x\+Message\+Buffer;
 
-    // Receive the next message from the message buffer.
-    xReceivedBytes = xMessageBufferReceiveFromISR( xMessageBuffer,
-                                                  ( void * ) ucRxData,
-                                                  sizeof( ucRxData ),
-                                                  \&xHigherPriorityTaskWoken );
+void v\+An\+Interrupt\+Service\+Routine( void ) \{ uint8\+\_\+t uc\+Rx\+Data\mbox{[} 20 \mbox{]}; size\+\_\+t x\+Received\+Bytes; Base\+Type\+\_\+t x\+Higher\+Priority\+Task\+Woken = pd\+FALSE; // Initialised to pd\+FALSE.
 
-    if( xReceivedBytes > 0 )
-    \{
-        // A ucRxData contains a message that is xReceivedBytes long.  Process
-        // the message here....
-    \}
+Receive the next message from the message buffer. x\+Received\+Bytes = x\+Message\+Buffer\+Receive\+From\+ISR( x\+Message\+Buffer, ( void \texorpdfstring{$\ast$}{*} ) uc\+Rx\+Data, sizeof( uc\+Rx\+Data ), \&x\+Higher\+Priority\+Task\+Woken );
 
-    // If xHigherPriorityTaskWoken was set to pdTRUE inside
-    // \doxylink{message__buffer_8h_adf596c00c44752a3c8c542cc6b5df234}{xMessageBufferReceiveFromISR()} then a task that has a priority above the
-    // priority of the currently executing task was unblocked and a context
-    // switch should be performed to ensure the ISR returns to the unblocked
-    // task.  In most FreeRTOS ports this is done by simply passing
-    // xHigherPriorityTaskWoken into \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{portYIELD\_FROM\_ISR()}, which will test the
-    // variables value, and perform the context switch if necessary.  Check the
-    // documentation for the port in use for port specific instructions.
-    \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{portYIELD\_FROM\_ISR( xHigherPriorityTaskWoken )};
-\}
-\end{DoxyPre}
-   
+if( x\+Received\+Bytes $>$ 0 ) \{ A uc\+Rx\+Data contains a message that is x\+Received\+Bytes long. Process the message here.... \}
+
+If x\+Higher\+Priority\+Task\+Woken was set to pd\+TRUE inside \doxylink{message__buffer_8h_adf596c00c44752a3c8c542cc6b5df234}{x\+Message\+Buffer\+Receive\+From\+ISR()} then a task that has a priority above the priority of the currently executing task was unblocked and a context switch should be performed to ensure the ISR returns to the unblocked task. In most Free\+RTOS ports this is done by simply passing x\+Higher\+Priority\+Task\+Woken into \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{port\+YIELD\+\_\+\+FROM\+\_\+\+ISR()}, which will test the variables value, and perform the context switch if necessary. Check the documentation for the port in use for port specific instructions. \doxylink{portmacro_8h_aac6850c66595efdc02a8bbb95fb4648e}{port\+YIELD\+\_\+\+FROM\+\_\+\+ISR( x\+Higher\+Priority\+Task\+Woken )}; \}

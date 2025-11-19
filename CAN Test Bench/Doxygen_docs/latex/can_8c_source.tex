@@ -19,15 +19,15 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00037}00037\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00038}00038\ \textcolor{preprocessor}{\#include\ "{}stdlib.h"{}}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}string.h"{}}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00040}00040\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{task_8h}{../FreeRTOS/Source/include/task.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00040}00040\ \textcolor{preprocessor}{\#include\ "{}../FreeRTOS/Source/include/task.h"{}}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00041}00041\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00042}00042\ \textcolor{comment}{//This\ line\ holds\ the\ entire\ program\ together}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00043}00043\ \textcolor{preprocessor}{\#ifndef\ HAL\_CAN\_ERROR\_INVALID\_CALLBACK}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00044}\mbox{\hyperlink{can_8c_a81ca550f56875553f534a4d72adff10d}{00044}}\ \textcolor{preprocessor}{\#define\ HAL\_CAN\_ERROR\_INVALID\_CALLBACK\ (0x00400000U)}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00045}00045\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00046}00046\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00047}\mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{00047}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ \mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00048}\mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{00048}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00047}00047\ \textcolor{keyword}{static}\ QueueHandle\_t\ Tx\_msg\_queue\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00048}00048\ \textcolor{keyword}{static}\ QueueHandle\_t\ Rx\_msg\_queue\ =\ NULL;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00049}00049\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00050}00050\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00051}\mbox{\hyperlink{can_8c_a286ec093b36200ab124adf66d0671198}{00051}}\ \textcolor{preprocessor}{\#define\ table\_size\ 128}}
@@ -45,8 +45,8 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00067}00067\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00068}\mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{00068}}\ \mbox{\hyperlink{struct_c_a_n___callback}{CAN\_Callback}}\ \mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[\mbox{\hyperlink{can_8c_a7d7c7782f8ec752e4c213e138fca9507}{table\_size\_2}}]\ =\ \{0\};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00069}00069\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00070}\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{00070}}\ \mbox{\hyperlink{struct_queue_definition}{SemaphoreHandle\_t}}\ \mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00071}\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{00071}}\ \mbox{\hyperlink{struct_queue_definition}{SemaphoreHandle\_t}}\ \mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00070}\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{00070}}\ SemaphoreHandle\_t\ \mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00071}\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{00071}}\ SemaphoreHandle\_t\ \mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ =\ NULL;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00072}00072\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00073}00073\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00074}\mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{00074}}\ uint8\_t\ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 1;}
@@ -285,7 +285,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00307}00307\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00308}00308\ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00309}00309\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00310}\mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{00310}}\ \textcolor{keyword}{static}\ uint32\_t\ \mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}=0;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00310}00310\ \textcolor{keyword}{static}\ uint32\_t\ HAL\_RCC\_CAN1\_CLK\_ENABLED=0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00311}00311\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00312}\mbox{\hyperlink{can_8c_a2778ce7f3a2de42769b6de9fec4cedb9}{00312}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{can_8c_a2778ce7f3a2de42769b6de9fec4cedb9}{HAL\_CAN\_MspInit}}(CAN\_HandleTypeDef*\ canHandle)}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00313}00313\ \{}
@@ -297,8 +297,8 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00319}00319\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00320}00320\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ CAN1\_MspInit\ 0\ */}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00321}00321\ \ \ \ \ \textcolor{comment}{/*\ CAN1\ clock\ enable\ */}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00322}00322\ \ \ \ \ \mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}++;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00323}00323\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}==1)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00322}00322\ \ \ \ \ HAL\_RCC\_CAN1\_CLK\_ENABLED++;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00323}00323\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_RCC\_CAN1\_CLK\_ENABLED==1)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00324}00324\ \ \ \ \ \ \ \_\_HAL\_RCC\_CAN1\_CLK\_ENABLE();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00325}00325\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00326}00326\ }
@@ -330,8 +330,8 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00356}00356\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ CAN2\_MspInit\ 0\ */}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00357}00357\ \ \ \ \ \textcolor{comment}{/*\ CAN2\ clock\ enable\ */}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00358}00358\ \ \ \ \ \_\_HAL\_RCC\_CAN2\_CLK\_ENABLE();}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00359}00359\ \ \ \ \ \mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}++;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}==1)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00359}00359\ \ \ \ \ HAL\_RCC\_CAN1\_CLK\_ENABLED++;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00360}00360\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_RCC\_CAN1\_CLK\_ENABLED==1)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00361}00361\ \ \ \ \ \ \ \_\_HAL\_RCC\_CAN1\_CLK\_ENABLE();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00362}00362\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00363}00363\ }
@@ -367,8 +367,8 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00397}00397\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00398}00398\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ CAN1\_MspDeInit\ 0\ */}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00399}00399\ \ \ \ \ \textcolor{comment}{/*\ Peripheral\ clock\ disable\ */}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00400}00400\ \ \ \ \ \mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}-\/-\/;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00401}00401\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}==0)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00400}00400\ \ \ \ \ HAL\_RCC\_CAN1\_CLK\_ENABLED-\/-\/;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00401}00401\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_RCC\_CAN1\_CLK\_ENABLED==0)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00402}00402\ \ \ \ \ \ \ \_\_HAL\_RCC\_CAN1\_CLK\_DISABLE();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00403}00403\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00404}00404\ }
@@ -390,8 +390,8 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00424}00424\ \ \ \textcolor{comment}{/*\ USER\ CODE\ END\ CAN2\_MspDeInit\ 0\ */}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00425}00425\ \ \ \ \ \textcolor{comment}{/*\ Peripheral\ clock\ disable\ */}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00426}00426\ \ \ \ \ \_\_HAL\_RCC\_CAN2\_CLK\_DISABLE();}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00427}00427\ \ \ \ \ \mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}-\/-\/;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00428}00428\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a18b5b05ac35955baef1479165be10521}{HAL\_RCC\_CAN1\_CLK\_ENABLED}}==0)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00427}00427\ \ \ \ \ HAL\_RCC\_CAN1\_CLK\_ENABLED-\/-\/;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00428}00428\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_RCC\_CAN1\_CLK\_ENABLED==0)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00429}00429\ \ \ \ \ \ \ \_\_HAL\_RCC\_CAN1\_CLK\_DISABLE();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00430}00430\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00431}00431\ }
@@ -417,7 +417,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00455}00455\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00456}\mbox{\hyperlink{can_8h_a4e0742fef0f265347a75b7fa12012229}{00456}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{can_8c_a7368d39e78009c017d6f81ccf33b9b2c}{HAL\_CAN\_RxFifo0MsgPendingCallback}}(CAN\_HandleTypeDef\ *hcan)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00457}00457\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ tmp;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00458}00458\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ was\_higher\_priority\_task\_woken;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00458}00458\ \ \ \ \ BaseType\_t\ was\_higher\_priority\_task\_woken;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00459}00459\ \ \ \ \ CAN\_RxHeaderTypeDef*\ pHeader;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00460}00460\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00461}00461\ \ \ \ \ uint8\_t\ bus;}
@@ -435,7 +435,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00473}00473\ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00474}00474\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00475}00475\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00476}00476\ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}}\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00476}00476\ \ \ \textcolor{keywordflow}{if}(Rx\_msg\_queue\ ==\ NULL)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00477}00477\ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00478}00478\ \ \ \ \ \ \ \textcolor{keywordflow}{return};\ \textcolor{comment}{//RxDaemon\ not\ active\ yet}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00479}00479\ \ \ \}}
@@ -462,10 +462,10 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00500}00500\ \ \ tmp.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ \mbox{\hyperlink{constants_8h_a6ee6e13063b860648180eea65852cc71}{RxHeader}}.DLC;\ \textcolor{comment}{//\ Data\ Length\ Code}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00501}00501\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00502}00502\ \ \ \textcolor{comment}{//TANNER\ AND\ FLO\ CALL\ YOUR\ FUNCTION\ HERE\ TO\ DO\ STUFF}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00503}00503\ \ \ \mbox{\hyperlink{queue_8h_a21d5919ed26c21d121df4a4debeb643c}{xQueueSendFromISR}}(\ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}},\ \&tmp,\ \&was\_higher\_priority\_task\_woken\ );}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00503}00503\ \ \ xQueueSendFromISR(\ Rx\_msg\_queue,\ \&tmp,\ \&was\_higher\_priority\_task\_woken\ );}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00504}00504\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00505}00505\ \ \ \textcolor{keywordflow}{if}(was\_higher\_priority\_task\_woken\ ==\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}})\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00506}00506\ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_a767e474430db1e60056e9678763f9202}{taskYIELD}}();}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00505}00505\ \ \ \textcolor{keywordflow}{if}(was\_higher\_priority\_task\_woken\ ==\ pdTRUE)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00506}00506\ \ \ \ \ \ \ taskYIELD();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00507}00507\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00508}00508\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00509}00509\ \}}
@@ -474,7 +474,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00512}\mbox{\hyperlink{can_8h_a4c51ef84434a42d4c5f9524d361c0703}{00512}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{can_8c_af6dd58034ec0e0a887b1c36317c4c64b}{HAL\_CAN\_RxFifo1MsgPendingCallback}}(CAN\_HandleTypeDef\ *hcan)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00513}00513\ \ \ \ \ \textcolor{comment}{//\ do\ something}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00514}00514\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ tmp;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00515}00515\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ was\_higher\_priority\_task\_woken;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00515}00515\ \ \ \ \ BaseType\_t\ was\_higher\_priority\_task\_woken;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00516}00516\ \ \ \ \ CAN\_RxHeaderTypeDef*\ pHeader;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00517}00517\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00518}00518\ \ \ \ \ uint8\_t\ bus;}
@@ -491,7 +491,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00529}00529\ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00530}00530\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00531}00531\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00532}00532\ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}}\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00532}00532\ \ \ \textcolor{keywordflow}{if}(Rx\_msg\_queue\ ==\ NULL)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00533}00533\ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00534}00534\ \ \ \ \ \ \ \textcolor{keywordflow}{return};\ \textcolor{comment}{//RxDaemon\ not\ active\ yet}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00535}00535\ \ \ \}}
@@ -518,10 +518,10 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00556}00556\ \ \ tmp.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ \mbox{\hyperlink{constants_8h_a6ee6e13063b860648180eea65852cc71}{RxHeader}}.DLC;\ \textcolor{comment}{//\ Data\ Length\ Code}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00557}00557\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00558}00558\ \ \ \textcolor{comment}{//TANNER\ AND\ FLO\ CALL\ YOUR\ FUNCTION\ HERE\ TO\ DO\ STUFF}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00559}00559\ \ \ \mbox{\hyperlink{queue_8h_a21d5919ed26c21d121df4a4debeb643c}{xQueueSendFromISR}}(\ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}},\ \&tmp,\ \&was\_higher\_priority\_task\_woken\ );}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00559}00559\ \ \ xQueueSendFromISR(\ Rx\_msg\_queue,\ \&tmp,\ \&was\_higher\_priority\_task\_woken\ );}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00560}00560\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00561}00561\ \ \ \textcolor{keywordflow}{if}(was\_higher\_priority\_task\_woken\ ==\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}})\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00562}00562\ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_a767e474430db1e60056e9678763f9202}{taskYIELD}}();}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00561}00561\ \ \ \textcolor{keywordflow}{if}(was\_higher\_priority\_task\_woken\ ==\ pdTRUE)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00562}00562\ \ \ \ \ \ \ taskYIELD();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00563}00563\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00564}00564\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00565}00565\ \}}
@@ -538,7 +538,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00582}00582\ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00583}00583\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00584}00584\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00592}\mbox{\hyperlink{can_8c_aa5d470f815f2c11378233e0f3ca9ed8b}{00592}}\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{can_8c_aa5d470f815f2c11378233e0f3ca9ed8b}{callFunctionFromCANid}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\ \{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00592}00592\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ callFunctionFromCANid(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\ \{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00593}00593\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index\ =\ \mbox{\hyperlink{can_8c_affa7bfe9532060be4358706525e4f36e}{generateHash}}(msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}});}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00594}00594\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00595}00595\ }
@@ -598,7 +598,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00657}00657\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00658}00658\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00659}00659\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00660}00660\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{semphr_8h_af116e436d2a5ae5bd72dbade2b5ea930}{xSemaphoreTake}}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}},10)\ ==\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}})\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00660}00660\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xSemaphoreTake(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}},10)\ ==\ pdTRUE)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00661}00661\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00662}00662\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
@@ -612,14 +612,14 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00671}00671\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_ac0a447cc951ac5c4ac2c50291d64fe44}{CAN\_callback\_table\_1}}[index].\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ =\ id;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00672}00672\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_ac0a447cc951ac5c4ac2c50291d64fe44}{CAN\_callback\_table\_1}}[index].\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00673}00673\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_ac0a447cc951ac5c4ac2c50291d64fe44}{CAN\_callback\_table\_1}}[index].\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00674}00674\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00675}00675\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00676}00676\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00677}00677\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00678}00678\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ac0a447cc951ac5c4ac2c50291d64fe44}{CAN\_callback\_table\_1}}[index].\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ ==\ \textcolor{keywordtype}{id})\{\ \textcolor{comment}{//You\ are\ editing\ a\ duplicate,\ overwrite\ it}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_ac0a447cc951ac5c4ac2c50291d64fe44}{CAN\_callback\_table\_1}}[index].\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ =\ id;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_ac0a447cc951ac5c4ac2c50291d64fe44}{CAN\_callback\_table\_1}}[index].\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00683}00683\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00684}00684\ }
@@ -629,14 +629,14 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ ==\ \textcolor{keywordtype}{id})\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00689}00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ =\ id;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00691}00691\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00692}00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00693}00693\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00694}00694\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00695}00695\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00696}00696\ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}}\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_c_a_n___callback}{CAN\_Callback}}));\ \textcolor{comment}{//reaching\ this\ point\ means\ temp-\/>next\ ==\ NULL}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00697}00697\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}}\ ==\ NULL)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00699}00699\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00700}00700\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00701}00701\ \ \ \ \ \ \ \ \ \ \ \ \ temp\ =\ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}};}
@@ -645,14 +645,14 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00704}00704\ \ \ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00705}00705\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00706}00706\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00707}00707\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00707}00707\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00708}00708\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00709}00709\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00710}00710\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00711}00711\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{\textcolor{comment}{//insert\ into\ CAN\ 2}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00712}00712\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00713}00713\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{semphr_8h_af116e436d2a5ae5bd72dbade2b5ea930}{xSemaphoreTake}}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}},10)\ ==\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}})\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00714}00714\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xSemaphoreTake(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}},10)\ ==\ pdTRUE)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00715}00715\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00716}00716\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00717}00717\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
@@ -665,13 +665,13 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00724}00724\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[index].\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ =\ id;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00725}00725\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[index].\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00726}00726\ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[index].\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00727}00727\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00727}00727\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00728}00728\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00729}00729\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00730}00730\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[index].\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ ==\ \textcolor{keywordtype}{id})\{\ \textcolor{comment}{//You\ are\ editing\ a\ duplicate,\ overwrite\ it}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00731}00731\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[index].\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ =\ id;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00732}00732\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_afc3b8fa78d569b412fa9e7b56f5f6a62}{CAN\_callback\_table\_2}}[index].\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00733}00733\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00733}00733\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00734}00734\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00735}00735\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00736}00736\ }
@@ -681,14 +681,14 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00740}00740\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ ==\ \textcolor{keywordtype}{id})\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00741}00741\ \ \ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_a2dbb9c56fe79ad5ce0165d7300b62ff5}{CAN\_id}}\ =\ id;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00742}00742\ \ \ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00743}00743\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00744}00744\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00745}00745\ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00746}00746\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00747}00747\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00748}00748\ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}}\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{struct_c_a_n___callback}{CAN\_Callback}}));\ \textcolor{comment}{//reaching\ this\ point\ means\ temp-\/>next\ ==\ NULL}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00749}00749\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}}\ ==\ NULL)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00750}00750\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00751}00751\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00752}00752\ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00753}00753\ \ \ \ \ \ \ \ \ \ \ \ \ temp\ =\ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_ace8db41695ac99095f81f37c97056076}{next}};}
@@ -697,7 +697,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00756}00756\ \ \ \ \ \ \ \ \ \ \ \ \ temp-\/>\mbox{\hyperlink{struct_c_a_n___callback_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa}{function}}\ =\ handlerfunc;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00757}00757\ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00758}00758\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00759}00759\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{\mbox{\hyperlink{semphr_8h_aae55761cabfa9bf85c8f4430f78c0953}{xSemaphoreGive}}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00759}00759\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ !=\ NULL)\{xSemaphoreGive(\mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}});\}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00760}00760\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00761}00761\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00762}00762\ }
@@ -777,15 +777,15 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00839}00839\ \ \ \ \ \mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}}.DLC\ =\ tx\_msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00840}00840\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00841}00841\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00842}00842\ \ \ \ \ \mbox{\hyperlink{task_8h_ab7bf0ae866292ba8296091a9d5209689}{taskENTER\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00842}00842\ \ \ \ \ taskENTER\_CRITICAL();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00843}00843\ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_CAN\_AddTxMessage(\&\mbox{\hyperlink{can_8c_ab77168d14df04ccca5d48612ee21ced8}{hcan2}},\ \&\mbox{\hyperlink{constants_8h_a3e35a666d459f2ac92fc7c35334ff0ff}{TxHeader}},\ tx\_msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}},\ \&\mbox{\hyperlink{constants_8h_aedd1e4ac418a9697f9f41a2713d49569}{TxMailbox}})\ !=\ HAL\_OK)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00844}00844\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Transmission\ request\ Error\ */}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00845}00845\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aac8f36abc45ac4ee714bd6b81e3b1643}{taskEXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00845}00845\ \ \ \ \ \ \ \ \ taskEXIT\_CRITICAL();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00846}00846\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00847}00847\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Unable\ to\ Transmit\ CAN\ msg"{}},0);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00848}00848\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00849}00849\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00850}00850\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_aac8f36abc45ac4ee714bd6b81e3b1643}{taskEXIT\_CRITICAL}}();}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00850}00850\ \ \ \ \ \ \ \ \ taskEXIT\_CRITICAL();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00851}00851\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00852}00852\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00853}00853\ \}}
@@ -811,9 +811,9 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00881}00881\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00882}00882\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00883}00883\ \ \ \ \ \textcolor{comment}{//BaseType\_t\ higher\_priority\_task\_woken\ =\ pdFALSE;}}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00884}00884\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}}\ !=\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00884}00884\ \ \ \ \ \textcolor{keywordflow}{if}(Tx\_msg\_queue\ !=\ NULL)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00885}00885\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(!is\_isr)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00886}00886\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{queue_8h_a81d24a2c1199d58efb76fbee15853112}{xQueueSendToBack}}(\mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}},tx\_msg,0)\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00886}00886\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xQueueSendToBack(Tx\_msg\_queue,tx\_msg,0)\ !=\ pdPASS)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00887}00887\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}couldnt\ enqueue\ CAN\ message"{}},0);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00888}00888\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00889}00889\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
@@ -821,7 +821,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00891}00891\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00892}00892\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00893}00893\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00894}00894\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{queue_8h_a51e9f73417b11441a181cdc4f33a68e9}{xQueueSendToBackFromISR}}(\mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}},tx\_msg,0)\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00894}00894\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xQueueSendToBackFromISR(Tx\_msg\_queue,tx\_msg,0)\ !=\ pdPASS)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00895}00895\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00896}00896\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}couldnt\ enqueue\ CAN\ message"{}},0);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00897}00897\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
@@ -843,7 +843,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00921}00921\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ params\ =\ (\mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*)\ args;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00922}00922\ \ \ \ \ \textcolor{comment}{//CAN\_TxHeaderTypeDef\ tx\_header;}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00923}00923\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00924}00924\ \ \ \ \ \mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}}\ =\ xQueueCreate(8,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}));}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00924}00924\ \ \ \ \ Tx\_msg\_queue\ =\ xQueueCreate(8,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}));}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00925}00925\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00926}00926\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00927}00927\ \ \ \ \ \textcolor{comment}{//BaseType\_t\ retval;}}
@@ -853,16 +853,16 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00931}00931\ \ \ \ \ \textcolor{comment}{//tx\_header.TransmitGlobalTime\ =\ DISABLE;}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00932}00932\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00933}00933\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00934}00934\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ result;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00934}00934\ \ \ \ \ BaseType\_t\ result;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00935}00935\ \ \ \ \ \textcolor{comment}{//uint32\_t\ notif\_val\ =\ 0;}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00936}00936\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00937}00937\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00938}00938\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00939}00939\ \ \ \ \ \ \ \ \ result\ =\ \mbox{\hyperlink{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}{xQueueReceive}}(\mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}},tx\_msg,20);}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00939}00939\ \ \ \ \ \ \ \ \ result\ =\ xQueueReceive(Tx\_msg\_queue,tx\_msg,20);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00940}00940\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00941}00941\ \ \ \ \ \ \ \ \ \textcolor{comment}{//tx\_msg\ is\ uv\_can\_msg}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00942}00942\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00943}00943\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(result\ ==\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}})\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00943}00943\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(result\ ==\ pdTRUE)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00944}00944\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00945}00945\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(tx\_msg\ ==\ NULL)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00946}00946\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}cannot\ send\ null\ CAN\ msg"{}},0);}
@@ -872,8 +872,8 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00950}00950\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00951}00951\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00952}00952\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00953}00953\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ attempt\_time1\ =\ \mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}();}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00954}00954\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ attempt\_time2\ =\ attempt\_time1;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00953}00953\ \ \ \ \ \ \ \ \ \ \ \ \ TickType\_t\ attempt\_time1\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00954}00954\ \ \ \ \ \ \ \ \ \ \ \ \ TickType\_t\ attempt\_time2\ =\ attempt\_time1;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00955}00955\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00956}00956\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00957}00957\ }
@@ -891,7 +891,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00969}00969\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00970}00970\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00971}00971\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(HAL\_CAN\_GetTxMailboxesFreeLevel(\&\mbox{\hyperlink{can_8c_a1618d731d18d69e906e8a357b7cd3c8d}{hcan1}})\ ==\ 0)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}()\ -\/\ attempt\_time1\ >=\ 2)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xTaskGetTickCount()\ -\/\ attempt\_time1\ >=\ 2)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00973}00973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00974}00974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Unable\ to\ Transmit\ CAN\ msg"{}},0);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l00975}00975\ }
@@ -926,7 +926,7 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01004}01004\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01005}01005\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01006}01006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(HAL\_CAN\_GetTxMailboxesFreeLevel(\&\mbox{\hyperlink{can_8c_ab77168d14df04ccca5d48612ee21ced8}{hcan2}})\ ==\ 0)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01007}01007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}()\ -\/\ attempt\_time2\ >=\ 2)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01007}01007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xTaskGetTickCount()\ -\/\ attempt\_time2\ >=\ 2)\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01008}01008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb560495e0e4833966}{is\_can\_ok}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01009}01009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Unable\ to\ Transmit\ CAN\ msg"{}},0);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01010}01010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
@@ -945,9 +945,9 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01023}01023\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01024}01024\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01025}01025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}})\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01026}01026\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ tmpqueue\ =\ \mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}};}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01027}01027\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_a39f60bf61979059355fc4916aa3500db}{Tx\_msg\_queue}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01028}01028\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}{vQueueDelete}}(tmpqueue);}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01026}01026\ \ \ \ \ \ \ \ \ \ \ \ \ QueueHandle\_t\ tmpqueue\ =\ Tx\_msg\_queue;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01027}01027\ \ \ \ \ \ \ \ \ \ \ \ \ Tx\_msg\_queue\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01028}01028\ \ \ \ \ \ \ \ \ \ \ \ \ vQueueDelete(tmpqueue);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01029}01029\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01030}01030\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(params);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01031}01031\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
@@ -963,28 +963,28 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01047}01047\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01048}01048\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ tmp;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01049}01049\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01050}01050\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ retval;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01050}01050\ \ \ \ \ BaseType\_t\ retval;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01051}01051\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ func\_status;}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01052}01052\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01053}01053\ \ \ \ \ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}}\ =\ xQueueCreate(8,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}));}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01053}01053\ \ \ \ \ Rx\_msg\_queue\ =\ xQueueCreate(8,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}));}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01054}01054\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01055}01055\ \ \ \ \ \mbox{\hyperlink{can_8c_ad97471d0f87ac27ca228619bfb52d2db}{callback\_table\_1\_mutex}}\ =\ xSemaphoreCreateMutex();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01056}01056\ \ \ \ \ \mbox{\hyperlink{can_8c_a3786873632329fd3819f63a7324f8710}{callback\_table\_2\_mutex}}\ =\ xSemaphoreCreateMutex();}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01057}01057\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01058}01058\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01059}01059\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01060}01060\ \ \ \ \ \ \ \ \ retval\ =\ \mbox{\hyperlink{queue_8h_ae8364d988c6f9b63c771cc2b3dfe5df9}{xQueueReceive}}(\mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}},\&tmp,10);}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01061}01061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(retval\ ==\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}})\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01062}01062\ \ \ \ \ \ \ \ \ \ \ \ \ func\_status\ =\ \mbox{\hyperlink{can_8c_aa5d470f815f2c11378233e0f3ca9ed8b}{callFunctionFromCANid}}(\&tmp);}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01060}01060\ \ \ \ \ \ \ \ \ retval\ =\ xQueueReceive(Rx\_msg\_queue,\&tmp,10);}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01061}01061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(retval\ ==\ pdTRUE)\{}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01062}01062\ \ \ \ \ \ \ \ \ \ \ \ \ func\_status\ =\ callFunctionFromCANid(\&tmp);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01063}01063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(func\_status\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01064}01064\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01065}01065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01066}01066\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01067}01067\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01068}01068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}})\{}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01069}01069\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ tmpqueue\ =\ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}};}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01070}01070\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01071}01071\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}{vQueueDelete}}(tmpqueue);}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01069}01069\ \ \ \ \ \ \ \ \ \ \ \ \ QueueHandle\_t\ tmpqueue\ =\ Rx\_msg\_queue;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01070}01070\ \ \ \ \ \ \ \ \ \ \ \ \ Rx\_msg\_queue\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01071}01071\ \ \ \ \ \ \ \ \ \ \ \ \ vQueueDelete(tmpqueue);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01072}01072\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01073}01073\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(params);}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01074}01074\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
@@ -992,9 +992,9 @@
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01076}01076\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01077}01077\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01078}01078\ }
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01079}01079\ \ \ \ \ \mbox{\hyperlink{queue_8h_a707cbcfe3aed6b877b6aa6d9d75a3f22}{vQueueDelete}}(\mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}});}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01080}01080\ \ \ \ \ \mbox{\hyperlink{can_8c_ad0e232ce658c38916aee908ceae1db1e}{Rx\_msg\_queue}}\ =\ NULL;}
-\DoxyCodeLine{\Hypertarget{can_8c_source_l01081}01081\ \ \ \ \ \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{vTaskDelete}}(params-\/>\mbox{\hyperlink{structuv__task__info_a5347f41c4b15b2d6b039c339613fde43}{task\_handle}});}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01079}01079\ \ \ \ \ vQueueDelete(Rx\_msg\_queue);}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01080}01080\ \ \ \ \ Rx\_msg\_queue\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{can_8c_source_l01081}01081\ \ \ \ \ vTaskDelete(params-\/>\mbox{\hyperlink{structuv__task__info_a5347f41c4b15b2d6b039c339613fde43}{task\_handle}});}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01082}01082\ }
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01083}01083\ \}}
 \DoxyCodeLine{\Hypertarget{can_8c_source_l01084}01084\ }

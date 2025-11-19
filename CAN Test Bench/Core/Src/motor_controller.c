@@ -1,5 +1,7 @@
 /* motor_controller.c */
 
+#define __UV_FILENAME__ "motor_controller.c"
+
 #include "motor_controller.h"
 #include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
 #include "uvfr_utils.h"    // For uvPanic, etc.

@@ -510,13 +510,13 @@
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00625}00625\ \}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00626}00626\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00627}00627\ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ 1\ */}}
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00628}00628\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cmsis__os_8h}{../FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h}}"{}}\ \textcolor{comment}{//\ Add\ at\ the\ top\ of\ adc.c\ if\ not\ already}}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00628}00628\ \textcolor{preprocessor}{\#include\ "{}../FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h"{}}\ \textcolor{comment}{//\ Add\ at\ the\ top\ of\ adc.c\ if\ not\ already}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00629}00629\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00630}\mbox{\hyperlink{adc_8c_a3903c57732eb74d8fe2a3a80866a81d1}{00630}}\ \textcolor{preprocessor}{\#define\ DEBUG\_TOGGLE\_LED()\ HAL\_GPIO\_TogglePin(GPIOD,\ GPIO\_PIN\_15)}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00631}00631\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00632}\mbox{\hyperlink{adc_8c_adeffbae91619fcbc1647f8b964aa896b}{00632}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{adc_8c_adeffbae91619fcbc1647f8b964aa896b}{StartADCTask}}(\textcolor{keywordtype}{void}\ *argument)\ \{}
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00633}00633\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ tick\_rate\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(100);\ \textcolor{comment}{//\ 100ms\ cycle}}
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00634}00634\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ last\_wake\_time\ =\ \mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}();\ \textcolor{comment}{//\ capture\ the\ current\ tick\ count\ as\ the\ starting\ point}}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00633}00633\ \ \ \ \ TickType\_t\ tick\_rate\ =\ pdMS\_TO\_TICKS(100);\ \textcolor{comment}{//\ 100ms\ cycle}}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00634}00634\ \ \ \ \ TickType\_t\ last\_wake\_time\ =\ xTaskGetTickCount();\ \textcolor{comment}{//\ capture\ the\ current\ tick\ count\ as\ the\ starting\ point}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00635}00635\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00636}00636\ \ \ \ \ \textcolor{keywordflow}{for}\ (;;)\ \{}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00637}00637\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{adc_8c_a3903c57732eb74d8fe2a3a80866a81d1}{DEBUG\_TOGGLE\_LED}}();\ \textcolor{comment}{//\ Optional\ -\/\ shows\ task\ is\ alive}}
@@ -532,7 +532,7 @@
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00647}00647\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00648}00648\ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00649}00649\ }
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00650}00650\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{vTaskDelayUntil}}(\&last\_wake\_time,\ tick\_rate);}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00650}00650\ \ \ \ \ \ \ \ \ vTaskDelayUntil(\&last\_wake\_time,\ tick\_rate);}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00651}00651\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00652}00652\ \}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00653}00653\ }
@@ -570,16 +570,16 @@
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00685}00685\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00686}00686\ }
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00687}\mbox{\hyperlink{adc_8h_a4ba1683325a3553851abf884b905f1b1}{00687}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{adc_8c_a4ba1683325a3553851abf884b905f1b1}{initADCTask}}(\textcolor{keywordtype}{void})\ \{}
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00688}00688\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ result\ =\ xTaskCreate(}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00688}00688\ \ \ \ \ BaseType\_t\ result\ =\ xTaskCreate(}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00689}00689\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{adc_8c_adeffbae91619fcbc1647f8b964aa896b}{StartADCTask}},\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Task\ function}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00690}00690\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}ADC\ Task"{}},\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Name\ for\ debugging}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00691}00691\ \ \ \ \ \ \ \ \ 128,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stack\ size\ (adjust\ if\ needed)}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00692}00692\ \ \ \ \ \ \ \ \ NULL,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ args}}
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00693}00693\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b}{osPriorityAboveNormal}},\ \textcolor{comment}{//\ Priority}}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00693}00693\ \ \ \ \ \ \ \ \ osPriorityAboveNormal,\ \textcolor{comment}{//\ Priority}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00694}00694\ \ \ \ \ \ \ \ \ NULL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ No\ task\ handle\ needed}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00695}00695\ \ \ \ \ );}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00696}00696\ }
-\DoxyCodeLine{\Hypertarget{adc_8c_source_l00697}00697\ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\ \{}
+\DoxyCodeLine{\Hypertarget{adc_8c_source_l00697}00697\ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ !=\ pdPASS)\ \{}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00698}00698\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{main_8h_a1730ffe1e560465665eb47d9264826f9}{Error\_Handler}}();}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00699}00699\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{adc_8c_source_l00700}00700\ \}}

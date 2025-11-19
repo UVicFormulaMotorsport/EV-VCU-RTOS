@@ -47,7 +47,7 @@
         <location file="Core/Inc/uvfr_utils.h" line="316" column="14" bodyfile="Core/Inc/uvfr_utils.h" bodystart="316" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structuv__task__msg__t_1a3f1a92858e8ce24bdfde9ee72be4c8aa" prot="public" static="no" mutable="no">
-        <type><ref refid="portmacro_8h_1aa69c48c6e902ce54f70886e6573c92a9" kindref="member">TickType_t</ref></type>
+        <type>TickType_t</type>
         <definition>TickType_t uv_task_msg_t::time_sent</definition>
         <argsstring></argsstring>
         <name>time_sent</name>
@@ -96,56 +96,14 @@
 <para>This is a generic type that is best used in situations where the message could mean a variety of different things. For niche applications or where efficiency is paramount, we recommend creating a bespoke protocol. </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="8">
-        <label>QueueDefinition</label>
-        <link refid="struct_queue_definition"/>
-        <childnode refid="9" relation="usage">
-          <edgelabel>xQueue</edgelabel>
-        </childnode>
-        <childnode refid="10" relation="usage">
-          <edgelabel>xSemaphore</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>xTasksWaitingToReceive</edgelabel>
-          <edgelabel>xTasksWaitingToSend</edgelabel>
-        </childnode>
-      </node>
-      <node id="9">
-        <label>QueuePointers</label>
-        <link refid="struct_queue_pointers"/>
-      </node>
-      <node id="10">
-        <label>SemaphoreData</label>
-        <link refid="struct_semaphore_data"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>xMutexHolder</edgelabel>
-        </childnode>
-      </node>
-      <node id="7">
+      <node id="3">
         <label>task_management_info</label>
         <link refid="structtask__management__info"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>task_handle</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>parent_msg_queue</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
-        <label>tskTaskControlBlock</label>
-        <link refid="structtsk_task_control_block"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>xEventListItem</edgelabel>
-          <edgelabel>xStateListItem</edgelabel>
-        </childnode>
       </node>
       <node id="2">
         <label>uv_task_info</label>
         <link refid="structuv__task__info"/>
         <childnode refid="3" relation="usage">
-          <edgelabel>task_handle</edgelabel>
-        </childnode>
-        <childnode refid="7" relation="usage">
           <edgelabel>tmi</edgelabel>
         </childnode>
       </node>
@@ -155,35 +113,6 @@
         <childnode refid="2" relation="usage">
           <edgelabel>intended_recipient</edgelabel>
           <edgelabel>sender</edgelabel>
-        </childnode>
-      </node>
-      <node id="5">
-        <label>xLIST</label>
-        <link refid="structx_l_i_s_t"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>pxIndex</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>xListEnd</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>xLIST_ITEM</label>
-        <link refid="structx_l_i_s_t___i_t_e_m"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>pxNext</edgelabel>
-          <edgelabel>pxPrevious</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>pxContainer</edgelabel>
-        </childnode>
-      </node>
-      <node id="6">
-        <label>xMINI_LIST_ITEM</label>
-        <link refid="structx_m_i_n_i___l_i_s_t___i_t_e_m"/>
-        <childnode refid="4" relation="usage">
-          <edgelabel>pxNext</edgelabel>
-          <edgelabel>pxPrevious</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>

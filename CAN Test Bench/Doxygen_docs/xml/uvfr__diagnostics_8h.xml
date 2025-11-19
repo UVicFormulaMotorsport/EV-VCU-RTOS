@@ -502,8 +502,8 @@
         <name>uvAssert</name>
         <param><defname>x</defname></param>
         <initializer>	if((x) == 0){\
-	extern void <ref refid="uvfr__diagnostics_8c_1afc0f4627210550225b0725b98850b03a" kindref="member">uvAssertFailed</ref>(char* file, uint16_t line, <ref refid="task_8h_1a25b35e6e19ecf894173e7ff95edb96ef" kindref="member">TaskHandle_t</ref> task, char* condition);\
-	<ref refid="task_8h_1a25b35e6e19ecf894173e7ff95edb96ef" kindref="member">TaskHandle_t</ref> ctask = <ref refid="task_8h_1a85a0f9c9f817b18686efbf8f37c72dfc" kindref="member">xTaskGetCurrentTaskHandle</ref>();\
+	extern void <ref refid="uvfr__diagnostics_8c_1afc0f4627210550225b0725b98850b03a" kindref="member">uvAssertFailed</ref>(char* file, uint16_t line, TaskHandle_t task, char* condition);\
+	TaskHandle_t ctask = xTaskGetCurrentTaskHandle();\
 	<ref refid="uvfr__diagnostics_8c_1afc0f4627210550225b0725b98850b03a" kindref="member">uvAssertFailed</ref>(<ref refid="main_8c_1a368892c5fb38bdcdfae7b7e2a22602b4" kindref="member">__UV_FILENAME__</ref>, __LINE__, ctask, <ref refid="uvfr__diagnostics_8h_1a94253da7c896b6bad6f37138776820b4" kindref="member">TEXTIFY</ref>(x));\
 }</initializer>
         <briefdescription>

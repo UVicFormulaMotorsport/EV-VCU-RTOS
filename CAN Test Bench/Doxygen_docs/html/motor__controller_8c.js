@@ -7,7 +7,6 @@ var motor__controller_8c =
     [ "MC_SetAndVerify_Param", "motor__controller_8c.html#af42bb7e058463e8db7e230378f98741c", null ],
     [ "MC_Shutdown", "motor__controller_8c.html#ad5f29647a349035990d49fe100bb740b", null ],
     [ "MC_Startup", "motor__controller_8c.html#aed1407e1e0fd59dc7c5e5d6db671f0ab", null ],
-    [ "MotorControllerErrorHandler_16bitLE", "motor__controller_8c.html#aa2fe2c9102e9f2ab65ab4a9d5557f497", null ],
     [ "Parse_Bamocar_Response", "motor__controller_8c.html#a98ef1edcc51198faf53767e8d92ce4c9", null ],
     [ "ProcessMotorControllerResponse", "motor__controller_8c.html#aaff68bb563bf4ad56841a5a5020cbadc", null ],
     [ "sendTorqueToMotorController", "motor__controller_8c.html#ae71f2a8631fd64b7d7ce321470d4fab0", null ],

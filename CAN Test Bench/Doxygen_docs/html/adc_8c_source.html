@@ -617,14 +617,14 @@ $(function(){initNavTree('adc_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span> </div>
 <div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span><span class="comment">/* USER CODE BEGIN 1 */</span></div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span><span class="preprocessor">#include &quot;<a class="code" href="cmsis__os_8h.html">../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h</a>&quot;</span> <span class="comment">// Add at the top of adc.c if not already</span></div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span><span class="preprocessor">#include &quot;../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h&quot;</span> <span class="comment">// Add at the top of adc.c if not already</span></div>
 <div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span> </div>
 <div class="line"><a id="l00630" name="l00630"></a><span class="lineno"><a class="line" href="adc_8c.html#a3903c57732eb74d8fe2a3a80866a81d1">  630</a></span><span class="preprocessor">#define DEBUG_TOGGLE_LED() HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15)</span></div>
 <div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
 <div class="foldopen" id="foldopen00632" data-start="{" data-end="}">
 <div class="line"><a id="l00632" name="l00632"></a><span class="lineno"><a class="line" href="adc_8c.html#adeffbae91619fcbc1647f8b964aa896b">  632</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="adc_8c.html#adeffbae91619fcbc1647f8b964aa896b">StartADCTask</a>(<span class="keywordtype">void</span> *argument) {</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    <a class="code hl_typedef" href="portmacro_8h.html#aa69c48c6e902ce54f70886e6573c92a9">TickType_t</a> tick_rate = <a class="code hl_define" href="projdefs_8h.html#a353d0f62b82a402cb3db63706c81ec3f">pdMS_TO_TICKS</a>(100); <span class="comment">// 100ms cycle</span></div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    <a class="code hl_typedef" href="portmacro_8h.html#aa69c48c6e902ce54f70886e6573c92a9">TickType_t</a> last_wake_time = <a class="code hl_function" href="task_8h.html#a753ecfe23e7386066ecccad5d16422f7">xTaskGetTickCount</a>(); <span class="comment">// capture the current tick count as the starting point</span></div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>    TickType_t tick_rate = pdMS_TO_TICKS(100); <span class="comment">// 100ms cycle</span></div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    TickType_t last_wake_time = xTaskGetTickCount(); <span class="comment">// capture the current tick count as the starting point</span></div>
 <div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span> </div>
 <div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>    <span class="keywordflow">for</span> (;;) {</div>
 <div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>        <a class="code hl_define" href="adc_8c.html#a3903c57732eb74d8fe2a3a80866a81d1">DEBUG_TOGGLE_LED</a>(); <span class="comment">// Optional - shows task is alive</span></div>
@@ -640,7 +640,7 @@ $(function(){initNavTree('adc_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span> </div>
 <div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        }</div>
 <div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span> </div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        <a class="code hl_function" href="task_8h.html#a067da3e949e248096ec6c01f9cb75a47">vTaskDelayUntil</a>(&amp;last_wake_time, tick_rate);</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        vTaskDelayUntil(&amp;last_wake_time, tick_rate);</div>
 <div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>    }</div>
 <div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>}</div>
 </div>
@@ -682,16 +682,16 @@ $(function(){initNavTree('adc_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span> </div>
 <div class="foldopen" id="foldopen00687" data-start="{" data-end="}">
 <div class="line"><a id="l00687" name="l00687"></a><span class="lineno"><a class="line" href="adc_8h.html#a4ba1683325a3553851abf884b905f1b1">  687</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="adc_8c.html#a4ba1683325a3553851abf884b905f1b1">initADCTask</a>(<span class="keywordtype">void</span>) {</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    <a class="code hl_typedef" href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a> result = xTaskCreate(</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>    BaseType_t result = xTaskCreate(</div>
 <div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>        <a class="code hl_function" href="adc_8c.html#adeffbae91619fcbc1647f8b964aa896b">StartADCTask</a>,         <span class="comment">// Task function</span></div>
 <div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        <span class="stringliteral">&quot;ADC Task&quot;</span>,           <span class="comment">// Name for debugging</span></div>
 <div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>        128,                  <span class="comment">// Stack size (adjust if needed)</span></div>
 <div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>        NULL,                 <span class="comment">// No args</span></div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        <a class="code hl_enumvalue" href="cmsis__os_8h.html#a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b">osPriorityAboveNormal</a>, <span class="comment">// Priority</span></div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        osPriorityAboveNormal, <span class="comment">// Priority</span></div>
 <div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        NULL                  <span class="comment">// No task handle needed</span></div>
 <div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>    );</div>
 <div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span> </div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    <span class="keywordflow">if</span> (result != <a class="code hl_define" href="projdefs_8h.html#a07848d3078849bd32353c69d30a479b3">pdPASS</a>) {</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>    <span class="keywordflow">if</span> (result != pdPASS) {</div>
 <div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>        <a class="code hl_function" href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a>();</div>
 <div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>    }</div>
 <div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>}</div>
@@ -731,15 +731,7 @@ $(function(){initNavTree('adc_8c_source.html',''); initResizable(true); });
 <div class="ttc" id="aadc_8c_html_adeffbae91619fcbc1647f8b964aa896b"><div class="ttname"><a href="adc_8c.html#adeffbae91619fcbc1647f8b964aa896b">StartADCTask</a></div><div class="ttdeci">void StartADCTask(void *argument)</div><div class="ttdef"><b>Definition</b> <a href="#l00632">adc.c:632</a></div></div>
 <div class="ttc" id="aadc_8c_html_ae4e62f12be2bae57a3b44486718bbd8f"><div class="ttname"><a href="adc_8c.html#ae4e62f12be2bae57a3b44486718bbd8f">adc2_steering_pos</a></div><div class="ttdeci">uint16_t adc2_steering_pos</div><div class="ttdef"><b>Definition</b> <a href="main_8c_source.html#l00077">main.c:77</a></div></div>
 <div class="ttc" id="aadc_8h_html"><div class="ttname"><a href="adc_8h.html">adc.h</a></div><div class="ttdoc">This file contains all the function prototypes for the adc.c file.</div></div>
-<div class="ttc" id="acmsis__os_8h_html"><div class="ttname"><a href="cmsis__os_8h.html">cmsis_os.h</a></div></div>
-<div class="ttc" id="acmsis__os_8h_html_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b"><div class="ttname"><a href="cmsis__os_8h.html#a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b">osPriorityAboveNormal</a></div><div class="ttdeci">@ osPriorityAboveNormal</div><div class="ttdoc">priority: above normal</div><div class="ttdef"><b>Definition</b> <a href="cmsis__os_8h_source.html#l00178">cmsis_os.h:178</a></div></div>
 <div class="ttc" id="amain_8h_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">This function is executed in case of error occurrence.</div><div class="ttdef"><b>Definition</b> <a href="main_8c_source.html#l00365">main.c:365</a></div></div>
-<div class="ttc" id="aportmacro_8h_html_a46fb21e00ae0729d7515c0fbf2269796"><div class="ttname"><a href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a></div><div class="ttdeci">long BaseType_t</div><div class="ttdef"><b>Definition</b> <a href="portmacro_8h_source.html#l00058">portmacro.h:58</a></div></div>
-<div class="ttc" id="aportmacro_8h_html_aa69c48c6e902ce54f70886e6573c92a9"><div class="ttname"><a href="portmacro_8h.html#aa69c48c6e902ce54f70886e6573c92a9">TickType_t</a></div><div class="ttdeci">uint32_t TickType_t</div><div class="ttdef"><b>Definition</b> <a href="portmacro_8h_source.html#l00065">portmacro.h:65</a></div></div>
-<div class="ttc" id="aprojdefs_8h_html_a07848d3078849bd32353c69d30a479b3"><div class="ttname"><a href="projdefs_8h.html#a07848d3078849bd32353c69d30a479b3">pdPASS</a></div><div class="ttdeci">#define pdPASS</div><div class="ttdef"><b>Definition</b> <a href="projdefs_8h_source.html#l00047">projdefs.h:47</a></div></div>
-<div class="ttc" id="aprojdefs_8h_html_a353d0f62b82a402cb3db63706c81ec3f"><div class="ttname"><a href="projdefs_8h.html#a353d0f62b82a402cb3db63706c81ec3f">pdMS_TO_TICKS</a></div><div class="ttdeci">#define pdMS_TO_TICKS(xTimeInMs)</div><div class="ttdef"><b>Definition</b> <a href="projdefs_8h_source.html#l00041">projdefs.h:41</a></div></div>
-<div class="ttc" id="atask_8h_html_a067da3e949e248096ec6c01f9cb75a47"><div class="ttname"><a href="task_8h.html#a067da3e949e248096ec6c01f9cb75a47">vTaskDelayUntil</a></div><div class="ttdeci">void vTaskDelayUntil(TickType_t *const pxPreviousWakeTime, const TickType_t xTimeIncrement) PRIVILEGED_FUNCTION</div></div>
-<div class="ttc" id="atask_8h_html_a753ecfe23e7386066ecccad5d16422f7"><div class="ttname"><a href="task_8h.html#a753ecfe23e7386066ecccad5d16422f7">xTaskGetTickCount</a></div><div class="ttdeci">TickType_t xTaskGetTickCount(void) PRIVILEGED_FUNCTION</div><div class="ttdef"><b>Definition</b> <a href="tasks_8c_source.html#l02303">tasks.c:2303</a></div></div>
 <div class="ttc" id="auvfr__utils_8h_html"><div class="ttname"><a href="uvfr__utils_8h.html">uvfr_utils.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

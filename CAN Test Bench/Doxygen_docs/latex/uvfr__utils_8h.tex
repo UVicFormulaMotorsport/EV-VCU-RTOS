@@ -30,6 +30,10 @@
 {\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
 {\ttfamily \#include "{}message\+\_\+buffer.\+h"{}}\newline
 {\ttfamily \#include "{}task.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+utils.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
 \doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
@@ -255,7 +259,7 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{271}} of file 
 
 
 
-Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00592}{call\+Function\+From\+CANid()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00773}{nuke\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00070}{testfunc3()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
+Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00773}{nuke\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00070}{testfunc3()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
 
 \Hypertarget{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}\index{uvfr\_utils.h@{uvfr\_utils.h}!CAN\_BUS\_2@{CAN\_BUS\_2}}
 \index{CAN\_BUS\_2@{CAN\_BUS\_2}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -737,10 +741,6 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{357}} of file 
 
 
 
-References \mbox{\hyperlink{tasks_8c_source_l02098}{v\+Task\+End\+Scheduler()}}.
-
-
-
 Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01365}{uv\+SVCTask\+Manager()}}.
 
 \Hypertarget{uvfr__utils_8h_a6d40598f9d8daa89ca159a2e87f4fd01}\index{uvfr\_utils.h@{uvfr\_utils.h}!uvInit@{uvInit}}
@@ -786,7 +786,7 @@ Next we setup conifer and the associated drivers. This is needed, because we nee
 Now we are going to create a bunch of tasks that will initialize our car\textquotesingle{}s external devices. The reason that these are RTOS tasks, is that it takes a buncha time to verify the existance of some devices. As a direct result, we can sorta just wait around and check that each task sends a message confirming that it has successfully executed. \+:) However, first we need to actually create a Queue for these tasks to use 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\ \ /}
-\DoxyCodeLine{\mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ init\_validation\_queue\ =\ xQueueCreate(8,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__response}{uv\_init\_task\_response}}));}
+\DoxyCodeLine{QueueHandle\_t\ init\_validation\_queue\ =\ xQueueCreate(8,\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__response}{uv\_init\_task\_response}}));}
 \DoxyCodeLine{\textcolor{keywordflow}{if}(init\_validation\_queue\ ==\ NULL)\{}
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{uvfr__utils_8h_a92b5ac44171d49acd084c274385a043a}{\_\_uvInitPanic}}();}
 \DoxyCodeLine{\}}
@@ -797,15 +797,15 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \begin{DoxyCode}{0}
 \DoxyCodeLine{*/}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ retval;}
+\DoxyCodeLine{\ \ \ BaseType\_t\ retval;}
 \DoxyCodeLine{\ \ \ uint16\_t\ ext\_devices\_status\ =\ 0x0000;\ \textcolor{comment}{//Tracks\ which\ devices\ are\ currently\ setup}}
 \DoxyCodeLine{\ \ \ \textcolor{comment}{//osThreadDef\_t\ MC\_init\_thread\ =\ \{"{}MC\_init"{},MC\_Startup,osPriorityNormal,128,0\};}}
 \DoxyCodeLine{\ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ MC\_init\_args\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
 \DoxyCodeLine{\ \ \ MC\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}}\ =\ init\_validation\_queue;}
 \DoxyCodeLine{\ \ \ MC\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}}\ =\ \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_ad0b0375d2c1674abc6f972eec47e9cb7}{mc\_settings}});}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{motor__controller_8h_aed1407e1e0fd59dc7c5e5d6db671f0ab}{MC\_Startup}},\textcolor{stringliteral}{"{}MC\_init"{}},256,MC\_init\_args,\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b}{osPriorityAboveNormal}},\&(MC\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
-\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\{}
+\DoxyCodeLine{\ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{motor__controller_8h_aed1407e1e0fd59dc7c5e5d6db671f0ab}{MC\_Startup}},\textcolor{stringliteral}{"{}MC\_init"{}},256,MC\_init\_args,osPriorityAboveNormal,\&(MC\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{if}(retval\ !=\ pdPASS)\{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \textcolor{comment}{//FUCK}}
 \DoxyCodeLine{\ \ \ \ \ \ \ error\_msg\ =\ \textcolor{stringliteral}{"{}bruh"{}};}
 \DoxyCodeLine{\ \ \ \}\textcolor{keywordflow}{else}\{}
@@ -824,8 +824,8 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \DoxyCodeLine{\ \ \ BMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}}\ =\ init\_validation\_queue;}
 \DoxyCodeLine{\ \ \ BMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}}\ =\ \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a6cdca5b5474080f1dff4d19ef96435e1}{bms\_settings}});}
 \DoxyCodeLine{\ \ \ \textcolor{comment}{//BMS\_init\_args-\/>meta\_task\_handle\ =\ osThreadCreate(\&BMS\_init\_thread,BMS\_init\_args);}}
-\DoxyCodeLine{\ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{BMS\_Init}},\textcolor{stringliteral}{"{}BMS\_init"{}},256,BMS\_init\_args,\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b}{osPriorityAboveNormal}},\&(BMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
-\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\{}
+\DoxyCodeLine{\ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{BMS\_Init}},\textcolor{stringliteral}{"{}BMS\_init"{}},256,BMS\_init\_args,osPriorityAboveNormal,\&(BMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{if}(retval\ !=\ pdPASS)\{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \textcolor{comment}{//FUCK}}
 \DoxyCodeLine{\ \ \ \ \ \ \ error\_msg\ =\ \textcolor{stringliteral}{"{}bruh"{}};}
 \DoxyCodeLine{\ \ \ \}\textcolor{keywordflow}{else}\{}
@@ -840,8 +840,8 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ IMD\_init\_args\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
 \DoxyCodeLine{\ \ \ \ IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}}\ =\ init\_validation\_queue;}
 \DoxyCodeLine{\ \ \ \ IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}}\ =\ \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}});}
-\DoxyCodeLine{\ \ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{initIMD}},\textcolor{stringliteral}{"{}IMD\_init"{}},128,IMD\_init\_args,\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b}{osPriorityAboveNormal}},\&(IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
-\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\{}
+\DoxyCodeLine{\ \ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{initIMD}},\textcolor{stringliteral}{"{}IMD\_init"{}},128,IMD\_init\_args,osPriorityAboveNormal,\&(IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ pdPASS)\{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//FUCK}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ error\_msg\ =\ \textcolor{stringliteral}{"{}bruh"{}};}
 \DoxyCodeLine{\ \ \ \ \}\textcolor{keywordflow}{else}\{}
@@ -874,12 +874,14 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{50}} of file \
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00047}{BAMO\+\_\+\+RFE}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00048}{BAMO\+\_\+\+RUN}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{can_8h_source_l00043}{CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8h_source_l00042}{CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00369}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00371}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00051}{HVIL\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00214}{IMD}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00153}{INIT\+\_\+\+CHECK\+\_\+\+PERIOD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{imd_8c_source_l00559}{init\+IMD()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00152}{MAX\+\_\+\+INIT\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00212}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00370}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{cmsis__os_8h_source_l00178}{os\+Priority\+Above\+Normal}}, \mbox{\hyperlink{projdefs_8h_source_l00041}{pd\+MS\+\_\+\+TO\+\_\+\+TICKS}}, \mbox{\hyperlink{projdefs_8h_source_l00047}{pd\+PASS}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00050}{SDC\+\_\+\+BOARD\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00342}{uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00368}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{uv\+Init\+Diagnostics()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00401}{uv\+Start\+Task()}}, \mbox{\hyperlink{task_8h_aa154068cecd7f31446a7a84af44ab1a3}{v\+Task\+Delay()}}, \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{v\+Task\+Delay\+Until()}}, \mbox{\hyperlink{task_8h_a27ff4ebce26565bef136bda84201ff80}{v\+Task\+Delete()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, and \mbox{\hyperlink{tasks_8c_source_l02303}{x\+Task\+Get\+Tick\+Count()}}.
+References \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00047}{BAMO\+\_\+\+RFE}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00048}{BAMO\+\_\+\+RUN}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{can_8h_source_l00043}{CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8h_source_l00042}{CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00369}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00371}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00051}{HVIL\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00214}{IMD}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00153}{INIT\+\_\+\+CHECK\+\_\+\+PERIOD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{imd_8c_source_l00559}{init\+IMD()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00152}{MAX\+\_\+\+INIT\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00212}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00370}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00050}{SDC\+\_\+\+BOARD\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00342}{uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00368}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{uv\+Init\+Diagnostics()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00401}{uv\+Start\+Task()}}.
 
 
 
 Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
 
+Here is the call graph for this function\+:
+% FIG 2
 \Hypertarget{uvfr__utils_8h_a0186c036688c7852cf0ceaee96b343a3}\index{uvfr\_utils.h@{uvfr\_utils.h}!uvIsPTRValid@{uvIsPTRValid}}
 \index{uvIsPTRValid@{uvIsPTRValid}!uvfr\_utils.h@{uvfr\_utils.h}}
 \doxysubsubsection{\texorpdfstring{uvIsPTRValid()}{uvIsPTRValid()}}

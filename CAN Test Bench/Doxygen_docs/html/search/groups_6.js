@@ -1,14 +1,8 @@
 var searchData=
 [
-  ['state_20engine_0',['State Engine',['../group__state__engine.html',1,'']]],
-  ['state_20engine_20api_1',['State Engine API',['../group__state__engine__api.html',1,'']]],
-  ['state_20engine_20internals_2',['State Engine Internals',['../group__state__engine__backend.html',1,'']]],
-  ['stm32f4xx_5fsystem_3',['Stm32f4xx_system',['../group__stm32f4xx__system.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5fdefines_4',['STM32F4xx_System_Private_Defines',['../group___s_t_m32_f4xx___system___private___defines.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5ffunctionprototypes_5',['STM32F4xx_System_Private_FunctionPrototypes',['../group___s_t_m32_f4xx___system___private___function_prototypes.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5ffunctions_6',['STM32F4xx_System_Private_Functions',['../group___s_t_m32_f4xx___system___private___functions.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5fincludes_7',['STM32F4xx_System_Private_Includes',['../group___s_t_m32_f4xx___system___private___includes.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5fmacros_8',['STM32F4xx_System_Private_Macros',['../group___s_t_m32_f4xx___system___private___macros.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5ftypesdefinitions_9',['STM32F4xx_System_Private_TypesDefinitions',['../group___s_t_m32_f4xx___system___private___types_definitions.html',1,'']]],
-  ['stm32f4xx_5fsystem_5fprivate_5fvariables_10',['STM32F4xx_System_Private_Variables',['../group___s_t_m32_f4xx___system___private___variables.html',1,'']]]
+  ['utilities_0',['UVFR Utilities',['../group__uvfr__utils.html',1,'']]],
+  ['utility_20macros_1',['Utility Macros',['../group__utility__macros.html',1,'']]],
+  ['uvfr_20canbus_20api_2',['UVFR CANbus API',['../group__uvfr__can__api.html',1,'']]],
+  ['uvfr_20utilities_3',['UVFR Utilities',['../group__uvfr__utils.html',1,'']]],
+  ['uvfr_20vehicle_20commands_4',['UVFR Vehicle Commands',['../group__uvfr__veh__commands.html',1,'']]]
 ];

@@ -13,9 +13,9 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ <math.h>}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00016}00016\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{driving__loop_8h}{driving\_loop.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cmsis__os_8h}{../FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_free_r_t_o_s_8h}{../FreeRTOS/Source/include/FreeRTOS.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{task_8h}{../FreeRTOS/Source/include/task.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}../FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h"{}}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}../FreeRTOS/Source/include/FreeRTOS.h"{}}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ "{}../FreeRTOS/Source/include/task.h"{}}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00021}00021\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00022}00022\ \textcolor{comment}{//External\ Variables:}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00023}00023\ \textcolor{keyword}{extern}\ uint16\_t\ \mbox{\hyperlink{driving__loop_8c_a549b3590f54dfc129d2eebf2604c16e8}{adc1\_APPS1}};\ \textcolor{comment}{//These\ are\ the\ locations\ for\ the\ sensor\ inputs\ for\ APPS\ and\ BPS}}
@@ -32,7 +32,7 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00034}\mbox{\hyperlink{driving__loop_8c_afb126e9ab9acbc2c02585ce5728a538a}{00034}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_afb126e9ab9acbc2c02585ce5728a538a}{T\_PREV}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00035}\mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{00035}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\_REQ}}\ =\ 0;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00036}00036\ }
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00037}\mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{00037}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}}\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//track\ state\ of\ torque\ acceptance}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00037}00037\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ torque\_inhibit\_active\ =\ \textcolor{keyword}{false};\ \textcolor{comment}{//track\ state\ of\ torque\ acceptance}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00038}00038\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_ad5227d6e3a1f9c241f31f07abe9f1695}{calculateThrottlePercentage}}(uint16\_t\ apps1,\ uint16\_t\ apps2);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00039}00039\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_a4f65fe44f806e3c040579c36f6134349}{calculateBrakePercentage}}(uint16\_t\ bps1);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00040}00040\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{driving__loop_8c_ac9c776513f26edd5cf75280eea26275b}{performSafetyChecks}}(\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}*\ dl\_params,\ uint16\_t\ apps1\_value,uint16\_t\ apps2\_value,\ uint16\_t\ bps1\_value,\ uint16\_t\ bps2\_value,\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\_internal\_state}}*\ dl\_status);}
@@ -43,13 +43,13 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00045}\mbox{\hyperlink{driving__loop_8c_a4bf993c3531318a98fc092ffde90602f}{00045}}\ \textcolor{preprocessor}{\#define\ BRAKE\_CHANGE\_THRESHOLD\ 5\ \ \ \ \ \ }\textcolor{comment}{//\ percentage}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00046}00046\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00047}00047\ \textcolor{comment}{//driving\ loop\ state\ tracking}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00048}\mbox{\hyperlink{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}{00048}}\ \textcolor{keyword}{static}\ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ \mbox{\hyperlink{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}{last\_input\_change\_time}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00049}\mbox{\hyperlink{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34}{00049}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34}{last\_throttle\_percent}}\ =\ 0.0f;}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00050}\mbox{\hyperlink{driving__loop_8c_acebecb0a23929da61d8512ddded82450}{00050}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_acebecb0a23929da61d8512ddded82450}{last\_brake\_percent}}\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00048}00048\ \textcolor{keyword}{static}\ TickType\_t\ last\_input\_change\_time\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00049}00049\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ last\_throttle\_percent\ =\ 0.0f;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00050}00050\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ last\_brake\_percent\ =\ 0.0f;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00051}00051\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00052}\mbox{\hyperlink{driving__loop_8c_abdb111971b9caeabf750f90e1ae5756c}{00052}}\ \textcolor{preprocessor}{\#define\ TORQUE\_DECAY\_STEP\ 2.5f\ }}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00053}\mbox{\hyperlink{driving__loop_8c_a633cd4f78d82907f7cc81cd051b6bf4c}{00053}}\ \textcolor{preprocessor}{\#define\ THROTTLE\_ZERO\_THRESHOLD\ 0.01f\ }\textcolor{comment}{//\ //\ Below\ this\ \%\ throttle,\ we\ consider\ "{}off"{}}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00054}\mbox{\hyperlink{driving__loop_8c_aa5e709aa0b6ce54eee6f0396eedc37df}{00054}}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{driving__loop_8c_aa5e709aa0b6ce54eee6f0396eedc37df}{sent\_zero\_torque}}\ =\ \textcolor{keyword}{false};\ }
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00054}00054\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ sent\_zero\_torque\ =\ \textcolor{keyword}{false};\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00055}00055\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00056}00056\ \textcolor{comment}{//define\ default\ driving\ loop\ settings}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00057}00057\ \mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}\ \mbox{\hyperlink{driving__loop_8c_ab8788a0f246816c11002008cb43d1886}{default\_dl\_settings}}\ =\ \{}
@@ -96,7 +96,7 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00100}00100\ \textcolor{comment}{//float\ T\_REQ\ =\ 0;}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00101}00101\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00102}00102\ \textcolor{comment}{//allows\ torque\ filter\ to\ use\ getKvalue\ even\ if\ it's\ defined\ after}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00103}00103\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd}{getKValue}}(\textcolor{keywordtype}{int}\ raceMode);}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00103}00103\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ getKValue(\textcolor{keywordtype}{int}\ raceMode);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00104}00104\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00105}00105\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{driving__loop_8c_ac9c776513f26edd5cf75280eea26275b}{performSafetyChecks}}(\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}*\ dl\_params,\ uint16\_t\ apps1\_value,uint16\_t\ apps2\_value,\ uint16\_t\ bps1\_value,\ uint16\_t\ bps2\_value,\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\_internal\_state}}*\ dl\_status);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00106}00106\ }
@@ -122,7 +122,7 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00126}00126\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00127}00127\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_ad24b438130bb3098ee5e855222dff21d}{task\_name}}\ =\ \textcolor{stringliteral}{"{}Driving\_Loop"{}};\ \textcolor{comment}{//assign\ names}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00128}00128\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_afcd240d2b6b01b4acea600ef4dfe8fbc}{task\_function}}\ =\ \mbox{\hyperlink{driving__loop_8c_a80cc48f06202edc29bcad26a956bcc98}{StartDrivingLoop}};\ \textcolor{comment}{//defining\ the\ function\ that\ the\ task\ will\ run}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00129}00129\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_aff45751f7189980589d55379d1d5a355}{task\_priority}}\ =\ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa914433934143a9ba767e59577c56e6c2}{osPriorityHigh}};\ \textcolor{comment}{//\ assigns\ a\ high\ priority\ in\ FreeRTOS}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00129}00129\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_aff45751f7189980589d55379d1d5a355}{task\_priority}}\ =\ osPriorityHigh;\ \textcolor{comment}{//\ assigns\ a\ high\ priority\ in\ FreeRTOS}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00130}00130\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_a353ec6bf2c42ab0920f3d1e671e568a3}{stack\_size}}\ =\ 256;\ \textcolor{comment}{//\ memory\ allocation\ for\ task\ execution}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00131}00131\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_ab24dea3bde4de2d839bf15e65c2df0d6}{active\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}};\ \textcolor{comment}{//\ Specifies\ when\ the\ task\ should\ be\ active}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00132}00132\ \ \ \ \ dl\_task-\/>\mbox{\hyperlink{structuv__task__info_aafd4e2d916f50b54b99fd02d63831e43}{suspension\_states}}\ =\ 0x00;}
@@ -135,7 +135,7 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};\ \textcolor{comment}{//}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00140}00140\ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00141}00141\ \textcolor{comment}{//\ function\ to\ map\ throttle\ percent\ to\ torque\ value}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00142}\mbox{\hyperlink{driving__loop_8c_a14bdb2b38c226aa850a0c25207afd1fa}{00142}}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_a14bdb2b38c226aa850a0c25207afd1fa}{mapThrottleToTorque}}(\textcolor{keywordtype}{float}\ throttle\_percent)\ \{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00142}00142\ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ mapThrottleToTorque(\textcolor{keywordtype}{float}\ throttle\_percent)\ \{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ T\_prev\ =\ 0.0f;\ \textcolor{comment}{//\ Stores\ the\ last\ filtered\ torque\ value.\ for\ filtering\ to\ check\ if\ decelerating}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{comment}{//float\ throttle\_percent\ =\ calculateThrottlePercentage(apps1,\ apps2);}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00145}00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(throttle\_percent\ ==\ 0.0f)\{}
@@ -154,7 +154,7 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00158}\mbox{\hyperlink{driving__loop_8c_a64a87e1f80735e94aac871db572dda97}{00158}}\ \textcolor{preprocessor}{\#define\ ENDURANCE\ 2}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00159}00159\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00160}00160\ \textcolor{comment}{//function\ to\ get\ K\ value\ aka\ what\ mode\ we\ are\ in}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00161}\mbox{\hyperlink{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd}{00161}}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd}{getKValue}}(\textcolor{keywordtype}{int}\ raceMode)\ \{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00161}00161\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ getKValue(\textcolor{keywordtype}{int}\ raceMode)\ \{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ kVal\ =\ 0.3;\ \textcolor{comment}{//Default\ for\ if\ racemode\ Does\ not\ exist}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(raceMode\ ==\ \mbox{\hyperlink{driving__loop_8c_a3fa2d9e8a3ff5bc7ac576fda26265b44}{ACCELERATION}})\ \{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ kVal\ =\ 0.7;}
@@ -207,11 +207,11 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00211}00211\ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00212}00212\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00213}00213\ }
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00222}\mbox{\hyperlink{driving__loop_8c_a42c4321a28da09906e185c9c5971fce9}{00222}}\ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{driving__loop_8c_a42c4321a28da09906e185c9c5971fce9}{applyTorqueFilter}}(\textcolor{keywordtype}{float}\ T\_req,\ \textcolor{keywordtype}{float}\ T\_prev,\ \textcolor{keywordtype}{bool}\ is\_accelearting)\ \{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00222}00222\ \textcolor{keyword}{inline}\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{float}\ applyTorqueFilter(\textcolor{keywordtype}{float}\ T\_req,\ \textcolor{keywordtype}{float}\ T\_prev,\ \textcolor{keywordtype}{bool}\ is\_accelearting)\ \{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Filtering\ formula:\ T\_filtered\ =\ T\_prev\ +\ (T\_req\ -\/\ T\_prev)\ *\ k}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//return\ T\_prev\ +\ (T\_req\ -\/\ T\_prev)\ *\ FILTER\_K;}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ except\ hehehehhe\ were\ gonna\ create\ a\ get\_k\ function\ based\ on\ race\ modes}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ FILTER\_K\ =\ \mbox{\hyperlink{driving__loop_8c_abdfd52d179ac8c6707ea8e0ddb98b7cd}{getKValue}}(0);}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ FILTER\_K\ =\ getKValue(0);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{driving__loop_8c_a15e200c9bf4f5d49b02215e273d2d841}{is\_accelerating}})\ \{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ FILTER\_K\ =\ 0.4;\ \textcolor{comment}{//\ smooth\ acceleration\ (adjustable\ for\ endurance\ vs\ sport\ mode}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00229}00229\ }
@@ -248,9 +248,9 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00269}00269\ \ \ \ \ \textcolor{comment}{//static\ float\ last\_throttle\_percent\ =\ 0.0f;}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00270}00270\ \ \ \ \ \textcolor{comment}{//static\ float\ last\_brake\_percent\ =\ 0.0f;}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00271}00271\ }
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00272}00272\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ tick\_period\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(params-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}});\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00273}00273\ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ last\_time\ =\ \mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}();}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00274}00274\ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}{last\_input\_change\_time}}\ =\ last\_time;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00272}00272\ \ \ \ \ TickType\_t\ tick\_period\ =\ pdMS\_TO\_TICKS(params-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}});\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00273}00273\ \ \ \ \ TickType\_t\ last\_time\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00274}00274\ \ \ \ \ last\_input\_change\_time\ =\ last\_time;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00275}00275\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00276}00276\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00278}00278\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{\ \textcolor{comment}{//\ enters\ infinite\ loop}}
@@ -262,7 +262,7 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00284}00284\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspendSelf}}(params);\ \textcolor{comment}{//\ if\ \_UV\_SUSPEND\_CMD\ received\ pause\ the\ task}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00286}00286\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00287}00287\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{vTaskDelayUntil}}(\ \&last\_time,\ tick\_period);\ \textcolor{comment}{//Me\ and\ the\ boys\ on\ our\ way\ to\ wait\ for\ a\ set\ period\ every\ 100ms}}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00287}00287\ \ \ \ \ \ \ \ \ vTaskDelayUntil(\ \&last\_time,\ tick\_period);\ \textcolor{comment}{//Me\ and\ the\ boys\ on\ our\ way\ to\ wait\ for\ a\ set\ period\ every\ 100ms}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00288}00288\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00289}00289\ \ \ \ \ \ \ \ \ HAL\_GPIO\_TogglePin(GPIOD,\ GPIO\_PIN\_14);\ \textcolor{comment}{//Blink\ and\ LED\ (for\ debugging)}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00290}00290\ }
@@ -296,39 +296,39 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00318}00318\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ not\ used\ atm}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ How\ much\ did\ the\ throttle\ or\ brake\ change\ since\ last\ time?}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ throttle\_delta\ =\ fabs(throttle\_percent\ -\/\ \mbox{\hyperlink{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34}{last\_throttle\_percent}});}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ brake\_delta\ =\ fabs(brake\_percent\ -\/\ \mbox{\hyperlink{driving__loop_8c_acebecb0a23929da61d8512ddded82450}{last\_brake\_percent}});}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00321}00321\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ throttle\_delta\ =\ fabs(throttle\_percent\ -\/\ last\_throttle\_percent);}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ brake\_delta\ =\ fabs(brake\_percent\ -\/\ last\_brake\_percent);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00323}00323\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TickType\_t\ now\ =\ xTaskGetTickCount();}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{TickType\_t}}\ timeout\_ticks\ =\ \mbox{\hyperlink{projdefs_8h_a353d0f62b82a402cb3db63706c81ec3f}{pdMS\_TO\_TICKS}}(\mbox{\hyperlink{driving__loop_8c_aeac6e5795cef1c6971bde245d54de5d5}{INPUT\_TIMEOUT\_MS}});}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ TickType\_t\ timeout\_ticks\ =\ pdMS\_TO\_TICKS(\mbox{\hyperlink{driving__loop_8c_aeac6e5795cef1c6971bde245d54de5d5}{INPUT\_TIMEOUT\_MS}});}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00326}00326\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ either\ \%\ changed\ significantly,\ update\ the\ "{}last\ time\ the\ driver\ did\ something"{}}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Only\ update\ the\ time\ if\ there's\ meaningful\ input\ change}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (throttle\_delta\ >\ \mbox{\hyperlink{driving__loop_8c_ade8c2b92f80dab9f21a39ad68f8d6e0a}{THROTTLE\_CHANGE\_THRESHOLD}}\ ||\ brake\_delta\ >\ \mbox{\hyperlink{driving__loop_8c_a4bf993c3531318a98fc092ffde90602f}{BRAKE\_CHANGE\_THRESHOLD}})\ \{}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_a01068b62ae077af823a3ff2339589a5a}{last\_driver\_input\_time}}\ =\ \mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}();}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_aaa0cf1ce25f6295e6f5bc62ff3e5fd34}{last\_throttle\_percent}}\ =\ throttle\_percent;}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_acebecb0a23929da61d8512ddded82450}{last\_brake\_percent}}\ =\ brake\_percent;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{motor__controller_8h_a01068b62ae077af823a3ff2339589a5a}{last\_driver\_input\_time}}\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\_throttle\_percent\ =\ throttle\_percent;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ last\_brake\_percent\ =\ brake\_percent;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00334}00334\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ for\ input\ timeout}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00336}00336\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it's\ been\ too\ long\ since\ the\ last\ meaningful\ input}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//bool\ input\_timeout\ =\ (last\_driver\_input\_time\ -\/\ last\_input\_change\_time)\ >\ timeout\_ticks;}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00338}00338\ }
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ input\_timeout\ =\ (\mbox{\hyperlink{task_8h_a753ecfe23e7386066ecccad5d16422f7}{xTaskGetTickCount}}()\ -\/\ \mbox{\hyperlink{driving__loop_8c_a80a40a6a77773c08f900289e4605f4a8}{last\_input\_change\_time}})\ >\ timeout\_ticks;}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ input\_timeout\ =\ (xTaskGetTickCount()\ -\/\ last\_input\_change\_time)\ >\ timeout\_ticks;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00340}00340\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00342}00342\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00343}00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//APPS\ and\ Brake\ Pedal\ Plausibility\ Check}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 1.\ Trigger\ torque\ inhibit\ if\ APPS\ >\ 25\%\ and\ Brake\ is\ pressed}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (throttle\_percent\ >\ 25.0f\ \&\&\ brake\_percent\ >\ 5.0f)\ \{}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torque\_inhibit\_active\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.\ Do\ NOT\ reset\ torque\ inhibit\ until\ BOTH\ are\ released\ to\ <\ thresholds}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}}\ \&\&\ throttle\_percent\ <\ 5.0f\ \&\&\ brake\_percent\ <\ 5.0f)\ \{}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (torque\_inhibit\_active\ \&\&\ throttle\_percent\ <\ 5.0f\ \&\&\ brake\_percent\ <\ 5.0f)\ \{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ torque\_inhibit\_active\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3.\ If\ inhibit\ is\ active,\ override\ torque\ request}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}})\ \{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (torque\_inhibit\_active)\ \{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_filtered\ =\ 0.0f;}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Enforce\ torque\ cutoff\ if:}}
@@ -336,18 +336,18 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 5.\ Torque\ inhibit\ is\ active\ due\ to\ APPS\ >25\%\ and\ Brake\ >5\%\ (per\ FSAE\ Rule\ T.4.2.5)}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ →\ Torque\ must\ remain\ zero\ until\ APPS\ <5\%\ and\ Brake\ <5\%\ to\ clear\ inhibit}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//if\ (input\_timeout\ ||\ torque\_inhibit\_active)\ \{\ //this\ might\ cause\ the\ inverter\ to\ break\ bc\ it'll\ cut\ torque\ after\ 500ms\ of\ no\ pedal?}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}})\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (torque\_inhibit\_active)\{}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_filtered\ =\ 0.0f;}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_aa5e709aa0b6ce54eee6f0396eedc37df}{sent\_zero\_torque}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sent\_zero\_torque\ =\ \textcolor{keyword}{true};}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{\ \textcolor{comment}{//normal\ driving\ logic}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 2.\ Map\ to\ torque\ request}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\_REQ}}\ =\ \mbox{\hyperlink{driving__loop_8c_a14bdb2b38c226aa850a0c25207afd1fa}{mapThrottleToTorque}}(throttle\_percent);}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\_REQ}}\ =\ mapThrottleToTorque(throttle\_percent);}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00367}00367\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3.\ Determine\ acceleration\ status}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a15e200c9bf4f5d49b02215e273d2d841}{is\_accelerating}}\ =\ (\mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\_REQ}}\ >=\ \mbox{\hyperlink{driving__loop_8c_afb126e9ab9acbc2c02585ce5728a538a}{T\_PREV}});}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00370}00370\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00371}00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 4.\ Apply\ filtering\ to\ smooth\ torque}}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_filtered\ =\ \mbox{\hyperlink{driving__loop_8c_a42c4321a28da09906e185c9c5971fce9}{applyTorqueFilter}}(\mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\_REQ}},\ \mbox{\hyperlink{driving__loop_8c_afb126e9ab9acbc2c02585ce5728a538a}{T\_PREV}},\ \mbox{\hyperlink{driving__loop_8c_a15e200c9bf4f5d49b02215e273d2d841}{is\_accelerating}});}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00372}00372\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_filtered\ =\ applyTorqueFilter(\mbox{\hyperlink{driving__loop_8c_a8096732d061a4d6d6a9b78780025f056}{T\_REQ}},\ \mbox{\hyperlink{driving__loop_8c_afb126e9ab9acbc2c02585ce5728a538a}{T\_PREV}},\ \mbox{\hyperlink{driving__loop_8c_a15e200c9bf4f5d49b02215e273d2d841}{is\_accelerating}});}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00373}00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 6.\ Update\ previous\ torque}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00374}00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//todo:\ fix\ T\_filter\ scaling}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00375}00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//half\ the\ requested\ torque}}
@@ -451,8 +451,8 @@
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00504}00504\ \textcolor{comment}{//\ \ \ \ \ \ \ \ *dl\_status\ =\ Plausible;}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00505}00505\ \textcolor{comment}{//\ \ \ \ \}}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00506}00506\ }
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00507}00507\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}}\ \&\&\ throttle\_percent\ <\ dl\_params-\/>apps\_implausibility\_recovery\_threshold\ \&\&\ brake\_percent\ <\ dl\_params-\/>bps\_implausibility\_recovery\_threshold)\{}
-\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{driving__loop_8c_a0131bf37bd5fbfaefac74ca3e6fdd661}{torque\_inhibit\_active}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00507}00507\ \ \ \ \ \textcolor{keywordflow}{if}\ (torque\_inhibit\_active\ \&\&\ throttle\_percent\ <\ dl\_params-\/>apps\_implausibility\_recovery\_threshold\ \&\&\ brake\_percent\ <\ dl\_params-\/>bps\_implausibility\_recovery\_threshold)\{}
+\DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ torque\_inhibit\_active\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00509}00509\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00510}00510\ }
 \DoxyCodeLine{\Hypertarget{driving__loop_8c_source_l00511}00511\ }

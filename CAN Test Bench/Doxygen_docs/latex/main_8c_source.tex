@@ -26,7 +26,7 @@
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{imd_8h}{imd.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00040}00040\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{motor__controller_8h}{motor\_controller.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00041}00041\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pdu_8h}{pdu.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{cmsis__os_8h}{../FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00042}00042\ \textcolor{preprocessor}{\#include\ "{}../FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h"{}}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00043}00043\ }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00044}00044\ }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00045}00045\ \textcolor{comment}{/*\ USER\ CODE\ END\ Includes\ */}}
@@ -69,7 +69,7 @@
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00082}\mbox{\hyperlink{adc_8c_a2e4a1dd465581f14d83bce70270bcbb4}{00082}}\ uint16\_t\ \mbox{\hyperlink{main_8c_a2e4a1dd465581f14d83bce70270bcbb4}{adc3\_damper\_RL}};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00083}\mbox{\hyperlink{adc_8c_ac69ffb1724eb930386724aa5d7ce4593}{00083}}\ uint16\_t\ \mbox{\hyperlink{main_8c_ac69ffb1724eb930386724aa5d7ce4593}{adc3\_damper\_RR}};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00084}00084\ }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}\mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{00085}}\ \mbox{\hyperlink{structtsk_task_control_block}{TaskHandle\_t}}\ \mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{init\_task\_handle}};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00085}\mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{00085}}\ TaskHandle\_t\ \mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{init\_task\_handle}};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00086}\mbox{\hyperlink{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}{00086}}\ \mbox{\hyperlink{structuv__init__struct}{uv\_init\_struct}}\ \mbox{\hyperlink{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}{init\_settings}};}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00087}00087\ }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00088}00088\ \textcolor{comment}{//int\ adc\_conv\_complete\_flag\ =\ 0;}}
@@ -178,14 +178,14 @@
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00195}00195\ \ \ \textcolor{comment}{/*\ Infinite\ loop\ */}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00196}00196\ \ \ \textcolor{comment}{/*\ USER\ CODE\ BEGIN\ WHILE\ */}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00197}00197\ }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00198}00198\ \ \ \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{BaseType\_t}}\ x\_task\_return\ =\ xTaskCreate(\mbox{\hyperlink{uvfr__utils_8h_a6d40598f9d8daa89ca159a2e87f4fd01}{uvInit}},\textcolor{stringliteral}{"{}init"{}},512,\&\mbox{\hyperlink{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}{init\_settings}},\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa45a2895ad30c79fb97de18cac7cc19f1}{osPriorityNormal}},\&\mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{init\_task\_handle}});}
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{if}(x\_task\_return\ !=\ \mbox{\hyperlink{projdefs_8h_a07848d3078849bd32353c69d30a479b3}{pdPASS}})\{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00198}00198\ \ \ BaseType\_t\ x\_task\_return\ =\ xTaskCreate(\mbox{\hyperlink{uvfr__utils_8h_a6d40598f9d8daa89ca159a2e87f4fd01}{uvInit}},\textcolor{stringliteral}{"{}init"{}},512,\&\mbox{\hyperlink{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}{init\_settings}},osPriorityNormal,\&\mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{init\_task\_handle}});}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{if}(x\_task\_return\ !=\ pdPASS)\{}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00200}00200\ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\{}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Program\ hangs\ itself,\ like\ bro,\ we\ couldnt\ even\ create\ the\ INITIALISATION\ task,\ thats\ fucked}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00202}00202\ \ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00203}00203\ \ \ \}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00204}00204\ }
-\DoxyCodeLine{\Hypertarget{main_8c_source_l00205}00205\ \ \ \mbox{\hyperlink{task_8h_aaf9dca1065c60abdeb309d56ab7293cb}{vTaskStartScheduler}}();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00205}00205\ \ \ vTaskStartScheduler();}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00206}00206\ }
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00207}00207\ \ \ \ \ \textcolor{comment}{//Update\_Batt\_Temp(69);\ //\ temp\ debugging}}
 \DoxyCodeLine{\Hypertarget{main_8c_source_l00208}00208\ }

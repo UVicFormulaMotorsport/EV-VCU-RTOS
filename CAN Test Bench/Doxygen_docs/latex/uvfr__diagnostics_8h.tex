@@ -1,6 +1,10 @@
 \doxysection{Core/\+Inc/uvfr\+\_\+diagnostics.h File Reference}
 \hypertarget{uvfr__diagnostics_8h}{}\label{uvfr__diagnostics_8h}\index{Core/Inc/uvfr\_diagnostics.h@{Core/Inc/uvfr\_diagnostics.h}}
 {\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for uvfr\+\_\+diagnostics.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
@@ -87,8 +91,8 @@ Definition at line \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00019}{19}} of 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}((x)\ ==\ 0)\{\(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}{uvAssertFailed}}(\textcolor{keywordtype}{char}*\ file,\ uint16\_t\ line,\ \mbox{\hyperlink{structtsk_task_control_block}{TaskHandle\_t}}\ task,\ \textcolor{keywordtype}{char}*\ condition);\(\backslash\)}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structtsk_task_control_block}{TaskHandle\_t}}\ ctask\ =\ \mbox{\hyperlink{task_8h_a85a0f9c9f817b18686efbf8f37c72dfc}{xTaskGetCurrentTaskHandle}}();\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}{uvAssertFailed}}(\textcolor{keywordtype}{char}*\ file,\ uint16\_t\ line,\ TaskHandle\_t\ task,\ \textcolor{keywordtype}{char}*\ condition);\(\backslash\)}
+\DoxyCodeLine{\ \ \ \ TaskHandle\_t\ ctask\ =\ xTaskGetCurrentTaskHandle();\(\backslash\)}
 \DoxyCodeLine{\ \ \ \ uvAssertFailed(\mbox{\hyperlink{main_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\_\_UV\_FILENAME\_\_}},\ \_\_LINE\_\_,\ ctask,\ \mbox{\hyperlink{uvfr__diagnostics_8h_a94253da7c896b6bad6f37138776820b4}{TEXTIFY}}(x));\(\backslash\)}
 \DoxyCodeLine{\}}
 

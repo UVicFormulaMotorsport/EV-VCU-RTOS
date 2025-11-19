@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['_5f_5fattribute_5f_5f_0',['__attribute__',['../port_8c.html#af9aace1b44b73111e15aa39f06f43456',1,'__attribute__((weak)):&#160;port.c'],['../portmacro_8h.html#ac864e333c11a6614eab8e8542ba01ed0',1,'__attribute__((always_inline)) static inline uint8_t ucPortCountLeadingZeros(uint32_t ulBitmap):&#160;portmacro.h'],['../syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456',1,'__attribute__((weak)):&#160;syscalls.c'],['../uvfr__conifer_8c.html#a083b2e840cc4afee2f08f66c46f4d64d',1,'__attribute__((constructor)):&#160;uvfr_conifer.c']]],
+  ['_5f_5fattribute_5f_5f_0',['__attribute__',['../syscalls_8c.html#af9aace1b44b73111e15aa39f06f43456',1,'__attribute__((weak)):&#160;syscalls.c'],['../uvfr__conifer_8c.html#a083b2e840cc4afee2f08f66c46f4d64d',1,'__attribute__((constructor)):&#160;uvfr_conifer.c']]],
   ['_5f_5fio_5fgetchar_1',['__io_getchar',['../syscalls_8c.html#ad0122671640a3af49792ddaa59e8294e',1,'syscalls.c']]],
   ['_5f_5fio_5fputchar_2',['__io_putchar',['../syscalls_8c.html#aa53ed4b191897a1bfc205aa1da005d24',1,'syscalls.c']]],
   ['_5f_5fuvcantxcritsection_3',['__uvCANtxCritSection',['../can_8c.html#ae025787f17f6312df1e71c731b2a0fe4',1,'can.c']]],

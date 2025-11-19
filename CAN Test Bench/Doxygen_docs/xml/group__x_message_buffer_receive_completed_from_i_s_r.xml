@@ -7,9 +7,7 @@
     </briefdescription>
     <detaileddescription>
 <para><ref refid="message__buffer_8h" kindref="compound">message_buffer.h</ref></para>
-<para><preformatted>
-BaseType_t <ref refid="message__buffer_8h_1a22b1a37d0d4f39acd87250f73d9aab0c" kindref="member">xMessageBufferReceiveCompletedFromISR( MessageBufferHandle_t xStreamBuffer, BaseType_t *pxHigherPriorityTaskWoken )</ref>;
-</preformatted></para>
+<para>BaseType_t <ref refid="message__buffer_8h_1a22b1a37d0d4f39acd87250f73d9aab0c" kindref="member">xMessageBufferReceiveCompletedFromISR( MessageBufferHandle_t xStreamBuffer, BaseType_t *pxHigherPriorityTaskWoken )</ref>;</para>
 <para>For advanced users only.</para>
 <para>The <ref refid="stream__buffer_8c_1a4d6a29d283acfa2d4ef576476eedc789" kindref="member">sbRECEIVE_COMPLETED()</ref> macro is called from within the FreeRTOS APIs when data is read out of a message buffer or stream buffer. If there was a task that was blocked on the message or stream buffer waiting for data to arrive then the <ref refid="stream__buffer_8c_1a4d6a29d283acfa2d4ef576476eedc789" kindref="member">sbRECEIVE_COMPLETED()</ref> macro sends a notification to the task to remove it from the Blocked state. <ref refid="message__buffer_8h_1a22b1a37d0d4f39acd87250f73d9aab0c" kindref="member">xMessageBufferReceiveCompletedFromISR()</ref> does the same thing. It is provided to enable application writers to implement their own version of <ref refid="stream__buffer_8c_1a4d6a29d283acfa2d4ef576476eedc789" kindref="member">sbRECEIVE_COMPLETED()</ref>, and MUST NOT BE USED AT ANY OTHER TIME.</para>
 <para>See the example implemented in FreeRTOS/Demo/Minimal/MessageBufferAMP.c for additional information.</para>

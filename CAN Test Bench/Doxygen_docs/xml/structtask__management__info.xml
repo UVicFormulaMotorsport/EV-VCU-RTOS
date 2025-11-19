@@ -5,7 +5,7 @@
     <includes refid="uvfr__state__engine_8h" local="no">uvfr_state_engine.h</includes>
     <sectiondef kind="public-attrib">
       <memberdef kind="variable" id="structtask__management__info_1a29b374b2d26cc5a52c75160816da83aa" prot="public" static="no" mutable="no">
-        <type><ref refid="task_8h_1a25b35e6e19ecf894173e7ff95edb96ef" kindref="member">TaskHandle_t</ref></type>
+        <type>TaskHandle_t</type>
         <definition>TaskHandle_t task_management_info::task_handle</definition>
         <argsstring></argsstring>
         <name>task_handle</name>
@@ -22,7 +22,7 @@
         <referencedby refid="group__state__engine_1gaf2dbdd0d9d9aa8bcbef120661117fc5e" compoundref="uvfr__state__engine_8c" startline="1102" endline="1211">uvTaskManager</referencedby>
       </memberdef>
       <memberdef kind="variable" id="structtask__management__info_1a82d650741c82974c81a22c6bdd8c556d" prot="public" static="no" mutable="no">
-        <type><ref refid="queue_8h_1a57349603001f8ddf51c888c49e2804d7" kindref="member">QueueHandle_t</ref></type>
+        <type>QueueHandle_t</type>
         <definition>QueueHandle_t task_management_info::parent_msg_queue</definition>
         <argsstring></argsstring>
         <name>parent_msg_queue</name>
@@ -44,80 +44,6 @@
 <para>This contains the information required for the child task to communicate with it&apos;s parent.</para>
 <para>This will be a queue, since one parent task can in theory have several child tasks </para>
     </detaileddescription>
-    <collaborationgraph>
-      <node id="6">
-        <label>QueueDefinition</label>
-        <link refid="struct_queue_definition"/>
-        <childnode refid="7" relation="usage">
-          <edgelabel>xQueue</edgelabel>
-        </childnode>
-        <childnode refid="8" relation="usage">
-          <edgelabel>xSemaphore</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>xTasksWaitingToReceive</edgelabel>
-          <edgelabel>xTasksWaitingToSend</edgelabel>
-        </childnode>
-      </node>
-      <node id="7">
-        <label>QueuePointers</label>
-        <link refid="struct_queue_pointers"/>
-      </node>
-      <node id="8">
-        <label>SemaphoreData</label>
-        <link refid="struct_semaphore_data"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>xMutexHolder</edgelabel>
-        </childnode>
-      </node>
-      <node id="1">
-        <label>task_management_info</label>
-        <link refid="structtask__management__info"/>
-        <childnode refid="2" relation="usage">
-          <edgelabel>task_handle</edgelabel>
-        </childnode>
-        <childnode refid="6" relation="usage">
-          <edgelabel>parent_msg_queue</edgelabel>
-        </childnode>
-      </node>
-      <node id="2">
-        <label>tskTaskControlBlock</label>
-        <link refid="structtsk_task_control_block"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>xEventListItem</edgelabel>
-          <edgelabel>xStateListItem</edgelabel>
-        </childnode>
-      </node>
-      <node id="4">
-        <label>xLIST</label>
-        <link refid="structx_l_i_s_t"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>pxIndex</edgelabel>
-        </childnode>
-        <childnode refid="5" relation="usage">
-          <edgelabel>xListEnd</edgelabel>
-        </childnode>
-      </node>
-      <node id="3">
-        <label>xLIST_ITEM</label>
-        <link refid="structx_l_i_s_t___i_t_e_m"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>pxNext</edgelabel>
-          <edgelabel>pxPrevious</edgelabel>
-        </childnode>
-        <childnode refid="4" relation="usage">
-          <edgelabel>pxContainer</edgelabel>
-        </childnode>
-      </node>
-      <node id="5">
-        <label>xMINI_LIST_ITEM</label>
-        <link refid="structx_m_i_n_i___l_i_s_t___i_t_e_m"/>
-        <childnode refid="3" relation="usage">
-          <edgelabel>pxNext</edgelabel>
-          <edgelabel>pxPrevious</edgelabel>
-        </childnode>
-      </node>
-    </collaborationgraph>
     <location file="Core/Inc/uvfr_state_engine.h" line="161" column="1" bodyfile="Core/Inc/uvfr_state_engine.h" bodystart="161" bodyend="164"/>
     <listofallmembers>
       <member refid="structtask__management__info_1a82d650741c82974c81a22c6bdd8c556d" prot="public" virt="non-virtual"><scope>task_management_info</scope><name>parent_msg_queue</name></member>

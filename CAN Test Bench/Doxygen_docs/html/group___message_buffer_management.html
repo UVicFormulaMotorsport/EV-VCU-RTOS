@@ -125,10 +125,8 @@ Topics</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p><a class="el" href="message__buffer_8h.html">message_buffer.h</a></p>
-<pre>
-  \ilinebr 
-MessageBufferHandle_t <a class="el" href="message__buffer_8h.html#a2959cd0e3d2bd20d46908e5c9872be36">xMessageBufferCreate( size_t xBufferSizeBytes )</a>;
-</pre><p>Creates a new message buffer using dynamically allocated memory. See <a class="el" href="message__buffer_8h.html#acc84f4a15dbd39ecbad35f7337e78b2c">xMessageBufferCreateStatic()</a> for a version that uses statically allocated memory (memory that is allocated at compile time).</p>
+<p>MessageBufferHandle_t <a class="el" href="message__buffer_8h.html#a2959cd0e3d2bd20d46908e5c9872be36">xMessageBufferCreate( size_t xBufferSizeBytes )</a>;</p>
+<p>Creates a new message buffer using dynamically allocated memory. See <a class="el" href="message__buffer_8h.html#acc84f4a15dbd39ecbad35f7337e78b2c">xMessageBufferCreateStatic()</a> for a version that uses statically allocated memory (memory that is allocated at compile time).</p>
 <p>configSUPPORT_DYNAMIC_ALLOCATION must be set to 1 or left undefined in <a class="el" href="_free_r_t_o_s_config_8h.html">FreeRTOSConfig.h</a> for <a class="el" href="message__buffer_8h.html#a2959cd0e3d2bd20d46908e5c9872be36">xMessageBufferCreate()</a> to be available.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -137,30 +135,11 @@ MessageBufferHandle_t <a class="el" href="message__buffer_8h.html#a2959cd0e3d2bd
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If NULL is returned, then the message buffer cannot be created because there is insufficient heap memory available for FreeRTOS to allocate the message buffer data structures and storage area. A non-NULL value being returned indicates that the message buffer has been created successfully - the returned value should be stored as the handle to the created message buffer.</dd></dl>
-<p>Example use: </p><pre>
-
-void vAFunction( void )
-{
-MessageBufferHandle_t xMessageBuffer;
-const size_t xMessageBufferSizeBytes = 100;
-
-    // Create a message buffer that can hold 100 bytes.  The memory used to hold
-    // both the message buffer structure and the messages themselves is allocated
-    // dynamically.  Each message added to the buffer consumes an additional 4
-    // bytes which are used to hold the lengh of the message.
-    xMessageBuffer = <a class="el" href="message__buffer_8h.html#a2959cd0e3d2bd20d46908e5c9872be36">xMessageBufferCreate( xMessageBufferSizeBytes )</a>;
-
-    if( xMessageBuffer == NULL )
-    {
-        // There was not enough heap memory space available to create the
-        // message buffer.
-    }
-    else
-    {
-        // The message buffer was created successfully and can now be used.
-    }
-
-</pre> </div><!-- contents -->
+<p>Example use:</p>
+<p>void vAFunction( void ) { MessageBufferHandle_t xMessageBuffer; const size_t xMessageBufferSizeBytes = 100;</p>
+<p>Create a message buffer that can hold 100 bytes. The memory used to hold both the message buffer structure and the messages themselves is allocated dynamically. Each message added to the buffer consumes an additional 4 bytes which are used to hold the lengh of the message. xMessageBuffer = <a class="el" href="message__buffer_8h.html#a2959cd0e3d2bd20d46908e5c9872be36">xMessageBufferCreate( xMessageBufferSizeBytes )</a>;</p>
+<p>if( xMessageBuffer == NULL ) { There was not enough heap memory space available to create the message buffer. } else { The message buffer was created successfully and can now be used. } </p>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

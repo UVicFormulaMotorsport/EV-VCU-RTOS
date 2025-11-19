@@ -63,7 +63,7 @@ extern "C" {
  * used to create a synchronisation point between multiple tasks (a
  * 'rendezvous').
  *
- * \defgroup EventGroup
+ * \defgroup EventGroup EventGroup
  */
 
 

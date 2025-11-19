@@ -116,15 +116,15 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">#include &quot;<a class="code" href="main_8h.html">main.h</a>&quot;</span></div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">#include &quot;stdlib.h&quot;</span></div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">#include &quot;string.h&quot;</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &quot;<a class="code" href="task_8h.html">../FreeRTOS/Source/include/task.h</a>&quot;</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">#include &quot;../FreeRTOS/Source/include/task.h&quot;</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="comment">//This line holds the entire program together</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">#ifndef HAL_CAN_ERROR_INVALID_CALLBACK</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="can_8c.html#a81ca550f56875553f534a4d72adff10d">   44</a></span><span class="preprocessor">#define HAL_CAN_ERROR_INVALID_CALLBACK (0x00400000U)</span></div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">   47</a></span><span class="keyword">static</span> <a class="code hl_struct" href="struct_queue_definition.html">QueueHandle_t</a> <a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a> = NULL;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">   48</a></span><span class="keyword">static</span> <a class="code hl_struct" href="struct_queue_definition.html">QueueHandle_t</a> <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a> = NULL;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">static</span> QueueHandle_t Tx_msg_queue = NULL;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keyword">static</span> QueueHandle_t Rx_msg_queue = NULL;</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="can_8c.html#a286ec093b36200ab124adf66d0671198">   51</a></span><span class="preprocessor">#define table_size 128</span></div>
@@ -144,8 +144,8 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">   68</a></span><a class="code hl_struct" href="struct_c_a_n___callback.html">CAN_Callback</a> <a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[<a class="code hl_define" href="can_8c.html#a7d7c7782f8ec752e4c213e138fca9507">table_size_2</a>] = {0};</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">   70</a></span><a class="code hl_struct" href="struct_queue_definition.html">SemaphoreHandle_t</a> <a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> = NULL;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="can_8c.html#a3786873632329fd3819f63a7324f8710">   71</a></span><a class="code hl_struct" href="struct_queue_definition.html">SemaphoreHandle_t</a> <a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> = NULL;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">   70</a></span>SemaphoreHandle_t <a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> = NULL;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="can_8c.html#a3786873632329fd3819f63a7324f8710">   71</a></span>SemaphoreHandle_t <a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> = NULL;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
 <div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">   74</a></span>uint8_t <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 1;</div>
@@ -390,7 +390,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>}</div>
 </div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="can_8c.html#a18b5b05ac35955baef1479165be10521">  310</a></span><span class="keyword">static</span> uint32_t <a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>=0;</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span><span class="keyword">static</span> uint32_t HAL_RCC_CAN1_CLK_ENABLED=0;</div>
 <div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
 <div class="foldopen" id="foldopen00312" data-start="{" data-end="}">
 <div class="line"><a id="l00312" name="l00312"></a><span class="lineno"><a class="line" href="can_8c.html#a2778ce7f3a2de42769b6de9fec4cedb9">  312</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="can_8c.html#a2778ce7f3a2de42769b6de9fec4cedb9">HAL_CAN_MspInit</a>(CAN_HandleTypeDef* canHandle)</div>
@@ -403,8 +403,8 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>  <span class="comment">/* USER CODE END CAN1_MspInit 0 */</span></div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="comment">/* CAN1 clock enable */</span></div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>++;</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>==1){</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    HAL_RCC_CAN1_CLK_ENABLED++;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span>(HAL_RCC_CAN1_CLK_ENABLED==1){</div>
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>      __HAL_RCC_CAN1_CLK_ENABLE();</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    }</div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span> </div>
@@ -436,8 +436,8 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>  <span class="comment">/* USER CODE END CAN2_MspInit 0 */</span></div>
 <div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="comment">/* CAN2 clock enable */</span></div>
 <div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    __HAL_RCC_CAN2_CLK_ENABLE();</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    <a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>++;</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>==1){</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>    HAL_RCC_CAN1_CLK_ENABLED++;</div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>    <span class="keywordflow">if</span>(HAL_RCC_CAN1_CLK_ENABLED==1){</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>      __HAL_RCC_CAN1_CLK_ENABLE();</div>
 <div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    }</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
@@ -475,8 +475,8 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
 <div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>  <span class="comment">/* USER CODE END CAN1_MspDeInit 0 */</span></div>
 <div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>    <span class="comment">/* Peripheral clock disable */</span></div>
-<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    <a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>--;</div>
-<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>==0){</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>    HAL_RCC_CAN1_CLK_ENABLED--;</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span>    <span class="keywordflow">if</span>(HAL_RCC_CAN1_CLK_ENABLED==0){</div>
 <div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>      __HAL_RCC_CAN1_CLK_DISABLE();</div>
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    }</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
@@ -498,8 +498,8 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>  <span class="comment">/* USER CODE END CAN2_MspDeInit 0 */</span></div>
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    <span class="comment">/* Peripheral clock disable */</span></div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>    __HAL_RCC_CAN2_CLK_DISABLE();</div>
-<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    <a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>--;</div>
-<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a>==0){</div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    HAL_RCC_CAN1_CLK_ENABLED--;</div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span>    <span class="keywordflow">if</span>(HAL_RCC_CAN1_CLK_ENABLED==0){</div>
 <div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>      __HAL_RCC_CAN1_CLK_DISABLE();</div>
 <div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span>    }</div>
 <div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span> </div>
@@ -527,7 +527,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="foldopen" id="foldopen00456" data-start="{" data-end="}">
 <div class="line"><a id="l00456" name="l00456"></a><span class="lineno"><a class="line" href="can_8h.html#a4e0742fef0f265347a75b7fa12012229">  456</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="can_8c.html#a7368d39e78009c017d6f81ccf33b9b2c">HAL_CAN_RxFifo0MsgPendingCallback</a>(CAN_HandleTypeDef *hcan){</div>
 <div class="line"><a id="l00457" name="l00457"></a><span class="lineno">  457</span>    <a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a> tmp;</div>
-<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    <a class="code hl_typedef" href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a> was_higher_priority_task_woken;</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    BaseType_t was_higher_priority_task_woken;</div>
 <div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>    CAN_RxHeaderTypeDef* pHeader;</div>
 <div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span> </div>
 <div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span>    uint8_t bus;</div>
@@ -545,7 +545,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>    <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>  }</div>
 <div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span> </div>
-<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>  <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a> == NULL){</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>  <span class="keywordflow">if</span>(Rx_msg_queue == NULL){</div>
 <div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>      <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>      <span class="keywordflow">return</span>; <span class="comment">//RxDaemon not active yet</span></div>
 <div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>  }</div>
@@ -572,10 +572,10 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>  tmp.<a class="code hl_variable" href="structuv___c_a_n__msg.html#aa74af3745c8b56910d7c309245541d37">dlc</a> = <a class="code hl_variable" href="constants_8h.html#a6ee6e13063b860648180eea65852cc71">RxHeader</a>.DLC; <span class="comment">// Data Length Code</span></div>
 <div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span> </div>
 <div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>  <span class="comment">//TANNER AND FLO CALL YOUR FUNCTION HERE TO DO STUFF</span></div>
-<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>  <a class="code hl_define" href="queue_8h.html#a21d5919ed26c21d121df4a4debeb643c">xQueueSendFromISR</a>( <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a>, &amp;tmp, &amp;was_higher_priority_task_woken );</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span>  xQueueSendFromISR( Rx_msg_queue, &amp;tmp, &amp;was_higher_priority_task_woken );</div>
 <div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span> </div>
-<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>  <span class="keywordflow">if</span>(was_higher_priority_task_woken == <a class="code hl_define" href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a>){</div>
-<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>      <a class="code hl_define" href="task_8h.html#a767e474430db1e60056e9678763f9202">taskYIELD</a>();</div>
+<div class="line"><a id="l00505" name="l00505"></a><span class="lineno">  505</span>  <span class="keywordflow">if</span>(was_higher_priority_task_woken == pdTRUE){</div>
+<div class="line"><a id="l00506" name="l00506"></a><span class="lineno">  506</span>      taskYIELD();</div>
 <div class="line"><a id="l00507" name="l00507"></a><span class="lineno">  507</span>  }</div>
 <div class="line"><a id="l00508" name="l00508"></a><span class="lineno">  508</span> </div>
 <div class="line"><a id="l00509" name="l00509"></a><span class="lineno">  509</span>}</div>
@@ -586,7 +586,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00512" name="l00512"></a><span class="lineno"><a class="line" href="can_8h.html#a4c51ef84434a42d4c5f9524d361c0703">  512</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="can_8c.html#af6dd58034ec0e0a887b1c36317c4c64b">HAL_CAN_RxFifo1MsgPendingCallback</a>(CAN_HandleTypeDef *hcan){</div>
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    <span class="comment">// do something</span></div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span>    <a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a> tmp;</div>
-<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    <a class="code hl_typedef" href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a> was_higher_priority_task_woken;</div>
+<div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    BaseType_t was_higher_priority_task_woken;</div>
 <div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    CAN_RxHeaderTypeDef* pHeader;</div>
 <div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span> </div>
 <div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    uint8_t bus;</div>
@@ -603,7 +603,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>    <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>  }</div>
 <div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span> </div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>  <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a> == NULL){</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>  <span class="keywordflow">if</span>(Rx_msg_queue == NULL){</div>
 <div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>      <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>      <span class="keywordflow">return</span>; <span class="comment">//RxDaemon not active yet</span></div>
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span>  }</div>
@@ -630,10 +630,10 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>  tmp.<a class="code hl_variable" href="structuv___c_a_n__msg.html#aa74af3745c8b56910d7c309245541d37">dlc</a> = <a class="code hl_variable" href="constants_8h.html#a6ee6e13063b860648180eea65852cc71">RxHeader</a>.DLC; <span class="comment">// Data Length Code</span></div>
 <div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span> </div>
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>  <span class="comment">//TANNER AND FLO CALL YOUR FUNCTION HERE TO DO STUFF</span></div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>  <a class="code hl_define" href="queue_8h.html#a21d5919ed26c21d121df4a4debeb643c">xQueueSendFromISR</a>( <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a>, &amp;tmp, &amp;was_higher_priority_task_woken );</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>  xQueueSendFromISR( Rx_msg_queue, &amp;tmp, &amp;was_higher_priority_task_woken );</div>
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span> </div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>  <span class="keywordflow">if</span>(was_higher_priority_task_woken == <a class="code hl_define" href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a>){</div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>      <a class="code hl_define" href="task_8h.html#a767e474430db1e60056e9678763f9202">taskYIELD</a>();</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>  <span class="keywordflow">if</span>(was_higher_priority_task_woken == pdTRUE){</div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>      taskYIELD();</div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>  }</div>
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span> </div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>}</div>
@@ -653,8 +653,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 </div>
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span> </div>
-<div class="foldopen" id="foldopen00592" data-start="{" data-end="}">
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno"><a class="line" href="can_8c.html#aa5d470f815f2c11378233e0f3ca9ed8b">  592</a></span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="can_8c.html#aa5d470f815f2c11378233e0f3ca9ed8b">callFunctionFromCANid</a>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>* msg) {</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span><span class="keyword">static</span> <span class="keyword">inline</span> <a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> callFunctionFromCANid(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>* msg) {</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> index = <a class="code hl_function" href="can_8c.html#affa7bfe9532060be4358706525e4f36e">generateHash</a>(msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aae369fbabe3cc5b71a89bb641c24aace">msg_id</a>);</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span> </div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
@@ -704,7 +703,6 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span> </div>
 <div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea87c01f9029276637a8c9568fd67efcac">UV_WARNING</a>;</div>
 <div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>}</div>
-</div>
 <div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span> </div>
 <div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span> </div>
 <div class="foldopen" id="foldopen00652" data-start="{" data-end="}">
@@ -716,7 +714,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span> </div>
 <div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span> </div>
 <div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){</div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="keywordflow">if</span>(<a class="code hl_define" href="semphr_8h.html#af116e436d2a5ae5bd72dbade2b5ea930">xSemaphoreTake</a>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>,10) == <a class="code hl_define" href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a>){</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="keywordflow">if</span>(xSemaphoreTake(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>,10) == pdTRUE){</div>
 <div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
 <div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        }<span class="keywordflow">else</span>{</div>
 <div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0">UV_ERROR</a>;</div>
@@ -730,14 +728,14 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>            <a class="code hl_variable" href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> = id;</div>
 <div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>            <a class="code hl_variable" href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
 <div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>            <a class="code hl_variable" href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a> = NULL;</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
 <div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>            <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>        }</div>
 <div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span> </div>
 <div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> == <span class="keywordtype">id</span>){ <span class="comment">//You are editing a duplicate, overwrite it</span></div>
 <div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>            <a class="code hl_variable" href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> = id;</div>
 <div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>            <a class="code hl_variable" href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
 <div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>            <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>        }</div>
 <div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
@@ -747,14 +745,14 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>            <span class="keywordflow">if</span>(temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> == <span class="keywordtype">id</span>){</div>
 <div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>                temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> = id;</div>
 <div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>                temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
 <div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>                <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>            }</div>
 <div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        }</div>
 <div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span> </div>
 <div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>        temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a> = uvMalloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_c_a_n___callback.html">CAN_Callback</a>)); <span class="comment">//reaching this point means temp-&gt;next == NULL</span></div>
 <div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>        <span class="keywordflow">if</span>(temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a> == NULL){</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
 <div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>            <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>        }<span class="keywordflow">else</span>{</div>
 <div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            temp = temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a>;</div>
@@ -763,14 +761,14 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
 <div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>        }</div>
 <div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span> </div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a>);}</div>
 <div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span> </div>
 <div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span> </div>
 <div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span> </div>
 <div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>    } <span class="keywordflow">else</span> {<span class="comment">//insert into CAN 2</span></div>
 <div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span> </div>
 <div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>        <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>            <span class="keywordflow">if</span>(<a class="code hl_define" href="semphr_8h.html#af116e436d2a5ae5bd72dbade2b5ea930">xSemaphoreTake</a>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>,10) == <a class="code hl_define" href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a>){</div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>            <span class="keywordflow">if</span>(xSemaphoreTake(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>,10) == pdTRUE){</div>
 <div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span> </div>
 <div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>            }<span class="keywordflow">else</span>{</div>
 <div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0">UV_ERROR</a>;</div>
@@ -783,13 +781,13 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>           <a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> = id;</div>
 <div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>           <a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
 <div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>           <a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a> = NULL;</div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>           <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>           <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
 <div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>           <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>        }</div>
 <div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>          <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> == <span class="keywordtype">id</span>){ <span class="comment">//You are editing a duplicate, overwrite it</span></div>
 <div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>              <a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> = id;</div>
 <div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>              <a class="code hl_variable" href="can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62">CAN_callback_table_2</a>[index].<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>          <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>          <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
 <div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>          <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>        }</div>
 <div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span> </div>
@@ -799,14 +797,14 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>          <span class="keywordflow">if</span>(temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> == <span class="keywordtype">id</span>){</div>
 <div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>            temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_id</a> = id;</div>
 <div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span>            temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>            <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
 <div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>            <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>           }</div>
 <div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    }</div>
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
 <div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>          temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a> = uvMalloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="struct_c_a_n___callback.html">CAN_Callback</a>)); <span class="comment">//reaching this point means temp-&gt;next == NULL</span></div>
 <div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>          <span class="keywordflow">if</span>(temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a> == NULL){</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>              <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>              <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
 <div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>              <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>         }<span class="keywordflow">else</span>{</div>
 <div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>            temp = temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">next</a>;</div>
@@ -815,7 +813,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>            temp-&gt;<a class="code hl_variable" href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">function</a> = handlerfunc;</div>
 <div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>         }</div>
 <div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span> </div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>         <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){<a class="code hl_define" href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>         <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> != NULL){xSemaphoreGive(<a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a>);}</div>
 <div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span> </div>
 <div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>    }</div>
 <div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span> </div>
@@ -899,15 +897,15 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>    <a class="code hl_variable" href="constants_8h.html#a3e35a666d459f2ac92fc7c35334ff0ff">TxHeader</a>.DLC = tx_msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aa74af3745c8b56910d7c309245541d37">dlc</a>;</div>
 <div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span> </div>
 <div class="line"><a id="l00841" name="l00841"></a><span class="lineno">  841</span> </div>
-<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    <a class="code hl_define" href="task_8h.html#ab7bf0ae866292ba8296091a9d5209689">taskENTER_CRITICAL</a>();</div>
+<div class="line"><a id="l00842" name="l00842"></a><span class="lineno">  842</span>    taskENTER_CRITICAL();</div>
 <div class="line"><a id="l00843" name="l00843"></a><span class="lineno">  843</span>    <span class="keywordflow">if</span> (HAL_CAN_AddTxMessage(&amp;<a class="code hl_variable" href="can_8c.html#ab77168d14df04ccca5d48612ee21ced8">hcan2</a>, &amp;<a class="code hl_variable" href="constants_8h.html#a3e35a666d459f2ac92fc7c35334ff0ff">TxHeader</a>, tx_msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>, &amp;<a class="code hl_variable" href="constants_8h.html#aedd1e4ac418a9697f9f41a2713d49569">TxMailbox</a>) != HAL_OK){</div>
 <div class="line"><a id="l00844" name="l00844"></a><span class="lineno">  844</span>        <span class="comment">/* Transmission request Error */</span></div>
-<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        <a class="code hl_define" href="task_8h.html#aac8f36abc45ac4ee714bd6b81e3b1643">taskEXIT_CRITICAL</a>();</div>
+<div class="line"><a id="l00845" name="l00845"></a><span class="lineno">  845</span>        taskEXIT_CRITICAL();</div>
 <div class="line"><a id="l00846" name="l00846"></a><span class="lineno">  846</span>        <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00847" name="l00847"></a><span class="lineno">  847</span>        uvPanic(<span class="stringliteral">&quot;Unable to Transmit CAN msg&quot;</span>,0);</div>
 <div class="line"><a id="l00848" name="l00848"></a><span class="lineno">  848</span>        <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0">UV_ERROR</a>;</div>
 <div class="line"><a id="l00849" name="l00849"></a><span class="lineno">  849</span>    }<span class="keywordflow">else</span>{</div>
-<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>        <a class="code hl_define" href="task_8h.html#aac8f36abc45ac4ee714bd6b81e3b1643">taskEXIT_CRITICAL</a>();</div>
+<div class="line"><a id="l00850" name="l00850"></a><span class="lineno">  850</span>        taskEXIT_CRITICAL();</div>
 <div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span>    }</div>
 <div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
 <div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>}</div>
@@ -935,9 +933,9 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span> </div>
 <div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span> </div>
 <div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span>    <span class="comment">//BaseType_t higher_priority_task_woken = pdFALSE;</span></div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>    <span class="keywordflow">if</span>(<a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a> != NULL){</div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span>    <span class="keywordflow">if</span>(Tx_msg_queue != NULL){</div>
 <div class="line"><a id="l00885" name="l00885"></a><span class="lineno">  885</span>        <span class="keywordflow">if</span>(!is_isr){</div>
-<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            <span class="keywordflow">if</span>(<a class="code hl_define" href="queue_8h.html#a81d24a2c1199d58efb76fbee15853112">xQueueSendToBack</a>(<a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a>,tx_msg,0) != <a class="code hl_define" href="projdefs_8h.html#a07848d3078849bd32353c69d30a479b3">pdPASS</a>){</div>
+<div class="line"><a id="l00886" name="l00886"></a><span class="lineno">  886</span>            <span class="keywordflow">if</span>(xQueueSendToBack(Tx_msg_queue,tx_msg,0) != pdPASS){</div>
 <div class="line"><a id="l00887" name="l00887"></a><span class="lineno">  887</span>                uvPanic(<span class="stringliteral">&quot;couldnt enqueue CAN message&quot;</span>,0);</div>
 <div class="line"><a id="l00888" name="l00888"></a><span class="lineno">  888</span>            }<span class="keywordflow">else</span>{</div>
 <div class="line"><a id="l00889" name="l00889"></a><span class="lineno">  889</span>                <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
@@ -945,7 +943,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00891" name="l00891"></a><span class="lineno">  891</span>            <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00892" name="l00892"></a><span class="lineno">  892</span>            <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0">UV_ERROR</a>;</div>
 <div class="line"><a id="l00893" name="l00893"></a><span class="lineno">  893</span>        }<span class="keywordflow">else</span>{</div>
-<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>            <span class="keywordflow">if</span>(<a class="code hl_define" href="queue_8h.html#a51e9f73417b11441a181cdc4f33a68e9">xQueueSendToBackFromISR</a>(<a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a>,tx_msg,0) != <a class="code hl_define" href="projdefs_8h.html#a07848d3078849bd32353c69d30a479b3">pdPASS</a>){</div>
+<div class="line"><a id="l00894" name="l00894"></a><span class="lineno">  894</span>            <span class="keywordflow">if</span>(xQueueSendToBackFromISR(Tx_msg_queue,tx_msg,0) != pdPASS){</div>
 <div class="line"><a id="l00895" name="l00895"></a><span class="lineno">  895</span>                <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00896" name="l00896"></a><span class="lineno">  896</span>                uvPanic(<span class="stringliteral">&quot;couldnt enqueue CAN message&quot;</span>,0);</div>
 <div class="line"><a id="l00897" name="l00897"></a><span class="lineno">  897</span>            }<span class="keywordflow">else</span>{</div>
@@ -969,7 +967,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span>    <a class="code hl_struct" href="structuv__task__info.html">uv_task_info</a>* params = (<a class="code hl_struct" href="structuv__task__info.html">uv_task_info</a>*) args;</div>
 <div class="line"><a id="l00922" name="l00922"></a><span class="lineno">  922</span>    <span class="comment">//CAN_TxHeaderTypeDef tx_header;</span></div>
 <div class="line"><a id="l00923" name="l00923"></a><span class="lineno">  923</span> </div>
-<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    <a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a> = xQueueCreate(8,<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>));</div>
+<div class="line"><a id="l00924" name="l00924"></a><span class="lineno">  924</span>    Tx_msg_queue = xQueueCreate(8,<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>));</div>
 <div class="line"><a id="l00925" name="l00925"></a><span class="lineno">  925</span> </div>
 <div class="line"><a id="l00926" name="l00926"></a><span class="lineno">  926</span> </div>
 <div class="line"><a id="l00927" name="l00927"></a><span class="lineno">  927</span>    <span class="comment">//BaseType_t retval;</span></div>
@@ -979,16 +977,16 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00931" name="l00931"></a><span class="lineno">  931</span>    <span class="comment">//tx_header.TransmitGlobalTime = DISABLE;</span></div>
 <div class="line"><a id="l00932" name="l00932"></a><span class="lineno">  932</span> </div>
 <div class="line"><a id="l00933" name="l00933"></a><span class="lineno">  933</span> </div>
-<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>    <a class="code hl_typedef" href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a> result;</div>
+<div class="line"><a id="l00934" name="l00934"></a><span class="lineno">  934</span>    BaseType_t result;</div>
 <div class="line"><a id="l00935" name="l00935"></a><span class="lineno">  935</span>    <span class="comment">//uint32_t notif_val = 0;</span></div>
 <div class="line"><a id="l00936" name="l00936"></a><span class="lineno">  936</span>    <span class="keywordflow">for</span>(;;){</div>
 <div class="line"><a id="l00937" name="l00937"></a><span class="lineno">  937</span> </div>
 <div class="line"><a id="l00938" name="l00938"></a><span class="lineno">  938</span> </div>
-<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        result = <a class="code hl_function" href="queue_8h.html#ae8364d988c6f9b63c771cc2b3dfe5df9">xQueueReceive</a>(<a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a>,tx_msg,20);</div>
+<div class="line"><a id="l00939" name="l00939"></a><span class="lineno">  939</span>        result = xQueueReceive(Tx_msg_queue,tx_msg,20);</div>
 <div class="line"><a id="l00940" name="l00940"></a><span class="lineno">  940</span> </div>
 <div class="line"><a id="l00941" name="l00941"></a><span class="lineno">  941</span>        <span class="comment">//tx_msg is uv_can_msg</span></div>
 <div class="line"><a id="l00942" name="l00942"></a><span class="lineno">  942</span> </div>
-<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>        <span class="keywordflow">if</span>(result == <a class="code hl_define" href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a>){</div>
+<div class="line"><a id="l00943" name="l00943"></a><span class="lineno">  943</span>        <span class="keywordflow">if</span>(result == pdTRUE){</div>
 <div class="line"><a id="l00944" name="l00944"></a><span class="lineno">  944</span> </div>
 <div class="line"><a id="l00945" name="l00945"></a><span class="lineno">  945</span>            <span class="keywordflow">if</span>(tx_msg == NULL){</div>
 <div class="line"><a id="l00946" name="l00946"></a><span class="lineno">  946</span>                uvPanic(<span class="stringliteral">&quot;cannot send null CAN msg&quot;</span>,0);</div>
@@ -998,8 +996,8 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00950" name="l00950"></a><span class="lineno">  950</span> </div>
 <div class="line"><a id="l00951" name="l00951"></a><span class="lineno">  951</span> </div>
 <div class="line"><a id="l00952" name="l00952"></a><span class="lineno">  952</span> </div>
-<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>            <a class="code hl_typedef" href="portmacro_8h.html#aa69c48c6e902ce54f70886e6573c92a9">TickType_t</a> attempt_time1 = <a class="code hl_function" href="task_8h.html#a753ecfe23e7386066ecccad5d16422f7">xTaskGetTickCount</a>();</div>
-<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>            <a class="code hl_typedef" href="portmacro_8h.html#aa69c48c6e902ce54f70886e6573c92a9">TickType_t</a> attempt_time2 = attempt_time1;</div>
+<div class="line"><a id="l00953" name="l00953"></a><span class="lineno">  953</span>            TickType_t attempt_time1 = xTaskGetTickCount();</div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span>            TickType_t attempt_time2 = attempt_time1;</div>
 <div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span> </div>
 <div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span> </div>
 <div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span> </div>
@@ -1017,7 +1015,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l00969" name="l00969"></a><span class="lineno">  969</span>                            }</div>
 <div class="line"><a id="l00970" name="l00970"></a><span class="lineno">  970</span> </div>
 <div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span>                <span class="keywordflow">while</span>(HAL_CAN_GetTxMailboxesFreeLevel(&amp;<a class="code hl_variable" href="can_8c.html#a1618d731d18d69e906e8a357b7cd3c8d">hcan1</a>) == 0){</div>
-<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span>                    <span class="keywordflow">if</span>(<a class="code hl_function" href="task_8h.html#a753ecfe23e7386066ecccad5d16422f7">xTaskGetTickCount</a>() - attempt_time1 &gt;= 2){</div>
+<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span>                    <span class="keywordflow">if</span>(xTaskGetTickCount() - attempt_time1 &gt;= 2){</div>
 <div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>                        <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>                        uvPanic(<span class="stringliteral">&quot;Unable to Transmit CAN msg&quot;</span>,0);</div>
 <div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span> </div>
@@ -1052,7 +1050,7 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>                            }</div>
 <div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span> </div>
 <div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span>                <span class="keywordflow">while</span>(HAL_CAN_GetTxMailboxesFreeLevel(&amp;<a class="code hl_variable" href="can_8c.html#ab77168d14df04ccca5d48612ee21ced8">hcan2</a>) == 0){</div>
-<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>                <span class="keywordflow">if</span>(<a class="code hl_function" href="task_8h.html#a753ecfe23e7386066ecccad5d16422f7">xTaskGetTickCount</a>() - attempt_time2 &gt;= 2){</div>
+<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span>                <span class="keywordflow">if</span>(xTaskGetTickCount() - attempt_time2 &gt;= 2){</div>
 <div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span>                    <a class="code hl_variable" href="group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966">is_can_ok</a> = 0;</div>
 <div class="line"><a id="l01009" name="l01009"></a><span class="lineno"> 1009</span>                    uvPanic(<span class="stringliteral">&quot;Unable to Transmit CAN msg&quot;</span>,0);</div>
 <div class="line"><a id="l01010" name="l01010"></a><span class="lineno"> 1010</span>                    <span class="keywordflow">break</span>;</div>
@@ -1071,9 +1069,9 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l01023" name="l01023"></a><span class="lineno"> 1023</span> </div>
 <div class="line"><a id="l01024" name="l01024"></a><span class="lineno"> 1024</span> </div>
 <div class="line"><a id="l01025" name="l01025"></a><span class="lineno"> 1025</span>        <span class="keywordflow">if</span>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">cmd_data</a> == <a class="code hl_enumvalue" href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6">UV_KILL_CMD</a>){</div>
-<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>            <a class="code hl_struct" href="struct_queue_definition.html">QueueHandle_t</a> tmpqueue = <a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a>;</div>
-<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>            <a class="code hl_variable" href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a> = NULL;</div>
-<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>            <a class="code hl_function" href="queue_8h.html#a707cbcfe3aed6b877b6aa6d9d75a3f22">vQueueDelete</a>(tmpqueue);</div>
+<div class="line"><a id="l01026" name="l01026"></a><span class="lineno"> 1026</span>            QueueHandle_t tmpqueue = Tx_msg_queue;</div>
+<div class="line"><a id="l01027" name="l01027"></a><span class="lineno"> 1027</span>            Tx_msg_queue = NULL;</div>
+<div class="line"><a id="l01028" name="l01028"></a><span class="lineno"> 1028</span>            vQueueDelete(tmpqueue);</div>
 <div class="line"><a id="l01029" name="l01029"></a><span class="lineno"> 1029</span> </div>
 <div class="line"><a id="l01030" name="l01030"></a><span class="lineno"> 1030</span>            <a class="code hl_function" href="group__state__engine__backend.html#ga5f35b34432afed7f18f91fb8607f096f">killSelf</a>(params);</div>
 <div class="line"><a id="l01031" name="l01031"></a><span class="lineno"> 1031</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">cmd_data</a> == <a class="code hl_enumvalue" href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077">UV_SUSPEND_CMD</a>){</div>
@@ -1091,28 +1089,28 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l01047" name="l01047"></a><span class="lineno"> 1047</span> </div>
 <div class="line"><a id="l01048" name="l01048"></a><span class="lineno"> 1048</span>    <a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a> tmp;</div>
 <div class="line"><a id="l01049" name="l01049"></a><span class="lineno"> 1049</span> </div>
-<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>    <a class="code hl_typedef" href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a> retval;</div>
+<div class="line"><a id="l01050" name="l01050"></a><span class="lineno"> 1050</span>    BaseType_t retval;</div>
 <div class="line"><a id="l01051" name="l01051"></a><span class="lineno"> 1051</span>    <a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> func_status;</div>
 <div class="line"><a id="l01052" name="l01052"></a><span class="lineno"> 1052</span> </div>
-<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>    <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a> = xQueueCreate(8,<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>));</div>
+<div class="line"><a id="l01053" name="l01053"></a><span class="lineno"> 1053</span>    Rx_msg_queue = xQueueCreate(8,<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>));</div>
 <div class="line"><a id="l01054" name="l01054"></a><span class="lineno"> 1054</span> </div>
 <div class="line"><a id="l01055" name="l01055"></a><span class="lineno"> 1055</span>    <a class="code hl_variable" href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a> = xSemaphoreCreateMutex();</div>
 <div class="line"><a id="l01056" name="l01056"></a><span class="lineno"> 1056</span>    <a class="code hl_variable" href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a> = xSemaphoreCreateMutex();</div>
 <div class="line"><a id="l01057" name="l01057"></a><span class="lineno"> 1057</span> </div>
 <div class="line"><a id="l01058" name="l01058"></a><span class="lineno"> 1058</span> </div>
 <div class="line"><a id="l01059" name="l01059"></a><span class="lineno"> 1059</span>    <span class="keywordflow">for</span>(;;){</div>
-<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>        retval = <a class="code hl_function" href="queue_8h.html#ae8364d988c6f9b63c771cc2b3dfe5df9">xQueueReceive</a>(<a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a>,&amp;tmp,10);</div>
-<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>        <span class="keywordflow">if</span>(retval == <a class="code hl_define" href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a>){</div>
-<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>            func_status = <a class="code hl_function" href="can_8c.html#aa5d470f815f2c11378233e0f3ca9ed8b">callFunctionFromCANid</a>(&amp;tmp);</div>
+<div class="line"><a id="l01060" name="l01060"></a><span class="lineno"> 1060</span>        retval = xQueueReceive(Rx_msg_queue,&amp;tmp,10);</div>
+<div class="line"><a id="l01061" name="l01061"></a><span class="lineno"> 1061</span>        <span class="keywordflow">if</span>(retval == pdTRUE){</div>
+<div class="line"><a id="l01062" name="l01062"></a><span class="lineno"> 1062</span>            func_status = callFunctionFromCANid(&amp;tmp);</div>
 <div class="line"><a id="l01063" name="l01063"></a><span class="lineno"> 1063</span>            <span class="keywordflow">if</span>(func_status != <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
 <div class="line"><a id="l01064" name="l01064"></a><span class="lineno"> 1064</span> </div>
 <div class="line"><a id="l01065" name="l01065"></a><span class="lineno"> 1065</span>            }</div>
 <div class="line"><a id="l01066" name="l01066"></a><span class="lineno"> 1066</span>        }</div>
 <div class="line"><a id="l01067" name="l01067"></a><span class="lineno"> 1067</span> </div>
 <div class="line"><a id="l01068" name="l01068"></a><span class="lineno"> 1068</span>        <span class="keywordflow">if</span>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">cmd_data</a> == <a class="code hl_enumvalue" href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6">UV_KILL_CMD</a>){</div>
-<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>            <a class="code hl_struct" href="struct_queue_definition.html">QueueHandle_t</a> tmpqueue = <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a>;</div>
-<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>            <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a> = NULL;</div>
-<div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>            <a class="code hl_function" href="queue_8h.html#a707cbcfe3aed6b877b6aa6d9d75a3f22">vQueueDelete</a>(tmpqueue);</div>
+<div class="line"><a id="l01069" name="l01069"></a><span class="lineno"> 1069</span>            QueueHandle_t tmpqueue = Rx_msg_queue;</div>
+<div class="line"><a id="l01070" name="l01070"></a><span class="lineno"> 1070</span>            Rx_msg_queue = NULL;</div>
+<div class="line"><a id="l01071" name="l01071"></a><span class="lineno"> 1071</span>            vQueueDelete(tmpqueue);</div>
 <div class="line"><a id="l01072" name="l01072"></a><span class="lineno"> 1072</span> </div>
 <div class="line"><a id="l01073" name="l01073"></a><span class="lineno"> 1073</span>            <a class="code hl_function" href="group__state__engine__backend.html#ga5f35b34432afed7f18f91fb8607f096f">killSelf</a>(params);</div>
 <div class="line"><a id="l01074" name="l01074"></a><span class="lineno"> 1074</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">cmd_data</a> == <a class="code hl_enumvalue" href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077">UV_SUSPEND_CMD</a>){</div>
@@ -1120,9 +1118,9 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="line"><a id="l01076" name="l01076"></a><span class="lineno"> 1076</span>        }</div>
 <div class="line"><a id="l01077" name="l01077"></a><span class="lineno"> 1077</span>    }</div>
 <div class="line"><a id="l01078" name="l01078"></a><span class="lineno"> 1078</span> </div>
-<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>    <a class="code hl_function" href="queue_8h.html#a707cbcfe3aed6b877b6aa6d9d75a3f22">vQueueDelete</a>(<a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a>);</div>
-<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>    <a class="code hl_variable" href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a> = NULL;</div>
-<div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span>    <a class="code hl_function" href="task_8h.html#a27ff4ebce26565bef136bda84201ff80">vTaskDelete</a>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#a5347f41c4b15b2d6b039c339613fde43">task_handle</a>);</div>
+<div class="line"><a id="l01079" name="l01079"></a><span class="lineno"> 1079</span>    vQueueDelete(Rx_msg_queue);</div>
+<div class="line"><a id="l01080" name="l01080"></a><span class="lineno"> 1080</span>    Rx_msg_queue = NULL;</div>
+<div class="line"><a id="l01081" name="l01081"></a><span class="lineno"> 1081</span>    vTaskDelete(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#a5347f41c4b15b2d6b039c339613fde43">task_handle</a>);</div>
 <div class="line"><a id="l01082" name="l01082"></a><span class="lineno"> 1082</span> </div>
 <div class="line"><a id="l01083" name="l01083"></a><span class="lineno"> 1083</span>}</div>
 </div>
@@ -1131,24 +1129,20 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="ttc" id="abms_8h_html"><div class="ttname"><a href="bms_8h.html">bms.h</a></div></div>
 <div class="ttc" id="acan_8c_html_a030a62a0956ab83394eb8354a0e97902"><div class="ttname"><a href="can_8c.html#a030a62a0956ab83394eb8354a0e97902">MX_CAN1_Init</a></div><div class="ttdeci">void MX_CAN1_Init(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00156">can.c:156</a></div></div>
 <div class="ttc" id="acan_8c_html_a1618d731d18d69e906e8a357b7cd3c8d"><div class="ttname"><a href="can_8c.html#a1618d731d18d69e906e8a357b7cd3c8d">hcan1</a></div><div class="ttdeci">CAN_HandleTypeDef hcan1</div><div class="ttdef"><b>Definition</b> <a href="#l00152">can.c:152</a></div></div>
-<div class="ttc" id="acan_8c_html_a18b5b05ac35955baef1479165be10521"><div class="ttname"><a href="can_8c.html#a18b5b05ac35955baef1479165be10521">HAL_RCC_CAN1_CLK_ENABLED</a></div><div class="ttdeci">static uint32_t HAL_RCC_CAN1_CLK_ENABLED</div><div class="ttdef"><b>Definition</b> <a href="#l00310">can.c:310</a></div></div>
 <div class="ttc" id="acan_8c_html_a1ee5cd592134235b6c07f676784d47c3"><div class="ttname"><a href="can_8c.html#a1ee5cd592134235b6c07f676784d47c3">MX_CAN2_Init</a></div><div class="ttdeci">void MX_CAN2_Init(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00232">can.c:232</a></div></div>
 <div class="ttc" id="acan_8c_html_a2357e197a9ac26277eec808769fe409f"><div class="ttname"><a href="can_8c.html#a2357e197a9ac26277eec808769fe409f">CANbusTxSvcDaemon</a></div><div class="ttdeci">void CANbusTxSvcDaemon(void *args)</div><div class="ttdoc">Background task that handles any CAN messages that are being sent.</div><div class="ttdef"><b>Definition</b> <a href="#l00920">can.c:920</a></div></div>
 <div class="ttc" id="acan_8c_html_a2778ce7f3a2de42769b6de9fec4cedb9"><div class="ttname"><a href="can_8c.html#a2778ce7f3a2de42769b6de9fec4cedb9">HAL_CAN_MspInit</a></div><div class="ttdeci">void HAL_CAN_MspInit(CAN_HandleTypeDef *canHandle)</div><div class="ttdef"><b>Definition</b> <a href="#l00312">can.c:312</a></div></div>
 <div class="ttc" id="acan_8c_html_a286ec093b36200ab124adf66d0671198"><div class="ttname"><a href="can_8c.html#a286ec093b36200ab124adf66d0671198">table_size</a></div><div class="ttdeci">#define table_size</div><div class="ttdef"><b>Definition</b> <a href="#l00051">can.c:51</a></div></div>
 <div class="ttc" id="acan_8c_html_a2b32305988f51945b7c220ca60ab68e8"><div class="ttname"><a href="can_8c.html#a2b32305988f51945b7c220ca60ab68e8">CANbusRxSvcDaemon</a></div><div class="ttdeci">void CANbusRxSvcDaemon(void *args)</div><div class="ttdoc">Background task that executes the CAN message callback functions.</div><div class="ttdef"><b>Definition</b> <a href="#l01045">can.c:1045</a></div></div>
 <div class="ttc" id="acan_8c_html_a3786873632329fd3819f63a7324f8710"><div class="ttname"><a href="can_8c.html#a3786873632329fd3819f63a7324f8710">callback_table_2_mutex</a></div><div class="ttdeci">SemaphoreHandle_t callback_table_2_mutex</div><div class="ttdef"><b>Definition</b> <a href="#l00071">can.c:71</a></div></div>
-<div class="ttc" id="acan_8c_html_a39f60bf61979059355fc4916aa3500db"><div class="ttname"><a href="can_8c.html#a39f60bf61979059355fc4916aa3500db">Tx_msg_queue</a></div><div class="ttdeci">static QueueHandle_t Tx_msg_queue</div><div class="ttdef"><b>Definition</b> <a href="#l00047">can.c:47</a></div></div>
 <div class="ttc" id="acan_8c_html_a4b39e42353b2781bc75d83c018640b67"><div class="ttname"><a href="can_8c.html#a4b39e42353b2781bc75d83c018640b67">HAL_CAN_MspDeInit</a></div><div class="ttdeci">void HAL_CAN_MspDeInit(CAN_HandleTypeDef *canHandle)</div><div class="ttdef"><b>Definition</b> <a href="#l00391">can.c:391</a></div></div>
 <div class="ttc" id="acan_8c_html_a5a72324e39bf00fcdbefc7081bb3d600"><div class="ttname"><a href="can_8c.html#a5a72324e39bf00fcdbefc7081bb3d600">TxHeader2</a></div><div class="ttdeci">CAN_TxHeaderTypeDef TxHeader2</div><div class="ttdef"><b>Definition</b> <a href="constants_8c_source.html#l00005">constants.c:5</a></div></div>
 <div class="ttc" id="acan_8c_html_a60a9b5550d58d91e2282cdf1587f23f2"><div class="ttname"><a href="can_8c.html#a60a9b5550d58d91e2282cdf1587f23f2">table_size_1</a></div><div class="ttdeci">#define table_size_1</div><div class="ttdef"><b>Definition</b> <a href="#l00052">can.c:52</a></div></div>
 <div class="ttc" id="acan_8c_html_a7368d39e78009c017d6f81ccf33b9b2c"><div class="ttname"><a href="can_8c.html#a7368d39e78009c017d6f81ccf33b9b2c">HAL_CAN_RxFifo0MsgPendingCallback</a></div><div class="ttdeci">void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan)</div><div class="ttdef"><b>Definition</b> <a href="#l00456">can.c:456</a></div></div>
 <div class="ttc" id="acan_8c_html_a7d7c7782f8ec752e4c213e138fca9507"><div class="ttname"><a href="can_8c.html#a7d7c7782f8ec752e4c213e138fca9507">table_size_2</a></div><div class="ttdeci">#define table_size_2</div><div class="ttdef"><b>Definition</b> <a href="#l00053">can.c:53</a></div></div>
 <div class="ttc" id="acan_8c_html_a81ca550f56875553f534a4d72adff10d"><div class="ttname"><a href="can_8c.html#a81ca550f56875553f534a4d72adff10d">HAL_CAN_ERROR_INVALID_CALLBACK</a></div><div class="ttdeci">#define HAL_CAN_ERROR_INVALID_CALLBACK</div><div class="ttdef"><b>Definition</b> <a href="#l00044">can.c:44</a></div></div>
-<div class="ttc" id="acan_8c_html_aa5d470f815f2c11378233e0f3ca9ed8b"><div class="ttname"><a href="can_8c.html#aa5d470f815f2c11378233e0f3ca9ed8b">callFunctionFromCANid</a></div><div class="ttdeci">static uv_status callFunctionFromCANid(uv_CAN_msg *msg)</div><div class="ttdef"><b>Definition</b> <a href="#l00592">can.c:592</a></div></div>
 <div class="ttc" id="acan_8c_html_ab77168d14df04ccca5d48612ee21ced8"><div class="ttname"><a href="can_8c.html#ab77168d14df04ccca5d48612ee21ced8">hcan2</a></div><div class="ttdeci">CAN_HandleTypeDef hcan2</div><div class="ttdef"><b>Definition</b> <a href="#l00153">can.c:153</a></div></div>
 <div class="ttc" id="acan_8c_html_ac0a447cc951ac5c4ac2c50291d64fe44"><div class="ttname"><a href="can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44">CAN_callback_table_1</a></div><div class="ttdeci">CAN_Callback CAN_callback_table_1[table_size_1]</div><div class="ttdef"><b>Definition</b> <a href="#l00066">can.c:66</a></div></div>
-<div class="ttc" id="acan_8c_html_ad0e232ce658c38916aee908ceae1db1e"><div class="ttname"><a href="can_8c.html#ad0e232ce658c38916aee908ceae1db1e">Rx_msg_queue</a></div><div class="ttdeci">static QueueHandle_t Rx_msg_queue</div><div class="ttdef"><b>Definition</b> <a href="#l00048">can.c:48</a></div></div>
 <div class="ttc" id="acan_8c_html_ad97471d0f87ac27ca228619bfb52d2db"><div class="ttname"><a href="can_8c.html#ad97471d0f87ac27ca228619bfb52d2db">callback_table_1_mutex</a></div><div class="ttdeci">SemaphoreHandle_t callback_table_1_mutex</div><div class="ttdef"><b>Definition</b> <a href="#l00070">can.c:70</a></div></div>
 <div class="ttc" id="acan_8c_html_ae025787f17f6312df1e71c731b2a0fe4"><div class="ttname"><a href="can_8c.html#ae025787f17f6312df1e71c731b2a0fe4">__uvCANtxCritSection</a></div><div class="ttdeci">uv_status __uvCANtxCritSection(uv_CAN_msg *tx_msg)</div><div class="ttdef"><b>Definition</b> <a href="#l00826">can.c:826</a></div></div>
 <div class="ttc" id="acan_8c_html_af6b10418988114bc5b82f13501b99bdd"><div class="ttname"><a href="can_8c.html#af6b10418988114bc5b82f13501b99bdd">nuke_hash_table</a></div><div class="ttdeci">void nuke_hash_table(int can_num)</div><div class="ttdef"><b>Definition</b> <a href="#l00773">can.c:773</a></div></div>
@@ -1177,22 +1171,10 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="ttc" id="amain_8h_html_a1730ffe1e560465665eb47d9264826f9"><div class="ttname"><a href="main_8h.html#a1730ffe1e560465665eb47d9264826f9">Error_Handler</a></div><div class="ttdeci">void Error_Handler(void)</div><div class="ttdoc">This function is executed in case of error occurrence.</div><div class="ttdef"><b>Definition</b> <a href="main_8c_source.html#l00365">main.c:365</a></div></div>
 <div class="ttc" id="amotor__controller_8h_html"><div class="ttname"><a href="motor__controller_8h.html">motor_controller.h</a></div></div>
 <div class="ttc" id="apdu_8h_html"><div class="ttname"><a href="pdu_8h.html">pdu.h</a></div></div>
-<div class="ttc" id="aportmacro_8h_html_a46fb21e00ae0729d7515c0fbf2269796"><div class="ttname"><a href="portmacro_8h.html#a46fb21e00ae0729d7515c0fbf2269796">BaseType_t</a></div><div class="ttdeci">long BaseType_t</div><div class="ttdef"><b>Definition</b> <a href="portmacro_8h_source.html#l00058">portmacro.h:58</a></div></div>
-<div class="ttc" id="aportmacro_8h_html_aa69c48c6e902ce54f70886e6573c92a9"><div class="ttname"><a href="portmacro_8h.html#aa69c48c6e902ce54f70886e6573c92a9">TickType_t</a></div><div class="ttdeci">uint32_t TickType_t</div><div class="ttdef"><b>Definition</b> <a href="portmacro_8h_source.html#l00065">portmacro.h:65</a></div></div>
-<div class="ttc" id="aprojdefs_8h_html_a07848d3078849bd32353c69d30a479b3"><div class="ttname"><a href="projdefs_8h.html#a07848d3078849bd32353c69d30a479b3">pdPASS</a></div><div class="ttdeci">#define pdPASS</div><div class="ttdef"><b>Definition</b> <a href="projdefs_8h_source.html#l00047">projdefs.h:47</a></div></div>
-<div class="ttc" id="aprojdefs_8h_html_af268cf937960eb029256bd9c4d949fbe"><div class="ttname"><a href="projdefs_8h.html#af268cf937960eb029256bd9c4d949fbe">pdTRUE</a></div><div class="ttdeci">#define pdTRUE</div><div class="ttdef"><b>Definition</b> <a href="projdefs_8h_source.html#l00045">projdefs.h:45</a></div></div>
-<div class="ttc" id="aqueue_8h_html_a21d5919ed26c21d121df4a4debeb643c"><div class="ttname"><a href="queue_8h.html#a21d5919ed26c21d121df4a4debeb643c">xQueueSendFromISR</a></div><div class="ttdeci">#define xQueueSendFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken)</div><div class="ttdef"><b>Definition</b> <a href="queue_8h_source.html#l01216">queue.h:1216</a></div></div>
-<div class="ttc" id="aqueue_8h_html_a51e9f73417b11441a181cdc4f33a68e9"><div class="ttname"><a href="queue_8h.html#a51e9f73417b11441a181cdc4f33a68e9">xQueueSendToBackFromISR</a></div><div class="ttdeci">#define xQueueSendToBackFromISR(xQueue, pvItemToQueue, pxHigherPriorityTaskWoken)</div><div class="ttdef"><b>Definition</b> <a href="queue_8h_source.html#l01055">queue.h:1055</a></div></div>
-<div class="ttc" id="aqueue_8h_html_a707cbcfe3aed6b877b6aa6d9d75a3f22"><div class="ttname"><a href="queue_8h.html#a707cbcfe3aed6b877b6aa6d9d75a3f22">vQueueDelete</a></div><div class="ttdeci">void vQueueDelete(QueueHandle_t xQueue) PRIVILEGED_FUNCTION</div><div class="ttdef"><b>Definition</b> <a href="queue_8c_source.html#l01975">queue.c:1975</a></div></div>
-<div class="ttc" id="aqueue_8h_html_a81d24a2c1199d58efb76fbee15853112"><div class="ttname"><a href="queue_8h.html#a81d24a2c1199d58efb76fbee15853112">xQueueSendToBack</a></div><div class="ttdeci">#define xQueueSendToBack(xQueue, pvItemToQueue, xTicksToWait)</div><div class="ttdef"><b>Definition</b> <a href="queue_8h_source.html#l00395">queue.h:395</a></div></div>
-<div class="ttc" id="aqueue_8h_html_ae8364d988c6f9b63c771cc2b3dfe5df9"><div class="ttname"><a href="queue_8h.html#ae8364d988c6f9b63c771cc2b3dfe5df9">xQueueReceive</a></div><div class="ttdeci">BaseType_t xQueueReceive(QueueHandle_t xQueue, void *const pvBuffer, TickType_t xTicksToWait) PRIVILEGED_FUNCTION</div><div class="ttdef"><b>Definition</b> <a href="queue_8c_source.html#l01277">queue.c:1277</a></div></div>
-<div class="ttc" id="asemphr_8h_html_aae55761cabfa9bf85c8f4430f78c0953"><div class="ttname"><a href="semphr_8h.html#aae55761cabfa9bf85c8f4430f78c0953">xSemaphoreGive</a></div><div class="ttdeci">#define xSemaphoreGive(xSemaphore)</div><div class="ttdef"><b>Definition</b> <a href="semphr_8h_source.html#l00447">semphr.h:447</a></div></div>
-<div class="ttc" id="asemphr_8h_html_af116e436d2a5ae5bd72dbade2b5ea930"><div class="ttname"><a href="semphr_8h.html#af116e436d2a5ae5bd72dbade2b5ea930">xSemaphoreTake</a></div><div class="ttdeci">#define xSemaphoreTake(xSemaphore, xBlockTime)</div><div class="ttdef"><b>Definition</b> <a href="semphr_8h_source.html#l00289">semphr.h:289</a></div></div>
 <div class="ttc" id="astruct_c_a_n___callback_html"><div class="ttname"><a href="struct_c_a_n___callback.html">CAN_Callback</a></div><div class="ttdef"><b>Definition</b> <a href="#l00055">can.c:55</a></div></div>
 <div class="ttc" id="astruct_c_a_n___callback_html_a2dbb9c56fe79ad5ce0165d7300b62ff5"><div class="ttname"><a href="struct_c_a_n___callback.html#a2dbb9c56fe79ad5ce0165d7300b62ff5">CAN_Callback::CAN_id</a></div><div class="ttdeci">uint32_t CAN_id</div><div class="ttdef"><b>Definition</b> <a href="#l00056">can.c:56</a></div></div>
 <div class="ttc" id="astruct_c_a_n___callback_html_aaf6c1d8dd4ecbcac59008b8b5c7cbbaa"><div class="ttname"><a href="struct_c_a_n___callback.html#aaf6c1d8dd4ecbcac59008b8b5c7cbbaa">CAN_Callback::function</a></div><div class="ttdeci">void * function</div><div class="ttdef"><b>Definition</b> <a href="#l00057">can.c:57</a></div></div>
 <div class="ttc" id="astruct_c_a_n___callback_html_ace8db41695ac99095f81f37c97056076"><div class="ttname"><a href="struct_c_a_n___callback.html#ace8db41695ac99095f81f37c97056076">CAN_Callback::next</a></div><div class="ttdeci">struct CAN_Callback * next</div><div class="ttdef"><b>Definition</b> <a href="#l00058">can.c:58</a></div></div>
-<div class="ttc" id="astruct_queue_definition_html"><div class="ttname"><a href="struct_queue_definition.html">QueueDefinition</a></div><div class="ttdef"><b>Definition</b> <a href="queue_8c_source.html#l00097">queue.c:98</a></div></div>
 <div class="ttc" id="astructuv___c_a_n__msg_html"><div class="ttname"><a href="structuv___c_a_n__msg.html">uv_CAN_msg</a></div><div class="ttdoc">Representative of a CAN message.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00282">uvfr_utils.h:282</a></div></div>
 <div class="ttc" id="astructuv___c_a_n__msg_html_a3a3fdc7fed06a631fefa58ea44052d8d"><div class="ttname"><a href="structuv___c_a_n__msg.html#a3a3fdc7fed06a631fefa58ea44052d8d">uv_CAN_msg::flags</a></div><div class="ttdeci">uint8_t flags</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00283">uvfr_utils.h:283</a></div></div>
 <div class="ttc" id="astructuv___c_a_n__msg_html_aa74af3745c8b56910d7c309245541d37"><div class="ttname"><a href="structuv___c_a_n__msg.html#aa74af3745c8b56910d7c309245541d37">uv_CAN_msg::dlc</a></div><div class="ttdeci">uint8_t dlc</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00287">uvfr_utils.h:287</a></div></div>
@@ -1201,12 +1183,6 @@ $(function(){initNavTree('can_8c_source.html',''); initResizable(true); });
 <div class="ttc" id="astructuv__task__info_html"><div class="ttname"><a href="structuv__task__info.html">uv_task_info</a></div><div class="ttdoc">This struct is designed to hold neccessary information about an RTOS task that will be managed by uvf...</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00227">uvfr_state_engine.h:227</a></div></div>
 <div class="ttc" id="astructuv__task__info_html_a5347f41c4b15b2d6b039c339613fde43"><div class="ttname"><a href="structuv__task__info.html#a5347f41c4b15b2d6b039c339613fde43">uv_task_info::task_handle</a></div><div class="ttdeci">TaskHandle_t task_handle</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00246">uvfr_state_engine.h:246</a></div></div>
 <div class="ttc" id="astructuv__task__info_html_af532b5031cd6a168a3ec45ab9ead4f23"><div class="ttname"><a href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">uv_task_info::cmd_data</a></div><div class="ttdeci">uv_task_cmd cmd_data</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00248">uvfr_state_engine.h:248</a></div></div>
-<div class="ttc" id="atask_8h_html"><div class="ttname"><a href="task_8h.html">task.h</a></div></div>
-<div class="ttc" id="atask_8h_html_a27ff4ebce26565bef136bda84201ff80"><div class="ttname"><a href="task_8h.html#a27ff4ebce26565bef136bda84201ff80">vTaskDelete</a></div><div class="ttdeci">void vTaskDelete(TaskHandle_t xTaskToDelete) PRIVILEGED_FUNCTION</div></div>
-<div class="ttc" id="atask_8h_html_a753ecfe23e7386066ecccad5d16422f7"><div class="ttname"><a href="task_8h.html#a753ecfe23e7386066ecccad5d16422f7">xTaskGetTickCount</a></div><div class="ttdeci">TickType_t xTaskGetTickCount(void) PRIVILEGED_FUNCTION</div><div class="ttdef"><b>Definition</b> <a href="tasks_8c_source.html#l02303">tasks.c:2303</a></div></div>
-<div class="ttc" id="atask_8h_html_a767e474430db1e60056e9678763f9202"><div class="ttname"><a href="task_8h.html#a767e474430db1e60056e9678763f9202">taskYIELD</a></div><div class="ttdeci">#define taskYIELD()</div><div class="ttdef"><b>Definition</b> <a href="task_8h_source.html#l00173">task.h:173</a></div></div>
-<div class="ttc" id="atask_8h_html_aac8f36abc45ac4ee714bd6b81e3b1643"><div class="ttname"><a href="task_8h.html#aac8f36abc45ac4ee714bd6b81e3b1643">taskEXIT_CRITICAL</a></div><div class="ttdeci">#define taskEXIT_CRITICAL()</div><div class="ttdef"><b>Definition</b> <a href="task_8h_source.html#l00202">task.h:202</a></div></div>
-<div class="ttc" id="atask_8h_html_ab7bf0ae866292ba8296091a9d5209689"><div class="ttname"><a href="task_8h.html#ab7bf0ae866292ba8296091a9d5209689">taskENTER_CRITICAL</a></div><div class="ttdeci">#define taskENTER_CRITICAL()</div><div class="ttdef"><b>Definition</b> <a href="task_8h_source.html#l00187">task.h:187</a></div></div>
 <div class="ttc" id="auvfr__utils_8h_html"><div class="ttname"><a href="uvfr__utils_8h.html">uvfr_utils.h</a></div></div>
 <div class="ttc" id="auvfr__utils_8h_html_a047afdfa657d338c07ee38629d3c9b0a"><div class="ttname"><a href="uvfr__utils_8h.html#a047afdfa657d338c07ee38629d3c9b0a">CAN_BUS_2</a></div><div class="ttdeci">#define CAN_BUS_2</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00272">uvfr_utils.h:272</a></div></div>
 <div class="ttc" id="auvfr__utils_8h_html_a68cc2bdb140f7959b6090b771f3358a9"><div class="ttname"><a href="uvfr__utils_8h.html#a68cc2bdb140f7959b6090b771f3358a9">CAN_BUS_1</a></div><div class="ttdeci">#define CAN_BUS_1</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00271">uvfr_utils.h:271</a></div></div>

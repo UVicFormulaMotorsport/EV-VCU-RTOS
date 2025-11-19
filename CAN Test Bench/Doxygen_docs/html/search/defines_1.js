@@ -12,9 +12,5 @@ var searchData=
   ['adc2_5fmin_5fvolt_9',['ADC2_MIN_VOLT',['../adc_8h.html#aa6d050ac0cee0697ae8dc052b6e43160',1,'adc.h']]],
   ['adc2_5fsamples_10',['ADC2_SAMPLES',['../adc_8h.html#afc06e56ca77ce358966ae2f4e9262c7e',1,'adc.h']]],
   ['assert_5fparam_11',['assert_param',['../stm32f4xx__hal__conf_8h.html#a631dea7b230e600555f979c62af1de21',1,'stm32f4xx_hal_conf.h']]],
-  ['atomic_5fcompare_5fand_5fswap_5ffailure_12',['ATOMIC_COMPARE_AND_SWAP_FAILURE',['../atomic_8h.html#ab374919fbdbc585c3436a94f5bad31b6',1,'atomic.h']]],
-  ['atomic_5fcompare_5fand_5fswap_5fsuccess_13',['ATOMIC_COMPARE_AND_SWAP_SUCCESS',['../atomic_8h.html#a2d30f083e50b866caf8822ec31a75969',1,'atomic.h']]],
-  ['atomic_5fenter_5fcritical_14',['ATOMIC_ENTER_CRITICAL',['../atomic_8h.html#a155d89b2444fe81cbc8d051f0fd849c9',1,'atomic.h']]],
-  ['atomic_5fexit_5fcritical_15',['ATOMIC_EXIT_CRITICAL',['../atomic_8h.html#a1aab48db50f9e59e44032386aa3eb5b8',1,'atomic.h']]],
-  ['autocross_16',['AUTOCROSS',['../driving__loop_8c.html#a7c627c95d1731c3c24a41b8aa86a5fd5',1,'driving_loop.c']]]
+  ['autocross_12',['AUTOCROSS',['../driving__loop_8c.html#a7c627c95d1731c3c24a41b8aa86a5fd5',1,'driving_loop.c']]]
 ];

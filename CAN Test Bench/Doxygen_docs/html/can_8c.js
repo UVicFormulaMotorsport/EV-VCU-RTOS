@@ -7,7 +7,6 @@ var can_8c =
     [ "table_size_2", "can_8c.html#a7d7c7782f8ec752e4c213e138fca9507", null ],
     [ "CAN_Callback", "can_8c.html#af825ed4c7d0f1a7278410ab245a5ea8d", null ],
     [ "__uvCANtxCritSection", "can_8c.html#ae025787f17f6312df1e71c731b2a0fe4", null ],
-    [ "callFunctionFromCANid", "can_8c.html#aa5d470f815f2c11378233e0f3ca9ed8b", null ],
     [ "CANbusRxSvcDaemon", "can_8c.html#a2b32305988f51945b7c220ca60ab68e8", null ],
     [ "CANbusTxSvcDaemon", "can_8c.html#a2357e197a9ac26277eec808769fe409f", null ],
     [ "generateHash", "can_8c.html#affa7bfe9532060be4358706525e4f36e", null ],
@@ -25,11 +24,8 @@ var can_8c =
     [ "callback_table_2_mutex", "can_8c.html#a3786873632329fd3819f63a7324f8710", null ],
     [ "CAN_callback_table_1", "can_8c.html#ac0a447cc951ac5c4ac2c50291d64fe44", null ],
     [ "CAN_callback_table_2", "can_8c.html#afc3b8fa78d569b412fa9e7b56f5f6a62", null ],
-    [ "HAL_RCC_CAN1_CLK_ENABLED", "can_8c.html#a18b5b05ac35955baef1479165be10521", null ],
     [ "hcan1", "can_8c.html#a1618d731d18d69e906e8a357b7cd3c8d", null ],
     [ "hcan2", "can_8c.html#ab77168d14df04ccca5d48612ee21ced8", null ],
     [ "is_can_ok", "group__state__engine__backend.html#ga321624ab262c6eeb560495e0e4833966", null ],
-    [ "Rx_msg_queue", "can_8c.html#ad0e232ce658c38916aee908ceae1db1e", null ],
-    [ "Tx_msg_queue", "can_8c.html#a39f60bf61979059355fc4916aa3500db", null ],
     [ "TxHeader2", "can_8c.html#a5a72324e39bf00fcdbefc7081bb3d600", null ]
 ];
