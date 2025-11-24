@@ -885,6 +885,27 @@ uv_status uvSendCanMSG(uv_CAN_msg* tx_msg){
 
 	//BaseType_t higher_priority_task_woken = pdFALSE;
 	if(Tx_msg_queue != NULL){
+		if(tx_msg->flags & UV_CAN_CRIT_MSG_BIT){ //Critical messages skip the queue
+			if(!is_isr){
+				if(xQueueSendToFront(Tx_msg_queue,tx_msg,0) != pdPASS){
+					uvPanic("couldnt enqueue CAN message",0);
+				}else{
+					return UV_OK;
+				}
+				is_can_ok = 0;
+				return UV_ERROR;
+			}else{
+				if(xQueueSendToFrontFromISR(Tx_msg_queue,tx_msg,0) != pdPASS){
+					is_can_ok = 0;
+					uvPanic("couldnt enqueue CAN message",0);
+				}else{
+					return UV_OK;
+				}
+				is_can_ok = 0;
+				return UV_ERROR;
+			}
+		}
+
 		if(!is_isr){
 			if(xQueueSendToBack(Tx_msg_queue,tx_msg,0) != pdPASS){
 				uvPanic("couldnt enqueue CAN message",0);

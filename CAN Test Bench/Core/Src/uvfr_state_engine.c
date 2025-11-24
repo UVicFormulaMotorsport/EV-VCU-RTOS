@@ -1,5 +1,5 @@
 #define UVFR_STATE_MACHINE_IMPLIMENTATION
-
+#define __UV_FILENAME__ "uvfr_state_engine.c"
 #include "uvfr_utils.h"
 //#include "assert.h"
 
@@ -11,6 +11,8 @@
 #define MAX_NUM_MANAGED_TASKS 16
 
 HeapStats_t xHeapStats;
+
+extern volatile TickType_t xTickCount;
 
 //Stores the actual task info
 static uv_task_id _next_task_id = 0;
@@ -187,15 +189,20 @@ uv_status uvInitStateEngine(){
 	uvConfigSettingTask(NULL);
 	initRTDtask(NULL);
 
-	associateDaqParamWithVar(VCU_VEHICLE_STATE,&vehicle_state);
 
-	associateDaqParamWithVar(OS_AVAILABLE_HEAP,&(xHeapStats.xAvailableHeapSpaceInBytes));
+	associateDaqParamWithVar(VCU_VEHICLE_STATE,&vehicle_state); //xTickCount
+	associateDaqParamWithVar(VCU_CURRENT_UPTIME,&xTickCount);
+
+	//Have some heap stats for the first round of DAQ
+	vPortGetHeapStats(&xHeapStats);
+
+	associateDaqParamWithVar(OS_AVAILABLE_HEAP,&(xHeapStats.xAvailableHeapSpaceInBytes)); //Heap
 	associateDaqParamWithVar(OS_LARGEST_FREE_BLOCK,&(xHeapStats.xSizeOfLargestFreeBlockInBytes));
 	associateDaqParamWithVar(OS_SMALLEST_FREE_BLOCK,&(xHeapStats.xSizeOfSmallestFreeBlockInBytes));
 	associateDaqParamWithVar(OS_NUM_FREE_BLOCKS,&(xHeapStats.xNumberOfFreeBlocks));
 	associateDaqParamWithVar(OS_MIN_EVER_FREE_BYTES,&(xHeapStats.xMinimumEverFreeBytesRemaining));
-	associateDaqParamWithVar(OS_NUM_SUCCESSFUL_ALLOCS,&(xHeapStats.xAvailableHeapSpaceInBytes));
-	associateDaqParamWithVar(OS_NUM_SUCCESSFUL_FREES,&(xHeapStats.xAvailableHeapSpaceInBytes));
+	associateDaqParamWithVar(OS_NUM_SUCCESSFUL_ALLOCS,&(xHeapStats.xNumberOfSuccessfulAllocations));
+	associateDaqParamWithVar(OS_NUM_SUCCESSFUL_FREES,&(xHeapStats.xNumberOfSuccessfulFrees));
 
 
 	return UV_OK;

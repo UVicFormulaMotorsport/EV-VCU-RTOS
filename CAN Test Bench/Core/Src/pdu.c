@@ -1,5 +1,7 @@
 // This where the code to handle switching channels with the PDU will go
 //typedef struct abstract_conifer_channel abstract_conifer_channel;
+#define __UV_FILENAME__ "pdu.c"
+
 
 #include "pdu.h"
 #include "uvfr_utils.h"

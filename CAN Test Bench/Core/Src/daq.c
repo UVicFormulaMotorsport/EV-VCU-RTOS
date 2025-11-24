@@ -15,13 +15,13 @@
 
 //#define daq_settings current_vehicle_settings->daq_settings
 
-uint64_t constant_zero = 0;
+const uint64_t constant_zero = 0;
 
 volatile uint16_t coolant_temp_adc = 0;
 volatile uint16_t motor_temp_adc = 0;
 
 //configuring ADCs
-ADC_HandleTypeDef hadc1;
+//ADC_HandleTypeDef hadc1;
 
 
 
@@ -48,10 +48,10 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 8,
+	.total_params_logged = 2,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
-	.can_channel = CAN_BUS_1,
+	.can_channel = CAN_BUS_2,
 	.daq_child_priority = 1
 };
 
@@ -64,9 +64,14 @@ daq_msg default_datapoints[] ={
 
 
 	{.can_id = 0x540,
-	.param = {VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P,INV_DAQ_P},
-	.period = 100,
-	.type = {UV_UINT16,0,0,0}},
+	.param = {VCU_CURRENT_UPTIME,VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P},
+	.period = 250,
+	.type = {UV_UINT32,UV_UINT16,0,0}},
+
+	{.can_id = 0x541,
+	.param = {OS_AVAILABLE_HEAP,OS_MIN_EVER_FREE_BYTES,INV_DAQ_P,INV_DAQ_P},
+	.period = 250,
+	.type = {UV_UINT32,UV_UINT32,0,0}},
 
 
 
@@ -139,7 +144,7 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_msg* datapoint){
 
 	daq_child_task* list_tmp = daq_tlist;
 	node->can_id = datapoint->can_id; //Ensure that the daq_node has the needed params
-	for(int i = 1; i<4 ; i++){
+	for(int i = 0; i<4 ; i++){
 		node->param[i] = datapoint->param[i];
 		node->size[i] = data_size[datapoint->type[i]];
 	}
@@ -332,23 +337,6 @@ void daqMasterTask(void* args){
 			//suspendSelf(params);
 		}
 		uvTaskDelay(params,params->task_period);
-
-		//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
-//		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
-//			vTaskDelay(25);
-//			while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
-//
-//			}
-//
-//
-//
-//				changeVehicleState(UV_DRIVING);
-//
-//
-//
-//		}
-
-
 	}
 }
 
@@ -380,6 +368,10 @@ static inline void sendDaqMsg(daq_param_list_node* dmsg){
 		.msg_id = dmsg->can_id
 	};
 
+	if(dmsg->can_id > 0x7FF){
+		msg.flags |= UV_CAN_EXTENDED_ID;
+	}
+
 	uint16_t param = 0xFFFF;
 	uint8_t dlc = 0;
 	uint8_t psize = 0;
@@ -409,17 +401,19 @@ static inline void sendDaqMsg(daq_param_list_node* dmsg){
 
 		for(int j = 0; j<psize ; j++){
 			//Add each byte of content to the message
-			msg.data[(dlc - i) - 1] = *(p_ptr + j); //This puts DAQ messages in BIG endian, for optimal human readibility
+			msg.data[(dlc - j) - 1] = (uint8_t) (*((uint8_t*)(p_ptr + j))); //This puts DAQ messages in BIG endian, for optimal human readibility
 		}
 
 
 	}
 
+	msg.dlc = dlc;
+
 	uvSendCanMSG(&msg);
 
 }
 
-/** @brief
+/** @brief Iterates through the linked list of parameters assigned to each periodic transmission task.
  *
  */
 static inline void sendAllParamsFromList(daq_param_list_node* list){
@@ -442,6 +436,10 @@ static inline void sendAllParamsFromList(daq_param_list_node* list){
  */
 void daqSubTask(void* args){
 	daq_child_task* params = (daq_child_task*)args;
+
+	if(params->period < 50){
+		params->period = 50;
+	}
 
 	TickType_t curr_time = xTaskGetTickCount();
 	for(;;){

@@ -6,6 +6,8 @@
  */
 #define SRC_UVFR_SETTINGS_C_
 
+#define __UV_FILENAME__ "uvfr_settings.c"
+
 #include "uvfr_utils.h"
 #include "main.h"
 #include "stdlib.h"

@@ -7,6 +7,8 @@
 
 
 #define UV_UTILS_SRC_IMPLIMENTATION
+#define __UV_FILENAME__ "uvfr_utils.c"
+
 #include "uvfr_utils.h"
 #include "uvfr_conifer.h"
 
@@ -75,13 +77,7 @@ void uvInit(void * arguments){
 
 	vTaskDelay(1);
 
-	/** The second thing initialized is internal diagnostics and telemetry.
-	 *
-	 */
-	if(uvInitDiagnostics() != UV_OK){
 
-
-	}
 
 	vTaskDelay(1);
 
@@ -108,6 +104,14 @@ void uvInit(void * arguments){
 	}
 
 	vTaskDelay(1);
+
+	/** The second thing initialized is internal diagnostics and telemetry.
+	 *
+	 */
+	if(uvInitDiagnostics() != UV_OK){
+
+
+	}
 
 	/** Once we have initialized the state engine, what we want to do is create the prototypes of all the
 	 * tasks that will be running.

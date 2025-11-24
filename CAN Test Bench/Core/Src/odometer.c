@@ -5,6 +5,8 @@
  *      Author: byo10
  */
 
+#define __UV_FILENAME__ "odometer.c"
+
 #include "uvfr_utils.h"
 
 

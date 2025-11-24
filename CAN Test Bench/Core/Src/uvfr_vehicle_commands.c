@@ -1,3 +1,5 @@
+#define __UV_FILENAME__ "uvfr_vehicle_commands.c"
+
 #include "uvfr_utils.h"
 
 typedef struct output_channel_settings output_channel_settings;
