@@ -1,182 +1,234 @@
-\hypertarget{rb__tree_8h}{}\doxysection{Core/\+Inc/rb\+\_\+tree.h File Reference}
-\label{rb__tree_8h}\index{Core/Inc/rb\_tree.h@{Core/Inc/rb\_tree.h}}
-\doxysubsection*{Data Structures}
+\doxysection{Core/\+Inc/rb\+\_\+tree.h File Reference}
+\hypertarget{rb__tree_8h}{}\label{rb__tree_8h}\index{Core/Inc/rb\_tree.h@{Core/Inc/rb\_tree.h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structrbnode}{rbnode}}
 \begin{DoxyCompactList}\small\item\em Node of a Red-\/\+Black binary search tree. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structrbtree}{rbtree}}
 \begin{DoxyCompactList}\small\item\em struct representing a binary search tree \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a510fe2b629135f54b432746381c46eea}{R\+B\+\_\+\+D\+UP}}~1
+\#define \mbox{\hyperlink{rb__tree_8h_a510fe2b629135f54b432746381c46eea}{RB\+\_\+\+DUP}}~1
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a881c5582644c293e2a896670ec97be8f}{R\+B\+\_\+\+M\+IN}}~1
+\#define \mbox{\hyperlink{rb__tree_8h_a881c5582644c293e2a896670ec97be8f}{RB\+\_\+\+MIN}}~1
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a8d23feea868a983c8c2b661e1e16972f}{R\+ED}}~0
+\#define \mbox{\hyperlink{rb__tree_8h_a8d23feea868a983c8c2b661e1e16972f}{RED}}~0
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a7b3b25cba33b07c303f3060fe41887f6}{B\+L\+A\+CK}}~1
+\#define \mbox{\hyperlink{rb__tree_8h_a7b3b25cba33b07c303f3060fe41887f6}{BLACK}}~1
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a98eb926978664a4bb7da0a93ec4b2239}{R\+B\+\_\+\+R\+O\+OT}}(rbt)~(\&(rbt)-\/$>$root)
+\#define \mbox{\hyperlink{rb__tree_8h_a98eb926978664a4bb7da0a93ec4b2239}{RB\+\_\+\+ROOT}}(rbt)
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_ae2ed7bcede5a254e9a5bac33d78e21f3}{R\+B\+\_\+\+N\+IL}}(rbt)~(\&(rbt)-\/$>$nil)
+\#define \mbox{\hyperlink{rb__tree_8h_ae2ed7bcede5a254e9a5bac33d78e21f3}{RB\+\_\+\+NIL}}(rbt)
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_acb74c3fd2a9d1f0f5953e4a6f3a2ff1d}{R\+B\+\_\+\+F\+I\+R\+ST}}(rbt)~((rbt)-\/$>$root.\+left)
+\#define \mbox{\hyperlink{rb__tree_8h_acb74c3fd2a9d1f0f5953e4a6f3a2ff1d}{RB\+\_\+\+FIRST}}(rbt)
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_aafcd1e43a9525fee54223b3ebf4fbdd3}{R\+B\+\_\+\+M\+I\+N\+I\+M\+AL}}(rbt)~((rbt)-\/$>$min)
+\#define \mbox{\hyperlink{rb__tree_8h_aafcd1e43a9525fee54223b3ebf4fbdd3}{RB\+\_\+\+MINIMAL}}(rbt)
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a5ada8ea1bfd571f2c89a9f61d87593dc}{R\+B\+\_\+\+I\+S\+E\+M\+P\+TY}}(rbt)~((rbt)-\/$>$root.\+left == \&(rbt)-\/$>$nil \&\& (rbt)-\/$>$root.\+right == \&(rbt)-\/$>$nil)
+\#define \mbox{\hyperlink{rb__tree_8h_a5ada8ea1bfd571f2c89a9f61d87593dc}{RB\+\_\+\+ISEMPTY}}(rbt)
 \item 
-\#define \mbox{\hyperlink{rb__tree_8h_a7ccff5243e00a6457fd2946aa0d0c46a}{R\+B\+\_\+\+A\+P\+P\+LY}}(rbt,  f,  c,  o)~rbapply\+\_\+node((rbt), (rbt)-\/$>$root.\+left, (f), (c), (o))
+\#define \mbox{\hyperlink{rb__tree_8h_a7ccff5243e00a6457fd2946aa0d0c46a}{RB\+\_\+\+APPLY}}(rbt,  f,  c,  o)
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structrbnode}{rbnode}} \mbox{\hyperlink{rb__tree_8h_ad9b704a4502a7a016ca03de9acf95897}{rbnode}}
+typedef struct rbnode \mbox{\hyperlink{rb__tree_8h_aa8fd449f208c005d3fa5001e0c8a3a48}{rbnode}}
 \begin{DoxyCompactList}\small\item\em Node of a Red-\/\+Black binary search tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
+\doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}} \{ \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5acd9d91cf59c093fdfa2b1736a26125ce}{P\+R\+E\+O\+R\+D\+ER}}, 
-\mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b}{I\+N\+O\+R\+D\+ER}}, 
-\mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a9ab94412bf77ddc567d8cb5cd2996d44}{P\+O\+S\+T\+O\+R\+D\+ER}}
+enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}} \{ \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5acd9d91cf59c093fdfa2b1736a26125ce}{PREORDER}}
+, \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b}{INORDER}}
+, \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a9ab94412bf77ddc567d8cb5cd2996d44}{POSTORDER}}
  \}
 \begin{DoxyCompactList}\small\item\em Evil traversal method specifier for traversing the tree. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$ \mbox{\hyperlink{rb__tree_8h_acfdf75dcc32d990f4818270cac09cf86}{rb\+Create}} (int($\ast$compare\+\_\+func)(const void $\ast$, const void $\ast$), void($\ast$destroy\+\_\+func)(void $\ast$))
+\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{rb__tree_8h_a07589b261fdbe522bf27f4d31e83b848}{rb\+Create}} (int(\texorpdfstring{$\ast$}{*}compare\+\_\+func)(const void \texorpdfstring{$\ast$}{*}, const void \texorpdfstring{$\ast$}{*}), void(\texorpdfstring{$\ast$}{*}destroy\+\_\+func)(void \texorpdfstring{$\ast$}{*}))
 \begin{DoxyCompactList}\small\item\em Create and initialize a binary search tree. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{rb__tree_8h_a9a58d42acc5dd251bf885a0f58c6abfb}{rb\+Destroy}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt)
+void \mbox{\hyperlink{rb__tree_8h_a9a58d42acc5dd251bf885a0f58c6abfb}{rb\+Destroy}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt)
 \begin{DoxyCompactList}\small\item\em Destroy the tree, and de-\/allocate it\textquotesingle{}s elements. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structrbnode}{rbnode}} $\ast$ \mbox{\hyperlink{rb__tree_8h_ad7470a946dc18fdea53de8efa48ba4eb}{rb\+Find}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, void $\ast$data)
+\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{rb__tree_8h_a160c4acd7beeb7b413a62c735899e98d}{rb\+Find}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, void \texorpdfstring{$\ast$}{*}data)
 \begin{DoxyCompactList}\small\item\em Find a node of the tree based off the data you provide the tree. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structrbnode}{rbnode}} $\ast$ \mbox{\hyperlink{rb__tree_8h_a70293914fa5f96508b9b502d7f3bb5dc}{rb\+Successor}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, \mbox{\hyperlink{structrbnode}{rbnode}} $\ast$node)
+\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{rb__tree_8h_a9f06a15af5108e7e29d69fa9c29129e8}{rb\+Successor}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, \mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*}node)
 \item 
-int \mbox{\hyperlink{rb__tree_8h_a659f2a6354fea183df8cfbfba2801484}{rb\+Apply\+Node}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, \mbox{\hyperlink{structrbnode}{rbnode}} $\ast$node, int($\ast$func)(void $\ast$, void $\ast$), void $\ast$cookie, enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}} order)
+int \mbox{\hyperlink{rb__tree_8h_a659f2a6354fea183df8cfbfba2801484}{rb\+Apply\+Node}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, \mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*}node, int(\texorpdfstring{$\ast$}{*}func)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}), void \texorpdfstring{$\ast$}{*}cookie, enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}} order)
 \item 
-void \mbox{\hyperlink{rb__tree_8h_a447d21f412285d3455356d2975a6ced3}{rb\+Print}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, void($\ast$print\+\_\+func)(void $\ast$))
+void \mbox{\hyperlink{rb__tree_8h_a447d21f412285d3455356d2975a6ced3}{rb\+Print}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, void(\texorpdfstring{$\ast$}{*}print\+\_\+func)(void \texorpdfstring{$\ast$}{*}))
 \begin{DoxyCompactList}\small\item\em Function used to print the contents of the tree. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structrbnode}{rbnode}} $\ast$ \mbox{\hyperlink{rb__tree_8h_aeb5491e8c286b8dbc868df0c31dba799}{rb\+Insert}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, void $\ast$data)
+\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{rb__tree_8h_a3063d25955cfd94b1f10c556de95249e}{rb\+Insert}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, void \texorpdfstring{$\ast$}{*}data)
 \begin{DoxyCompactList}\small\item\em Function that inserts data into the tree, and creates a new node. \end{DoxyCompactList}\item 
-void $\ast$ \mbox{\hyperlink{rb__tree_8h_a8b7898139f560f35aa433a637c2a5381}{rb\+Delete}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, \mbox{\hyperlink{structrbnode}{rbnode}} $\ast$node, int keep)
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{rb__tree_8h_aef2e33c201c30397f2a57cb76225d751}{rb\+Delete}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, \mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*}node, int keep)
 \begin{DoxyCompactList}\small\item\em Deletes a node from the tree. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{rb__tree_8h_a0eb9842e366817eb18eac0e319fb04db}{rb\+Check\+Order}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt, void $\ast$min, void $\ast$max)
+int \mbox{\hyperlink{rb__tree_8h_a0eb9842e366817eb18eac0e319fb04db}{rb\+Check\+Order}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt, void \texorpdfstring{$\ast$}{*}min, void \texorpdfstring{$\ast$}{*}max)
 \begin{DoxyCompactList}\small\item\em Function that validates that the order of the nodes in the tree is correct. \end{DoxyCompactList}\item 
-int \mbox{\hyperlink{rb__tree_8h_aa02803c2713094e61fa50807fa7a5116}{rb\+Check\+Black\+Height}} (\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$rbt)
+int \mbox{\hyperlink{rb__tree_8h_aa02803c2713094e61fa50807fa7a5116}{rb\+Check\+Black\+Height}} (\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}rbt)
 \begin{DoxyCompactList}\small\item\em Function that Checks the height of black nodes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{rb__tree_8h_a7b3b25cba33b07c303f3060fe41887f6}\label{rb__tree_8h_a7b3b25cba33b07c303f3060fe41887f6}} 
-\index{rb\_tree.h@{rb\_tree.h}!BLACK@{BLACK}}
+\Hypertarget{rb__tree_8h_a7b3b25cba33b07c303f3060fe41887f6}\index{rb\_tree.h@{rb\_tree.h}!BLACK@{BLACK}}
 \index{BLACK@{BLACK}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{BLACK}{BLACK}}
-{\footnotesize\ttfamily \#define B\+L\+A\+CK~1}
+{\footnotesize\ttfamily \label{rb__tree_8h_a7b3b25cba33b07c303f3060fe41887f6} 
+\#define BLACK~1}
 
 
 
-Definition at line 13 of file rb\+\_\+tree.\+h.
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00013}{13}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a7ccff5243e00a6457fd2946aa0d0c46a}\label{rb__tree_8h_a7ccff5243e00a6457fd2946aa0d0c46a}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_APPLY@{RB\_APPLY}}
+
+
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00028}{rb\+Create()}}, \mbox{\hyperlink{rb__tree_8c_source_l00360}{rb\+Delete()}}, and \mbox{\hyperlink{rb__tree_8c_source_l00207}{rb\+Insert()}}.
+
+\Hypertarget{rb__tree_8h_a7ccff5243e00a6457fd2946aa0d0c46a}\index{rb\_tree.h@{rb\_tree.h}!RB\_APPLY@{RB\_APPLY}}
 \index{RB\_APPLY@{RB\_APPLY}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_APPLY}{RB\_APPLY}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+A\+P\+P\+LY(\begin{DoxyParamCaption}\item[{}]{rbt,  }\item[{}]{f,  }\item[{}]{c,  }\item[{}]{o }\end{DoxyParamCaption})~rbapply\+\_\+node((rbt), (rbt)-\/$>$root.\+left, (f), (c), (o))}
+{\footnotesize\ttfamily \label{rb__tree_8h_a7ccff5243e00a6457fd2946aa0d0c46a} 
+\#define RB\+\_\+\+APPLY(\begin{DoxyParamCaption}\item[{}]{rbt}{, }\item[{}]{f}{, }\item[{}]{c}{, }\item[{}]{o}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rbapply\_node((rbt),\ (rbt)-\/>root.left,\ (f),\ (c),\ (o))}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00063}{63}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
-Definition at line 63 of file rb\+\_\+tree.\+h.
-
-\mbox{\Hypertarget{rb__tree_8h_a510fe2b629135f54b432746381c46eea}\label{rb__tree_8h_a510fe2b629135f54b432746381c46eea}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_DUP@{RB\_DUP}}
+\Hypertarget{rb__tree_8h_a510fe2b629135f54b432746381c46eea}\index{rb\_tree.h@{rb\_tree.h}!RB\_DUP@{RB\_DUP}}
 \index{RB\_DUP@{RB\_DUP}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_DUP}{RB\_DUP}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+D\+UP~1}
+{\footnotesize\ttfamily \label{rb__tree_8h_a510fe2b629135f54b432746381c46eea} 
+\#define RB\+\_\+\+DUP~1}
 
 
 
-Definition at line 9 of file rb\+\_\+tree.\+h.
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00009}{9}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
-\mbox{\Hypertarget{rb__tree_8h_acb74c3fd2a9d1f0f5953e4a6f3a2ff1d}\label{rb__tree_8h_acb74c3fd2a9d1f0f5953e4a6f3a2ff1d}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_FIRST@{RB\_FIRST}}
+\Hypertarget{rb__tree_8h_acb74c3fd2a9d1f0f5953e4a6f3a2ff1d}\index{rb\_tree.h@{rb\_tree.h}!RB\_FIRST@{RB\_FIRST}}
 \index{RB\_FIRST@{RB\_FIRST}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_FIRST}{RB\_FIRST}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+F\+I\+R\+ST(\begin{DoxyParamCaption}\item[{}]{rbt }\end{DoxyParamCaption})~((rbt)-\/$>$root.\+left)}
+{\footnotesize\ttfamily \label{rb__tree_8h_acb74c3fd2a9d1f0f5953e4a6f3a2ff1d} 
+\#define RB\+\_\+\+FIRST(\begin{DoxyParamCaption}\item[{}]{rbt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((rbt)-\/>root.left)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00059}{59}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
 
 
-Definition at line 59 of file rb\+\_\+tree.\+h.
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00571}{rb\+Check\+Black\+Height()}}, \mbox{\hyperlink{rb__tree_8c_source_l00545}{rb\+Check\+Order()}}, \mbox{\hyperlink{rb__tree_8c_source_l00360}{rb\+Delete()}}, \mbox{\hyperlink{rb__tree_8c_source_l00061}{rb\+Destroy()}}, \mbox{\hyperlink{rb__tree_8c_source_l00071}{rb\+Find()}}, \mbox{\hyperlink{rb__tree_8c_source_l00207}{rb\+Insert()}}, and \mbox{\hyperlink{rb__tree_8c_source_l00607}{rb\+Print()}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a5ada8ea1bfd571f2c89a9f61d87593dc}\label{rb__tree_8h_a5ada8ea1bfd571f2c89a9f61d87593dc}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_ISEMPTY@{RB\_ISEMPTY}}
+\Hypertarget{rb__tree_8h_a5ada8ea1bfd571f2c89a9f61d87593dc}\index{rb\_tree.h@{rb\_tree.h}!RB\_ISEMPTY@{RB\_ISEMPTY}}
 \index{RB\_ISEMPTY@{RB\_ISEMPTY}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_ISEMPTY}{RB\_ISEMPTY}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+I\+S\+E\+M\+P\+TY(\begin{DoxyParamCaption}\item[{}]{rbt }\end{DoxyParamCaption})~((rbt)-\/$>$root.\+left == \&(rbt)-\/$>$nil \&\& (rbt)-\/$>$root.\+right == \&(rbt)-\/$>$nil)}
+{\footnotesize\ttfamily \label{rb__tree_8h_a5ada8ea1bfd571f2c89a9f61d87593dc} 
+\#define RB\+\_\+\+ISEMPTY(\begin{DoxyParamCaption}\item[{}]{rbt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((rbt)-\/>root.left\ ==\ \&(rbt)-\/>nil\ \&\&\ (rbt)-\/>root.right\ ==\ \&(rbt)-\/>nil)}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00062}{62}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
-Definition at line 62 of file rb\+\_\+tree.\+h.
-
-\mbox{\Hypertarget{rb__tree_8h_a881c5582644c293e2a896670ec97be8f}\label{rb__tree_8h_a881c5582644c293e2a896670ec97be8f}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_MIN@{RB\_MIN}}
+\Hypertarget{rb__tree_8h_a881c5582644c293e2a896670ec97be8f}\index{rb\_tree.h@{rb\_tree.h}!RB\_MIN@{RB\_MIN}}
 \index{RB\_MIN@{RB\_MIN}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_MIN}{RB\_MIN}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+M\+IN~1}
+{\footnotesize\ttfamily \label{rb__tree_8h_a881c5582644c293e2a896670ec97be8f} 
+\#define RB\+\_\+\+MIN~1}
 
 
 
-Definition at line 10 of file rb\+\_\+tree.\+h.
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00010}{10}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
-\mbox{\Hypertarget{rb__tree_8h_aafcd1e43a9525fee54223b3ebf4fbdd3}\label{rb__tree_8h_aafcd1e43a9525fee54223b3ebf4fbdd3}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_MINIMAL@{RB\_MINIMAL}}
+\Hypertarget{rb__tree_8h_aafcd1e43a9525fee54223b3ebf4fbdd3}\index{rb\_tree.h@{rb\_tree.h}!RB\_MINIMAL@{RB\_MINIMAL}}
 \index{RB\_MINIMAL@{RB\_MINIMAL}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_MINIMAL}{RB\_MINIMAL}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+M\+I\+N\+I\+M\+AL(\begin{DoxyParamCaption}\item[{}]{rbt }\end{DoxyParamCaption})~((rbt)-\/$>$min)}
+{\footnotesize\ttfamily \label{rb__tree_8h_aafcd1e43a9525fee54223b3ebf4fbdd3} 
+\#define RB\+\_\+\+MINIMAL(\begin{DoxyParamCaption}\item[{}]{rbt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((rbt)-\/>min)}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00060}{60}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
-Definition at line 60 of file rb\+\_\+tree.\+h.
-
-\mbox{\Hypertarget{rb__tree_8h_ae2ed7bcede5a254e9a5bac33d78e21f3}\label{rb__tree_8h_ae2ed7bcede5a254e9a5bac33d78e21f3}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_NIL@{RB\_NIL}}
+\Hypertarget{rb__tree_8h_ae2ed7bcede5a254e9a5bac33d78e21f3}\index{rb\_tree.h@{rb\_tree.h}!RB\_NIL@{RB\_NIL}}
 \index{RB\_NIL@{RB\_NIL}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_NIL}{RB\_NIL}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+N\+IL(\begin{DoxyParamCaption}\item[{}]{rbt }\end{DoxyParamCaption})~(\&(rbt)-\/$>$nil)}
+{\footnotesize\ttfamily \label{rb__tree_8h_ae2ed7bcede5a254e9a5bac33d78e21f3} 
+\#define RB\+\_\+\+NIL(\begin{DoxyParamCaption}\item[{}]{rbt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\&(rbt)-\/>nil)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00058}{58}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
 
 
-Definition at line 58 of file rb\+\_\+tree.\+h.
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00116}{rb\+Apply\+Node()}}, \mbox{\hyperlink{rb__tree_8c_source_l00571}{rb\+Check\+Black\+Height()}}, \mbox{\hyperlink{rb__tree_8c_source_l00028}{rb\+Create()}}, \mbox{\hyperlink{rb__tree_8c_source_l00360}{rb\+Delete()}}, \mbox{\hyperlink{rb__tree_8c_source_l00071}{rb\+Find()}}, \mbox{\hyperlink{rb__tree_8c_source_l00207}{rb\+Insert()}}, and \mbox{\hyperlink{rb__tree_8c_source_l00092}{rb\+Successor()}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a98eb926978664a4bb7da0a93ec4b2239}\label{rb__tree_8h_a98eb926978664a4bb7da0a93ec4b2239}} 
-\index{rb\_tree.h@{rb\_tree.h}!RB\_ROOT@{RB\_ROOT}}
+\Hypertarget{rb__tree_8h_a98eb926978664a4bb7da0a93ec4b2239}\index{rb\_tree.h@{rb\_tree.h}!RB\_ROOT@{RB\_ROOT}}
 \index{RB\_ROOT@{RB\_ROOT}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RB\_ROOT}{RB\_ROOT}}
-{\footnotesize\ttfamily \#define R\+B\+\_\+\+R\+O\+OT(\begin{DoxyParamCaption}\item[{}]{rbt }\end{DoxyParamCaption})~(\&(rbt)-\/$>$root)}
+{\footnotesize\ttfamily \label{rb__tree_8h_a98eb926978664a4bb7da0a93ec4b2239} 
+\#define RB\+\_\+\+ROOT(\begin{DoxyParamCaption}\item[{}]{rbt}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\&(rbt)-\/>root)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00057}{57}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
 
 
-Definition at line 57 of file rb\+\_\+tree.\+h.
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00571}{rb\+Check\+Black\+Height()}}, \mbox{\hyperlink{rb__tree_8c_source_l00207}{rb\+Insert()}}, and \mbox{\hyperlink{rb__tree_8c_source_l00092}{rb\+Successor()}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a8d23feea868a983c8c2b661e1e16972f}\label{rb__tree_8h_a8d23feea868a983c8c2b661e1e16972f}} 
-\index{rb\_tree.h@{rb\_tree.h}!RED@{RED}}
+\Hypertarget{rb__tree_8h_a8d23feea868a983c8c2b661e1e16972f}\index{rb\_tree.h@{rb\_tree.h}!RED@{RED}}
 \index{RED@{RED}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{RED}{RED}}
-{\footnotesize\ttfamily \#define R\+ED~0}
+{\footnotesize\ttfamily \label{rb__tree_8h_a8d23feea868a983c8c2b661e1e16972f} 
+\#define RED~0}
 
 
 
-Definition at line 12 of file rb\+\_\+tree.\+h.
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00012}{12}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00571}{rb\+Check\+Black\+Height()}}, \mbox{\hyperlink{rb__tree_8c_source_l00360}{rb\+Delete()}}, and \mbox{\hyperlink{rb__tree_8c_source_l00207}{rb\+Insert()}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{rb__tree_8h_ad9b704a4502a7a016ca03de9acf95897}\label{rb__tree_8h_ad9b704a4502a7a016ca03de9acf95897}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbnode@{rbnode}}
+\Hypertarget{rb__tree_8h_aa8fd449f208c005d3fa5001e0c8a3a48}\index{rb\_tree.h@{rb\_tree.h}!rbnode@{rbnode}}
 \index{rbnode@{rbnode}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbnode}{rbnode}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structrbnode}{rbnode}}  \mbox{\hyperlink{structrbnode}{rbnode}}}
+{\footnotesize\ttfamily \label{rb__tree_8h_aa8fd449f208c005d3fa5001e0c8a3a48} 
+typedef struct rbnode rbnode}
 
 
 
@@ -185,11 +237,11 @@ Node of a Red-\/\+Black binary search tree.
 
 
 \doxysubsection{Enumeration Type Documentation}
-\mbox{\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbtraversal@{rbtraversal}}
+\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}\index{rb\_tree.h@{rb\_tree.h}!rbtraversal@{rbtraversal}}
 \index{rbtraversal@{rbtraversal}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbtraversal}{rbtraversal}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}}}
+{\footnotesize\ttfamily \label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5} 
+enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}}}
 
 
 
@@ -211,98 +263,104 @@ Function that applies some function to a subtree.
 \hline
 \end{DoxyParams}
 \begin{DoxyAttention}{Attention}
-D\+A\+N\+G\+E\+R!! R\+E\+C\+U\+R\+S\+I\+O\+N!! Beware of stack memory usage, since most tasks are memory limited. 
+DANGER!! RECURSION!! Beware of stack memory usage, since most tasks are memory limited. 
 \end{DoxyAttention}
-\begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PREORDER@{PREORDER}!rb\_tree.h@{rb\_tree.h}}\index{rb\_tree.h@{rb\_tree.h}!PREORDER@{PREORDER}}}\mbox{\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5acd9d91cf59c093fdfa2b1736a26125ce}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5acd9d91cf59c093fdfa2b1736a26125ce}} 
-P\+R\+E\+O\+R\+D\+ER&\\
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PREORDER@{PREORDER}!rb\_tree.h@{rb\_tree.h}}\index{rb\_tree.h@{rb\_tree.h}!PREORDER@{PREORDER}}}\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5acd9d91cf59c093fdfa2b1736a26125ce}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5} 
+PREORDER&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{INORDER@{INORDER}!rb\_tree.h@{rb\_tree.h}}\index{rb\_tree.h@{rb\_tree.h}!INORDER@{INORDER}}}\mbox{\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b}} 
-I\+N\+O\+R\+D\+ER&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{INORDER@{INORDER}!rb\_tree.h@{rb\_tree.h}}\index{rb\_tree.h@{rb\_tree.h}!INORDER@{INORDER}}}\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a541a7d029edbe0dc4855fa23ba23162b}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5} 
+INORDER&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{POSTORDER@{POSTORDER}!rb\_tree.h@{rb\_tree.h}}\index{rb\_tree.h@{rb\_tree.h}!POSTORDER@{POSTORDER}}}\mbox{\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a9ab94412bf77ddc567d8cb5cd2996d44}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a9ab94412bf77ddc567d8cb5cd2996d44}} 
-P\+O\+S\+T\+O\+R\+D\+ER&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{POSTORDER@{POSTORDER}!rb\_tree.h@{rb\_tree.h}}\index{rb\_tree.h@{rb\_tree.h}!POSTORDER@{POSTORDER}}}\Hypertarget{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5a9ab94412bf77ddc567d8cb5cd2996d44}\label{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5} 
+POSTORDER&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 18 of file rb\+\_\+tree.\+h.
+Definition at line \mbox{\hyperlink{rb__tree_8h_source_l00018}{18}} of file \mbox{\hyperlink{rb__tree_8h_source}{rb\+\_\+tree.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{rb__tree_8h_a659f2a6354fea183df8cfbfba2801484}\label{rb__tree_8h_a659f2a6354fea183df8cfbfba2801484}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbApplyNode@{rbApplyNode}}
+\Hypertarget{rb__tree_8h_a659f2a6354fea183df8cfbfba2801484}\index{rb\_tree.h@{rb\_tree.h}!rbApplyNode@{rbApplyNode}}
 \index{rbApplyNode@{rbApplyNode}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbApplyNode()}{rbApplyNode()}}
-{\footnotesize\ttfamily int rb\+Apply\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{\mbox{\hyperlink{structrbnode}{rbnode}} $\ast$}]{node,  }\item[{int($\ast$)(void $\ast$, void $\ast$)}]{func,  }\item[{void $\ast$}]{cookie,  }\item[{enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}}}]{order }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a659f2a6354fea183df8cfbfba2801484} 
+int rb\+Apply\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*}}]{node}{, }\item[{int(\texorpdfstring{$\ast$}{*}}]{func~}{)(void \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}), }\item[{void \texorpdfstring{$\ast$}{*}}]{cookie}{, }\item[{enum \mbox{\hyperlink{rb__tree_8h_ae7a3c3e2ca387d6507c8c8e61e3f87b5}{rbtraversal}}}]{order}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 116 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00116}{116}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References rbnode\+::data, I\+N\+O\+R\+D\+ER, rbnode\+::left, P\+O\+S\+T\+O\+R\+D\+ER, P\+R\+E\+O\+R\+D\+ER, R\+B\+\_\+\+N\+IL, and rbnode\+::right.
+References \mbox{\hyperlink{rb__tree_8h_source_l00031}{rbnode\+::data}}, \mbox{\hyperlink{rb__tree_8h_source_l00020}{INORDER}}, \mbox{\hyperlink{rb__tree_8h_source_l00028}{rbnode\+::left}}, \mbox{\hyperlink{rb__tree_8h_source_l00021}{POSTORDER}}, \mbox{\hyperlink{rb__tree_8h_source_l00019}{PREORDER}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, \mbox{\hyperlink{rb__tree_8c_source_l00116}{rb\+Apply\+Node()}}, and \mbox{\hyperlink{rb__tree_8h_source_l00029}{rbnode\+::right}}.
 
-\mbox{\Hypertarget{rb__tree_8h_aa02803c2713094e61fa50807fa7a5116}\label{rb__tree_8h_aa02803c2713094e61fa50807fa7a5116}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbCheckBlackHeight@{rbCheckBlackHeight}}
+
+
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00116}{rb\+Apply\+Node()}}.
+
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{rb__tree_8h_aa02803c2713094e61fa50807fa7a5116}\index{rb\_tree.h@{rb\_tree.h}!rbCheckBlackHeight@{rbCheckBlackHeight}}
 \index{rbCheckBlackHeight@{rbCheckBlackHeight}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbCheckBlackHeight()}{rbCheckBlackHeight()}}
-{\footnotesize\ttfamily int rb\+Check\+Black\+Height (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_aa02803c2713094e61fa50807fa7a5116} 
+int rb\+Check\+Black\+Height (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{}\end{DoxyParamCaption})}
 
 
 
 Function that Checks the height of black nodes. 
 
 \begin{DoxyAttention}{Attention}
-D\+A\+N\+G\+E\+R!! T\+H\+IS F\+U\+N\+C\+T\+I\+ON IS R\+E\+C\+U\+R\+S\+I\+VE. This is intended to be used in a laptop debugging context. The V\+CU simply does not have enough memory to deal with recursion of this manner.
+DANGER!! THIS FUNCTION IS RECURSIVE. This is intended to be used in a laptop debugging context. The VCU simply does not have enough memory to deal with recursion of this manner.
 \end{DoxyAttention}
 \begin{DoxyRefDesc}{Deprecated}
 \item[\mbox{\hyperlink{deprecated__deprecated000003}{Deprecated}}]Leftovers from laptop unit tests.\end{DoxyRefDesc}
 
 
-Definition at line 571 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00571}{571}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References check\+Black\+Height(), R\+B\+\_\+\+F\+I\+R\+ST, R\+B\+\_\+\+N\+IL, R\+B\+\_\+\+R\+O\+OT, and R\+ED.
+References \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, \mbox{\hyperlink{rb__tree_8h_source_l00057}{RB\+\_\+\+ROOT}}, and \mbox{\hyperlink{rb__tree_8h_source_l00012}{RED}}.
 
 
 
-Referenced by rb\+Print().
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00607}{rb\+Print()}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a0eb9842e366817eb18eac0e319fb04db}\label{rb__tree_8h_a0eb9842e366817eb18eac0e319fb04db}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbCheckOrder@{rbCheckOrder}}
+\Hypertarget{rb__tree_8h_a0eb9842e366817eb18eac0e319fb04db}\index{rb\_tree.h@{rb\_tree.h}!rbCheckOrder@{rbCheckOrder}}
 \index{rbCheckOrder@{rbCheckOrder}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbCheckOrder()}{rbCheckOrder()}}
-{\footnotesize\ttfamily int rb\+Check\+Order (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{void $\ast$}]{min,  }\item[{void $\ast$}]{max }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a0eb9842e366817eb18eac0e319fb04db} 
+int rb\+Check\+Order (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{min}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{max}{}\end{DoxyParamCaption})}
 
 
 
 Function that validates that the order of the nodes in the tree is correct. 
 
 \begin{DoxyAttention}{Attention}
-D\+A\+N\+G\+E\+R!! T\+H\+IS F\+U\+N\+C\+T\+I\+ON IS R\+E\+C\+U\+R\+S\+I\+VE. This is intended to be used in a laptop debugging context. The V\+CU simply does not have enough memory to deal with recursion of this manner.
+DANGER!! THIS FUNCTION IS RECURSIVE. This is intended to be used in a laptop debugging context. The VCU simply does not have enough memory to deal with recursion of this manner.
 \end{DoxyAttention}
 \begin{DoxyRefDesc}{Deprecated}
 \item[\mbox{\hyperlink{deprecated__deprecated000002}{Deprecated}}]Leftovers from laptop unit tests.\end{DoxyRefDesc}
 
 
-Definition at line 545 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00545}{545}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References check\+Order(), and R\+B\+\_\+\+F\+I\+R\+ST.
+References \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}.
 
-\mbox{\Hypertarget{rb__tree_8h_acfdf75dcc32d990f4818270cac09cf86}\label{rb__tree_8h_acfdf75dcc32d990f4818270cac09cf86}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbCreate@{rbCreate}}
+\Hypertarget{rb__tree_8h_a07589b261fdbe522bf27f4d31e83b848}\index{rb\_tree.h@{rb\_tree.h}!rbCreate@{rbCreate}}
 \index{rbCreate@{rbCreate}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbCreate()}{rbCreate()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structrbtree}{rbtree}}$\ast$ rb\+Create (\begin{DoxyParamCaption}\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compare\+\_\+func,  }\item[{void($\ast$)(void $\ast$)}]{destroy\+\_\+func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a07589b261fdbe522bf27f4d31e83b848} 
+\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*} rb\+Create (\begin{DoxyParamCaption}\item[{int(\texorpdfstring{$\ast$}{*}}]{compare\+\_\+func~}{)(const void \texorpdfstring{$\ast$}{*}, const void \texorpdfstring{$\ast$}{*}), }\item[{void(\texorpdfstring{$\ast$}{*}}]{destroy\+\_\+func~}{)(void \texorpdfstring{$\ast$}{*})}\end{DoxyParamCaption})}
 
 
 
@@ -317,17 +375,17 @@ Create and initialize a binary search tree.
 \end{DoxyParams}
 
 
-Definition at line 28 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00028}{28}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References B\+L\+A\+CK, rbnode\+::color, rbtree\+::compare, rbtree\+::count, rbnode\+::data, rbtree\+::destroy, rbnode\+::left, rbtree\+::min, rbtree\+::nil, rbnode\+::parent, R\+B\+\_\+\+N\+IL, rbnode\+::right, and rbtree\+::root.
+References \mbox{\hyperlink{rb__tree_8h_source_l00013}{BLACK}}, \mbox{\hyperlink{rb__tree_8h_source_l00032}{rbnode\+::color}}, \mbox{\hyperlink{rb__tree_8h_source_l00040}{rbtree\+::compare}}, \mbox{\hyperlink{rb__tree_8h_source_l00053}{rbtree\+::count}}, \mbox{\hyperlink{rb__tree_8h_source_l00031}{rbnode\+::data}}, \mbox{\hyperlink{rb__tree_8h_source_l00042}{rbtree\+::destroy}}, \mbox{\hyperlink{rb__tree_8h_source_l00028}{rbnode\+::left}}, \mbox{\hyperlink{rb__tree_8h_source_l00050}{rbtree\+::min}}, \mbox{\hyperlink{rb__tree_8h_source_l00045}{rbtree\+::nil}}, \mbox{\hyperlink{rb__tree_8h_source_l00030}{rbnode\+::parent}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, \mbox{\hyperlink{rb__tree_8h_source_l00029}{rbnode\+::right}}, and \mbox{\hyperlink{rb__tree_8h_source_l00044}{rbtree\+::root}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a8b7898139f560f35aa433a637c2a5381}\label{rb__tree_8h_a8b7898139f560f35aa433a637c2a5381}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbDelete@{rbDelete}}
+\Hypertarget{rb__tree_8h_aef2e33c201c30397f2a57cb76225d751}\index{rb\_tree.h@{rb\_tree.h}!rbDelete@{rbDelete}}
 \index{rbDelete@{rbDelete}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbDelete()}{rbDelete()}}
-{\footnotesize\ttfamily void$\ast$ rb\+Delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{\mbox{\hyperlink{structrbnode}{rbnode}} $\ast$}]{node,  }\item[{int}]{keep }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_aef2e33c201c30397f2a57cb76225d751} 
+void \texorpdfstring{$\ast$}{*} rb\+Delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*}}]{node}{, }\item[{int}]{keep}{}\end{DoxyParamCaption})}
 
 
 
@@ -344,22 +402,24 @@ Deletes a node from the tree.
 \end{DoxyParams}
 
 \begin{DoxyRetVals}{Return values}
-{\em If} & {\ttfamily keep} is \char`\"{}true\char`\"{}, this will return a pointer to the data held by the deleted node. Otherwise it will return N\+U\+LL. \\
+{\em If} & {\ttfamily keep} is "{}true"{}, this will return a pointer to the data held by the deleted node. Otherwise it will return NULL. \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 360 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00360}{360}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References B\+L\+A\+CK, rbnode\+::color, rbtree\+::count, rbnode\+::data, delete\+Repair(), rbtree\+::destroy, rbnode\+::left, rbtree\+::min, rbnode\+::parent, R\+B\+\_\+\+F\+I\+R\+ST, R\+B\+\_\+\+N\+IL, rb\+Successor(), R\+ED, and rbnode\+::right.
+References \mbox{\hyperlink{rb__tree_8h_source_l00013}{BLACK}}, \mbox{\hyperlink{rb__tree_8h_source_l00032}{rbnode\+::color}}, \mbox{\hyperlink{rb__tree_8h_source_l00053}{rbtree\+::count}}, \mbox{\hyperlink{rb__tree_8h_source_l00031}{rbnode\+::data}}, \mbox{\hyperlink{rb__tree_8h_source_l00042}{rbtree\+::destroy}}, \mbox{\hyperlink{rb__tree_8h_source_l00028}{rbnode\+::left}}, \mbox{\hyperlink{rb__tree_8h_source_l00050}{rbtree\+::min}}, \mbox{\hyperlink{rb__tree_8h_source_l00030}{rbnode\+::parent}}, \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, \mbox{\hyperlink{rb__tree_8c_source_l00092}{rb\+Successor()}}, \mbox{\hyperlink{rb__tree_8h_source_l00012}{RED}}, and \mbox{\hyperlink{rb__tree_8h_source_l00029}{rbnode\+::right}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a9a58d42acc5dd251bf885a0f58c6abfb}\label{rb__tree_8h_a9a58d42acc5dd251bf885a0f58c6abfb}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbDestroy@{rbDestroy}}
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{rb__tree_8h_a9a58d42acc5dd251bf885a0f58c6abfb}\index{rb\_tree.h@{rb\_tree.h}!rbDestroy@{rbDestroy}}
 \index{rbDestroy@{rbDestroy}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbDestroy()}{rbDestroy()}}
-{\footnotesize\ttfamily void rb\+Destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a9a58d42acc5dd251bf885a0f58c6abfb} 
+void rb\+Destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{}\end{DoxyParamCaption})}
 
 
 
@@ -367,17 +427,17 @@ Destroy the tree, and de-\/allocate it\textquotesingle{}s elements.
 
 
 
-Definition at line 61 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00061}{61}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References destroy\+All\+Nodes(), and R\+B\+\_\+\+F\+I\+R\+ST.
+References \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}.
 
-\mbox{\Hypertarget{rb__tree_8h_ad7470a946dc18fdea53de8efa48ba4eb}\label{rb__tree_8h_ad7470a946dc18fdea53de8efa48ba4eb}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbFind@{rbFind}}
+\Hypertarget{rb__tree_8h_a160c4acd7beeb7b413a62c735899e98d}\index{rb\_tree.h@{rb\_tree.h}!rbFind@{rbFind}}
 \index{rbFind@{rbFind}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbFind()}{rbFind()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structrbnode}{rbnode}}$\ast$ rb\+Find (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a160c4acd7beeb7b413a62c735899e98d} 
+\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*} rb\+Find (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
 
 
 
@@ -390,22 +450,22 @@ Find a node of the tree based off the data you provide the tree.
 \end{DoxyParams}
 
 \begin{DoxyRetVals}{Return values}
-{\em Returns} & a pointer to the node if the node is present in the tree. Otherwise, it will return N\+U\+LL to indicate the node could not be found. \\
+{\em Returns} & a pointer to the node if the node is present in the tree. Otherwise, it will return NULL to indicate the node could not be found. \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 71 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00071}{71}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References rbtree\+::compare, rbnode\+::data, rbnode\+::left, R\+B\+\_\+\+F\+I\+R\+ST, R\+B\+\_\+\+N\+IL, and rbnode\+::right.
+References \mbox{\hyperlink{rb__tree_8h_source_l00040}{rbtree\+::compare}}, \mbox{\hyperlink{rb__tree_8h_source_l00031}{rbnode\+::data}}, \mbox{\hyperlink{rb__tree_8h_source_l00028}{rbnode\+::left}}, \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, and \mbox{\hyperlink{rb__tree_8h_source_l00029}{rbnode\+::right}}.
 
-\mbox{\Hypertarget{rb__tree_8h_aeb5491e8c286b8dbc868df0c31dba799}\label{rb__tree_8h_aeb5491e8c286b8dbc868df0c31dba799}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbInsert@{rbInsert}}
+\Hypertarget{rb__tree_8h_a3063d25955cfd94b1f10c556de95249e}\index{rb\_tree.h@{rb\_tree.h}!rbInsert@{rbInsert}}
 \index{rbInsert@{rbInsert}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbInsert()}{rbInsert()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structrbnode}{rbnode}}$\ast$ rb\+Insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{void $\ast$}]{data }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a3063d25955cfd94b1f10c556de95249e} 
+\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*} rb\+Insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
 
 
 
@@ -420,22 +480,22 @@ Function that inserts data into the tree, and creates a new node.
 \end{DoxyParams}
 
 \begin{DoxyRetVals}{Return values}
-{\em This} & function returns a pointer to the {\ttfamily rbnode} that was added. The function will return N\+U\+LL if the system is out of memory, or is otherwise unable to insert the node. \\
+{\em This} & function returns a pointer to the {\ttfamily rbnode} that was added. The function will return NULL if the system is out of memory, or is otherwise unable to insert the node. \\
 \hline
 \end{DoxyRetVals}
 
 
-Definition at line 207 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00207}{207}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References B\+L\+A\+CK, rbnode\+::color, rbtree\+::compare, rbtree\+::count, rbnode\+::data, rbtree\+::destroy, insert\+Repair(), rbnode\+::left, rbtree\+::min, rbnode\+::parent, R\+B\+\_\+\+F\+I\+R\+ST, R\+B\+\_\+\+M\+IN, R\+B\+\_\+\+N\+IL, R\+B\+\_\+\+R\+O\+OT, R\+ED, and rbnode\+::right.
+References \mbox{\hyperlink{rb__tree_8h_source_l00013}{BLACK}}, \mbox{\hyperlink{rb__tree_8h_source_l00032}{rbnode\+::color}}, \mbox{\hyperlink{rb__tree_8h_source_l00040}{rbtree\+::compare}}, \mbox{\hyperlink{rb__tree_8h_source_l00053}{rbtree\+::count}}, \mbox{\hyperlink{rb__tree_8h_source_l00031}{rbnode\+::data}}, \mbox{\hyperlink{rb__tree_8h_source_l00042}{rbtree\+::destroy}}, \mbox{\hyperlink{rb__tree_8h_source_l00028}{rbnode\+::left}}, \mbox{\hyperlink{rb__tree_8h_source_l00050}{rbtree\+::min}}, \mbox{\hyperlink{rb__tree_8h_source_l00030}{rbnode\+::parent}}, \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, \mbox{\hyperlink{rb__tree_8h_source_l00057}{RB\+\_\+\+ROOT}}, \mbox{\hyperlink{rb__tree_8h_source_l00012}{RED}}, and \mbox{\hyperlink{rb__tree_8h_source_l00029}{rbnode\+::right}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a447d21f412285d3455356d2975a6ced3}\label{rb__tree_8h_a447d21f412285d3455356d2975a6ced3}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbPrint@{rbPrint}}
+\Hypertarget{rb__tree_8h_a447d21f412285d3455356d2975a6ced3}\index{rb\_tree.h@{rb\_tree.h}!rbPrint@{rbPrint}}
 \index{rbPrint@{rbPrint}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbPrint()}{rbPrint()}}
-{\footnotesize\ttfamily void rb\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{void($\ast$)(void $\ast$)}]{print\+\_\+func }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a447d21f412285d3455356d2975a6ced3} 
+void rb\+Print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{print\+\_\+func~}{)(void \texorpdfstring{$\ast$}{*})}\end{DoxyParamCaption})}
 
 
 
@@ -449,33 +509,35 @@ Function used to print the contents of the tree.
 \hline
 \end{DoxyParams}
 \begin{DoxyAttention}{Attention}
-D\+A\+N\+G\+E\+R!! R\+E\+C\+U\+R\+S\+I\+O\+N!!
+DANGER!! RECURSION!!
 \end{DoxyAttention}
 \begin{DoxyRefDesc}{Deprecated}
 \item[\mbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]Leftovers from laptop unit tests. Sorta useless, cause like what are we gonna print to? \end{DoxyRefDesc}
 
 
-Definition at line 607 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00607}{607}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References print(), R\+B\+\_\+\+F\+I\+R\+ST, and rb\+Check\+Black\+Height().
+References \mbox{\hyperlink{rb__tree_8h_source_l00059}{RB\+\_\+\+FIRST}}, and \mbox{\hyperlink{rb__tree_8c_source_l00571}{rb\+Check\+Black\+Height()}}.
 
-\mbox{\Hypertarget{rb__tree_8h_a70293914fa5f96508b9b502d7f3bb5dc}\label{rb__tree_8h_a70293914fa5f96508b9b502d7f3bb5dc}} 
-\index{rb\_tree.h@{rb\_tree.h}!rbSuccessor@{rbSuccessor}}
+Here is the call graph for this function\+:
+% FIG 3
+\Hypertarget{rb__tree_8h_a9f06a15af5108e7e29d69fa9c29129e8}\index{rb\_tree.h@{rb\_tree.h}!rbSuccessor@{rbSuccessor}}
 \index{rbSuccessor@{rbSuccessor}!rb\_tree.h@{rb\_tree.h}}
 \doxysubsubsection{\texorpdfstring{rbSuccessor()}{rbSuccessor()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structrbnode}{rbnode}}$\ast$ rb\+Successor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} $\ast$}]{rbt,  }\item[{\mbox{\hyperlink{structrbnode}{rbnode}} $\ast$}]{node }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{rb__tree_8h_a9f06a15af5108e7e29d69fa9c29129e8} 
+\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*} rb\+Successor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structrbtree}{rbtree}} \texorpdfstring{$\ast$}{*}}]{rbt}{, }\item[{\mbox{\hyperlink{structrbnode}{rbnode}} \texorpdfstring{$\ast$}{*}}]{node}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 92 of file rb\+\_\+tree.\+c.
+Definition at line \mbox{\hyperlink{rb__tree_8c_source_l00092}{92}} of file \mbox{\hyperlink{rb__tree_8c_source}{rb\+\_\+tree.\+c}}.
 
 
 
-References rbnode\+::left, rbnode\+::parent, R\+B\+\_\+\+N\+IL, R\+B\+\_\+\+R\+O\+OT, and rbnode\+::right.
+References \mbox{\hyperlink{rb__tree_8h_source_l00028}{rbnode\+::left}}, \mbox{\hyperlink{rb__tree_8h_source_l00030}{rbnode\+::parent}}, \mbox{\hyperlink{rb__tree_8h_source_l00058}{RB\+\_\+\+NIL}}, \mbox{\hyperlink{rb__tree_8h_source_l00057}{RB\+\_\+\+ROOT}}, and \mbox{\hyperlink{rb__tree_8h_source_l00029}{rbnode\+::right}}.
 
 
 
-Referenced by rb\+Delete().
+Referenced by \mbox{\hyperlink{rb__tree_8c_source_l00360}{rb\+Delete()}}.
 

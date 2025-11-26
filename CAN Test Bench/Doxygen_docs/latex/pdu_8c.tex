@@ -1,208 +1,255 @@
-\hypertarget{pdu_8c}{}\doxysection{Core/\+Src/pdu.c File Reference}
-\label{pdu_8c}\index{Core/Src/pdu.c@{Core/Src/pdu.c}}
-{\ttfamily \#include \char`\"{}pdu.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}can.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\newline
-\doxysubsection*{Functions}
+\doxysection{Core/\+Src/pdu.c File Reference}
+\hypertarget{pdu_8c}{}\label{pdu_8c}\index{Core/Src/pdu.c@{Core/Src/pdu.c}}
+{\ttfamily \#include "{}pdu.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}can.\+h"{}}\newline
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}constants.\+h"{}}\newline
+Include dependency graph for pdu.\+c\+:
+% FIG 0
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{pdu_8c_a42e33c33fc1dea26555ff7b20984b186}{P\+D\+U\+\_\+speaker\+\_\+chirp}} ()
+\#define \mbox{\hyperlink{pdu_8c_a4be4453fd393a9705e3ce4146cce40c8}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+\+BIT}}~0b00100000
 \item 
-void \mbox{\hyperlink{pdu_8c_aa5479c0d6ab8d58683e99bf102d60db8}{P\+D\+U\+\_\+enable\+\_\+brake\+\_\+light}} ()
+\#define \mbox{\hyperlink{pdu_8c_a847c8eaa8d2029dd5d8b1b782aae2c9b}{U19\+\_\+\+PDU\+\_\+\+EN\+\_\+\+BIT}}~0b00010000
 \item 
-void \mbox{\hyperlink{pdu_8c_ad7b67b3c1618a7c50a5d6d9f9e13a89f}{P\+D\+U\+\_\+disable\+\_\+brake\+\_\+light}} ()
+\#define \mbox{\hyperlink{pdu_8c_a627e824d1da0b03a662b47db524e213c}{HIGHEST\+\_\+\+CH}}~0x28
 \item 
-void \mbox{\hyperlink{pdu_8c_ae3eaaae4438e04d63fe04cc23a201810}{P\+D\+U\+\_\+enable\+\_\+motor\+\_\+controller}} ()
+\#define \mbox{\hyperlink{pdu_8c_a5a3ac33c553f70682dc9e1bfe20d2bd5}{FIRST\+\_\+20\+A\+\_\+\+CH}}~0x21
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{pdu_8c_a6b189c4013c1cb97ff696a9bc05def5e}{P\+D\+U\+\_\+disable\+\_\+motor\+\_\+controller}} ()
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{pdu_8c_a5dda8bbdef27d5c2afee8f3d2b706bd1}{u19update\+Pdu\+Channel}} (struct \mbox{\hyperlink{structabstract__conifer__channel}{abstract\+\_\+conifer\+\_\+channel}} \texorpdfstring{$\ast$}{*}ch\+\_\+ptr, uint32\+\_\+t \texorpdfstring{$\ast$}{*}ecode)
 \item 
-void \mbox{\hyperlink{pdu_8c_a0f2b86f2db7ee86b014ccc246c8b674d}{P\+D\+U\+\_\+enable\+\_\+shutdown\+\_\+circuit}} ()
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{pdu_8c_a1fe919a957b7055fcd240d738195d529}{init\+PDU}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}ecode)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{pdu_8c_a67ed21c50014c891cc0031655a30aef9}{P\+D\+U\+\_\+disable\+\_\+shutdown\+\_\+circuit}} ()
+uint16\+\_\+t \mbox{\hyperlink{pdu_8c_a5e0b76d0cfbe5852aca54c518f3ebfd8}{read\+\_\+5\+A\+\_\+vals}}
 \item 
-void \mbox{\hyperlink{pdu_8c_a9d736981007eb7fc9691275dc7b6c05c}{P\+D\+U\+\_\+enable\+\_\+cooling\+\_\+fans}} ()
+uint16\+\_\+t \mbox{\hyperlink{pdu_8c_a5ec56ae805d39218abf3c5b4853bd1bc}{set\+\_\+5\+A\+\_\+vals}}
 \item 
-void \mbox{\hyperlink{pdu_8c_a3c665494b7f9fb4e025ff31d24c97072}{P\+D\+U\+\_\+disable\+\_\+cooling\+\_\+fans}} ()
+uint16\+\_\+t \mbox{\hyperlink{pdu_8c_a1da857742290329216cb538e70930f23}{read\+\_\+20\+A\+\_\+vals}}
 \item 
-void \mbox{\hyperlink{pdu_8c_aef2fd854287906cac1734f08a6edcf2a}{P\+D\+U\+\_\+enable\+\_\+coolant\+\_\+pump}} ()
+uint16\+\_\+t \mbox{\hyperlink{pdu_8c_a3f670253d50011b79a50a97b52623a4e}{set\+\_\+20\+A\+\_\+vals}}
 \item 
-void \mbox{\hyperlink{pdu_8c_aebeb35957c80be85dc938efe72c8e825}{P\+D\+U\+\_\+disable\+\_\+coolant\+\_\+pump}} ()
+Tick\+Type\+\_\+t \mbox{\hyperlink{pdu_8c_a018ff3186fd2ca7dd9a7825c777252d4}{pdu\+\_\+last\+\_\+\+Rx\+\_\+time}}
 \item 
-void \mbox{\hyperlink{pdu_8c_afaa6671d51bcd0687c87ac635ff70d95}{init\+P\+DU}} (void $\ast$args)
+\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \mbox{\hyperlink{pdu_8c_af7f4e4ce3dd3398a53cb24643396f8ec}{last\+\_\+received\+\_\+from\+\_\+\+PDU}}
+\item 
+Semaphore\+Handle\+\_\+t \mbox{\hyperlink{pdu_8c_aeec4d7363e8f081b457d92c49d7c5322}{pdu\+\_\+tx\+\_\+mutex}} = NULL
+\item 
+\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \mbox{\hyperlink{pdu_8c_aaf55cb4c7c83957aad36af8fd38ad0a8}{msg\+\_\+to\+\_\+\+PDU}}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{pdu_8c_a5a3ac33c553f70682dc9e1bfe20d2bd5}\index{pdu.c@{pdu.c}!FIRST\_20A\_CH@{FIRST\_20A\_CH}}
+\index{FIRST\_20A\_CH@{FIRST\_20A\_CH}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{FIRST\_20A\_CH}{FIRST\_20A\_CH}}
+{\footnotesize\ttfamily \label{pdu_8c_a5a3ac33c553f70682dc9e1bfe20d2bd5} 
+\#define FIRST\+\_\+20\+A\+\_\+\+CH~0x21}
+
+
+
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00034}{34}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
+
+\Hypertarget{pdu_8c_a627e824d1da0b03a662b47db524e213c}\index{pdu.c@{pdu.c}!HIGHEST\_CH@{HIGHEST\_CH}}
+\index{HIGHEST\_CH@{HIGHEST\_CH}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{HIGHEST\_CH}{HIGHEST\_CH}}
+{\footnotesize\ttfamily \label{pdu_8c_a627e824d1da0b03a662b47db524e213c} 
+\#define HIGHEST\+\_\+\+CH~0x28}
+
+
+
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00033}{33}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
+
+\Hypertarget{pdu_8c_a4be4453fd393a9705e3ce4146cce40c8}\index{pdu.c@{pdu.c}!U19\_PDU\_20A\_BIT@{U19\_PDU\_20A\_BIT}}
+\index{U19\_PDU\_20A\_BIT@{U19\_PDU\_20A\_BIT}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{U19\_PDU\_20A\_BIT}{U19\_PDU\_20A\_BIT}}
+{\footnotesize\ttfamily \label{pdu_8c_a4be4453fd393a9705e3ce4146cce40c8} 
+\#define U19\+\_\+\+PDU\+\_\+20\+A\+\_\+\+BIT~0b00100000}
+
+
+
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00031}{31}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
+
+\Hypertarget{pdu_8c_a847c8eaa8d2029dd5d8b1b782aae2c9b}\index{pdu.c@{pdu.c}!U19\_PDU\_EN\_BIT@{U19\_PDU\_EN\_BIT}}
+\index{U19\_PDU\_EN\_BIT@{U19\_PDU\_EN\_BIT}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{U19\_PDU\_EN\_BIT}{U19\_PDU\_EN\_BIT}}
+{\footnotesize\ttfamily \label{pdu_8c_a847c8eaa8d2029dd5d8b1b782aae2c9b} 
+\#define U19\+\_\+\+PDU\+\_\+\+EN\+\_\+\+BIT~0b00010000}
+
+
+
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00032}{32}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
+
+
+
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{pdu_8c_afaa6671d51bcd0687c87ac635ff70d95}\label{pdu_8c_afaa6671d51bcd0687c87ac635ff70d95}} 
-\index{pdu.c@{pdu.c}!initPDU@{initPDU}}
+\Hypertarget{pdu_8c_a1fe919a957b7055fcd240d738195d529}\index{pdu.c@{pdu.c}!initPDU@{initPDU}}
 \index{initPDU@{initPDU}!pdu.c@{pdu.c}}
 \doxysubsubsection{\texorpdfstring{initPDU()}{initPDU()}}
-{\footnotesize\ttfamily void init\+P\+DU (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{pdu_8c_a1fe919a957b7055fcd240d738195d529} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} init\+PDU (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{ecode}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 183 of file pdu.\+c.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00100}{100}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
 
-References uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue, uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle, P\+DU, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__conifer_8h_source_l00091}{CONIFER\+\_\+\+DRV\+\_\+\+INIT\+\_\+\+ERR}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00007}{conifer\+\_\+params}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{pdu_8c_source_l00023}{msg\+\_\+to\+\_\+\+PDU}}, \mbox{\hyperlink{pdu_8c_source_l00021}{pdu\+\_\+tx\+\_\+mutex}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by uv\+Init().
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}.
 
-\mbox{\Hypertarget{pdu_8c_ad7b67b3c1618a7c50a5d6d9f9e13a89f}\label{pdu_8c_ad7b67b3c1618a7c50a5d6d9f9e13a89f}} 
-\index{pdu.c@{pdu.c}!PDU\_disable\_brake\_light@{PDU\_disable\_brake\_light}}
-\index{PDU\_disable\_brake\_light@{PDU\_disable\_brake\_light}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_brake\_light()}{PDU\_disable\_brake\_light()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+brake\+\_\+light (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{pdu_8c_a5dda8bbdef27d5c2afee8f3d2b706bd1}\index{pdu.c@{pdu.c}!u19updatePduChannel@{u19updatePduChannel}}
+\index{u19updatePduChannel@{u19updatePduChannel}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{u19updatePduChannel()}{u19updatePduChannel()}}
+{\footnotesize\ttfamily \label{pdu_8c_a5dda8bbdef27d5c2afee8f3d2b706bd1} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} u19update\+Pdu\+Channel (\begin{DoxyParamCaption}\item[{struct \mbox{\hyperlink{structabstract__conifer__channel}{abstract\+\_\+conifer\+\_\+channel}} \texorpdfstring{$\ast$}{*}}]{ch\+\_\+ptr}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{ecode}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 48 of file pdu.\+c.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00037}{37}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
 
-References disable\+\_\+brake\+\_\+light\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+References \mbox{\hyperlink{uvfr__conifer_8h_source_l00020}{CONIFER\+\_\+\+CH\+\_\+\+EN\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00025}{CONIFER\+\_\+\+CH\+\_\+\+FLT\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00028}{CONIFER\+\_\+\+CH\+\_\+\+LS\+\_\+\+ACTIVE}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00087}{CONIFER\+\_\+\+DRV\+\_\+\+INVALID\+\_\+\+HW\+\_\+\+CH\+\_\+\+ID}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{pdu_8c_source_l00034}{FIRST\+\_\+20\+A\+\_\+\+CH}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00014}{abstract\+\_\+conifer\+\_\+channel\+::hardware\+\_\+mapping}}, \mbox{\hyperlink{pdu_8c_source_l00033}{HIGHEST\+\_\+\+CH}}, \mbox{\hyperlink{pdu_8c_source_l00023}{msg\+\_\+to\+\_\+\+PDU}}, \mbox{\hyperlink{pdu_8c_source_l00021}{pdu\+\_\+tx\+\_\+mutex}}, \mbox{\hyperlink{pdu_8c_source_l00016}{set\+\_\+20\+A\+\_\+vals}}, \mbox{\hyperlink{pdu_8c_source_l00013}{set\+\_\+5\+A\+\_\+vals}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00013}{abstract\+\_\+conifer\+\_\+channel\+::status\+\_\+control\+\_\+reg}}, \mbox{\hyperlink{pdu_8c_source_l00031}{U19\+\_\+\+PDU\+\_\+20\+A\+\_\+\+BIT}}, \mbox{\hyperlink{pdu_8c_source_l00032}{U19\+\_\+\+PDU\+\_\+\+EN\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
 
-\mbox{\Hypertarget{pdu_8c_aebeb35957c80be85dc938efe72c8e825}\label{pdu_8c_aebeb35957c80be85dc938efe72c8e825}} 
-\index{pdu.c@{pdu.c}!PDU\_disable\_coolant\_pump@{PDU\_disable\_coolant\_pump}}
-\index{PDU\_disable\_coolant\_pump@{PDU\_disable\_coolant\_pump}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_coolant\_pump()}{PDU\_disable\_coolant\_pump()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+coolant\+\_\+pump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
+Referenced by \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}.
 
-Definition at line 170 of file pdu.\+c.
+Here is the call graph for this function\+:
+% FIG 1
 
 
+\doxysubsection{Variable Documentation}
+\Hypertarget{pdu_8c_af7f4e4ce3dd3398a53cb24643396f8ec}\index{pdu.c@{pdu.c}!last\_received\_from\_PDU@{last\_received\_from\_PDU}}
+\index{last\_received\_from\_PDU@{last\_received\_from\_PDU}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{last\_received\_from\_PDU}{last\_received\_from\_PDU}}
+{\footnotesize\ttfamily \label{pdu_8c_af7f4e4ce3dd3398a53cb24643396f8ec} 
+\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} last\+\_\+received\+\_\+from\+\_\+\+PDU}
 
-References disable\+\_\+coolant\+\_\+pump\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
 
-\mbox{\Hypertarget{pdu_8c_a3c665494b7f9fb4e025ff31d24c97072}\label{pdu_8c_a3c665494b7f9fb4e025ff31d24c97072}} 
-\index{pdu.c@{pdu.c}!PDU\_disable\_cooling\_fans@{PDU\_disable\_cooling\_fans}}
-\index{PDU\_disable\_cooling\_fans@{PDU\_disable\_cooling\_fans}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_cooling\_fans()}{PDU\_disable\_cooling\_fans()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+cooling\+\_\+fans (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00019}{19}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
+\Hypertarget{pdu_8c_aaf55cb4c7c83957aad36af8fd38ad0a8}\index{pdu.c@{pdu.c}!msg\_to\_PDU@{msg\_to\_PDU}}
+\index{msg\_to\_PDU@{msg\_to\_PDU}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{msg\_to\_PDU}{msg\_to\_PDU}}
+{\footnotesize\ttfamily \label{pdu_8c_aaf55cb4c7c83957aad36af8fd38ad0a8} 
+\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} msg\+\_\+to\+\_\+\+PDU}
 
-Definition at line 136 of file pdu.\+c.
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ .flags\ =\ 0x00,}
+\DoxyCodeLine{\ \ \ \ .dlc\ =\ 1,}
+\DoxyCodeLine{\ \ \ \ .msg\_id\ =\ 0x710,}
+\DoxyCodeLine{\ \ \ \ .data\ =\ \{0,0,0,0,0,0,0,0\}}
+\DoxyCodeLine{\}}
 
+\end{DoxyCode}
 
 
-References disable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg, disable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00023}{23}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
-\mbox{\Hypertarget{pdu_8c_a6b189c4013c1cb97ff696a9bc05def5e}\label{pdu_8c_a6b189c4013c1cb97ff696a9bc05def5e}} 
-\index{pdu.c@{pdu.c}!PDU\_disable\_motor\_controller@{PDU\_disable\_motor\_controller}}
-\index{PDU\_disable\_motor\_controller@{PDU\_disable\_motor\_controller}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_motor\_controller()}{PDU\_disable\_motor\_controller()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+motor\+\_\+controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00100}{init\+PDU()}}, and \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 
-Definition at line 74 of file pdu.\+c.
+\Hypertarget{pdu_8c_a018ff3186fd2ca7dd9a7825c777252d4}\index{pdu.c@{pdu.c}!pdu\_last\_Rx\_time@{pdu\_last\_Rx\_time}}
+\index{pdu\_last\_Rx\_time@{pdu\_last\_Rx\_time}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{pdu\_last\_Rx\_time}{pdu\_last\_Rx\_time}}
+{\footnotesize\ttfamily \label{pdu_8c_a018ff3186fd2ca7dd9a7825c777252d4} 
+Tick\+Type\+\_\+t pdu\+\_\+last\+\_\+\+Rx\+\_\+time}
 
 
 
-References disable\+\_\+motor\+\_\+controller\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00018}{18}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
-\mbox{\Hypertarget{pdu_8c_a67ed21c50014c891cc0031655a30aef9}\label{pdu_8c_a67ed21c50014c891cc0031655a30aef9}} 
-\index{pdu.c@{pdu.c}!PDU\_disable\_shutdown\_circuit@{PDU\_disable\_shutdown\_circuit}}
-\index{PDU\_disable\_shutdown\_circuit@{PDU\_disable\_shutdown\_circuit}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_disable\_shutdown\_circuit()}{PDU\_disable\_shutdown\_circuit()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+disable\+\_\+shutdown\+\_\+circuit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{pdu_8c_aeec4d7363e8f081b457d92c49d7c5322}\index{pdu.c@{pdu.c}!pdu\_tx\_mutex@{pdu\_tx\_mutex}}
+\index{pdu\_tx\_mutex@{pdu\_tx\_mutex}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{pdu\_tx\_mutex}{pdu\_tx\_mutex}}
+{\footnotesize\ttfamily \label{pdu_8c_aeec4d7363e8f081b457d92c49d7c5322} 
+Semaphore\+Handle\+\_\+t pdu\+\_\+tx\+\_\+mutex = NULL}
 
 
 
-Definition at line 100 of file pdu.\+c.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00021}{21}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
 
-References disable\+\_\+shutdown\+\_\+circuit\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00100}{init\+PDU()}}, and \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 
-\mbox{\Hypertarget{pdu_8c_aa5479c0d6ab8d58683e99bf102d60db8}\label{pdu_8c_aa5479c0d6ab8d58683e99bf102d60db8}} 
-\index{pdu.c@{pdu.c}!PDU\_enable\_brake\_light@{PDU\_enable\_brake\_light}}
-\index{PDU\_enable\_brake\_light@{PDU\_enable\_brake\_light}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_brake\_light()}{PDU\_enable\_brake\_light()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+brake\+\_\+light (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\Hypertarget{pdu_8c_a1da857742290329216cb538e70930f23}\index{pdu.c@{pdu.c}!read\_20A\_vals@{read\_20A\_vals}}
+\index{read\_20A\_vals@{read\_20A\_vals}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{read\_20A\_vals}{read\_20A\_vals}}
+{\footnotesize\ttfamily \label{pdu_8c_a1da857742290329216cb538e70930f23} 
+uint16\+\_\+t read\+\_\+20\+A\+\_\+vals}
 
 
 
-Definition at line 34 of file pdu.\+c.
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00015}{15}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
+\Hypertarget{pdu_8c_a5e0b76d0cfbe5852aca54c518f3ebfd8}\index{pdu.c@{pdu.c}!read\_5A\_vals@{read\_5A\_vals}}
+\index{read\_5A\_vals@{read\_5A\_vals}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{read\_5A\_vals}{read\_5A\_vals}}
+{\footnotesize\ttfamily \label{pdu_8c_a5e0b76d0cfbe5852aca54c518f3ebfd8} 
+uint16\+\_\+t read\+\_\+5\+A\+\_\+vals}
 
 
-References enable\+\_\+brake\+\_\+light\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
 
-\mbox{\Hypertarget{pdu_8c_aef2fd854287906cac1734f08a6edcf2a}\label{pdu_8c_aef2fd854287906cac1734f08a6edcf2a}} 
-\index{pdu.c@{pdu.c}!PDU\_enable\_coolant\_pump@{PDU\_enable\_coolant\_pump}}
-\index{PDU\_enable\_coolant\_pump@{PDU\_enable\_coolant\_pump}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_coolant\_pump()}{PDU\_enable\_coolant\_pump()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+coolant\+\_\+pump (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00012}{12}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
+\Hypertarget{pdu_8c_a3f670253d50011b79a50a97b52623a4e}\index{pdu.c@{pdu.c}!set\_20A\_vals@{set\_20A\_vals}}
+\index{set\_20A\_vals@{set\_20A\_vals}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{set\_20A\_vals}{set\_20A\_vals}}
+{\footnotesize\ttfamily \label{pdu_8c_a3f670253d50011b79a50a97b52623a4e} 
+uint16\+\_\+t set\+\_\+20\+A\+\_\+vals}
 
 
-Definition at line 158 of file pdu.\+c.
 
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00016}{16}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
-References enable\+\_\+coolant\+\_\+pump\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
 
-\mbox{\Hypertarget{pdu_8c_a9d736981007eb7fc9691275dc7b6c05c}\label{pdu_8c_a9d736981007eb7fc9691275dc7b6c05c}} 
-\index{pdu.c@{pdu.c}!PDU\_enable\_cooling\_fans@{PDU\_enable\_cooling\_fans}}
-\index{PDU\_enable\_cooling\_fans@{PDU\_enable\_cooling\_fans}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_cooling\_fans()}{PDU\_enable\_cooling\_fans()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+cooling\+\_\+fans (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 
+\Hypertarget{pdu_8c_a5ec56ae805d39218abf3c5b4853bd1bc}\index{pdu.c@{pdu.c}!set\_5A\_vals@{set\_5A\_vals}}
+\index{set\_5A\_vals@{set\_5A\_vals}!pdu.c@{pdu.c}}
+\doxysubsubsection{\texorpdfstring{set\_5A\_vals}{set\_5A\_vals}}
+{\footnotesize\ttfamily \label{pdu_8c_a5ec56ae805d39218abf3c5b4853bd1bc} 
+uint16\+\_\+t set\+\_\+5\+A\+\_\+vals}
 
 
-Definition at line 115 of file pdu.\+c.
 
+Definition at line \mbox{\hyperlink{pdu_8c_source_l00013}{13}} of file \mbox{\hyperlink{pdu_8c_source}{pdu.\+c}}.
 
 
-References enable\+\_\+left\+\_\+cooling\+\_\+fan\+\_\+msg, enable\+\_\+right\+\_\+cooling\+\_\+fan\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
 
-\mbox{\Hypertarget{pdu_8c_ae3eaaae4438e04d63fe04cc23a201810}\label{pdu_8c_ae3eaaae4438e04d63fe04cc23a201810}} 
-\index{pdu.c@{pdu.c}!PDU\_enable\_motor\_controller@{PDU\_enable\_motor\_controller}}
-\index{PDU\_enable\_motor\_controller@{PDU\_enable\_motor\_controller}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_motor\_controller()}{PDU\_enable\_motor\_controller()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+motor\+\_\+controller (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 62 of file pdu.\+c.
-
-
-
-References enable\+\_\+motor\+\_\+controller\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8c_a0f2b86f2db7ee86b014ccc246c8b674d}\label{pdu_8c_a0f2b86f2db7ee86b014ccc246c8b674d}} 
-\index{pdu.c@{pdu.c}!PDU\_enable\_shutdown\_circuit@{PDU\_enable\_shutdown\_circuit}}
-\index{PDU\_enable\_shutdown\_circuit@{PDU\_enable\_shutdown\_circuit}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_enable\_shutdown\_circuit()}{PDU\_enable\_shutdown\_circuit()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+enable\+\_\+shutdown\+\_\+circuit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 87 of file pdu.\+c.
-
-
-
-References enable\+\_\+shutdown\+\_\+circuit\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
-
-\mbox{\Hypertarget{pdu_8c_a42e33c33fc1dea26555ff7b20984b186}\label{pdu_8c_a42e33c33fc1dea26555ff7b20984b186}} 
-\index{pdu.c@{pdu.c}!PDU\_speaker\_chirp@{PDU\_speaker\_chirp}}
-\index{PDU\_speaker\_chirp@{PDU\_speaker\_chirp}!pdu.c@{pdu.c}}
-\doxysubsubsection{\texorpdfstring{PDU\_speaker\_chirp()}{PDU\_speaker\_chirp()}}
-{\footnotesize\ttfamily void P\+D\+U\+\_\+speaker\+\_\+chirp (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-
-
-Definition at line 11 of file pdu.\+c.
-
-
-
-References disable\+\_\+speaker\+\_\+msg, enable\+\_\+speaker\+\_\+msg, Error\+\_\+\+Handler(), hcan2, P\+D\+U\+\_\+\+C\+A\+N\+\_\+\+I\+D\+\_\+\+Tx, Tx\+Data, Tx\+Header, and Tx\+Mailbox.
+Referenced by \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}.
 

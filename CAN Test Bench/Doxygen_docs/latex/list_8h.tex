@@ -1,428 +1,618 @@
-\hypertarget{list_8h}{}\doxysection{Middlewares/\+Third\+\_\+\+Party/\+Free\+R\+T\+O\+S/\+Source/include/list.h File Reference}
-\label{list_8h}\index{Middlewares/Third\_Party/FreeRTOS/Source/include/list.h@{Middlewares/Third\_Party/FreeRTOS/Source/include/list.h}}
-\doxysubsection*{Data Structures}
+\doxysection{Core/\+Free\+RTOS/\+Source/include/list.h File Reference}
+\hypertarget{list_8h}{}\label{list_8h}\index{Core/FreeRTOS/Source/include/list.h@{Core/FreeRTOS/Source/include/list.h}}
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
-struct \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{x\+L\+I\+S\+T\+\_\+\+I\+T\+EM}}
+struct \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{x\+LIST\+\_\+\+ITEM}}
 \item 
-struct \mbox{\hyperlink{structx_m_i_n_i___l_i_s_t___i_t_e_m}{x\+M\+I\+N\+I\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+EM}}
+struct \mbox{\hyperlink{structx_m_i_n_i___l_i_s_t___i_t_e_m}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM}}
 \item 
-struct \mbox{\hyperlink{structx_l_i_s_t}{x\+L\+I\+ST}}
+struct \mbox{\hyperlink{structx_l_i_s_t}{x\+LIST}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{list_8h_a2d5de557c5561c8980d1bf51d87d8cba}{config\+L\+I\+S\+T\+\_\+\+V\+O\+L\+A\+T\+I\+LE}}
+\#define \mbox{\hyperlink{list_8h_a2d5de557c5561c8980d1bf51d87d8cba}{config\+LIST\+\_\+\+VOLATILE}}
 \item 
-\#define \mbox{\hyperlink{list_8h_a3611bd5d5d87cb26ac1dc7a4852b94a0}{list\+F\+I\+R\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}}
+\#define \mbox{\hyperlink{list_8h_a3611bd5d5d87cb26ac1dc7a4852b94a0}{list\+FIRST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}
 \item 
-\#define \mbox{\hyperlink{list_8h_abf45f853974db484cd7df434bd006e98}{list\+S\+E\+C\+O\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}}
+\#define \mbox{\hyperlink{list_8h_abf45f853974db484cd7df434bd006e98}{list\+SECOND\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}
 \item 
-\#define \mbox{\hyperlink{list_8h_a3a52b5a4f70d3a07e37a5814a23ba880}{list\+F\+I\+R\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}}
+\#define \mbox{\hyperlink{list_8h_a3a52b5a4f70d3a07e37a5814a23ba880}{list\+FIRST\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}
 \item 
-\#define \mbox{\hyperlink{list_8h_a87dc70c22e3ff0eba560d6f357472634}{list\+S\+E\+C\+O\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}}
+\#define \mbox{\hyperlink{list_8h_a87dc70c22e3ff0eba560d6f357472634}{list\+SECOND\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}
 \item 
-\#define \mbox{\hyperlink{list_8h_a0e65118e1baa7ab805cdfb37e580501d}{list\+S\+E\+T\+\_\+\+F\+I\+R\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}}(px\+Item)
+\#define \mbox{\hyperlink{list_8h_a0e65118e1baa7ab805cdfb37e580501d}{list\+SET\+\_\+\+FIRST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}(px\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_ac8b9d912bdcfdb5544f373d2a94268b2}{list\+S\+E\+T\+\_\+\+S\+E\+C\+O\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}}(px\+Item)
+\#define \mbox{\hyperlink{list_8h_ac8b9d912bdcfdb5544f373d2a94268b2}{list\+SET\+\_\+\+SECOND\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}(px\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a5d68b1187d09c64d6ee329786cb0289b}{list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+1\+\_\+\+V\+A\+L\+UE}}(px\+List)
+\#define \mbox{\hyperlink{list_8h_a5d68b1187d09c64d6ee329786cb0289b}{list\+SET\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+1\+\_\+\+VALUE}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a83b40c6e61534ef41229bd912dacab48}{list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+2\+\_\+\+V\+A\+L\+UE}}(px\+List)
+\#define \mbox{\hyperlink{list_8h_a83b40c6e61534ef41229bd912dacab48}{list\+SET\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+2\+\_\+\+VALUE}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a95b994725c299cdc81c74efc16210cc6}{list\+T\+E\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+TY}}(px\+Item)
+\#define \mbox{\hyperlink{list_8h_a95b994725c299cdc81c74efc16210cc6}{list\+TEST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY}}(px\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a337d6137e0a4d37321efc5c2f31dba22}{list\+T\+E\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+TY}}(px\+List)
+\#define \mbox{\hyperlink{list_8h_a337d6137e0a4d37321efc5c2f31dba22}{list\+TEST\+\_\+\+LIST\+\_\+\+INTEGRITY}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_acc01a08e534b54fe438847ef02e5060a}{list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+O\+W\+N\+ER}}(px\+List\+Item,  px\+Owner)~( ( px\+List\+Item )-\/$>$pv\+Owner = ( void $\ast$ ) ( px\+Owner ) )
+\#define \mbox{\hyperlink{list_8h_acc01a08e534b54fe438847ef02e5060a}{list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+OWNER}}(px\+List\+Item,  px\+Owner)
 \item 
-\#define \mbox{\hyperlink{list_8h_aa9469bd061a44b4f75d30c6175f66d5c}{list\+G\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+O\+W\+N\+ER}}(px\+List\+Item)~( ( px\+List\+Item )-\/$>$pv\+Owner )
+\#define \mbox{\hyperlink{list_8h_aa9469bd061a44b4f75d30c6175f66d5c}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+OWNER}}(px\+List\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a83e95e61652f032fdc26aa622f5e2610}{list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+V\+A\+L\+UE}}(px\+List\+Item,  x\+Value)~( ( px\+List\+Item )-\/$>$x\+Item\+Value = ( x\+Value ) )
+\#define \mbox{\hyperlink{list_8h_a83e95e61652f032fdc26aa622f5e2610}{list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}(px\+List\+Item,  x\+Value)
 \item 
-\#define \mbox{\hyperlink{list_8h_aa50d09950abc602741d7ebe8387f4e1a}{list\+G\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+V\+A\+L\+UE}}(px\+List\+Item)~( ( px\+List\+Item )-\/$>$x\+Item\+Value )
+\#define \mbox{\hyperlink{list_8h_aa50d09950abc602741d7ebe8387f4e1a}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}(px\+List\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a63742b27958b959ac9ab69d8e9aed241}{list\+G\+E\+T\+\_\+\+I\+T\+E\+M\+\_\+\+V\+A\+L\+U\+E\+\_\+\+O\+F\+\_\+\+H\+E\+A\+D\+\_\+\+E\+N\+T\+RY}}(px\+List)~( ( ( px\+List )-\/$>$x\+List\+End ).px\+Next-\/$>$x\+Item\+Value )
+\#define \mbox{\hyperlink{list_8h_a63742b27958b959ac9ab69d8e9aed241}{list\+GET\+\_\+\+ITEM\+\_\+\+VALUE\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a987cb2766e509022c23b654907cea199}{list\+G\+E\+T\+\_\+\+H\+E\+A\+D\+\_\+\+E\+N\+T\+RY}}(px\+List)~( ( ( px\+List )-\/$>$x\+List\+End ).px\+Next )
+\#define \mbox{\hyperlink{list_8h_a987cb2766e509022c23b654907cea199}{list\+GET\+\_\+\+HEAD\+\_\+\+ENTRY}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_aabf78d3f24ba56ac1d0bf0179438b960}{list\+G\+E\+T\+\_\+\+N\+E\+XT}}(px\+List\+Item)~( ( px\+List\+Item )-\/$>$px\+Next )
+\#define \mbox{\hyperlink{list_8h_aabf78d3f24ba56ac1d0bf0179438b960}{list\+GET\+\_\+\+NEXT}}(px\+List\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a96cb0919f02e5c0d8e41ded0e65197a3}{list\+G\+E\+T\+\_\+\+E\+N\+D\+\_\+\+M\+A\+R\+K\+ER}}(px\+List)~( ( \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} const $\ast$ ) ( \&( ( px\+List )-\/$>$x\+List\+End ) ) )
+\#define \mbox{\hyperlink{list_8h_a96cb0919f02e5c0d8e41ded0e65197a3}{list\+GET\+\_\+\+END\+\_\+\+MARKER}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_aaba6eb05d67ebc8026bea29193eca28f}{list\+L\+I\+S\+T\+\_\+\+I\+S\+\_\+\+E\+M\+P\+TY}}(px\+List)~( ( ( px\+List )-\/$>$ux\+Number\+Of\+Items == ( U\+Base\+Type\+\_\+t ) 0 ) ? \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pd\+T\+R\+UE}} \+: \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+F\+A\+L\+SE}} )
+\#define \mbox{\hyperlink{list_8h_aaba6eb05d67ebc8026bea29193eca28f}{list\+LIST\+\_\+\+IS\+\_\+\+EMPTY}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a18b4aded515bdc512017ea6e677a13bb}{list\+C\+U\+R\+R\+E\+N\+T\+\_\+\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH}}(px\+List)~( ( px\+List )-\/$>$ux\+Number\+Of\+Items )
+\#define \mbox{\hyperlink{list_8h_a18b4aded515bdc512017ea6e677a13bb}{list\+CURRENT\+\_\+\+LIST\+\_\+\+LENGTH}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a275d9855e9b71652e2b8f6e2ed62aadd}{list\+G\+E\+T\+\_\+\+O\+W\+N\+E\+R\+\_\+\+O\+F\+\_\+\+N\+E\+X\+T\+\_\+\+E\+N\+T\+RY}}(px\+T\+CB,  px\+List)
+\#define \mbox{\hyperlink{list_8h_a275d9855e9b71652e2b8f6e2ed62aadd}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+NEXT\+\_\+\+ENTRY}}(px\+TCB,  px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a715561302af8cb5b74416b23ce4e999d}{list\+G\+E\+T\+\_\+\+O\+W\+N\+E\+R\+\_\+\+O\+F\+\_\+\+H\+E\+A\+D\+\_\+\+E\+N\+T\+RY}}(px\+List)~( (\&( ( px\+List )-\/$>$x\+List\+End ))-\/$>$px\+Next-\/$>$pv\+Owner )
+\#define \mbox{\hyperlink{list_8h_a715561302af8cb5b74416b23ce4e999d}{list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY}}(px\+List)
 \item 
-\#define \mbox{\hyperlink{list_8h_a60302b468d21f8c53d13987372acb8fa}{list\+I\+S\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+W\+I\+T\+H\+IN}}(px\+List,  px\+List\+Item)~( ( ( px\+List\+Item )-\/$>$\mbox{\hyperlink{_free_r_t_o_s_8h_a63197564332f3bb0acc1c937b7e2ad05}{px\+Container}} == ( px\+List ) ) ? ( \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pd\+T\+R\+UE}} ) \+: ( \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+F\+A\+L\+SE}} ) )
+\#define \mbox{\hyperlink{list_8h_a60302b468d21f8c53d13987372acb8fa}{list\+IS\+\_\+\+CONTAINED\+\_\+\+WITHIN}}(px\+List,  px\+List\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a7c4dff11380cd843ed0b6a8dc065916b}{list\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+C\+O\+N\+T\+A\+I\+N\+ER}}(px\+List\+Item)~( ( px\+List\+Item )-\/$>$\mbox{\hyperlink{_free_r_t_o_s_8h_a63197564332f3bb0acc1c937b7e2ad05}{px\+Container}} )
+\#define \mbox{\hyperlink{list_8h_a7c4dff11380cd843ed0b6a8dc065916b}{list\+LIST\+\_\+\+ITEM\+\_\+\+CONTAINER}}(px\+List\+Item)
 \item 
-\#define \mbox{\hyperlink{list_8h_a7e17f81438dd0bd705714267a611ff28}{list\+L\+I\+S\+T\+\_\+\+I\+S\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+S\+ED}}(px\+List)~( ( px\+List )-\/$>$x\+List\+End.\+x\+Item\+Value == port\+M\+A\+X\+\_\+\+D\+E\+L\+AY )
+\#define \mbox{\hyperlink{list_8h_a7e17f81438dd0bd705714267a611ff28}{list\+LIST\+\_\+\+IS\+\_\+\+INITIALISED}}(px\+List)
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{x\+L\+I\+S\+T\+\_\+\+I\+T\+EM}} \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}}
+typedef struct \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{x\+LIST\+\_\+\+ITEM}} \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}}
 \item 
-typedef struct \mbox{\hyperlink{structx_m_i_n_i___l_i_s_t___i_t_e_m}{x\+M\+I\+N\+I\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+EM}} \mbox{\hyperlink{list_8h_a542a8d55e98bc407593979e61f83cd02}{Mini\+List\+Item\+\_\+t}}
+typedef struct \mbox{\hyperlink{structx_m_i_n_i___l_i_s_t___i_t_e_m}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM}} \mbox{\hyperlink{list_8h_a542a8d55e98bc407593979e61f83cd02}{Mini\+List\+Item\+\_\+t}}
 \item 
-typedef struct \mbox{\hyperlink{structx_l_i_s_t}{x\+L\+I\+ST}} \mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}}
+typedef struct \mbox{\hyperlink{structx_l_i_s_t}{x\+LIST}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{list_8h_adeef7734d7d6d9a3eea642a70c106919}{v\+List\+Initialise}} (\mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}} $\ast$const px\+List) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{list_8h_adeef7734d7d6d9a3eea642a70c106919}{v\+List\+Initialise}} (\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+List) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-void \mbox{\hyperlink{list_8h_ab91611baae53be209a05d211f55f5395}{v\+List\+Initialise\+Item}} (\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const px\+Item) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{list_8h_ab91611baae53be209a05d211f55f5395}{v\+List\+Initialise\+Item}} (\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Item) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-void \mbox{\hyperlink{list_8h_aa129290da5cbda47dffb7bf877b2f02a}{v\+List\+Insert}} (\mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}} $\ast$const px\+List, \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const px\+New\+List\+Item) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{list_8h_aa129290da5cbda47dffb7bf877b2f02a}{v\+List\+Insert}} (\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+List, \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+New\+List\+Item) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-void \mbox{\hyperlink{list_8h_a71a6a6099b3cbd8f90539aabe5c9e572}{v\+List\+Insert\+End}} (\mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}} $\ast$const px\+List, \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const px\+New\+List\+Item) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+void \mbox{\hyperlink{list_8h_a71a6a6099b3cbd8f90539aabe5c9e572}{v\+List\+Insert\+End}} (\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+List, \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+New\+List\+Item) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \item 
-U\+Base\+Type\+\_\+t \mbox{\hyperlink{list_8h_a2eb1558482076fff8cafc63419c2d34a}{ux\+List\+Remove}} (\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const px\+Item\+To\+Remove) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON}}
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{list_8h_a2eb1558482076fff8cafc63419c2d34a}{ux\+List\+Remove}} (\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const px\+Item\+To\+Remove) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{list_8h_a2d5de557c5561c8980d1bf51d87d8cba}\label{list_8h_a2d5de557c5561c8980d1bf51d87d8cba}} 
-\index{list.h@{list.h}!configLIST\_VOLATILE@{configLIST\_VOLATILE}}
+\Hypertarget{list_8h_a2d5de557c5561c8980d1bf51d87d8cba}\index{list.h@{list.h}!configLIST\_VOLATILE@{configLIST\_VOLATILE}}
 \index{configLIST\_VOLATILE@{configLIST\_VOLATILE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{configLIST\_VOLATILE}{configLIST\_VOLATILE}}
-{\footnotesize\ttfamily \#define config\+L\+I\+S\+T\+\_\+\+V\+O\+L\+A\+T\+I\+LE}
+{\footnotesize\ttfamily \label{list_8h_a2d5de557c5561c8980d1bf51d87d8cba} 
+\#define config\+LIST\+\_\+\+VOLATILE}
 
 
 
-Definition at line 92 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00092}{92}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a18b4aded515bdc512017ea6e677a13bb}\label{list_8h_a18b4aded515bdc512017ea6e677a13bb}} 
-\index{list.h@{list.h}!listCURRENT\_LIST\_LENGTH@{listCURRENT\_LIST\_LENGTH}}
+\Hypertarget{list_8h_a18b4aded515bdc512017ea6e677a13bb}\index{list.h@{list.h}!listCURRENT\_LIST\_LENGTH@{listCURRENT\_LIST\_LENGTH}}
 \index{listCURRENT\_LIST\_LENGTH@{listCURRENT\_LIST\_LENGTH}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listCURRENT\_LIST\_LENGTH}{listCURRENT\_LIST\_LENGTH}}
-{\footnotesize\ttfamily \#define list\+C\+U\+R\+R\+E\+N\+T\+\_\+\+L\+I\+S\+T\+\_\+\+L\+E\+N\+G\+TH(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( ( px\+List )-\/$>$ux\+Number\+Of\+Items )}
-
-
-
-Definition at line 255 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a3a52b5a4f70d3a07e37a5814a23ba880}\label{list_8h_a3a52b5a4f70d3a07e37a5814a23ba880}} 
-\index{list.h@{list.h}!listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}}
-\index{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}}
-{\footnotesize\ttfamily \#define list\+F\+I\+R\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}
-
-
-
-Definition at line 108 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a3611bd5d5d87cb26ac1dc7a4852b94a0}\label{list_8h_a3611bd5d5d87cb26ac1dc7a4852b94a0}} 
-\index{list.h@{list.h}!listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
-\index{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
-{\footnotesize\ttfamily \#define list\+F\+I\+R\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}
-
-
-
-Definition at line 106 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a96cb0919f02e5c0d8e41ded0e65197a3}\label{list_8h_a96cb0919f02e5c0d8e41ded0e65197a3}} 
-\index{list.h@{list.h}!listGET\_END\_MARKER@{listGET\_END\_MARKER}}
-\index{listGET\_END\_MARKER@{listGET\_END\_MARKER}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_END\_MARKER}{listGET\_END\_MARKER}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+E\+N\+D\+\_\+\+M\+A\+R\+K\+ER(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( ( \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} const $\ast$ ) ( \&( ( px\+List )-\/$>$x\+List\+End ) ) )}
-
-
-
-Definition at line 241 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a987cb2766e509022c23b654907cea199}\label{list_8h_a987cb2766e509022c23b654907cea199}} 
-\index{list.h@{list.h}!listGET\_HEAD\_ENTRY@{listGET\_HEAD\_ENTRY}}
-\index{listGET\_HEAD\_ENTRY@{listGET\_HEAD\_ENTRY}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_HEAD\_ENTRY}{listGET\_HEAD\_ENTRY}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+H\+E\+A\+D\+\_\+\+E\+N\+T\+RY(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( ( ( px\+List )-\/$>$x\+List\+End ).px\+Next )}
-
-
-
-Definition at line 225 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a63742b27958b959ac9ab69d8e9aed241}\label{list_8h_a63742b27958b959ac9ab69d8e9aed241}} 
-\index{list.h@{list.h}!listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY@{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}}
-\index{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY@{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+I\+T\+E\+M\+\_\+\+V\+A\+L\+U\+E\+\_\+\+O\+F\+\_\+\+H\+E\+A\+D\+\_\+\+E\+N\+T\+RY(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( ( ( px\+List )-\/$>$x\+List\+End ).px\+Next-\/$>$x\+Item\+Value )}
-
-
-
-Definition at line 217 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_aa9469bd061a44b4f75d30c6175f66d5c}\label{list_8h_aa9469bd061a44b4f75d30c6175f66d5c}} 
-\index{list.h@{list.h}!listGET\_LIST\_ITEM\_OWNER@{listGET\_LIST\_ITEM\_OWNER}}
-\index{listGET\_LIST\_ITEM\_OWNER@{listGET\_LIST\_ITEM\_OWNER}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_LIST\_ITEM\_OWNER}{listGET\_LIST\_ITEM\_OWNER}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+O\+W\+N\+ER(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item }\end{DoxyParamCaption})~( ( px\+List\+Item )-\/$>$pv\+Owner )}
-
-
-
-Definition at line 189 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_aa50d09950abc602741d7ebe8387f4e1a}\label{list_8h_aa50d09950abc602741d7ebe8387f4e1a}} 
-\index{list.h@{list.h}!listGET\_LIST\_ITEM\_VALUE@{listGET\_LIST\_ITEM\_VALUE}}
-\index{listGET\_LIST\_ITEM\_VALUE@{listGET\_LIST\_ITEM\_VALUE}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_LIST\_ITEM\_VALUE}{listGET\_LIST\_ITEM\_VALUE}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item }\end{DoxyParamCaption})~( ( px\+List\+Item )-\/$>$x\+Item\+Value )}
-
-
-
-Definition at line 208 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_aabf78d3f24ba56ac1d0bf0179438b960}\label{list_8h_aabf78d3f24ba56ac1d0bf0179438b960}} 
-\index{list.h@{list.h}!listGET\_NEXT@{listGET\_NEXT}}
-\index{listGET\_NEXT@{listGET\_NEXT}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_NEXT}{listGET\_NEXT}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+N\+E\+XT(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item }\end{DoxyParamCaption})~( ( px\+List\+Item )-\/$>$px\+Next )}
-
-
-
-Definition at line 233 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a715561302af8cb5b74416b23ce4e999d}\label{list_8h_a715561302af8cb5b74416b23ce4e999d}} 
-\index{list.h@{list.h}!listGET\_OWNER\_OF\_HEAD\_ENTRY@{listGET\_OWNER\_OF\_HEAD\_ENTRY}}
-\index{listGET\_OWNER\_OF\_HEAD\_ENTRY@{listGET\_OWNER\_OF\_HEAD\_ENTRY}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_OWNER\_OF\_HEAD\_ENTRY}{listGET\_OWNER\_OF\_HEAD\_ENTRY}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+O\+W\+N\+E\+R\+\_\+\+O\+F\+\_\+\+H\+E\+A\+D\+\_\+\+E\+N\+T\+RY(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( (\&( ( px\+List )-\/$>$x\+List\+End ))-\/$>$px\+Next-\/$>$pv\+Owner )}
-
-
-
-Definition at line 307 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a275d9855e9b71652e2b8f6e2ed62aadd}\label{list_8h_a275d9855e9b71652e2b8f6e2ed62aadd}} 
-\index{list.h@{list.h}!listGET\_OWNER\_OF\_NEXT\_ENTRY@{listGET\_OWNER\_OF\_NEXT\_ENTRY}}
-\index{listGET\_OWNER\_OF\_NEXT\_ENTRY@{listGET\_OWNER\_OF\_NEXT\_ENTRY}!list.h@{list.h}}
-\doxysubsubsection{\texorpdfstring{listGET\_OWNER\_OF\_NEXT\_ENTRY}{listGET\_OWNER\_OF\_NEXT\_ENTRY}}
-{\footnotesize\ttfamily \#define list\+G\+E\+T\+\_\+\+O\+W\+N\+E\+R\+\_\+\+O\+F\+\_\+\+N\+E\+X\+T\+\_\+\+E\+N\+T\+RY(\begin{DoxyParamCaption}\item[{}]{px\+T\+CB,  }\item[{}]{px\+List }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a18b4aded515bdc512017ea6e677a13bb} 
+\#define list\+CURRENT\+\_\+\+LIST\+\_\+\+LENGTH(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
 
 {\bfseries Value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\{                                                                                           \(\backslash\)}
-\DoxyCodeLine{List\_t * \textcolor{keyword}{const} pxConstList = ( pxList );                                                    \(\backslash\)}
-\DoxyCodeLine{    \textcolor{comment}{/* Increment the index to the next item and return the item, ensuring */}                \(\backslash\)}
-\DoxyCodeLine{    \textcolor{comment}{/* we don't return the marker used at the end of the list.  */}                          \(\backslash\)}
-\DoxyCodeLine{    ( pxConstList )-\/>pxIndex = ( pxConstList )-\/>pxIndex-\/>pxNext;                            \(\backslash\)}
-\DoxyCodeLine{    if( ( \textcolor{keywordtype}{void} * ) ( pxConstList )-\/>pxIndex == ( \textcolor{keywordtype}{void} * ) \&( ( pxConstList )-\/>xListEnd ) )  \(\backslash\)}
-\DoxyCodeLine{    \{                                                                                       \(\backslash\)}
-\DoxyCodeLine{        ( pxConstList )-\/>pxIndex = ( pxConstList )-\/>pxIndex-\/>pxNext;                        \(\backslash\)}
-\DoxyCodeLine{    \}                                                                                       \(\backslash\)}
-\DoxyCodeLine{    ( pxTCB ) = ( pxConstList )-\/>pxIndex-\/>pvOwner;                                          \(\backslash\)}
+\DoxyCodeLine{(\ (\ pxList\ )-\/>uxNumberOfItems\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00255}{255}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03391}{port\+TASK\+\_\+\+FUNCTION()}}, \mbox{\hyperlink{event__groups_8c_source_l00613}{v\+Event\+Group\+Delete()}}, and \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{list_8h_a3a52b5a4f70d3a07e37a5814a23ba880}\index{list.h@{list.h}!listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}}
+\index{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}{listFIRST\_LIST\_INTEGRITY\_CHECK\_VALUE}}
+{\footnotesize\ttfamily \label{list_8h_a3a52b5a4f70d3a07e37a5814a23ba880} 
+\#define list\+FIRST\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}
+
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00108}{108}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+\Hypertarget{list_8h_a3611bd5d5d87cb26ac1dc7a4852b94a0}\index{list.h@{list.h}!listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
+\index{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}{listFIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
+{\footnotesize\ttfamily \label{list_8h_a3611bd5d5d87cb26ac1dc7a4852b94a0} 
+\#define list\+FIRST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}
+
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00106}{106}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+\Hypertarget{list_8h_a96cb0919f02e5c0d8e41ded0e65197a3}\index{list.h@{list.h}!listGET\_END\_MARKER@{listGET\_END\_MARKER}}
+\index{listGET\_END\_MARKER@{listGET\_END\_MARKER}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_END\_MARKER}{listGET\_END\_MARKER}}
+{\footnotesize\ttfamily \label{list_8h_a96cb0919f02e5c0d8e41ded0e65197a3} 
+\#define list\+GET\+\_\+\+END\+\_\+\+MARKER(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{ListItem\_t}}\ \textcolor{keyword}{const}\ *\ )\ (\ \&(\ (\ pxList\ )-\/>xListEnd\ )\ )\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00241}{241}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}.
+
+\Hypertarget{list_8h_a987cb2766e509022c23b654907cea199}\index{list.h@{list.h}!listGET\_HEAD\_ENTRY@{listGET\_HEAD\_ENTRY}}
+\index{listGET\_HEAD\_ENTRY@{listGET\_HEAD\_ENTRY}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_HEAD\_ENTRY}{listGET\_HEAD\_ENTRY}}
+{\footnotesize\ttfamily \label{list_8h_a987cb2766e509022c23b654907cea199} 
+\#define list\+GET\+\_\+\+HEAD\+\_\+\+ENTRY(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ (\ pxList\ )-\/>xListEnd\ ).pxNext\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00225}{225}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}.
+
+\Hypertarget{list_8h_a63742b27958b959ac9ab69d8e9aed241}\index{list.h@{list.h}!listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY@{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}}
+\index{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY@{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}{listGET\_ITEM\_VALUE\_OF\_HEAD\_ENTRY}}
+{\footnotesize\ttfamily \label{list_8h_a63742b27958b959ac9ab69d8e9aed241} 
+\#define list\+GET\+\_\+\+ITEM\+\_\+\+VALUE\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ (\ pxList\ )-\/>xListEnd\ ).pxNext-\/>xItemValue\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00217}{217}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+\Hypertarget{list_8h_aa9469bd061a44b4f75d30c6175f66d5c}\index{list.h@{list.h}!listGET\_LIST\_ITEM\_OWNER@{listGET\_LIST\_ITEM\_OWNER}}
+\index{listGET\_LIST\_ITEM\_OWNER@{listGET\_LIST\_ITEM\_OWNER}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_LIST\_ITEM\_OWNER}{listGET\_LIST\_ITEM\_OWNER}}
+{\footnotesize\ttfamily \label{list_8h_aa9469bd061a44b4f75d30c6175f66d5c} 
+\#define list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+OWNER(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxListItem\ )-\/>pvOwner\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00189}{189}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}.
+
+\Hypertarget{list_8h_aa50d09950abc602741d7ebe8387f4e1a}\index{list.h@{list.h}!listGET\_LIST\_ITEM\_VALUE@{listGET\_LIST\_ITEM\_VALUE}}
+\index{listGET\_LIST\_ITEM\_VALUE@{listGET\_LIST\_ITEM\_VALUE}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_LIST\_ITEM\_VALUE}{listGET\_LIST\_ITEM\_VALUE}}
+{\footnotesize\ttfamily \label{list_8h_aa50d09950abc602741d7ebe8387f4e1a} 
+\#define list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxListItem\ )-\/>xItemValue\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00208}{208}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{tasks_8c_source_l04601}{ux\+Task\+Reset\+Event\+Item\+Value()}}, \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, and \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
+
+\Hypertarget{list_8h_aabf78d3f24ba56ac1d0bf0179438b960}\index{list.h@{list.h}!listGET\_NEXT@{listGET\_NEXT}}
+\index{listGET\_NEXT@{listGET\_NEXT}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_NEXT}{listGET\_NEXT}}
+{\footnotesize\ttfamily \label{list_8h_aabf78d3f24ba56ac1d0bf0179438b960} 
+\#define list\+GET\+\_\+\+NEXT(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxListItem\ )-\/>pxNext\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00233}{233}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}.
+
+\Hypertarget{list_8h_a715561302af8cb5b74416b23ce4e999d}\index{list.h@{list.h}!listGET\_OWNER\_OF\_HEAD\_ENTRY@{listGET\_OWNER\_OF\_HEAD\_ENTRY}}
+\index{listGET\_OWNER\_OF\_HEAD\_ENTRY@{listGET\_OWNER\_OF\_HEAD\_ENTRY}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_OWNER\_OF\_HEAD\_ENTRY}{listGET\_OWNER\_OF\_HEAD\_ENTRY}}
+{\footnotesize\ttfamily \label{list_8h_a715561302af8cb5b74416b23ce4e999d} 
+\#define list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+HEAD\+\_\+\+ENTRY(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\&(\ (\ pxList\ )-\/>xListEnd\ ))-\/>pxNext-\/>pvOwner\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00307}{307}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03638}{prv\+Check\+Tasks\+Waiting\+Termination()}}, \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{list_8h_a275d9855e9b71652e2b8f6e2ed62aadd}\index{list.h@{list.h}!listGET\_OWNER\_OF\_NEXT\_ENTRY@{listGET\_OWNER\_OF\_NEXT\_ENTRY}}
+\index{listGET\_OWNER\_OF\_NEXT\_ENTRY@{listGET\_OWNER\_OF\_NEXT\_ENTRY}!list.h@{list.h}}
+\doxysubsubsection{\texorpdfstring{listGET\_OWNER\_OF\_NEXT\_ENTRY}{listGET\_OWNER\_OF\_NEXT\_ENTRY}}
+{\footnotesize\ttfamily \label{list_8h_a275d9855e9b71652e2b8f6e2ed62aadd} 
+\#define list\+GET\+\_\+\+OWNER\+\_\+\+OF\+\_\+\+NEXT\+\_\+\+ENTRY(\begin{DoxyParamCaption}\item[{}]{px\+TCB}{, }\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\mbox{\hyperlink{structx_l_i_s_t}{List\_t}}\ *\ \textcolor{keyword}{const}\ pxConstList\ =\ (\ pxList\ );\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ Increment\ the\ index\ to\ the\ next\ item\ and\ return\ the\ item,\ ensuring\ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \textcolor{comment}{/*\ we\ don't\ return\ the\ marker\ used\ at\ the\ end\ of\ the\ list.\ \ */}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ pxConstList\ )-\/>pxIndex\ =\ (\ pxConstList\ )-\/>\mbox{\hyperlink{structx_l_i_s_t_a7bf64d87701493b4c8c5c977682500d7}{pxIndex}}-\/>\mbox{\hyperlink{structx_l_i_s_t___i_t_e_m_a03713c4ee953ef5ca6adbec883720c60}{pxNext}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ if(\ (\ \textcolor{keywordtype}{void}\ *\ )\ (\ pxConstList\ )-\/>pxIndex\ ==\ (\ \textcolor{keywordtype}{void}\ *\ )\ \&(\ (\ pxConstList\ )-\/>xListEnd\ )\ )\ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ (\ pxConstList\ )-\/>pxIndex\ =\ (\ pxConstList\ )-\/>pxIndex-\/>pxNext;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ (\ pxTCB\ )\ =\ (\ pxConstList\ )-\/>pxIndex-\/>\mbox{\hyperlink{structx_l_i_s_t___i_t_e_m_aeb3110b50fe0dbce826d929b27b5ddb1}{pvOwner}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
 
-Definition at line 277 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00277}{277}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a60302b468d21f8c53d13987372acb8fa}\label{list_8h_a60302b468d21f8c53d13987372acb8fa}} 
-\index{list.h@{list.h}!listIS\_CONTAINED\_WITHIN@{listIS\_CONTAINED\_WITHIN}}
+\Hypertarget{list_8h_a60302b468d21f8c53d13987372acb8fa}\index{list.h@{list.h}!listIS\_CONTAINED\_WITHIN@{listIS\_CONTAINED\_WITHIN}}
 \index{listIS\_CONTAINED\_WITHIN@{listIS\_CONTAINED\_WITHIN}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listIS\_CONTAINED\_WITHIN}{listIS\_CONTAINED\_WITHIN}}
-{\footnotesize\ttfamily \#define list\+I\+S\+\_\+\+C\+O\+N\+T\+A\+I\+N\+E\+D\+\_\+\+W\+I\+T\+H\+IN(\begin{DoxyParamCaption}\item[{}]{px\+List,  }\item[{}]{px\+List\+Item }\end{DoxyParamCaption})~( ( ( px\+List\+Item )-\/$>$\mbox{\hyperlink{_free_r_t_o_s_8h_a63197564332f3bb0acc1c937b7e2ad05}{px\+Container}} == ( px\+List ) ) ? ( \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pd\+T\+R\+UE}} ) \+: ( \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+F\+A\+L\+SE}} ) )}
+{\footnotesize\ttfamily \label{list_8h_a60302b468d21f8c53d13987372acb8fa} 
+\#define list\+IS\+\_\+\+CONTAINED\+\_\+\+WITHIN(\begin{DoxyParamCaption}\item[{}]{px\+List}{, }\item[{}]{px\+List\+Item}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ (\ pxListItem\ )-\/>pxContainer\ ==\ (\ pxList\ )\ )\ ?\ (\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}}\ )\ :\ (\ \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pdFALSE}}\ )\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{list_8h_source_l00318}{318}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-Definition at line 318 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_aaba6eb05d67ebc8026bea29193eca28f}\label{list_8h_aaba6eb05d67ebc8026bea29193eca28f}} 
-\index{list.h@{list.h}!listLIST\_IS\_EMPTY@{listLIST\_IS\_EMPTY}}
+\Hypertarget{list_8h_aaba6eb05d67ebc8026bea29193eca28f}\index{list.h@{list.h}!listLIST\_IS\_EMPTY@{listLIST\_IS\_EMPTY}}
 \index{listLIST\_IS\_EMPTY@{listLIST\_IS\_EMPTY}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listLIST\_IS\_EMPTY}{listLIST\_IS\_EMPTY}}
-{\footnotesize\ttfamily \#define list\+L\+I\+S\+T\+\_\+\+I\+S\+\_\+\+E\+M\+P\+TY(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( ( ( px\+List )-\/$>$ux\+Number\+Of\+Items == ( U\+Base\+Type\+\_\+t ) 0 ) ? \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pd\+T\+R\+UE}} \+: \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pd\+F\+A\+L\+SE}} )}
+{\footnotesize\ttfamily \label{list_8h_aaba6eb05d67ebc8026bea29193eca28f} 
+\#define list\+LIST\+\_\+\+IS\+\_\+\+EMPTY(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ (\ pxList\ )-\/>uxNumberOfItems\ ==\ (\ \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBaseType\_t}}\ )\ 0\ )\ ?\ \mbox{\hyperlink{projdefs_8h_af268cf937960eb029256bd9c4d949fbe}{pdTRUE}}\ :\ \mbox{\hyperlink{projdefs_8h_aa56260e937e7e203026707e5ba944273}{pdFALSE}}\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00250}{250}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
 
 
-Definition at line 250 of file list.\+h.
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03942}{prv\+Reset\+Next\+Task\+Unblock\+Time()}}, \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01785}{x\+Queue\+Receive\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
 
-\mbox{\Hypertarget{list_8h_a7e17f81438dd0bd705714267a611ff28}\label{list_8h_a7e17f81438dd0bd705714267a611ff28}} 
-\index{list.h@{list.h}!listLIST\_IS\_INITIALISED@{listLIST\_IS\_INITIALISED}}
+\Hypertarget{list_8h_a7e17f81438dd0bd705714267a611ff28}\index{list.h@{list.h}!listLIST\_IS\_INITIALISED@{listLIST\_IS\_INITIALISED}}
 \index{listLIST\_IS\_INITIALISED@{listLIST\_IS\_INITIALISED}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listLIST\_IS\_INITIALISED}{listLIST\_IS\_INITIALISED}}
-{\footnotesize\ttfamily \#define list\+L\+I\+S\+T\+\_\+\+I\+S\+\_\+\+I\+N\+I\+T\+I\+A\+L\+I\+S\+ED(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})~( ( px\+List )-\/$>$x\+List\+End.\+x\+Item\+Value == port\+M\+A\+X\+\_\+\+D\+E\+L\+AY )}
+{\footnotesize\ttfamily \label{list_8h_a7e17f81438dd0bd705714267a611ff28} 
+\#define list\+LIST\+\_\+\+IS\+\_\+\+INITIALISED(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxList\ )-\/>xListEnd.xItemValue\ ==\ \mbox{\hyperlink{portmacro_8h_a72723ba1e4a85ca14f25c2b9e066613d}{portMAX\_DELAY}}\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{list_8h_source_l00333}{333}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-Definition at line 333 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a7c4dff11380cd843ed0b6a8dc065916b}\label{list_8h_a7c4dff11380cd843ed0b6a8dc065916b}} 
-\index{list.h@{list.h}!listLIST\_ITEM\_CONTAINER@{listLIST\_ITEM\_CONTAINER}}
+\Hypertarget{list_8h_a7c4dff11380cd843ed0b6a8dc065916b}\index{list.h@{list.h}!listLIST\_ITEM\_CONTAINER@{listLIST\_ITEM\_CONTAINER}}
 \index{listLIST\_ITEM\_CONTAINER@{listLIST\_ITEM\_CONTAINER}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listLIST\_ITEM\_CONTAINER}{listLIST\_ITEM\_CONTAINER}}
-{\footnotesize\ttfamily \#define list\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+C\+O\+N\+T\+A\+I\+N\+ER(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item }\end{DoxyParamCaption})~( ( px\+List\+Item )-\/$>$\mbox{\hyperlink{_free_r_t_o_s_8h_a63197564332f3bb0acc1c937b7e2ad05}{px\+Container}} )}
+{\footnotesize\ttfamily \label{list_8h_a7c4dff11380cd843ed0b6a8dc065916b} 
+\#define list\+LIST\+\_\+\+ITEM\+\_\+\+CONTAINER(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxListItem\ )-\/>pxContainer\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00326}{326}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
 
 
-Definition at line 326 of file list.\+h.
+Referenced by \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}.
 
-\mbox{\Hypertarget{list_8h_a87dc70c22e3ff0eba560d6f357472634}\label{list_8h_a87dc70c22e3ff0eba560d6f357472634}} 
-\index{list.h@{list.h}!listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE@{listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE}}
+\Hypertarget{list_8h_a87dc70c22e3ff0eba560d6f357472634}\index{list.h@{list.h}!listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE@{listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE}}
 \index{listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE@{listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE}{listSECOND\_LIST\_INTEGRITY\_CHECK\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+C\+O\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}
+{\footnotesize\ttfamily \label{list_8h_a87dc70c22e3ff0eba560d6f357472634} 
+\#define list\+SECOND\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}
 
 
 
-Definition at line 109 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00109}{109}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_abf45f853974db484cd7df434bd006e98}\label{list_8h_abf45f853974db484cd7df434bd006e98}} 
-\index{list.h@{list.h}!listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
+\Hypertarget{list_8h_abf45f853974db484cd7df434bd006e98}\index{list.h@{list.h}!listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
 \index{listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}{listSECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+C\+O\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE}
+{\footnotesize\ttfamily \label{list_8h_abf45f853974db484cd7df434bd006e98} 
+\#define list\+SECOND\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}
 
 
 
-Definition at line 107 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00107}{107}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a0e65118e1baa7ab805cdfb37e580501d}\label{list_8h_a0e65118e1baa7ab805cdfb37e580501d}} 
-\index{list.h@{list.h}!listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
+\Hypertarget{list_8h_a0e65118e1baa7ab805cdfb37e580501d}\index{list.h@{list.h}!listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
 \index{listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}{listSET\_FIRST\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+T\+\_\+\+F\+I\+R\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{px\+Item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a0e65118e1baa7ab805cdfb37e580501d} 
+\#define list\+SET\+\_\+\+FIRST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{px\+Item}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 110 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00110}{110}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a5d68b1187d09c64d6ee329786cb0289b}\label{list_8h_a5d68b1187d09c64d6ee329786cb0289b}} 
-\index{list.h@{list.h}!listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE@{listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE}}
+
+
+Referenced by \mbox{\hyperlink{list_8c_source_l00066}{v\+List\+Initialise\+Item()}}.
+
+\Hypertarget{list_8h_a5d68b1187d09c64d6ee329786cb0289b}\index{list.h@{list.h}!listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE@{listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE}}
 \index{listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE@{listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE}{listSET\_LIST\_INTEGRITY\_CHECK\_1\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+1\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a5d68b1187d09c64d6ee329786cb0289b} 
+\#define list\+SET\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+1\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 112 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00112}{112}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a83b40c6e61534ef41229bd912dacab48}\label{list_8h_a83b40c6e61534ef41229bd912dacab48}} 
-\index{list.h@{list.h}!listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE@{listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE}}
+
+
+Referenced by \mbox{\hyperlink{list_8c_source_l00041}{v\+List\+Initialise()}}.
+
+\Hypertarget{list_8h_a83b40c6e61534ef41229bd912dacab48}\index{list.h@{list.h}!listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE@{listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE}}
 \index{listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE@{listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE}{listSET\_LIST\_INTEGRITY\_CHECK\_2\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+2\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a83b40c6e61534ef41229bd912dacab48} 
+\#define list\+SET\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+2\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 113 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00113}{113}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_acc01a08e534b54fe438847ef02e5060a}\label{list_8h_acc01a08e534b54fe438847ef02e5060a}} 
-\index{list.h@{list.h}!listSET\_LIST\_ITEM\_OWNER@{listSET\_LIST\_ITEM\_OWNER}}
+
+
+Referenced by \mbox{\hyperlink{list_8c_source_l00041}{v\+List\+Initialise()}}.
+
+\Hypertarget{list_8h_acc01a08e534b54fe438847ef02e5060a}\index{list.h@{list.h}!listSET\_LIST\_ITEM\_OWNER@{listSET\_LIST\_ITEM\_OWNER}}
 \index{listSET\_LIST\_ITEM\_OWNER@{listSET\_LIST\_ITEM\_OWNER}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSET\_LIST\_ITEM\_OWNER}{listSET\_LIST\_ITEM\_OWNER}}
-{\footnotesize\ttfamily \#define list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+O\+W\+N\+ER(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item,  }\item[{}]{px\+Owner }\end{DoxyParamCaption})~( ( px\+List\+Item )-\/$>$pv\+Owner = ( void $\ast$ ) ( px\+Owner ) )}
+{\footnotesize\ttfamily \label{list_8h_acc01a08e534b54fe438847ef02e5060a} 
+\#define list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+OWNER(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item}{, }\item[{}]{px\+Owner}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxListItem\ )-\/>pvOwner\ =\ (\ \textcolor{keywordtype}{void}\ *\ )\ (\ pxOwner\ )\ )}
+
+\end{DoxyCode}
 
 
+Definition at line \mbox{\hyperlink{list_8h_source_l00180}{180}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-Definition at line 180 of file list.\+h.
-
-\mbox{\Hypertarget{list_8h_a83e95e61652f032fdc26aa622f5e2610}\label{list_8h_a83e95e61652f032fdc26aa622f5e2610}} 
-\index{list.h@{list.h}!listSET\_LIST\_ITEM\_VALUE@{listSET\_LIST\_ITEM\_VALUE}}
+\Hypertarget{list_8h_a83e95e61652f032fdc26aa622f5e2610}\index{list.h@{list.h}!listSET\_LIST\_ITEM\_VALUE@{listSET\_LIST\_ITEM\_VALUE}}
 \index{listSET\_LIST\_ITEM\_VALUE@{listSET\_LIST\_ITEM\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSET\_LIST\_ITEM\_VALUE}{listSET\_LIST\_ITEM\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item,  }\item[{}]{x\+Value }\end{DoxyParamCaption})~( ( px\+List\+Item )-\/$>$x\+Item\+Value = ( x\+Value ) )}
+{\footnotesize\ttfamily \label{list_8h_a83e95e61652f032fdc26aa622f5e2610} 
+\#define list\+SET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{px\+List\+Item}{, }\item[{}]{x\+Value}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ (\ pxListItem\ )-\/>xItemValue\ =\ (\ xValue\ )\ )}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{list_8h_source_l00198}{198}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
 
 
-Definition at line 198 of file list.\+h.
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l04601}{ux\+Task\+Reset\+Event\+Item\+Value()}}, \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}.
 
-\mbox{\Hypertarget{list_8h_ac8b9d912bdcfdb5544f373d2a94268b2}\label{list_8h_ac8b9d912bdcfdb5544f373d2a94268b2}} 
-\index{list.h@{list.h}!listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
+\Hypertarget{list_8h_ac8b9d912bdcfdb5544f373d2a94268b2}\index{list.h@{list.h}!listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
 \index{listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE@{listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}{listSET\_SECOND\_LIST\_ITEM\_INTEGRITY\_CHECK\_VALUE}}
-{\footnotesize\ttfamily \#define list\+S\+E\+T\+\_\+\+S\+E\+C\+O\+N\+D\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+T\+Y\+\_\+\+C\+H\+E\+C\+K\+\_\+\+V\+A\+L\+UE(\begin{DoxyParamCaption}\item[{}]{px\+Item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_ac8b9d912bdcfdb5544f373d2a94268b2} 
+\#define list\+SET\+\_\+\+SECOND\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE(\begin{DoxyParamCaption}\item[{}]{px\+Item}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 111 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00111}{111}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a337d6137e0a4d37321efc5c2f31dba22}\label{list_8h_a337d6137e0a4d37321efc5c2f31dba22}} 
-\index{list.h@{list.h}!listTEST\_LIST\_INTEGRITY@{listTEST\_LIST\_INTEGRITY}}
+
+
+Referenced by \mbox{\hyperlink{list_8c_source_l00066}{v\+List\+Initialise\+Item()}}.
+
+\Hypertarget{list_8h_a337d6137e0a4d37321efc5c2f31dba22}\index{list.h@{list.h}!listTEST\_LIST\_INTEGRITY@{listTEST\_LIST\_INTEGRITY}}
 \index{listTEST\_LIST\_INTEGRITY@{listTEST\_LIST\_INTEGRITY}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listTEST\_LIST\_INTEGRITY}{listTEST\_LIST\_INTEGRITY}}
-{\footnotesize\ttfamily \#define list\+T\+E\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+N\+T\+E\+G\+R\+I\+TY(\begin{DoxyParamCaption}\item[{}]{px\+List }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a337d6137e0a4d37321efc5c2f31dba22} 
+\#define list\+TEST\+\_\+\+LIST\+\_\+\+INTEGRITY(\begin{DoxyParamCaption}\item[{}]{px\+List}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 115 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00115}{115}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a95b994725c299cdc81c74efc16210cc6}\label{list_8h_a95b994725c299cdc81c74efc16210cc6}} 
-\index{list.h@{list.h}!listTEST\_LIST\_ITEM\_INTEGRITY@{listTEST\_LIST\_ITEM\_INTEGRITY}}
+
+
+Referenced by \mbox{\hyperlink{list_8c_source_l00107}{v\+List\+Insert()}}, and \mbox{\hyperlink{list_8c_source_l00078}{v\+List\+Insert\+End()}}.
+
+\Hypertarget{list_8h_a95b994725c299cdc81c74efc16210cc6}\index{list.h@{list.h}!listTEST\_LIST\_ITEM\_INTEGRITY@{listTEST\_LIST\_ITEM\_INTEGRITY}}
 \index{listTEST\_LIST\_ITEM\_INTEGRITY@{listTEST\_LIST\_ITEM\_INTEGRITY}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{listTEST\_LIST\_ITEM\_INTEGRITY}{listTEST\_LIST\_ITEM\_INTEGRITY}}
-{\footnotesize\ttfamily \#define list\+T\+E\+S\+T\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+E\+M\+\_\+\+I\+N\+T\+E\+G\+R\+I\+TY(\begin{DoxyParamCaption}\item[{}]{px\+Item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a95b994725c299cdc81c74efc16210cc6} 
+\#define list\+TEST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY(\begin{DoxyParamCaption}\item[{}]{px\+Item}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 114 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00114}{114}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{list_8c_source_l00107}{v\+List\+Insert()}}, and \mbox{\hyperlink{list_8c_source_l00078}{v\+List\+Insert\+End()}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{list_8h_afd590ef6400071b4d63d65ef90bea7f4}\label{list_8h_afd590ef6400071b4d63d65ef90bea7f4}} 
-\index{list.h@{list.h}!List\_t@{List\_t}}
+\Hypertarget{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}\index{list.h@{list.h}!List\_t@{List\_t}}
 \index{List\_t@{List\_t}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{List\_t}{List\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structx_l_i_s_t}{x\+L\+I\+ST}}  \mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}}}
+{\footnotesize\ttfamily \label{list_8h_ad14d7e3de1350e459c7c23c6f59c902a} 
+typedef struct \mbox{\hyperlink{structx_l_i_s_t}{x\+LIST}} \mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}}}
 
-\mbox{\Hypertarget{list_8h_a1a62d469392f9bfe2443e7efab9c8398}\label{list_8h_a1a62d469392f9bfe2443e7efab9c8398}} 
-\index{list.h@{list.h}!ListItem\_t@{ListItem\_t}}
+\Hypertarget{list_8h_a1a62d469392f9bfe2443e7efab9c8398}\index{list.h@{list.h}!ListItem\_t@{ListItem\_t}}
 \index{ListItem\_t@{ListItem\_t}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{ListItem\_t}{ListItem\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{x\+L\+I\+S\+T\+\_\+\+I\+T\+EM}} \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}}}
+{\footnotesize\ttfamily \label{list_8h_a1a62d469392f9bfe2443e7efab9c8398} 
+typedef struct \mbox{\hyperlink{structx_l_i_s_t___i_t_e_m}{x\+LIST\+\_\+\+ITEM}} \mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}}}
 
 
 
-Definition at line 150 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00150}{150}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
-\mbox{\Hypertarget{list_8h_a542a8d55e98bc407593979e61f83cd02}\label{list_8h_a542a8d55e98bc407593979e61f83cd02}} 
-\index{list.h@{list.h}!MiniListItem\_t@{MiniListItem\_t}}
+\Hypertarget{list_8h_a542a8d55e98bc407593979e61f83cd02}\index{list.h@{list.h}!MiniListItem\_t@{MiniListItem\_t}}
 \index{MiniListItem\_t@{MiniListItem\_t}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{MiniListItem\_t}{MiniListItem\_t}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structx_m_i_n_i___l_i_s_t___i_t_e_m}{x\+M\+I\+N\+I\+\_\+\+L\+I\+S\+T\+\_\+\+I\+T\+EM}} \mbox{\hyperlink{list_8h_a542a8d55e98bc407593979e61f83cd02}{Mini\+List\+Item\+\_\+t}}}
+{\footnotesize\ttfamily \label{list_8h_a542a8d55e98bc407593979e61f83cd02} 
+typedef struct \mbox{\hyperlink{structx_m_i_n_i___l_i_s_t___i_t_e_m}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM}} \mbox{\hyperlink{list_8h_a542a8d55e98bc407593979e61f83cd02}{Mini\+List\+Item\+\_\+t}}}
 
 
 
-Definition at line 159 of file list.\+h.
+Definition at line \mbox{\hyperlink{list_8h_source_l00159}{159}} of file \mbox{\hyperlink{list_8h_source}{list.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{list_8h_a2eb1558482076fff8cafc63419c2d34a}\label{list_8h_a2eb1558482076fff8cafc63419c2d34a}} 
-\index{list.h@{list.h}!uxListRemove@{uxListRemove}}
+\Hypertarget{list_8h_a2eb1558482076fff8cafc63419c2d34a}\index{list.h@{list.h}!uxListRemove@{uxListRemove}}
 \index{uxListRemove@{uxListRemove}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{uxListRemove()}{uxListRemove()}}
-{\footnotesize\ttfamily U\+Base\+Type\+\_\+t ux\+List\+Remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const}]{px\+Item\+To\+Remove }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a2eb1558482076fff8cafc63419c2d34a} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} ux\+List\+Remove (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Item\+To\+Remove}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{list_8h_adeef7734d7d6d9a3eea642a70c106919}\label{list_8h_adeef7734d7d6d9a3eea642a70c106919}} 
-\index{list.h@{list.h}!vListInitialise@{vListInitialise}}
+
+
+Definition at line \mbox{\hyperlink{list_8c_source_l00174}{174}} of file \mbox{\hyperlink{list_8c_source}{list.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00818}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+DELAY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{list_8h_source_l00147}{x\+LIST\+\_\+\+ITEM\+::px\+Container}}, \mbox{\hyperlink{list_8h_source_l00168}{x\+LIST\+::px\+Index}}, \mbox{\hyperlink{list_8h_source_l00144}{x\+LIST\+\_\+\+ITEM\+::px\+Next}}, \mbox{\hyperlink{list_8h_source_l00145}{x\+LIST\+\_\+\+ITEM\+::px\+Previous}}, and \mbox{\hyperlink{list_8h_source_l00167}{x\+LIST\+::ux\+Number\+Of\+Items}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03638}{prv\+Check\+Tasks\+Waiting\+Termination()}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02706}{x\+Task\+Increment\+Tick()}}, \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}.
+
+\Hypertarget{list_8h_adeef7734d7d6d9a3eea642a70c106919}\index{list.h@{list.h}!vListInitialise@{vListInitialise}}
 \index{vListInitialise@{vListInitialise}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{vListInitialise()}{vListInitialise()}}
-{\footnotesize\ttfamily void v\+List\+Initialise (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}} $\ast$const}]{px\+List }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_adeef7734d7d6d9a3eea642a70c106919} 
+void v\+List\+Initialise (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+List}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{list_8h_ab91611baae53be209a05d211f55f5395}\label{list_8h_ab91611baae53be209a05d211f55f5395}} 
-\index{list.h@{list.h}!vListInitialiseItem@{vListInitialiseItem}}
+
+
+Definition at line \mbox{\hyperlink{list_8c_source_l00041}{41}} of file \mbox{\hyperlink{list_8c_source}{list.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00112}{list\+SET\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+1\+\_\+\+VALUE}}, \mbox{\hyperlink{list_8h_source_l00113}{list\+SET\+\_\+\+LIST\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+2\+\_\+\+VALUE}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{list_8h_source_l00168}{x\+LIST\+::px\+Index}}, \mbox{\hyperlink{list_8h_source_l00156}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM\+::px\+Next}}, \mbox{\hyperlink{list_8h_source_l00157}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM\+::px\+Previous}}, \mbox{\hyperlink{list_8h_source_l00167}{x\+LIST\+::ux\+Number\+Of\+Items}}, \mbox{\hyperlink{list_8h_source_l00155}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM\+::x\+Item\+Value}}, and \mbox{\hyperlink{list_8h_source_l00169}{x\+LIST\+::x\+List\+End}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l03606}{prv\+Initialise\+Task\+Lists()}}, and \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}.
+
+\Hypertarget{list_8h_ab91611baae53be209a05d211f55f5395}\index{list.h@{list.h}!vListInitialiseItem@{vListInitialiseItem}}
 \index{vListInitialiseItem@{vListInitialiseItem}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{vListInitialiseItem()}{vListInitialiseItem()}}
-{\footnotesize\ttfamily void v\+List\+Initialise\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const}]{px\+Item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_ab91611baae53be209a05d211f55f5395} 
+void v\+List\+Initialise\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+Item}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{list_8h_aa129290da5cbda47dffb7bf877b2f02a}\label{list_8h_aa129290da5cbda47dffb7bf877b2f02a}} 
-\index{list.h@{list.h}!vListInsert@{vListInsert}}
+
+
+Definition at line \mbox{\hyperlink{list_8c_source_l00066}{66}} of file \mbox{\hyperlink{list_8c_source}{list.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00110}{list\+SET\+\_\+\+FIRST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}, \mbox{\hyperlink{list_8h_source_l00111}{list\+SET\+\_\+\+SECOND\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY\+\_\+\+CHECK\+\_\+\+VALUE}}, and \mbox{\hyperlink{list_8h_source_l00147}{x\+LIST\+\_\+\+ITEM\+::px\+Container}}.
+
+\Hypertarget{list_8h_aa129290da5cbda47dffb7bf877b2f02a}\index{list.h@{list.h}!vListInsert@{vListInsert}}
 \index{vListInsert@{vListInsert}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{vListInsert()}{vListInsert()}}
-{\footnotesize\ttfamily void v\+List\+Insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}} $\ast$const}]{px\+List,  }\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const}]{px\+New\+List\+Item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_aa129290da5cbda47dffb7bf877b2f02a} 
+void v\+List\+Insert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+List}{, }\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+New\+List\+Item}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{list_8h_a71a6a6099b3cbd8f90539aabe5c9e572}\label{list_8h_a71a6a6099b3cbd8f90539aabe5c9e572}} 
-\index{list.h@{list.h}!vListInsertEnd@{vListInsertEnd}}
+
+
+Definition at line \mbox{\hyperlink{list_8c_source_l00107}{107}} of file \mbox{\hyperlink{list_8c_source}{list.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00115}{list\+TEST\+\_\+\+LIST\+\_\+\+INTEGRITY}}, \mbox{\hyperlink{list_8h_source_l00114}{list\+TEST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY}}, \mbox{\hyperlink{portmacro_8h_source_l00066}{port\+MAX\+\_\+\+DELAY}}, \mbox{\hyperlink{list_8h_source_l00147}{x\+LIST\+\_\+\+ITEM\+::px\+Container}}, \mbox{\hyperlink{list_8h_source_l00144}{x\+LIST\+\_\+\+ITEM\+::px\+Next}}, \mbox{\hyperlink{list_8h_source_l00145}{x\+LIST\+\_\+\+ITEM\+::px\+Previous}}, \mbox{\hyperlink{list_8h_source_l00157}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM\+::px\+Previous}}, \mbox{\hyperlink{list_8h_source_l00167}{x\+LIST\+::ux\+Number\+Of\+Items}}, \mbox{\hyperlink{list_8h_source_l00143}{x\+LIST\+\_\+\+ITEM\+::x\+Item\+Value}}, and \mbox{\hyperlink{list_8h_source_l00169}{x\+LIST\+::x\+List\+End}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l03063}{v\+Task\+Place\+On\+Event\+List()}}.
+
+\Hypertarget{list_8h_a71a6a6099b3cbd8f90539aabe5c9e572}\index{list.h@{list.h}!vListInsertEnd@{vListInsertEnd}}
 \index{vListInsertEnd@{vListInsertEnd}!list.h@{list.h}}
 \doxysubsubsection{\texorpdfstring{vListInsertEnd()}{vListInsertEnd()}}
-{\footnotesize\ttfamily void v\+List\+Insert\+End (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_afd590ef6400071b4d63d65ef90bea7f4}{List\+\_\+t}} $\ast$const}]{px\+List,  }\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} $\ast$const}]{px\+New\+List\+Item }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{list_8h_a71a6a6099b3cbd8f90539aabe5c9e572} 
+void v\+List\+Insert\+End (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+List}{, }\item[{\mbox{\hyperlink{list_8h_a1a62d469392f9bfe2443e7efab9c8398}{List\+Item\+\_\+t}} \texorpdfstring{$\ast$}{*}const}]{px\+New\+List\+Item}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{list_8c_source_l00078}{78}} of file \mbox{\hyperlink{list_8c_source}{list.\+c}}.
+
+
+
+References \mbox{\hyperlink{list_8h_source_l00115}{list\+TEST\+\_\+\+LIST\+\_\+\+INTEGRITY}}, \mbox{\hyperlink{list_8h_source_l00114}{list\+TEST\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+INTEGRITY}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00818}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+DELAY}}, \mbox{\hyperlink{list_8h_source_l00147}{x\+LIST\+\_\+\+ITEM\+::px\+Container}}, \mbox{\hyperlink{list_8h_source_l00168}{x\+LIST\+::px\+Index}}, \mbox{\hyperlink{list_8h_source_l00144}{x\+LIST\+\_\+\+ITEM\+::px\+Next}}, \mbox{\hyperlink{list_8h_source_l00145}{x\+LIST\+\_\+\+ITEM\+::px\+Previous}}, and \mbox{\hyperlink{list_8h_source_l00167}{x\+LIST\+::ux\+Number\+Of\+Items}}.
+
+
+
+Referenced by \mbox{\hyperlink{tasks_8c_source_l05176}{prv\+Add\+Current\+Task\+To\+Delayed\+List()}}, \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, and \mbox{\hyperlink{tasks_8c_source_l03137}{x\+Task\+Remove\+From\+Event\+List()}}.
 

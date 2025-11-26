@@ -30,6 +30,7 @@
 #include "tim.h"
 #include "gpio.h"
 
+#include "uvfr_data_proccessing.h"
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
@@ -121,7 +122,8 @@ setBits(num,mask,data);
 /** @brief lil treat to help us avoid the dreaded null pointer dereference
  *
  */
-#define safePtrRead(x) (*((x)?x:uvPanic("nullptr_deref",0)))
+#define safePtrReadStrict(x) (*((x)?x:uvPanic("nullptr_deref",0)))
+#define safePtrRead(x) ((x)?(*x):(0))
 #define safePtrWrite(p,x) (*((p)?p:&x))
 
 
@@ -266,9 +268,18 @@ typedef union access_control_info{
 }access_control_info;
 
 
-#define UV_CAN_EXTENDED_ID 0x01
+#define UV_CAN_EXTENDED_ID 0b00000001
+#define UV_IDE_BIT UV_CAN_EXTENDED_ID
+
+#define CAN_BUS_1 0b00000010
+#define CAN_BUS_2 0b00000100
+
+
 #define UV_CAN_CHANNEL_MASK 0b00000110
 #define UV_CAN_DYNAMIC_MEM  0b00001000
+
+//Use this sparingly. Messages with this bit set will skip the queue. If everything skips the queue, nothing does.
+#define UV_CAN_CRIT_MSG_BIT 0b10000000
 
 
 /** @brief Representative of a CAN message

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__ux_task_priority_get" kind="group">
     <compoundname>uxTaskPriorityGet</compoundname>
     <title>uxTaskPriorityGet</title>
@@ -23,25 +23,30 @@
 Example usage: <preformatted>
 void vAFunction( void )
 {
-TaskHandle_t xHandle;</preformatted></para>
-<para><preformatted>    // Create a task, storing the handle.
-    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, &amp;xHandle );</preformatted></para>
-<para><preformatted>    // ...</preformatted></para>
-<para><preformatted>    // Use the handle to obtain the priority of the created task.
+TaskHandle_t xHandle;
+
+    // Create a task, storing the handle.
+    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, &amp;xHandle );
+
+    // ...
+
+    // Use the handle to obtain the priority of the created task.
     // It was created with tskIDLE_PRIORITY, but may have changed
     // it itself.
     if( uxTaskPriorityGet( xHandle ) != tskIDLE_PRIORITY )
     {
      // The task has changed it&apos;s priority.
-    }</preformatted></para>
-<para><preformatted>    // ...</preformatted></para>
-<para><preformatted>    // Is our priority higher than the created task?
+    }
+
+    // ...
+
+    // Is our priority higher than the created task?
     if( uxTaskPriorityGet( xHandle ) &lt; uxTaskPriorityGet( NULL ) )
     {
      // Our priority (obtained using NULL handle) is higher.
     }
 }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_create_binary" kind="group">
     <compoundname>xSemaphoreCreateBinary</compoundname>
     <title>xSemaphoreCreateBinary</title>
@@ -15,19 +15,21 @@
 <para><simplesect kind="return"><para>Handle to the created semaphore, or NULL if the memory required to hold the semaphore&apos;s data structures could not be allocated.</para>
 </simplesect>
 Example usage: <preformatted>
-SemaphoreHandle_t xSemaphore = NULL;</preformatted></para>
-<para><preformatted>void vATask( void * pvParameters )
+SemaphoreHandle_t xSemaphore = NULL;
+
+void vATask( void * pvParameters )
 {
    // Semaphore cannot be used before a call to xSemaphoreCreateBinary().
    // This is a macro so pass the variable in directly.
-   xSemaphore = xSemaphoreCreateBinary();</preformatted></para>
-<para><preformatted>   if( xSemaphore != NULL )
+   xSemaphore = xSemaphoreCreateBinary();
+
+   if( xSemaphore != NULL )
    {
        // The semaphore was created successfully.
        // The semaphore can now be used.
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

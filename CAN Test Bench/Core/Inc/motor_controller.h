@@ -2,6 +2,7 @@
 #define __MOTOR_CONTROLLER_H__
 
 #include "main.h"
+#include"freeRTOS.h"
 #include "uvfr_utils.h"
 #include "uvfr_settings.h"
 #include "can.h"

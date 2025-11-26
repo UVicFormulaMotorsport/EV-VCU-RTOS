@@ -1,0 +1,226 @@
+\doxysection{Core/\+Inc/uvfr\+\_\+vehicle\+\_\+logger.h File Reference}
+\hypertarget{uvfr__vehicle__logger_8h}{}\label{uvfr__vehicle__logger_8h}\index{Core/Inc/uvfr\_vehicle\_logger.h@{Core/Inc/uvfr\_vehicle\_logger.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+state\+\_\+engine.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+vehicle\+\_\+logger.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structvehicle__log__entry}{vehicle\+\_\+log\+\_\+entry}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7}{fault\+\_\+event\+\_\+type\+\_\+e}} \{ \newline
+\mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7acad6c5481d77b86811e813bf2cb86e74}{FAULT\+\_\+\+PANIC}} = 0
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7a8c2d9107d3d742dba57fe9ef907eadff}{FAULT\+\_\+\+TASK\+\_\+\+FAIL}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ade261b8839db0bca183df572a1b01130}{FAULT\+\_\+\+TASK\+\_\+\+LATE}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ad41d56d80b0c6a964e2ac6ce75be58f6}{FAULT\+\_\+\+STATE\+\_\+\+ILLEGAL}}
+, \newline
+\mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7aeebf822ffdacb8142529509902b26e77}{FAULT\+\_\+\+SCD\+\_\+\+TIMEOUT}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ab17c5c4d6c93b4aaf3dbeb7633e68666}{FAULT\+\_\+\+SENSOR\+\_\+\+ERROR}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7a7db0ba3c20404847aa3ba1c75a873a0a}{FAULT\+\_\+\+STATE\+\_\+\+TRANSITION}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7a2f3aff82cbceeef5941adab89f849664}{FAULT\+\_\+\+MANUAL}}
+, \newline
+\mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ad1cd65851e620a7bd83167aed89da821}{FAULT\+\_\+\+FLASH\+\_\+\+ERROR}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ab677aa7431bc1dd4e577f652affc10f3}{FAULT\+\_\+\+SETTINGS\+\_\+\+CORRUPT}}
+, \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ad7c3022d92d026dcea399ca6b7596f6f}{FAULT\+\_\+\+CAN\+\_\+\+MSG\+\_\+\+FAIL}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{uvfr__vehicle__logger_8h_aa83c417d242e0852d3da6e3df47252f0}{log\+Vehicle\+Fault}} (\mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7}{fault\+\_\+event\+\_\+type\+\_\+e}} type, \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}task, const char \texorpdfstring{$\ast$}{*}msg, const char \texorpdfstring{$\ast$}{*}file, int line, const char \texorpdfstring{$\ast$}{*}func, \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} is\+\_\+panic)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6d1f4ece72fbe83dad38b2c6b2915d23}{get\+Log\+Count}} (void)
+\item 
+const \mbox{\hyperlink{structvehicle__log__entry}{vehicle\+\_\+log\+\_\+entry}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__vehicle__logger_8h_ad631886dcbc57302eb94d953a0f0921e}{get\+Log\+Entry}} (uint8\+\_\+t index)
+\item 
+void \mbox{\hyperlink{uvfr__vehicle__logger_8h_a112da491c6b8ff895e11674f28381e0e}{dump\+Logs\+To\+UART}} (void)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{uvfr__vehicle__logger_8h_a0740a0b8e0f90b9d10e5c6d833f354a1}{get\+System\+Fault\+Flags}} (void)
+\item 
+void \mbox{\hyperlink{uvfr__vehicle__logger_8h_ad3e144bde2ddbde7303c84f1212ce5bd}{clear\+System\+Fault\+Flags}} (uint32\+\_\+t flags\+\_\+to\+\_\+clear)
+\item 
+void \mbox{\hyperlink{uvfr__vehicle__logger_8h_aa94a06d1457baf8f7a2bdffc9bdb0f34}{flush\+Logs\+To\+CAN}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!fault\_event\_type\_e@{fault\_event\_type\_e}}
+\index{fault\_event\_type\_e@{fault\_event\_type\_e}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{fault\_event\_type\_e}{fault\_event\_type\_e}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+enum \mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7}{fault\+\_\+event\+\_\+type\+\_\+e}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_PANIC@{FAULT\_PANIC}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_PANIC@{FAULT\_PANIC}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7acad6c5481d77b86811e813bf2cb86e74}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+PANIC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_TASK\_FAIL@{FAULT\_TASK\_FAIL}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_TASK\_FAIL@{FAULT\_TASK\_FAIL}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7a8c2d9107d3d742dba57fe9ef907eadff}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+TASK\+\_\+\+FAIL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_TASK\_LATE@{FAULT\_TASK\_LATE}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_TASK\_LATE@{FAULT\_TASK\_LATE}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ade261b8839db0bca183df572a1b01130}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+TASK\+\_\+\+LATE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_STATE\_ILLEGAL@{FAULT\_STATE\_ILLEGAL}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_STATE\_ILLEGAL@{FAULT\_STATE\_ILLEGAL}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ad41d56d80b0c6a964e2ac6ce75be58f6}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+STATE\+\_\+\+ILLEGAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_SCD\_TIMEOUT@{FAULT\_SCD\_TIMEOUT}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_SCD\_TIMEOUT@{FAULT\_SCD\_TIMEOUT}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7aeebf822ffdacb8142529509902b26e77}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+SCD\+\_\+\+TIMEOUT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_SENSOR\_ERROR@{FAULT\_SENSOR\_ERROR}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_SENSOR\_ERROR@{FAULT\_SENSOR\_ERROR}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ab17c5c4d6c93b4aaf3dbeb7633e68666}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+SENSOR\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_STATE\_TRANSITION@{FAULT\_STATE\_TRANSITION}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_STATE\_TRANSITION@{FAULT\_STATE\_TRANSITION}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7a7db0ba3c20404847aa3ba1c75a873a0a}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+STATE\+\_\+\+TRANSITION&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_MANUAL@{FAULT\_MANUAL}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_MANUAL@{FAULT\_MANUAL}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7a2f3aff82cbceeef5941adab89f849664}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+MANUAL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_FLASH\_ERROR@{FAULT\_FLASH\_ERROR}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_FLASH\_ERROR@{FAULT\_FLASH\_ERROR}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ad1cd65851e620a7bd83167aed89da821}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+FLASH\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_SETTINGS\_CORRUPT@{FAULT\_SETTINGS\_CORRUPT}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_SETTINGS\_CORRUPT@{FAULT\_SETTINGS\_CORRUPT}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ab677aa7431bc1dd4e577f652affc10f3}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+SETTINGS\+\_\+\+CORRUPT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FAULT\_CAN\_MSG\_FAIL@{FAULT\_CAN\_MSG\_FAIL}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!FAULT\_CAN\_MSG\_FAIL@{FAULT\_CAN\_MSG\_FAIL}}}\Hypertarget{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7ad7c3022d92d026dcea399ca6b7596f6f}\label{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7} 
+FAULT\+\_\+\+CAN\+\_\+\+MSG\+\_\+\+FAIL&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00024}{24}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8h_source}{uvfr\+\_\+vehicle\+\_\+logger.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{uvfr__vehicle__logger_8h_ad3e144bde2ddbde7303c84f1212ce5bd}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!clearSystemFaultFlags@{clearSystemFaultFlags}}
+\index{clearSystemFaultFlags@{clearSystemFaultFlags}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{clearSystemFaultFlags()}{clearSystemFaultFlags()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_ad3e144bde2ddbde7303c84f1212ce5bd} 
+void clear\+System\+Fault\+Flags (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{flags\+\_\+to\+\_\+clear}{}\end{DoxyParamCaption})}
+
+clears specific fault flags (set bits) from the bitfield 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00046}{46}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+\Hypertarget{uvfr__vehicle__logger_8h_a112da491c6b8ff895e11674f28381e0e}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!dumpLogsToUART@{dumpLogsToUART}}
+\index{dumpLogsToUART@{dumpLogsToUART}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{dumpLogsToUART()}{dumpLogsToUART()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_a112da491c6b8ff895e11674f28381e0e} 
+void dump\+Logs\+To\+UART (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+prints all stored logs to UART (e.\+x, for debugging) 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00068}{68}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00047}{vehicle\+\_\+log\+\_\+entry\+::file}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00049}{vehicle\+\_\+log\+\_\+entry\+::func}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00053}{get\+Log\+Count()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00060}{get\+Log\+Entry()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00050}{vehicle\+\_\+log\+\_\+entry\+::is\+\_\+panic}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00048}{vehicle\+\_\+log\+\_\+entry\+::line}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00045}{vehicle\+\_\+log\+\_\+entry\+::msg}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00051}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+id}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00044}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00053}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+state}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00046}{vehicle\+\_\+log\+\_\+entry\+::timestamp}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00043}{vehicle\+\_\+log\+\_\+entry\+::type}}, and \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00052}{vehicle\+\_\+log\+\_\+entry\+::vehicle\+\_\+state}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{uvfr__vehicle__logger_8h_aa94a06d1457baf8f7a2bdffc9bdb0f34}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!flushLogsToCAN@{flushLogsToCAN}}
+\index{flushLogsToCAN@{flushLogsToCAN}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{flushLogsToCAN()}{flushLogsToCAN()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_aa94a06d1457baf8f7a2bdffc9bdb0f34} 
+void flush\+Logs\+To\+CAN (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+Flush all current log entries out over CAN for diagnostic laptop tools. Each entry is sent as a single compact CAN frame.
+
+Frame layout\+: ID = LOG\+\_\+\+DUMP\+\_\+\+CAN\+\_\+\+ID DLC = 8 Byte 0 \+: fault type Byte 1 \+: timestamp LSB Byte 2 \+: timestamp MSB Byte 3 \+: task ID Byte 4 \+: is\+\_\+panic flag Byte 5 \+: vehicle\+\_\+state Byte 6 \+: reserved (0) Byte 7 \+: reserved (0) 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{155}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00053}{get\+Log\+Count()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00060}{get\+Log\+Entry()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00050}{vehicle\+\_\+log\+\_\+entry\+::is\+\_\+panic}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00022}{LOG\+\_\+\+DUMP\+\_\+\+CAN\+\_\+\+ID}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00051}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+id}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00046}{vehicle\+\_\+log\+\_\+entry\+::timestamp}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00043}{vehicle\+\_\+log\+\_\+entry\+::type}}, \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}, and \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00052}{vehicle\+\_\+log\+\_\+entry\+::vehicle\+\_\+state}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}.
+
+Here is the call graph for this function\+:
+% FIG 3
+\Hypertarget{uvfr__vehicle__logger_8h_a6d1f4ece72fbe83dad38b2c6b2915d23}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!getLogCount@{getLogCount}}
+\index{getLogCount@{getLogCount}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{getLogCount()}{getLogCount()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_a6d1f4ece72fbe83dad38b2c6b2915d23} 
+uint8\+\_\+t get\+Log\+Count (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+returns how many logs are stored right now 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00053}{53}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00021}{MAX\+\_\+\+LOG\+\_\+\+ENTRIES}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00068}{dump\+Logs\+To\+UART()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{flush\+Logs\+To\+CAN()}}, and \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00060}{get\+Log\+Entry()}}.
+
+\Hypertarget{uvfr__vehicle__logger_8h_ad631886dcbc57302eb94d953a0f0921e}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!getLogEntry@{getLogEntry}}
+\index{getLogEntry@{getLogEntry}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{getLogEntry()}{getLogEntry()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_ad631886dcbc57302eb94d953a0f0921e} 
+const \mbox{\hyperlink{structvehicle__log__entry}{vehicle\+\_\+log\+\_\+entry}} \texorpdfstring{$\ast$}{*} get\+Log\+Entry (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{index}{}\end{DoxyParamCaption})}
+
+returns a specific log entry by index 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00060}{60}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00053}{get\+Log\+Count()}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00068}{dump\+Logs\+To\+UART()}}, and \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{flush\+Logs\+To\+CAN()}}.
+
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{uvfr__vehicle__logger_8h_a0740a0b8e0f90b9d10e5c6d833f354a1}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!getSystemFaultFlags@{getSystemFaultFlags}}
+\index{getSystemFaultFlags@{getSystemFaultFlags}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{getSystemFaultFlags()}{getSystemFaultFlags()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_a0740a0b8e0f90b9d10e5c6d833f354a1} 
+uint32\+\_\+t get\+System\+Fault\+Flags (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+returns the current bitfield (1 bit per fault type) 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00039}{39}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+\Hypertarget{uvfr__vehicle__logger_8h_aa83c417d242e0852d3da6e3df47252f0}\index{uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}!logVehicleFault@{logVehicleFault}}
+\index{logVehicleFault@{logVehicleFault}!uvfr\_vehicle\_logger.h@{uvfr\_vehicle\_logger.h}}
+\doxysubsubsection{\texorpdfstring{logVehicleFault()}{logVehicleFault()}}
+{\footnotesize\ttfamily \label{uvfr__vehicle__logger_8h_aa83c417d242e0852d3da6e3df47252f0} 
+void log\+Vehicle\+Fault (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{uvfr__vehicle__logger_8h_a6678121815d6405973fdc68812442fc7}{fault\+\_\+event\+\_\+type\+\_\+e}}}]{type}{, }\item[{\mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}}]{task}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{msg}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{int}]{line}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{func}{, }\item[{\mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}}}]{is\+\_\+panic}{}\end{DoxyParamCaption})}
+
+adds a new log entry for a fault or error. 
+
+Definition at line \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00097}{97}} of file \mbox{\hyperlink{uvfr__vehicle__logger_8c_source}{uvfr\+\_\+vehicle\+\_\+logger.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00047}{vehicle\+\_\+log\+\_\+entry\+::file}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00049}{vehicle\+\_\+log\+\_\+entry\+::func}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00050}{vehicle\+\_\+log\+\_\+entry\+::is\+\_\+panic}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00048}{vehicle\+\_\+log\+\_\+entry\+::line}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00021}{MAX\+\_\+\+LOG\+\_\+\+ENTRIES}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00045}{vehicle\+\_\+log\+\_\+entry\+::msg}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00228}{uv\+\_\+task\+\_\+info\+::task\+\_\+id}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00051}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+id}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00044}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00243}{uv\+\_\+task\+\_\+info\+::task\+\_\+state}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00053}{vehicle\+\_\+log\+\_\+entry\+::task\+\_\+state}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00046}{vehicle\+\_\+log\+\_\+entry\+::timestamp}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00043}{vehicle\+\_\+log\+\_\+entry\+::type}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00132}{UV\+\_\+\+TASK\+\_\+\+NOT\+\_\+\+STARTED}}, \mbox{\hyperlink{uvfr__vehicle__logger_8h_source_l00052}{vehicle\+\_\+log\+\_\+entry\+::vehicle\+\_\+state}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{vehicle\+\_\+state}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00708}{\+\_\+\+\_\+uv\+Panic()}}.
+

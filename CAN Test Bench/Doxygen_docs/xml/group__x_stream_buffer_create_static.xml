@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_stream_buffer_create_static" kind="group">
     <compoundname>xStreamBufferCreateStatic</compoundname>
     <title>xStreamBufferCreateStatic</title>
@@ -8,10 +8,10 @@
     <detaileddescription>
 <para><ref refid="stream__buffer_8h" kindref="compound">stream_buffer.h</ref></para>
 <para><preformatted>
-StreamBufferHandle_t xStreamBufferCreateStatic( size_t xBufferSizeBytes,
+StreamBufferHandle_t <ref refid="stream__buffer_8h_1a3c248575ac1b83801db605b32a118f77" kindref="member">xStreamBufferCreateStatic( size_t xBufferSizeBytes,
                                                 size_t xTriggerLevelBytes,
                                                 uint8_t *pucStreamBufferStorageArea,
-                                                StaticStreamBuffer_t *pxStaticStreamBuffer );
+                                                StaticStreamBuffer_t *pxStaticStreamBuffer )</ref>;
 </preformatted> Creates a new stream buffer using statically allocated memory. See <ref refid="stream__buffer_8h_1a39aa4dd8b83e2df7ded291f863fb5fed" kindref="member">xStreamBufferCreate()</ref> for a version that uses dynamically allocated memory.</para>
 <para>configSUPPORT_STATIC_ALLOCATION must be set to 1 in <ref refid="_free_r_t_o_s_config_8h" kindref="compound">FreeRTOSConfig.h</ref> for <ref refid="stream__buffer_8h_1a3c248575ac1b83801db605b32a118f77" kindref="member">xStreamBufferCreateStatic()</ref> to be available.</para>
 <para><parameterlist kind="param"><parameteritem>
@@ -49,29 +49,37 @@ StreamBufferHandle_t xStreamBufferCreateStatic( size_t xBufferSizeBytes,
 </parameterlist>
 <simplesect kind="return"><para>If the stream buffer is created successfully then a handle to the created stream buffer is returned. If either pucStreamBufferStorageArea or pxStaticstreamBuffer are NULL then NULL is returned.</para>
 </simplesect>
-Example use: <preformatted></preformatted></para>
-<para><preformatted>// Used to dimension the array used to hold the streams.  The available space
+Example use: <preformatted>
+
+// Used to dimension the array used to hold the streams.  The available space
 // will actually be one less than this, so 999.
-#define STORAGE_SIZE_BYTES 1000</preformatted></para>
-<para><preformatted>// Defines the memory that will actually hold the streams within the stream
+#define STORAGE_SIZE_BYTES 1000
+
+// Defines the memory that will actually hold the streams within the stream
 // buffer.
-static uint8_t ucStorageBuffer[ STORAGE_SIZE_BYTES ];</preformatted></para>
-<para><preformatted>// The variable used to hold the stream buffer structure.
-StaticStreamBuffer_t xStreamBufferStruct;</preformatted></para>
-<para><preformatted>void MyFunction( void )
+static uint8_t ucStorageBuffer[ STORAGE_SIZE_BYTES ];
+
+// The variable used to hold the stream buffer structure.
+StaticStreamBuffer_t xStreamBufferStruct;
+
+void MyFunction( void )
 {
 StreamBufferHandle_t xStreamBuffer;
-const size_t xTriggerLevel = 1;</preformatted></para>
-<para><preformatted>    xStreamBuffer = xStreamBufferCreateStatic( sizeof( ucBufferStorage ),
+const size_t xTriggerLevel = 1;
+
+    xStreamBuffer = <ref refid="stream__buffer_8h_1a3c248575ac1b83801db605b32a118f77" kindref="member">xStreamBufferCreateStatic( sizeof( ucBufferStorage ),
                                                xTriggerLevel,
                                                ucBufferStorage,
-                                               &amp;xStreamBufferStruct );</preformatted></para>
-<para><preformatted>    // As neither the pucStreamBufferStorageArea or pxStaticStreamBuffer
+                                               &amp;xStreamBufferStruct )</ref>;
+
+    // As neither the pucStreamBufferStorageArea or pxStaticStreamBuffer
     // parameters were NULL, xStreamBuffer will not be NULL, and can be used to
-    // reference the created stream buffer in other stream buffer API calls.</preformatted></para>
-<para><preformatted>    // Other code that uses the stream buffer can go here.
-}</preformatted></para>
-<para><preformatted></preformatted> </para>
+    // reference the created stream buffer in other stream buffer API calls.
+
+    // Other code that uses the stream buffer can go here.
+}
+
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

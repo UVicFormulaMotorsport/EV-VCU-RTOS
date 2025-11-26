@@ -1,7 +1,17 @@
-\hypertarget{uvfr__state__engine_8h}{}\doxysection{Core/\+Inc/uvfr\+\_\+state\+\_\+engine.h File Reference}
-\label{uvfr__state__engine_8h}\index{Core/Inc/uvfr\_state\_engine.h@{Core/Inc/uvfr\_state\_engine.h}}
-{\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
+\doxysection{Core/\+Inc/uvfr\+\_\+state\+\_\+engine.h File Reference}
+\hypertarget{uvfr__state__engine_8h}{}\label{uvfr__state__engine_8h}\index{Core/Inc/uvfr\_state\_engine.h@{Core/Inc/uvfr\_state\_engine.h}}
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}task.\+h"{}}\newline
+{\ttfamily \#include "{}queue.\+h"{}}\newline
+{\ttfamily \#include "{}semphr.\+h"{}}\newline
+{\ttfamily \#include "{}cmsis\+\_\+os.\+h"{}}\newline
+{\ttfamily \#include "{}message\+\_\+buffer.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+state\+\_\+engine.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structuv__scd__response}{uv\+\_\+scd\+\_\+response}}
@@ -13,84 +23,82 @@ struct \mbox{\hyperlink{structtask__status__block}{task\+\_\+status\+\_\+block}}
 struct \mbox{\hyperlink{structuv__os__settings}{uv\+\_\+os\+\_\+settings}}
 \begin{DoxyCompactList}\small\item\em Settings that dictate state engine behavior. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}}
-\begin{DoxyCompactList}\small\item\em This struct is designed to hold neccessary information about an R\+T\+OS task that will be managed by uvfr\+\_\+state\+\_\+engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\begin{DoxyCompactList}\small\item\em This struct is designed to hold neccessary information about an RTOS task that will be managed by uvfr\+\_\+state\+\_\+engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2}{\+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+I\+N\+S\+T\+A\+N\+C\+ES}}~128
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2}{\+\_\+\+UV\+\_\+\+DEFAULT\+\_\+\+TASK\+\_\+\+INSTANCES}}~128
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}{\+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE}}~128
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}{\+\_\+\+UV\+\_\+\+DEFAULT\+\_\+\+TASK\+\_\+\+STACK\+\_\+\+SIZE}}~128
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_a3ecc1e9c72ff5ba01649bf037186b015}{\+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD}}~100
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_a3ecc1e9c72ff5ba01649bf037186b015}{\+\_\+\+UV\+\_\+\+DEFAULT\+\_\+\+TASK\+\_\+\+PERIOD}}~100
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b}{\+\_\+\+U\+V\+\_\+\+M\+I\+N\+\_\+\+T\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD}}~5
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b}{\+\_\+\+UV\+\_\+\+MIN\+\_\+\+TASK\+\_\+\+PERIOD}}~5
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_a2b86418bd482f9d4a2a36f35e786798e}{\+\_\+\+L\+O\+N\+G\+E\+S\+T\+\_\+\+S\+C\+\_\+\+T\+I\+ME}}~300
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_a2b86418bd482f9d4a2a36f35e786798e}{\+\_\+\+LONGEST\+\_\+\+SC\+\_\+\+TIME}}~300
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4}{\+\_\+\+S\+C\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+P\+E\+R\+I\+OD}}~10
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4}{\+\_\+\+SC\+\_\+\+DAEMON\+\_\+\+PERIOD}}~10
 \item 
-\#define \mbox{\hyperlink{uvfr__state__engine_8h_afa84e50f417bfe6026bd922b546e4daa}{S\+V\+C\+\_\+\+T\+A\+S\+K\+\_\+\+M\+A\+X\+\_\+\+C\+H\+E\+C\+K\+I\+N\+\_\+\+P\+E\+R\+I\+OD}}~500
+\#define \mbox{\hyperlink{uvfr__state__engine_8h_afa84e50f417bfe6026bd922b546e4daa}{SVC\+\_\+\+TASK\+\_\+\+MAX\+\_\+\+CHECKIN\+\_\+\+PERIOD}}~500
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga253c75b331d0976b9a414657cef780cd}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+V\+E\+H\+I\+C\+L\+E\+\_\+\+A\+P\+P\+L\+I\+C\+A\+T\+I\+ON}}~0x0001U$<$$<$(0)
+\#define \mbox{\hyperlink{group__state__engine__api_ga253c75b331d0976b9a414657cef780cd}{UV\+\_\+\+TASK\+\_\+\+VEHICLE\+\_\+\+APPLICATION}}~0x0001U$<$$<$(0)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga3142d67aec5c34719e90cf122948f1db}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+P\+E\+R\+I\+O\+D\+I\+C\+\_\+\+S\+VC}}~0x0001U$<$$<$(1)
+\#define \mbox{\hyperlink{group__state__engine__api_ga3142d67aec5c34719e90cf122948f1db}{UV\+\_\+\+TASK\+\_\+\+PERIODIC\+\_\+\+SVC}}~0x0001U$<$$<$(1)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gaae81d88a64e53c686e8e0fd01bfe723d}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+O\+R\+M\+A\+N\+T\+\_\+\+S\+VC}}~0b0000000000000011
+\#define \mbox{\hyperlink{group__state__engine__api_gaae81d88a64e53c686e8e0fd01bfe723d}{UV\+\_\+\+TASK\+\_\+\+DORMANT\+\_\+\+SVC}}~0b0000000000000011
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga056a2272c9356c78597c5c82bc58db2f}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+G\+E\+N\+E\+R\+I\+C\+\_\+\+S\+VC}}~0x0001U$<$$<$(2)
+\#define \mbox{\hyperlink{group__state__engine__api_ga056a2272c9356c78597c5c82bc58db2f}{UV\+\_\+\+TASK\+\_\+\+GENERIC\+\_\+\+SVC}}~0x0001U$<$$<$(2)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga96c7c915194ecba48edd70def54a700b}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+M\+A\+N\+A\+G\+E\+R\+\_\+\+M\+A\+SK}}~0b0000000000000011
+\#define \mbox{\hyperlink{group__state__engine__api_ga96c7c915194ecba48edd70def54a700b}{UV\+\_\+\+TASK\+\_\+\+MANAGER\+\_\+\+MASK}}~0b0000000000000011
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gafc49f7a5303ebabaa3fc0886d67f3e9a}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+L\+O\+G\+\_\+\+S\+T\+A\+R\+T\+\_\+\+S\+T\+O\+P\+\_\+\+T\+I\+ME}}~0x0001U$<$$<$(2)
+\#define \mbox{\hyperlink{group__state__engine__api_gafc49f7a5303ebabaa3fc0886d67f3e9a}{UV\+\_\+\+TASK\+\_\+\+LOG\+\_\+\+START\+\_\+\+STOP\+\_\+\+TIME}}~0x0001U$<$$<$(2)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga0c0d91f0feee4f7b0816b3c06b61b459}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+L\+O\+G\+\_\+\+M\+E\+M\+\_\+\+U\+S\+A\+GE}}~0x0001U$<$$<$(3)
+\#define \mbox{\hyperlink{group__state__engine__api_ga0c0d91f0feee4f7b0816b3c06b61b459}{UV\+\_\+\+TASK\+\_\+\+LOG\+\_\+\+MEM\+\_\+\+USAGE}}~0x0001U$<$$<$(3)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga4d87bda0a72990876364bd8764777cb2}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+S\+C\+D\+\_\+\+I\+G\+N\+O\+RE}}~0x0001U$<$$<$(4)
+\#define \mbox{\hyperlink{group__state__engine__api_ga4d87bda0a72990876364bd8764777cb2}{UV\+\_\+\+TASK\+\_\+\+SCD\+\_\+\+IGNORE}}~0x0001U$<$$<$(4)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga732a956baeb0b603c6c935f1bea13fab}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+I\+S\+\_\+\+P\+A\+R\+E\+NT}}~0x0001U$<$$<$(5)
+\#define \mbox{\hyperlink{group__state__engine__api_ga732a956baeb0b603c6c935f1bea13fab}{UV\+\_\+\+TASK\+\_\+\+IS\+\_\+\+PARENT}}~0x0001U$<$$<$(5)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga5030c3ffc04fb93607cf1d4880a66731}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+I\+S\+\_\+\+C\+H\+I\+LD}}~0x0001U$<$$<$(6)
+\#define \mbox{\hyperlink{group__state__engine__api_ga5030c3ffc04fb93607cf1d4880a66731}{UV\+\_\+\+TASK\+\_\+\+IS\+\_\+\+CHILD}}~0x0001U$<$$<$(6)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gab3967da84c26663341e0cb2ed5177c70}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+I\+S\+\_\+\+O\+R\+P\+H\+AN}}~0x0001U$<$$<$(7)
+\#define \mbox{\hyperlink{group__state__engine__api_gab3967da84c26663341e0cb2ed5177c70}{UV\+\_\+\+TASK\+\_\+\+IS\+\_\+\+ORPHAN}}~0x0001U$<$$<$(7)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga52394ced81b82c523082ed2c4bb9e2d7}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+E\+R\+R\+\_\+\+I\+N\+\_\+\+C\+H\+I\+LD}}~0x0001U$<$$<$(8)
+\#define \mbox{\hyperlink{group__state__engine__api_ga52394ced81b82c523082ed2c4bb9e2d7}{UV\+\_\+\+TASK\+\_\+\+ERR\+\_\+\+IN\+\_\+\+CHILD}}~0x0001U$<$$<$(8)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga0ce66ea8b0c49749cc05a3ba06b2df75}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+A\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+E\+T\+I\+ON}}~0x0001U$<$$<$(9)
+\#define \mbox{\hyperlink{group__state__engine__api_ga0ce66ea8b0c49749cc05a3ba06b2df75}{UV\+\_\+\+TASK\+\_\+\+AWAITING\+\_\+\+DELETION}}~0x0001U$<$$<$(9)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gaf1374f633bd37be99d7d58e33270ce8c}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+F\+E\+R\+\_\+\+D\+E\+L\+E\+T\+I\+ON}}~0x0001U$<$$<$(10)
+\#define \mbox{\hyperlink{group__state__engine__api_gaf1374f633bd37be99d7d58e33270ce8c}{UV\+\_\+\+TASK\+\_\+\+DEFER\+\_\+\+DELETION}}~0x0001U$<$$<$(10)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga4d88012d785bba8a4aa943c23c4450a2}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+A\+D\+L\+I\+N\+E\+\_\+\+N\+O\+T\+\_\+\+E\+N\+F\+O\+R\+C\+ED}}~0x00
+\#define \mbox{\hyperlink{group__state__engine__api_ga4d88012d785bba8a4aa943c23c4450a2}{UV\+\_\+\+TASK\+\_\+\+DEADLINE\+\_\+\+NOT\+\_\+\+ENFORCED}}~0x00
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga337aaae50133aedb5d733b6ede6fb10d}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+P\+R\+I\+O\+\_\+\+I\+N\+C\+R\+E\+M\+E\+N\+T\+A\+T\+I\+ON}}~0x0001U$<$$<$(11)
+\#define \mbox{\hyperlink{group__state__engine__api_ga337aaae50133aedb5d733b6ede6fb10d}{UV\+\_\+\+TASK\+\_\+\+PRIO\+\_\+\+INCREMENTATION}}~0x0001U$<$$<$(11)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gaa3b4befdf874ecfeac5face2cf1ae1a5}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+A\+D\+L\+I\+N\+E\+\_\+\+F\+I\+RM}}~0x0001U$<$$<$(12)
+\#define \mbox{\hyperlink{group__state__engine__api_gaa3b4befdf874ecfeac5face2cf1ae1a5}{UV\+\_\+\+TASK\+\_\+\+DEADLINE\+\_\+\+FIRM}}~0x0001U$<$$<$(12)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga50fac7a227841deccc8b30cef230ba08}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+A\+D\+L\+I\+N\+E\+\_\+\+H\+A\+RD}}~(0x0001U$<$$<$(11)$\vert$0x0001U$<$$<$(12))
+\#define \mbox{\hyperlink{group__state__engine__api_ga50fac7a227841deccc8b30cef230ba08}{UV\+\_\+\+TASK\+\_\+\+DEADLINE\+\_\+\+HARD}}~(0x0001U$<$$<$(11)\texorpdfstring{$\vert$}{|}0x0001U$<$$<$(12))
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga04e93f880387fe61195800f0dfaac0bd}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+A\+D\+L\+I\+N\+E\+\_\+\+M\+A\+SK}}~(0x0001U$<$$<$(11)$\vert$0x0001U$<$$<$(12))
+\#define \mbox{\hyperlink{group__state__engine__api_ga04e93f880387fe61195800f0dfaac0bd}{UV\+\_\+\+TASK\+\_\+\+DEADLINE\+\_\+\+MASK}}~(0x0001U$<$$<$(11)\texorpdfstring{$\vert$}{|}0x0001U$<$$<$(12))
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gab37af27fe89f1987ee38bdb0bc945c43}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+M\+I\+S\+S\+I\+O\+N\+\_\+\+C\+R\+I\+T\+I\+C\+AL}}~0x0001U$<$$<$(13)
+\#define \mbox{\hyperlink{group__state__engine__api_gab37af27fe89f1987ee38bdb0bc945c43}{UV\+\_\+\+TASK\+\_\+\+MISSION\+\_\+\+CRITICAL}}~0x0001U$<$$<$(13)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga70b5081fb012f121afe19c5ad2da9622}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+L\+A\+Y\+I\+NG}}~0x0001U$<$$<$(14)
+\#define \mbox{\hyperlink{group__state__engine__api_ga70b5081fb012f121afe19c5ad2da9622}{UV\+\_\+\+TASK\+\_\+\+DELAYING}}~0x0001U$<$$<$(14)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga07dcd5b5c28f257e50e0d04f519b5e7a}{uv\+Task\+Set\+Deletion\+Bit}}(t)~(t-\/$>$task\+\_\+flags$\vert$=\mbox{\hyperlink{group__state__engine__api_ga0ce66ea8b0c49749cc05a3ba06b2df75}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+A\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+E\+T\+I\+ON}})
+\#define \mbox{\hyperlink{group__state__engine__api_ga07dcd5b5c28f257e50e0d04f519b5e7a}{uv\+Task\+Set\+Deletion\+Bit}}(t)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_gabe734bf4eb30c1a532e083dc9bdf938c}{uv\+Task\+Reset\+Deletion\+Bit}}(t)~(t-\/$>$task\+\_\+flags \&=($\sim$\mbox{\hyperlink{group__state__engine__api_ga0ce66ea8b0c49749cc05a3ba06b2df75}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+A\+W\+A\+I\+T\+I\+N\+G\+\_\+\+D\+E\+L\+E\+T\+I\+ON}}))
+\#define \mbox{\hyperlink{group__state__engine__api_gabe734bf4eb30c1a532e083dc9bdf938c}{uv\+Task\+Reset\+Deletion\+Bit}}(t)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga3cab3b3fd6589348dceaf91b14e2a6ef}{uv\+Task\+Set\+Delay\+Bit}}(t)~(t-\/$>$task\+\_\+flags$\vert$=\mbox{\hyperlink{group__state__engine__api_ga70b5081fb012f121afe19c5ad2da9622}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+L\+A\+Y\+I\+NG}})
+\#define \mbox{\hyperlink{group__state__engine__api_ga3cab3b3fd6589348dceaf91b14e2a6ef}{uv\+Task\+Set\+Delay\+Bit}}(t)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga2d3d223399d12a0af224266487f35483}{uv\+Task\+Reset\+Delay\+Bit}}(t)~(t-\/$>$task\+\_\+flags\&=($\sim$\mbox{\hyperlink{group__state__engine__api_ga70b5081fb012f121afe19c5ad2da9622}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+L\+A\+Y\+I\+NG}}))
+\#define \mbox{\hyperlink{group__state__engine__api_ga2d3d223399d12a0af224266487f35483}{uv\+Task\+Reset\+Delay\+Bit}}(t)
 \item 
-\#define \mbox{\hyperlink{group__state__engine__api_ga0e5d6feafad4764ab2ffd4604ab633b5}{uv\+Task\+Is\+Delaying}}(t)~((t-\/$>$task\+\_\+flags\&\mbox{\hyperlink{group__state__engine__api_ga70b5081fb012f121afe19c5ad2da9622}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+L\+A\+Y\+I\+NG}})==\mbox{\hyperlink{group__state__engine__api_ga70b5081fb012f121afe19c5ad2da9622}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+L\+A\+Y\+I\+NG}})
+\#define \mbox{\hyperlink{group__state__engine__api_ga0e5d6feafad4764ab2ffd4604ab633b5}{uv\+Task\+Is\+Delaying}}(t)
 \item 
 \#define \mbox{\hyperlink{group__state__engine__api_ga5073c1aa60fa9292bc88054a2184daee}{uv\+Task\+Delay}}(x,  t)
 \begin{DoxyCompactList}\small\item\em State engine aware v\+Task\+Delay wrapper. \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{group__state__engine__api_ga1fc770ae6f3a6643548e0fb00a732ae5}{uv\+Task\+Delay\+Until}}(x,  lasttim,  per)
 \begin{DoxyCompactList}\small\item\em State engine aware v\+Task\+Delay\+Until wrapper. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
-\item 
-typedef enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{uvfr__state__engine_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}}
 \item 
 typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}}
 \item 
@@ -100,91 +108,91 @@ typedef enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f0
 \begin{DoxyCompactList}\small\item\em Type representing the overall state and operating mode of the vehicle. \end{DoxyCompactList}\item 
 typedef enum \mbox{\hyperlink{group__state__engine__api_gaf11e8677926913f2dd803fabbed3455c}{uv\+\_\+task\+\_\+cmd\+\_\+e}} \mbox{\hyperlink{group__state__engine__api_gae1b70a2c1baa7da5592e7324008636e4}{uv\+\_\+task\+\_\+cmd}}
 \begin{DoxyCompactList}\small\item\em Special commands used to start and shutdown tasks. \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structuv__scd__response}{uv\+\_\+scd\+\_\+response}} \mbox{\hyperlink{group__state__engine__api_ga856f7f6f3b6b92f655aafc552606ffea}{uv\+\_\+scd\+\_\+response}}
+typedef struct uv\+\_\+scd\+\_\+response \mbox{\hyperlink{group__state__engine__api_ga856f7f6f3b6b92f655aafc552606ffea}{uv\+\_\+scd\+\_\+response}}
 \item 
-typedef enum \mbox{\hyperlink{group__state__engine__api_gac94b6bd11853173599ccff034055cc88}{uv\+\_\+task\+\_\+state\+\_\+t}} \mbox{\hyperlink{group__state__engine__api_ga82006c09ffd194e360785bb51a39ec3f}{uv\+\_\+task\+\_\+status}}
+typedef enum \mbox{\hyperlink{group__state__engine__api_gac94b6bd11853173599ccff034055cc88}{uv\+\_\+task\+\_\+state\+\_\+t}} \mbox{\hyperlink{group__state__engine__api_gaa48d94d79434359ef85419a315f42f9e}{uv\+\_\+task\+\_\+status}}
 \begin{DoxyCompactList}\small\item\em Enum representing the state of a managed task. \end{DoxyCompactList}\item 
 typedef enum \mbox{\hyperlink{group__state__engine__api_ga6166ed80f8e3bd62f1e7e6122c8817f6}{task\+\_\+priority}} \mbox{\hyperlink{group__state__engine__api_ga0faa8cc05082e150c515bbddea144d90}{task\+\_\+priority}}
 \begin{DoxyCompactList}\small\item\em Priority of a managed task. Maps directly to OS priority. \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structtask__management__info}{task\+\_\+management\+\_\+info}} \mbox{\hyperlink{group__state__engine__api_gae41267a13309a303a826aa55c4873a31}{task\+\_\+management\+\_\+info}}
+typedef struct task\+\_\+management\+\_\+info \mbox{\hyperlink{group__state__engine__api_gae41267a13309a303a826aa55c4873a31}{task\+\_\+management\+\_\+info}}
 \begin{DoxyCompactList}\small\item\em Struct to contain data about a parent task. \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structtask__status__block}{task\+\_\+status\+\_\+block}} \mbox{\hyperlink{group__state__engine__api_ga0d368f40115996d74f2e3833ff1a5396}{task\+\_\+status\+\_\+block}}
+typedef struct task\+\_\+status\+\_\+block \mbox{\hyperlink{group__state__engine__api_ga0d368f40115996d74f2e3833ff1a5396}{task\+\_\+status\+\_\+block}}
 \begin{DoxyCompactList}\small\item\em Information about the task. \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structuv__os__settings}{uv\+\_\+os\+\_\+settings}} \mbox{\hyperlink{group__state__engine__api_ga4622e8f893111a8641c8e5a44df3d3dd}{uv\+\_\+os\+\_\+settings}}
+typedef struct uv\+\_\+os\+\_\+settings \mbox{\hyperlink{group__state__engine__api_ga4622e8f893111a8641c8e5a44df3d3dd}{uv\+\_\+os\+\_\+settings}}
 \begin{DoxyCompactList}\small\item\em Settings that dictate state engine behavior. \end{DoxyCompactList}\item 
-typedef struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \mbox{\hyperlink{group__state__engine__api_gaebe69bead1b7c3a1371ffe610708e0ef}{uv\+\_\+task\+\_\+info}}
-\begin{DoxyCompactList}\small\item\em This struct is designed to hold neccessary information about an R\+T\+OS task that will be managed by uvfr\+\_\+state\+\_\+engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Enumerations}
+typedef struct uv\+\_\+task\+\_\+info \mbox{\hyperlink{group__state__engine__api_gaebe69bead1b7c3a1371ffe610708e0ef}{uv\+\_\+task\+\_\+info}}
+\begin{DoxyCompactList}\small\item\em This struct is designed to hold neccessary information about an RTOS task that will be managed by uvfr\+\_\+state\+\_\+engine. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478e4}{uv\+\_\+vehicle\+\_\+state\+\_\+t}} \{ \newline
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a5e3e7ecab0a58b320912cb4129641579}{U\+V\+\_\+\+I\+N\+IT}} = 0x0001, 
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{U\+V\+\_\+\+R\+E\+A\+DY}} = 0x0002, 
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{P\+R\+O\+G\+R\+A\+M\+M\+I\+NG}} = 0x0004, 
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{U\+V\+\_\+\+D\+R\+I\+V\+I\+NG}} = 0x0008, 
-\newline
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abfddf18c580c465bb3c27b522aa4e4a9}{U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+ED}} = 0x0010, 
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a7ff39f8abdc9adbfd693e412e4aaeb6e}{U\+V\+\_\+\+L\+A\+U\+N\+C\+H\+\_\+\+C\+O\+N\+T\+R\+OL}} = 0x0020, 
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{U\+V\+\_\+\+E\+R\+R\+O\+R\+\_\+\+S\+T\+A\+TE}} = 0x0040, 
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4afdfc4cdb8c5210e05bdfdc3df51f80ff}{U\+V\+\_\+\+B\+O\+OT}} = 0x0080, 
-\newline
-\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a2d3dc239e61931f9f779b71e84005b1b}{U\+V\+\_\+\+H\+A\+LT}} = 0x0100
+\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a5e3e7ecab0a58b320912cb4129641579}{UV\+\_\+\+INIT}} = 0x0001
+, \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\+\_\+\+READY}} = 0x0002
+, \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}} = 0x0004
+, \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\+\_\+\+DRIVING}} = 0x0008
+, \newline
+\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abfddf18c580c465bb3c27b522aa4e4a9}{UV\+\_\+\+SUSPENDED}} = 0x0010
+, \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a7ff39f8abdc9adbfd693e412e4aaeb6e}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}} = 0x0020
+, \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{UV\+\_\+\+ERROR\+\_\+\+STATE}} = 0x0040
+, \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4afdfc4cdb8c5210e05bdfdc3df51f80ff}{UV\+\_\+\+BOOT}} = 0x0080
+, \newline
+\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a2d3dc239e61931f9f779b71e84005b1b}{UV\+\_\+\+HALT}} = 0x0100
  \}
 \begin{DoxyCompactList}\small\item\em Type representing the overall state and operating mode of the vehicle. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{group__state__engine__api_gaf11e8677926913f2dd803fabbed3455c}{uv\+\_\+task\+\_\+cmd\+\_\+e}} \{ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca3641b5b35403903b66faf4d615c3199d}{U\+V\+\_\+\+N\+O\+\_\+\+C\+MD}}, 
-\mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD}}, 
-\mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{U\+V\+\_\+\+S\+U\+S\+P\+E\+N\+D\+\_\+\+C\+MD}}, 
-\mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455cabac2ecce11df7b3e4b872ba4d22f7564}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+R\+T\+\_\+\+C\+MD}}
+enum \mbox{\hyperlink{group__state__engine__api_gaf11e8677926913f2dd803fabbed3455c}{uv\+\_\+task\+\_\+cmd\+\_\+e}} \{ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca3641b5b35403903b66faf4d615c3199d}{UV\+\_\+\+NO\+\_\+\+CMD}}
+, \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\+\_\+\+KILL\+\_\+\+CMD}}
+, \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}
+, \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455cabac2ecce11df7b3e4b872ba4d22f7564}{UV\+\_\+\+TASK\+\_\+\+START\+\_\+\+CMD}}
  \}
 \begin{DoxyCompactList}\small\item\em Special commands used to start and shutdown tasks. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{group__state__engine__api_gadfdfabf66fb37e4e702a1019bf1a9a76}{uv\+\_\+scd\+\_\+response\+\_\+e}} \{ \newline
-\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a886d929188a37a7fdae4b18b65a261ca}{U\+V\+\_\+\+S\+U\+C\+C\+E\+S\+S\+F\+U\+L\+\_\+\+D\+E\+L\+E\+T\+I\+ON}}, 
-\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a75d7f4415a6450a9c3d35aaf7b9577cd}{U\+V\+\_\+\+S\+U\+C\+C\+E\+S\+S\+F\+U\+L\+\_\+\+S\+U\+S\+P\+E\+N\+S\+I\+ON}}, 
-\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76aa66da42f9355512e286812074433015b}{U\+V\+\_\+\+C\+O\+U\+L\+D\+N\+T\+\_\+\+D\+E\+L\+E\+TE}}, 
-\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a3c33585e5ac7f76a9bc4dc1fccb764ec}{U\+V\+\_\+\+C\+O\+U\+L\+D\+N\+T\+\_\+\+S\+U\+S\+P\+E\+ND}}, 
-\newline
-\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a0dd4e6d2bbbde83536ed21ac4ce2bd00}{U\+V\+\_\+\+U\+N\+S\+A\+F\+E\+\_\+\+S\+T\+A\+TE}}
+\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a886d929188a37a7fdae4b18b65a261ca}{UV\+\_\+\+SUCCESSFUL\+\_\+\+DELETION}}
+, \mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a75d7f4415a6450a9c3d35aaf7b9577cd}{UV\+\_\+\+SUCCESSFUL\+\_\+\+SUSPENSION}}
+, \mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76aa66da42f9355512e286812074433015b}{UV\+\_\+\+COULDNT\+\_\+\+DELETE}}
+, \mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a3c33585e5ac7f76a9bc4dc1fccb764ec}{UV\+\_\+\+COULDNT\+\_\+\+SUSPEND}}
+, \newline
+\mbox{\hyperlink{group__state__engine__api_ggadfdfabf66fb37e4e702a1019bf1a9a76a0dd4e6d2bbbde83536ed21ac4ce2bd00}{UV\+\_\+\+UNSAFE\+\_\+\+STATE}}
  \}
 \begin{DoxyCompactList}\small\item\em Response from a task confirming it has been either deleted or suspended. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{group__state__engine__api_gac94b6bd11853173599ccff034055cc88}{uv\+\_\+task\+\_\+state\+\_\+t}} \{ \mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88a529c3f9ad3ef9a8e387d875c7a118c7e}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+N\+O\+T\+\_\+\+S\+T\+A\+R\+T\+ED}}, 
-\mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88af6465f57e0b6515721c5cbebd769e691}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+D\+E\+L\+E\+T\+ED}}, 
-\mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88ad4da927019afea812b31d46d28b7354c}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+R\+U\+N\+N\+I\+NG}}, 
-\mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88a147f6febce613c666fe922907472ca0f}{U\+V\+\_\+\+T\+A\+S\+K\+\_\+\+S\+U\+S\+P\+E\+N\+D\+ED}}
+enum \mbox{\hyperlink{group__state__engine__api_gac94b6bd11853173599ccff034055cc88}{uv\+\_\+task\+\_\+state\+\_\+t}} \{ \mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88a529c3f9ad3ef9a8e387d875c7a118c7e}{UV\+\_\+\+TASK\+\_\+\+NOT\+\_\+\+STARTED}}
+, \mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88af6465f57e0b6515721c5cbebd769e691}{UV\+\_\+\+TASK\+\_\+\+DELETED}}
+, \mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88ad4da927019afea812b31d46d28b7354c}{UV\+\_\+\+TASK\+\_\+\+RUNNING}}
+, \mbox{\hyperlink{group__state__engine__api_ggac94b6bd11853173599ccff034055cc88a147f6febce613c666fe922907472ca0f}{UV\+\_\+\+TASK\+\_\+\+SUSPENDED}}
  \}
 \begin{DoxyCompactList}\small\item\em Enum representing the state of a managed task. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{group__state__engine__api_ga6166ed80f8e3bd62f1e7e6122c8817f6}{task\+\_\+priority}} \{ \newline
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6ae1e0864e3b20ced26bebc93aa0766aec}{I\+D\+L\+E\+\_\+\+T\+A\+S\+K\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}, 
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6adb8ee22a232a2787f32ba28da55c43c1}{L\+O\+W\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}, 
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6afe8b192d5f5af86fd93c4f84f7ef3383}{B\+E\+L\+O\+W\+\_\+\+N\+O\+R\+M\+AL}}, 
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6a06b314d863076d54942e065d90c179c4}{M\+E\+D\+I\+U\+M\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}, 
-\newline
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6a052e6887345173e8b7556738c28fa920}{A\+B\+O\+V\+E\+\_\+\+N\+O\+R\+M\+AL}}, 
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6acb1785f11dd02aa7f5d164fb314c594e}{H\+I\+G\+H\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}, 
-\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6aa20ceda9447596a05151a4a66db46a92}{R\+E\+A\+L\+T\+I\+M\+E\+\_\+\+P\+R\+I\+O\+R\+I\+TY}}
+\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6ae1e0864e3b20ced26bebc93aa0766aec}{IDLE\+\_\+\+TASK\+\_\+\+PRIORITY}}
+, \mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6adb8ee22a232a2787f32ba28da55c43c1}{LOW\+\_\+\+PRIORITY}}
+, \mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6afe8b192d5f5af86fd93c4f84f7ef3383}{BELOW\+\_\+\+NORMAL}}
+, \mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6a06b314d863076d54942e065d90c179c4}{MEDIUM\+\_\+\+PRIORITY}}
+, \newline
+\mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6a052e6887345173e8b7556738c28fa920}{ABOVE\+\_\+\+NORMAL}}
+, \mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6acb1785f11dd02aa7f5d164fb314c594e}{HIGH\+\_\+\+PRIORITY}}
+, \mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6aa20ceda9447596a05151a4a66db46a92}{REALTIME\+\_\+\+PRIORITY}}
  \}
 \begin{DoxyCompactList}\small\item\em Priority of a managed task. Maps directly to OS priority. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{group__state__engine__api_gae85df48ed635b45630243b13b6e7d890}{os\+\_\+flag}} \{ \mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890a01fe6bc8a712283339b685288b720cca}{U\+V\+\_\+\+O\+S\+\_\+\+L\+O\+G\+\_\+\+M\+EM}} = 0x01, 
-\mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890a06369476715fdc7bedeec037bf3256cf}{U\+V\+\_\+\+O\+S\+\_\+\+L\+O\+G\+\_\+\+T\+A\+S\+K\+\_\+\+E\+N\+D\+\_\+\+T\+I\+ME}} = 0x02, 
-\mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890aad5d44cbab735a2f51cb37bfb71b8bb3}{U\+V\+\_\+\+O\+S\+\_\+\+A\+T\+T\+E\+M\+P\+T\+\_\+\+R\+E\+S\+T\+A\+R\+T\+\_\+\+N\+C\+\_\+\+T\+A\+SK}} = 0x04, 
-\mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890ab40c36b801f8a9439ca8255b6f740882}{U\+V\+\_\+\+O\+S\+\_\+\+E\+N\+A\+B\+L\+E\+\_\+\+N\+O\+N\+C\+R\+I\+T\+\_\+\+T\+A\+S\+K\+\_\+\+T\+H\+R\+O\+T\+T\+LE}} = 0x08
+enum \mbox{\hyperlink{group__state__engine__api_gae85df48ed635b45630243b13b6e7d890}{os\+\_\+flag}} \{ \mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890a01fe6bc8a712283339b685288b720cca}{UV\+\_\+\+OS\+\_\+\+LOG\+\_\+\+MEM}} = 0x01
+, \mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890a06369476715fdc7bedeec037bf3256cf}{UV\+\_\+\+OS\+\_\+\+LOG\+\_\+\+TASK\+\_\+\+END\+\_\+\+TIME}} = 0x02
+, \mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890aad5d44cbab735a2f51cb37bfb71b8bb3}{UV\+\_\+\+OS\+\_\+\+ATTEMPT\+\_\+\+RESTART\+\_\+\+NC\+\_\+\+TASK}} = 0x04
+, \mbox{\hyperlink{group__state__engine__api_ggae85df48ed635b45630243b13b6e7d890ab40c36b801f8a9439ca8255b6f740882}{UV\+\_\+\+OS\+\_\+\+ENABLE\+\_\+\+NONCRIT\+\_\+\+TASK\+\_\+\+THROTTLE}} = 0x08
  \}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{group__state__engine__api_ga0e6167ef18c2ec8b65fbe070d0ffb6c9}{uv\+Task\+Period\+End}} (\mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$t)
+void \mbox{\hyperlink{group__state__engine__api_ga0e6167ef18c2ec8b65fbe070d0ffb6c9}{uv\+Task\+Period\+End}} (\mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em Function called at the end of the task period. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$ \mbox{\hyperlink{group__state__engine__api_ga99bfc92472cdc99e9005e9d3c792909a}{uv\+Create\+Task}} ()
+struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__state__engine__api_gac977eb33c99a9ac0a5f51a7db20e24d6}{uv\+Create\+Task}} ()
 \begin{DoxyCompactList}\small\item\em This function gets called when you want to create a task, and register it with the task register. Theres some gnarlyness here, but not unacceptable levels. Pray this thing doesn\textquotesingle{}t hang itself. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$ \mbox{\hyperlink{group__state__engine__backend_ga20334b4aff0cfdab7be1d2864089c5ce}{uv\+Create\+Service\+Task}} ()
+struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__state__engine__backend_ga43cdd5f23929fee4ba86d4fd0b60d6ad}{uv\+Create\+Service\+Task}} ()
 \begin{DoxyCompactList}\small\item\em Create a new service task, because fuck you, thats why. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$ \mbox{\hyperlink{uvfr__state__engine_8h_ac77de2c18076b8e04742d2ca927dbd55}{uv\+Get\+Task\+By\+Id}} (uint8\+\_\+t id)
+struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__state__engine_8h_a87c777875dcd381972a25159659dc153}{uv\+Get\+Task\+By\+Id}} (uint8\+\_\+t id)
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_gaf342326f88e8accc1efa35e02cdd6c37}{\+\_\+uv\+Validate\+Specific\+Task}} (uint8\+\_\+t id)
 \begin{DoxyCompactList}\small\item\em make sure the parameters of a task\+\_\+info struct is valid \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_ga8c1618caac0d7f29836107f1a44833e8}{uv\+Validate\+Managed\+Tasks}} ()
 \begin{DoxyCompactList}\small\item\em ensure that all the tasks people have created actually make sense, and are valid \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_ga15cdf09b5625c2ba29a6c6d5c96214dc}{uv\+Start\+Task}} (uint32\+\_\+t $\ast$tracker, struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$t)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_ga15cdf09b5625c2ba29a6c6d5c96214dc}{uv\+Start\+Task}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}tracker, struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em \+: This is a function that starts tasks which are already registered in the system \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__state__engine_8h_a0547a08e521248754efe91c5de5ec182}{uv\+Register\+Task}} ()
 \item 
@@ -192,9 +200,9 @@ struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$ \m
 \begin{DoxyCompactList}\small\item\em Function that prepares the state engine to do its thing. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__api_ga2ad1d74b5783a51355c047be6642fab8}{uv\+Start\+State\+Machine}} ()
 \begin{DoxyCompactList}\small\item\em Actually starts up the state engine to do state engine things. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_ga6291142ec714ce1450099943b1b8d00a}{uv\+Delete\+Task}} (uint32\+\_\+t $\ast$tracker, struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$t)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_ga6291142ec714ce1450099943b1b8d00a}{uv\+Delete\+Task}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}tracker, struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em deletes a managed task via the system \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_gafd67eecbab2e6e6915bc6bc71806b715}{uv\+Suspend\+Task}} (uint32\+\_\+t $\ast$tracker, struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$t)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__backend_gafd67eecbab2e6e6915bc6bc71806b715}{uv\+Suspend\+Task}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}tracker, struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em function to suspend one of the managed tasks. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__api_ga5cb739823b10b90a139315356aa6b22f}{uv\+De\+Init\+State\+Engine}} ()
 \begin{DoxyCompactList}\small\item\em Stops and frees all resources used by uvfr\+\_\+state\+\_\+engine. \end{DoxyCompactList}\item 
@@ -202,15 +210,15 @@ struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$ \m
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{change\+Vehicle\+State}} (uint16\+\_\+t state)
 \begin{DoxyCompactList}\small\item\em Function for changing the state of the vehicle, as well as the list of active + inactive tasks. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{group__state__engine__backend_gab2449f66698295ebfaff451c2f63607f}{\+\_\+\+\_\+uv\+Panic}} (char $\ast$msg, uint8\+\_\+t msg\+\_\+len, const char $\ast$file, const int line, const char $\ast$func)
-\begin{DoxyCompactList}\small\item\em Something bad has occurred here now we in trouble. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{kill\+Self}} (struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$t)
+void \mbox{\hyperlink{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}{\+\_\+\+\_\+uv\+Panic}} (char \texorpdfstring{$\ast$}{*}msg, uint8\+\_\+t msg\+\_\+len, const char \texorpdfstring{$\ast$}{*}file, const int line, const char \texorpdfstring{$\ast$}{*}func)
+\item 
+void \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{kill\+Self}} (struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em This function is called by a task to nuke itself. Is a wrapper function that is used to do all the different things. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspend\+Self}} (struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} $\ast$t)
+void \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspend\+Self}} (struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em Called by a task that needs to suspend itself, once the task has determined it is safe to do so. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}} \mbox{\hyperlink{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}{get\+S\+V\+C\+Task\+ID}} (char $\ast$tsk\+\_\+name)
+\mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}} \mbox{\hyperlink{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}{get\+SVCTask\+ID}} (char \texorpdfstring{$\ast$}{*}tsk\+\_\+name)
 \end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
 enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478e4}{uv\+\_\+vehicle\+\_\+state\+\_\+t}} \mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\+\_\+state}}
@@ -218,133 +226,141 @@ enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{uvfr__state__engine_8h_a2b86418bd482f9d4a2a36f35e786798e}\label{uvfr__state__engine_8h_a2b86418bd482f9d4a2a36f35e786798e}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_LONGEST\_SC\_TIME@{\_LONGEST\_SC\_TIME}}
+\Hypertarget{uvfr__state__engine_8h_a2b86418bd482f9d4a2a36f35e786798e}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_LONGEST\_SC\_TIME@{\_LONGEST\_SC\_TIME}}
 \index{\_LONGEST\_SC\_TIME@{\_LONGEST\_SC\_TIME}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{\_LONGEST\_SC\_TIME}{\_LONGEST\_SC\_TIME}}
-{\footnotesize\ttfamily \#define \+\_\+\+L\+O\+N\+G\+E\+S\+T\+\_\+\+S\+C\+\_\+\+T\+I\+ME~300}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a2b86418bd482f9d4a2a36f35e786798e} 
+\#define \+\_\+\+LONGEST\+\_\+\+SC\+\_\+\+TIME~300}
 
 
 
-Definition at line 63 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00070}{70}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4}\label{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_SC\_DAEMON\_PERIOD@{\_SC\_DAEMON\_PERIOD}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}.
+
+\Hypertarget{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_SC\_DAEMON\_PERIOD@{\_SC\_DAEMON\_PERIOD}}
 \index{\_SC\_DAEMON\_PERIOD@{\_SC\_DAEMON\_PERIOD}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{\_SC\_DAEMON\_PERIOD}{\_SC\_DAEMON\_PERIOD}}
-{\footnotesize\ttfamily \#define \+\_\+\+S\+C\+\_\+\+D\+A\+E\+M\+O\+N\+\_\+\+P\+E\+R\+I\+OD~10}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4} 
+\#define \+\_\+\+SC\+\_\+\+DAEMON\+\_\+\+PERIOD~10}
 
 
 
-Definition at line 64 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00071}{71}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2}\label{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_INSTANCES@{\_UV\_DEFAULT\_TASK\_INSTANCES}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}.
+
+\Hypertarget{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_INSTANCES@{\_UV\_DEFAULT\_TASK\_INSTANCES}}
 \index{\_UV\_DEFAULT\_TASK\_INSTANCES@{\_UV\_DEFAULT\_TASK\_INSTANCES}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{\_UV\_DEFAULT\_TASK\_INSTANCES}{\_UV\_DEFAULT\_TASK\_INSTANCES}}
-{\footnotesize\ttfamily \#define \+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+I\+N\+S\+T\+A\+N\+C\+ES~128}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2} 
+\#define \+\_\+\+UV\+\_\+\+DEFAULT\+\_\+\+TASK\+\_\+\+INSTANCES~128}
 
 
 
-Definition at line 56 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00063}{63}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a3ecc1e9c72ff5ba01649bf037186b015}\label{uvfr__state__engine_8h_a3ecc1e9c72ff5ba01649bf037186b015}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_PERIOD@{\_UV\_DEFAULT\_TASK\_PERIOD}}
+\Hypertarget{uvfr__state__engine_8h_a3ecc1e9c72ff5ba01649bf037186b015}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_PERIOD@{\_UV\_DEFAULT\_TASK\_PERIOD}}
 \index{\_UV\_DEFAULT\_TASK\_PERIOD@{\_UV\_DEFAULT\_TASK\_PERIOD}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{\_UV\_DEFAULT\_TASK\_PERIOD}{\_UV\_DEFAULT\_TASK\_PERIOD}}
-{\footnotesize\ttfamily \#define \+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD~100}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a3ecc1e9c72ff5ba01649bf037186b015} 
+\#define \+\_\+\+UV\+\_\+\+DEFAULT\+\_\+\+TASK\+\_\+\+PERIOD~100}
 
 
 
-Definition at line 60 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00067}{67}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}\label{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_STACK\_SIZE@{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}}
+\Hypertarget{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_STACK\_SIZE@{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}}
 \index{\_UV\_DEFAULT\_TASK\_STACK\_SIZE@{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}}
-{\footnotesize\ttfamily \#define \+\_\+\+U\+V\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+T\+A\+S\+K\+\_\+\+S\+T\+A\+C\+K\+\_\+\+S\+I\+ZE~128}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238} 
+\#define \+\_\+\+UV\+\_\+\+DEFAULT\+\_\+\+TASK\+\_\+\+STACK\+\_\+\+SIZE~128}
 
 
 
-Definition at line 58 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00065}{65}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b}\label{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_MIN\_TASK\_PERIOD@{\_UV\_MIN\_TASK\_PERIOD}}
+
+
+Referenced by \mbox{\hyperlink{odometer_8c_source_l00011}{init\+Odometer()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00017}{init\+Temp\+Monitor()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
+
+\Hypertarget{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_MIN\_TASK\_PERIOD@{\_UV\_MIN\_TASK\_PERIOD}}
 \index{\_UV\_MIN\_TASK\_PERIOD@{\_UV\_MIN\_TASK\_PERIOD}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{\_UV\_MIN\_TASK\_PERIOD}{\_UV\_MIN\_TASK\_PERIOD}}
-{\footnotesize\ttfamily \#define \+\_\+\+U\+V\+\_\+\+M\+I\+N\+\_\+\+T\+A\+S\+K\+\_\+\+P\+E\+R\+I\+OD~5}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b} 
+\#define \+\_\+\+UV\+\_\+\+MIN\+\_\+\+TASK\+\_\+\+PERIOD~5}
 
 
 
-Definition at line 61 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00068}{68}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_afa84e50f417bfe6026bd922b546e4daa}\label{uvfr__state__engine_8h_afa84e50f417bfe6026bd922b546e4daa}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!SVC\_TASK\_MAX\_CHECKIN\_PERIOD@{SVC\_TASK\_MAX\_CHECKIN\_PERIOD}}
+\Hypertarget{uvfr__state__engine_8h_afa84e50f417bfe6026bd922b546e4daa}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!SVC\_TASK\_MAX\_CHECKIN\_PERIOD@{SVC\_TASK\_MAX\_CHECKIN\_PERIOD}}
 \index{SVC\_TASK\_MAX\_CHECKIN\_PERIOD@{SVC\_TASK\_MAX\_CHECKIN\_PERIOD}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{SVC\_TASK\_MAX\_CHECKIN\_PERIOD}{SVC\_TASK\_MAX\_CHECKIN\_PERIOD}}
-{\footnotesize\ttfamily \#define S\+V\+C\+\_\+\+T\+A\+S\+K\+\_\+\+M\+A\+X\+\_\+\+C\+H\+E\+C\+K\+I\+N\+\_\+\+P\+E\+R\+I\+OD~500}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_afa84e50f417bfe6026bd922b546e4daa} 
+\#define SVC\+\_\+\+TASK\+\_\+\+MAX\+\_\+\+CHECKIN\+\_\+\+PERIOD~500}
 
 
 
-Definition at line 66 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00073}{73}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{uvfr__state__engine_8h_aef3770e45bbacbf527fd93dd80eea9b9}\label{uvfr__state__engine_8h_aef3770e45bbacbf527fd93dd80eea9b9}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uv\_status@{uv\_status}}
-\index{uv\_status@{uv\_status}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
-\doxysubsubsection{\texorpdfstring{uv\_status}{uv\_status}}
-{\footnotesize\ttfamily typedef enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}}}
-
-
-
-Definition at line 51 of file uvfr\+\_\+state\+\_\+engine.\+h.
-
-\mbox{\Hypertarget{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}\label{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uv\_task\_id@{uv\_task\_id}}
+\Hypertarget{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uv\_task\_id@{uv\_task\_id}}
 \index{uv\_task\_id@{uv\_task\_id}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{uv\_task\_id}{uv\_task\_id}}
-{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}}}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09} 
+typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}}}
 
 
 
-Definition at line 52 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00059}{59}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}\label{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uv\_timespan\_ms@{uv\_timespan\_ms}}
+\Hypertarget{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uv\_timespan\_ms@{uv\_timespan\_ms}}
 \index{uv\_timespan\_ms@{uv\_timespan\_ms}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{uv\_timespan\_ms}{uv\_timespan\_ms}}
-{\footnotesize\ttfamily typedef uint32\+\_\+t \mbox{\hyperlink{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}{uv\+\_\+timespan\+\_\+ms}}}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350} 
+typedef uint32\+\_\+t \mbox{\hyperlink{uvfr__state__engine_8h_af1ca0b89ee88cdf48a7640d6ec793350}{uv\+\_\+timespan\+\_\+ms}}}
 
 
 
-Definition at line 70 of file uvfr\+\_\+state\+\_\+engine.\+h.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00077}{77}} of file \mbox{\hyperlink{uvfr__state__engine_8h_source}{uvfr\+\_\+state\+\_\+engine.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}\label{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!getSVCTaskID@{getSVCTaskID}}
+\Hypertarget{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_\_uvPanic@{\_\_uvPanic}}
+\index{\_\_uvPanic@{\_\_uvPanic}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
+\doxysubsubsection{\texorpdfstring{\_\_uvPanic()}{\_\_uvPanic()}}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f} 
+void \+\_\+\+\_\+uv\+Panic (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{msg}{, }\item[{uint8\+\_\+t}]{msg\+\_\+len}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{const int}]{line}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{func}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!getSVCTaskID@{getSVCTaskID}}
 \index{getSVCTaskID@{getSVCTaskID}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{getSVCTaskID()}{getSVCTaskID()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}} get\+S\+V\+C\+Task\+ID (\begin{DoxyParamCaption}\item[{char $\ast$}]{tsk\+\_\+name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7} 
+\mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\+\_\+task\+\_\+id}} get\+SVCTask\+ID (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{tsk\+\_\+name}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a7493b2515639f60db83cd6ed77b50432}\label{uvfr__state__engine_8h_a7493b2515639f60db83cd6ed77b50432}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!updateRunningTasks@{updateRunningTasks}}
+\Hypertarget{uvfr__state__engine_8h_a7493b2515639f60db83cd6ed77b50432}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!updateRunningTasks@{updateRunningTasks}}
 \index{updateRunningTasks@{updateRunningTasks}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{updateRunningTasks()}{updateRunningTasks()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} update\+Running\+Tasks (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a7493b2515639f60db83cd6ed77b50432} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} update\+Running\+Tasks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_ac77de2c18076b8e04742d2ca927dbd55}\label{uvfr__state__engine_8h_ac77de2c18076b8e04742d2ca927dbd55}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uvGetTaskById@{uvGetTaskById}}
+\Hypertarget{uvfr__state__engine_8h_a87c777875dcd381972a25159659dc153}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uvGetTaskById@{uvGetTaskById}}
 \index{uvGetTaskById@{uvGetTaskById}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{uvGetTaskById()}{uvGetTaskById()}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}}$\ast$ uv\+Get\+Task\+By\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a87c777875dcd381972a25159659dc153} 
+struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*} uv\+Get\+Task\+By\+Id (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{id}{}\end{DoxyParamCaption})}
 
-\mbox{\Hypertarget{uvfr__state__engine_8h_a0547a08e521248754efe91c5de5ec182}\label{uvfr__state__engine_8h_a0547a08e521248754efe91c5de5ec182}} 
-\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uvRegisterTask@{uvRegisterTask}}
+\Hypertarget{uvfr__state__engine_8h_a0547a08e521248754efe91c5de5ec182}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uvRegisterTask@{uvRegisterTask}}
 \index{uvRegisterTask@{uvRegisterTask}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
 \doxysubsubsection{\texorpdfstring{uvRegisterTask()}{uvRegisterTask()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Register\+Task (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a0547a08e521248754efe91c5de5ec182} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Register\+Task (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 

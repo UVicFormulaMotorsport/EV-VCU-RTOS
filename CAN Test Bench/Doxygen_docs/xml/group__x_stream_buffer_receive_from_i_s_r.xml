@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_stream_buffer_receive_from_i_s_r" kind="group">
     <compoundname>xStreamBufferReceiveFromISR</compoundname>
     <title>xStreamBufferReceiveFromISR</title>
@@ -8,10 +8,10 @@
     <detaileddescription>
 <para><ref refid="stream__buffer_8h" kindref="compound">stream_buffer.h</ref></para>
 <para><preformatted>
-size_t xStreamBufferReceiveFromISR( StreamBufferHandle_t xStreamBuffer,
+size_t <ref refid="stream__buffer_8h_1a6c882a1d9f26c40f93f271bd1b844b3b" kindref="member">xStreamBufferReceiveFromISR( StreamBufferHandle_t xStreamBuffer,
                                     void *pvRxData,
                                     size_t xBufferLengthBytes,
-                                    BaseType_t *pxHigherPriorityTaskWoken );
+                                    BaseType_t *pxHigherPriorityTaskWoken )</ref>;
 </preformatted></para>
 <para>An interrupt safe version of the API function that receives bytes from a stream buffer.</para>
 <para>Use <ref refid="stream__buffer_8h_1a55efc144b988598d84a6087d3e20b507" kindref="member">xStreamBufferReceive()</ref> to read bytes from a stream buffer from a task. Use <ref refid="stream__buffer_8h_1a6c882a1d9f26c40f93f271bd1b844b3b" kindref="member">xStreamBufferReceiveFromISR()</ref> to read bytes from a stream buffer from an interrupt service routine (ISR).</para>
@@ -52,23 +52,27 @@ size_t xStreamBufferReceiveFromISR( StreamBufferHandle_t xStreamBuffer,
 </simplesect>
 Example use: <preformatted>
 // A stream buffer that has already been created.
-StreamBuffer_t xStreamBuffer;</preformatted></para>
-<para><preformatted>void vAnInterruptServiceRoutine( void )
+StreamBuffer_t xStreamBuffer;
+
+void vAnInterruptServiceRoutine( void )
 {
 uint8_t ucRxData[ 20 ];
 size_t xReceivedBytes;
-BaseType_t xHigherPriorityTaskWoken = pdFALSE;  // Initialised to pdFALSE.</preformatted></para>
-<para><preformatted>    // Receive the next stream from the stream buffer.
+BaseType_t xHigherPriorityTaskWoken = pdFALSE;  // Initialised to pdFALSE.
+
+    // Receive the next stream from the stream buffer.
     xReceivedBytes = xStreamBufferReceiveFromISR( xStreamBuffer,
                                                   ( void * ) ucRxData,
                                                   sizeof( ucRxData ),
-                                                  &amp;xHigherPriorityTaskWoken );</preformatted></para>
-<para><preformatted>    if( xReceivedBytes &gt; 0 )
+                                                  &amp;xHigherPriorityTaskWoken );
+
+    if( xReceivedBytes &gt; 0 )
     {
         // ucRxData contains xReceivedBytes read from the stream buffer.
         // Process the stream here....
-    }</preformatted></para>
-<para><preformatted>    // If xHigherPriorityTaskWoken was set to pdTRUE inside
+    }
+
+    // If xHigherPriorityTaskWoken was set to pdTRUE inside
     // <ref refid="stream__buffer_8h_1a6c882a1d9f26c40f93f271bd1b844b3b" kindref="member">xStreamBufferReceiveFromISR()</ref> then a task that has a priority above the
     // priority of the currently executing task was unblocked and a context
     // switch should be performed to ensure the ISR returns to the unblocked
@@ -78,7 +82,7 @@ BaseType_t xHigherPriorityTaskWoken = pdFALSE;  // Initialised to pdFALSE.</pref
     // documentation for the port in use for port specific instructions.
     taskYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

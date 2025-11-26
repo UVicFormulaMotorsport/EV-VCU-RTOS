@@ -1,19 +1,16 @@
-\hypertarget{group__x_queue_create}{}\doxysection{x\+Queue\+Create}
-\label{group__x_queue_create}\index{xQueueCreate@{xQueueCreate}}
+\doxysection{x\+Queue\+Create}
+\hypertarget{group__x_queue_create}{}\label{group__x_queue_create}\index{xQueueCreate@{xQueueCreate}}
 queue. h 
 \begin{DoxyPre}
-QueueHandle\_t xQueueCreate(
-                          UBaseType\_t uxQueueLength,
-                          UBaseType\_t uxItemSize
-                      );
+QueueHandle\_t xQueueCreate(                           UBaseType\_t uxQueueLength,                           UBaseType\_t uxItemSize                       );
   \end{DoxyPre}
 
 
 Creates a new queue instance, and returns a handle by which the new queue can be referenced.
 
-Internally, within the Free\+R\+T\+OS implementation, queues use two blocks of memory. The first block is used to hold the queue\textquotesingle{}s data structures. The second block is used to hold items placed into the queue. If a queue is created using x\+Queue\+Create() then both blocks of memory are automatically dynamically allocated inside the x\+Queue\+Create() function. (see \href{http://www.freertos.org/a00111.html}{\texttt{ http\+://www.\+freertos.\+org/a00111.\+html}}). If a queue is created using x\+Queue\+Create\+Static() then the application writer must provide the memory that will get used by the queue. x\+Queue\+Create\+Static() therefore allows a queue to be created without using any dynamic memory allocation.
+Internally, within the Free\+RTOS implementation, queues use two blocks of memory. The first block is used to hold the queue\textquotesingle{}s data structures. The second block is used to hold items placed into the queue. If a queue is created using x\+Queue\+Create() then both blocks of memory are automatically dynamically allocated inside the x\+Queue\+Create() function. (see \href{http://www.freertos.org/a00111.html}{\texttt{ http\+://www.\+freertos.\+org/a00111.\+html}}). If a queue is created using x\+Queue\+Create\+Static() then the application writer must provide the memory that will get used by the queue. x\+Queue\+Create\+Static() therefore allows a queue to be created without using any dynamic memory allocation.
 
-\href{http://www.FreeRTOS.org/Embedded-RTOS-Queues.html}{\texttt{ http\+://www.\+Free\+R\+T\+O\+S.\+org/\+Embedded-\/\+R\+T\+O\+S-\/\+Queues.\+html}}
+\href{http://www.FreeRTOS.org/Embedded-RTOS-Queues.html}{\texttt{ http\+://www.\+Free\+RTOS.\+org/\+Embedded-\/\+RTOS-\/\+Queues.\+html}}
 
 
 \begin{DoxyParams}{Parameters}
@@ -31,36 +28,28 @@ struct AMessage
 \{
    char ucMessageID;
    char ucData[ 20 ];
-\};\end{DoxyPre}
+\};
 
-
-
-\begin{DoxyPre}void vATask( void *pvParameters )
+void vATask( void *pvParameters )
 \{
-QueueHandle\_t xQueue1, xQueue2;\end{DoxyPre}
+QueueHandle\_t xQueue1, xQueue2;
 
-
-
-\begin{DoxyPre}   // Create a queue capable of containing 10 uint32\_t values.
+   // Create a queue capable of containing 10 uint32\_t values.
    xQueue1 = xQueueCreate( 10, sizeof( uint32\_t ) );
    if( xQueue1 == 0 )
    \{
     // Queue was not created and must not be used.
-   \}\end{DoxyPre}
+   \}
 
-
-
-\begin{DoxyPre}   // Create a queue capable of containing 10 pointers to AMessage structures.
+   // Create a queue capable of containing 10 pointers to AMessage structures.
    // These should be passed by pointer as they contain a lot of data.
    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
    if( xQueue2 == 0 )
    \{
     // Queue was not created and must not be used.
-   \}\end{DoxyPre}
+   \}
 
-
-
-\begin{DoxyPre}   // ... Rest of task code.
+   // ... Rest of task code.
 \}
 \end{DoxyPre}
- 
+   

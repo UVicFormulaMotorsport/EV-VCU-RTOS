@@ -1,3 +1,5 @@
+#define __UV_FILENAME__ "daq.c"
+
 #define _SRC_UVFR_DAQ
 
 
@@ -9,58 +11,17 @@
 #include "stm32f4xx_hal_adc.h"
 #include "stm32f4xx_hal_rcc.h"
 
+#define INV_DAQ_P 0xFFFF
+
+//#define daq_settings current_vehicle_settings->daq_settings
+
+const uint64_t constant_zero = 0;
 
 volatile uint16_t coolant_temp_adc = 0;
 volatile uint16_t motor_temp_adc = 0;
 
 //configuring ADCs
-ADC_HandleTypeDef hadc1;
-
-//void MX_ADC1_Init(void){
-//	ADC_ChannelConfTypeDef sConfig = {0};
-//
-//	__HAL_RCC_ADC1_CLK_ENABLE(); //enable clock
-//
-//	//ADC1 CONFIGURATION
-//	hadc1.Instance = ADC1;
-//	hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
-//	hadc1.Init.Resolution = ADC_RESOLUTION_12B;
-//	hadc1.Init.ScanConvMode = ENABLE;
-//	hadc1.Init.ContinuousConvMode = DISABLE;
-//	hadc1.Init.DiscontinuousConvMode = DISABLE;
-//	hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-//	hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-//	hadc1.Init.NbrOfConversion = 2;
-//	HAL_ADC_Init(&hadc1);
-//
-//	// channel configuration
-//	sConfig.Channel = ADC_CHANNEL_1;
-//	sConfig.Rank = 1;
-//	sConfig.SamplingTime = ADC_SAMPLETIME_144CYCLES;
-//	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-//
-//	sConfig.Channel = ADC_CHANNEL_2;
-//	sConfig.Rank = 2;
-//	HAL_ADC_ConfigChannel(&hadc1, &sConfig);
-//
-//}
-
-//void updateReadings(void){
-//	HAL_ADC_Start(&hadc1);
-//
-//	//wait and read first channel
-//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-//
-//	coolant_temp_adc = HAL_ADC_GetValue(&hadc1);
-//
-//	//wait and read second channel
-//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-//	motor_temp_adc = HAL_ADC_GetValue(&hadc1);
-//
-//	//self explanatory
-//	HAL_ADC_Stop(&hadc1);
-//
-//}
+//ADC_HandleTypeDef hadc1;
 
 
 
@@ -70,9 +31,9 @@ typedef struct daq_param_list_node{
 	struct daq_param_list_node* next;
 
 	uint32_t can_id;
-	uint16_t param;
+	uint16_t param[4];
 
-	uint8_t size;
+	uint8_t size[4];
 }daq_param_list_node;
 
 typedef struct daq_child_task{
@@ -87,68 +48,32 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 8,
+	.total_params_logged = 2,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
-	.can_channel = 1,
+	.can_channel = CAN_BUS_2,
 	.daq_child_priority = 1
 };
 
-daq_datapoint default_datapoints[] ={
+daq_msg default_datapoints[] ={
 	{.can_id = 0x530,
-	.param = APPS1_ADC_VAL,
+	.param = {APPS1_ADC_VAL,APPS2_ADC_VAL,BPS1_ADC_VAL,BPS2_ADC_VAL},
 	.period = 50,
-	.type = UV_UINT16},
+	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
 
-	{.can_id = 0x531,
-	.param = APPS2_ADC_VAL,
-	.period = 50,
-	.type = UV_UINT16},
 
-	{.can_id = 0x532,
-	.param = BPS1_ADC_VAL,
-	.period = 50,
-	.type = UV_UINT16},
-
-	{.can_id = 0x533,
-	.param = BPS2_ADC_VAL,
-	.period = 50,
-	.type = UV_UINT16},
 
 	{.can_id = 0x540,
-	.param = VCU_VEHICLE_STATE,
-	.period = 100,
-	.type = UV_UINT16},
+	.param = {VCU_CURRENT_UPTIME,VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P},
+	.period = 250,
+	.type = {UV_UINT32,UV_UINT16,0,0}},
 
 	{.can_id = 0x541,
-	.param = VCU_ERROR_BITFIELD1,
-	.period = 100,
-	.type = UV_UINT32},
+	.param = {OS_AVAILABLE_HEAP,OS_MIN_EVER_FREE_BYTES,INV_DAQ_P,INV_DAQ_P},
+	.period = 250,
+	.type = {UV_UINT32,UV_UINT32,0,0}},
 
-	{.can_id = 0x542,
-	.param = VCU_ERROR_BITFIELD2,
-	.period = 100,
-	.type = UV_UINT32},
 
-	{.can_id = 0x543,
-	.param = VCU_ERROR_BITFIELD3,
-	.period = 100,
-	.type = UV_UINT32},
-
-	{.can_id = 0x544,
-	.param = VCU_ERROR_BITFIELD4,
-	.period = 100,
-	.type = UV_UINT32},
-
-	{.can_id = 0x545,
-	.param = COOLANT_TEMP_ADC,
-	.period = 50,
-	.type = UV_UINT16},
-
-	{.can_id = 0x546,
-	.param = MOTOR_TEMP_ADC,
-	.period = 50,
-	.type = UV_UINT16},
 
 
 };
@@ -157,7 +82,7 @@ static void* param_ptrs[MAX_LOGGABLE_PARAMS];
 
 static daq_child_task* daq_tlist = NULL;
 
-static daq_datapoint* datapoints = NULL;
+static daq_msg* datapoints = NULL;
 
 static daq_param_list_node* param_bank = NULL;
 
@@ -203,7 +128,7 @@ static inline void insertParamToParamList(daq_param_list_node* node, daq_param_l
 /** @brief
  *
  */
-uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapoint){
+uv_status insertParamToRegister(daq_param_list_node* node, daq_msg* datapoint){
 	//Step 1: find which task this will be assigned to. If no tasks have been created yet, then create them lol
 	if(daq_tlist == NULL){
 		daq_tlist = uvMalloc(sizeof(daq_child_task));
@@ -219,8 +144,11 @@ uv_status insertParamToRegister(daq_param_list_node* node, daq_datapoint* datapo
 
 	daq_child_task* list_tmp = daq_tlist;
 	node->can_id = datapoint->can_id; //Ensure that the daq_node has the needed params
-	node->param = datapoint->param;
-	node->size = data_size[datapoint->type];
+	for(int i = 0; i<4 ; i++){
+		node->param[i] = datapoint->param[i];
+		node->size[i] = data_size[datapoint->type[i]];
+	}
+
 	node->next = NULL;
 
 	while(1){
@@ -263,7 +191,7 @@ uv_status configureDaqSubTasks(){
 	uint16_t n_logged_params = curr_daq_settings->total_params_logged;
 	//uint16_t n; // Will use this to track number of params used as we iterate
 
-	daq_datapoint* master_param_list = current_vehicle_settings->daq_param_list;
+	daq_msg* master_param_list = current_vehicle_settings->daq_param_list;
 
 	param_bank = uvMalloc(n_logged_params*sizeof(daq_param_list_node));
 
@@ -289,12 +217,16 @@ uv_status configureDaqSubTasks(){
 uv_status startDaqSubTasks(){
 	daq_child_task* tmp = daq_tlist;
 	BaseType_t retval = 0;
-	while(tmp != NULL){
+	while(tmp != NULL){ //Iterate through linked list of DAQ subtasks
 		retval = xTaskCreate(daqSubTask,
 				"DaqSub",256,tmp,
 				curr_daq_settings->daq_child_priority,
 				&(tmp->meta_task_handle));
 		tmp = tmp->next_task;
+
+		if(retval != pdPASS){
+			//Do something to handle the error
+		}
 
 	}
 	return UV_OK;
@@ -305,12 +237,14 @@ uv_status startDaqSubTasks(){
  */
 uv_status stopDaqSubTasks(){
 	daq_child_task* tmp = daq_tlist;
-	BaseType_t retval = 0;
+	//BaseType_t retval = 0;
 	while(tmp!=NULL){
 		vTaskDelete(tmp->meta_task_handle);
 	}
 	return UV_ERROR;
 }
+
+uv_CAN_msg tmp_daq_msg;
 
 /** @brief initializes the master DAQ task, all that fun stuff. This task probably manages a while plethora of smaller tasks
  *
@@ -328,10 +262,11 @@ uv_status stopDaqSubTasks(){
  *
  */
 uv_status initDaqTask(void * args){
-	MX_ADC1_Init; //calling initialization of ADC1
+	//MX_ADC1_Init; //calling initialization of ADC1
 
 	curr_daq_settings = current_vehicle_settings->daq_settings;
 	datapoints = current_vehicle_settings->daq_param_list;
+	tmp_daq_msg.flags = curr_daq_settings->can_channel;
 
 	associateDaqParamWithVar(COOLANT_TEMP_ADC, (void*)&coolant_temp_adc); //HOOKING ADC VARS TO DAQ. 
 	associateDaqParamWithVar(MOTOR_TEMP_ADC, (void*)&motor_temp_adc); //HOOKING ADC VARS TO DAQ. 
@@ -389,7 +324,7 @@ void daqMasterTask(void* args){
 		 * execution actually takes
 		 *
 		 @code*/
-	TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
+	//TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
 	//TickType_t last_time = xTaskGetTickCount();		/**@endcode */
 	for(;;){
 		if(params->cmd_data == UV_KILL_CMD){
@@ -402,53 +337,83 @@ void daqMasterTask(void* args){
 			//suspendSelf(params);
 		}
 		uvTaskDelay(params,params->task_period);
-
-		//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
-//		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
-//			vTaskDelay(25);
-//			while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
-//
-//			}
-//
-//
-//
-//				changeVehicleState(UV_DRIVING);
-//
-//
-//
-//		}
-
-
 	}
 }
 
 
-uv_CAN_msg tmp_daq_msg;
+
 
 /** @brief
  *
  */
-static inline void sendDaqMsg(daq_param_list_node* param){
-	if(param->param > 32){
-		return;
+static inline void sendDaqMsg(daq_param_list_node* dmsg){
+//	if(param->param > 32){
+//		return;
+//	}
+//
+//	if(param_ptrs[param->param] == NULL){ //We simply ignore nulls instead of say, crashing
+//		return;
+//	}
+
+//	tmp_daq_msg.msg_id = param->can_id;
+//	tmp_daq_msg.data[0] = *((uint8_t*)(param_ptrs[param->param]));
+//	tmp_daq_msg.data[1] = *((uint8_t*)(param_ptrs[param->param]+1));
+//	tmp_daq_msg.data[2] = *((uint8_t*)(param_ptrs[param->param]+2));
+//	tmp_daq_msg.data[3] = *((uint8_t*)(param_ptrs[param->param]+3));
+//	tmp_daq_msg.dlc = param->size;
+
+	uv_CAN_msg msg = {
+		.flags = curr_daq_settings->can_channel,
+		.data = {0,0,0,0,0,0,0,0},
+		.msg_id = dmsg->can_id
+	};
+
+	if(dmsg->can_id > 0x7FF){
+		msg.flags |= UV_CAN_EXTENDED_ID;
 	}
 
-	if(param_ptrs[param->param] == NULL){ //We simply ignore nulls instead of say, crashing
-		return;
+	uint16_t param = 0xFFFF;
+	uint8_t dlc = 0;
+	uint8_t psize = 0;
+
+	for(int i = 0; i<4 ; i++){
+		param = dmsg->param[i];
+
+		if(param >= MAX_LOGGABLE_PARAMS){ //Not a real parameter, sorry!
+			continue;
+		}
+
+		uint8_t* p_ptr = (uint8_t*)param_ptrs[param];
+
+		if(p_ptr == NULL){ //cover edge case where the param ID has not been associated with a variable - send 0 in this case
+			p_ptr = (uint8_t*)(&constant_zero);
+		}
+
+		psize = dmsg->size[i];
+
+		if((dlc + psize) > 8){
+			//out of room in the message
+			break;
+		}
+
+		//increment your data length code :)
+		dlc += psize;
+
+		for(int j = 0; j<psize ; j++){
+			//Add each byte of content to the message
+			msg.data[(dlc - j) - 1] = (uint8_t) (*((uint8_t*)(p_ptr + j))); //This puts DAQ messages in BIG endian, for optimal human readibility
+		}
+
+
 	}
 
-	tmp_daq_msg.msg_id = param->can_id;
-	tmp_daq_msg.data[0] = *((uint8_t*)(param_ptrs[param->param]));
-	tmp_daq_msg.data[1] = *((uint8_t*)(param_ptrs[param->param]+1));
-	tmp_daq_msg.data[2] = *((uint8_t*)(param_ptrs[param->param]+2));
-	tmp_daq_msg.data[3] = *((uint8_t*)(param_ptrs[param->param]+3));
-	tmp_daq_msg.dlc = param->size;
+	msg.dlc = dlc;
 
-	uvSendCanMSG(&tmp_daq_msg);
+	uvSendCanMSG(&msg);
 
 }
 
-/** @brief
+/** @brief Iterates through the linked list of parameters assigned to each periodic transmission task.
  *
  */
 static inline void sendAllParamsFromList(daq_param_list_node* list){
@@ -456,6 +421,7 @@ static inline void sendAllParamsFromList(daq_param_list_node* list){
 		return;
 	}
 
+	//Linked list iteration moment
 	while(list != NULL){
 		sendDaqMsg(list);
 
@@ -463,11 +429,17 @@ static inline void sendAllParamsFromList(daq_param_list_node* list){
 	}
 }
 
-/** @brief
+/** @brief Child Task responsible for sending DAQ messages at a set period
+ *
+ * One task per period
  *
  */
 void daqSubTask(void* args){
 	daq_child_task* params = (daq_child_task*)args;
+
+	if(params->period < 50){
+		params->period = 50;
+	}
 
 	TickType_t curr_time = xTaskGetTickCount();
 	for(;;){

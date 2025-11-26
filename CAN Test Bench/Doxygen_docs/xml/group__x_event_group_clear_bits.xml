@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_event_group_clear_bits" kind="group">
     <compoundname>xEventGroupClearBits</compoundname>
     <title>xEventGroupClearBits</title>
@@ -31,15 +31,18 @@
 </simplesect>
 Example usage: <preformatted>
   #define BIT_0 ( 1 &lt;&lt; 0 )
-  #define BIT_4 ( 1 &lt;&lt; 4 )</preformatted></para>
-<para><preformatted>  void aFunction( EventGroupHandle_t xEventGroup )
+  #define BIT_4 ( 1 &lt;&lt; 4 )
+
+  void aFunction( EventGroupHandle_t xEventGroup )
   {
-  EventBits_t uxBits;</preformatted></para>
-<para><preformatted>    // Clear bit 0 and bit 4 in xEventGroup.
+  EventBits_t uxBits;
+
+    // Clear bit 0 and bit 4 in xEventGroup.
     uxBits = xEventGroupClearBits(
                             xEventGroup,    // The event group being updated.
-                            BIT_0 | BIT_4 );// The bits being cleared.</preformatted></para>
-<para><preformatted>    if( ( uxBits &amp; ( BIT_0 | BIT_4 ) ) == ( BIT_0 | BIT_4 ) )
+                            BIT_0 | BIT_4 );// The bits being cleared.
+
+    if( ( uxBits &amp; ( BIT_0 | BIT_4 ) ) == ( BIT_0 | BIT_4 ) )
     {
         // Both bit 0 and bit 4 were set before <ref refid="event__groups_8h_1a0fb72cfdd4f0d5f86d955fc3af448f2a" kindref="member">xEventGroupClearBits()</ref> was
         // called.  Both will now be clear (not set).
@@ -59,7 +62,7 @@ Example usage: <preformatted>
         // Neither bit 0 nor bit 4 were set in the first place.
     }
   }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

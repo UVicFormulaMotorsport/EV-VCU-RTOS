@@ -6,6 +6,8 @@
  */
 #define SRC_UVFR_SETTINGS_C_
 
+#define __UV_FILENAME__ "uvfr_settings.c"
+
 #include "uvfr_utils.h"
 #include "main.h"
 #include "stdlib.h"
@@ -31,8 +33,8 @@ extern struct driving_loop_args default_dl_settings;
 extern struct daq_loop_args default_daq_settings;
 extern struct uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
-extern struct output_channel_settings default_output_channels;
-extern daq_datapoint default_datapoints[];
+extern struct conifer_settings default_conifer_settings;
+extern daq_msg default_datapoints[];
 
 /** These are arguments passed to the "Transmit All Settings Over CANbus"
  * Subroutine.
@@ -267,7 +269,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
 	current_vehicle_settings->daq_param_list = default_datapoints;
-	current_vehicle_settings->pdu_settings = NULL;
+	current_vehicle_settings->conifer_settings = &default_conifer_settings;
 
 
 	current_vehicle_settings->flags |= 0x0001; //This is default settings
@@ -317,7 +319,7 @@ uv_status uvLoadSettingsFromFlash(){
 	current_vehicle_settings->daq_settings = DAQ_HEAD_ADDR;
 	current_vehicle_settings->daq_param_list = DAQ_PARAMS1_ADDR;
 
-	current_vehicle_settings->pdu_settings = (void*)(START_OF_USER_FLASH + PDU_MGROUP*256 + PDU_OFFSET);
+	current_vehicle_settings->conifer_settings = (void*)(START_OF_USER_FLASH + CONIFER_MGROUP*256 + CONIFER_OFFSET);
 	return UV_OK;
 }
 
@@ -358,7 +360,8 @@ uv_status uvConfigSettingTask(void* args){
 
 uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 
-	insertCANMessageHandler(0x520,handleIncomingLaptopMsg); //Allows us to talk with laptop
+	insertCANMessageHandler(0x520,handleIncomingLaptopMsg, CAN_BUS_1); //Allows us to talk with laptop
+	insertCANMessageHandler(0x520,handleIncomingLaptopMsg, CAN_BUS_2);
 
 	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
 
@@ -624,7 +627,7 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	*((uint8_t*)(tmp + 20)) = sizeof(uv_imd_settings);
 	*((uint8_t*)(tmp + 21)) = sizeof(bms_settings_t);
 	*((uint8_t*)(tmp + 22)) = sizeof(daq_loop_args);
-	*((uint8_t*)(tmp + 23)) = sizeof(daq_datapoint);
+	*((uint8_t*)(tmp + 23)) = sizeof(daq_msg);
 	*((uint8_t*)(tmp + 24)) = sizeof(output_channel_settings);
 
 
@@ -906,7 +909,7 @@ uv_status uvValidateFlashSettings(){
 		return UV_ERROR;
 	}
 
-	if(*((uint8_t*)(tmp + 23)) != sizeof(daq_datapoint)){
+	if(*((uint8_t*)(tmp + 23)) != sizeof(daq_msg)){
 		return UV_ERROR;
 	}
 
@@ -1183,8 +1186,8 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	//IMD
 	settingCopy((uint8_t*)(&default_imd_settings),(new_sblock+256*IMD_MGROUP+IMD_OFFSET),sizeof(uv_imd_settings));
 
-	//PDU
-	settingCopy((uint8_t*)(&default_output_channels),new_sblock + 256*PDU_MGROUP + PDU_OFFSET,sizeof(output_channel_settings));
+	//CONIFER
+	settingCopy((uint8_t*)(&default_conifer_settings),new_sblock + 256*CONIFER_MGROUP + CONIFER_OFFSET,sizeof(output_channel_settings));
 
 
 	//DAQ Head + Meta settings
@@ -1288,12 +1291,12 @@ void sendAllSettingsWorker(void* args){
 		//Handle this error
 	}else if(uvSendSettingGroup(origin,DAQ_HEAD_MGROUP,DAQ_HEAD_OFFSET,sizeof(daq_loop_args))!=UV_OK){
 		//Handle this error
-	}else if(uvSendSettingGroup(origin,PDU_MGROUP,PDU_OFFSET,sizeof(output_channel_settings)) != UV_OK){
+	}else if(uvSendSettingGroup(origin,CONIFER_MGROUP,CONIFER_OFFSET,sizeof(output_channel_settings)) != UV_OK){
 		//Handle this error
 	}
 
 	//Next is whatever in god's green earth the DAQ_datapoints are up to (Me when the edge case hits just right)
-	uint16_t remaining_bytes = (((daq_loop_args*)(origin + 256*DAQ_HEAD_MGROUP + DAQ_HEAD_OFFSET))->total_params_logged)*sizeof(daq_datapoint);
+	uint16_t remaining_bytes = (((daq_loop_args*)(origin + 256*DAQ_HEAD_MGROUP + DAQ_HEAD_OFFSET))->total_params_logged)*sizeof(daq_msg);
 
 	uint8_t t_mgroup = DAQ_PARAMS1_MGROUP;
 

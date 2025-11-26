@@ -1,10 +1,10 @@
-\hypertarget{group__v_task_delay_until}{}\doxysection{v\+Task\+Delay\+Until}
-\label{group__v_task_delay_until}\index{vTaskDelayUntil@{vTaskDelayUntil}}
+\doxysection{v\+Task\+Delay\+Until}
+\hypertarget{group__v_task_delay_until}{}\label{group__v_task_delay_until}\index{vTaskDelayUntil@{vTaskDelayUntil}}
 task. h 
-\begin{DoxyPre}void \mbox{\hyperlink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{vTaskDelayUntil( TickType\_t *pxPreviousWakeTime, const TickType\_t xTimeIncrement )}};\end{DoxyPre}
+\begin{DoxyPre}void \doxylink{task_8h_a067da3e949e248096ec6c01f9cb75a47}{vTaskDelayUntil( TickType\_t *pxPreviousWakeTime, const TickType\_t xTimeIncrement )};\end{DoxyPre}
 
 
-I\+N\+C\+L\+U\+D\+E\+\_\+v\+Task\+Delay\+Until must be defined as 1 for this function to be available. See the configuration section for more information.
+INCLUDE\+\_\+v\+Task\+Delay\+Until must be defined as 1 for this function to be available. See the configuration section for more information.
 
 Delay a task until a specified time. This function can be used by periodic tasks to ensure a constant execution frequency.
 
@@ -12,13 +12,13 @@ This function differs from v\+Task\+Delay () in one important aspect\+: v\+Task\
 
 Whereas v\+Task\+Delay () specifies a wake time relative to the time at which the function is called, v\+Task\+Delay\+Until () specifies the absolute (exact) time at which it wishes to unblock.
 
-The constant port\+T\+I\+C\+K\+\_\+\+P\+E\+R\+I\+O\+D\+\_\+\+MS can be used to calculate real time from the tick rate -\/ with the resolution of one tick period.
+The constant port\+TICK\+\_\+\+PERIOD\+\_\+\+MS can be used to calculate real time from the tick rate -\/ with the resolution of one tick period.
 
 
 \begin{DoxyParams}{Parameters}
 {\em px\+Previous\+Wake\+Time} & Pointer to a variable that holds the time at which the task was last unblocked. The variable must be initialised with the current time prior to its first use (see the example below). Following this the variable is automatically updated within v\+Task\+Delay\+Until ().\\
 \hline
-{\em x\+Time\+Increment} & The cycle time period. The task will be unblocked at time $\ast$px\+Previous\+Wake\+Time + x\+Time\+Increment. Calling v\+Task\+Delay\+Until with the same x\+Time\+Increment parameter value will cause the task to execute with a fixed interface period.\\
+{\em x\+Time\+Increment} & The cycle time period. The task will be unblocked at time \texorpdfstring{$\ast$}{*}px\+Previous\+Wake\+Time + x\+Time\+Increment. Calling v\+Task\+Delay\+Until with the same x\+Time\+Increment parameter value will cause the task to execute with a fixed interface period.\\
 \hline
 \end{DoxyParams}
 Example usage\+: 
@@ -27,21 +27,17 @@ Example usage\+:
 void vTaskFunction( void * pvParameters )
 \{
 TickType\_t xLastWakeTime;
-const TickType\_t xFrequency = 10;\end{DoxyPre}
+const TickType\_t xFrequency = 10;
 
-
-
-\begin{DoxyPre}    // Initialise the xLastWakeTime variable with the current time.
+    // Initialise the xLastWakeTime variable with the current time.
     xLastWakeTime = xTaskGetTickCount ();
     for( ;; )
     \{
      // Wait for the next cycle.
-     vTaskDelayUntil( \&xLastWakeTime, xFrequency );\end{DoxyPre}
+     vTaskDelayUntil( \&xLastWakeTime, xFrequency );
 
-
-
-\begin{DoxyPre}     // Perform action here.
+     // Perform action here.
     \}
 \}
   \end{DoxyPre}
- 
+   

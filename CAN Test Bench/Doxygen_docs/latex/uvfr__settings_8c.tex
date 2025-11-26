@@ -1,9 +1,12 @@
-\hypertarget{uvfr__settings_8c}{}\doxysection{Core/\+Src/uvfr\+\_\+settings.c File Reference}
-\label{uvfr__settings_8c}\index{Core/Src/uvfr\_settings.c@{Core/Src/uvfr\_settings.c}}
-{\ttfamily \#include \char`\"{}uvfr\+\_\+utils.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}stdlib.\+h\char`\"{}}\newline
-\doxysubsection*{Data Structures}
+\doxysection{Core/\+Src/uvfr\+\_\+settings.c File Reference}
+\hypertarget{uvfr__settings_8c}{}\label{uvfr__settings_8c}\index{Core/Src/uvfr\_settings.c@{Core/Src/uvfr\_settings.c}}
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}stdlib.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+vehicle\+\_\+logger.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+settings.\+c\+:
+% FIG 0
+\doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structtx__all__settings__args}{tx\+\_\+all\+\_\+settings\+\_\+args}}
@@ -14,107 +17,119 @@ union \mbox{\hyperlink{unionhelper__task__args}{helper\+\_\+task\+\_\+args}}
 \item 
 struct \mbox{\hyperlink{structsetting__helper__task}{setting\+\_\+helper\+\_\+task}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180}{S\+R\+C\+\_\+\+U\+V\+F\+R\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+C\+\_\+}}
+\#define \mbox{\hyperlink{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180}{SRC\+\_\+\+UVFR\+\_\+\+SETTINGS\+\_\+\+C\+\_\+}}
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{V\+C\+U\+\_\+\+T\+O\+\_\+\+L\+A\+P\+T\+O\+P\+\_\+\+ID}}~0x420
+\#define \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\+\_\+\+TO\+\_\+\+LAPTOP\+\_\+\+ID}}~0x420
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783}{L\+A\+P\+T\+O\+P\+\_\+\+T\+O\+\_\+\+V\+C\+U\+\_\+\+ID}}~0x520
+\#define \mbox{\hyperlink{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783}{LAPTOP\+\_\+\+TO\+\_\+\+VCU\+\_\+\+ID}}~0x520
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}{F\+L\+A\+S\+H\+\_\+\+OK}}~0
+\#define \mbox{\hyperlink{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}{FLASH\+\_\+\+OK}}~0
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+B\+L\+O\+CK}}~1
+\#define \mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{INVALID\+\_\+\+SBLOCK}}~1
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{F\+L\+A\+S\+H\+\_\+\+N\+O\+T\+\_\+\+U\+N\+L\+O\+C\+K\+ED}}~2
+\#define \mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED}}~2
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{D\+I\+D\+\_\+\+N\+O\+T\+\_\+\+F\+I\+N\+I\+S\+H\+\_\+\+P\+R\+O\+G\+R\+A\+M\+M\+I\+NG}}~3
+\#define \mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING}}~3
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{D\+A\+T\+A\+\_\+\+M\+I\+S\+M\+A\+T\+CH}}~4
+\#define \mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{DATA\+\_\+\+MISMATCH}}~4
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}{P\+R\+E\+\_\+\+C\+H\+E\+C\+K\+S\+UM}}~5
+\#define \mbox{\hyperlink{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}{PRE\+\_\+\+CHECKSUM}}~5
 \item 
-\#define \mbox{\hyperlink{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}{P\+O\+S\+T\+\_\+\+C\+H\+E\+C\+K\+S\+UM}}~6
+\#define \mbox{\hyperlink{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}{POST\+\_\+\+CHECKSUM}}~6
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}{FLASH\+\_\+\+OK}}~0
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{INVALID\+\_\+\+SBLOCK}}~1
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED}}~2
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING}}~3
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{DATA\+\_\+\+MISMATCH}}~4
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}{PRE\+\_\+\+CHECKSUM}}~5
+\item 
+\#define \mbox{\hyperlink{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}{POST\+\_\+\+CHECKSUM}}~6
 \end{DoxyCompactItemize}
-\doxysubsection*{Typedefs}
+\doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef struct \mbox{\hyperlink{structtx__all__settings__args}{tx\+\_\+all\+\_\+settings\+\_\+args}} \mbox{\hyperlink{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}{tx\+\_\+all\+\_\+settings\+\_\+args}}
+typedef struct tx\+\_\+all\+\_\+settings\+\_\+args \mbox{\hyperlink{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}{tx\+\_\+all\+\_\+settings\+\_\+args}}
 \item 
-typedef struct \mbox{\hyperlink{structtx__journal__args}{tx\+\_\+journal\+\_\+args}} \mbox{\hyperlink{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}{tx\+\_\+journal\+\_\+args}}
+typedef struct tx\+\_\+journal\+\_\+args \mbox{\hyperlink{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}{tx\+\_\+journal\+\_\+args}}
 \item 
-typedef union \mbox{\hyperlink{unionhelper__task__args}{helper\+\_\+task\+\_\+args}} \mbox{\hyperlink{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}{helper\+\_\+task\+\_\+args}}
+typedef union helper\+\_\+task\+\_\+args \mbox{\hyperlink{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}{helper\+\_\+task\+\_\+args}}
 \item 
-typedef struct \mbox{\hyperlink{structsetting__helper__task}{setting\+\_\+helper\+\_\+task}} \mbox{\hyperlink{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}{setting\+\_\+helper\+\_\+task}}
+typedef struct setting\+\_\+helper\+\_\+task \mbox{\hyperlink{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}{setting\+\_\+helper\+\_\+task}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}{uv\+Validate\+Flash\+Settings}} ()
-\begin{DoxyCompactList}\small\item\em Function that looks into the flash memory of the V\+CU, and determines if a valid set of settings exists. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function that looks into the flash memory of the VCU, and determines if a valid set of settings exists. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uv\+Reset\+Flash\+To\+Default}} ()
 \item 
-void \mbox{\hyperlink{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}{uv\+Settings\+Programmer\+Task}} (void $\ast$args) P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON
+void \mbox{\hyperlink{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}{uv\+Settings\+Programmer\+Task}} (void \texorpdfstring{$\ast$}{*}args) PRIVILEGED\+\_\+\+FUNCTION
 \begin{DoxyCompactList}\small\item\em This is a task that executes the functionality necessary for vehicle diagnostics. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{uvfr__settings_8c_a854e0900506f03ff53ff3ed1a9dc97ca}{setting\+Copy}} (uint8\+\_\+t $\ast$from, uint8\+\_\+t $\ast$to, uint16\+\_\+t length) P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON
-\begin{DoxyCompactList}\small\item\em Internal function that is used to copy an arbitrary amount of data from point A to point B. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}{uv\+Transmit\+Vehicle\+Status}} ()
 \begin{DoxyCompactList}\small\item\em Transmits the status of the vehicle, including errorcodes and similar. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b}{uv\+Await\+Laptop\+Ack\+Msg}} ()
 \item 
-void \mbox{\hyperlink{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}{handle\+Incoming\+Laptop\+Msg}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$msg) P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON
-\begin{DoxyCompactList}\small\item\em Callback function for event where C\+AN message is received from laptop. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}{handle\+Incoming\+Laptop\+Msg}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg) PRIVILEGED\+\_\+\+FUNCTION
+\begin{DoxyCompactList}\small\item\em Callback function for event where CAN message is received from laptop. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}{setup\+Default\+Settings}} ()
 \begin{DoxyCompactList}\small\item\em Function that allocates the neccessary space for all the vehicle settings, and handles sets all of the settings structs to defaults. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{uvfr__settings_8c_a4648237563030182a8309d8c75e12205}{nuke\+Settings}} (\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} $\ast$$\ast$settings\+\_\+to\+\_\+delete)
+void \mbox{\hyperlink{uvfr__settings_8c_a4648237563030182a8309d8c75e12205}{nuke\+Settings}} (\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}settings\+\_\+to\+\_\+delete)
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}{uv\+Load\+Settings\+From\+Flash}} ()
 \begin{DoxyCompactList}\small\item\em This loads us some new settings from the flash memory. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8}{uv\+Config\+Setting\+Task}} (void $\ast$args)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8}{uv\+Config\+Setting\+Task}} (void \texorpdfstring{$\ast$}{*}args)
 \begin{DoxyCompactList}\small\item\em Function to setup the parameters of the setting setter task. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_adc9522bb052011b07febe1235d1a4792}{uv\+Settings\+Init}} ()
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_ab1433cc55d71e34bd1facef274edc1a6}{uv\+Settings\+Init}} () PRIVILEGED\+\_\+\+FUNCTION
 \begin{DoxyCompactList}\small\item\em this function does one thing, and one thing only, it checks if we have custom settings, then it attempts to get them. If it fails, then we revert to factory defaults. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}{uv\+Update\+Tmp\+Settings}} (uint8\+\_\+t $\ast$tmp\+\_\+settings, uint8\+\_\+t memgroup, uint8\+\_\+t m\+\_\+offset, uint8\+\_\+t size, uint8\+\_\+t $\ast$data)
-\begin{DoxyCompactList}\small\item\em Updates a setting in a temporary S\+Block by memory group and offset. \end{DoxyCompactList}\item 
-uint32\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}{uv\+Compute\+Chunk\+Checksum}} (uint32\+\_\+t $\ast$chunk)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}{uv\+Update\+Tmp\+Settings}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}tmp\+\_\+settings, uint8\+\_\+t memgroup, uint8\+\_\+t m\+\_\+offset, uint8\+\_\+t size, uint8\+\_\+t \texorpdfstring{$\ast$}{*}data)
+\begin{DoxyCompactList}\small\item\em Updates a setting in a temporary SBlock by memory group and offset. \end{DoxyCompactList}\item 
+uint32\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}{uv\+Compute\+Chunk\+Checksum}} (uint32\+\_\+t \texorpdfstring{$\ast$}{*}chunk)
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}{uv\+Compute\+Mem\+Region\+Checksum}} (void $\ast$sblock, uint32\+\_\+t $\ast$csums, char mregion)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}{uv\+Compute\+Mem\+Region\+Checksum}} (void \texorpdfstring{$\ast$}{*}sblock, uint32\+\_\+t \texorpdfstring{$\ast$}{*}csums, char mregion)
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}{uv\+Compute\+Settings\+Checksums}} (void $\ast$sblock, uint32\+\_\+t $\ast$csums)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}{uv\+Compute\+Settings\+Checksums}} (void \texorpdfstring{$\ast$}{*}sblock, uint32\+\_\+t \texorpdfstring{$\ast$}{*}csums)
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858}{uv\+Validate\+Checksums}} (void $\ast$sblock)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858}{uv\+Validate\+Checksums}} (void \texorpdfstring{$\ast$}{*}sblock)
 \item 
-void \mbox{\hyperlink{uvfr__settings_8c_a2284c8b3e2b6e434f6a1d322396efdb2}{uv\+S\+Block\+Corruption\+Handler}} ()
+void \mbox{\hyperlink{uvfr__settings_8c_ae3840a35e861b358d57fb6eacbd35448}{uv\+SBlock\+Corruption\+Handler}} () PRIVILEGED\+\_\+\+FUNCTION
 \begin{DoxyCompactList}\small\item\em Function to call when the Sblock Flash has become corrupted somehow. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}{uv\+Overwrite\+Csr}} (void $\ast$sblock, uint32\+\_\+t $\ast$csr)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}{uv\+Overwrite\+Csr}} (void \texorpdfstring{$\ast$}{*}sblock, uint32\+\_\+t \texorpdfstring{$\ast$}{*}csr)
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902}{uv\+Save\+Settings\+To\+Flash}} (void $\ast$sblock, uint32\+\_\+t $\ast$ecode) P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+F\+U\+N\+C\+T\+I\+ON
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902}{uv\+Save\+Settings\+To\+Flash}} (void \texorpdfstring{$\ast$}{*}sblock, uint32\+\_\+t \texorpdfstring{$\ast$}{*}ecode) PRIVILEGED\+\_\+\+FUNCTION
 \begin{DoxyCompactList}\small\item\em Function to save a finished settings block to flash memory. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67}{uv\+Set\+Setting\+Response\+Reminder}} (uint32\+\_\+t reminder)
-\begin{DoxyCompactList}\small\item\em This reminds the V\+CU to shoot off it\textquotesingle{}s own message later when it reboots. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Function that creates a. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784}{uv\+Force\+Default\+Reversion\+Upon\+Device\+Reset}} ()
 \item 
-void $\ast$ \mbox{\hyperlink{uvfr__settings_8c_a53df36781d38254cb6bbe6717e6ebae0}{uv\+Create\+Tmp\+Settings\+Copy}} ()
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c}{uv\+Create\+Tmp\+Settings\+Copy}} ()
 \begin{DoxyCompactList}\small\item\em Function that creates a temporary copy of the existing settings. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}{uv\+Send\+Specific\+Param}} (uint8\+\_\+t $\ast$origin, uint8\+\_\+t mgroup, uint8\+\_\+t m\+\_\+offset, uint8\+\_\+t size)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}{uv\+Send\+Specific\+Param}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}origin, uint8\+\_\+t mgroup, uint8\+\_\+t m\+\_\+offset, uint8\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Function that locates a specific setting parameter and sends the value over canbus. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450}{uv\+Reset\+Flash\+To\+Default}} (void $\ast$new\+\_\+sblock)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450}{uv\+Reset\+Flash\+To\+Default}} (void \texorpdfstring{$\ast$}{*}new\+\_\+sblock)
 \item 
-\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uv\+Send\+Setting\+Group}} (uint8\+\_\+t $\ast$origin, uint8\+\_\+t memgroup, uint8\+\_\+t m\+\_\+offset, uint16\+\_\+t size)
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uv\+Send\+Setting\+Group}} (uint8\+\_\+t \texorpdfstring{$\ast$}{*}origin, uint8\+\_\+t memgroup, uint8\+\_\+t m\+\_\+offset, uint16\+\_\+t size)
 \begin{DoxyCompactList}\small\item\em Helper function for sending all settings. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}{send\+All\+Settings\+Worker}} (void $\ast$args)
-\begin{DoxyCompactList}\small\item\em Sub-\/task that sends all settings from the V\+CU to the. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}{send\+Journal\+Worker}} (void $\ast$args)
+void \mbox{\hyperlink{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}{send\+All\+Settings\+Worker}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Sub-\/task that sends all settings from the VCU to the. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}{send\+Journal\+Worker}} (void \texorpdfstring{$\ast$}{*}args)
 \begin{DoxyCompactList}\small\item\em Sub-\/task that reads out the journal. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+D\+A\+TA uint8\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494}{\+\_\+s\+\_\+uvdata}}
+PRIVILEGED\+\_\+\+DATA uint8\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494}{\+\_\+s\+\_\+uvdata}}
 \item 
-P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+D\+A\+TA uint8\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68}{\+\_\+e\+\_\+uvdata}}
+PRIVILEGED\+\_\+\+DATA uint8\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68}{\+\_\+e\+\_\+uvdata}}
 \item 
-\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} $\ast$ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\+\_\+vehicle\+\_\+settings}} = N\+U\+LL
+\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\+\_\+vehicle\+\_\+settings}} = NULL
 \item 
 struct \mbox{\hyperlink{structuv__os__settings}{uv\+\_\+os\+\_\+settings}} \mbox{\hyperlink{group__state__engine_gad9e02be6d2d0bc1ab5cd9fd8cae34230}{default\+\_\+os\+\_\+settings}}
 \item 
@@ -128,251 +143,321 @@ struct \mbox{\hyperlink{structuv__imd__settings}{uv\+\_\+imd\+\_\+settings}} \mb
 \item 
 \mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}} \mbox{\hyperlink{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\+\_\+bms\+\_\+settings}}
 \item 
-\mbox{\hyperlink{structuv19__pdu__settings}{uv19\+\_\+pdu\+\_\+settings}} \mbox{\hyperlink{uvfr__settings_8c_a07c6d6c6f641c6fb60600b9bd7efbf7e}{default\+\_\+pdu\+\_\+settings}}
+struct \mbox{\hyperlink{structconifer__settings}{conifer\+\_\+settings}} \mbox{\hyperlink{uvfr__settings_8c_af1159e0fffb524777de5dcf9d869a738}{default\+\_\+conifer\+\_\+settings}}
 \item 
-\mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} \mbox{\hyperlink{uvfr__settings_8c_af5ab2cd7ec858145d49d4e585e4bef94}{default\+\_\+datapoints}} \mbox{[}$\,$\mbox{]}
+\mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} \mbox{\hyperlink{uvfr__settings_8c_af2240542724a20552b90fafa9642884d}{default\+\_\+datapoints}} \mbox{[}$\,$\mbox{]}
 \item 
 \mbox{\hyperlink{structveh__gen__info}{veh\+\_\+gen\+\_\+info}} \mbox{\hyperlink{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}{default\+\_\+vehicle}}
 \item 
-static \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} \mbox{\hyperlink{uvfr__settings_8c_ad566fc47eb8eb3464e5b48f088ddbb83}{is\+\_\+laptop\+\_\+connected}} = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}
-\item 
 Tick\+Type\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}{last\+\_\+contact\+\_\+with\+\_\+laptop}} = 0
 \item 
-static Queue\+Handle\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_aa3e729b05a7d2931a9a1e55f52bca3c7}{settings\+\_\+queue}} = N\+U\+LL
+const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\+\_\+ack\+\_\+msg}}
 \item 
-static Task\+Handle\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a6726b669a3c5795c3326238ab974f382}{ptask\+\_\+handle}} = N\+U\+LL
-\item 
-static Task\+Handle\+\_\+t \mbox{\hyperlink{uvfr__settings_8c_a19de39f55cc05851f5fa6a40070681e3}{child\+\_\+task\+\_\+handle}} = N\+U\+LL
-\item 
-static \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} \mbox{\hyperlink{uvfr__settings_8c_af0cbf7f4ea57695f3b1d2d3c83844000}{child\+\_\+task\+\_\+active}} = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}
-\item 
-const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} \mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\+\_\+ack\+\_\+msg}}
-\item 
-const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} \mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\+\_\+ack\+\_\+failed\+\_\+msg}}
+const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\+\_\+ack\+\_\+failed\+\_\+msg}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}\label{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!DATA\_MISMATCH@{DATA\_MISMATCH}}
+\Hypertarget{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}\index{uvfr\_settings.c@{uvfr\_settings.c}!DATA\_MISMATCH@{DATA\_MISMATCH}}
 \index{DATA\_MISMATCH@{DATA\_MISMATCH}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{DATA\_MISMATCH}{DATA\_MISMATCH}}
-{\footnotesize\ttfamily \#define D\+A\+T\+A\+\_\+\+M\+I\+S\+M\+A\+T\+CH~4}
+\doxysubsubsection{\texorpdfstring{DATA\_MISMATCH}{DATA\_MISMATCH}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd} 
+\#define DATA\+\_\+\+MISMATCH~4}
 
 
 
-Definition at line 567 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00594}{594}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}\label{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!DID\_NOT\_FINISH\_PROGRAMMING@{DID\_NOT\_FINISH\_PROGRAMMING}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00601}{uv\+Save\+Settings\+To\+Flash()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}\index{uvfr\_settings.c@{uvfr\_settings.c}!DATA\_MISMATCH@{DATA\_MISMATCH}}
+\index{DATA\_MISMATCH@{DATA\_MISMATCH}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{DATA\_MISMATCH}{DATA\_MISMATCH}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd} 
+\#define DATA\+\_\+\+MISMATCH~4}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00594}{594}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}\index{uvfr\_settings.c@{uvfr\_settings.c}!DID\_NOT\_FINISH\_PROGRAMMING@{DID\_NOT\_FINISH\_PROGRAMMING}}
 \index{DID\_NOT\_FINISH\_PROGRAMMING@{DID\_NOT\_FINISH\_PROGRAMMING}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{DID\_NOT\_FINISH\_PROGRAMMING}{DID\_NOT\_FINISH\_PROGRAMMING}}
-{\footnotesize\ttfamily \#define D\+I\+D\+\_\+\+N\+O\+T\+\_\+\+F\+I\+N\+I\+S\+H\+\_\+\+P\+R\+O\+G\+R\+A\+M\+M\+I\+NG~3}
+\doxysubsubsection{\texorpdfstring{DID\_NOT\_FINISH\_PROGRAMMING}{DID\_NOT\_FINISH\_PROGRAMMING}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b} 
+\#define DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING~3}
 
 
 
-Definition at line 566 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00593}{593}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}\label{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!FLASH\_NOT\_UNLOCKED@{FLASH\_NOT\_UNLOCKED}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00601}{uv\+Save\+Settings\+To\+Flash()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}\index{uvfr\_settings.c@{uvfr\_settings.c}!DID\_NOT\_FINISH\_PROGRAMMING@{DID\_NOT\_FINISH\_PROGRAMMING}}
+\index{DID\_NOT\_FINISH\_PROGRAMMING@{DID\_NOT\_FINISH\_PROGRAMMING}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{DID\_NOT\_FINISH\_PROGRAMMING}{DID\_NOT\_FINISH\_PROGRAMMING}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b} 
+\#define DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING~3}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00593}{593}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}\index{uvfr\_settings.c@{uvfr\_settings.c}!FLASH\_NOT\_UNLOCKED@{FLASH\_NOT\_UNLOCKED}}
 \index{FLASH\_NOT\_UNLOCKED@{FLASH\_NOT\_UNLOCKED}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{FLASH\_NOT\_UNLOCKED}{FLASH\_NOT\_UNLOCKED}}
-{\footnotesize\ttfamily \#define F\+L\+A\+S\+H\+\_\+\+N\+O\+T\+\_\+\+U\+N\+L\+O\+C\+K\+ED~2}
+\doxysubsubsection{\texorpdfstring{FLASH\_NOT\_UNLOCKED}{FLASH\_NOT\_UNLOCKED}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f} 
+\#define FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED~2}
 
 
 
-Definition at line 565 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00592}{592}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}\label{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!FLASH\_OK@{FLASH\_OK}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00601}{uv\+Save\+Settings\+To\+Flash()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}\index{uvfr\_settings.c@{uvfr\_settings.c}!FLASH\_NOT\_UNLOCKED@{FLASH\_NOT\_UNLOCKED}}
+\index{FLASH\_NOT\_UNLOCKED@{FLASH\_NOT\_UNLOCKED}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{FLASH\_NOT\_UNLOCKED}{FLASH\_NOT\_UNLOCKED}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f} 
+\#define FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED~2}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00592}{592}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}\index{uvfr\_settings.c@{uvfr\_settings.c}!FLASH\_OK@{FLASH\_OK}}
 \index{FLASH\_OK@{FLASH\_OK}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{FLASH\_OK}{FLASH\_OK}}
-{\footnotesize\ttfamily \#define F\+L\+A\+S\+H\+\_\+\+OK~0}
+\doxysubsubsection{\texorpdfstring{FLASH\_OK}{FLASH\_OK}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c} 
+\#define FLASH\+\_\+\+OK~0}
 
 These defines are for the return error code of the next function 
 
-Definition at line 563 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00590}{590}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}\label{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!INVALID\_SBLOCK@{INVALID\_SBLOCK}}
+\Hypertarget{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}\index{uvfr\_settings.c@{uvfr\_settings.c}!FLASH\_OK@{FLASH\_OK}}
+\index{FLASH\_OK@{FLASH\_OK}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{FLASH\_OK}{FLASH\_OK}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c} 
+\#define FLASH\+\_\+\+OK~0}
+
+These defines are for the return error code of the next function 
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00590}{590}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}\index{uvfr\_settings.c@{uvfr\_settings.c}!INVALID\_SBLOCK@{INVALID\_SBLOCK}}
 \index{INVALID\_SBLOCK@{INVALID\_SBLOCK}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{INVALID\_SBLOCK}{INVALID\_SBLOCK}}
-{\footnotesize\ttfamily \#define I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+B\+L\+O\+CK~1}
+\doxysubsubsection{\texorpdfstring{INVALID\_SBLOCK}{INVALID\_SBLOCK}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5} 
+\#define INVALID\+\_\+\+SBLOCK~1}
 
 
 
-Definition at line 564 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00591}{591}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783}\label{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!LAPTOP\_TO\_VCU\_ID@{LAPTOP\_TO\_VCU\_ID}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00601}{uv\+Save\+Settings\+To\+Flash()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}\index{uvfr\_settings.c@{uvfr\_settings.c}!INVALID\_SBLOCK@{INVALID\_SBLOCK}}
+\index{INVALID\_SBLOCK@{INVALID\_SBLOCK}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{INVALID\_SBLOCK}{INVALID\_SBLOCK}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5} 
+\#define INVALID\+\_\+\+SBLOCK~1}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00591}{591}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783}\index{uvfr\_settings.c@{uvfr\_settings.c}!LAPTOP\_TO\_VCU\_ID@{LAPTOP\_TO\_VCU\_ID}}
 \index{LAPTOP\_TO\_VCU\_ID@{LAPTOP\_TO\_VCU\_ID}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{LAPTOP\_TO\_VCU\_ID}{LAPTOP\_TO\_VCU\_ID}}
-{\footnotesize\ttfamily \#define L\+A\+P\+T\+O\+P\+\_\+\+T\+O\+\_\+\+V\+C\+U\+\_\+\+ID~0x520}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783} 
+\#define LAPTOP\+\_\+\+TO\+\_\+\+VCU\+\_\+\+ID~0x520}
 
 
 
-Definition at line 14 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00015}{15}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}\label{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!POST\_CHECKSUM@{POST\_CHECKSUM}}
+\Hypertarget{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}\index{uvfr\_settings.c@{uvfr\_settings.c}!POST\_CHECKSUM@{POST\_CHECKSUM}}
 \index{POST\_CHECKSUM@{POST\_CHECKSUM}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{POST\_CHECKSUM}{POST\_CHECKSUM}}
-{\footnotesize\ttfamily \#define P\+O\+S\+T\+\_\+\+C\+H\+E\+C\+K\+S\+UM~6}
+\doxysubsubsection{\texorpdfstring{POST\_CHECKSUM}{POST\_CHECKSUM}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b} 
+\#define POST\+\_\+\+CHECKSUM~6}
 
 
 
-Definition at line 569 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00596}{596}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}\label{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!PRE\_CHECKSUM@{PRE\_CHECKSUM}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}\index{uvfr\_settings.c@{uvfr\_settings.c}!POST\_CHECKSUM@{POST\_CHECKSUM}}
+\index{POST\_CHECKSUM@{POST\_CHECKSUM}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{POST\_CHECKSUM}{POST\_CHECKSUM}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b} 
+\#define POST\+\_\+\+CHECKSUM~6}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00596}{596}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}\index{uvfr\_settings.c@{uvfr\_settings.c}!PRE\_CHECKSUM@{PRE\_CHECKSUM}}
 \index{PRE\_CHECKSUM@{PRE\_CHECKSUM}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{PRE\_CHECKSUM}{PRE\_CHECKSUM}}
-{\footnotesize\ttfamily \#define P\+R\+E\+\_\+\+C\+H\+E\+C\+K\+S\+UM~5}
+\doxysubsubsection{\texorpdfstring{PRE\_CHECKSUM}{PRE\_CHECKSUM}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c} 
+\#define PRE\+\_\+\+CHECKSUM~5}
 
 
 
-Definition at line 568 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00595}{595}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180}\label{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!SRC\_UVFR\_SETTINGS\_C\_@{SRC\_UVFR\_SETTINGS\_C\_}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}\index{uvfr\_settings.c@{uvfr\_settings.c}!PRE\_CHECKSUM@{PRE\_CHECKSUM}}
+\index{PRE\_CHECKSUM@{PRE\_CHECKSUM}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{PRE\_CHECKSUM}{PRE\_CHECKSUM}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c} 
+\#define PRE\+\_\+\+CHECKSUM~5}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00595}{595}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+
+\Hypertarget{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180}\index{uvfr\_settings.c@{uvfr\_settings.c}!SRC\_UVFR\_SETTINGS\_C\_@{SRC\_UVFR\_SETTINGS\_C\_}}
 \index{SRC\_UVFR\_SETTINGS\_C\_@{SRC\_UVFR\_SETTINGS\_C\_}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{SRC\_UVFR\_SETTINGS\_C\_}{SRC\_UVFR\_SETTINGS\_C\_}}
-{\footnotesize\ttfamily \#define S\+R\+C\+\_\+\+U\+V\+F\+R\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+C\+\_\+}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180} 
+\#define SRC\+\_\+\+UVFR\+\_\+\+SETTINGS\+\_\+\+C\+\_\+}
 
 
 
-Definition at line 7 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00007}{7}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}\label{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!VCU\_TO\_LAPTOP\_ID@{VCU\_TO\_LAPTOP\_ID}}
+\Hypertarget{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}\index{uvfr\_settings.c@{uvfr\_settings.c}!VCU\_TO\_LAPTOP\_ID@{VCU\_TO\_LAPTOP\_ID}}
 \index{VCU\_TO\_LAPTOP\_ID@{VCU\_TO\_LAPTOP\_ID}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{VCU\_TO\_LAPTOP\_ID}{VCU\_TO\_LAPTOP\_ID}}
-{\footnotesize\ttfamily \#define V\+C\+U\+\_\+\+T\+O\+\_\+\+L\+A\+P\+T\+O\+P\+\_\+\+ID~0x420}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609} 
+\#define VCU\+\_\+\+TO\+\_\+\+LAPTOP\+\_\+\+ID~0x420}
 
 
 
-Definition at line 13 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00014}{14}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
 \doxysubsection{Typedef Documentation}
-\mbox{\Hypertarget{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}\label{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!helper\_task\_args@{helper\_task\_args}}
+\Hypertarget{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}\index{uvfr\_settings.c@{uvfr\_settings.c}!helper\_task\_args@{helper\_task\_args}}
 \index{helper\_task\_args@{helper\_task\_args}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{helper\_task\_args}{helper\_task\_args}}
-{\footnotesize\ttfamily typedef union \mbox{\hyperlink{unionhelper__task__args}{helper\+\_\+task\+\_\+args}} \mbox{\hyperlink{unionhelper__task__args}{helper\+\_\+task\+\_\+args}}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c} 
+typedef union helper\+\_\+task\+\_\+args helper\+\_\+task\+\_\+args}
 
-\mbox{\Hypertarget{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}\label{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!setting\_helper\_task@{setting\_helper\_task}}
+\Hypertarget{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}\index{uvfr\_settings.c@{uvfr\_settings.c}!setting\_helper\_task@{setting\_helper\_task}}
 \index{setting\_helper\_task@{setting\_helper\_task}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{setting\_helper\_task}{setting\_helper\_task}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structsetting__helper__task}{setting\+\_\+helper\+\_\+task}} \mbox{\hyperlink{structsetting__helper__task}{setting\+\_\+helper\+\_\+task}}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd} 
+typedef struct setting\+\_\+helper\+\_\+task setting\+\_\+helper\+\_\+task}
 
-\mbox{\Hypertarget{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}\label{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!tx\_all\_settings\_args@{tx\_all\_settings\_args}}
+\Hypertarget{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}\index{uvfr\_settings.c@{uvfr\_settings.c}!tx\_all\_settings\_args@{tx\_all\_settings\_args}}
 \index{tx\_all\_settings\_args@{tx\_all\_settings\_args}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{tx\_all\_settings\_args}{tx\_all\_settings\_args}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structtx__all__settings__args}{tx\+\_\+all\+\_\+settings\+\_\+args}} \mbox{\hyperlink{structtx__all__settings__args}{tx\+\_\+all\+\_\+settings\+\_\+args}}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63} 
+typedef struct tx\+\_\+all\+\_\+settings\+\_\+args tx\+\_\+all\+\_\+settings\+\_\+args}
 
-These are arguments passed to the \char`\"{}\+Transmit All Settings Over C\+A\+Nbus\char`\"{} Subroutine. \mbox{\Hypertarget{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}\label{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!tx\_journal\_args@{tx\_journal\_args}}
+These are arguments passed to the "{}\+Transmit All Settings Over CANbus"{} Subroutine. \Hypertarget{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}\index{uvfr\_settings.c@{uvfr\_settings.c}!tx\_journal\_args@{tx\_journal\_args}}
 \index{tx\_journal\_args@{tx\_journal\_args}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{tx\_journal\_args}{tx\_journal\_args}}
-{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structtx__journal__args}{tx\+\_\+journal\+\_\+args}} \mbox{\hyperlink{structtx__journal__args}{tx\+\_\+journal\+\_\+args}}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009} 
+typedef struct tx\+\_\+journal\+\_\+args tx\+\_\+journal\+\_\+args}
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}\label{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!handleIncomingLaptopMsg@{handleIncomingLaptopMsg}}
+\Hypertarget{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}\index{uvfr\_settings.c@{uvfr\_settings.c}!handleIncomingLaptopMsg@{handleIncomingLaptopMsg}}
 \index{handleIncomingLaptopMsg@{handleIncomingLaptopMsg}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{handleIncomingLaptopMsg()}{handleIncomingLaptopMsg()}}
-{\footnotesize\ttfamily void handle\+Incoming\+Laptop\+Msg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} $\ast$}]{msg }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620} 
+void handle\+Incoming\+Laptop\+Msg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
 
 
 
-Callback function for event where C\+AN message is received from laptop. 
+Callback function for event where CAN message is received from laptop. 
 
 
 
-Definition at line 152 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{160}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References change\+Vehicle\+State(), C\+L\+E\+A\+R\+\_\+\+F\+A\+U\+L\+TS, uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, D\+I\+S\+C\+A\+R\+D\+\_\+\+N\+E\+W\+\_\+\+S\+E\+T\+T\+I\+N\+GS, D\+I\+S\+C\+A\+R\+D\+\_\+\+N\+E\+W\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+A\+N\+D\+\_\+\+E\+X\+IT, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, E\+N\+D\+\_\+\+O\+F\+\_\+\+S\+P\+E\+C\+I\+F\+I\+C\+\_\+\+P\+A\+R\+A\+MS, E\+N\+T\+E\+R\+\_\+\+P\+R\+O\+G\+R\+A\+M\+M\+I\+N\+G\+\_\+\+M\+O\+DE, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+M\+A\+J\+O\+R\+\_\+\+R\+E\+L\+E\+A\+SE, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+M\+I\+N\+O\+R\+\_\+\+R\+E\+L\+E\+A\+SE, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+P\+A\+T\+C\+H\+\_\+\+N\+UM, F\+O\+R\+C\+E\+\_\+\+R\+E\+S\+T\+O\+R\+E\+\_\+\+F\+A\+C\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+LT, G\+E\+N\+E\+R\+I\+C\+\_\+\+A\+CK, H\+A\+N\+D\+S\+H\+A\+KE, is\+\_\+laptop\+\_\+connected, last\+\_\+contact\+\_\+with\+\_\+laptop, uv\+\_\+\+C\+A\+N\+\_\+msg\+::msg\+\_\+id, P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, R\+E\+Q\+U\+E\+S\+T\+\_\+\+A\+L\+L\+\_\+\+J\+O\+U\+R\+N\+A\+L\+\_\+\+E\+N\+T\+R\+I\+ES, R\+E\+Q\+U\+E\+S\+T\+\_\+\+A\+L\+L\+\_\+\+S\+E\+T\+T\+I\+N\+GS, R\+E\+Q\+U\+E\+S\+T\+\_\+\+J\+O\+U\+R\+N\+A\+L\+\_\+\+E\+N\+T\+R\+I\+E\+S\+\_\+\+B\+Y\+\_\+\+T\+I\+ME, R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+P\+E\+C\+I\+F\+I\+C\+\_\+\+S\+E\+T\+T\+I\+NG, R\+E\+Q\+U\+E\+S\+T\+\_\+\+V\+C\+U\+\_\+\+S\+T\+A\+T\+US, S\+A\+V\+E\+\_\+\+A\+N\+D\+\_\+\+A\+P\+P\+L\+Y\+\_\+\+N\+E\+W\+\_\+\+S\+E\+T\+T\+I\+N\+GS, serialize\+Small\+E32, S\+E\+T\+\_\+\+S\+P\+E\+C\+I\+F\+I\+C\+\_\+\+P\+A\+R\+AM, settings\+\_\+queue, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, uv\+Send\+Can\+M\+S\+G(), uv\+Transmit\+Vehicle\+Status(), vcu\+\_\+ack\+\_\+failed\+\_\+msg, and vehicle\+\_\+state.
+References \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00131}{CLEAR\+\_\+\+FAULTS}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00142}{DISCARD\+\_\+\+NEW\+\_\+\+SETTINGS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00143}{DISCARD\+\_\+\+NEW\+\_\+\+SETTINGS\+\_\+\+AND\+\_\+\+EXIT}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00136}{END\+\_\+\+OF\+\_\+\+SPECIFIC\+\_\+\+PARAMS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00129}{ENTER\+\_\+\+PROGRAMMING\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__global__config_8h_source_l00018}{FIRMWARE\+\_\+\+MAJOR\+\_\+\+RELEASE}}, \mbox{\hyperlink{uvfr__global__config_8h_source_l00019}{FIRMWARE\+\_\+\+MINOR\+\_\+\+RELEASE}}, \mbox{\hyperlink{uvfr__global__config_8h_source_l00020}{FIRMWARE\+\_\+\+PATCH\+\_\+\+NUM}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{flush\+Logs\+To\+CAN()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00144}{FORCE\+\_\+\+RESTORE\+\_\+\+FACTORY\+\_\+\+DEFAULT}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00133}{GENERIC\+\_\+\+ACK}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00128}{LAPTOP\+\_\+\+HANDSHAKE}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00091}{last\+\_\+contact\+\_\+with\+\_\+laptop}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00138}{REQUEST\+\_\+\+ALL\+\_\+\+JOURNAL\+\_\+\+ENTRIES}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00137}{REQUEST\+\_\+\+ALL\+\_\+\+SETTINGS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00139}{REQUEST\+\_\+\+JOURNAL\+\_\+\+ENTRIES\+\_\+\+BY\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00140}{REQUEST\+\_\+\+SPECIFIC\+\_\+\+SETTING}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00130}{REQUEST\+\_\+\+VCU\+\_\+\+STATUS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00141}{SAVE\+\_\+\+AND\+\_\+\+APPLY\+\_\+\+NEW\+\_\+\+SETTINGS}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00087}{serialize\+Small\+E32}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00135}{SET\+\_\+\+SPECIFIC\+\_\+\+PARAM}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00147}{uv\+Transmit\+Vehicle\+Status()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00117}{vcu\+\_\+ack\+\_\+failed\+\_\+msg}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{vehicle\+\_\+state}}.
 
 
 
-Referenced by uv\+Settings\+Init().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a4648237563030182a8309d8c75e12205}\label{uvfr__settings_8c_a4648237563030182a8309d8c75e12205}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!nukeSettings@{nukeSettings}}
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{uvfr__settings_8c_a4648237563030182a8309d8c75e12205}\index{uvfr\_settings.c@{uvfr\_settings.c}!nukeSettings@{nukeSettings}}
 \index{nukeSettings@{nukeSettings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{nukeSettings()}{nukeSettings()}}
-{\footnotesize\ttfamily void nuke\+Settings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} $\ast$$\ast$}]{settings\+\_\+to\+\_\+delete }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a4648237563030182a8309d8c75e12205} 
+void nuke\+Settings (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{settings\+\_\+to\+\_\+delete}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 260 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00280}{280}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}\label{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!sendAllSettingsWorker@{sendAllSettingsWorker}}
+\Hypertarget{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}\index{uvfr\_settings.c@{uvfr\_settings.c}!sendAllSettingsWorker@{sendAllSettingsWorker}}
 \index{sendAllSettingsWorker@{sendAllSettingsWorker}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{sendAllSettingsWorker()}{sendAllSettingsWorker()}}
-{\footnotesize\ttfamily void send\+All\+Settings\+Worker (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77} 
+void send\+All\+Settings\+Worker (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
-Sub-\/task that sends all settings from the V\+CU to the. 
+Sub-\/task that sends all settings from the VCU to the. 
 
 
 
-Definition at line 1163 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l01261}{1261}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References setting\+\_\+helper\+\_\+task\+::args, B\+M\+S\+\_\+\+M\+G\+R\+O\+UP, B\+M\+S\+\_\+\+O\+F\+F\+S\+ET, child\+\_\+task\+\_\+active, child\+\_\+task\+\_\+handle, D\+A\+Q\+\_\+\+H\+E\+A\+D\+\_\+\+M\+G\+R\+O\+UP, D\+A\+Q\+\_\+\+H\+E\+A\+D\+\_\+\+O\+F\+F\+S\+ET, D\+A\+Q\+\_\+\+P\+A\+R\+A\+M\+S1\+\_\+\+M\+G\+R\+O\+UP, D\+A\+Q\+\_\+\+P\+A\+R\+A\+M\+S1\+\_\+\+O\+F\+F\+S\+ET, D\+R\+I\+V\+I\+N\+G\+\_\+\+M\+G\+R\+O\+UP, D\+R\+I\+V\+I\+N\+G\+\_\+\+O\+F\+F\+S\+ET, F\+L\+A\+S\+H\+\_\+\+S\+B\+L\+O\+C\+K\+\_\+\+S\+T\+A\+RT, G\+E\+N\+E\+R\+A\+L\+\_\+\+V\+E\+H\+\_\+\+I\+N\+F\+O\+\_\+\+M\+G\+R\+O\+UP, G\+E\+N\+E\+R\+A\+L\+\_\+\+V\+E\+H\+\_\+\+I\+N\+F\+O\+\_\+\+O\+F\+F\+S\+ET, I\+M\+D\+\_\+\+M\+G\+R\+O\+UP, I\+M\+D\+\_\+\+O\+F\+F\+S\+ET, setting\+\_\+helper\+\_\+task\+::meta\+\_\+task\+\_\+handle, M\+O\+T\+O\+R\+\_\+\+M\+G\+R\+O\+UP, M\+O\+T\+O\+R\+\_\+\+O\+F\+F\+S\+ET, O\+S\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+G\+R\+O\+UP, O\+S\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+O\+F\+F\+S\+ET, P\+D\+U\+\_\+\+M\+G\+R\+O\+UP, P\+D\+U\+\_\+\+O\+F\+F\+S\+ET, tx\+\_\+all\+\_\+settings\+\_\+args\+::sblock\+\_\+origin, helper\+\_\+task\+\_\+args\+::setting\+\_\+tx\+\_\+args, setting\+\_\+helper\+\_\+task\+::status, U\+V\+\_\+\+OK, and uv\+Send\+Setting\+Group().
+References \mbox{\hyperlink{uvfr__settings_8c_source_l00071}{setting\+\_\+helper\+\_\+task\+::args}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00065}{BMS\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00066}{BMS\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00073}{CONIFER\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00074}{CONIFER\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00077}{DAQ\+\_\+\+HEAD\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00078}{DAQ\+\_\+\+HEAD\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00081}{DAQ\+\_\+\+PARAMS1\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00082}{DAQ\+\_\+\+PARAMS1\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00061}{DRIVING\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00062}{DRIVING\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00041}{FLASH\+\_\+\+SBLOCK\+\_\+\+START}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00047}{GENERAL\+\_\+\+VEH\+\_\+\+INFO\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00048}{GENERAL\+\_\+\+VEH\+\_\+\+INFO\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00069}{IMD\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00070}{IMD\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00066}{setting\+\_\+helper\+\_\+task\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00055}{MOTOR\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00056}{MOTOR\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00050}{OS\+\_\+\+SETTINGS\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00051}{OS\+\_\+\+SETTINGS\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00042}{tx\+\_\+all\+\_\+settings\+\_\+args\+::sblock\+\_\+origin}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00058}{helper\+\_\+task\+\_\+args\+::setting\+\_\+tx\+\_\+args}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00068}{setting\+\_\+helper\+\_\+task\+::status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01241}{uv\+Send\+Setting\+Group()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}\label{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!sendJournalWorker@{sendJournalWorker}}
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}\index{uvfr\_settings.c@{uvfr\_settings.c}!sendJournalWorker@{sendJournalWorker}}
 \index{sendJournalWorker@{sendJournalWorker}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{sendJournalWorker()}{sendJournalWorker()}}
-{\footnotesize\ttfamily void send\+Journal\+Worker (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291} 
+void send\+Journal\+Worker (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
 Sub-\/task that reads out the journal. 
 
 \begin{DoxyAttention}{Attention}
-E\+V\+E\+NT L\+O\+G\+G\+I\+NG IS N\+OT I\+M\+P\+L\+E\+M\+E\+N\+T\+ED Y\+ET, DO N\+OT T\+O\+U\+CH T\+H\+IS 
+EVENT LOGGING IS NOT IMPLEMENTED YET, DO NOT TOUCH THIS 
 \end{DoxyAttention}
 
 
-Definition at line 1226 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l01324}{1324}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a854e0900506f03ff53ff3ed1a9dc97ca}\label{uvfr__settings_8c_a854e0900506f03ff53ff3ed1a9dc97ca}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!settingCopy@{settingCopy}}
-\index{settingCopy@{settingCopy}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{settingCopy()}{settingCopy()}}
-{\footnotesize\ttfamily static void setting\+Copy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{from,  }\item[{uint8\+\_\+t $\ast$}]{to,  }\item[{uint16\+\_\+t}]{length }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
-
-
-
-Internal function that is used to copy an arbitrary amount of data from point A to point B. 
-
-
-
-Definition at line 128 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by uv\+Reset\+Flash\+To\+Default().
-
-\mbox{\Hypertarget{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}\label{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!setupDefaultSettings@{setupDefaultSettings}}
+\Hypertarget{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}\index{uvfr\_settings.c@{uvfr\_settings.c}!setupDefaultSettings@{setupDefaultSettings}}
 \index{setupDefaultSettings@{setupDefaultSettings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{setupDefaultSettings()}{setupDefaultSettings()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} setup\+Default\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} setup\+Default\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -380,89 +465,93 @@ Function that allocates the neccessary space for all the vehicle settings, and h
 
 
 
-Definition at line 232 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{250}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings, current\+\_\+vehicle\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list, uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings, default\+\_\+bms\+\_\+settings, default\+\_\+daq\+\_\+settings, default\+\_\+datapoints, default\+\_\+dl\+\_\+settings, default\+\_\+imd\+\_\+settings, default\+\_\+os\+\_\+settings, default\+\_\+pdu\+\_\+settings, default\+\_\+vehicle, uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::flags, uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings, mc\+\_\+default\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::os\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::pdu\+\_\+settings, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and uv\+\_\+vehicle\+\_\+settings\+::veh\+\_\+info.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00168}{uv\+\_\+vehicle\+\_\+settings\+::conifer\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00163}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings}}, \mbox{\hyperlink{bms_8c_source_l00014}{default\+\_\+bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00015}{default\+\_\+conifer\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00048}{default\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00056}{default\+\_\+datapoints}}, \mbox{\hyperlink{driving__loop_8c_source_l00029}{default\+\_\+dl\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00048}{default\+\_\+os\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00171}{uv\+\_\+vehicle\+\_\+settings\+::flags}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00038}{mc\+\_\+default\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00155}{uv\+\_\+vehicle\+\_\+settings\+::os\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by uv\+Settings\+Init().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b}\label{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvAwaitLaptopAckMsg@{uvAwaitLaptopAckMsg}}
+\Hypertarget{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvAwaitLaptopAckMsg@{uvAwaitLaptopAckMsg}}
 \index{uvAwaitLaptopAckMsg@{uvAwaitLaptopAckMsg}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvAwaitLaptopAckMsg()}{uvAwaitLaptopAckMsg()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Await\+Laptop\+Ack\+Msg (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Await\+Laptop\+Ack\+Msg (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 145 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00151}{151}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+A\+B\+O\+R\+T\+ED.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00177}{UV\+\_\+\+ABORTED}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}\label{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvComputeChunkChecksum@{uvComputeChunkChecksum}}
+\Hypertarget{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvComputeChunkChecksum@{uvComputeChunkChecksum}}
 \index{uvComputeChunkChecksum@{uvComputeChunkChecksum}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvComputeChunkChecksum()}{uvComputeChunkChecksum()}}
-{\footnotesize\ttfamily uint32\+\_\+t uv\+Compute\+Chunk\+Checksum (\begin{DoxyParamCaption}\item[{uint32\+\_\+t $\ast$}]{chunk }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_aec8886c47c65892251b444760cb30116} 
+uint32\+\_\+t uv\+Compute\+Chunk\+Checksum (\begin{DoxyParamCaption}\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{chunk}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 448 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00475}{475}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References C\+R\+C\+\_\+\+P\+O\+LY, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00100}{CRC\+\_\+\+POLY}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by uv\+Compute\+Mem\+Region\+Checksum().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00490}{uv\+Compute\+Mem\+Region\+Checksum()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}\label{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvComputeMemRegionChecksum@{uvComputeMemRegionChecksum}}
+\Hypertarget{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvComputeMemRegionChecksum@{uvComputeMemRegionChecksum}}
 \index{uvComputeMemRegionChecksum@{uvComputeMemRegionChecksum}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvComputeMemRegionChecksum()}{uvComputeMemRegionChecksum()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Compute\+Mem\+Region\+Checksum (\begin{DoxyParamCaption}\item[{void $\ast$}]{sblock,  }\item[{uint32\+\_\+t $\ast$}]{csums,  }\item[{char}]{mregion }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Compute\+Mem\+Region\+Checksum (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{sblock}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{csums}{, }\item[{char}]{mregion}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 463 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00490}{490}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+OK, and uv\+Compute\+Chunk\+Checksum().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00475}{uv\+Compute\+Chunk\+Checksum()}}.
 
 
 
-Referenced by uv\+Compute\+Settings\+Checksums().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00499}{uv\+Compute\+Settings\+Checksums()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}\label{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvComputeSettingsChecksums@{uvComputeSettingsChecksums}}
+Here is the call graph for this function\+:
+% FIG 3
+\Hypertarget{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvComputeSettingsChecksums@{uvComputeSettingsChecksums}}
 \index{uvComputeSettingsChecksums@{uvComputeSettingsChecksums}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvComputeSettingsChecksums()}{uvComputeSettingsChecksums()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Compute\+Settings\+Checksums (\begin{DoxyParamCaption}\item[{void $\ast$}]{sblock,  }\item[{uint32\+\_\+t $\ast$}]{csums }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Compute\+Settings\+Checksums (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{sblock}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{csums}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 472 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00499}{499}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+OK, and uv\+Compute\+Mem\+Region\+Checksum().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00490}{uv\+Compute\+Mem\+Region\+Checksum()}}.
 
 
 
-Referenced by uv\+Validate\+Checksums().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00522}{uv\+Validate\+Checksums()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8}\label{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvConfigSettingTask@{uvConfigSettingTask}}
+Here is the call graph for this function\+:
+% FIG 4
+\Hypertarget{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvConfigSettingTask@{uvConfigSettingTask}}
 \index{uvConfigSettingTask@{uvConfigSettingTask}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvConfigSettingTask()}{uvConfigSettingTask()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Config\+Setting\+Task (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Config\+Setting\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
@@ -470,21 +559,23 @@ Function to setup the parameters of the setting setter task.
 
 
 
-Definition at line 305 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00328}{328}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References A\+B\+O\+V\+E\+\_\+\+N\+O\+R\+M\+AL, uv\+\_\+task\+\_\+info\+::active\+\_\+states, uv\+\_\+task\+\_\+info\+::deletion\+\_\+states, P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, uv\+\_\+task\+\_\+info\+::stack\+\_\+size, uv\+\_\+task\+\_\+info\+::suspension\+\_\+states, uv\+\_\+task\+\_\+info\+::task\+\_\+args, uv\+\_\+task\+\_\+info\+::task\+\_\+function, uv\+\_\+task\+\_\+info\+::task\+\_\+name, uv\+\_\+task\+\_\+info\+::task\+\_\+period, uv\+\_\+task\+\_\+info\+::task\+\_\+priority, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, uv\+Create\+Task(), and uv\+Settings\+Programmer\+Task().
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00147}{ABOVE\+\_\+\+NORMAL}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 
 
 
-Referenced by uv\+Init\+State\+Engine().
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a53df36781d38254cb6bbe6717e6ebae0}\label{uvfr__settings_8c_a53df36781d38254cb6bbe6717e6ebae0}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvCreateTmpSettingsCopy@{uvCreateTmpSettingsCopy}}
+Here is the call graph for this function\+:
+% FIG 5
+\Hypertarget{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvCreateTmpSettingsCopy@{uvCreateTmpSettingsCopy}}
 \index{uvCreateTmpSettingsCopy@{uvCreateTmpSettingsCopy}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvCreateTmpSettingsCopy()}{uvCreateTmpSettingsCopy()}}
-{\footnotesize\ttfamily void$\ast$ uv\+Create\+Tmp\+Settings\+Copy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c} 
+void \texorpdfstring{$\ast$}{*} uv\+Create\+Tmp\+Settings\+Copy (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -492,37 +583,39 @@ Function that creates a temporary copy of the existing settings.
 
 
 
-Definition at line 756 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00799}{799}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References S\+E\+T\+T\+I\+N\+G\+\_\+\+B\+R\+A\+N\+C\+H\+\_\+\+S\+I\+ZE, and S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00098}{SETTING\+\_\+\+BRANCH\+\_\+\+SIZE}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00487}{uv\+Is\+PTRValid()}}.
 
 
 
-Referenced by uv\+Settings\+Programmer\+Task().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784}\label{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvForceDefaultReversionUponDeviceReset@{uvForceDefaultReversionUponDeviceReset}}
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvForceDefaultReversionUponDeviceReset@{uvForceDefaultReversionUponDeviceReset}}
 \index{uvForceDefaultReversionUponDeviceReset@{uvForceDefaultReversionUponDeviceReset}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvForceDefaultReversionUponDeviceReset()}{uvForceDefaultReversionUponDeviceReset()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Force\+Default\+Reversion\+Upon\+Device\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Force\+Default\+Reversion\+Upon\+Device\+Reset (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 \begin{DoxyRefDesc}{Deprecated}
 \item[\mbox{\hyperlink{deprecated__deprecated000004}{Deprecated}}]\end{DoxyRefDesc}
 
 
-Definition at line 735 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00778}{778}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, U\+V\+\_\+\+E\+R\+R\+OR, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}\label{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvLoadSettingsFromFlash@{uvLoadSettingsFromFlash}}
+\Hypertarget{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvLoadSettingsFromFlash@{uvLoadSettingsFromFlash}}
 \index{uvLoadSettingsFromFlash@{uvLoadSettingsFromFlash}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvLoadSettingsFromFlash()}{uvLoadSettingsFromFlash()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Load\+Settings\+From\+Flash (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Load\+Settings\+From\+Flash (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -530,59 +623,61 @@ This loads us some new settings from the flash memory.
 
 
 
-Definition at line 274 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00294}{294}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References B\+M\+S\+\_\+\+A\+D\+DR, uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings, current\+\_\+vehicle\+\_\+settings, D\+A\+Q\+\_\+\+H\+E\+A\+D\+\_\+\+A\+D\+DR, uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list, D\+A\+Q\+\_\+\+P\+A\+R\+A\+M\+S1\+\_\+\+A\+D\+DR, uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings, D\+R\+I\+V\+I\+N\+G\+\_\+\+M\+G\+R\+O\+UP, D\+R\+I\+V\+I\+N\+G\+\_\+\+O\+F\+F\+S\+ET, G\+E\+N\+E\+R\+A\+L\+\_\+\+V\+E\+H\+\_\+\+I\+N\+F\+O\+\_\+\+M\+G\+R\+O\+UP, G\+E\+N\+E\+R\+A\+L\+\_\+\+V\+E\+H\+\_\+\+I\+N\+F\+O\+\_\+\+O\+F\+F\+S\+ET, I\+M\+D\+\_\+\+A\+D\+DR, uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings, uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings, M\+O\+T\+O\+R\+\_\+\+M\+G\+R\+O\+UP, M\+O\+T\+O\+R\+\_\+\+O\+F\+F\+S\+ET, uv\+\_\+vehicle\+\_\+settings\+::os\+\_\+settings, O\+S\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+M\+G\+R\+O\+UP, O\+S\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+O\+F\+F\+S\+ET, P\+D\+U\+\_\+\+M\+G\+R\+O\+UP, P\+D\+U\+\_\+\+O\+F\+F\+S\+ET, uv\+\_\+vehicle\+\_\+settings\+::pdu\+\_\+settings, S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and uv\+\_\+vehicle\+\_\+settings\+::veh\+\_\+info.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00067}{BMS\+\_\+\+ADDR}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00073}{CONIFER\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00074}{CONIFER\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00168}{uv\+\_\+vehicle\+\_\+settings\+::conifer\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00079}{DAQ\+\_\+\+HEAD\+\_\+\+ADDR}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00165}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+param\+\_\+list}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00083}{DAQ\+\_\+\+PARAMS1\+\_\+\+ADDR}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00163}{uv\+\_\+vehicle\+\_\+settings\+::daq\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00061}{DRIVING\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00062}{DRIVING\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00047}{GENERAL\+\_\+\+VEH\+\_\+\+INFO\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00048}{GENERAL\+\_\+\+VEH\+\_\+\+INFO\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00071}{IMD\+\_\+\+ADDR}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00055}{MOTOR\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00056}{MOTOR\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00155}{uv\+\_\+vehicle\+\_\+settings\+::os\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00050}{OS\+\_\+\+SETTINGS\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00051}{OS\+\_\+\+SETTINGS\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8h_source_l00153}{uv\+\_\+vehicle\+\_\+settings\+::veh\+\_\+info}}.
 
 
 
-Referenced by uv\+Settings\+Init().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}\label{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvOverwriteCsr@{uvOverwriteCsr}}
+\Hypertarget{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvOverwriteCsr@{uvOverwriteCsr}}
 \index{uvOverwriteCsr@{uvOverwriteCsr}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvOverwriteCsr()}{uvOverwriteCsr()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Overwrite\+Csr (\begin{DoxyParamCaption}\item[{void $\ast$}]{sblock,  }\item[{uint32\+\_\+t $\ast$}]{csr }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a36192e27458271ff052029579febb5a1} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Overwrite\+Csr (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{sblock}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{csr}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 555 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00582}{582}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}\label{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvResetFlashToDefault@{uvResetFlashToDefault}}
+\Hypertarget{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvResetFlashToDefault@{uvResetFlashToDefault}}
 \index{uvResetFlashToDefault@{uvResetFlashToDefault}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvResetFlashToDefault()}{uvResetFlashToDefault()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Reset\+Flash\+To\+Default (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Reset\+Flash\+To\+Default (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Referenced by uv\+Settings\+Init(), and uv\+Settings\+Programmer\+Task().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450}\label{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvResetFlashToDefault@{uvResetFlashToDefault}}
+\Hypertarget{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvResetFlashToDefault@{uvResetFlashToDefault}}
 \index{uvResetFlashToDefault@{uvResetFlashToDefault}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvResetFlashToDefault()}{uvResetFlashToDefault()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Reset\+Flash\+To\+Default (\begin{DoxyParamCaption}\item[{void $\ast$}]{new\+\_\+sblock }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Reset\+Flash\+To\+Default (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{new\+\_\+sblock}{}\end{DoxyParamCaption})}
 
-uv\+Send\+Can\+M\+S\+G(\&vcu\+\_\+ack\+\_\+msg);
+uv\+Send\+Can\+MSG(\&vcu\+\_\+ack\+\_\+msg);
 
-Definition at line 1057 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{1155}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References B\+M\+S\+\_\+\+M\+G\+R\+O\+UP, B\+M\+S\+\_\+\+O\+F\+F\+S\+ET, D\+A\+Q\+\_\+\+H\+E\+A\+D\+\_\+\+M\+G\+R\+O\+UP, D\+A\+Q\+\_\+\+H\+E\+A\+D\+\_\+\+O\+F\+F\+S\+ET, D\+A\+Q\+\_\+\+P\+A\+R\+A\+M\+S1\+\_\+\+M\+G\+R\+O\+UP, D\+A\+Q\+\_\+\+P\+A\+R\+A\+M\+S1\+\_\+\+O\+F\+F\+S\+ET, D\+A\+T\+A\+\_\+\+M\+I\+S\+M\+A\+T\+CH, default\+\_\+bms\+\_\+settings, default\+\_\+daq\+\_\+settings, default\+\_\+datapoints, default\+\_\+dl\+\_\+settings, default\+\_\+imd\+\_\+settings, default\+\_\+os\+\_\+settings, default\+\_\+pdu\+\_\+settings, default\+\_\+vehicle, D\+I\+D\+\_\+\+N\+O\+T\+\_\+\+F\+I\+N\+I\+S\+H\+\_\+\+P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, D\+R\+I\+V\+I\+N\+G\+\_\+\+M\+G\+R\+O\+UP, D\+R\+I\+V\+I\+N\+G\+\_\+\+O\+F\+F\+S\+ET, F\+L\+A\+S\+H\+\_\+\+N\+O\+T\+\_\+\+U\+N\+L\+O\+C\+K\+ED, G\+E\+N\+E\+R\+A\+L\+\_\+\+V\+E\+H\+\_\+\+I\+N\+F\+O\+\_\+\+O\+F\+F\+S\+ET, I\+M\+D\+\_\+\+M\+G\+R\+O\+UP, I\+M\+D\+\_\+\+O\+F\+F\+S\+ET, I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+B\+L\+O\+CK, M\+A\+G\+I\+C\+\_\+\+N\+U\+M\+B\+ER, mc\+\_\+default\+\_\+settings, M\+O\+T\+O\+R\+\_\+\+M\+G\+R\+O\+UP, M\+O\+T\+O\+R\+\_\+\+O\+F\+F\+S\+ET, O\+S\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+O\+F\+F\+S\+ET, P\+D\+U\+\_\+\+M\+G\+R\+O\+UP, P\+D\+U\+\_\+\+O\+F\+F\+S\+ET, P\+O\+S\+T\+\_\+\+C\+H\+E\+C\+K\+S\+UM, P\+R\+E\+\_\+\+C\+H\+E\+C\+K\+S\+UM, S\+E\+T\+T\+I\+N\+G\+\_\+\+B\+R\+A\+N\+C\+H\+\_\+\+S\+I\+ZE, setting\+Copy(), daq\+\_\+loop\+\_\+args\+::total\+\_\+params\+\_\+logged, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and uv\+Save\+Settings\+To\+Flash().
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00065}{BMS\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00066}{BMS\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00073}{CONIFER\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00074}{CONIFER\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00077}{DAQ\+\_\+\+HEAD\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00078}{DAQ\+\_\+\+HEAD\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00081}{DAQ\+\_\+\+PARAMS1\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00082}{DAQ\+\_\+\+PARAMS1\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00594}{DATA\+\_\+\+MISMATCH}}, \mbox{\hyperlink{bms_8c_source_l00014}{default\+\_\+bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00015}{default\+\_\+conifer\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00048}{default\+\_\+daq\+\_\+settings}}, \mbox{\hyperlink{daq_8c_source_l00056}{default\+\_\+datapoints}}, \mbox{\hyperlink{driving__loop_8c_source_l00029}{default\+\_\+dl\+\_\+settings}}, \mbox{\hyperlink{imd_8c_source_l00065}{default\+\_\+imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00048}{default\+\_\+os\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00078}{default\+\_\+vehicle}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00593}{DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00061}{DRIVING\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00062}{DRIVING\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00592}{FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00048}{GENERAL\+\_\+\+VEH\+\_\+\+INFO\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00069}{IMD\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00070}{IMD\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00591}{INVALID\+\_\+\+SBLOCK}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00107}{MAGIC\+\_\+\+NUMBER}}, \mbox{\hyperlink{motor__controller_8c_source_l00038}{mc\+\_\+default\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00055}{MOTOR\+\_\+\+MGROUP}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00056}{MOTOR\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00051}{OS\+\_\+\+SETTINGS\+\_\+\+OFFSET}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00596}{POST\+\_\+\+CHECKSUM}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00595}{PRE\+\_\+\+CHECKSUM}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00098}{SETTING\+\_\+\+BRANCH\+\_\+\+SIZE}}, \mbox{\hyperlink{daq_8h_source_l00098}{daq\+\_\+loop\+\_\+args\+::total\+\_\+params\+\_\+logged}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uv\+Save\+Settings\+To\+Flash()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902}\label{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSaveSettingsToFlash@{uvSaveSettingsToFlash}}
+Here is the call graph for this function\+:
+% FIG 7
+\Hypertarget{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSaveSettingsToFlash@{uvSaveSettingsToFlash}}
 \index{uvSaveSettingsToFlash@{uvSaveSettingsToFlash}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSaveSettingsToFlash()}{uvSaveSettingsToFlash()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Save\+Settings\+To\+Flash (\begin{DoxyParamCaption}\item[{void $\ast$}]{sblock,  }\item[{uint32\+\_\+t $\ast$}]{ecode }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Save\+Settings\+To\+Flash (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{sblock}{, }\item[{uint32\+\_\+t \texorpdfstring{$\ast$}{*}}]{ecode}{}\end{DoxyParamCaption})}
 
 
 
@@ -590,21 +685,17 @@ Function to save a finished settings block to flash memory.
 
 
 
-Definition at line 574 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00601}{601}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References D\+A\+T\+A\+\_\+\+M\+I\+S\+M\+A\+T\+CH, D\+I\+D\+\_\+\+N\+O\+T\+\_\+\+F\+I\+N\+I\+S\+H\+\_\+\+P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+M\+A\+J\+O\+R\+\_\+\+R\+E\+L\+E\+A\+SE, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+M\+I\+N\+O\+R\+\_\+\+R\+E\+L\+E\+A\+SE, F\+I\+R\+M\+W\+A\+R\+E\+\_\+\+P\+A\+T\+C\+H\+\_\+\+N\+UM, F\+L\+A\+S\+H\+\_\+\+N\+O\+T\+\_\+\+U\+N\+L\+O\+C\+K\+ED, F\+L\+A\+S\+H\+\_\+\+S\+B\+L\+O\+C\+K\+\_\+\+S\+T\+A\+RT, I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+B\+L\+O\+CK, M\+A\+G\+I\+C\+\_\+\+N\+U\+M\+B\+ER, S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, T\+O\+P\+\_\+\+O\+F\+\_\+\+F\+L\+A\+S\+H\+\_\+\+S\+B\+L\+O\+CK, U\+V\+\_\+\+E\+R\+R\+OR, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__settings_8c_source_l00594}{DATA\+\_\+\+MISMATCH}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00593}{DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING}}, \mbox{\hyperlink{uvfr__global__config_8h_source_l00018}{FIRMWARE\+\_\+\+MAJOR\+\_\+\+RELEASE}}, \mbox{\hyperlink{uvfr__global__config_8h_source_l00019}{FIRMWARE\+\_\+\+MINOR\+\_\+\+RELEASE}}, \mbox{\hyperlink{uvfr__global__config_8h_source_l00020}{FIRMWARE\+\_\+\+PATCH\+\_\+\+NUM}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00592}{FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00041}{FLASH\+\_\+\+SBLOCK\+\_\+\+START}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00591}{INVALID\+\_\+\+SBLOCK}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00107}{MAGIC\+\_\+\+NUMBER}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00030}{TOP\+\_\+\+OF\+\_\+\+FLASH\+\_\+\+SBLOCK}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
-
-
-Referenced by uv\+Reset\+Flash\+To\+Default(), and uv\+Settings\+Programmer\+Task().
-
-\mbox{\Hypertarget{uvfr__settings_8c_a2284c8b3e2b6e434f6a1d322396efdb2}\label{uvfr__settings_8c_a2284c8b3e2b6e434f6a1d322396efdb2}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSBlockCorruptionHandler@{uvSBlockCorruptionHandler}}
+\Hypertarget{uvfr__settings_8c_ae3840a35e861b358d57fb6eacbd35448}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSBlockCorruptionHandler@{uvSBlockCorruptionHandler}}
 \index{uvSBlockCorruptionHandler@{uvSBlockCorruptionHandler}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSBlockCorruptionHandler()}{uvSBlockCorruptionHandler()}}
-{\footnotesize\ttfamily void uv\+S\+Block\+Corruption\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ae3840a35e861b358d57fb6eacbd35448} 
+void uv\+SBlock\+Corruption\+Handler (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -612,17 +703,17 @@ Function to call when the Sblock Flash has become corrupted somehow.
 
 
 
-Definition at line 511 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00538}{538}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References F\+L\+A\+S\+H\+\_\+\+S\+B\+L\+O\+C\+K\+\_\+\+S\+T\+A\+RT.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00041}{FLASH\+\_\+\+SBLOCK\+\_\+\+START}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}\label{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSendSettingGroup@{uvSendSettingGroup}}
+\Hypertarget{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSendSettingGroup@{uvSendSettingGroup}}
 \index{uvSendSettingGroup@{uvSendSettingGroup}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSendSettingGroup()}{uvSendSettingGroup()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Send\+Setting\+Group (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{origin,  }\item[{uint8\+\_\+t}]{memgroup,  }\item[{uint8\+\_\+t}]{m\+\_\+offset,  }\item[{uint16\+\_\+t}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Send\+Setting\+Group (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{origin}{, }\item[{uint8\+\_\+t}]{memgroup}{, }\item[{uint8\+\_\+t}]{m\+\_\+offset}{, }\item[{uint16\+\_\+t}]{size}{}\end{DoxyParamCaption})}
 
 
 
@@ -630,21 +721,23 @@ Helper function for sending all settings.
 
 
 
-Definition at line 1143 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l01241}{1241}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and uv\+Send\+Specific\+Param().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00840}{uv\+Send\+Specific\+Param()}}.
 
 
 
-Referenced by send\+All\+Settings\+Worker().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01261}{send\+All\+Settings\+Worker()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}\label{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSendSpecificParam@{uvSendSpecificParam}}
+Here is the call graph for this function\+:
+% FIG 8
+\Hypertarget{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSendSpecificParam@{uvSendSpecificParam}}
 \index{uvSendSpecificParam@{uvSendSpecificParam}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSendSpecificParam()}{uvSendSpecificParam()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Send\+Specific\+Param (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{origin,  }\item[{uint8\+\_\+t}]{mgroup,  }\item[{uint8\+\_\+t}]{m\+\_\+offset,  }\item[{uint8\+\_\+t}]{size }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Send\+Specific\+Param (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{origin}{, }\item[{uint8\+\_\+t}]{mgroup}{, }\item[{uint8\+\_\+t}]{m\+\_\+offset}{, }\item[{uint8\+\_\+t}]{size}{}\end{DoxyParamCaption})}
 
 
 
@@ -652,39 +745,43 @@ Function that locates a specific setting parameter and sends the value over canb
 
 
 
-Definition at line 778 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00840}{840}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::dlc, uv\+\_\+\+C\+A\+N\+\_\+msg\+::flags, uv\+\_\+\+C\+A\+N\+\_\+msg\+::msg\+\_\+id, S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and uv\+Send\+Can\+M\+S\+G().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
 
 
 
-Referenced by uv\+Send\+Setting\+Group(), and uv\+Settings\+Programmer\+Task().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01241}{uv\+Send\+Setting\+Group()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67}\label{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSetSettingResponseReminder@{uvSetSettingResponseReminder}}
+Here is the call graph for this function\+:
+% FIG 9
+\Hypertarget{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSetSettingResponseReminder@{uvSetSettingResponseReminder}}
 \index{uvSetSettingResponseReminder@{uvSetSettingResponseReminder}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSetSettingResponseReminder()}{uvSetSettingResponseReminder()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Set\+Setting\+Response\+Reminder (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{reminder }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Set\+Setting\+Response\+Reminder (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{reminder}{}\end{DoxyParamCaption})}
 
 
 
-This reminds the V\+CU to shoot off it\textquotesingle{}s own message later when it reboots. 
+Function that creates a. 
+
+This reminds the VCU to shoot off it\textquotesingle{}s own message later when it reboots.
 
 @deperecated 
 
-Definition at line 716 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00759}{759}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, U\+V\+\_\+\+E\+R\+R\+OR, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_adc9522bb052011b07febe1235d1a4792}\label{uvfr__settings_8c_adc9522bb052011b07febe1235d1a4792}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSettingsInit@{uvSettingsInit}}
+\Hypertarget{uvfr__settings_8c_ab1433cc55d71e34bd1facef274edc1a6}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSettingsInit@{uvSettingsInit}}
 \index{uvSettingsInit@{uvSettingsInit}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSettingsInit()}{uvSettingsInit()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Settings\+Init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ab1433cc55d71e34bd1facef274edc1a6} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Settings\+Init (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -692,21 +789,23 @@ this function does one thing, and one thing only, it checks if we have custom se
 
 
 
-Definition at line 334 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{359}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References \+\_\+\+\_\+uv\+Init\+Panic(), current\+\_\+vehicle\+\_\+settings, handle\+Incoming\+Laptop\+Msg(), insert\+C\+A\+N\+Message\+Handler(), S\+E\+T\+T\+I\+N\+G\+\_\+\+B\+R\+A\+N\+C\+H\+\_\+\+S\+I\+ZE, setup\+Default\+Settings(), S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, uv\+Load\+Settings\+From\+Flash(), uv\+Reset\+Flash\+To\+Default(), uv\+Send\+Can\+M\+S\+G(), uv\+Validate\+Flash\+Settings(), and vcu\+\_\+ack\+\_\+msg.
+References \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00272}{CAN\+\_\+\+BUS\+\_\+2}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00098}{SETTING\+\_\+\+BRANCH\+\_\+\+SIZE}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00294}{uv\+Load\+Settings\+From\+Flash()}}, \mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uv\+Reset\+Flash\+To\+Default()}}, \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00872}{uv\+Validate\+Flash\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00106}{vcu\+\_\+ack\+\_\+msg}}.
 
 
 
-Referenced by uv\+Init().
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}\label{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSettingsProgrammerTask@{uvSettingsProgrammerTask}}
+Here is the call graph for this function\+:
+% FIG 10
+\Hypertarget{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvSettingsProgrammerTask@{uvSettingsProgrammerTask}}
 \index{uvSettingsProgrammerTask@{uvSettingsProgrammerTask}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvSettingsProgrammerTask()}{uvSettingsProgrammerTask()}}
-{\footnotesize\ttfamily void uv\+Settings\+Programmer\+Task (\begin{DoxyParamCaption}\item[{void $\ast$}]{args }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013} 
+void uv\+Settings\+Programmer\+Task (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
 
 
 
@@ -714,21 +813,23 @@ This is a task that executes the functionality necessary for vehicle diagnostics
 
 This task is only active once the car has been placed in programming mode. 
 
-Definition at line 864 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{926}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References change\+Vehicle\+State(), uv\+\_\+task\+\_\+info\+::cmd\+\_\+data, uv\+\_\+\+C\+A\+N\+\_\+msg\+::data, D\+A\+T\+A\+\_\+\+M\+I\+S\+M\+A\+T\+CH, data\+\_\+size, D\+I\+D\+\_\+\+N\+O\+T\+\_\+\+F\+I\+N\+I\+S\+H\+\_\+\+P\+R\+O\+G\+R\+A\+M\+M\+I\+NG, D\+I\+S\+C\+A\+R\+D\+\_\+\+N\+E\+W\+\_\+\+S\+E\+T\+T\+I\+N\+GS, D\+I\+S\+C\+A\+R\+D\+\_\+\+N\+E\+W\+\_\+\+S\+E\+T\+T\+I\+N\+G\+S\+\_\+\+A\+N\+D\+\_\+\+E\+X\+IT, E\+N\+D\+\_\+\+O\+F\+\_\+\+S\+P\+E\+C\+I\+F\+I\+C\+\_\+\+P\+A\+R\+A\+MS, F\+L\+A\+S\+H\+\_\+\+N\+O\+T\+\_\+\+U\+N\+L\+O\+C\+K\+ED, F\+L\+A\+S\+H\+\_\+\+S\+B\+L\+O\+C\+K\+\_\+\+S\+T\+A\+RT, F\+O\+R\+C\+E\+\_\+\+R\+E\+S\+T\+O\+R\+E\+\_\+\+F\+A\+C\+T\+O\+R\+Y\+\_\+\+D\+E\+F\+A\+U\+LT, I\+N\+V\+A\+L\+I\+D\+\_\+\+S\+B\+L\+O\+CK, kill\+Self(), P\+O\+S\+T\+\_\+\+C\+H\+E\+C\+K\+S\+UM, P\+R\+E\+\_\+\+C\+H\+E\+C\+K\+S\+UM, ptask\+\_\+handle, R\+E\+Q\+U\+E\+S\+T\+\_\+\+A\+L\+L\+\_\+\+J\+O\+U\+R\+N\+A\+L\+\_\+\+E\+N\+T\+R\+I\+ES, R\+E\+Q\+U\+E\+S\+T\+\_\+\+A\+L\+L\+\_\+\+S\+E\+T\+T\+I\+N\+GS, R\+E\+Q\+U\+E\+S\+T\+\_\+\+J\+O\+U\+R\+N\+A\+L\+\_\+\+E\+N\+T\+R\+I\+E\+S\+\_\+\+B\+Y\+\_\+\+T\+I\+ME, R\+E\+Q\+U\+E\+S\+T\+\_\+\+S\+P\+E\+C\+I\+F\+I\+C\+\_\+\+S\+E\+T\+T\+I\+NG, S\+A\+V\+E\+\_\+\+A\+N\+D\+\_\+\+A\+P\+P\+L\+Y\+\_\+\+N\+E\+W\+\_\+\+S\+E\+T\+T\+I\+N\+GS, S\+E\+T\+\_\+\+S\+P\+E\+C\+I\+F\+I\+C\+\_\+\+P\+A\+R\+AM, settings\+\_\+queue, uv\+\_\+task\+\_\+info\+::task\+\_\+handle, U\+V\+\_\+\+K\+I\+L\+L\+\_\+\+C\+MD, U\+V\+\_\+\+OK, U\+V\+\_\+\+R\+E\+A\+DY, uv\+Create\+Tmp\+Settings\+Copy(), uv\+Reset\+Flash\+To\+Default(), uv\+Save\+Settings\+To\+Flash(), uv\+Send\+Can\+M\+S\+G(), uv\+Send\+Specific\+Param(), uv\+Update\+Tmp\+Settings(), vcu\+\_\+ack\+\_\+failed\+\_\+msg, and vcu\+\_\+ack\+\_\+msg.
+References \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00594}{DATA\+\_\+\+MISMATCH}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00021}{data\+\_\+size}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00593}{DID\+\_\+\+NOT\+\_\+\+FINISH\+\_\+\+PROGRAMMING}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00142}{DISCARD\+\_\+\+NEW\+\_\+\+SETTINGS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00143}{DISCARD\+\_\+\+NEW\+\_\+\+SETTINGS\+\_\+\+AND\+\_\+\+EXIT}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00136}{END\+\_\+\+OF\+\_\+\+SPECIFIC\+\_\+\+PARAMS}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00592}{FLASH\+\_\+\+NOT\+\_\+\+UNLOCKED}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00041}{FLASH\+\_\+\+SBLOCK\+\_\+\+START}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00144}{FORCE\+\_\+\+RESTORE\+\_\+\+FACTORY\+\_\+\+DEFAULT}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00591}{INVALID\+\_\+\+SBLOCK}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00596}{POST\+\_\+\+CHECKSUM}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00595}{PRE\+\_\+\+CHECKSUM}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00138}{REQUEST\+\_\+\+ALL\+\_\+\+JOURNAL\+\_\+\+ENTRIES}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00137}{REQUEST\+\_\+\+ALL\+\_\+\+SETTINGS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00139}{REQUEST\+\_\+\+JOURNAL\+\_\+\+ENTRIES\+\_\+\+BY\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00140}{REQUEST\+\_\+\+SPECIFIC\+\_\+\+SETTING}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00141}{SAVE\+\_\+\+AND\+\_\+\+APPLY\+\_\+\+NEW\+\_\+\+SETTINGS}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00135}{SET\+\_\+\+SPECIFIC\+\_\+\+PARAM}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00246}{uv\+\_\+task\+\_\+info\+::task\+\_\+handle}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00799}{uv\+Create\+Tmp\+Settings\+Copy()}}, \mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uv\+Reset\+Flash\+To\+Default()}}, \mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uv\+Save\+Settings\+To\+Flash()}}, \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00840}{uv\+Send\+Specific\+Param()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00438}{uv\+Update\+Tmp\+Settings()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00117}{vcu\+\_\+ack\+\_\+failed\+\_\+msg}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00106}{vcu\+\_\+ack\+\_\+msg}}.
 
 
 
-Referenced by uv\+Config\+Setting\+Task().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00328}{uv\+Config\+Setting\+Task()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}\label{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvTransmitVehicleStatus@{uvTransmitVehicleStatus}}
+Here is the call graph for this function\+:
+% FIG 11
+\Hypertarget{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvTransmitVehicleStatus@{uvTransmitVehicleStatus}}
 \index{uvTransmitVehicleStatus@{uvTransmitVehicleStatus}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvTransmitVehicleStatus()}{uvTransmitVehicleStatus()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Transmit\+Vehicle\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Transmit\+Vehicle\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
@@ -736,360 +837,292 @@ Transmits the status of the vehicle, including errorcodes and similar.
 
 
 
-Definition at line 141 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00147}{147}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by handle\+Incoming\+Laptop\+Msg().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}\label{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvUpdateTmpSettings@{uvUpdateTmpSettings}}
+\Hypertarget{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvUpdateTmpSettings@{uvUpdateTmpSettings}}
 \index{uvUpdateTmpSettings@{uvUpdateTmpSettings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvUpdateTmpSettings()}{uvUpdateTmpSettings()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Update\+Tmp\+Settings (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{tmp\+\_\+settings,  }\item[{uint8\+\_\+t}]{memgroup,  }\item[{uint8\+\_\+t}]{m\+\_\+offset,  }\item[{uint8\+\_\+t}]{size,  }\item[{uint8\+\_\+t $\ast$}]{data }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Update\+Tmp\+Settings (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{tmp\+\_\+settings}{, }\item[{uint8\+\_\+t}]{memgroup}{, }\item[{uint8\+\_\+t}]{m\+\_\+offset}{, }\item[{uint8\+\_\+t}]{size}{, }\item[{uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
 
 
 
-Updates a setting in a temporary S\+Block by memory group and offset. 
+Updates a setting in a temporary SBlock by memory group and offset. 
 
-This indicates that you are attempting to set a setting that bridges the 128 byte \char`\"{}row\char`\"{} system the S\+T\+M32\+F40xx uses to organise the flash memory. Attempting to write a parameter like this will result in a busfault.
+This indicates that you are attempting to set a setting that bridges the 128 byte "{}row"{} system the STM32\+F40xx uses to organise the flash memory. Attempting to write a parameter like this will result in a busfault.
 
-Definition at line 411 of file uvfr\+\_\+settings.\+c.
-
-
-
-References U\+V\+\_\+\+E\+R\+R\+OR, and U\+V\+\_\+\+OK.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00438}{438}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by uv\+Settings\+Programmer\+Task().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858}\label{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvValidateChecksums@{uvValidateChecksums}}
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+
+\Hypertarget{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvValidateChecksums@{uvValidateChecksums}}
 \index{uvValidateChecksums@{uvValidateChecksums}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvValidateChecksums()}{uvValidateChecksums()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Validate\+Checksums (\begin{DoxyParamCaption}\item[{void $\ast$}]{sblock }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Validate\+Checksums (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{sblock}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 495 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00522}{522}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References U\+V\+\_\+\+E\+R\+R\+OR, U\+V\+\_\+\+OK, and uv\+Compute\+Settings\+Checksums().
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00499}{uv\+Compute\+Settings\+Checksums()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}\label{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!uvValidateFlashSettings@{uvValidateFlashSettings}}
+Here is the call graph for this function\+:
+% FIG 12
+\Hypertarget{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}\index{uvfr\_settings.c@{uvfr\_settings.c}!uvValidateFlashSettings@{uvValidateFlashSettings}}
 \index{uvValidateFlashSettings@{uvValidateFlashSettings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{uvValidateFlashSettings()}{uvValidateFlashSettings()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Validate\+Flash\+Settings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Validate\+Flash\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 
 
-Function that looks into the flash memory of the V\+CU, and determines if a valid set of settings exists. 
+Function that looks into the flash memory of the VCU, and determines if a valid set of settings exists. 
 
-This checks various parameters to ensure that the settings are useable. The first thing it looks at is the very first word of the S\+B\+L\+O\+CK. If the first word is 0x42069420, then this is a real sblock.
+This checks various parameters to ensure that the settings are useable. The first thing it looks at is the very first word of the SBLOCK. If the first word is 0x42069420, then this is a real sblock.
 
 The second thing it checks is the firmware version, which is stored immediately after the first word, and 16 bytes of padding. These 3 16 bit ints need to be correct, in order for it to proceed. This prevents settings made for incompatible firmware versions from being used. 
 
-Definition at line 810 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00872}{872}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-References M\+A\+G\+I\+C\+\_\+\+N\+U\+M\+B\+ER, S\+T\+A\+R\+T\+\_\+\+O\+F\+\_\+\+U\+S\+E\+R\+\_\+\+F\+L\+A\+SH, U\+V\+\_\+\+E\+R\+R\+OR, and U\+V\+\_\+\+OK.
+References \mbox{\hyperlink{uvfr__settings_8h_source_l00107}{MAGIC\+\_\+\+NUMBER}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00027}{START\+\_\+\+OF\+\_\+\+USER\+\_\+\+FLASH}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by uv\+Settings\+Init().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
 
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68}\label{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!\_e\_uvdata@{\_e\_uvdata}}
+\Hypertarget{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68}\index{uvfr\_settings.c@{uvfr\_settings.c}!\_e\_uvdata@{\_e\_uvdata}}
 \index{\_e\_uvdata@{\_e\_uvdata}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{\_e\_uvdata}{\_e\_uvdata}}
-{\footnotesize\ttfamily P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+D\+A\+TA uint8\+\_\+t \+\_\+e\+\_\+uvdata}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68} 
+PRIVILEGED\+\_\+\+DATA uint8\+\_\+t \+\_\+e\+\_\+uvdata\hspace{0.3cm}{\ttfamily [extern]}}
 
-\mbox{\Hypertarget{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494}\label{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!\_s\_uvdata@{\_s\_uvdata}}
+\Hypertarget{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494}\index{uvfr\_settings.c@{uvfr\_settings.c}!\_s\_uvdata@{\_s\_uvdata}}
 \index{\_s\_uvdata@{\_s\_uvdata}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{\_s\_uvdata}{\_s\_uvdata}}
-{\footnotesize\ttfamily P\+R\+I\+V\+I\+L\+E\+G\+E\+D\+\_\+\+D\+A\+TA uint8\+\_\+t \+\_\+s\+\_\+uvdata}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494} 
+PRIVILEGED\+\_\+\+DATA uint8\+\_\+t \+\_\+s\+\_\+uvdata\hspace{0.3cm}{\ttfamily [extern]}}
 
-\mbox{\Hypertarget{uvfr__settings_8c_af0cbf7f4ea57695f3b1d2d3c83844000}\label{uvfr__settings_8c_af0cbf7f4ea57695f3b1d2d3c83844000}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!child\_task\_active@{child\_task\_active}}
-\index{child\_task\_active@{child\_task\_active}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{child\_task\_active}{child\_task\_active}}
-{\footnotesize\ttfamily \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} child\+\_\+task\+\_\+active = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line 93 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by send\+All\+Settings\+Worker().
-
-\mbox{\Hypertarget{uvfr__settings_8c_a19de39f55cc05851f5fa6a40070681e3}\label{uvfr__settings_8c_a19de39f55cc05851f5fa6a40070681e3}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!child\_task\_handle@{child\_task\_handle}}
-\index{child\_task\_handle@{child\_task\_handle}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{child\_task\_handle}{child\_task\_handle}}
-{\footnotesize\ttfamily Task\+Handle\+\_\+t child\+\_\+task\+\_\+handle = N\+U\+LL\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line 92 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by send\+All\+Settings\+Worker().
-
-\mbox{\Hypertarget{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}\label{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!current\_vehicle\_settings@{current\_vehicle\_settings}}
+\Hypertarget{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}\index{uvfr\_settings.c@{uvfr\_settings.c}!current\_vehicle\_settings@{current\_vehicle\_settings}}
 \index{current\_vehicle\_settings@{current\_vehicle\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{current\_vehicle\_settings}{current\_vehicle\_settings}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}}$\ast$ current\+\_\+vehicle\+\_\+settings = N\+U\+LL}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf} 
+\mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}}\texorpdfstring{$\ast$}{*} current\+\_\+vehicle\+\_\+settings = NULL}
 
 
 
-Definition at line 20 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{25}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by configure\+Daq\+Sub\+Tasks(), init\+Daq\+Task(), init\+Driving\+Loop(), setup\+Default\+Settings(), uv\+Init(), uv\+Load\+Settings\+From\+Flash(), uv\+Settings\+Init(), and uv\+Start\+State\+Machine().
+Referenced by \mbox{\hyperlink{daq_8c_source_l00183}{configure\+Daq\+Sub\+Tasks()}}, \mbox{\hyperlink{daq_8c_source_l00257}{init\+Daq\+Task()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00294}{uv\+Load\+Settings\+From\+Flash()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}\label{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_bms\_settings@{default\_bms\_settings}}
+\Hypertarget{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_bms\_settings@{default\_bms\_settings}}
 \index{default\_bms\_settings@{default\_bms\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{default\_bms\_settings}{default\_bms\_settings}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}} default\+\_\+bms\+\_\+settings}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354} 
+\mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}} default\+\_\+bms\+\_\+settings\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 12 of file bms.\+c.
+Definition at line \mbox{\hyperlink{bms_8c_source_l00014}{14}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}\label{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_daq\_settings@{default\_daq\_settings}}
+\Hypertarget{uvfr__settings_8c_af1159e0fffb524777de5dcf9d869a738}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_conifer\_settings@{default\_conifer\_settings}}
+\index{default\_conifer\_settings@{default\_conifer\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
+\doxysubsubsection{\texorpdfstring{default\_conifer\_settings}{default\_conifer\_settings}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_af1159e0fffb524777de5dcf9d869a738} 
+struct \mbox{\hyperlink{structconifer__settings}{conifer\+\_\+settings}} default\+\_\+conifer\+\_\+settings\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__conifer_8c_source_l00015}{15}} of file \mbox{\hyperlink{uvfr__conifer_8c_source}{uvfr\+\_\+conifer.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
+
+\Hypertarget{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_daq\_settings@{default\_daq\_settings}}
 \index{default\_daq\_settings@{default\_daq\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{default\_daq\_settings}{default\_daq\_settings}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}} default\+\_\+daq\+\_\+settings}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1} 
+struct \mbox{\hyperlink{structdaq__loop__args}{daq\+\_\+loop\+\_\+args}} default\+\_\+daq\+\_\+settings\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 30 of file daq.\+c.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00048}{48}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_af5ab2cd7ec858145d49d4e585e4bef94}\label{uvfr__settings_8c_af5ab2cd7ec858145d49d4e585e4bef94}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_datapoints@{default\_datapoints}}
+\Hypertarget{uvfr__settings_8c_af2240542724a20552b90fafa9642884d}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_datapoints@{default\_datapoints}}
 \index{default\_datapoints@{default\_datapoints}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{default\_datapoints}{default\_datapoints}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structdaq__datapoint}{daq\+\_\+datapoint}} default\+\_\+datapoints\mbox{[}$\,$\mbox{]}}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_af2240542724a20552b90fafa9642884d} 
+\mbox{\hyperlink{structdaq__msg}{daq\+\_\+msg}} default\+\_\+datapoints\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 38 of file daq.\+c.
+Definition at line \mbox{\hyperlink{daq_8c_source_l00056}{56}} of file \mbox{\hyperlink{daq_8c_source}{daq.\+c}}.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4}\label{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_dl\_settings@{default\_dl\_settings}}
+\Hypertarget{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_dl\_settings@{default\_dl\_settings}}
 \index{default\_dl\_settings@{default\_dl\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{default\_dl\_settings}{default\_dl\_settings}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structdriving__loop__args}{driving\+\_\+loop\+\_\+args}} default\+\_\+dl\+\_\+settings}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4} 
+struct \mbox{\hyperlink{structdriving__loop__args}{driving\+\_\+loop\+\_\+args}} default\+\_\+dl\+\_\+settings\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 27 of file driving\+\_\+loop.\+c.
+Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00029}{29}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a1071bc1cceac3198de98d9c0753044d6}\label{uvfr__settings_8c_a1071bc1cceac3198de98d9c0753044d6}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_imd\_settings@{default\_imd\_settings}}
+\Hypertarget{uvfr__settings_8c_a1071bc1cceac3198de98d9c0753044d6}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_imd\_settings@{default\_imd\_settings}}
 \index{default\_imd\_settings@{default\_imd\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{default\_imd\_settings}{default\_imd\_settings}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structuv__imd__settings}{uv\+\_\+imd\+\_\+settings}} default\+\_\+imd\+\_\+settings}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a1071bc1cceac3198de98d9c0753044d6} 
+struct \mbox{\hyperlink{structuv__imd__settings}{uv\+\_\+imd\+\_\+settings}} default\+\_\+imd\+\_\+settings\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 65 of file imd.\+c.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00065}{65}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a07c6d6c6f641c6fb60600b9bd7efbf7e}\label{uvfr__settings_8c_a07c6d6c6f641c6fb60600b9bd7efbf7e}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_pdu\_settings@{default\_pdu\_settings}}
-\index{default\_pdu\_settings@{default\_pdu\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{default\_pdu\_settings}{default\_pdu\_settings}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structuv19__pdu__settings}{uv19\+\_\+pdu\+\_\+settings}} default\+\_\+pdu\+\_\+settings}
-
-
-
-Definition at line 28 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
-
-\mbox{\Hypertarget{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}\label{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_vehicle@{default\_vehicle}}
+\Hypertarget{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}\index{uvfr\_settings.c@{uvfr\_settings.c}!default\_vehicle@{default\_vehicle}}
 \index{default\_vehicle@{default\_vehicle}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{default\_vehicle}{default\_vehicle}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structveh__gen__info}{veh\+\_\+gen\+\_\+info}} default\+\_\+vehicle}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23} 
+\mbox{\hyperlink{structveh__gen__info}{veh\+\_\+gen\+\_\+info}} default\+\_\+vehicle}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{    .wheel\_size = 0xEEEEEEEE,}
-\DoxyCodeLine{    .drive\_ratio = 0xDDDDDDDD,}
-\DoxyCodeLine{    .test1 = 0xCCCC,}
-\DoxyCodeLine{    .test2 = 0xBBBB,}
-\DoxyCodeLine{    .test3 = 0xAAAA,}
-\DoxyCodeLine{    .test4 = 0x99,}
-\DoxyCodeLine{    .test5 = 0x88,}
-\DoxyCodeLine{    .test6 = 0x77777777}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ .wheel\_size\ =\ 0xEEEEEEEE,}
+\DoxyCodeLine{\ \ \ \ .drive\_ratio\ =\ 0xDDDDDDDD,}
+\DoxyCodeLine{\ \ \ \ .test1\ =\ 0xCCCC,}
+\DoxyCodeLine{\ \ \ \ .test2\ =\ 0xBBBB,}
+\DoxyCodeLine{\ \ \ \ .test3\ =\ 0xAAAA,}
+\DoxyCodeLine{\ \ \ \ .test4\ =\ 0x99,}
+\DoxyCodeLine{\ \ \ \ .test5\ =\ 0x88,}
+\DoxyCodeLine{\ \ \ \ .test6\ =\ 0x77777777}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
 
 
-Definition at line 72 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00078}{78}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_ad566fc47eb8eb3464e5b48f088ddbb83}\label{uvfr__settings_8c_ad566fc47eb8eb3464e5b48f088ddbb83}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!is\_laptop\_connected@{is\_laptop\_connected}}
-\index{is\_laptop\_connected@{is\_laptop\_connected}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{is\_laptop\_connected}{is\_laptop\_connected}}
-{\footnotesize\ttfamily \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}} is\+\_\+laptop\+\_\+connected = \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line 84 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by handle\+Incoming\+Laptop\+Msg().
-
-\mbox{\Hypertarget{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}\label{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!last\_contact\_with\_laptop@{last\_contact\_with\_laptop}}
+\Hypertarget{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}\index{uvfr\_settings.c@{uvfr\_settings.c}!last\_contact\_with\_laptop@{last\_contact\_with\_laptop}}
 \index{last\_contact\_with\_laptop@{last\_contact\_with\_laptop}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{last\_contact\_with\_laptop}{last\_contact\_with\_laptop}}
-{\footnotesize\ttfamily Tick\+Type\+\_\+t last\+\_\+contact\+\_\+with\+\_\+laptop = 0}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52} 
+Tick\+Type\+\_\+t last\+\_\+contact\+\_\+with\+\_\+laptop = 0}
 
 
 
-Definition at line 85 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00091}{91}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by handle\+Incoming\+Laptop\+Msg().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b}\label{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!mc\_default\_settings@{mc\_default\_settings}}
+\Hypertarget{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b}\index{uvfr\_settings.c@{uvfr\_settings.c}!mc\_default\_settings@{mc\_default\_settings}}
 \index{mc\_default\_settings@{mc\_default\_settings}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{mc\_default\_settings}{mc\_default\_settings}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} mc\+\_\+default\+\_\+settings}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b} 
+struct \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} mc\+\_\+default\+\_\+settings\hspace{0.3cm}{\ttfamily [extern]}}
 
 
 
-Definition at line 14 of file motor\+\_\+controller.\+c.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00038}{38}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by M\+C\+\_\+\+Request\+\_\+\+Data(), M\+C\+\_\+\+Set\+\_\+\+Param(), M\+C\+\_\+\+Startup(), Motor\+Controller\+Spin\+Test(), Parse\+\_\+\+Bamocar\+\_\+\+Response(), setup\+Default\+Settings(), and uv\+Reset\+Flash\+To\+Default().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_a6726b669a3c5795c3326238ab974f382}\label{uvfr__settings_8c_a6726b669a3c5795c3326238ab974f382}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!ptask\_handle@{ptask\_handle}}
-\index{ptask\_handle@{ptask\_handle}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{ptask\_handle}{ptask\_handle}}
-{\footnotesize\ttfamily Task\+Handle\+\_\+t ptask\+\_\+handle = N\+U\+LL\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line 90 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by uv\+Settings\+Programmer\+Task().
-
-\mbox{\Hypertarget{uvfr__settings_8c_aa3e729b05a7d2931a9a1e55f52bca3c7}\label{uvfr__settings_8c_aa3e729b05a7d2931a9a1e55f52bca3c7}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!settings\_queue@{settings\_queue}}
-\index{settings\_queue@{settings\_queue}!uvfr\_settings.c@{uvfr\_settings.c}}
-\doxysubsubsection{\texorpdfstring{settings\_queue}{settings\_queue}}
-{\footnotesize\ttfamily Queue\+Handle\+\_\+t settings\+\_\+queue = N\+U\+LL\hspace{0.3cm}{\ttfamily [static]}}
-
-
-
-Definition at line 88 of file uvfr\+\_\+settings.\+c.
-
-
-
-Referenced by handle\+Incoming\+Laptop\+Msg(), and uv\+Settings\+Programmer\+Task().
-
-\mbox{\Hypertarget{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}\label{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!vcu\_ack\_failed\_msg@{vcu\_ack\_failed\_msg}}
+\Hypertarget{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}\index{uvfr\_settings.c@{uvfr\_settings.c}!vcu\_ack\_failed\_msg@{vcu\_ack\_failed\_msg}}
 \index{vcu\_ack\_failed\_msg@{vcu\_ack\_failed\_msg}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{vcu\_ack\_failed\_msg}{vcu\_ack\_failed\_msg}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} vcu\+\_\+ack\+\_\+failed\+\_\+msg}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5} 
+const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} vcu\+\_\+ack\+\_\+failed\+\_\+msg}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{    .flags = 0x00,}
-\DoxyCodeLine{    .dlc = 1,}
-\DoxyCodeLine{    .data = \{0x11,0,0,0,0,0,0,0\},}
-\DoxyCodeLine{    .msg\_id = \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\_TO\_LAPTOP\_ID}}}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ .flags\ =\ 0x00,}
+\DoxyCodeLine{\ \ \ \ .dlc\ =\ 1,}
+\DoxyCodeLine{\ \ \ \ .data\ =\ \{0x11,0,0,0,0,0,0,0\},}
+\DoxyCodeLine{\ \ \ \ .msg\_id\ =\ \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\_TO\_LAPTOP\_ID}}}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-Pre-\/created message that indicates the V\+CU has failed to perform some requested action 
+Pre-\/created message that indicates the VCU has failed to perform some requested action 
 
-Definition at line 111 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00117}{117}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by handle\+Incoming\+Laptop\+Msg(), and uv\+Settings\+Programmer\+Task().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 
-\mbox{\Hypertarget{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}\label{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}} 
-\index{uvfr\_settings.c@{uvfr\_settings.c}!vcu\_ack\_msg@{vcu\_ack\_msg}}
+\Hypertarget{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}\index{uvfr\_settings.c@{uvfr\_settings.c}!vcu\_ack\_msg@{vcu\_ack\_msg}}
 \index{vcu\_ack\_msg@{vcu\_ack\_msg}!uvfr\_settings.c@{uvfr\_settings.c}}
 \doxysubsubsection{\texorpdfstring{vcu\_ack\_msg}{vcu\_ack\_msg}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+C\+A\+N\+\_\+msg}} vcu\+\_\+ack\+\_\+msg}
+{\footnotesize\ttfamily \label{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491} 
+const \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} vcu\+\_\+ack\+\_\+msg}
 
 {\bfseries Initial value\+:}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{    .flags = 0x00,}
-\DoxyCodeLine{    .dlc = 1,}
-\DoxyCodeLine{    .data = \{0x10,0,0,0,0,0,0,0\},}
-\DoxyCodeLine{    .msg\_id = \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\_TO\_LAPTOP\_ID}}}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ .flags\ =\ 0x00,}
+\DoxyCodeLine{\ \ \ \ .dlc\ =\ 1,}
+\DoxyCodeLine{\ \ \ \ .data\ =\ \{0x10,0,0,0,0,0,0,0\},}
+\DoxyCodeLine{\ \ \ \ .msg\_id\ =\ \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\_TO\_LAPTOP\_ID}}}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
-Pre-\/create message that is transmitted by the V\+CU upon successful completion of a settings change or diagnostic operation requested by a laptop 
+Pre-\/create message that is transmitted by the VCU upon successful completion of a settings change or diagnostic operation requested by a laptop 
 
-Definition at line 100 of file uvfr\+\_\+settings.\+c.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00106}{106}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by uv\+Settings\+Init(), and uv\+Settings\+Programmer\+Task().
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
 

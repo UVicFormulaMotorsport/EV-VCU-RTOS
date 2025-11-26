@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_task_priority_set" kind="group">
     <compoundname>vTaskPrioritySet</compoundname>
     <title>vTaskPrioritySet</title>
@@ -30,17 +30,22 @@
 Example usage: <preformatted>
 void vAFunction( void )
 {
-TaskHandle_t xHandle;</preformatted></para>
-<para><preformatted>    // Create a task, storing the handle.
-    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, &amp;xHandle );</preformatted></para>
-<para><preformatted>    // ...</preformatted></para>
-<para><preformatted>    // Use the handle to raise the priority of the created task.
-    vTaskPrioritySet( xHandle, tskIDLE_PRIORITY + 1 );</preformatted></para>
-<para><preformatted>    // ...</preformatted></para>
-<para><preformatted>    // Use a NULL handle to raise our priority to the same value.
+TaskHandle_t xHandle;
+
+    // Create a task, storing the handle.
+    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, &amp;xHandle );
+
+    // ...
+
+    // Use the handle to raise the priority of the created task.
+    vTaskPrioritySet( xHandle, tskIDLE_PRIORITY + 1 );
+
+    // ...
+
+    // Use a NULL handle to raise our priority to the same value.
     vTaskPrioritySet( NULL, tskIDLE_PRIORITY + 1 );
 }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

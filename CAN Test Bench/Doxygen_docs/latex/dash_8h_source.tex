@@ -1,0 +1,44 @@
+\doxysection{dash.\+h}
+\hypertarget{dash_8h_source}{}\label{dash_8h_source}\index{Core/Inc/dash.h@{Core/Inc/dash.h}}
+\mbox{\hyperlink{dash_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00001}00001\ \textcolor{comment}{//\ Code\ to\ make\ human\ readable\ CAN\ messages\ for\ the\ device}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00003}00003\ \textcolor{comment}{//\ This\ file\ will\ define\ message\ data\ as\ human\ readable\ stuff}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00005}00005\ \textcolor{comment}{//\ The\ dash\ does\ not\ have\ a\ unique\ CAN\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00006}00006\ \textcolor{comment}{//\ Each\ function\ on\ the\ dash\ has\ a\ unique\ CAN\ ID}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifndef\ \_\_DASH\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00011}00011\ \textcolor{preprocessor}{\#define\ \_\_DASH\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00013}00013\ \textcolor{comment}{//\ CAN\ IDs\ correspond\ to\ specific\ values\ on\ the\ dash}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00014}\mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326}{00014}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326}{dash\_can\_ids}}\{}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00015}\mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326acf570e9fd481a65c750c9dff4f799db6}{00015}}\ \ \ \ \ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326acf570e9fd481a65c750c9dff4f799db6}{Dash\_RPM}}\ =\ 0x80,}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00016}\mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326af40c0ecb9c7ec3c5bb9d7fe5db7a2c9f}{00016}}\ \ \ \ \ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326af40c0ecb9c7ec3c5bb9d7fe5db7a2c9f}{Dash\_Battery\_Temperature}}\ =\ 0x82,}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00017}\mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326ae8ee9a576cf2fea6eeda1948c522f8a8}{00017}}\ \ \ \ \ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326ae8ee9a576cf2fea6eeda1948c522f8a8}{Dash\_Motor\_Temperature}}\ =\ 0x88,}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00018}\mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326a0dabe76af82e2a49e2e60add5dd72dfc}{00018}}\ \ \ \ \ \mbox{\hyperlink{dash_8h_acef132540238e9f0c7d325f4ba6aa326a0dabe76af82e2a49e2e60add5dd72dfc}{Dash\_State\_of\_Charge}}\ =\ 0x87,}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00019}00019\ \};}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00021}00021\ \textcolor{comment}{//\ Battery\ Temperature\ 0x82}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00023}00023\ \textcolor{comment}{//\ Motor\ Temperature\ 0x87}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00025}00025\ \textcolor{comment}{//\ Inverter\ Temperature\ TODO}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00027}00027\ \textcolor{comment}{//\ RPM\ 0x80}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00029}00029\ \textcolor{comment}{//\ State\ of\ Charge\ 0x87}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00031}00031\ \textcolor{comment}{//\ Need\ to\ define\ these}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00033}00033\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dash_8h_ab26e477047a5166efc8f2b34dbd38872}{Update\_RPM}}(int16\_t\ value);}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00034}00034\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dash_8h_a66f84461e5c75202d12edfd8ea7c7f62}{Update\_Batt\_Temp}}(uint8\_t\ value);}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00035}00035\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{dash_8h_a30155b58ef3801f5693e953d4139d55f}{Update\_State\_Of\_Charge}}(uint8\_t\ value);}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00037}00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{dash_8h_source_l00038}00038\ }
+
+\end{DoxyCode}

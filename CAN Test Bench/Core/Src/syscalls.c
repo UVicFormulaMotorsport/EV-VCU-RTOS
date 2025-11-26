@@ -29,7 +29,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <sys/times.h>
-
+#include "uvfr_utils.h"
 
 /* Variables */
 extern int __io_putchar(int ch) __attribute__((weak));
@@ -77,17 +77,30 @@ __attribute__((weak)) int _read(int file, char *ptr, int len)
   return len;
 }
 
-__attribute__((weak)) int _write(int file, char *ptr, int len)
-{
-  (void)file;
-  int DataIdx;
+//__attribute__((weak)) int _write(int file, char *ptr, int len)
+//{
+//  (void)file;
+//  int DataIdx;
+//
+//  for (DataIdx = 0; DataIdx < len; DataIdx++)
+//  {
+//    __io_putchar(*ptr++);
+//  }
+//  return len;
+//}
 
-  for (DataIdx = 0; DataIdx < len; DataIdx++)
-  {
-    __io_putchar(*ptr++);
-  }
-  return len;
+
+/** This is a cool function that overrides the weak _write function in syscalls.c
+ *
+ */
+int _write(int file, char *ptr, int len){
+	(void)file;
+	for (int i = 0; i < len; i++) {
+		ITM_SendChar((*ptr++)); //Uses the instruction trace macrocell for this stuff
+	}
+	return len;
 }
+
 
 int _close(int file)
 {

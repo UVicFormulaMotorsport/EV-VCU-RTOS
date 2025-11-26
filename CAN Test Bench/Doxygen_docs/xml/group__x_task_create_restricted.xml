@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_task_create_restricted" kind="group">
     <compoundname>xTaskCreateRestricted</compoundname>
     <title>xTaskCreateRestricted</title>
@@ -40,8 +40,9 @@ static const TaskParameters_t xCheckTaskParameters =
     100,        // usStackDepth - the stack size DEFINED IN WORDS.
     NULL,       // pvParameters - passed into the task function as the function parameters.
     ( 1UL | portPRIVILEGE_BIT ),// uxPriority - task priority, set the portPRIVILEGE_BIT if the task should run in a privileged state.
-    cStackBuffer,// puxStackBuffer - the buffer to be used as the task stack.</preformatted></para>
-<para><preformatted>    // xRegions - Allocate up to three separate memory regions for access by
+    cStackBuffer,// puxStackBuffer - the buffer to be used as the task stack.
+
+    // xRegions - Allocate up to three separate memory regions for access by
     // the task, with appropriate access permissions.  Different processors have
     // different memory alignment requirements - refer to the FreeRTOS documentation
     // for full information.
@@ -51,21 +52,25 @@ static const TaskParameters_t xCheckTaskParameters =
         { cReadOnlyArray,               32,     portMPU_REGION_READ_ONLY },
         { cPrivilegedOnlyAccessArray,   128,    portMPU_REGION_PRIVILEGED_READ_WRITE }
     }
-};</preformatted></para>
-<para><preformatted>int <ref refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main( void )</ref>
+};
+
+int <ref refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main( void )</ref>
 {
-TaskHandle_t xHandle;</preformatted></para>
-<para><preformatted>    // Create a task from the const structure defined above.  The task handle
+TaskHandle_t xHandle;
+
+    // Create a task from the const structure defined above.  The task handle
     // is requested (the second parameter is not NULL) but in this case just for
     // demonstration purposes as its not actually used.
-    xTaskCreateRestricted( &amp;xRegTest1Parameters, &amp;xHandle );</preformatted></para>
-<para><preformatted>    // Start the scheduler.
-    <ref refid="task_8h_1aaf9dca1065c60abdeb309d56ab7293cb" kindref="member">vTaskStartScheduler()</ref>;</preformatted></para>
-<para><preformatted>    // Will only get here if there was insufficient memory to create the idle
+    xTaskCreateRestricted( &amp;xRegTest1Parameters, &amp;xHandle );
+
+    // Start the scheduler.
+    <ref refid="task_8h_1aaf9dca1065c60abdeb309d56ab7293cb" kindref="member">vTaskStartScheduler()</ref>;
+
+    // Will only get here if there was insufficient memory to create the idle
     // and/or timer task.
     for( ;; );
 }
-   </preformatted></para>
+   </preformatted>  </para>
 <para>task. h <preformatted>
  void <ref refid="task_8h_1ad889595baff9faf9efe02f3696825409" kindref="member">vTaskAllocateMPURegions( TaskHandle_t xTask, const MemoryRegion_t * const pxRegions )</ref>;</preformatted></para>
 <para>Memory regions are assigned to a restricted task when the task is created by a call to xTaskCreateRestricted(). These regions can be redefined using <ref refid="task_8h_1ad889595baff9faf9efe02f3696825409" kindref="member">vTaskAllocateMPURegions()</ref>.</para>
@@ -97,8 +102,9 @@ static const MemoryRegion_t xAltRegions[ portNUM_CONFIGURABLE_REGIONS ] =
     { ucOneKByte,       1024,       portMPU_REGION_READ_WRITE },
     { 0,                0,          0 },
     { 0,                0,          0 }
-};</preformatted></para>
-<para><preformatted>void vATask( void *pvParameters )
+};
+
+void vATask( void *pvParameters )
 {
     // This task was created such that it has access to certain regions of
     // memory as defined by the MPU configuration.  At some point it is
@@ -106,12 +112,13 @@ static const MemoryRegion_t xAltRegions[ portNUM_CONFIGURABLE_REGIONS ] =
     // xAltRegions const struct above.  Use a call to <ref refid="task_8h_1ad889595baff9faf9efe02f3696825409" kindref="member">vTaskAllocateMPURegions()</ref>
     // for this purpose.  NULL is used as the task handle to indicate that this
     // function should modify the MPU regions of the calling task.
-    vTaskAllocateMPURegions( NULL, xAltRegions );</preformatted></para>
-<para><preformatted>    // Now the task can continue its function, but from this point on can only
+    vTaskAllocateMPURegions( NULL, xAltRegions );
+
+    // Now the task can continue its function, but from this point on can only
     // access its stack and the ucOneKByte array (unless any other statically
     // defined or shared regions have been declared elsewhere).
 }
-   </preformatted> </para>
+   </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

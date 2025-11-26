@@ -1,115 +1,145 @@
-\hypertarget{atomic_8h}{}\doxysection{Middlewares/\+Third\+\_\+\+Party/\+Free\+R\+T\+O\+S/\+Source/include/atomic.h File Reference}
-\label{atomic_8h}\index{Middlewares/Third\_Party/FreeRTOS/Source/include/atomic.h@{Middlewares/Third\_Party/FreeRTOS/Source/include/atomic.h}}
+\doxysection{Core/\+Free\+RTOS/\+Source/include/atomic.h File Reference}
+\hypertarget{atomic_8h}{}\label{atomic_8h}\index{Core/FreeRTOS/Source/include/atomic.h@{Core/FreeRTOS/Source/include/atomic.h}}
 
 
-Free\+R\+T\+OS atomic operation support.  
+Free\+RTOS atomic operation support.  
 
 
 {\ttfamily \#include $<$stdint.\+h$>$}\newline
-\doxysubsection*{Macros}
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL}}()~port\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL()
+\#define \mbox{\hyperlink{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}()
 \item 
-\#define \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL}}()~port\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL()
+\#define \mbox{\hyperlink{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}()
 \item 
-\#define \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}}
+\#define \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}}
 \item 
-\#define \mbox{\hyperlink{atomic_8h_a2d30f083e50b866caf8822ec31a75969}{A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+S\+U\+C\+C\+E\+SS}}~0x1U
+\#define \mbox{\hyperlink{atomic_8h_a2d30f083e50b866caf8822ec31a75969}{ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+SUCCESS}}~0x1U
 \item 
-\#define \mbox{\hyperlink{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}{A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+F\+A\+I\+L\+U\+RE}}~0x0U
+\#define \mbox{\hyperlink{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}{ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+FAILURE}}~0x0U
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}{Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Destination, uint32\+\_\+t ul\+Exchange, uint32\+\_\+t ul\+Comparand)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}{Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Destination, uint32\+\_\+t ul\+Exchange, uint32\+\_\+t ul\+Comparand)
 \begin{DoxyCompactList}\small\item\em Performs an atomic compare-\/and-\/swap operation on the specified values. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} void $\ast$ \mbox{\hyperlink{atomic_8h_a64d255792849f5443c4209d746eb60c3}{Atomic\+\_\+\+Swap\+Pointers\+\_\+p32}} (void $\ast$volatile $\ast$ppv\+Destination, void $\ast$pv\+Exchange)
-\begin{DoxyCompactList}\small\item\em Atomically sets the address pointed to by $\ast$ppv\+Destination to the value of $\ast$pv\+Exchange. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a0dfb0b26706475d490792af561a143d5}{Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32}} (void $\ast$volatile $\ast$ppv\+Destination, void $\ast$pv\+Exchange, void $\ast$pv\+Comparand)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{atomic_8h_a98fb15ac72c617dd96a2a4ad55787b86}{Atomic\+\_\+\+Swap\+Pointers\+\_\+p32}} (void \texorpdfstring{$\ast$}{*}volatile \texorpdfstring{$\ast$}{*}ppv\+Destination, void \texorpdfstring{$\ast$}{*}pv\+Exchange)
+\begin{DoxyCompactList}\small\item\em Atomically sets the address pointed to by \texorpdfstring{$\ast$}{*}ppv\+Destination to the value of \texorpdfstring{$\ast$}{*}pv\+Exchange. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a0dfb0b26706475d490792af561a143d5}{Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32}} (void \texorpdfstring{$\ast$}{*}volatile \texorpdfstring{$\ast$}{*}ppv\+Destination, void \texorpdfstring{$\ast$}{*}pv\+Exchange, void \texorpdfstring{$\ast$}{*}pv\+Comparand)
 \begin{DoxyCompactList}\small\item\em Performs an atomic compare-\/and-\/swap operation on the specified pointer values. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}{Atomic\+\_\+\+Add\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Addend, uint32\+\_\+t ul\+Count)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}{Atomic\+\_\+\+Add\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Addend, uint32\+\_\+t ul\+Count)
 \begin{DoxyCompactList}\small\item\em Atomically adds count to the value of the specified pointer points to. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}{Atomic\+\_\+\+Subtract\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Addend, uint32\+\_\+t ul\+Count)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}{Atomic\+\_\+\+Subtract\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Addend, uint32\+\_\+t ul\+Count)
 \begin{DoxyCompactList}\small\item\em Atomically subtracts count from the value of the specified pointer pointers to. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}{Atomic\+\_\+\+Increment\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Addend)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}{Atomic\+\_\+\+Increment\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Addend)
 \begin{DoxyCompactList}\small\item\em Atomically increments the value of the specified pointer points to. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}{Atomic\+\_\+\+Decrement\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Addend)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}{Atomic\+\_\+\+Decrement\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Addend)
 \begin{DoxyCompactList}\small\item\em Atomically decrements the value of the specified pointer points to. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}{Atomic\+\_\+\+O\+R\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Destination, uint32\+\_\+t ul\+Value)
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}{Atomic\+\_\+\+OR\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Destination, uint32\+\_\+t ul\+Value)
 \begin{DoxyCompactList}\small\item\em Performs an atomic OR operation on the specified values. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}{Atomic\+\_\+\+A\+N\+D\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Destination, uint32\+\_\+t ul\+Value)
-\begin{DoxyCompactList}\small\item\em Performs an atomic A\+ND operation on the specified values. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}{Atomic\+\_\+\+N\+A\+N\+D\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Destination, uint32\+\_\+t ul\+Value)
-\begin{DoxyCompactList}\small\item\em Performs an atomic N\+A\+ND operation on the specified values. \end{DoxyCompactList}\item 
-static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}{Atomic\+\_\+\+X\+O\+R\+\_\+u32}} (uint32\+\_\+t volatile $\ast$pul\+Destination, uint32\+\_\+t ul\+Value)
-\begin{DoxyCompactList}\small\item\em Performs an atomic X\+OR operation on the specified values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}{Atomic\+\_\+\+AND\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Destination, uint32\+\_\+t ul\+Value)
+\begin{DoxyCompactList}\small\item\em Performs an atomic AND operation on the specified values. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}{Atomic\+\_\+\+NAND\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Destination, uint32\+\_\+t ul\+Value)
+\begin{DoxyCompactList}\small\item\em Performs an atomic NAND operation on the specified values. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t \mbox{\hyperlink{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}{Atomic\+\_\+\+XOR\+\_\+u32}} (uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}pul\+Destination, uint32\+\_\+t ul\+Value)
+\begin{DoxyCompactList}\small\item\em Performs an atomic XOR operation on the specified values. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
-Free\+R\+T\+OS atomic operation support. 
+Free\+RTOS atomic operation support. 
 
 This file implements atomic functions by disabling interrupts globally. Implementations with architecture specific atomic instructions can be provided under each compiler directory. 
 
+Definition in file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
+
+
+
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}\label{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}} 
-\index{atomic.h@{atomic.h}!ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE@{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}}
+\Hypertarget{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6}\index{atomic.h@{atomic.h}!ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE@{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}}
 \index{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE@{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}{ATOMIC\_COMPARE\_AND\_SWAP\_FAILURE}}
-{\footnotesize\ttfamily \#define A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+F\+A\+I\+L\+U\+RE~0x0U}
+{\footnotesize\ttfamily \label{atomic_8h_ab374919fbdbc585c3436a94f5bad31b6} 
+\#define ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+FAILURE~0x0U}
 
 Compare and swap failed, did not swap. 
 
-Definition at line 88 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00088}{88}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
-\mbox{\Hypertarget{atomic_8h_a2d30f083e50b866caf8822ec31a75969}\label{atomic_8h_a2d30f083e50b866caf8822ec31a75969}} 
-\index{atomic.h@{atomic.h}!ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS@{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}}
+
+
+Referenced by \mbox{\hyperlink{atomic_8h_source_l00107}{Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32()}}, and \mbox{\hyperlink{atomic_8h_source_l00175}{Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32()}}.
+
+\Hypertarget{atomic_8h_a2d30f083e50b866caf8822ec31a75969}\index{atomic.h@{atomic.h}!ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS@{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}}
 \index{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS@{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}{ATOMIC\_COMPARE\_AND\_SWAP\_SUCCESS}}
-{\footnotesize\ttfamily \#define A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+S\+U\+C\+C\+E\+SS~0x1U}
+{\footnotesize\ttfamily \label{atomic_8h_a2d30f083e50b866caf8822ec31a75969} 
+\#define ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+SUCCESS~0x1U}
 
 Compare and swap succeeded, swapped. 
 
-Definition at line 87 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00087}{87}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
-\mbox{\Hypertarget{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}\label{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}} 
-\index{atomic.h@{atomic.h}!ATOMIC\_ENTER\_CRITICAL@{ATOMIC\_ENTER\_CRITICAL}}
+
+
+Referenced by \mbox{\hyperlink{atomic_8h_source_l00107}{Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32()}}, and \mbox{\hyperlink{atomic_8h_source_l00175}{Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32()}}.
+
+\Hypertarget{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9}\index{atomic.h@{atomic.h}!ATOMIC\_ENTER\_CRITICAL@{ATOMIC\_ENTER\_CRITICAL}}
 \index{ATOMIC\_ENTER\_CRITICAL@{ATOMIC\_ENTER\_CRITICAL}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{ATOMIC\_ENTER\_CRITICAL}{ATOMIC\_ENTER\_CRITICAL}}
-{\footnotesize\ttfamily \#define A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~port\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL()}
+{\footnotesize\ttfamily \label{atomic_8h_a155d89b2444fe81cbc8d051f0fd849c9} 
+\#define ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{portmacro_8h_a8a09321ad004019f3c8d0f2e4d7224c7}{portENTER\_CRITICAL}}()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00071}{71}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-Definition at line 71 of file atomic.\+h.
+Referenced by \mbox{\hyperlink{atomic_8h_source_l00208}{Atomic\+\_\+\+Add\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00341}{Atomic\+\_\+\+AND\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00107}{Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00175}{Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32()}}, \mbox{\hyperlink{atomic_8h_source_l00287}{Atomic\+\_\+\+Decrement\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00262}{Atomic\+\_\+\+Increment\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00368}{Atomic\+\_\+\+NAND\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00314}{Atomic\+\_\+\+OR\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00236}{Atomic\+\_\+\+Subtract\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00143}{Atomic\+\_\+\+Swap\+Pointers\+\_\+p32()}}, and \mbox{\hyperlink{atomic_8h_source_l00395}{Atomic\+\_\+\+XOR\+\_\+u32()}}.
 
-\mbox{\Hypertarget{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}\label{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}} 
-\index{atomic.h@{atomic.h}!ATOMIC\_EXIT\_CRITICAL@{ATOMIC\_EXIT\_CRITICAL}}
+\Hypertarget{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8}\index{atomic.h@{atomic.h}!ATOMIC\_EXIT\_CRITICAL@{ATOMIC\_EXIT\_CRITICAL}}
 \index{ATOMIC\_EXIT\_CRITICAL@{ATOMIC\_EXIT\_CRITICAL}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{ATOMIC\_EXIT\_CRITICAL}{ATOMIC\_EXIT\_CRITICAL}}
-{\footnotesize\ttfamily \#define A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~port\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL()}
+{\footnotesize\ttfamily \label{atomic_8h_a1aab48db50f9e59e44032386aa3eb5b8} 
+\#define ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{portmacro_8h_a529358e6147881dd881c890ade21c9bd}{portEXIT\_CRITICAL}}()}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00072}{72}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-Definition at line 72 of file atomic.\+h.
+Referenced by \mbox{\hyperlink{atomic_8h_source_l00208}{Atomic\+\_\+\+Add\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00341}{Atomic\+\_\+\+AND\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00107}{Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00175}{Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32()}}, \mbox{\hyperlink{atomic_8h_source_l00287}{Atomic\+\_\+\+Decrement\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00262}{Atomic\+\_\+\+Increment\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00368}{Atomic\+\_\+\+NAND\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00314}{Atomic\+\_\+\+OR\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00236}{Atomic\+\_\+\+Subtract\+\_\+u32()}}, \mbox{\hyperlink{atomic_8h_source_l00143}{Atomic\+\_\+\+Swap\+Pointers\+\_\+p32()}}, and \mbox{\hyperlink{atomic_8h_source_l00395}{Atomic\+\_\+\+XOR\+\_\+u32()}}.
 
-\mbox{\Hypertarget{atomic_8h_aaa356ca7932487d20a42d6839842d308}\label{atomic_8h_aaa356ca7932487d20a42d6839842d308}} 
-\index{atomic.h@{atomic.h}!portFORCE\_INLINE@{portFORCE\_INLINE}}
+\Hypertarget{atomic_8h_aaa356ca7932487d20a42d6839842d308}\index{atomic.h@{atomic.h}!portFORCE\_INLINE@{portFORCE\_INLINE}}
 \index{portFORCE\_INLINE@{portFORCE\_INLINE}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{portFORCE\_INLINE}{portFORCE\_INLINE}}
-{\footnotesize\ttfamily \#define port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}
+{\footnotesize\ttfamily \label{atomic_8h_aaa356ca7932487d20a42d6839842d308} 
+\#define port\+FORCE\+\_\+\+INLINE}
 
 
 
-Definition at line 84 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00084}{84}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}\label{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}} 
-\index{atomic.h@{atomic.h}!Atomic\_Add\_u32@{Atomic\_Add\_u32}}
+\Hypertarget{atomic_8h_a14d4af36077403e01685fae0cc93ed3d}\index{atomic.h@{atomic.h}!Atomic\_Add\_u32@{Atomic\_Add\_u32}}
 \index{Atomic\_Add\_u32@{Atomic\_Add\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_Add\_u32()}{Atomic\_Add\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+Add\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Addend,  }\item[{uint32\+\_\+t}]{ul\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a14d4af36077403e01685fae0cc93ed3d} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+Add\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Addend}{, }\item[{uint32\+\_\+t}]{ul\+Count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -121,55 +151,55 @@ Atomic add
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em pul\+Addend} & Pointer to memory location from where value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ul\+Count} & Value to be added to $\ast$pul\+Addend.\\
+\mbox{\texttt{ in}}  & {\em ul\+Count} & Value to be added to \texorpdfstring{$\ast$}{*}pul\+Addend.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-previous $\ast$pul\+Addend value. 
+previous \texorpdfstring{$\ast$}{*}pul\+Addend value. 
 \end{DoxyReturn}
 
 
-Definition at line 208 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00208}{208}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}\label{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}} 
-\index{atomic.h@{atomic.h}!Atomic\_AND\_u32@{Atomic\_AND\_u32}}
+\Hypertarget{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338}\index{atomic.h@{atomic.h}!Atomic\_AND\_u32@{Atomic\_AND\_u32}}
 \index{Atomic\_AND\_u32@{Atomic\_AND\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_AND\_u32()}{Atomic\_AND\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+A\+N\+D\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Destination,  }\item[{uint32\+\_\+t}]{ul\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a9eeea6a0a5bec7c5ad9d3f073d396338} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+AND\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Destination}{, }\item[{uint32\+\_\+t}]{ul\+Value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Performs an atomic A\+ND operation on the specified values. 
+Performs an atomic AND operation on the specified values. 
 
-Atomic A\+ND
+Atomic AND
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em pul\+Destination} & Pointer to memory location from where value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be A\+N\+Ded with $\ast$pul\+Destination.\\
+\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be ANDed with \texorpdfstring{$\ast$}{*}pul\+Destination.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The original value of $\ast$pul\+Destination. 
+The original value of \texorpdfstring{$\ast$}{*}pul\+Destination. 
 \end{DoxyReturn}
 
 
-Definition at line 341 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00341}{341}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}\label{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}} 
-\index{atomic.h@{atomic.h}!Atomic\_CompareAndSwap\_u32@{Atomic\_CompareAndSwap\_u32}}
+\Hypertarget{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df}\index{atomic.h@{atomic.h}!Atomic\_CompareAndSwap\_u32@{Atomic\_CompareAndSwap\_u32}}
 \index{Atomic\_CompareAndSwap\_u32@{Atomic\_CompareAndSwap\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_CompareAndSwap\_u32()}{Atomic\_CompareAndSwap\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Destination,  }\item[{uint32\+\_\+t}]{ul\+Exchange,  }\item[{uint32\+\_\+t}]{ul\+Comparand }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_ad0c956772f1d09cea1120c0ed6c4a0df} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+Compare\+And\+Swap\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Destination}{, }\item[{uint32\+\_\+t}]{ul\+Exchange}{, }\item[{uint32\+\_\+t}]{ul\+Comparand}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -190,21 +220,21 @@ Atomic compare-\/and-\/swap
 Unsigned integer of value 1 or 0. 1 for swapped, 0 for not swapped.
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
-This function only swaps $\ast$pul\+Destination with ul\+Exchange, if previous $\ast$pul\+Destination value equals ul\+Comparand. 
+This function only swaps \texorpdfstring{$\ast$}{*}pul\+Destination with ul\+Exchange, if previous \texorpdfstring{$\ast$}{*}pul\+Destination value equals ul\+Comparand. 
 \end{DoxyNote}
 
 
-Definition at line 107 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00107}{107}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+F\+A\+I\+L\+U\+RE, A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+S\+U\+C\+C\+E\+SS, A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00088}{ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+FAILURE}}, \mbox{\hyperlink{atomic_8h_source_l00087}{ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+SUCCESS}}, \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a0dfb0b26706475d490792af561a143d5}\label{atomic_8h_a0dfb0b26706475d490792af561a143d5}} 
-\index{atomic.h@{atomic.h}!Atomic\_CompareAndSwapPointers\_p32@{Atomic\_CompareAndSwapPointers\_p32}}
+\Hypertarget{atomic_8h_a0dfb0b26706475d490792af561a143d5}\index{atomic.h@{atomic.h}!Atomic\_CompareAndSwapPointers\_p32@{Atomic\_CompareAndSwapPointers\_p32}}
 \index{Atomic\_CompareAndSwapPointers\_p32@{Atomic\_CompareAndSwapPointers\_p32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_CompareAndSwapPointers\_p32()}{Atomic\_CompareAndSwapPointers\_p32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32 (\begin{DoxyParamCaption}\item[{void $\ast$volatile $\ast$}]{ppv\+Destination,  }\item[{void $\ast$}]{pv\+Exchange,  }\item[{void $\ast$}]{pv\+Comparand }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a0dfb0b26706475d490792af561a143d5} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+Compare\+And\+Swap\+Pointers\+\_\+p32 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}volatile \texorpdfstring{$\ast$}{*}}]{ppv\+Destination}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Exchange}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Comparand}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -225,21 +255,21 @@ Atomic compare-\/and-\/swap (pointers)
 Unsigned integer of value 1 or 0. 1 for swapped, 0 for not swapped.
 \end{DoxyReturn}
 \begin{DoxyNote}{Note}
-This function only swaps $\ast$ppv\+Destination with pv\+Exchange, if previous $\ast$ppv\+Destination value equals pv\+Comparand. 
+This function only swaps \texorpdfstring{$\ast$}{*}ppv\+Destination with pv\+Exchange, if previous \texorpdfstring{$\ast$}{*}ppv\+Destination value equals pv\+Comparand. 
 \end{DoxyNote}
 
 
-Definition at line 175 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00175}{175}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+F\+A\+I\+L\+U\+RE, A\+T\+O\+M\+I\+C\+\_\+\+C\+O\+M\+P\+A\+R\+E\+\_\+\+A\+N\+D\+\_\+\+S\+W\+A\+P\+\_\+\+S\+U\+C\+C\+E\+SS, A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00088}{ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+FAILURE}}, \mbox{\hyperlink{atomic_8h_source_l00087}{ATOMIC\+\_\+\+COMPARE\+\_\+\+AND\+\_\+\+SWAP\+\_\+\+SUCCESS}}, \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}\label{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}} 
-\index{atomic.h@{atomic.h}!Atomic\_Decrement\_u32@{Atomic\_Decrement\_u32}}
+\Hypertarget{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7}\index{atomic.h@{atomic.h}!Atomic\_Decrement\_u32@{Atomic\_Decrement\_u32}}
 \index{Atomic\_Decrement\_u32@{Atomic\_Decrement\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_Decrement\_u32()}{Atomic\_Decrement\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+Decrement\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Addend }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a6bb0ca2c06e0627945b1351ba36d55a7} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+Decrement\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Addend}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -253,21 +283,21 @@ Atomic decrement
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-$\ast$pul\+Addend value before decrement. 
+\texorpdfstring{$\ast$}{*}pul\+Addend value before decrement. 
 \end{DoxyReturn}
 
 
-Definition at line 287 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00287}{287}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}\label{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}} 
-\index{atomic.h@{atomic.h}!Atomic\_Increment\_u32@{Atomic\_Increment\_u32}}
+\Hypertarget{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f}\index{atomic.h@{atomic.h}!Atomic\_Increment\_u32@{Atomic\_Increment\_u32}}
 \index{Atomic\_Increment\_u32@{Atomic\_Increment\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_Increment\_u32()}{Atomic\_Increment\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+Increment\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Addend }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a7ce395cb8553d0fb973f1db2dbac294f} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+Increment\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Addend}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -281,51 +311,51 @@ Atomic increment
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-$\ast$pul\+Addend value before increment. 
+\texorpdfstring{$\ast$}{*}pul\+Addend value before increment. 
 \end{DoxyReturn}
 
 
-Definition at line 262 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00262}{262}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}\label{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}} 
-\index{atomic.h@{atomic.h}!Atomic\_NAND\_u32@{Atomic\_NAND\_u32}}
+\Hypertarget{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4}\index{atomic.h@{atomic.h}!Atomic\_NAND\_u32@{Atomic\_NAND\_u32}}
 \index{Atomic\_NAND\_u32@{Atomic\_NAND\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_NAND\_u32()}{Atomic\_NAND\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+N\+A\+N\+D\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Destination,  }\item[{uint32\+\_\+t}]{ul\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a9c13a49fba8a8f1eeca954d6b9dbfac4} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+NAND\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Destination}{, }\item[{uint32\+\_\+t}]{ul\+Value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Performs an atomic N\+A\+ND operation on the specified values. 
+Performs an atomic NAND operation on the specified values. 
 
-Atomic N\+A\+ND
+Atomic NAND
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em pul\+Destination} & Pointer to memory location from where value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be N\+A\+N\+Ded with $\ast$pul\+Destination.\\
+\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be NANDed with \texorpdfstring{$\ast$}{*}pul\+Destination.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The original value of $\ast$pul\+Destination. 
+The original value of \texorpdfstring{$\ast$}{*}pul\+Destination. 
 \end{DoxyReturn}
 
 
-Definition at line 368 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00368}{368}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}\label{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}} 
-\index{atomic.h@{atomic.h}!Atomic\_OR\_u32@{Atomic\_OR\_u32}}
+\Hypertarget{atomic_8h_af1dcc9bcd06047887bc57acb2133b622}\index{atomic.h@{atomic.h}!Atomic\_OR\_u32@{Atomic\_OR\_u32}}
 \index{Atomic\_OR\_u32@{Atomic\_OR\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_OR\_u32()}{Atomic\_OR\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+O\+R\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Destination,  }\item[{uint32\+\_\+t}]{ul\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_af1dcc9bcd06047887bc57acb2133b622} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+OR\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Destination}{, }\item[{uint32\+\_\+t}]{ul\+Value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -337,25 +367,25 @@ Atomic OR
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em pul\+Destination} & Pointer to memory location from where value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be O\+Red with $\ast$pul\+Destination.\\
+\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be ORed with \texorpdfstring{$\ast$}{*}pul\+Destination.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The original value of $\ast$pul\+Destination. 
+The original value of \texorpdfstring{$\ast$}{*}pul\+Destination. 
 \end{DoxyReturn}
 
 
-Definition at line 314 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00314}{314}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}\label{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}} 
-\index{atomic.h@{atomic.h}!Atomic\_Subtract\_u32@{Atomic\_Subtract\_u32}}
+\Hypertarget{atomic_8h_ac5d1592ac108f14a62aa88be210a205e}\index{atomic.h@{atomic.h}!Atomic\_Subtract\_u32@{Atomic\_Subtract\_u32}}
 \index{Atomic\_Subtract\_u32@{Atomic\_Subtract\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_Subtract\_u32()}{Atomic\_Subtract\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+Subtract\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Addend,  }\item[{uint32\+\_\+t}]{ul\+Count }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_ac5d1592ac108f14a62aa88be210a205e} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+Subtract\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Addend}{, }\item[{uint32\+\_\+t}]{ul\+Count}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -367,29 +397,29 @@ Atomic subtract
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em pul\+Addend} & Pointer to memory location from where value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ul\+Count} & Value to be subtract from $\ast$pul\+Addend.\\
+\mbox{\texttt{ in}}  & {\em ul\+Count} & Value to be subtract from \texorpdfstring{$\ast$}{*}pul\+Addend.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-previous $\ast$pul\+Addend value. 
+previous \texorpdfstring{$\ast$}{*}pul\+Addend value. 
 \end{DoxyReturn}
 
 
-Definition at line 236 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00236}{236}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a64d255792849f5443c4209d746eb60c3}\label{atomic_8h_a64d255792849f5443c4209d746eb60c3}} 
-\index{atomic.h@{atomic.h}!Atomic\_SwapPointers\_p32@{Atomic\_SwapPointers\_p32}}
+\Hypertarget{atomic_8h_a98fb15ac72c617dd96a2a4ad55787b86}\index{atomic.h@{atomic.h}!Atomic\_SwapPointers\_p32@{Atomic\_SwapPointers\_p32}}
 \index{Atomic\_SwapPointers\_p32@{Atomic\_SwapPointers\_p32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_SwapPointers\_p32()}{Atomic\_SwapPointers\_p32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} void$\ast$ Atomic\+\_\+\+Swap\+Pointers\+\_\+p32 (\begin{DoxyParamCaption}\item[{void $\ast$volatile $\ast$}]{ppv\+Destination,  }\item[{void $\ast$}]{pv\+Exchange }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a98fb15ac72c617dd96a2a4ad55787b86} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} void \texorpdfstring{$\ast$}{*} Atomic\+\_\+\+Swap\+Pointers\+\_\+p32 (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}volatile \texorpdfstring{$\ast$}{*}}]{ppv\+Destination}{, }\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Exchange}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Atomically sets the address pointed to by $\ast$ppv\+Destination to the value of $\ast$pv\+Exchange. 
+Atomically sets the address pointed to by \texorpdfstring{$\ast$}{*}ppv\+Destination to the value of \texorpdfstring{$\ast$}{*}pv\+Exchange. 
 
 Atomic swap (pointers)
 
@@ -397,47 +427,47 @@ Atomic swap (pointers)
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em ppv\+Destination} & Pointer to memory location from where a pointer value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em pv\+Exchange} & Pointer value to be written to $\ast$ppv\+Destination.\\
+\mbox{\texttt{ in}}  & {\em pv\+Exchange} & Pointer value to be written to \texorpdfstring{$\ast$}{*}ppv\+Destination.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The initial value of $\ast$ppv\+Destination. 
+The initial value of \texorpdfstring{$\ast$}{*}ppv\+Destination. 
 \end{DoxyReturn}
 
 
-Definition at line 143 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00143}{143}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
-\mbox{\Hypertarget{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}\label{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}} 
-\index{atomic.h@{atomic.h}!Atomic\_XOR\_u32@{Atomic\_XOR\_u32}}
+\Hypertarget{atomic_8h_a070776e59f4253dda4ec58b5e2710e81}\index{atomic.h@{atomic.h}!Atomic\_XOR\_u32@{Atomic\_XOR\_u32}}
 \index{Atomic\_XOR\_u32@{Atomic\_XOR\_u32}!atomic.h@{atomic.h}}
 \doxysubsubsection{\texorpdfstring{Atomic\_XOR\_u32()}{Atomic\_XOR\_u32()}}
-{\footnotesize\ttfamily static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+F\+O\+R\+C\+E\+\_\+\+I\+N\+L\+I\+NE}} uint32\+\_\+t Atomic\+\_\+\+X\+O\+R\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile $\ast$}]{pul\+Destination,  }\item[{uint32\+\_\+t}]{ul\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily \label{atomic_8h_a070776e59f4253dda4ec58b5e2710e81} 
+static \mbox{\hyperlink{atomic_8h_aaa356ca7932487d20a42d6839842d308}{port\+FORCE\+\_\+\+INLINE}} uint32\+\_\+t Atomic\+\_\+\+XOR\+\_\+u32 (\begin{DoxyParamCaption}\item[{uint32\+\_\+t volatile \texorpdfstring{$\ast$}{*}}]{pul\+Destination}{, }\item[{uint32\+\_\+t}]{ul\+Value}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Performs an atomic X\+OR operation on the specified values. 
+Performs an atomic XOR operation on the specified values. 
 
-Atomic X\+OR
+Atomic XOR
 
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\texttt{ in,out}}  & {\em pul\+Destination} & Pointer to memory location from where value is to be loaded and written back to. \\
 \hline
-\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be X\+O\+Red with $\ast$pul\+Destination.\\
+\mbox{\texttt{ in}}  & {\em ul\+Value} & Value to be XORed with \texorpdfstring{$\ast$}{*}pul\+Destination.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The original value of $\ast$pul\+Destination. 
+The original value of \texorpdfstring{$\ast$}{*}pul\+Destination. 
 \end{DoxyReturn}
 
 
-Definition at line 395 of file atomic.\+h.
+Definition at line \mbox{\hyperlink{atomic_8h_source_l00395}{395}} of file \mbox{\hyperlink{atomic_8h_source}{atomic.\+h}}.
 
 
 
-References A\+T\+O\+M\+I\+C\+\_\+\+E\+N\+T\+E\+R\+\_\+\+C\+R\+I\+T\+I\+C\+AL, and A\+T\+O\+M\+I\+C\+\_\+\+E\+X\+I\+T\+\_\+\+C\+R\+I\+T\+I\+C\+AL.
+References \mbox{\hyperlink{atomic_8h_source_l00071}{ATOMIC\+\_\+\+ENTER\+\_\+\+CRITICAL}}, and \mbox{\hyperlink{atomic_8h_source_l00072}{ATOMIC\+\_\+\+EXIT\+\_\+\+CRITICAL}}.
 
