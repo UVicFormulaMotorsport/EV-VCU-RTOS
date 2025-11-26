@@ -80,7 +80,10 @@ void handleDiagnosticMsg(uv_CAN_msg* msg){
 }
 
 
-
+/** overrides the weak function prototype of __io_putchar so that we can use the
+ * ITM registers to send diagnostic data back to a debugger
+ *
+ */
 int __io_putchar(int ch){
 	ITM_SendChar(ch);
 	return ch;

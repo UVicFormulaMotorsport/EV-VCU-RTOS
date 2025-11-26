@@ -30,6 +30,7 @@
 #include "tim.h"
 #include "gpio.h"
 
+#include "uvfr_data_proccessing.h"
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
