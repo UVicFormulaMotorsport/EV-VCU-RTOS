@@ -324,15 +324,15 @@ inline float linterp_ff(float* x, float* y,float x0,uint8_t n){
 
 }
 
-int32_t splineInt_ii(int32_t* x, int32_t* y, x0, n){
-S
-}
-
-float splineInt_if(int32_t* x, float* y, x0, n){
+int32_t splineInt_ii(int32_t* x, int32_t* y, int32_t x0,uint8_t n){
 
 }
 
-float splineInt_ff(float* x, float* y, x0, n){
+float splineInt_if(int32_t* x, float* y, int32_t x0,uint8_t n){
+
+}
+
+float splineInt_ff(float* x, float* y, float x0,uint8_t n){
 
 }
 

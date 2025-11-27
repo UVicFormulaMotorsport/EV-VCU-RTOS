@@ -106,7 +106,7 @@ typedef struct ringbuf_f{
 }ringbuf_f;
 
 //These go from x to y
-uint32_t xToY_ii(LUT_ii_t* lut,int32_t x);
+int32_t xToY_ii(LUT_ii_t* lut,int32_t x);
 float xToY_if(LUT_if_t* lut,int32_t x);
 float xToY_ff(LUT_ff_t* lut,float x);
 

@@ -48,7 +48,7 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 2,
+	.total_params_logged = 3,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = CAN_BUS_2,
