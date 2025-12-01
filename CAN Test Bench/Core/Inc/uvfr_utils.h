@@ -279,7 +279,7 @@ typedef union access_control_info{
 #define UV_CAN_DYNAMIC_MEM  0b00001000
 
 //Use this sparingly. Messages with this bit set will skip the queue. If everything skips the queue, nothing does.
-#define UV_CAN_CRIT_MSG_BIT 0b10000000
+#define UV_CAN_CRIT_MSG_BIT 0S
 
 
 /** @brief Representative of a CAN message

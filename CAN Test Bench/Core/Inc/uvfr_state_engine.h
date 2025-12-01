@@ -351,6 +351,8 @@ uv_status updateRunningTasks();
 
 uv_status changeVehicleState(uint16_t state);
 
+char* uvGetStateString();
+
 //void uvPanic(char* msg, uint8_t msg_len); //ruh roh scoobs, something has gone a little bit fucky wucky
 void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, const char* func);
 

@@ -161,11 +161,6 @@ static inline uv_status coniferUpdateChannel(abstract_conifer_channel* ch_ptr){
 
 }
 
-void* theScrimDonguloder(uv_task_info* task_to_scrimdongulode){
-	if(task_to_scrimdongulode == NULL){
-
-	}
-}
 
 /** @brief Initializes the conifer library.
  *
@@ -229,7 +224,11 @@ uv_status coniferInit(){
 
 }
 
+
+
 uv_status coniferDeInit(){
+
+	coniferDisChannel(VCU_PWR);
 	return UV_OK;
 }
 

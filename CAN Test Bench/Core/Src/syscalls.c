@@ -95,9 +95,11 @@ __attribute__((weak)) int _read(int file, char *ptr, int len)
  */
 int _write(int file, char *ptr, int len){
 	(void)file;
+	taskENTER_CRITICAL();
 	for (int i = 0; i < len; i++) {
-		ITM_SendChar((*ptr++)); //Uses the instruction trace macrocell for this stuff
+		ITM_SendChar((*ptr++)); //Uses the instrumentation trace macrocell for this stuff
 	}
+	taskEXIT_CRITICAL();
 	return len;
 }
 

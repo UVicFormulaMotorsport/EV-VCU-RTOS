@@ -144,6 +144,7 @@ int main(void)
   MX_ADC3_Init();
   MX_CAN1_Init();
   MX_TIM11_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
   //HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buf1, ADC1_BUF_LEN);
   //HAL_TIM_Base_Start_IT(&htim3); This is getting disabled, since measuring temp will now be an RTOS task
@@ -231,7 +232,7 @@ int main(void)
 
 /**
   * @brief System Clock Configuration
-  *
+  * @retval None
   */
 void SystemClock_Config(void)
 {
@@ -259,8 +260,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
-  /**
-   * Initializes the CPU, AHB and APB buses clocks
+  /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -305,13 +305,6 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
 
 
 // EXTI gpio pin a0 External Interrupt ISR Handler
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-    if(GPIO_Pin == GPIO_PIN_0) // If The INT Source Is EXTI Line0 (A0 Pin)
-    {
-//ready_to_drive = 1;
-    }
-}
 
 // Analog Watchdog Out-of-Range handler, ADC conversion values range from 0 to 4095?? why does this exist still - Byron
 void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc){

@@ -9,15 +9,84 @@
 
 extern HeapStats_t xHeapStats;
 
+
+void dispWheelSpeeds();
+void dispStateEngineStatus(){
+	return;
+}
+
+void dispExtDeviceStatus(){
+	//BMS
+
+	//PDU
+
+	//Motor Controller
+
+	//IMD
+
+
+	//DCDC
+
+	//Steering wheel
+
+	//Whatever else
+
+}
+
+void dispTractiveSystemStatus(){
+	printf("TRACTIVE SYSTEM STATUS\n");
+	printf("----------------------\n");
+	printf("Contactor Status:\n");
+	printf("Pack Voltage: %d.%d",0,0);
+	printf("Pack Current: %d.%d\n",0,0);
+	//printf("MC Warning + ERRORS: %d\n",0,0);
+	printf("Motor RPM: %d.%d RPM",0,0);
+	printf("Motor Phase current: %d.%d A \n",0,0);
+
+	printf("Motor Temp: %d.%d",0,0);
+	printf("Inverter Temp: %d.%d \n",0,0);
+
+	printf("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+}
+
+void dispVehicleStatusReport(){
+	uint32_t systime = xTaskGetTickCount();
+	char* str = NULL;
+	str = uvGetStateString();
+
+
+	printf("VEHICLE_STATUS:\n --------------------------------------- \n");
+	printf("System Time: [ %l ] \t",systime);
+	printf("Vehicle State %s \n",str);
+
+
+	dispExtDeviceStatus();
+	dispTractiveSystemStatus();
+	dispStateEngineStatus();
+
+
+	return;
+}
+
+/** @brief Background task responsible for much of our live telemtry and fault detection capabilies
+ *
+ */
 void uvBackgroundDiagnosticsDaemon(void* args){
 	uv_task_info* params = (uv_task_info*) args;
-
+	int k = 0;
 	for(;;){
 		vTaskDelay(100);
 
-		vPortGetHeapStats(&xHeapStats);
-		printf("TEEHEE\n");
+#ifdef DEBUG
+	if(k%10 == 0){
+		dispVehicleStatusReport();
+	}
+#endif
 
+		vPortGetHeapStats(&xHeapStats);
+		//dispWheelSpeeds();
+		k = (k + 1)%100;
 		if(params->cmd_data == UV_KILL_CMD){
 			killSelf(params);
 		} else if(params->cmd_data == UV_SUSPEND_CMD){
@@ -44,6 +113,7 @@ uv_status uvInitDiagnostics(){
 	diag_task->task_function = uvBackgroundDiagnosticsDaemon;
 	diag_task->active_states = 0xFFFF;
 	diag_task->task_name = "diagDaemon";
+	diag_task->stack_size = 1024;
 
 
 	uvStartTask(&var,diag_task);

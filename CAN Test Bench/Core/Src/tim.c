@@ -19,25 +19,25 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "tim.h"
-#include "gpio.h"
-#include <math.h>
-
 
 /* USER CODE BEGIN 0 */
+#include "uvfr_utils.h"
+
 #define NUM_WHEELS 4
 #define WHEEL_CIRCUMFERENCE_M 2.0f // just placeholder values here
-#define TIMER_TICK_US 50.0f
+#define TIMER_TICK_US 1.0f
 #define PULSES_PER_REV 20
+
+volatile uint32_t last_timestamp[] = {0,0,0,0};
+volatile uint32_t period[] = {0,0,0,0};
+volatile float wheel_speed[] = {0,0,0,0};
+volatile float wheel_rpm[] = {0,0,0,0};
+volatile float frequency[] = {0,0,0,0};
 
 /* USER CODE END 0 */
 
-volatile uint32_t last_timestamp[NUM_WHEELS] = {0};
-volatile uint32_t period[NUM_WHEELS] = {0};
-volatile float frequency[NUM_WHEELS] = {0.0f};
-volatile float wheel_speed[NUM_WHEELS] = {0.0f};
-volatile float wheel_rpm[NUM_WHEELS] = {0.0f};
-
 TIM_HandleTypeDef htim3;
+TIM_HandleTypeDef htim5;
 TIM_HandleTypeDef htim11;
 
 /* TIM3 init function */
@@ -55,10 +55,10 @@ void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 41999;
+  htim3.Init.Prescaler = 83;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 99;
-  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV4;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
   {
@@ -79,6 +79,47 @@ void MX_TIM3_Init(void)
 
   HAL_TIM_Base_Start(&htim3); //starts free running timer
   /* USER CODE END TIM3_Init 2 */
+
+}
+/* TIM5 init function */
+void MX_TIM5_Init(void)
+{
+
+  /* USER CODE BEGIN TIM5_Init 0 */
+
+  /* USER CODE END TIM5_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM5_Init 1 */
+
+  /* USER CODE END TIM5_Init 1 */
+  htim5.Instance = TIM5;
+  htim5.Init.Prescaler = 83;
+  htim5.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim5.Init.Period = 4294967295;
+  htim5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim5.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim5) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim5, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim5, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM5_Init 2 */
+
+  HAL_TIM_Base_Start(&htim5); //starts free running timer
+  /* USER CODE END TIM5_Init 2 */
 
 }
 /* TIM11 init function */
@@ -122,6 +163,17 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef* tim_baseHandle)
 
   /* USER CODE END TIM3_MspInit 1 */
   }
+  else if(tim_baseHandle->Instance==TIM5)
+  {
+  /* USER CODE BEGIN TIM5_MspInit 0 */
+
+  /* USER CODE END TIM5_MspInit 0 */
+    /* TIM5 clock enable */
+    __HAL_RCC_TIM5_CLK_ENABLE();
+  /* USER CODE BEGIN TIM5_MspInit 1 */
+
+  /* USER CODE END TIM5_MspInit 1 */
+  }
   else if(tim_baseHandle->Instance==TIM11)
   {
   /* USER CODE BEGIN TIM11_MspInit 0 */
@@ -148,6 +200,17 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
   /* USER CODE BEGIN TIM3_MspDeInit 1 */
 
   /* USER CODE END TIM3_MspDeInit 1 */
+  }
+  else if(tim_baseHandle->Instance==TIM5)
+  {
+  /* USER CODE BEGIN TIM5_MspDeInit 0 */
+
+  /* USER CODE END TIM5_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __HAL_RCC_TIM5_CLK_DISABLE();
+  /* USER CODE BEGIN TIM5_MspDeInit 1 */
+
+  /* USER CODE END TIM5_MspDeInit 1 */
   }
   else if(tim_baseHandle->Instance==TIM11)
   {
@@ -179,9 +242,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
-static void handle_wheel_interrupt(uint32_t wheel_index)
+void handle_wheel_interrupt(uint32_t wheel_index)
 {
-  uint32_t now = __HAL_TIM_GET_COUNTER(&htim3);
+  uint32_t now = __HAL_TIM_GET_COUNTER(&htim5);
   uint32_t last = last_timestamp[wheel_index];
 
   if (now >= last) {
@@ -191,8 +254,6 @@ static void handle_wheel_interrupt(uint32_t wheel_index)
   }
   last_timestamp[wheel_index] = now;
 }
-/* USER CODE END 1 */
-
 
 void WheelSpeed_UpdateAll(void)
 {
@@ -200,7 +261,11 @@ void WheelSpeed_UpdateAll(void)
     // TODO: Convert period → frequency
     // TODO: Convert frequency → speed
   for (uint8_t i = 0; i < NUM_WHEELS; i++) {
-
+	  if(__HAL_TIM_GET_COUNTER(&htim5) - last_timestamp[i]  > 500000){
+		  frequency[i] = 0.0f;
+		  wheel_speed[i] = 0.0f;
+		  wheel_rpm[i] = 0.0f;
+	  }
 
     if (period[i] > 0) {
       // Convert period (µs) → frequency (Hz)
@@ -219,24 +284,14 @@ void WheelSpeed_UpdateAll(void)
   }
 }
 
-
-
-/*
-IN MAIN.C FILE WE JUST HAVE TO CALL THIS
-
-int main(void)
-{
-    HAL_Init();
-    SystemClock_Config();
-    MX_GPIO_Init();
-    MX_TIM3_Init();  // initializes and starts timer
-
-    while (1)
-    {
-        TIM_Process_WheelSpeeds();  // update frequency & speed
-        HAL_Delay(100);
-    }
+void dispWheelSpeeds(){
+	WheelSpeed_UpdateAll();
+	printf("WHEEL SPEED DATA \n");
+	printf("Periods: %d %d %d %d \n",period[0],period[1],period[2],period[3]);
+	uint16_t freq1 = ((uint16_t)frequency[0])*10;
+	uint16_t freq2 = ((uint16_t)frequency[1])*10;
+	uint16_t freq3 = ((uint16_t)frequency[2])*10;
+	uint16_t freq4 = ((uint16_t)frequency[3])*10;
+	printf("Frequencies: %d %d %d %d \n",freq1,freq2,freq3,freq4);
 }
-
-
-*/
+/* USER CODE END 1 */

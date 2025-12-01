@@ -311,7 +311,7 @@ void uvInit(void * arguments){
 
 
 	//vQueueDelete(init_validation_queue);
-	HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
+	//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
 	vTaskDelete(init_task_handle);
 	//return;
 

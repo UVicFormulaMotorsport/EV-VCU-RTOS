@@ -1512,6 +1512,28 @@ void uvTaskPeriodEnd(uv_task_info* t){
  *
  */
 
+char* uvGetStateString(){
+	char* retval = NULL;
+	switch(vehicle_state){
+	case UV_ERROR_STATE:
+		retval = "ERROR\0";
+		break;
+	case UV_READY:
+		retval = "READY\0";
+	break;
+	case UV_DRIVING:
+		retval = "DRIVING\0";
+		break;
+
+	case UV_INIT:
+		retval = "INIT\0";
+	default:
+		break;
+	}
+
+	return "UNKNOWN\0";
+}
+
 
 /** @brief Function that will be called if the enable idle task hook is called.
  *
