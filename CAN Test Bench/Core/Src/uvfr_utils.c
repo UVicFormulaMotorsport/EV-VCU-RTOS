@@ -52,6 +52,10 @@ const uint8_t data_size[] = {1,1, //UV_UINT8 and UV_INT8
 void uvInit(void * arguments){
 	//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15); //For debugging purposes, I wanna see if we actually end up here at some point
 
+#ifdef DEBUG
+	printf("ENTERING uvInit\n");
+#endif
+
 	char* error_msg = NULL;
 	uint8_t msg_length = 0;
 
@@ -307,7 +311,9 @@ void uvInit(void * arguments){
 	//uvFree(PDU_init_args);
 
 
+	if(uvSetupXdevs()!=UV_OK){
 
+	}
 
 
 	//vQueueDelete(init_validation_queue);
@@ -345,14 +351,8 @@ enum uv_status_t uvUtilsReset(uint8_t reset_type){
 	return UV_OK;
 }
 
-/** @deprecated I really dunno why this still exists, but this gets called somewhere so Im leaving it.
- * I think we just pass it NULL.
- *
- */
-void setup_extern_devices(void * argument){
 
 
-}
 
 
 /** @brief Low Level Panic, that does not require the full UVFR utils functionality to be operational.

@@ -8,6 +8,23 @@
 #include"uvfr_conifer.h"
 #include"uvfr_utils.h"
 
+//          .     .  .      +     .      .          .
+//     .       .      .     #       .           .
+//        .      .         ###            .      .      .
+//      .      .   "#:. .:##"##:. .:#"  .      .
+//          .      . "####"###"####"  .
+//       .     "#:.    .:#"###"#:.    .:#"  .        .       .
+//  .             "#########"#########"        .        .
+//        .    "#:.  "####"###"####"  .:#"   .       .
+//     .     .  "#######""##"##""#######"                  .
+//                ."##"#####"#####"##"           .      .
+//    .   "#:. ...  .:##"###"###"##:.  ... .:#"     .
+//      .     "#######"##"#####"##"#######"      .     .
+//    .    .     "#####""#######""#####"    .      .
+//            .     "      000      "    .     .
+//       .         .   .   000     .        .       .
+//.. .. ..................O000O........................ ......
+
 
 //typedef enum CONIFER_OUTPUT conifer_output_channel;
 struct conifer_settings;
@@ -32,6 +49,7 @@ static abstract_conifer_channel ch_table[FINAL_CONIFER_OUTPUT];
 //Driver function lookup tables
 uv_status (*ch_updaters[8])(abstract_conifer_channel*, uint32_t*) = {0,0,0,0,0,0,0,0};
 uv_status (*current_getters[8]) (abstract_conifer_channel*, uint32_t*) = {0,0,0,0,0,0,0,0};
+uv_status (*fbck_getters[8]) (abstract_conifer_channel*, uint32_t*) = {0,0,0,0,0,0,0,0};
 
 //typedef enum uv_status_t uv_status;
 
@@ -133,6 +151,12 @@ uv_status coniferInvalidChLocCallback(abstract_conifer_channel*, uint8_t){
 	return UV_ERROR;
 }
 
+uv_status coniferBlankCurrentGetter(abstract_conifer_channel* ch,uint32_t* cloc){
+	(void)ch;
+	*cloc = 0;
+	return UV_OK;
+}
+
 /** @brief This is meant to update the hardware to match the hardware abstraction.
  *
  * This extracts the hardware mapping of the abstract channel, and then invokes the drivers for the relevant hardware depending
@@ -192,6 +216,7 @@ uv_status coniferInit(){
 	vTaskDelay(1);
 	//Current getters
 
+
 	//Step 4: Initialize and confirm existance of relevant external devices
 	uv_status retval = UV_OK;
 
@@ -232,6 +257,9 @@ uv_status coniferDeInit(){
 	return UV_OK;
 }
 
+/** @brief Call to enable load shedding of load sheddable loads
+ *
+ */
 uv_status coniferEnLoadShedding(){
 	if(cstate.load_shedding != 0){
 		return UV_ABORTED;
@@ -249,11 +277,16 @@ uv_status coniferEnLoadShedding(){
 
 		if(coniferUpdateChannel(ch_ptr) == UV_ERROR){
 			//Handle the error
+			uvPanic("Conifer Error",0);
 		}
 	}
 	return UV_OK;
 }
 
+/** @brief The inverse of coniferEnLoadShedding() disables load shedding, and therefore allows all
+ * the conifer channels to be active, if they wanna be
+ *
+ */
 uv_status coniferDisLoadShedding(){
 	if(cstate.load_shedding == 0){
 		return UV_ABORTED;
@@ -364,43 +397,43 @@ uint16_t coniferGetChannelCurrent(conifer_output_channel ch){
 		return UV_ABORTED;
 	}
 	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
-		uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
-		switch(src){
-		case LOCAL_CH:
+	//uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
 
-			break;
-		case UV19_PDU_CH:
+	uv_status (*getter_func)(abstract_conifer_channel*, uint32_t*) = current_getters[src];
 
-			break;
-		case ECUMASTER_PMU16_CH:
+	if(getter_func == NULL){
+		return 0;
+	}
 
-			break;
-		default:
+	uint32_t tmp_cur = 0;
 
-			break;
-		}
-	return 0;
+	if(getter_func(ch_ptr,&tmp_cur)!=UV_OK){
+
+	}
+
+	return tmp_cur;
 }
 
+/** @brief Measures the hardware to ensure that everything is workin ok, get voltage or whatever idek
+ *
+ */
 uint16_t coniferGetChannelFbck(conifer_output_channel ch){
 	abstract_conifer_channel* ch_ptr = ch_table + ch*sizeof(abstract_conifer_channel);
 	uint8_t src = (ch_ptr->hardware_mapping&CONIFER_CH_LOC_MASK)>>8;
-	uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
-	switch(src){
-	case LOCAL_CH:
+	//uint8_t ch_id = ch_ptr->hardware_mapping & 0x00FF;
+	uv_status (*getter_func)(abstract_conifer_channel*, uint32_t*) = fbck_getters[src];
 
-		break;
-	case UV19_PDU_CH:
-
-		break;
-	case ECUMASTER_PMU16_CH:
-
-		break;
-	default:
-
-		break;
+	if(getter_func == NULL){
+		return 0;
 	}
-	return 0;
+
+	uint32_t tmp_cur = 0;
+
+	if(getter_func(ch_ptr,&tmp_cur)!=UV_OK){
+
+	}
+
+	return tmp_cur;
 }
 
 uint16_t coniferGetChannelFaults(conifer_output_channel ch){

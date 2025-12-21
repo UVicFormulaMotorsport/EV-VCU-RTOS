@@ -73,9 +73,9 @@ typedef struct s_curve_torque_map_args{
  *
  */
 typedef union drivingModeParams{
-	struct linear_torque_map_args; /**< */
-	struct exp_torque_map_args; /**< */
-	struct s_curve_torque_map_args; /**< */
+	struct linear_torque_map_args l; /**< */
+	struct exp_torque_map_args e; /**< */
+	struct s_curve_torque_map_args s; /**< */
 }drivingModeParams;
 
 

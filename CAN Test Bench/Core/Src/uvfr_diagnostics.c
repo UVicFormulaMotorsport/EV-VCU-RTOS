@@ -9,8 +9,18 @@
 
 extern HeapStats_t xHeapStats;
 
+#define DEBUG_PORT_GENERAL 0
+#define DEBUG_PORT_OS 1
+#define DEBUG_PORT_TRACTIVE_SYSTEM 2
+#define DEBUG_PORT_XDEV 3
+#define DEBUG_PORT_CONIFER 4
+#define DEBUG_PORT_STATE_ENGINE 5
+#define DEBUG_PORT_CSV 6
+
+
 
 void dispWheelSpeeds();
+
 void dispStateEngineStatus(){
 	return;
 }
@@ -159,12 +169,46 @@ int __io_putchar(int ch){
 	return ch;
 }
 
+#ifdef DEBUG
+#define MAX_DEBUGSTRING_LENGTH 256
+//Basically like ITM_SendChar, however you can send to one of several registers
+uint32_t ITM_SendCharToReg (uint32_t ch,uint32_t port)
+{
+  if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
+      ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
+  {
+    while (ITM->PORT[port].u32 == 0UL)
+    {
+      __NOP();
+    }
+    ITM->PORT[port].u8 = (uint8_t)ch;
+  }
+  return (ch);
+}
+
+uv_status __debugWrite(char* str,uint32_t port){
+	int i = 0;
+	while(i<MAX_DEBUGSTRING_LENGTH){
+		if(ITM_SendCharToReg(str[i],port)!=str[i]){
+			//UHH OHH
+		}
+
+		if(str[i] == '\0'){
+			break;
+		}
+	}
+
+	return UV_OK;
+}
+
 
 
 
 void uvAssertFailed(char* file, uint16_t line, TaskHandle_t task, char* condition){
 
 }
+
+#endif
 
 void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName ){
 	//This is where we end up if one of the tasks has a stack overflow
@@ -202,3 +246,7 @@ void vApplicationMallocFailedHook(){
 void vApplicationTickHook( void ){
 	//This is not used but it makes the compiler STFU
 }
+
+void __tic();
+
+uint32_t __toc();

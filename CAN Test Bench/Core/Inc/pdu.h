@@ -1,7 +1,8 @@
 // Code to make human readable CAN messages for the device
 
 // This file will define message data as human readable stuff
-
+#ifndef __PDU_H__
+#define __PDU_H__
 
 #include "main.h"
 #include "uvfr_utils.h"
@@ -10,8 +11,7 @@ typedef struct abstract_conifer_channel abstract_conifer_channel;
 
 // Can ID: 0x710
 
-#ifndef __PDU_H__
-#define __PDU_H__
+
 
 typedef struct uv19_pdu_settings{
 	uint32_t PDU_rx_addr;
@@ -49,6 +49,7 @@ typedef enum u19_PDU_ch{
 
 //Update a PDU channel to match it's conifer abstraction
 uv_status u19updatePduChannel(abstract_conifer_channel* ch_ptr, uint32_t* ecode);
+uv_status u19getChFbck(abstract_conifer_channel* ch_ptr, uint32_t* fbck);
 
 uv_status initPDU(uint32_t* ecode);
 

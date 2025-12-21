@@ -193,6 +193,7 @@ uint16_t sendTorqueToMotorController(float T_filtered);
 void MC_Request_Data(uint8_t RegID);
 void ProcessMotorControllerResponse(uv_CAN_msg* msg);
 void Parse_Bamocar_Response(uv_CAN_msg* msg);
+void MC_setErrorMask(uint16_t new_mask);
 
 void MC_Shutdown(void);
 

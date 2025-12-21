@@ -48,4 +48,25 @@ uv_status uvInitDiagnostics();
 
 uv_status logDiagnosticEvent(); //THIS NEEDS ARGS
 
+void __tic();
+
+uint32_t __toc();
+
+uint32_t ITM_SendCharToReg (uint32_t ch,uint32_t port);
+uv_status __debugWrite(char* str,uint32_t port);
+
+#ifdef DEBUG
+#define tic() __tic()
+#define toc() __toc()
+
+#define debugWrite(x,y) __debugWrite(x,y)
+
+
+#else
+
+#define tic()
+#define toc()
+
+#endif
+
 #endif /* INC_UVFR_DIAGNOSTICS_H_ */

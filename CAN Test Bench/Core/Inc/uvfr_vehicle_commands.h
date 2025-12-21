@@ -94,5 +94,7 @@ void BeepBeepMotherFucker();
 //Put vehicle into a safe state
 void uvSecureVehicle();
 
+uv_status uvEnergizeTractiveSystem();
+
 
 #endif /* INC_UVFR_VEHICLE_COMMANDS_H_ */

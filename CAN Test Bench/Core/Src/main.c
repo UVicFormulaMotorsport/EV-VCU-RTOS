@@ -191,6 +191,10 @@ int main(void)
 
   }
 #endif
+
+#ifdef DEBUG
+  printf("STARTING VCU\n");
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */

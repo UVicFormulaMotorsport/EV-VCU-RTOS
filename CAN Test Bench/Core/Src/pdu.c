@@ -69,7 +69,7 @@ uv_status u19updatePduChannel(struct abstract_conifer_channel* ch_ptr, uint32_t*
 		}
 	}
 
-	//Prevent the channel from turning on if load shedding is currently active
+	//Prevent the channel from turning on if load shedding is currently active, or if theres a fault
 	if(ch_ptr->status_control_reg&(CONIFER_CH_LS_ACTIVE|CONIFER_CH_FLT_BIT)){
 		en = 0;
 	}
@@ -88,6 +88,8 @@ uv_status u19updatePduChannel(struct abstract_conifer_channel* ch_ptr, uint32_t*
 				//Unable to release mutex, next PDU message will not correctly send. Ohh god.
 				//Probably one of the worst situations one could possibly end up in from a safety standpoint ngl.
 		}
+	}else{
+		//HANDLE THIS ERROR
 	}
 
 
@@ -112,6 +114,8 @@ uv_status initPDU(uint32_t* ecode){
 
 
 	msg_to_PDU.flags = conifer_params->pdu_bus;
+
+	//register the PDU as external device
 
 	vTaskDelay(10); //Pretend to be doing something for now
 

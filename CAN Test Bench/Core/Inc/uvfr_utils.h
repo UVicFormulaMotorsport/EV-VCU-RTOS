@@ -37,6 +37,7 @@
 #include "uvfr_diagnostics.h"
 #include "rb_tree.h"
 #include "uvfr_vehicle_commands.h"
+#include "uvfr_external_devices.h"
 
 #include "bms.h"
 #include "motor_controller.h"
@@ -211,11 +212,24 @@ enum uv_driving_mode_t{
  *
  */
 enum uv_external_device{
-	MOTOR_CONTROLLER = 0,
-	BMS = 1,
-	IMD = 2,
-	PDU = 3
+	MOTOR_CONTROLLER,
+	BMS,
+	IMD,
+	PDU,
+	STEERING_WHEEL,
+	TMS,
+	DCDC,
+	FINAL_XDEV
+
 };
+
+typedef enum uv_xdev_status{
+	XDEV_OK, //External device OK
+	XDEV_WARNING, //The external device is reporting warnings
+	XDEV_ERROR, //The external device has reported an error
+	XDEV_TIMEOUT, //External devices has timed out
+	XDEV_NC
+}xdev_status;
 
 typedef enum access_control_t{
 	UV_NONE,
@@ -276,10 +290,10 @@ typedef union access_control_info{
 
 
 #define UV_CAN_CHANNEL_MASK 0b00000110
-#define UV_CAN_DYNAMIC_MEM  0b00001000
+#define UV_CAN_DYNAMIC_MEM  0b00001000 //DEPRECATED
 
 //Use this sparingly. Messages with this bit set will skip the queue. If everything skips the queue, nothing does.
-#define UV_CAN_CRIT_MSG_BIT 0S
+#define UV_CAN_CRIT_MSG_BIT 0b10000000
 
 
 /** @brief Representative of a CAN message
@@ -327,16 +341,37 @@ typedef struct uv_task_msg_t{
 }uv_task_msg;
 
 
+#define XDEV_DEVICE_EXPECTED 	(0x01U<<0)
+#define XDEV_CHECK_TIMEOUT_BIT 	(0x01U<<1)
+#define XDEV_POLLING_REQUIRED	(0x01U<<2)
+#define XDEV_POLLED_LAST_CYCLE	(0x01U<<3)
+#define XDEV_UHH_UHH_DUHH
 
 
 
-
-
-typedef struct p_status{
-	uv_status peripheral_status;
+/** Represents an external device, and all the info that is needed
+ *
+ */
+typedef struct xdev_info{
+	char name[8];
 	TickType_t activation_time;
+	TickType_t last_heard_from;
+	TickType_t period;
+	uint32_t ecode1;
+	uint32_t ecode2;
 
-}p_status;
+	void* xdev_poll_msgs;
+
+	SemaphoreHandle_t xdev_mutex;
+	SemaphoreHandle_t xdev_rx_smphr;
+
+	uint16_t flags;
+
+	xdev_status peripheral_status;
+
+}xdev_info;
+
+typedef xdev_info* xdev_handle;
 
 
 /** @brief Struct designed to act like the @c uv_task_info struct,
@@ -359,7 +394,7 @@ typedef struct uv_init_task_args{
 typedef struct uv_internal_params{
 	uv_init_struct* init_params;
 	uv_vehicle_settings* vehicle_settings;
-	p_status peripheral_status[8];
+	xdev_status peripheral_status[8];
 	uint16_t e_code[8];
 }uv_internal_params;
 

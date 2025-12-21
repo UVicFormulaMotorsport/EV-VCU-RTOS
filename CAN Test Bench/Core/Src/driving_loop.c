@@ -275,10 +275,13 @@ void StartDrivingLoop(void * argument){
 
 
 	/**@endcode */
+
+	//startTractiveSystem();
+
 	for(;;){ // enters infinite loop
 
 		if(params->cmd_data == UV_KILL_CMD){ // to perform task control (suspend/kill)
-
+			//stopTractiveSystem();
 			killSelf(params);
 
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
@@ -286,7 +289,7 @@ void StartDrivingLoop(void * argument){
 		}
 		vTaskDelayUntil( &last_time, tick_period); //Me and the boys on our way to wait for a set period every 100ms
 
-		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14); //Blink and LED (for debugging)
+		//HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14); //Blink and LED (for debugging)
 
 		//Copy the values over into new local variables, in order to avoid messing up the APPS
 		uint16_t apps1_value = adc1_APPS1; // reading sensor values
