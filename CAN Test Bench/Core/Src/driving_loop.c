@@ -52,7 +52,7 @@ static float last_brake_percent = 0.0f;
 
 #define TORQUE_DECAY_STEP 2.5f //// Nm per loop step (adjust as needed)
 #define THROTTLE_ZERO_THRESHOLD 0.01f // // Below this % throttle, we consider "off"
-static bool sent_zero_torque = false; //// Track if we already dropped torque to 0
+//static bool sent_zero_torque = false; //// Track if we already dropped torque to 0
 
 //define default driving loop settings
 driving_loop_args default_dl_settings = {
