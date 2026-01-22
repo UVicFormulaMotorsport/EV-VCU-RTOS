@@ -11,12 +11,17 @@ static xdev_info xdev_registry[FINAL_XDEV];
 
 typedef enum uv_status_t uv_status;
 
+/** Linked list of CAN messages
+ *
+ */
 typedef struct xdev_poll_msg{
 	struct xdev_poll_msg* next;
 	uv_CAN_msg pmsg;
 }xdev_poll_msg;
 
-
+/** @brief Initializes the XDEV registry to be in a normal state
+ *
+ */
 __attribute__((constructor)) void __cfgDefaultXdevRegistry(){
 	for(int i = 0; i< FINAL_XDEV; i++){
 		xdev_registry[i].activation_time = 0;
@@ -45,6 +50,9 @@ uv_status uvWaitOnExternalDevice(uint8_t device_id, TickType_t time_to_wait){
 	return UV_ABORTED;
 }
 
+/** @brief Creates the mutex that protects the params of each xDEV
+ *
+ */
 static inline uv_status createXdevMutex(uint8_t xdev){
 
 	xdev_registry[xdev].xdev_mutex = xSemaphoreCreateMutex();
@@ -63,7 +71,42 @@ static inline uv_status createXdevSemphr(uint8_t xdev){
 	return UV_OK;
 }
 
+/** @brief Registers an external device with XDevMon, and allows the thing to actually work as expected
+ *
+ */
+uv_status uvRegisterExternalDevice(uint8_t device_id, TickType_t period, uint16_t xd_flags, char* name){
+	if(xdev_registry[device_id].xdev_mutex == NULL){
+		if(createXdevMutex(device_id) != UV_OK){
+			return UV_ERROR;
+		}
+	}
 
+	if(xdev_registry[device_id].xdev_rx_smphr == NULL){
+		if(createXdevSemphr(device_id) != UV_OK){
+			return UV_ERROR;
+		}
+	}
+
+	//xdev_registry[device_id].
+
+	//Take Mutex
+
+	//set attributes
+	memcpy(xdev_registry[device_id].name,name,8); //At most 7 chars of name
+
+	xdev_registry[device_id].period = period;
+	xdev_registry[device_id].flags = xd_flags;
+	xdev_registry[device_id].activation_time = 0xFFFFFFFF;//Idunno what to set this as
+
+	//Release Mutex
+
+	return UV_OK;
+}
+
+
+/** @brief Internal function to poll an external device.
+ *
+ */
 static uv_status pollXdev(uint8_t xdev){
 	if((xdev_registry[xdev].flags & XDEV_POLLING_REQUIRED)==0){
 		return UV_OK;

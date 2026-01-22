@@ -39,6 +39,10 @@ void uvStopHornCallbackFunc(TimerHandle_t xTim){
 
 #define RTD_SOUND_PERIOD 3000
 
+static inline void abortEnergization(){
+
+}
+
 uv_status uvEnergizeTractiveSystem(){
 	StaticTimer_t horn_tim_buf;
 	TimerHandle_t htim;
@@ -70,7 +74,8 @@ uv_status uvEnergizeTractiveSystem(){
 
 	uvCloseSDC();
 
-	vTaskDelay(2);
+	//Wait 5ms, so things can settle down
+	vTaskDelay(5);
 
 	//Check for SDC in OK state (should actually activate)
 
@@ -79,10 +84,14 @@ uv_status uvEnergizeTractiveSystem(){
 		//This will require additional handling to determine the cause of the error
 		//It is likely a result of something being unplugged, BMS faults should be noticeable, possibly the BSPD is the issue?
 		//IDRK what this might be a result of
+		uvOpenSDC();
+		return UV_ERROR;
 	}
 
 
 	//Await pre-charge success
+
+	vTaskDelay(5000); //I think 5 Seconds is enough time but IDRK
 
 	//How?
 

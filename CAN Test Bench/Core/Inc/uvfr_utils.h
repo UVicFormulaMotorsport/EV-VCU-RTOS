@@ -219,7 +219,7 @@ enum uv_external_device{
 	STEERING_WHEEL,
 	TMS,
 	DCDC,
-	FINAL_XDEV
+	FINAL_XDEV //RESERVED
 
 };
 
@@ -341,10 +341,10 @@ typedef struct uv_task_msg_t{
 }uv_task_msg;
 
 
-#define XDEV_DEVICE_EXPECTED 	(0x01U<<0)
-#define XDEV_CHECK_TIMEOUT_BIT 	(0x01U<<1)
-#define XDEV_POLLING_REQUIRED	(0x01U<<2)
-#define XDEV_POLLED_LAST_CYCLE	(0x01U<<3)
+#define XDEV_DEVICE_EXPECTED 	(0x01U<<0) //Set as 1 to indicate that we expect this device to be connected
+#define XDEV_CHECK_TIMEOUT_BIT 	(0x01U<<1) //Set as 1 to have XDevMon check for timeout
+#define XDEV_POLLING_REQUIRED	(0x01U<<2) //Set as 1 to have XDevMon poll at the period
+#define XDEV_POLLED_LAST_CYCLE	(0x01U<<3) //Reserved for internal use
 #define XDEV_UHH_UHH_DUHH
 
 
@@ -354,20 +354,20 @@ typedef struct uv_task_msg_t{
  */
 typedef struct xdev_info{
 	char name[8];
-	TickType_t activation_time;
-	TickType_t last_heard_from;
-	TickType_t period;
+	TickType_t activation_time; //Time device turns on
+	TickType_t last_heard_from; //Last heard from
+	TickType_t period; //Period at which we either expect a message to be received at, or poll something
 	uint32_t ecode1;
 	uint32_t ecode2;
 
 	void* xdev_poll_msgs;
 
-	SemaphoreHandle_t xdev_mutex;
+	SemaphoreHandle_t xdev_mutex; //Mutex for editing the
 	SemaphoreHandle_t xdev_rx_smphr;
 
-	uint16_t flags;
+	uint16_t flags; //Me when there are flags
 
-	xdev_status peripheral_status;
+	xdev_status peripheral_status; //Status of the peripheral
 
 }xdev_info;
 
