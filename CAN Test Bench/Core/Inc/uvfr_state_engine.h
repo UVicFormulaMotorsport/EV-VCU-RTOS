@@ -45,6 +45,13 @@
 
 
 #include "uvfr_utils.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "cmsis_os.h"
+#include "message_buffer.h"
+
 
 
 //#include "uvfr_utils.h"
@@ -344,6 +351,8 @@ uv_status updateRunningTasks();
 
 uv_status changeVehicleState(uint16_t state);
 
+char* uvGetStateString();
+
 //void uvPanic(char* msg, uint8_t msg_len); //ruh roh scoobs, something has gone a little bit fucky wucky
 void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, const char* func);
 
@@ -355,7 +364,7 @@ void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, con
  * vehicle state.
  *
  */
-#define uvPanic(msg, errnum) __uvPanic(msg, errnum, __FILE__,__LINE__,__FUNCTION__)
+#define uvPanic(msg, errnum) __uvPanic(msg, errnum, __UV_FILENAME__,__LINE__,__FUNCTION__)
 #endif
 
 void killSelf(struct uv_task_info * t);

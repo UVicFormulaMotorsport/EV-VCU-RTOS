@@ -1,0 +1,1215 @@
+\doxysection{uvfr\+\_\+settings.\+c}
+\hypertarget{uvfr__settings_8c_source}{}\label{uvfr__settings_8c_source}\index{Core/Src/uvfr\_settings.c@{Core/Src/uvfr\_settings.c}}
+\mbox{\hyperlink{uvfr__settings_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00002}00002\ \textcolor{comment}{\ *\ uvfr\_settings.c}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Oct\ 10,\ 2024}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ byo10}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00007}\mbox{\hyperlink{uvfr__settings_8c_a7350f4a84cab7a08d99c9e88b248a180}{00007}}\ \textcolor{preprocessor}{\#define\ SRC\_UVFR\_SETTINGS\_C\_}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}stdlib.h"{}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__vehicle__logger_8h}{uvfr\_vehicle\_logger.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00014}\mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{00014}}\ \textcolor{preprocessor}{\#define\ VCU\_TO\_LAPTOP\_ID\ 0x420}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00015}\mbox{\hyperlink{uvfr__settings_8c_aaa6ee3d8e77c95b379e21d4b827ad783}{00015}}\ \textcolor{preprocessor}{\#define\ LAPTOP\_TO\_VCU\_ID\ 0x520}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00017}\mbox{\hyperlink{uvfr__vehicle__commands_8h_a336bc13c0755e0e0a267af2c12343365}{00017}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structoutput__channel__settings}{output\_channel\_settings}}\ \mbox{\hyperlink{structoutput__channel__settings}{output\_channel\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00020}00020\ \textcolor{keyword}{extern}\ PRIVILEGED\_DATA\ uint8\_t\ \mbox{\hyperlink{uvfr__settings_8c_a7c9185b38cc68d3a0c2c205746d25494}{\_s\_uvdata}};\ \textcolor{comment}{//Start\ and\ end\ of\ user\ flash\ symbols}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00021}00021\ \textcolor{keyword}{extern}\ PRIVILEGED\_DATA\ uint8\_t\ \mbox{\hyperlink{uvfr__settings_8c_a32dcb66c3240af325158ccd12dcb3c68}{\_e\_uvdata}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00024}00024\ \textcolor{comment}{//global\ variables\ for\ all\ to\ enjoy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00025}\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{00025}}\ \mbox{\hyperlink{structuv__vehicle__settings}{uv\_vehicle\_settings}}*\ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00027}00027\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structuv__os__settings}{uv\_os\_settings}}\ \mbox{\hyperlink{group__state__engine_gad9e02be6d2d0bc1ab5cd9fd8cae34230}{default\_os\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00028}00028\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structmotor__controller__settings}{motor\_controller\_settings}}\ \mbox{\hyperlink{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b}{mc\_default\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00029}00029\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}\ \mbox{\hyperlink{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4}{default\_dl\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00031}00031\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structdaq__loop__args}{daq\_loop\_args}}\ \mbox{\hyperlink{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}{default\_daq\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00032}00032\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structuv__imd__settings}{uv\_imd\_settings}}\ \mbox{\hyperlink{uvfr__settings_8c_a1071bc1cceac3198de98d9c0753044d6}{default\_imd\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00033}00033\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}\ \mbox{\hyperlink{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\_bms\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00034}00034\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structconifer__settings}{conifer\_settings}}\ \mbox{\hyperlink{uvfr__settings_8c_af1159e0fffb524777de5dcf9d869a738}{default\_conifer\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00035}00035\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{structdaq__msg}{daq\_msg}}\ \mbox{\hyperlink{uvfr__settings_8c_af2240542724a20552b90fafa9642884d}{default\_datapoints}}[];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00041}\mbox{\hyperlink{structtx__all__settings__args}{00041}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtx__all__settings__args}{tx\_all\_settings\_args}}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00042}\mbox{\hyperlink{structtx__all__settings__args_a8e42222b51c2f152869fc760560442b0}{00042}}\ \ \ \ \ uint8\_t*\ \mbox{\hyperlink{structtx__all__settings__args_a8e42222b51c2f152869fc760560442b0}{sblock\_origin}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00044}\mbox{\hyperlink{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}{00044}}\ \}\mbox{\hyperlink{uvfr__settings_8c_a0641c122dc09626011ee339625d1ea63}{tx\_all\_settings\_args}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00049}\mbox{\hyperlink{structtx__journal__args}{00049}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structtx__journal__args}{tx\_journal\_args}}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00050}\mbox{\hyperlink{structtx__journal__args_a47ca8e1495cb07e794ea926dedff2da7}{00050}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structtx__journal__args_a47ca8e1495cb07e794ea926dedff2da7}{start\_time}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00051}\mbox{\hyperlink{structtx__journal__args_a170540474cdd1a431f8e257d5a70c4ac}{00051}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structtx__journal__args_a170540474cdd1a431f8e257d5a70c4ac}{end\_time}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00052}\mbox{\hyperlink{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}{00052}}\ \}\mbox{\hyperlink{uvfr__settings_8c_a9a7490c87797ddce618071ea477c8009}{tx\_journal\_args}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00057}\mbox{\hyperlink{unionhelper__task__args}{00057}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }\mbox{\hyperlink{unionhelper__task__args}{helper\_task\_args}}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00058}\mbox{\hyperlink{unionhelper__task__args_a083dff2889a9c9006875745783ed5f45}{00058}}\ \ \ \ \ \mbox{\hyperlink{structtx__all__settings__args}{tx\_all\_settings\_args}}\ \mbox{\hyperlink{unionhelper__task__args_a083dff2889a9c9006875745783ed5f45}{setting\_tx\_args}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00059}\mbox{\hyperlink{unionhelper__task__args_a530fb24214eb4c3733920bf4446eb571}{00059}}\ \ \ \ \ \mbox{\hyperlink{structtx__journal__args}{tx\_journal\_args}}\ \mbox{\hyperlink{unionhelper__task__args_a530fb24214eb4c3733920bf4446eb571}{journal\_tx\_args}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00060}\mbox{\hyperlink{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}{00060}}\ \}\mbox{\hyperlink{uvfr__settings_8c_a06b8e5486501c8fe34e2a1c669e4a01c}{helper\_task\_args}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00065}\mbox{\hyperlink{structsetting__helper__task}{00065}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structsetting__helper__task}{setting\_helper\_task}}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00066}\mbox{\hyperlink{structsetting__helper__task_a867ac831a9ae5bbfb2ee7b32d63e8916}{00066}}\ \ \ \ \ TaskHandle\_t\ \mbox{\hyperlink{structsetting__helper__task_a867ac831a9ae5bbfb2ee7b32d63e8916}{meta\_task\_handle}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00068}\mbox{\hyperlink{structsetting__helper__task_a7446a818ec9497a6b93a7995bf8b66d3}{00068}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structsetting__helper__task_a7446a818ec9497a6b93a7995bf8b66d3}{status}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00071}\mbox{\hyperlink{structsetting__helper__task_a2db368e63a9cc11c26caa2a0eacfca45}{00071}}\ \ \ \ \ \mbox{\hyperlink{unionhelper__task__args}{helper\_task\_args}}\ \mbox{\hyperlink{structsetting__helper__task_a2db368e63a9cc11c26caa2a0eacfca45}{args}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00073}\mbox{\hyperlink{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}{00073}}\ \}\mbox{\hyperlink{uvfr__settings_8c_aff5e0078d7c880f42cc79e084141a6bd}{setting\_helper\_task}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00078}\mbox{\hyperlink{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}{00078}}\ \mbox{\hyperlink{structveh__gen__info}{veh\_gen\_info}}\ \mbox{\hyperlink{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}{default\_vehicle}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00079}00079\ \ \ \ \ .wheel\_size\ =\ 0xEEEEEEEE,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00080}00080\ \ \ \ \ .drive\_ratio\ =\ 0xDDDDDDDD,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00081}00081\ \ \ \ \ .test1\ =\ 0xCCCC,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00082}00082\ \ \ \ \ .test2\ =\ 0xBBBB,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00083}00083\ \ \ \ \ .test3\ =\ 0xAAAA,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00084}00084\ \ \ \ \ .test4\ =\ 0x99,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00085}00085\ \ \ \ \ .test5\ =\ 0x88,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00086}00086\ \ \ \ \ .test6\ =\ 0x77777777}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00087}00087\ \};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00089}00089\ \textcolor{comment}{//Status\ of\ laptop\ connection}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00090}00090\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ is\_laptop\_connected\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00091}\mbox{\hyperlink{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}{00091}}\ TickType\_t\ \mbox{\hyperlink{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}{last\_contact\_with\_laptop}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00093}00093\ \textcolor{comment}{//Queue\ for\ messages\ coming\ to\ the\ setting\ setter\ program}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00094}00094\ \textcolor{keyword}{static}\ QueueHandle\_t\ settings\_queue\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00096}00096\ \textcolor{keyword}{static}\ TaskHandle\_t\ ptask\_handle\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00098}00098\ \textcolor{keyword}{static}\ TaskHandle\_t\ child\_task\_handle\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00099}00099\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ child\_task\_active\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00106}\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{00106}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ \mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00107}00107\ \ \ \ \ .flags\ =\ 0x00,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00108}00108\ \ \ \ \ .dlc\ =\ 1,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00109}00109\ \ \ \ \ .data\ =\ \{0x10,0,0,0,0,0,0,0\},}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00110}00110\ \ \ \ \ .msg\_id\ =\ \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\_TO\_LAPTOP\_ID}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00111}00111\ \};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00117}\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{00117}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ \mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00118}00118\ \ \ \ \ .flags\ =\ 0x00,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00119}00119\ \ \ \ \ .dlc\ =\ 1,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00120}00120\ \ \ \ \ .data\ =\ \{0x11,0,0,0,0,0,0,0\},}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00121}00121\ \ \ \ \ .msg\_id\ =\ \mbox{\hyperlink{uvfr__settings_8c_a9320db4d0509341600bb7584ca595609}{VCU\_TO\_LAPTOP\_ID}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00122}00122\ \};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00125}00125\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00127}00127\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}{uvValidateFlashSettings}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00128}\mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{00128}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uvResetFlashToDefault}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00129}00129\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}{uvSettingsProgrammerTask}}(\textcolor{keywordtype}{void}*\ args);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00134}00134\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ settingCopy(uint8\_t*\ from,\ uint8\_t*\ to,\ uint16\_t\ length)\ PRIVILEGED\_FUNCTION\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{if}(from\ ==\ NULL\ ||\ to\ ==\ NULL\ ||\ length\ ==\ 0)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};\ \textcolor{comment}{//No\ null\ errors\ on\ my\ watch\ buddy\ boy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00137}00137\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00139}00139\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<length;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00140}00140\ \ \ \ \ \ \ \ \ *(to\ +\ i)\ =\ *(from\ +\ i);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00141}00141\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00142}00142\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00147}\mbox{\hyperlink{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}{00147}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}{uvTransmitVehicleStatus}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00148}00148\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00149}00149\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00151}\mbox{\hyperlink{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b}{00151}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a66126a25eee9ffcb3c5fa49314fc998b}{uvAwaitLaptopAckMsg}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00152}00152\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a}{UV\_ABORTED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00154}00154\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00160}\mbox{\hyperlink{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}{00160}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}{handleIncomingLaptopMsg}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\ PRIVILEGED\_FUNCTION\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00161}00161\ \ \ \ \ uint8\_t\ cmd\_byte\ =\ msg-\/>data[0];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00162}00162\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ blank\_msg\ =\ \{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ .msg\_id\ =\ 0x420,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ .flags\ =\ 0x00,}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ .dlc\ =\ 8}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00167}00167\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00169}00169\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}{last\_contact\_with\_laptop}}\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00172}00172\ \ \ \ \ \textcolor{keywordflow}{switch}(cmd\_byte)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00173}00173\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694ae43f558ef53a37fddfb097b41bc9ae3c}{LAPTOP\_HANDSHAKE}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ is\_laptop\_connected\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00175}00175\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}{last\_contact\_with\_laptop}}\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00176}00176\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ 8;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 0x01;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__utility__macros_ga0fa9d4460bcee65d79e048b43dc879fd}{serializeSmallE32}}(blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}},\mbox{\hyperlink{uvfr__settings_8c_a4a1aa886008fc488d72c502d5af2aa52}{last\_contact\_with\_laptop}},1);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5]\ =\ \mbox{\hyperlink{uvfr__global__config_8h_a0b584a8bce5bc95619d58d126328d24d}{FIRMWARE\_MAJOR\_RELEASE}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[6]\ =\ \mbox{\hyperlink{uvfr__global__config_8h_a2ada82deacaaa65d39fd8431202312e8}{FIRMWARE\_MINOR\_RELEASE}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[7]\ =\ \mbox{\hyperlink{uvfr__global__config_8h_a056c3375923e87e7b3df830ea10295da}{FIRMWARE\_PATCH\_NUM}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00185}00185\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&blank\_msg);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00187}00187\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694aab474c9db56509a37ee4ee2930849b38}{ENTER\_PROGRAMMING\_MODE}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00189}00189\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}}\ ==\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Relevant\ Ack.\ frame\ sent\ upon\ succesful\ startup\ of\ programmer\ task}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00192}00192\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00194}00194\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//should\ not\ be\ programming\ if\ in\ either\ of\ these\ states}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00197}00197\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00198}00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694ad67522ff5c2a93d043e4d26bd905ce34}{REQUEST\_VCU\_STATUS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00200}00200\ \ \ \ \ \ \ \ \ \textcolor{comment}{//TODO\ Respond\ with\ VCU\ status}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_ad2bb778b8a8907a17c87de89f0eea3c0}{uvTransmitVehicleStatus}}()!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00204}00204\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00205}00205\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00206}00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00207}00207\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694ad99a8ce3d129dcc56d82ee11b0610f18}{GENERIC\_ACK}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00208}00208\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Could\ come\ at\ any\ time,\ however\ here\ we\ are}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00209}00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00210}00210\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a205322c736d66df92b6d968b53648acb}{REQUEST\_ALL\_JOURNAL\_ENTRIES}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__vehicle__logger_8h_aa94a06d1457baf8f7a2bdffc9bdb0f34}{flushLogsToCAN}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00213}00213\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a7091f0610d47127e952576fcf2d72eac}{SET\_SPECIFIC\_PARAM}}\ ...\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694aefd2ddc079bf62b63b3e5226b9a83ac3}{END\_OF\_SPECIFIC\_PARAMS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00215}00215\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694ab8a24171d3940ec1ea3160842c3e4b4b}{CLEAR\_FAULTS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00216}00216\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a9b0e526098fd6c30dc93538edba59405}{REQUEST\_ALL\_SETTINGS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00217}00217\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a4313d65a75fd41f3e527b330e7370a5e}{REQUEST\_JOURNAL\_ENTRIES\_BY\_TIME}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00218}00218\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694ac53400ee472ace47006a18aaaa4a86a0}{REQUEST\_SPECIFIC\_SETTING}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00219}00219\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a8ad6825ef0a84f2615148dc63202be1f}{SAVE\_AND\_APPLY\_NEW\_SETTINGS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00220}00220\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a485f41f6d806239622abbac7aef60557}{DISCARD\_NEW\_SETTINGS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00221}00221\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694abe34f5f2d055215f2ff2e2d85401199a}{DISCARD\_NEW\_SETTINGS\_AND\_EXIT}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00222}00222\ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258}{FORCE\_RESTORE\_FACTORY\_DEFAULT}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//We\ need\ to\ be\ in\ programming\ mode\ for\ these.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}}\ ==\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(settings\_queue\ !=\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xQueueSend(settings\_queue,msg,0)\ !=\ pdTRUE)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}"{}},0);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//send\ negative\ ACK}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00235}00235\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{//otherwise\ we\ will\ ignore}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00237}00237\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00238}00238\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00239}00239\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cmd\_byte\ we\ do\ not\ recognise.\ We\ assme\ the\ laptop\ is\ geeked,\ and\ move\ on}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00241}00241\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00242}00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00243}00243\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00244}00244\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00245}00245\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00250}\mbox{\hyperlink{uvfr__settings_8h_add1ebdaa7f93f2a43ca6afc6e05fdd44}{00250}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}{setupDefaultSettings}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00251}00251\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ !=\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00252}00252\ \ \ \ \ \ \ \ \ uvFree(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00253}00253\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00254}00254\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00255}00255\ \ \ \ \ \textcolor{comment}{//real\ trap\ shit}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00256}00256\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__vehicle__settings}{uv\_vehicle\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00257}00257\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00258}00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00259}00259\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00261}00261\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00262}00262\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_adbfed76ceedc0479ff023fea9ba7a84c}{os\_settings}}\ =\ \&\mbox{\hyperlink{group__state__engine_gad9e02be6d2d0bc1ab5cd9fd8cae34230}{default\_os\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00263}00263\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_ad0b0375d2c1674abc6f972eec47e9cb7}{mc\_settings}}\ =\ \&\mbox{\hyperlink{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b}{mc\_default\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00264}00264\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a7a5207ef389290242764f49c6c48a5ad}{driving\_loop\_settings}}\ =\ \&\mbox{\hyperlink{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4}{default\_dl\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00265}00265\ \ \ \ \ \textcolor{comment}{//current\_vehicle\_settings-\/>driving\_loop\_settings\ =\ NULL;}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00266}00266\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00267}00267\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a6cdca5b5474080f1dff4d19ef96435e1}{bms\_settings}}\ =\ \&\mbox{\hyperlink{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\_bms\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00268}00268\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a6caecf0c9fd669e421c4005600d81b71}{daq\_settings}}\ =\ \&\mbox{\hyperlink{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}{default\_daq\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00269}00269\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a7af5e3466cb7d152a26970be33ca9f5e}{daq\_param\_list}}\ =\ \mbox{\hyperlink{uvfr__settings_8c_af2240542724a20552b90fafa9642884d}{default\_datapoints}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00270}00270\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a21e28594f9cfafad8609f3f687e913b7}{conifer\_settings}}\ =\ \&\mbox{\hyperlink{uvfr__settings_8c_af1159e0fffb524777de5dcf9d869a738}{default\_conifer\_settings}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00271}00271\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00273}00273\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_ae0c9377c4f8df54ad4b59d4ac4ab39fe}{flags}}\ |=\ 0x0001;\ \textcolor{comment}{//This\ is\ default\ settings}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00274}00274\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00275}00275\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00280}\mbox{\hyperlink{uvfr__settings_8h_a4648237563030182a8309d8c75e12205}{00280}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_a4648237563030182a8309d8c75e12205}{nukeSettings}}(\mbox{\hyperlink{structuv__vehicle__settings}{uv\_vehicle\_settings}}**\ settings\_to\_delete)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00281}00281\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00282}00282\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00283}00283\ \ \ \ \ uvFree(*settings\_to\_delete);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00284}00284\ \ \ \ \ *settings\_to\_delete\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00285}00285\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00286}00286\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00287}00287\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00288}00288\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00294}\mbox{\hyperlink{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}{00294}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}{uvLoadSettingsFromFlash}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00295}00295\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ !=\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00296}00296\ \ \ \ \ \ \ \ \ uvFree(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00297}00297\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00298}00298\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00299}00299\ \ \ \ \ \textcolor{comment}{//real\ trap\ shit}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00300}00300\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__vehicle__settings}{uv\_vehicle\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00301}00301\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00302}00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00303}00303\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00304}00304\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00305}00305\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00306}00306\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00307}00307\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a6a386c439058f4464e4b82acd1315258}{veh\_info}}\ =\ (\mbox{\hyperlink{structveh__gen__info}{veh\_gen\_info}}*)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ 256*\mbox{\hyperlink{uvfr__settings_8h_aa896deeb35bafb45b994e9c1d0c6500a}{GENERAL\_VEH\_INFO\_MGROUP}}+\mbox{\hyperlink{uvfr__settings_8h_abcf807ab03bef940a111bb64cfffecfa}{GENERAL\_VEH\_INFO\_OFFSET}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00308}00308\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00309}00309\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00310}00310\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_adbfed76ceedc0479ff023fea9ba7a84c}{os\_settings}}\ =\ (\mbox{\hyperlink{structuv__os__settings}{uv\_os\_settings}}*)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_ae727eadb1cf71a3feeb12b7bb2eb83d5}{OS\_SETTINGS\_MGROUP}}*256\ +\ \mbox{\hyperlink{uvfr__settings_8h_a012d0d54f18a0eeee83d89f5786db5d5}{OS\_SETTINGS\_OFFSET}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00312}00312\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00313}00313\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_ad0b0375d2c1674abc6f972eec47e9cb7}{mc\_settings}}\ =\ (\mbox{\hyperlink{structmotor__controller__settings}{motor\_controller\_settings}}*)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_aad0db57c7f8c7937be54192d7b74bdcf}{MOTOR\_MGROUP}}*256\ +\ \mbox{\hyperlink{uvfr__settings_8h_aa990a9c990001dc29a5ee5fdde3773e4}{MOTOR\_OFFSET}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00314}00314\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a7a5207ef389290242764f49c6c48a5ad}{driving\_loop\_settings}}\ =\ (\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}*)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_aaad501c2b79f55f1bbbae030b6a18dcd}{DRIVING\_MGROUP}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_a16f051ea34ee4f4965e4d11f3745d742}{DRIVING\_OFFSET}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00315}00315\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}}\ =\ \mbox{\hyperlink{uvfr__settings_8h_ae99330d4904337e9a603ad2df6758b95}{IMD\_ADDR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00316}00316\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a6cdca5b5474080f1dff4d19ef96435e1}{bms\_settings}}\ =\ \mbox{\hyperlink{uvfr__settings_8h_ab638ad0845e4b5e7007e314c83bc43d5}{BMS\_ADDR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00317}00317\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a6caecf0c9fd669e421c4005600d81b71}{daq\_settings}}\ =\ \mbox{\hyperlink{uvfr__settings_8h_aae3049baf8d0bf80753c7b0da5ec8260}{DAQ\_HEAD\_ADDR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00318}00318\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a7af5e3466cb7d152a26970be33ca9f5e}{daq\_param\_list}}\ =\ \mbox{\hyperlink{uvfr__settings_8h_ae385496a129924fb290839da5bfa90a2}{DAQ\_PARAMS1\_ADDR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00320}00320\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a21e28594f9cfafad8609f3f687e913b7}{conifer\_settings}}\ =\ (\textcolor{keywordtype}{void}*)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_a1398a9cae71db0ce2ac482cdab799668}{CONIFER\_MGROUP}}*256\ +\ \mbox{\hyperlink{uvfr__settings_8h_afd7a6c2987b71c522409faaf1c125d2a}{CONIFER\_OFFSET}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00321}00321\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00322}00322\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00323}00323\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00324}00324\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00328}\mbox{\hyperlink{uvfr__settings_8h_a086bfc48f5a63b15586c6a2a8a1d29a8}{00328}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a086bfc48f5a63b15586c6a2a8a1d29a8}{uvConfigSettingTask}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00329}00329\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ setting\_task\ =\ \mbox{\hyperlink{group__state__engine__api_gac977eb33c99a9ac0a5f51a7db20e24d6}{uvCreateTask}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00330}00330\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00331}00331\ \ \ \ \ \textcolor{keywordflow}{if}(setting\_task\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00332}00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00333}00333\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00334}00334\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00335}00335\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_ad24b438130bb3098ee5e855222dff21d}{task\_name}}\ =\ \textcolor{stringliteral}{"{}Set\_settings"{}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00337}00337\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_afcd240d2b6b01b4acea600ef4dfe8fbc}{task\_function}}\ =\ \mbox{\hyperlink{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}{uvSettingsProgrammerTask}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00338}00338\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_aff45751f7189980589d55379d1d5a355}{task\_priority}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga6166ed80f8e3bd62f1e7e6122c8817f6a052e6887345173e8b7556738c28fa920}{ABOVE\_NORMAL}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00340}00340\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_a353ec6bf2c42ab0920f3d1e671e568a3}{stack\_size}}\ =\ 512;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00341}00341\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00342}00342\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_ab24dea3bde4de2d839bf15e65c2df0d6}{active\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00343}00343\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_aafd4e2d916f50b54b99fd02d63831e43}{suspension\_states}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00344}00344\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_a6986d7216c7f889164931b37ab752c29}{deletion\_states}}\ =\ 0xFFFF\ \&\ \string~PROGRAMMING;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00345}00345\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00346}00346\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}}\ =\ 20;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00347}00347\ \ \ \ \ setting\_task-\/>\mbox{\hyperlink{structuv__task__info_ae255dff9b38fc8c0754085060e8ae699}{task\_args}}\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00348}00348\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00349}00349\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00350}00350\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00351}00351\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00352}00352\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00353}00353\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00359}\mbox{\hyperlink{uvfr__settings_8h_a80856a38d7040ca10b8106ff0fa4acf4}{00359}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_ab1433cc55d71e34bd1facef274edc1a6}{uvSettingsInit}}()\ PRIVILEGED\_FUNCTION\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00360}00360\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00361}00361\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x520,\mbox{\hyperlink{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}{handleIncomingLaptopMsg}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});\ \textcolor{comment}{//Allows\ us\ to\ talk\ with\ laptop}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00362}00362\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x520,\mbox{\hyperlink{uvfr__settings_8c_afa15631878f6d936a1143656f88f3620}{handleIncomingLaptopMsg}},\ \mbox{\hyperlink{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}{CAN\_BUS\_2}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00364}00364\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__vehicle__settings}{uv\_vehicle\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00365}00365\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00366}00366\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00367}00367\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00368}00368\ \ \ \ \ \ \ \ \ \textcolor{comment}{//HMMM}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00369}00369\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__utils_8h_a92b5ac44171d49acd084c274385a043a}{\_\_uvInitPanic}}();\ \textcolor{comment}{//\ deeply\ unfortunate}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00370}00370\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00371}00371\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00372}00372\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00374}00374\ \ \ \ \ \textcolor{comment}{//uvConfigSettingTask(current\_vehicle\_settings);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00376}00376\ \ \ \ \ \textcolor{comment}{//First\ we\ check\ the\ validity\ of\ the\ settings\ in\ flash.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00377}00377\ \ \ \ \ \textcolor{keywordtype}{bool}\ use\_factory\_default\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00378}00378\ \ \ \ \ \textcolor{keywordtype}{bool}\ force\_flash\_rewrite\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00379}00379\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00380}00380\ \ \ \ \ \textcolor{comment}{//Check\ for\ existing\ valid\ flash\ settings}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00381}00381\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ retval\ =\ \mbox{\hyperlink{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}{uvValidateFlashSettings}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00382}00382\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00383}00383\ \ \ \ \ \textcolor{keywordflow}{if}(retval\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{\ \textcolor{comment}{//If\ the\ thing\ responds\ with\ OK,\ then\ we\ attempt\ to\ load\ flash\ settings}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00384}00384\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00385}00385\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}{uvLoadSettingsFromFlash}}()\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00386}00386\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Attempt\ to\ load\ flash\ settings.\ If\ that\ somehow\ fails,\ revert\ to\ factory\ defaults}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00387}00387\ \ \ \ \ \ \ \ \ \ \ \ \ use\_factory\_default\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00388}00388\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_ae9ab130db00266635709bb7fb72c1844}{uvLoadSettingsFromFlash}}()==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00389}00389\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Could\ not\ actually\ load\ from\ flash.\ BAD!}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00390}00390\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//In\ this\ case\ we\ would\ like\ to\ revert\ to\ factory\ defaults!}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00391}00391\ \ \ \ \ \ \ \ \ \ \ \ \ use\_factory\_default\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00392}00392\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00393}00393\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00394}00394\ \ \ \ \ \ \ \ \ \textcolor{comment}{//In\ this\ case,\ we\ need\ to\ check\ to\ see\ if\ we\ need\ to\ send\ out\ a\ msg\ for\ the\ VCU}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00395}00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((uint32\_t)(*(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ 4)))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00396}00396\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00397}00397\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}})!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00398}00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00399}00399\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00400}00400\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00402}00402\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00403}00403\ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00404}00404\ \ \ \ \ \ \ \ \ use\_factory\_default\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00405}00405\ \ \ \ \ \ \ \ \ force\_flash\_rewrite\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00406}00406\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00407}00407\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00408}00408\ \ \ \ \ \textcolor{keywordflow}{if}(use\_factory\_default\ ==\ \textcolor{keyword}{true})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00409}00409\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}{setupDefaultSettings}}()\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00410}00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//great\ success.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00411}00411\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}{setupDefaultSettings}}()\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00412}00412\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//FAILURE\ TO\ EVEN\ LOAD\ THE\ DEFAULTS,\ THIS\ CAR\ IS\ UNDRIVEABLE}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00413}00413\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{uvfr__utils_8h_a92b5ac44171d49acd084c274385a043a}{\_\_uvInitPanic}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00414}00414\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00415}00415\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00416}00416\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00417}00417\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00418}00418\ \ \ \ \ \textcolor{keywordflow}{if}(force\_flash\_rewrite\ ==\ \textcolor{keyword}{true})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00419}00419\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ tmp\_sblock\ =\ uvMalloc(\mbox{\hyperlink{uvfr__settings_8h_ae3422980a714e1a061dc8c4685a1d613}{SETTING\_BRANCH\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00420}00420\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uvResetFlashToDefault}}(tmp\_sblock)==\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00421}00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Things\ to\ do\ upon\ success\ (this\ thing\ is\ somewhat\ self\ explanitory}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00422}00422\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00424}00424\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00425}00425\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00426}00426\ \ \ \ \ \ \ \ \ uvFree(tmp\_sblock);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00427}00427\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00428}00428\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00429}00429\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_add1ebdaa7f93f2a43ca6afc6e05fdd44}{setupDefaultSettings}}();\textcolor{comment}{//\ Temporary\ and\ forces\ default\ settings}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00430}00430\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00431}00431\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00432}00432\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00433}00433\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00434}00434\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00438}\mbox{\hyperlink{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}{00438}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}{uvUpdateTmpSettings}}(uint8\_t*\ tmp\_settings,\ uint8\_t\ memgroup,\ uint8\_t\ m\_offset,\ uint8\_t\ size,\ uint8\_t*\ data)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00439}00439\ \ \ \ \ \textcolor{keywordflow}{if}(!tmp\_settings)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00440}00440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00441}00441\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00442}00442\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00443}00443\ \ \ \ \ \textcolor{keywordflow}{if}(memgroup\ >\ 12)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00444}00444\ \ \ \ \ \ \ \ \ \textcolor{comment}{//out\ of\ range}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00445}00445\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00446}00446\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00447}00447\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00452}00452\ \ \ \ \ \textcolor{keywordflow}{if}(((m\_offset\ +\ size)\%128)<size)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00453}00453\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00454}00454\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00455}00455\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00456}00456\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00457}00457\ \ \ \ \ \textcolor{comment}{//Check\ for\ certain\ illegal\ combinations\ of\ things\ below:}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00458}00458\ \ \ \ \ \textcolor{comment}{//This\ first\ case\ is\ to\ see\ if\ it\ is\ editing\ the\ reserved\ area\ of\ the\ sblock.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00459}00459\ \ \ \ \ \textcolor{keywordflow}{if}((memgroup\ ==\ 0)\&\&(m\_offset\ <\ 32))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00460}00460\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00461}00461\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00462}00462\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00463}00463\ \ \ \ \ uint32\_t\ offset\ =\ memgroup*256\ +\ m\_offset;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00464}00464\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00465}00465\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<size;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00466}00466\ \ \ \ \ \ \ \ \ *(tmp\_settings\ +\ offset\ +\ i)\ =\ *(data\ +\ i);\ \textcolor{comment}{//ensure\ correct\ number\ comes\ through.\ //CONFIRMED\ THIS\ WORKS\ IF\ LAPTOP\ SENDS\ LITTLE\ ENDIAN}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00467}00467\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00468}00468\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00469}00469\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00471}00471\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00472}00472\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00473}00473\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00474}00474\ \textcolor{comment}{//NOTE:\ I\ Have\ not\ finished\ implementing\ the\ checksums\ here.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00475}\mbox{\hyperlink{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}{00475}}\ uint32\_t\ \mbox{\hyperlink{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}{uvComputeChunkChecksum}}(uint32\_t*\ chunk)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00476}00476\ \ \ \ \ uint32\_t\ tmp;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00477}00477\ \ \ \ \ uint32\_t\ buf[9];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00478}00478\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00479}00479\ \ \ \ \ buf[8]\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00480}00480\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 8;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00481}00481\ \ \ \ \ \ \ \ \ buf[i]\ =\ chunk[i];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00482}00482\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00483}00483\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00484}00484\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<\ 256;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00485}00485\ \ \ \ \ \ \ \ \ buf[i/32]\ \string^=\ (\mbox{\hyperlink{uvfr__settings_8h_a3a57af5c3275b2f53fa64274b11e8d52}{CRC\_POLY}}\ <<\ i\%32);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00486}00486\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00487}00487\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00488}00488\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00489}00489\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00490}\mbox{\hyperlink{uvfr__settings_8h_a90cba009630be4dc991f7de6cbede4d8}{00490}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}{uvComputeMemRegionChecksum}}(\textcolor{keywordtype}{void}*\ sblock,\ uint32\_t*\ csums\ ,\textcolor{keywordtype}{char}\ mregion)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00491}00491\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<32\ ;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00492}00492\ \ \ \ \ \ \ \ \ *(csums\ +\ i*\textcolor{keyword}{sizeof}(uint32\_t))\ =\ \mbox{\hyperlink{uvfr__settings_8c_aec8886c47c65892251b444760cb30116}{uvComputeChunkChecksum}}(sblock\ +\ i*8*4);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00493}00493\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00494}00494\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00495}00495\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00496}00496\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00497}00497\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00498}00498\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00499}\mbox{\hyperlink{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}{00499}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}{uvComputeSettingsChecksums}}(\textcolor{keywordtype}{void}*\ sblock,\ uint32\_t*\ csums)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00500}00500\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00501}00501\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00502}00502\ \ \ \ \ \textcolor{comment}{//Compute\ the\ checksums\ of\ the\ sblock}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00503}00503\ \ \ \ \ \textcolor{comment}{//8\ to\ 1\ reducgtion}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00504}00504\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00505}00505\ \ \ \ \ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ retval\ =\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00506}00506\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00507}00507\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 12;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00508}00508\ \ \ \ \ \ \ \ \ retval\ =\ \mbox{\hyperlink{uvfr__settings_8c_a90cba009630be4dc991f7de6cbede4d8}{uvComputeMemRegionChecksum}}(sblock,\ csums,\ i);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00509}00509\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00510}00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00511}00511\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ retval;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00512}00512\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00513}00513\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00514}00514\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00515}00515\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00516}00516\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00518}00518\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00519}00519\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00520}00520\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00521}00521\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00522}\mbox{\hyperlink{uvfr__settings_8h_a84fc0703372fd83581befabb9fba3858}{00522}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a84fc0703372fd83581befabb9fba3858}{uvValidateChecksums}}(\textcolor{keywordtype}{void}*\ sblock)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00523}00523\ \ \ \ \ uint32\_t*\ csums\ =\ uvMalloc(512);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00525}00525\ \ \ \ \ \textcolor{keywordflow}{if}(csums\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00526}00526\ \ \ \ \ \ \ \ \ \textcolor{comment}{//BIG\ UHH\ OHH}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00527}00527\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00528}00528\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00530}00530\ \ \ \ \ \mbox{\hyperlink{uvfr__settings_8c_aee72930bcdad229cbe8a8adb73e4a3b3}{uvComputeSettingsChecksums}}(sblock,\ csums);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00531}00531\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00532}00532\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00533}00533\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00538}\mbox{\hyperlink{uvfr__settings_8c_ae3840a35e861b358d57fb6eacbd35448}{00538}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_ae3840a35e861b358d57fb6eacbd35448}{uvSBlockCorruptionHandler}}()\ PRIVILEGED\_FUNCTION\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00539}00539\ \ \ \ \ \textcolor{comment}{//We\ need\ to\ forcibly\ revert\ to\ factory\ default.\ Unsure\ about\ ability\ to\ write\ to\ flash.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00540}00540\ \ \ \ \ \textcolor{keywordtype}{void}*\ addr\ =\ \mbox{\hyperlink{uvfr__settings_8h_a1af6d32a5f9f7c214731b3cdde2ae48d}{FLASH\_SBLOCK\_START}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00541}00541\ \ \ \ \ \textcolor{keywordtype}{bool}\ successful\_write\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00542}00542\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00543}00543\ \ \ \ \ taskENTER\_CRITICAL();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00544}00544\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00545}00545\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<3;\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00546}00546\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Unlock()\ ==\ HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00548}00548\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00549}00549\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00550}00550\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00551}00551\ \ \ \ \ \_\_HAL\_FLASH\_CLEAR\_FLAG(FLASH\_FLAG\_EOP\ |\ FLASH\_FLAG\_OPERR\ |\ FLASH\_FLAG\_WRPERR\ |\ FLASH\_FLAG\_PGAERR\ |\ FLASH\_FLAG\_PGSERR\ |\ FLASH\_FLAG\_PGPERR);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00553}00553\ \ \ \ \ \textcolor{comment}{//Set\ the\ start\ of\ the\ Sblock\ to\ 0,\ therefore\ causing\ uvValidate}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00554}00554\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Program(FLASH\_TYPEPROGRAM\_WORD,(uint32\_t)addr,0x00000000)!=\ HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00555}00555\ \ \ \ \ \ \ \ \ \textcolor{comment}{//If\ this\ does\ not\ work,\ then\ more\ drastic\ measures\ may\ be\ needed.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00556}00556\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Manually\ erase\ entire\ sector\ in\ hardware.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00557}00557\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Note\ that\ this\ will\ also\ destroy\ any\ persistent\ data,\ but\ we\ have\ genuinely\ much\ bigger\ fish\ to\ fry\ at\ this\ point,\ like\ the\ literal\ vehicle\ settings\ are\ corrupted\ WTF\ do\ you\ want\ from\ me,\ man?}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00558}00558\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((FLASH-\/>SR)\ \&\ FLASH\_SR\_BSY)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Wait\ till\ no\ longer\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00560}00560\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00562}00562\ \ \ \ \ \ \ \ \ FLASH-\/>CR\ |=\ (FLASH\_CR\_SNB\_0\ |\ FLASH\_CR\_SNB\_1\ |\ FLASH\_CR\_SNB\_3);\ \textcolor{comment}{//\ Sector\ 11}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00563}00563\ \ \ \ \ \ \ \ \ FLASH-\/>CR\ |=\ FLASH\_CR\_SER;\ \textcolor{comment}{//Queue\ up\ a\ flash\ erase\ operation}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00564}00564\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00565}00565\ \ \ \ \ \ \ \ \ FLASH-\/>CR\ |=\ FLASH\_CR\_STRT;\ \textcolor{comment}{//Tells\ the\ hardware\ to\ begin\ flash\ clear\ procces}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00566}00566\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00567}00567\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00569}00569\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((FLASH-\/>SR)\ \&\ FLASH\_SR\_BSY)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00570}00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Wait\ till\ no\ longer\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00571}00571\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00572}00572\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00573}00573\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00574}00574\ \ \ \ \ HAL\_FLASH\_Lock();\textcolor{comment}{//Always\ remember\ to\ lock\ the\ flash.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00576}00576\ \ \ \ \ taskEXIT\_CRITICAL();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00577}00577\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00578}00578\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00579}00579\ \};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00580}00580\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00581}00581\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00582}\mbox{\hyperlink{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}{00582}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a36192e27458271ff052029579febb5a1}{uvOverwriteCsr}}(\textcolor{keywordtype}{void}*\ sblock,\ uint32\_t*\ csr)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00583}00583\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00584}00584\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00585}00585\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00586}00586\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00590}\mbox{\hyperlink{uvfr__settings_8c_a65bd5632c9f844eac3ead2787cb1375c}{00590}}\ \textcolor{preprocessor}{\#define\ FLASH\_OK\ 0}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00591}\mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{00591}}\ \textcolor{preprocessor}{\#define\ INVALID\_SBLOCK\ 1}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00592}\mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{00592}}\ \textcolor{preprocessor}{\#define\ FLASH\_NOT\_UNLOCKED\ 2}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00593}\mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{00593}}\ \textcolor{preprocessor}{\#define\ DID\_NOT\_FINISH\_PROGRAMMING\ 3}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00594}\mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{00594}}\ \textcolor{preprocessor}{\#define\ DATA\_MISMATCH\ 4}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00595}\mbox{\hyperlink{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}{00595}}\ \textcolor{preprocessor}{\#define\ PRE\_CHECKSUM\ 5}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00596}\mbox{\hyperlink{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}{00596}}\ \textcolor{preprocessor}{\#define\ POST\_CHECKSUM\ 6}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00601}\mbox{\hyperlink{uvfr__settings_8c_a71b4d19fc9194c90d6b546a1b8138902}{00601}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uvSaveSettingsToFlash}}(\textcolor{keywordtype}{void}*\ sblock,\ uint32\_t*\ ecode)\ PRIVILEGED\_FUNCTION\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00602}00602\ \ \ \ \ \textcolor{keywordflow}{if}(sblock\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00603}00603\ \ \ \ \ \ \ \ \ *ecode\ =\ \mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{INVALID\_SBLOCK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00604}00604\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00605}00605\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00606}00606\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00607}00607\ \ \ \ \ \textcolor{keywordtype}{void}*\ tmp\ =\ sblock;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00608}00608\ \textcolor{comment}{//\ \ if(uvValidateChecksums(tmp)\ !=\ UV\_OK)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00609}00609\ \textcolor{comment}{//\ \ \ \ \ \ return\ UV\_ABORTED;}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00610}00610\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00611}00611\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00612}00612\ \ \ \ \ *((uint32\_t*)(tmp\ +\ 0))\ =\ \mbox{\hyperlink{uvfr__settings_8h_a54061e5993a5517320d425f44408cc86}{MAGIC\_NUMBER}};\ \textcolor{comment}{//Identifies\ that\ this\ is\ in\ fact\ a\ valid\ S\_Block}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00613}00613\ \ \ \ \ *((uint32\_t*)(tmp\ +\ 4))\ =\ 0x00000001;\ \textcolor{comment}{//Little\ reminder\ for\ future\ VCU\ that\ the\ settings\ were\ recently\ changed}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00614}00614\ \ \ \ \ *((uint16\_t*)(tmp\ +\ 8))\ =\ 0x1000;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00615}00615\ \ \ \ \ *((uint16\_t*)(tmp\ +\ 10))\ =\ \mbox{\hyperlink{uvfr__global__config_8h_a0b584a8bce5bc95619d58d126328d24d}{FIRMWARE\_MAJOR\_RELEASE}};\ \textcolor{comment}{//Identify\ the\ firmware\ version\ this\ is}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00616}00616\ \ \ \ \ *((uint16\_t*)(tmp\ +\ 12))\ =\ \mbox{\hyperlink{uvfr__global__config_8h_a2ada82deacaaa65d39fd8431202312e8}{FIRMWARE\_MINOR\_RELEASE}};\ \textcolor{comment}{//Identify\ the\ firmware\ version}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00617}00617\ \ \ \ \ *((uint16\_t*)(tmp\ +\ 14))\ =\ \mbox{\hyperlink{uvfr__global__config_8h_a056c3375923e87e7b3df830ea10295da}{FIRMWARE\_PATCH\_NUM}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00618}00618\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00619}00619\ \ \ \ \ \textcolor{comment}{//We\ save\ the\ sizes\ of\ the\ core\ setting\ structs,\ so\ that\ if\ someone\ adds\ or\ removes\ settings\ from\ the\ struct,}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00620}00620\ \ \ \ \ \textcolor{comment}{//The\ program\ will\ notice\ and\ load\ factory\ defaults\ into\ flash}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00621}00621\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 16))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{uvfr__settings_8h_a63c94a189304fb004523f327915010e0}{veh\_gen\_info}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00622}00622\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 17))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{group__state__engine__api_ga4622e8f893111a8641c8e5a44df3d3dd}{uv\_os\_settings}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00623}00623\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 18))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{motor__controller_8h_a420642111318eedc2b05236f0ed531f4}{motor\_controller\_settings}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00624}00624\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 19))\ =\ (uint8\_t)\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}});\ \textcolor{comment}{//IDGAF\ if\ we\ got\ truncation\ error\ here,\ fuck\ you}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00625}00625\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 20))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{imd_8h_a0b894eb0fe09aff3c2fb836118b040f8}{uv\_imd\_settings}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00626}00626\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 21))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d}{bms\_settings\_t}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00627}00627\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 22))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{daq_8h_a8895dc742d7ce8449057f317e7f9c81b}{daq\_loop\_args}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00628}00628\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 23))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{daq_8h_a9d27fcca9da1125d3fd507f58f312647}{daq\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00629}00629\ \ \ \ \ *((uint8\_t*)(tmp\ +\ 24))\ =\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{uvfr__vehicle__commands_8h_a336bc13c0755e0e0a267af2c12343365}{output\_channel\_settings}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00630}00630\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00631}00631\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00632}00632\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00633}00633\ \ \ \ \ \textcolor{keywordtype}{void}*\ addr\ =\ \mbox{\hyperlink{uvfr__settings_8h_a1af6d32a5f9f7c214731b3cdde2ae48d}{FLASH\_SBLOCK\_START}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00634}00634\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00635}00635\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Unlock()\ !=\ HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00636}00636\ \ \ \ \ \ \ \ \ *ecode\ =\ \mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{FLASH\_NOT\_UNLOCKED}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00637}00637\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00638}00638\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00639}00639\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00640}00640\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00641}00641\ \ \ \ \ taskENTER\_CRITICAL();\ \textcolor{comment}{//I\ would\ very\ much\ prefer\ if\ nothing\ fucks\ with\ this}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00642}00642\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00643}00643\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00644}00644\ \ \ \ \ \textcolor{keywordflow}{while}((FLASH-\/>SR)\ \&\ FLASH\_SR\_BSY)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00645}00645\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Wait\ till\ no\ longer\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00646}00646\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00647}00647\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00648}00648\ \ \ \ \ FLASH-\/>CR\ |=\ (FLASH\_CR\_SNB\_0\ |\ FLASH\_CR\_SNB\_1\ |\ FLASH\_CR\_SNB\_3);\ \textcolor{comment}{//\ Sector\ 11}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00649}00649\ \ \ \ \ FLASH-\/>CR\ |=\ FLASH\_CR\_SER;\ \textcolor{comment}{//Queue\ up\ a\ flash\ erase\ operation}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00650}00650\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00651}00651\ \ \ \ \ FLASH-\/>CR\ |=\ FLASH\_CR\_STRT;\ \textcolor{comment}{//Tells\ the\ hardware\ to\ begin\ flash\ clear\ procces}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00652}00652\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00653}00653\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00655}00655\ \ \ \ \ \textcolor{keywordflow}{while}((FLASH-\/>SR)\ \&\ FLASH\_SR\_BSY)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00656}00656\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Wait\ till\ no\ longer\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00657}00657\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00659}00659\ \ \ \ \ \textcolor{keywordflow}{while}(addr\ <\ \mbox{\hyperlink{uvfr__settings_8h_aa81180ef8eb37ec6e7d99d706610680d}{TOP\_OF\_FLASH\_SBLOCK}})\{\ \textcolor{comment}{//TODO\ Is\ this\ the\ right\ address?}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00660}00660\ \ \ \ \ \ \ \ \ \_\_HAL\_FLASH\_CLEAR\_FLAG(FLASH\_FLAG\_EOP\ |\ FLASH\_FLAG\_OPERR\ |\ FLASH\_FLAG\_WRPERR\ |\ FLASH\_FLAG\_PGAERR\ |\ FLASH\_FLAG\_PGSERR\ |\ FLASH\_FLAG\_PGPERR);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00661}00661\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Program(FLASH\_TYPEPROGRAM\_WORD,(uint32\_t)addr,(uint32\_t)(*(uint32\_t*)tmp))!=\ HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00662}00662\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//ERROR\ ERROR\ AHHHH\ FUCK}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00663}00663\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvPanic("{}FLASH\_WRITE\_ERROR"{});}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00664}00664\ \ \ \ \ \ \ \ \ \ \ \ \ *ecode\ =\ \mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{DID\_NOT\_FINISH\_PROGRAMMING}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00665}00665\ \ \ \ \ \ \ \ \ \ \ \ \ HAL\_FLASH\_Lock();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00666}00666\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00667}00667\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00668}00668\ \ \ \ \ \ \ \ \ addr\ +=\ 4;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00669}00669\ \ \ \ \ \ \ \ \ tmp\ +=\ 4;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00670}00670\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00671}00671\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00672}00672\ \ \ \ \ \textcolor{comment}{//If\ we\ reach\ this\ point\ then\ the\ BSY\ bit\ of\ FLASH\_SR\ register\ is\ not\ set}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00673}00673\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00674}00674\ \ \ \ \ \textcolor{comment}{//Clear\ these\ error\ flags}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00675}00675\ \textcolor{comment}{//\ \ FLASH-\/>SR\ |=\ (FLASH\_SR\_PGSERR\ |\ FLASH\_SR\_PGPERR\ |\ FLASH\_SR\_PGAERR\ |\ FLASH\_SR\_WRPERR);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00676}00676\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00677}00677\ \textcolor{comment}{//\ \ FLASH-\/>CR\ |=\ (FLASH\_CR\_PSIZE\_0\ |\ FLASH\_CR\_PSIZE\_1);\ //64\ byte\ alignment}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00678}00678\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00679}00679\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00680}00680\ \textcolor{comment}{//\ \ FLASH-\/>CR\ |=\ FLASH\_CR\_PG;\ //\ Program\ enable}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00682}00682\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00683}00683\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00684}00684\ \textcolor{comment}{//\ \ while(addr\ <\ TOP\_OF\_FLASH\_SBLOCK)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00685}00685\ \textcolor{comment}{//\ \ \ \ \ \ while((FLASH-\/>SR\ \&\ FLASH\_SR\_BSY)==1)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00686}00686\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ //Dont\ be\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00687}00687\ \textcolor{comment}{//\ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00688}00688\ \textcolor{comment}{//\ \ \ \ \ \ *((uint64\_t*)addr)\ =\ *((uint64\_t*)tmp);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00689}00689\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00690}00690\ \textcolor{comment}{//\ \ \ \ \ \ addr\ +=\ 8;}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00691}00691\ \textcolor{comment}{//\ \ \ \ \ \ tmp\ +=\ 8;}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00692}00692\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00693}00693\ \textcolor{comment}{//\ \ \ \ \ \ if(FLASH-\/>SR\ \&\ (FLASH\_SR\_PGSERR\ |\ FLASH\_SR\_PGPERR\ |\ FLASH\_SR\_PGAERR\ |\ FLASH\_SR\_WRPERR))\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00694}00694\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ //An\ error\ bit\ has\ been\ set.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00695}00695\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ *ecode\ =\ DID\_NOT\_FINISH\_PROGRAMMING;\ //UHH\ OH}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00696}00696\ \textcolor{comment}{//\ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00697}00697\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00698}00698\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00699}00699\ \textcolor{comment}{//\ \ while((FLASH-\/>SR)\ \&\ FLASH\_SR\_BSY)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00700}00700\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ //Wait\ till\ no\ longer\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00701}00701\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00702}00702\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00703}00703\ \textcolor{comment}{//\ \ FLASH-\/>CR\ \&=\ (\string~FLASH\_CR\_PG);\ //Disable\ the\ programming}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00704}00704\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00705}00705\ \textcolor{comment}{//\ \ while((FLASH-\/>SR)\ \&\ FLASH\_SR\_BSY)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00706}00706\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ //Wait\ till\ no\ longer\ busy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00707}00707\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00708}00708\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00709}00709\ \ \ \ \ FLASH-\/>CR\ |=\ FLASH\_CR\_LOCK;\ \textcolor{comment}{//LOCK\ FLASH}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00710}00710\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00711}00711\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00712}00712\ \ \ \ \ taskEXIT\_CRITICAL();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00713}00713\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00714}00714\ \textcolor{comment}{//\ \ HAL\_FLASH\_Lock();}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00715}00715\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00716}00716\ \ \ \ \ \textcolor{comment}{//Check\ to\ make\ sure\ the\ two\ match}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00717}00717\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00718}00718\ \ \ \ \ tmp\ =\ sblock;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00719}00719\ \ \ \ \ addr\ =\ \mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00720}00720\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00721}00721\ \ \ \ \ \textcolor{keywordflow}{while}(addr\ <\ \mbox{\hyperlink{uvfr__settings_8h_aa81180ef8eb37ec6e7d99d706610680d}{TOP\_OF\_FLASH\_SBLOCK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00722}00722\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(*((uint32\_t*)tmp)\ !=\ *((uint32\_t*)addr))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00723}00723\ \ \ \ \ \ \ \ \ \ \ \ \ *ecode\ =\ \mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{DATA\_MISMATCH}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00724}00724\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};\ \textcolor{comment}{//Mismatch}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00725}00725\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00726}00726\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00727}00727\ \ \ \ \ \ \ \ \ tmp\ +=\ 4;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00728}00728\ \ \ \ \ \ \ \ \ addr\ +=\ 4;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00729}00729\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00730}00730\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00731}00731\ \textcolor{comment}{//\ \ if(uvValidateChecksums(START\_OF\_USER\_FLASH)!=\ UV\_OK)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00732}00732\ \textcolor{comment}{//\ \ \ \ \ \ return\ UV\_ERROR;}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00733}00733\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00734}00734\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00735}00735\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00736}00736\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00737}00737\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00738}00738\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00739}00739\ \textcolor{preprocessor}{\#define\ FLASH\_OK\ 0}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00740}00740\ \textcolor{preprocessor}{\#define\ INVALID\_SBLOCK\ 1}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00741}00741\ \textcolor{preprocessor}{\#define\ FLASH\_NOT\_UNLOCKED\ 2}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00742}00742\ \textcolor{preprocessor}{\#define\ DID\_NOT\_FINISH\_PROGRAMMING\ 3}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00743}00743\ \textcolor{preprocessor}{\#define\ DATA\_MISMATCH\ 4}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00744}00744\ \textcolor{preprocessor}{\#define\ PRE\_CHECKSUM\ 5}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00745}00745\ \textcolor{preprocessor}{\#define\ POST\_CHECKSUM\ 6}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00746}00746\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00747}00747\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00748}00748\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00759}\mbox{\hyperlink{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67}{00759}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a30c09e445d8f0fbfbdfd1bfa0fcfdc67}{uvSetSettingResponseReminder}}(uint32\_t\ reminder)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00760}00760\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Unlock()\ !=\ HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00761}00761\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00762}00762\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00763}00763\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00764}00764\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Program(FLASH\_TYPEPROGRAM\_WORD,(uint32\_t)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ 4),(uint32\_t)\&reminder)!=HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00765}00765\ \ \ \ \ \ \ \ \ \ \ \ \ HAL\_FLASH\_Lock();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00766}00766\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00767}00767\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00768}00768\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00769}00769\ \ \ \ \ \ \ \ \ HAL\_FLASH\_Lock();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00770}00770\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00771}00771\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00772}00772\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00778}\mbox{\hyperlink{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784}{00778}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a8e128ab49bfb636a4597802418066784}{uvForceDefaultReversionUponDeviceReset}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00779}00779\ \ \ \ \ uint32\_t\ word\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00780}00780\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00781}00781\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Unlock()\ !=\ HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00782}00782\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00783}00783\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00784}00784\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00785}00785\ \ \ \ \ \textcolor{keywordflow}{if}(HAL\_FLASH\_Program(FLASH\_TYPEPROGRAM\_WORD,(uint32\_t)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}),(uint32\_t)\&word)!=HAL\_OK)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00786}00786\ \ \ \ \ \ \ \ \ HAL\_FLASH\_Lock();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00787}00787\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00788}00788\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00789}00789\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00790}00790\ \ \ \ \ HAL\_FLASH\_Lock();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00791}00791\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00792}00792\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00793}00793\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00794}00794\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00795}00795\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00799}\mbox{\hyperlink{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c}{00799}}\ \textcolor{keywordtype}{void}*\ \mbox{\hyperlink{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c}{uvCreateTmpSettingsCopy}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00800}00800\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00801}00801\ \ \ \ \ uint8\_t*\ sblock\ =\ uvMalloc(\mbox{\hyperlink{uvfr__settings_8h_ae3422980a714e1a061dc8c4685a1d613}{SETTING\_BRANCH\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00802}00802\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00803}00803\ \ \ \ \ \textcolor{keywordflow}{if}(sblock\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00804}00804\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00805}00805\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00806}00806\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00807}00807\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00808}00808\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00809}00809\ \ \ \ \ uint8\_t*\ tmp\ =\ (uint8\_t*)(\mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00810}00810\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00811}00811\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{uvfr__settings_8h_ae3422980a714e1a061dc8c4685a1d613}{SETTING\_BRANCH\_SIZE}};\ i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00812}00812\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00813}00813\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__utils_8h_a0186c036688c7852cf0ceaee96b343a3}{uvIsPTRValid}}(sblock\ +\ i)!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00814}00814\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ a\ =\ sblock\ +\ i;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00815}00815\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00816}00816\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00817}00817\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00818}00818\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00819}00819\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00820}00820\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__utils_8h_a0186c036688c7852cf0ceaee96b343a3}{uvIsPTRValid}}(tmp\ +\ i)!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00821}00821\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}*\ a\ =\ tmp\ +\ i;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00822}00822\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00823}00823\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00824}00824\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00825}00825\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00826}00826\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00827}00827\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00828}00828\ \ \ \ \ \ \ \ \ *(sblock\ +\ i)\ =\ *(tmp\ +\ i);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00829}00829\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00830}00830\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00831}00831\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00832}00832\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{void}*)sblock;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00833}00833\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00834}00834\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00835}00835\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00836}00836\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00840}\mbox{\hyperlink{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}{00840}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}{uvSendSpecificParam}}(uint8\_t*\ origin,\ uint8\_t\ mgroup,\ uint8\_t\ m\_offset,\ uint8\_t\ size)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00841}00841\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ blank\_msg;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00842}00842\ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00843}00843\ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ 0x420;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00844}00844\ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 0b00100000\ |\ mgroup;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00845}00845\ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ m\_offset;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00846}00846\ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ 2\ +\ size;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00847}00847\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00848}00848\ \ \ \ \ uint8\_t*\ ptr\ =\ \mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}}\ +\ 256*mgroup\ +\ m\_offset;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00849}00849\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00850}00850\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<4\ ;i++)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00851}00851\ \ \ \ \ \ \ \ \ blank\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2+i]\ =\ *(ptr+i);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00852}00852\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00853}00853\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00854}00854\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&blank\_msg)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00855}00855\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00856}00856\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00857}00857\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00858}00858\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00859}00859\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00860}00860\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00872}\mbox{\hyperlink{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}{00872}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a0be2604cded239f54f4f4ab61460a85c}{uvValidateFlashSettings}}()\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00873}00873\ \ \ \ \ \textcolor{keywordtype}{void}*\ tmp\ =\ \mbox{\hyperlink{uvfr__settings_8h_a3e4cc3b6b2019eb461b9cd99ff70f1e7}{START\_OF\_USER\_FLASH}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00874}00874\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint32\_t*)tmp)\ !=\ \mbox{\hyperlink{uvfr__settings_8h_a54061e5993a5517320d425f44408cc86}{MAGIC\_NUMBER}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00875}00875\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};\textcolor{comment}{//\ Nice\ blank\ slate}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00876}00876\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00877}00877\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00878}00878\ \ \ \ \ \textcolor{comment}{//NEXT\ we\ check\ the\ firmware\ number,\ and\ that\ nobody\ screwed\ around\ with\ the\ struct\ contents}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00879}00879\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00880}00880\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00881}00881\ \ \ \ \ \textcolor{comment}{//if\ any\ of\ these\ dont\ match,\ then\ the\ firmware\ does\ not\ match\ the\ settings\ block}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00882}00882\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 16))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structveh__gen__info}{veh\_gen\_info}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00883}00883\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00884}00884\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00885}00885\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00886}00886\ \ \ \ \ \textcolor{keywordflow}{if}(\ *((uint8\_t*)(tmp\ +\ 17))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__os__settings}{uv\_os\_settings}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00887}00887\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00888}00888\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00889}00889\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00890}00890\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 18))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmotor__controller__settings}{motor\_controller\_settings}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00891}00891\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00892}00892\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00893}00893\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00894}00894\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 19))\ !=\ (uint8\_t)(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}})))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00895}00895\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00896}00896\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00897}00897\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00898}00898\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 20))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__imd__settings}{uv\_imd\_settings}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00899}00899\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00900}00900\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00901}00901\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00902}00902\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 21))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00903}00903\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00904}00904\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00905}00905\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00906}00906\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 22))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdaq__loop__args}{daq\_loop\_args}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00907}00907\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00908}00908\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00909}00909\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00910}00910\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 23))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdaq__msg}{daq\_msg}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00911}00911\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00912}00912\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00913}00913\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00914}00914\ \ \ \ \ \textcolor{keywordflow}{if}(*((uint8\_t*)(tmp\ +\ 24))\ !=\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structoutput__channel__settings}{output\_channel\_settings}}))\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00915}00915\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00916}00916\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00917}00917\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00918}00918\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00919}00919\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00920}00920\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00926}\mbox{\hyperlink{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}{00926}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_a2f0cb7e05c1bef0501d585df7c2c6013}{uvSettingsProgrammerTask}}(\textcolor{keywordtype}{void}*\ args)\ PRIVILEGED\_FUNCTION\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00927}00927\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ params\ =\ (\mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*)\ args;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00928}00928\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00929}00929\ \ \ \ \ \textcolor{comment}{//Cache\ these\ vars\ for\ future\ usage}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00930}00930\ \ \ \ \ uint8\_t\ mgroup\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00931}00931\ \ \ \ \ uint8\_t\ m\_offset\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00932}00932\ \ \ \ \ uint8\_t\ d\_type\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00933}00933\ \ \ \ \ uint8\_t\ d\_size\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00934}00934\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00935}00935\ \ \ \ \ uint8\_t\ cmd\_byte\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00936}00936\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00937}00937\ \ \ \ \ uint8\_t*\ origin\ =\ NULL;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00938}00938\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00939}00939\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ tmp\_msg;\ \textcolor{comment}{//messages\ get\ written\ into\ here\ when}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00940}00940\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00941}00941\ \ \ \ \ \textcolor{comment}{//Allocates\ memory\ for\ the\ temporary\ settings\ that\ will\ be\ edited}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00942}00942\ \ \ \ \ \textcolor{keywordtype}{void}*\ new\_tmp\_settings\ =\ \mbox{\hyperlink{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c}{uvCreateTmpSettingsCopy}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00943}00943\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00944}00944\ \ \ \ \ \textcolor{keywordflow}{if}(new\_tmp\_settings\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00945}00945\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Did\ not\ create\ temp\ settings\ >:(}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00946}00946\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});\ \textcolor{comment}{//Let\ laptop\ know\ of\ our\ failures}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00947}00947\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00948}00948\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00949}00949\ \ \ \ \ ptask\_handle\ =\ params-\/>\mbox{\hyperlink{structuv__task__info_a5347f41c4b15b2d6b039c339613fde43}{task\_handle}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00950}00950\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00951}00951\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00952}00952\ \ \ \ \ \textcolor{comment}{//uvSendCanMSG(\&vcu\_ack\_msg);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00953}00953\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00954}00954\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00955}00955\ \ \ \ \ settings\_queue\ =\ xQueueCreate(8,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00956}00956\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00957}00957\ \ \ \ \ \textcolor{keywordflow}{if}(settings\_queue\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00958}00958\ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}Settings\ Queue\ Not\ Created"{}},0);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00959}00959\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00960}00960\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00961}00961\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00962}00962\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00963}00963\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00964}00964\ \ \ \ \ \textcolor{comment}{//Cached\ temporary\ variables\ for\ incoming\ programming\ messages}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00965}00965\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00966}00966\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00967}00967\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}});\ \textcolor{comment}{//successfully\ entered\ the\ task}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00968}00968\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00969}00969\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00970}00970\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00971}00971\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(xQueueReceive(settings\_queue,\&tmp\_msg,100)!=pdTRUE)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00972}00972\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//laptop\ connection\ lost.\ Yowza.\ Discard\ whatever\ you're\ doin.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00973}00973\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00974}00974\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ if((xTaskGetTickCount()\ -\/\ last\_contact\_with\_laptop)\ >\ 200)\{}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00975}00975\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ //more\ than\ 200ms\ have\ passed\ since\ last\ communication.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00976}00976\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ changeVehicleState(UV\_READY);\ //\ leave\ the\ task}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00977}00977\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00978}00978\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00979}00979\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00980}00980\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ WARNING:\ This\ is\ a\ goto.\ I\ know\ goto\ is\ prety\ heinous.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00981}00981\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ Fucking\ learn\ to\ deal\ with\ it\ u\ lil\ bitch\ boy}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00982}00982\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00983}00983\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{goto}\ \_\_END\_OF\_SETTING\_TASK\_LOOP\_\_;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00984}00984\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00985}00985\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00986}00986\ \ \ \ \ \ \ \ \ cmd\_byte\ =\ tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00987}00987\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00988}00988\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(cmd\_byte)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00989}00989\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a7091f0610d47127e952576fcf2d72eac}{SET\_SPECIFIC\_PARAM}}\ ...\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694aefd2ddc079bf62b63b3e5226b9a83ac3}{END\_OF\_SPECIFIC\_PARAMS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00990}00990\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mgroup\ =\ (cmd\_byte\ \&(0b00011111));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00991}00991\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_offset\ =\ tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00992}00992\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_type\ =\ tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00993}00993\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_size\ =\ \mbox{\hyperlink{uvfr__utils_8h_a657e7e858d8847396634fd9912747f8b}{data\_size}}[d\_type];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00994}00994\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00995}00995\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00996}00996\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_adfd1bb6988b37f38e799bb1f996ac005}{uvUpdateTmpSettings}}(new\_tmp\_settings,\ mgroup,\ m\_offset,\ d\_size,\ (tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}\ +\ 3))\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00997}00997\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Send\ back\ an\ ACK}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00998}00998\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l00999}00999\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01000}01000\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//reply\ that\ it\ failed}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01001}01001\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01002}01002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01003}01003\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01004}01004\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01005}01005\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01006}01006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a9b0e526098fd6c30dc93538edba59405}{REQUEST\_ALL\_SETTINGS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01007}01007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Well\ I\ guess\ now\ we\ gotta\ transmit\ the\ whole\ shabang}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01008}01008\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Time\ for\ probably\ the\ most\ fucked\ task\ I've\ done\ in\ a\ hot\ minute}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01009}01009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01010}01010\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a205322c736d66df92b6d968b53648acb}{REQUEST\_ALL\_JOURNAL\_ENTRIES}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01011}01011\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01012}01012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//This\ is\ not\ yet\ implemented.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01013}01013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01014}01014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01015}01015\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a4313d65a75fd41f3e527b330e7370a5e}{REQUEST\_JOURNAL\_ENTRIES\_BY\_TIME}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01016}01016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//This\ is\ not\ yet\ implemented}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01017}01017\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01018}01018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01019}01019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01020}01020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694ac53400ee472ace47006a18aaaa4a86a0}{REQUEST\_SPECIFIC\_SETTING}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01021}01021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//We\ wish\ to\ know\ the\ value\ of\ a\ specific\ setting}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01022}01022\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01023}01023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mgroup\ =\ tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01024}01024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ m\_offset\ =\ tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01025}01025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_type\ =\ tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01026}01026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_size\ =\ \mbox{\hyperlink{uvfr__utils_8h_a657e7e858d8847396634fd9912747f8b}{data\_size}}[d\_type];}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01027}01027\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01028}01028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ origin\ =\ (tmp\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1])?\ \mbox{\hyperlink{uvfr__settings_8h_a1af6d32a5f9f7c214731b3cdde2ae48d}{FLASH\_SBLOCK\_START}}\ :\ new\_tmp\_settings;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01029}01029\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01030}01030\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01031}01031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}{uvSendSpecificParam}}(origin,mgroup,m\_offset,d\_size)\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01032}01032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//HANDLE\ THIS\ ERROR\ HERE}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01033}01033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01034}01034\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01035}01035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01036}01036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a8ad6825ef0a84f2615148dc63202be1f}{SAVE\_AND\_APPLY\_NEW\_SETTINGS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01037}01037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Save\ and\ apply.\ Hoo\ boy.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01038}01038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ ecode\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01039}01039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uvSaveSettingsToFlash}}(new\_tmp\_settings,\ \&ecode)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01040}01040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Try\ once}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01041}01041\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01042}01042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}});\ \textcolor{comment}{//report\ success}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01043}01043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uvSaveSettingsToFlash}}(new\_tmp\_settings,\ \&ecode)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01044}01044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Try\ again}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01045}01045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01046}01046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01047}01047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//This\ is\ a\ tricky\ one.\ High\ probability\ of\ data\ corruption.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01048}01048\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01049}01049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{INVALID\_SBLOCK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01050}01050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Womp\ womp,\ the\ SBLOCK\ you\ provided\ is\ not\ ok}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01051}01051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{FLASH\_NOT\_UNLOCKED}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01052}01052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Failure\ to\ unlock\ flash.\ Why?}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01053}01053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{DID\_NOT\_FINISH\_PROGRAMMING}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01054}01054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Partially\ programmed.\ Indicates\ data\ has\ been\ corrupted.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01055}01055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//FORCE\ RESET,\ CANNOT\ CONTINUE}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01056}01056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{DATA\_MISMATCH}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01057}01057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Data\ in\ flash\ does\ not\ match\ what\ has\ been\ programmed}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01058}01058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//FORCE\ RESET,\ CANNOT\ CONTINUE}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01059}01059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}{PRE\_CHECKSUM}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01060}01060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Checksum\ failure\ of\ sblock\ prior\ to\ save\ attempt}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01061}01061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}{POST\_CHECKSUM}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01062}01062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Checksum\ failure\ of\ flash,\ post\ save\ -\/\ CORRUPTION}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01063}01063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ !=\ 0)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01064}01064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ This\ section\ of\ code\ is\ one\ of\ the\ worst\ places\ to\ be\ in\ the\ vehicle.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01065}01065\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01066}01066\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01067}01067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01068}01068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01069}01069\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01070}01070\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01071}01071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01072}01072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a485f41f6d806239622abbac7aef60557}{DISCARD\_NEW\_SETTINGS}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01073}01073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(uvFree(new\_tmp\_settings)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01074}01074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ new\_tmp\_settings\ =\ \mbox{\hyperlink{uvfr__settings_8c_a43e2654fdc245c03ab8efb74f082300c}{uvCreateTmpSettingsCopy}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01075}01075\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01076}01076\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01077}01077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(new\_tmp\_settings\ !=\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01078}01078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01079}01079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//This\ means\ that\ we\ have\ succeeded,\ as\ we\ have\ deleted\ the\ old\ settings,}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01080}01080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//and\ new\ settings\ have\ taken\ their\ place}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01081}01081\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01082}01082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01083}01083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01084}01084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}uhh\ oh"{}},0);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01085}01085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01086}01086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01087}01087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Not\ OK}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01088}01088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af7c7d49fd92c65119717ab40db8725f5}{vcu\_ack\_failed\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01089}01089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvPanic(\textcolor{stringliteral}{"{}uhh\ oh"{}},0);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01090}01090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01091}01091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01092}01092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694abe34f5f2d055215f2ff2e2d85401199a}{DISCARD\_NEW\_SETTINGS\_AND\_EXIT}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01093}01093\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01094}01094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvFree(new\_tmp\_settings);\ //No\ need\ to\ free,\ this\ happens\ in\ the\ destructor}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01095}01095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01096}01096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&\mbox{\hyperlink{uvfr__settings_8c_af3e753b2f0a1841e5e54714979b93491}{vcu\_ack\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01097}01097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01098}01098\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{uvfr__settings_8h_aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258}{FORCE\_RESTORE\_FACTORY\_DEFAULT}}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01099}01099\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01100}01100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uvResetFlashToDefault}}(new\_tmp\_settings)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01101}01101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Success}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01102}01102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01103}01103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//failure}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01104}01104\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01105}01105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01106}01106\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01107}01107\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01108}01108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01109}01109\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01110}01110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//unrecognized\ command\ spotted}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01111}01111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01112}01112\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01113}01113\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01114}01114\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01115}01115\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01116}01116\ \ \ \ \ \ \ \ \ \_\_END\_OF\_SETTING\_TASK\_LOOP\_\_:}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01117}01117\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01118}01118\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01119}01119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01120}01120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TODO\ add\ destructors\ here}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01121}01121\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01122}01122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(new\_tmp\_settings\ !=\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01123}01123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uvFree(new\_tmp\_settings);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01124}01124\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01125}01125\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01126}01126\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01127}01127\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(params);\ \textcolor{comment}{//Me\ too\ programming\ and\ diagnostics\ task,\ me\ too}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01128}01128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\{\ \textcolor{comment}{//hang}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01129}01129\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01130}01130\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01131}01131\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01132}01132\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01133}01133\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01134}01134\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01135}01135\ \textcolor{comment}{//\ \ settingCopy((uint8\_t*)(\&default\_os\_settings),new\_sblock\ +\ OS\_SETTINGS\_OFFSET,sizeof(uv\_os\_settings));}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01136}01136\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01137}01137\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01138}01138\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01139}01139\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01140}01140\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01141}01141\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01142}01142\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01143}01143\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01144}01144\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01145}01145\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01146}01146\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01147}01147\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01148}01148\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01149}01149\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01150}01150\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01151}01151\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01152}01152\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01153}01153\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01154}01154\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01155}\mbox{\hyperlink{uvfr__settings_8c_a5f5ab3b99bc259455a2ec79144422450}{01155}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_ac9480e8bfbccfda4b4c7316bdb55ba87}{uvResetFlashToDefault}}(\textcolor{keywordtype}{void}*\ new\_sblock)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01156}01156\ \ \ \ \ \textcolor{comment}{//void*\ new\_sblock\ =\ uvMalloc(SETTING\_BRANCH\_SIZE);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01157}01157\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01158}01158\ \ \ \ \ \textcolor{keywordflow}{if}(new\_sblock\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01159}01159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};\ \textcolor{comment}{//definately\ not\ ideal}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01160}01160\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01161}01161\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01162}01162\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<\mbox{\hyperlink{uvfr__settings_8h_ae3422980a714e1a061dc8c4685a1d613}{SETTING\_BRANCH\_SIZE}};\ i\ +=\ 4)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01163}01163\ \ \ \ \ \ \ \ \ *((uint32\_t*)(new\_sblock\ +\ i))\ =\ 0xFFFFFFFF;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01164}01164\ \ \ \ \ \}\ \textcolor{comment}{//Become\ Zeros}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01165}01165\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01166}01166\ \ \ \ \ *((uint32\_t*)(new\_sblock))\ =\ \mbox{\hyperlink{uvfr__settings_8h_a54061e5993a5517320d425f44408cc86}{MAGIC\_NUMBER}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01167}01167\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01168}01168\ \ \ \ \ \textcolor{comment}{//uint32\_t\ pdiff\ =\ ((uint32\_t)new\_sblock)\ -\/\ ((uint32\_t)START\_OF\_USER\_FLASH);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01169}01169\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01170}01170\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{uvfr__settings_8c_a550e75d7673e407aad1a5240ff83db23}{default\_vehicle}}),new\_sblock\ +\ \mbox{\hyperlink{uvfr__settings_8h_abcf807ab03bef940a111bb64cfffecfa}{GENERAL\_VEH\_INFO\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structveh__gen__info}{veh\_gen\_info}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01171}01171\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01172}01172\ \ \ \ \ \textcolor{comment}{//OS}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01173}01173\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{group__state__engine_gad9e02be6d2d0bc1ab5cd9fd8cae34230}{default\_os\_settings}}),(new\_sblock\ +\ \mbox{\hyperlink{uvfr__settings_8h_a012d0d54f18a0eeee83d89f5786db5d5}{OS\_SETTINGS\_OFFSET}}\ ),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__os__settings}{uv\_os\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01174}01174\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01175}01175\ \ \ \ \ \textcolor{comment}{//Motor\ controller}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01176}01176\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{uvfr__settings_8c_a1c7fecf890841f27a4ca39fc66e8cc1b}{mc\_default\_settings}}),(new\_sblock+256*\mbox{\hyperlink{uvfr__settings_8h_aad0db57c7f8c7937be54192d7b74bdcf}{MOTOR\_MGROUP}}+\mbox{\hyperlink{uvfr__settings_8h_aa990a9c990001dc29a5ee5fdde3773e4}{MOTOR\_OFFSET}}),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmotor__controller__settings}{motor\_controller\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01177}01177\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01178}01178\ \ \ \ \ \textcolor{comment}{//Driving\ Loop}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01179}01179\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{uvfr__settings_8c_a44daa1a9c68be860616e7bc627d9b8f4}{default\_dl\_settings}}),(new\_sblock+256*\mbox{\hyperlink{uvfr__settings_8h_aaad501c2b79f55f1bbbae030b6a18dcd}{DRIVING\_MGROUP}}+\mbox{\hyperlink{uvfr__settings_8h_a16f051ea34ee4f4965e4d11f3745d742}{DRIVING\_OFFSET}}),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01180}01180\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01181}01181\ \ \ \ \ \textcolor{comment}{//BMS}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01182}01182\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{uvfr__settings_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\_bms\_settings}}),(new\_sblock+256*\mbox{\hyperlink{uvfr__settings_8h_a25a35d43902b9bec03daae2ef17883b1}{BMS\_MGROUP}}+\mbox{\hyperlink{uvfr__settings_8h_a95973d7f17e9a5994743b16520f6a136}{BMS\_OFFSET}}),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01183}01183\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01184}01184\ \ \ \ \ \textcolor{comment}{//IMD}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01185}01185\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{uvfr__settings_8c_a1071bc1cceac3198de98d9c0753044d6}{default\_imd\_settings}}),(new\_sblock+256*\mbox{\hyperlink{uvfr__settings_8h_ae5fe9f0cb3fad913bd688758c9b24d79}{IMD\_MGROUP}}+\mbox{\hyperlink{uvfr__settings_8h_a790b81866b0c7880d2d8fcb39880885a}{IMD\_OFFSET}}),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__imd__settings}{uv\_imd\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01186}01186\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01187}01187\ \ \ \ \ \textcolor{comment}{//CONIFER}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01188}01188\ \ \ \ \ settingCopy((uint8\_t*)(\&\mbox{\hyperlink{uvfr__settings_8c_af1159e0fffb524777de5dcf9d869a738}{default\_conifer\_settings}}),new\_sblock\ +\ 256*\mbox{\hyperlink{uvfr__settings_8h_a1398a9cae71db0ce2ac482cdab799668}{CONIFER\_MGROUP}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_afd7a6c2987b71c522409faaf1c125d2a}{CONIFER\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structoutput__channel__settings}{output\_channel\_settings}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01189}01189\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01190}01190\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01191}01191\ \ \ \ \ \textcolor{comment}{//DAQ\ Head\ +\ Meta\ settings}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01192}01192\ \ \ \ \ settingCopy((uint8\_t*)\&\mbox{\hyperlink{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}{default\_daq\_settings}},(new\_sblock+256*\mbox{\hyperlink{uvfr__settings_8h_a14f988f2e948d8f522f0ef04a29762d6}{DAQ\_HEAD\_MGROUP}}+\mbox{\hyperlink{uvfr__settings_8h_afc36afa04b73fc9a1ea92b22e6cb564f}{DAQ\_HEAD\_OFFSET}}),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdaq__loop__args}{daq\_loop\_args}}));}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01193}01193\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01194}01194\ \ \ \ \ \textcolor{comment}{//Settings\ Being\ Logged}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01195}01195\ \ \ \ \ settingCopy((uint8\_t*)(\mbox{\hyperlink{uvfr__settings_8c_af2240542724a20552b90fafa9642884d}{default\_datapoints}}),(new\_sblock\ +\ 256*\mbox{\hyperlink{uvfr__settings_8h_a084bd6444fb9817cc88531b879ba571b}{DAQ\_PARAMS1\_MGROUP}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_a10d6e75bc6bdeb4dec495cbfe05682fd}{DAQ\_PARAMS1\_OFFSET}}),\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__imd__settings}{uv\_imd\_settings}})*\mbox{\hyperlink{uvfr__settings_8c_ad795c6981571499e4a90ef72698b6ea1}{default\_daq\_settings}}.\mbox{\hyperlink{structdaq__loop__args_acb7bf20ade7a6544c747aebc165b7faf}{total\_params\_logged}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01196}01196\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01197}01197\ \textcolor{comment}{//\ \ settingCopy(0,0,0);}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01198}01198\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01199}01199\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01200}01200\ \ \ \ \ uint32\_t\ ecode\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01201}01201\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uvSaveSettingsToFlash}}(new\_sblock,\ \&ecode)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01202}01202\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Try\ once}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01203}01203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01204}01204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvSendCanMSG(\&vcu\_ack\_msg);\ //report\ success}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01205}01205\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8h_ae3d00fef6a3de0a54cee08c6615791b9}{uvSaveSettingsToFlash}}(new\_sblock,\ \&ecode)\ ==\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01206}01206\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Try\ again}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01208}01208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01209}01209\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01210}01210\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01211}01211\ \ \ \ \ \textcolor{comment}{//Once\ we\ reach\ this\ point\ we\ know\ that\ some\ error\ has\ in\ fact\ occurred.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01212}01212\ \ \ \ \ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a0acc0e528de17ca0616ca14d82e92ba5}{INVALID\_SBLOCK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01213}01213\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01214}01214\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a7922bc9d90bb507f9885103792e4343f}{FLASH\_NOT\_UNLOCKED}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01215}01215\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01216}01216\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a0202712190ca1bce6a198dd196f48c4b}{DID\_NOT\_FINISH\_PROGRAMMING}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01217}01217\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01218}01218\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_ae9b3336d2f9087deea03d9adac5d06fd}{DATA\_MISMATCH}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01219}01219\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01220}01220\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a4fc65d72946e3e169f15ed0015fa3d3c}{PRE\_CHECKSUM}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01221}01221\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01222}01222\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ ==\ \mbox{\hyperlink{uvfr__settings_8c_a1e63b2fed237e9d016b304884c01457b}{POST\_CHECKSUM}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01223}01223\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01224}01224\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ecode\ !=\ 0)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01225}01225\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ This\ section\ of\ code\ is\ one\ of\ the\ worst\ places\ to\ be\ in\ the\ vehicle.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01226}01226\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01227}01227\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01228}01228\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01229}01229\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01230}01230\ \ \ \ \ \textcolor{comment}{//If\ we\ reach\ this\ point,\ then\ both\ attempts\ at\ uvSaveSettingsToFlash\ have\ failed}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01231}01231\ \ \ \ \ \textcolor{comment}{//This\ is\ not\ a\ good\ situation\ to\ be\ in,\ since\ data\ corruption\ may\ have\ occurred.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01232}01232\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01233}01233\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01234}01234\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01235}01235\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01236}01236\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01237}01237\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01241}\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{01241}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(uint8\_t*\ origin,uint8\_t\ memgroup,uint8\_t\ m\_offset,\ uint16\_t\ size)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01242}01242\ \ \ \ \ uint16\_t\ newsize\ =\ size\ +\ size\%4;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01243}01243\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01244}01244\ \ \ \ \ \textcolor{comment}{//We\ always\ send\ the\ 32\ bit\ word,\ because\ the\ VCU\ does\ not\ track\ what\ the\ individual\ types\ of\ struct\ members\ are.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01245}01245\ \ \ \ \ \textcolor{comment}{//Doing\ so\ would\ be\ stupid\ complicated,\ so\ not\ gonna\ bother.}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01246}01246\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;\ i<newsize;\ i+=4)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01247}01247\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Send\ the\ actual\ msg}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01248}01248\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_abdad8cd245f0f77d58548f011775a572}{uvSendSpecificParam}}(origin,memgroup,m\_offset\ +\ i,4)!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01249}01249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01250}01250\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01251}01251\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01252}01252\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Find\ a\ way\ to\ await\ an\ ack\ message}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01253}01253\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01254}01254\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01255}01255\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01256}01256\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01257}01257\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01261}\mbox{\hyperlink{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}{01261}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_a4610dbfba4a1c427386d906bfc656b77}{sendAllSettingsWorker}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01262}01262\ \ \ \ \ \mbox{\hyperlink{structsetting__helper__task}{setting\_helper\_task}}*\ params\ =\ (\mbox{\hyperlink{structsetting__helper__task}{setting\_helper\_task}}*)\ args;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01263}01263\ \ \ \ \ child\_task\_handle\ =\ params-\/>\mbox{\hyperlink{structsetting__helper__task_a867ac831a9ae5bbfb2ee7b32d63e8916}{meta\_task\_handle}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01264}01264\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01265}01265\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01266}01266\ \ \ \ \ uint8\_t*\ origin\ =\ params-\/>\mbox{\hyperlink{structsetting__helper__task_a2db368e63a9cc11c26caa2a0eacfca45}{args}}.\mbox{\hyperlink{unionhelper__task__args_a083dff2889a9c9006875745783ed5f45}{setting\_tx\_args}}.\mbox{\hyperlink{structtx__all__settings__args_a8e42222b51c2f152869fc760560442b0}{sblock\_origin}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01267}01267\ \ \ \ \ \textcolor{keywordflow}{if}(!origin)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01268}01268\ \ \ \ \ \ \ \ \ origin\ =\ \mbox{\hyperlink{uvfr__settings_8h_a1af6d32a5f9f7c214731b3cdde2ae48d}{FLASH\_SBLOCK\_START}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01269}01269\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01270}01270\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01271}01271\ \ \ \ \ params-\/>\mbox{\hyperlink{structsetting__helper__task_a7446a818ec9497a6b93a7995bf8b66d3}{status}}\ =\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01272}01272\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01273}01273\ \ \ \ \ child\_task\_active\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01274}01274\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01275}01275\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01276}01276\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01277}01277\ \ \ \ \ \textcolor{comment}{//Get\ through\ all\ this\ stuff\ first}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01278}01278\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_aa896deeb35bafb45b994e9c1d0c6500a}{GENERAL\_VEH\_INFO\_MGROUP}},\ \mbox{\hyperlink{uvfr__settings_8h_abcf807ab03bef940a111bb64cfffecfa}{GENERAL\_VEH\_INFO\_OFFSET}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structveh__gen__info}{veh\_gen\_info}}))!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01279}01279\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01280}01280\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_ae727eadb1cf71a3feeb12b7bb2eb83d5}{OS\_SETTINGS\_MGROUP}},\ \mbox{\hyperlink{uvfr__settings_8h_a012d0d54f18a0eeee83d89f5786db5d5}{OS\_SETTINGS\_OFFSET}},\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__os__settings}{uv\_os\_settings}}))!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01281}01281\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01282}01282\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_aad0db57c7f8c7937be54192d7b74bdcf}{MOTOR\_MGROUP}},\mbox{\hyperlink{uvfr__settings_8h_aa990a9c990001dc29a5ee5fdde3773e4}{MOTOR\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structmotor__controller__settings}{motor\_controller\_settings}}))!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01283}01283\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01284}01284\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_aaad501c2b79f55f1bbbae030b6a18dcd}{DRIVING\_MGROUP}},\mbox{\hyperlink{uvfr__settings_8h_a16f051ea34ee4f4965e4d11f3745d742}{DRIVING\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}))!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01285}01285\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01286}01286\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_ae5fe9f0cb3fad913bd688758c9b24d79}{IMD\_MGROUP}},\mbox{\hyperlink{uvfr__settings_8h_a790b81866b0c7880d2d8fcb39880885a}{IMD\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__imd__settings}{uv\_imd\_settings}}))!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01287}01287\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01288}01288\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_a25a35d43902b9bec03daae2ef17883b1}{BMS\_MGROUP}},\mbox{\hyperlink{uvfr__settings_8h_a95973d7f17e9a5994743b16520f6a136}{BMS\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}))!=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01289}01289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01290}01290\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_a14f988f2e948d8f522f0ef04a29762d6}{DAQ\_HEAD\_MGROUP}},\mbox{\hyperlink{uvfr__settings_8h_afc36afa04b73fc9a1ea92b22e6cb564f}{DAQ\_HEAD\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structdaq__loop__args}{daq\_loop\_args}}))!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01291}01291\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01292}01292\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,\mbox{\hyperlink{uvfr__settings_8h_a1398a9cae71db0ce2ac482cdab799668}{CONIFER\_MGROUP}},\mbox{\hyperlink{uvfr__settings_8h_afd7a6c2987b71c522409faaf1c125d2a}{CONIFER\_OFFSET}},\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structoutput__channel__settings}{output\_channel\_settings}}))\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01293}01293\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01294}01294\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01295}01295\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01296}01296\ \ \ \ \ \textcolor{comment}{//Next\ is\ whatever\ in\ god's\ green\ earth\ the\ DAQ\_datapoints\ are\ up\ to\ (Me\ when\ the\ edge\ case\ hits\ just\ right)}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01297}01297\ \ \ \ \ uint16\_t\ remaining\_bytes\ =\ (((\mbox{\hyperlink{structdaq__loop__args}{daq\_loop\_args}}*)(origin\ +\ 256*\mbox{\hyperlink{uvfr__settings_8h_a14f988f2e948d8f522f0ef04a29762d6}{DAQ\_HEAD\_MGROUP}}\ +\ \mbox{\hyperlink{uvfr__settings_8h_afc36afa04b73fc9a1ea92b22e6cb564f}{DAQ\_HEAD\_OFFSET}}))-\/>total\_params\_logged)*\textcolor{keyword}{sizeof}(\mbox{\hyperlink{daq_8h_a9d27fcca9da1125d3fd507f58f312647}{daq\_msg}});}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01298}01298\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01299}01299\ \ \ \ \ uint8\_t\ t\_mgroup\ =\ \mbox{\hyperlink{uvfr__settings_8h_a084bd6444fb9817cc88531b879ba571b}{DAQ\_PARAMS1\_MGROUP}};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01300}01300\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01301}01301\ \ \ \ \ \textcolor{keywordflow}{while}(remaining\_bytes\ >\ 256)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01302}01302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,t\_mgroup,\mbox{\hyperlink{uvfr__settings_8h_a10d6e75bc6bdeb4dec495cbfe05682fd}{DAQ\_PARAMS1\_OFFSET}},256)!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01303}01303\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01304}01304\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01305}01305\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01306}01306\ \ \ \ \ \ \ \ \ remaining\_bytes\ -\/=\ 256;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01307}01307\ \ \ \ \ \ \ \ \ t\_mgroup++;}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01308}01308\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01309}01309\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01310}01310\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__settings_8c_a7572b56a19346ee479bd66789c616bfb}{uvSendSettingGroup}}(origin,t\_mgroup,\mbox{\hyperlink{uvfr__settings_8h_a10d6e75bc6bdeb4dec495cbfe05682fd}{DAQ\_PARAMS1\_OFFSET}},remaining\_bytes)!=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01311}01311\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Handle\ this\ error}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01312}01312\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01313}01313\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01314}01314\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01315}01315\ \ \ \ \ child\_task\_active\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01316}01316\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01317}01317\ \ \ \ \ vTaskSuspend(NULL);}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01318}01318\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01319}01319\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01324}\mbox{\hyperlink{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}{01324}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__settings_8c_a632dfb21b35fd170c003515ef4bdc291}{sendJournalWorker}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01325}01325\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01326}01326\ \}}
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01327}01327\ }
+\DoxyCodeLine{\Hypertarget{uvfr__settings_8c_source_l01328}01328\ }
+
+\end{DoxyCode}

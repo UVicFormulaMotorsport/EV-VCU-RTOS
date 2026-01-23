@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_give_from_i_s_r" kind="group">
     <compoundname>xSemaphoreGiveFromISR</compoundname>
     <title>xSemaphoreGiveFromISR</title>
@@ -7,10 +7,10 @@
     </briefdescription>
     <detaileddescription>
 <para>semphr. h <preformatted>
-xSemaphoreGiveFromISR(
+<ref refid="semphr_8h_1a68aa43df8b2a0dbe17d05fad74670ef0" kindref="member">xSemaphoreGiveFromISR(
                          SemaphoreHandle_t xSemaphore,
                          BaseType_t *pxHigherPriorityTaskWoken
-                     )</preformatted></para>
+                     )</ref></preformatted></para>
 <para><emphasis>Macro</emphasis> to release a semaphore. The semaphore must have previously been created with a call to xSemaphoreCreateBinary() or xSemaphoreCreateCounting().</para>
 <para>Mutex type semaphores (those created using a call to xSemaphoreCreateMutex()) must not be used with this macro.</para>
 <para>This macro can be used from an ISR.</para>
@@ -36,51 +36,61 @@ xSemaphoreGiveFromISR(
 Example usage: <preformatted>
 #define LONG_TIME 0xffff
 #define TICKS_TO_WAIT  10
-SemaphoreHandle_t xSemaphore = NULL;</preformatted></para>
-<para><preformatted>// Repetitive task.
+SemaphoreHandle_t xSemaphore = NULL;
+
+// Repetitive task.
 void vATask( void * pvParameters )
 {
    for( ;; )
    {
        // We want this task to run every 10 ticks of a timer.  The semaphore
-       // was created before this task was started.</preformatted></para>
-<para><preformatted>       // Block waiting for the semaphore to become available.
+       // was created before this task was started.
+
+       // Block waiting for the semaphore to become available.
        if( <ref refid="semphr_8h_1af116e436d2a5ae5bd72dbade2b5ea930" kindref="member">xSemaphoreTake( xSemaphore, LONG_TIME )</ref> == pdTRUE )
        {
-           // It is time to execute.</preformatted></para>
-<para><preformatted>           // ...</preformatted></para>
-<para><preformatted>           // We have finished our task.  Return to the top of the loop where
+           // It is time to execute.
+
+           // ...
+
+           // We have finished our task.  Return to the top of the loop where
            // we will block on the semaphore until it is time to execute
            // again.  Note when using the semaphore for synchronisation with an
         // ISR in this manner there is no need to &apos;give&apos; the semaphore back.
        }
    }
-}</preformatted></para>
-<para><preformatted>// Timer ISR
+}
+
+// Timer ISR
 void vTimerISR( void * pvParameters )
 {
 static uint8_t ucLocalTickCount = 0;
-static BaseType_t xHigherPriorityTaskWoken;</preformatted></para>
-<para><preformatted>   // A timer tick has occurred.</preformatted></para>
-<para><preformatted>   // ... Do other time functions.</preformatted></para>
-<para><preformatted>   // Is it time for vATask () to run?
+static BaseType_t xHigherPriorityTaskWoken;
+
+   // A timer tick has occurred.
+
+   // ... Do other time functions.
+
+   // Is it time for vATask () to run?
    xHigherPriorityTaskWoken = pdFALSE;
    ucLocalTickCount++;
    if( ucLocalTickCount &gt;= TICKS_TO_WAIT )
    {
        // Unblock the task by releasing the semaphore.
-       <ref refid="semphr_8h_1a68aa43df8b2a0dbe17d05fad74670ef0" kindref="member">xSemaphoreGiveFromISR( xSemaphore, &amp;xHigherPriorityTaskWoken )</ref>;</preformatted></para>
-<para><preformatted>       // Reset the count so we release the semaphore again in 10 ticks time.
+       <ref refid="semphr_8h_1a68aa43df8b2a0dbe17d05fad74670ef0" kindref="member">xSemaphoreGiveFromISR( xSemaphore, &amp;xHigherPriorityTaskWoken )</ref>;
+
+       // Reset the count so we release the semaphore again in 10 ticks time.
        ucLocalTickCount = 0;
-   }</preformatted></para>
-<para><preformatted>   if( xHigherPriorityTaskWoken != pdFALSE )
+   }
+
+   if( xHigherPriorityTaskWoken != pdFALSE )
    {
        // We can force a context switch here.  Context switching from an
        // ISR uses port specific syntax.  Check the demo task for your port
        // to find the syntax required.
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

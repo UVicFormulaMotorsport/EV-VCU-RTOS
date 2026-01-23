@@ -11,6 +11,23 @@
 #define DIAGNOSTIC_RX_MSG_ID 0x421 //MSG from laptop or PCAN
 #define DIAGNOSTIC_TX_MSG_ID 0x521 //MSG from VCU
 
+
+
+#include<string.h>
+
+#ifndef TEXTIFY
+	#define TEXTIFY(A) #A
+#endif
+
+
+
+#define uvAssert( x ) if((x) == 0){\
+	extern void uvAssertFailed(char* file, uint16_t line, TaskHandle_t task, char* condition);\
+	TaskHandle_t ctask = xTaskGetCurrentTaskHandle();\
+	uvAssertFailed(__UV_FILENAME__, __LINE__, ctask, TEXTIFY(x));\
+}
+
+
 typedef enum{
 	ENTER_DIAGNOSTICS_MODE,
 	EXIT_DIAGNOSTICS_MODE,
@@ -30,5 +47,26 @@ typedef enum{
 uv_status uvInitDiagnostics();
 
 uv_status logDiagnosticEvent(); //THIS NEEDS ARGS
+
+void __tic();
+
+uint32_t __toc();
+
+uint32_t ITM_SendCharToReg (uint32_t ch,uint32_t port);
+uv_status __debugWrite(char* str,uint32_t port);
+
+#ifdef DEBUG
+#define tic() __tic()
+#define toc() __toc()
+
+#define debugWrite(x,y) __debugWrite(x,y)
+
+
+#else
+
+#define tic()
+#define toc()
+
+#endif
 
 #endif /* INC_UVFR_DIAGNOSTICS_H_ */

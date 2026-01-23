@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_queue_create" kind="group">
     <compoundname>xQueueCreate</compoundname>
     <title>xQueueCreate</title>
@@ -39,26 +39,30 @@ struct AMessage
 {
    char ucMessageID;
    char ucData[ 20 ];
-};</preformatted></para>
-<para><preformatted>void vATask( void *pvParameters )
+};
+
+void vATask( void *pvParameters )
 {
-QueueHandle_t xQueue1, xQueue2;</preformatted></para>
-<para><preformatted>   // Create a queue capable of containing 10 uint32_t values.
+QueueHandle_t xQueue1, xQueue2;
+
+   // Create a queue capable of containing 10 uint32_t values.
    xQueue1 = xQueueCreate( 10, sizeof( uint32_t ) );
    if( xQueue1 == 0 )
    {
     // Queue was not created and must not be used.
-   }</preformatted></para>
-<para><preformatted>   // Create a queue capable of containing 10 pointers to AMessage structures.
+   }
+
+   // Create a queue capable of containing 10 pointers to AMessage structures.
    // These should be passed by pointer as they contain a lot of data.
    xQueue2 = xQueueCreate( 10, sizeof( struct AMessage * ) );
    if( xQueue2 == 0 )
    {
     // Queue was not created and must not be used.
-   }</preformatted></para>
-<para><preformatted>   // ... Rest of task code.
+   }
+
+   // ... Rest of task code.
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

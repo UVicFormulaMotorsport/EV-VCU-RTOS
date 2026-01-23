@@ -1,0 +1,161 @@
+\doxysection{imd.\+h}
+\hypertarget{imd_8h_source}{}\label{imd_8h_source}\index{Core/Inc/imd.h@{Core/Inc/imd.h}}
+\mbox{\hyperlink{imd_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00001}00001\ \textcolor{comment}{//\ Code\ to\ make\ human\ readable\ CAN\ messages\ for\ the\ device}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00003}00003\ \textcolor{comment}{//\ This\ file\ will\ define\ message\ data\ as\ human\ readable\ stuff}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00007}00007\ \textcolor{preprocessor}{\#ifndef\ \_\_IMD\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00008}00008\ \textcolor{preprocessor}{\#define\ \_\_IMD\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00010}00010\ \textcolor{comment}{//\ CAN\ ID\ is\ currently\ extended}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00012}00012\ \textcolor{comment}{//\ Needs\ to\ be\ changed\ to\ standard\ ID}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00014}00014\ \textcolor{comment}{//\ Faults}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00015}00015\ \textcolor{comment}{//\ The\ first\ byte\ returned\ from\ a\ status\ request\ message\ will\ have\ 8\ status\ bits\ and\ the\ data\ as\ the\ rest}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00016}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218be}{00016}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218be}{imd\_status\_bits}}\{}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00017}00017\ \ \ \ \ \textcolor{comment}{//\ I\ have\ just\ left\ this\ as\ plain\ binary.\ Could\ also\ be\ declared\ by\ bitshifting\ but\ I\ think\ this\ is\ easier}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00018}00018\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 12345678}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00019}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218beafdb68e8ed34ae72c318cbd4a4d6fc250}{00019}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218beafdb68e8ed34ae72c318cbd4a4d6fc250}{Isolation\_status\_bit0}}\ \ =\ 0b00000001,\ \textcolor{comment}{//\ IS0}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00020}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea2d0990734ac774c2740c9e541e8700b3}{00020}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea2d0990734ac774c2740c9e541e8700b3}{Isolation\_status\_bit1}}\ \ =\ 0b00000010,\ \textcolor{comment}{//\ IS1}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00021}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218beacb8278060f1d4f8f423c3f7943618d0a}{00021}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218beacb8278060f1d4f8f423c3f7943618d0a}{Low\_Battery\_Voltage}}\ \ \ \ \ \ =\ 0b00000100,\ \textcolor{comment}{//\ LV\ 15V\ threshold\ (1\ if\ below\ 15V)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00022}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea446905b0f3e9fe48a178f0a6799324b4}{00022}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea446905b0f3e9fe48a178f0a6799324b4}{High\_Battery\_Voltage}}\ \ \ \ =\ 0b00001000,\ \textcolor{comment}{//\ HV\ (1\ if\ higher\ than\ Max\_battery\_working\_voltage)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00023}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea8e572e8f9a6be9d801c0db642ece2c2a}{00023}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea8e572e8f9a6be9d801c0db642ece2c2a}{Exc\_off}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0b00010000,\ \textcolor{comment}{//\ EO\ (Excitation\ pulse\ 0\ for\ operating)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00024}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea4c7193d6f28bf43ed6de8e1291917846}{00024}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea4c7193d6f28bf43ed6de8e1291917846}{High\_Uncertainty}}\ \ \ \ \ \ \ \ =\ 0b00100000,\ \textcolor{comment}{//\ HU\ (1\ for\ greater\ than\ 5\%)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00025}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea5392342181b601c30b6e537a0f5a0a08}{00025}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea5392342181b601c30b6e537a0f5a0a08}{Touch\_energy\_fault}}\ \ \ \ \ \ \ \ =\ 0b01000000,\ \textcolor{comment}{//\ EF\ (1\ for\ energy\ exceeds\ 0.2J)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00026}\mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea48e3e4678c927a799f113e4688ab7886}{00026}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218bea48e3e4678c927a799f113e4688ab7886}{Hardware\_Error}}\ \ \ \ \ \ \ \ \ \ \ \ =\ 0b10000000,\ \textcolor{comment}{//\ HE\ (1\ for\ error)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00027}00027\ \};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00029}\mbox{\hyperlink{structuv__imd__settings}{00029}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structuv__imd__settings}{uv\_imd\_settings}}\{}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00030}\mbox{\hyperlink{structuv__imd__settings_aafeccae0b3a5b40c444e002ba94e5c22}{00030}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structuv__imd__settings_aafeccae0b3a5b40c444e002ba94e5c22}{min\_isolation\_resistances}};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00031}\mbox{\hyperlink{structuv__imd__settings_abbe28bb095b02ec7f90114d79c135c40}{00031}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structuv__imd__settings_abbe28bb095b02ec7f90114d79c135c40}{expected\_isolation\_capacitances}};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00032}\mbox{\hyperlink{structuv__imd__settings_a349c8a307614045acbba0972565804e5}{00032}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structuv__imd__settings_a349c8a307614045acbba0972565804e5}{max\_imd\_temperature}};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00034}\mbox{\hyperlink{imd_8h_a0b894eb0fe09aff3c2fb836118b040f8}{00034}}\ \}\mbox{\hyperlink{imd_8h_a0b894eb0fe09aff3c2fb836118b040f8}{uv\_imd\_settings}};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00037}00037\ \textcolor{comment}{//\ The\ MCU\ needs\ to\ send\ a\ message\ to\ the\ IMD\ requesting\ info}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00038}00038\ \textcolor{comment}{//\ These\ are\ requests\ that\ will\ return\ status\ bits\ (defined\ above)\ \&\ the\ value\ requested}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00039}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26a}{00039}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26a}{imd\_status\_requests}}\{}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00040}00040\ \ \ \ \ \textcolor{comment}{//\ The\ electrical\ isolation\ is\ in\ bytes\ 2\ \&\ 3}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00041}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38}{00041}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38}{isolation\_state}}\ =\ 0xE0,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00043}00043\ \ \ \ \ \textcolor{comment}{//\ Rp\ is\ the\ resistance\ from\ the\ positive\ of\ the\ battery\ to\ chassis}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00044}00044\ \ \ \ \ \textcolor{comment}{//\ Rn\ is\ the\ resistance\ from\ the\ negative\ of\ the\ battery\ to\ chassis}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00045}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae}{00045}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae}{isolation\_resistances}}\ =\ 0xE1,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00047}00047\ \ \ \ \ \textcolor{comment}{//\ Cp\ is\ the\ capacitance\ from\ the\ positive\ of\ the\ battery\ to\ chassis}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Cn\ is\ the\ capacitance\ from\ the\ negative\ of\ the\ battery\ to\ chassis}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\ Bytes\ 2\ \&\ 3\ are\ Cp,\ bytes\ 5\ \&\ 6\ are\ Cn,\ in\ nF}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00050}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c}{00050}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c}{isolation\_capacitances}}\ =\ 0xE2,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00052}00052\ \ \ \ \ \textcolor{comment}{//\ High\ voltage\ battery\ voltages\ to\ chassis}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00053}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1}{00053}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1}{voltages\_Vp\_and\_Vn}}\ =\ 0xE3,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00055}00055\ \ \ \ \ \textcolor{comment}{//\ GLV\ battery\ voltage}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00056}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680}{00056}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680}{battery\_voltage}}\ =\ 0xE4,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00058}00058\ \ \ \ \ \textcolor{comment}{//\ Error\ flags\ are\ a\ series\ of\ bits\ described\ below}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00059}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf}{00059}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf}{Error\_flags}}\ =\ 0xE5,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ The\ IMD\ monitors\ charge\ stored\ in\ the\ system}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00062}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504}{00062}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504}{safety\_touch\_energy}}\ =\ 0xE6,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//\ Also\ monitors\ if\ it\ is\ safe\ to\ touch}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00065}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f}{00065}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f}{safety\_touch\_current}}\ =\ 0xE7,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//\ This\ is\ just\ a\ parameter\ we\ can\ set}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00068}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed}{00068}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed}{Max\_battery\_working\_voltage}}\ =\ 0xF0,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00070}00070\ \ \ \ \ \textcolor{comment}{//\ We\ can\ read\ the\ temperature\ of\ the\ board}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00071}\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f}{00071}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f}{Temperature}}\ =\ 0x80,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00072}00072\ \};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00074}00074\ \textcolor{comment}{//\ If\ one\ of\ the\ error\ flags\ is\ set,\ then\ the\ harware\ error\ bit\ will\ go\ to\ 1}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00075}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61}{00075}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61}{imd\_error\_flags}}\{}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//\ Bits\ 0-\/6\ are\ reserved}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00077}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61afa71f4893ad7f39c03d991a2eae95368}{00077}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61afa71f4893ad7f39c03d991a2eae95368}{Err\_temp}}\ =\ 0x0080,\ \textcolor{comment}{//\ HT\ high\ temperature\ (0\ if\ temperature\ is\ below\ 105C)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00078}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a0bab46bce7066da8e52221c8283cccbd}{00078}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a0bab46bce7066da8e52221c8283cccbd}{Err\_clock}}\ =\ 0x0100,\ \textcolor{comment}{//\ CE\ \ (0\ if\ clock\ is\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00079}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61aec0ab5944a70662e09e795646e5987ca}{00079}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61aec0ab5944a70662e09e795646e5987ca}{Err\_Watchdog}}\ =\ 0x0200,\ \textcolor{comment}{//\ WD\ Watchdog\ (0\ if\ watchdog\ is\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00080}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a22c4b1756e0cf536391cc6e5547470f6}{00080}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a22c4b1756e0cf536391cc6e5547470f6}{Err\_Vpwr}}\ =\ 0x0400,\ \textcolor{comment}{//\ V\_PWR\ power\ supply\ (0\ if\ power\ supply\ voltage\ is\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00081}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a198b196da46ddeb177a05ed33f363df7}{00081}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a198b196da46ddeb177a05ed33f363df7}{Err\_Vexi}}\ =\ 0x0800,\ \textcolor{comment}{//\ V\_EXI\ Excitation\ voltage\ (0\ if\ excitation\ voltage\ is\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00082}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61aeccbe530442099dab4642a4dc399666f}{00082}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61aeccbe530442099dab4642a4dc399666f}{Err\_VxR}}\ =\ 0x1000,\ \textcolor{comment}{//\ VxR\ (0\ if\ both\ Vx1\ and\ Vx2\ are\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00083}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61ae3dc5d0132a955458e722cb04ccd3900}{00083}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61ae3dc5d0132a955458e722cb04ccd3900}{Err\_CH}}\ =\ 0x2000,\ \textcolor{comment}{//\ CH\ chassis\ connections\ (0\ if\ both\ chassis\ connections\ are\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00084}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a902d14d447c4552ea1f4f1634f2e4a61}{00084}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a902d14d447c4552ea1f4f1634f2e4a61}{Err\_Vx1}}\ =\ 0x4000,\ \textcolor{comment}{//\ Vx1\ connection\ (0\ if\ SIM101\ connection\ to\ Hv+\ is\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00085}\mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a806c4e5614221c8b239f6620ab7d5d50}{00085}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61a806c4e5614221c8b239f6620ab7d5d50}{Err\_Vx2}}\ =\ 0x8000,\ \textcolor{comment}{//\ Vx2\ connection\ (0\ if\ SIM101\ connection\ to\ Hv-\/\ is\ good)}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00086}00086\ \};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00088}00088\ \textcolor{comment}{//\ Probably\ not\ useful\ and\ won't\ be\ used\ for\ a\ bit\ but\ may\ be\ useful\ in\ the\ future}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00089}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674e}{00089}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674e}{imd\_manufacturer\_requests}}\{}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00090}00090\ \ \ \ \ \textcolor{comment}{//\ The\ numbers\ get\ broken\ up\ over\ multiple\ bytes}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00091}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea9f7942276dd9e12e41f0463701086e7d}{00091}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea9f7942276dd9e12e41f0463701086e7d}{Part\_name\_0}}\ =\ 0x01,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00092}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea6172e87521e48caf627c729daa8b6f59}{00092}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea6172e87521e48caf627c729daa8b6f59}{Part\_name\_1}}\ =\ 0x02,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00093}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea98d7a9f4550631a81ea2c5a4a215a981}{00093}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea98d7a9f4550631a81ea2c5a4a215a981}{Part\_name\_2}}\ =\ 0x03,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00094}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea086d70441c24f02a8abceeee41562cde}{00094}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea086d70441c24f02a8abceeee41562cde}{Part\_name\_3}}\ =\ 0x04,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00095}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea5eb2adcd1cb7d65f6c590b6f6b7ee322}{00095}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea5eb2adcd1cb7d65f6c590b6f6b7ee322}{Version\_0}}\ =\ 0x05,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00096}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eafcc458d57f1b3273ae319230922231a4}{00096}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eafcc458d57f1b3273ae319230922231a4}{Version\_1}}\ =\ 0x06,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00097}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eafb60bb95154ac28254f2e8dfbc82c638}{00097}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eafb60bb95154ac28254f2e8dfbc82c638}{Version\_2}}\ =\ 0x07,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00098}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea453d45b6245737d4987dd4b78a2e464a}{00098}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea453d45b6245737d4987dd4b78a2e464a}{Serial\_number\_0}}\ =\ 0x08,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00099}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea29cf9ca0d526194e6ce71ff99120ee9e}{00099}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea29cf9ca0d526194e6ce71ff99120ee9e}{Serial\_number\_1}}\ =\ 0x09,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00100}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea87fc8ea63ac933e1e441f105dce28cdb}{00100}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674ea87fc8ea63ac933e1e441f105dce28cdb}{Serial\_number\_2}}\ =\ 0x0A,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00101}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eaf9d06047340a1a4185e714ca761f891e}{00101}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eaf9d06047340a1a4185e714ca761f891e}{Serial\_number\_3}}\ =\ 0x0B,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00102}\mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eac87b1e30788367a709363dba4ad7f238}{00102}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_a975959819df682c9adec7c667028674eac87b1e30788367a709363dba4ad7f238}{Uptime\_counter}}\ =\ 0x0C,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00103}00103\ \};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00105}\mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0c}{00105}}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0c}{imd\_high\_resolution\_measurements}}\{}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00106}\mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca781dcc0628d7284c0e9e0be67cd3365b}{00106}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca781dcc0628d7284c0e9e0be67cd3365b}{Vn\_hi\_res}}\ =\ 0x60,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00107}\mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca6b90089e224b90d87a6cf113e5e36f22}{00107}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca6b90089e224b90d87a6cf113e5e36f22}{Vp\_hi\_res}}\ =\ 0x61,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00108}\mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca65563450695b30beae4032ff330f0e6f}{00108}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca65563450695b30beae4032ff330f0e6f}{Vexc\_hi\_res}}\ =\ 0x62,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00109}\mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca23a10ada814d11a9a1044ede3a821688}{00109}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca23a10ada814d11a9a1044ede3a821688}{Vb\_hi\_res}}\ =\ 0x63,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00110}\mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca6d4bdc992b68f8ee4aea88056639af5d}{00110}}\ \ \ \ \ \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0ca6d4bdc992b68f8ee4aea88056639af5d}{Vpwr\_hi\_res}}\ =\ 0x65,}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00111}00111\ \};}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00113}00113\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00114}00114\ \textcolor{comment}{//\ Function\ declarations}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00115}00115\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00116}00116\ \textcolor{comment}{//\ This\ will\ parse\ the\ data\ received\ from\ CAN\ message}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00117}00117\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a1f6181c5ab49d963007eb9a212672bbd}{IMD\_Parse\_Message}}(\textcolor{keywordtype}{int}\ DLC,\ uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00120}00120\ \textcolor{comment}{//\ Functions\ to\ check\ states\ are\ okay}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00121}00121\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_ab4e8b5af19cc6d0b08ace9185a542b01}{IMD\_Check\_Status\_Bits}}(uint8\_t\ Data);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00122}00122\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a0cfe9b1a6472c4a5d0ca154a4e9e7bb0}{IMD\_Check\_Error\_Flags}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00124}00124\ \textcolor{comment}{//\ Functions\ to\ check\ values\ are\ okay}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00125}00125\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_af81ff089b3fabafdfa49c3b816ded80e}{IMD\_Check\_Isolation\_State}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00126}00126\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_adb4d085b7b1f3e5a860c45aa5a404294}{IMD\_Check\_Isolation\_Resistances}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00127}00127\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a686301a85070c84e89af3e1cc0a159ae}{IMD\_Check\_Isolation\_Capacitances}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00128}00128\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a0fc857559d80dd701aec763dd6911383}{IMD\_Check\_Voltages\_Vp\_and\_Vn}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00129}00129\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_ac94e0b660190e6ce0d376d407627057e}{IMD\_Check\_Battery\_Voltage}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00130}00130\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_abc49be24256f1a93674e290546384348}{IMD\_Check\_Safety\_Touch\_Energy}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00131}00131\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a00c843b8f3e8cf4569ea9008cd7db9d2}{IMD\_Check\_Safety\_Touch\_Current}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00132}00132\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a1a18f8d11173ee691822b5a712cf1617}{IMD\_Check\_Temperature}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00133}00133\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00134}00134\ \textcolor{comment}{//\ Functions\ to\ check\ on\ startup}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00135}00135\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a6f6abcfa57cc41a7b1249c0157702a1c}{IMD\_Check\_Max\_Battery\_Working\_Voltage}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00136}00136\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a72a595e6320ceeb17de4f7ce2ec66d30}{IMD\_Check\_Part\_Name}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00137}00137\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a4a16ede06a18addd7ef3e67be2aaaf3d}{IMD\_Check\_Version}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00138}00138\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a6f1e850c527bdf0e1a7cfbc557b8501b}{IMD\_Check\_Serial\_Number}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00139}00139\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_ae0177fe52ae013a36014be506fd1fa93}{IMD\_Check\_Uptime}}(uint8\_t\ Data[]);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00141}00141\ \textcolor{comment}{//\ High\ resolution\ measurements}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00142}00142\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00144}00144\ \textcolor{comment}{//\ Function\ to\ request\ data\ from\ the\ IMD}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00145}00145\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_aeb7c937639c5385f5d2b4e3a4e60250f}{IMD\_Request\_Status}}(uint8\_t\ Status);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00147}00147\ \textcolor{comment}{//\ called\ on\ startup\ @deprecated}}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00148}00148\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a80b26177d8aa0c0e803fac210eb456ac}{IMD\_Startup}}();}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00150}00150\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00151}00151\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{initIMD}}(\textcolor{keywordtype}{void}*\ args);}
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00153}00153\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{imd_8h_source_l00155}00155\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_stream_buffer_create" kind="group">
     <compoundname>xStreamBufferCreate</compoundname>
     <title>xStreamBufferCreate</title>
@@ -31,16 +31,19 @@ StreamBufferHandle_t <ref refid="stream__buffer_8h_1a39aa4dd8b83e2df7ded291f863f
 </parameterlist>
 <simplesect kind="return"><para>If NULL is returned, then the stream buffer cannot be created because there is insufficient heap memory available for FreeRTOS to allocate the stream buffer data structures and storage area. A non-NULL value being returned indicates that the stream buffer has been created successfully - the returned value should be stored as the handle to the created stream buffer.</para>
 </simplesect>
-Example use: <preformatted></preformatted></para>
-<para><preformatted>void vAFunction( void )
+Example use: <preformatted>
+
+void vAFunction( void )
 {
 StreamBufferHandle_t xStreamBuffer;
-const size_t xStreamBufferSizeBytes = 100, xTriggerLevel = 10;</preformatted></para>
-<para><preformatted>    // Create a stream buffer that can hold 100 bytes.  The memory used to hold
+const size_t xStreamBufferSizeBytes = 100, xTriggerLevel = 10;
+
+    // Create a stream buffer that can hold 100 bytes.  The memory used to hold
     // both the stream buffer structure and the data in the stream buffer is
     // allocated dynamically.
-    xStreamBuffer = <ref refid="stream__buffer_8h_1a39aa4dd8b83e2df7ded291f863fb5fed" kindref="member">xStreamBufferCreate( xStreamBufferSizeBytes, xTriggerLevel )</ref>;</preformatted></para>
-<para><preformatted>    if( xStreamBuffer == NULL )
+    xStreamBuffer = <ref refid="stream__buffer_8h_1a39aa4dd8b83e2df7ded291f863fb5fed" kindref="member">xStreamBufferCreate( xStreamBufferSizeBytes, xTriggerLevel )</ref>;
+
+    if( xStreamBuffer == NULL )
     {
         // There was not enough heap memory space available to create the
         // stream buffer.
@@ -50,7 +53,7 @@ const size_t xStreamBufferSizeBytes = 100, xTriggerLevel = 10;</preformatted></p
         // The stream buffer was created successfully and can now be used.
     }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

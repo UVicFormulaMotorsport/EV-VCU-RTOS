@@ -1,13 +1,15 @@
 /* motor_controller.c */
 
+#define __UV_FILENAME__ "motor_controller.c"
+
 #include "motor_controller.h"
 #include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
-#include "cmsis_os.h"      // For vTaskSuspend
 #include "uvfr_utils.h"    // For uvPanic, etc.
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
 #include "uvfr_settings.h"
+#include "cmsis_os.h"      // For vTaskSuspend
 
 extern uv_vehicle_settings* current_vehicle_settings;
 extern QueueHandle_t CAN_Rx_Queue;
@@ -20,6 +22,8 @@ extern QueueHandle_t CAN_Rx_Queue;
 
 //global variable for the last mc responce
 uv_CAN_msg last_mc_response;
+//global variable for timeout
+TickType_t last_driver_input_time = 0;
 
 //cyclic parameters
 int16_t mc_speed_rpm = 0;
@@ -27,6 +31,10 @@ int16_t mc_current = 0;
 int16_t mc_torque_cmd = 0;
 int16_t mc_motor_temp = 0;
 int16_t mc_igbt_temp = 0;
+
+//Masks between errors and warnings
+uint16_t mc_error_mask = 0;
+uint16_t mc_warning_mask = 0;
 
 
 
@@ -48,6 +56,8 @@ motor_controller_settings mc_default_settings = {
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
     .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
 	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
+
+	.mc_bus 				= CAN_BUS_1
 };
 
 
@@ -89,7 +99,7 @@ uint16_t sendTorqueToMotorController(float T_filtered)
     // Little-endian: LSB first then MSB
     torque_msg.data[1] = (uint8_t)(torque_cmd & 0xFF);
     torque_msg.data[2] = (uint8_t)((torque_cmd >> 8) & 0xFF);
-    torque_msg.flags   = 0;
+    torque_msg.flags   = mc_settings->mc_bus;
 
     if (uvSendCanMSG(&torque_msg) != UV_OK) {
         uvPanic("Failed to send torque command", 0);
@@ -113,11 +123,20 @@ void MC_Request_Data(uint8_t RegID)
     request_msg.data[0] = 0x3D;   // Request command identifier
     request_msg.data[1] = RegID;    // The register to be requested
     request_msg.data[2] = 0;
-    request_msg.flags   = 0;
+    request_msg.flags   = mc_settings->mc_bus;
 
     if (uvSendCanMSG(&request_msg) != UV_OK) {
         uvPanic("CAN Request Transmission Failed", 0);
     }
+}
+
+/** @brief Awaits a specific parameter from the motor controller
+ *
+ *	Returns UV_OK if it receives one, returns UV_ABORTED if timeout, returns UV_ERROR if something
+ *	goes catastrophically wrong.
+ */
+uv_status MC_await_param(uint8_t param, TickType_t time_to_wait){
+	TickType_t time_called = xTaskGetTickCount();
 }
 
 /**
@@ -143,6 +162,8 @@ uv_status MC_Set_Param(uint8_t RegID,uint16_t d){
     tx_msg.data[1] = d & 0xFF;
     tx_msg.data[2] = (d >> 8) & 0xFF;
     tx_msg.data[3] = 0;
+
+    tx_msg.flags = mc_settings->mc_bus;
 
     if(uvSendCanMSG(&tx_msg) != UV_OK){
         uvPanic("MC_Param set fail", 0);
@@ -225,6 +246,10 @@ void Parse_Bamocar_Response(uv_CAN_msg* msg)
     //printf("Parsed 32-bit LE value: 0x%08X\n", val);
 }
 
+void MC_setErrorMask(uint16_t new_mask){
+	mc_error_mask = new_mask;
+}
+
 
 /**
  * @brief Parses and handles a 16-bit error/warning field from the motor controller.
@@ -244,6 +269,8 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
         return;
 
     uint16_t errors = (uint16_t)((data[1] << 8) | data[0]);
+
+    errors = errors & (~mc_error_mask);
 
 
     if (errors & eprom_read_error) {
@@ -315,8 +342,8 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
  *
  * @param msg Pointer to the received CAN message from the motor controller.
  */
-void ProcessMotorControllerResponse(uv_CAN_msg* msg)
-{
+void ProcessMotorControllerResponse(uv_CAN_msg* msg){
+
 	//every incoming mc message gets stored for use later
 	memcpy(&last_mc_response, msg, sizeof(uv_CAN_msg));
 
@@ -324,6 +351,8 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
         return;
 
     uint8_t reg_id = msg->data[0];
+
+    externalDeviceRxHandler(MOTOR_CONTROLLER);
 
     switch (reg_id) {
         case N_actual:  // SPEED_ACTUAL (0x30)
@@ -422,7 +451,7 @@ void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
         tx.data[0] = 0x3D;            // Command: Enable cyclic read
         tx.data[1] = regs[i];         // Target register
         tx.data[2] = interval_ms;     // Repeating time (1–254 ms)
-        tx.flags   = 0;
+        tx.flags   = mc_settings->mc_bus;
 
         uvSendCanMSG(&tx);
         vTaskDelay(pdMS_TO_TICKS(5));  // delay between messages
@@ -452,11 +481,13 @@ void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
 void MC_Startup(void* args)
 {
 	//toggle pin
-    HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+    //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+
+	MC_setErrorMask(mains_voltage_min_limit|rotate_field_enable_not_present_run);
 
     //Register CAN RX handler first and routes eveyrthing though processmotorcontrollerresponse
     //subsequently the motor controller error handler
-    insertCANMessageHandler(mc_settings->can_id_rx, ProcessMotorControllerResponse);
+    insertCANMessageHandler(mc_settings->can_id_rx, ProcessMotorControllerResponse, mc_settings->mc_bus);
 
     //start cyclic transmission
     MC_EnableCyclicSpeedTransmission(100); // every 100ms
@@ -509,6 +540,9 @@ void MC_Startup(void* args)
 
 		//clear error list
 		MC_Set_Param(0x8E, 0x444d);
+
+		//sendTorqueToMotorController(0); //set initial speed to 0
+		vTaskDelay(pdMS_TO_TICKS(10));
 
 		//set and verify tests
 		//MC_SetAndVerify_Param(0x31, 0x0CCD);  // 10% speed N_Set

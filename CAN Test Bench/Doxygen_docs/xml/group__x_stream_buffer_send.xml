@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_stream_buffer_send" kind="group">
     <compoundname>xStreamBufferSend</compoundname>
     <title>xStreamBufferSend</title>
@@ -8,10 +8,10 @@
     <detaileddescription>
 <para><ref refid="stream__buffer_8h" kindref="compound">stream_buffer.h</ref></para>
 <para><preformatted>
-size_t xStreamBufferSend( StreamBufferHandle_t xStreamBuffer,
+size_t <ref refid="stream__buffer_8h_1a35cdf3b6bf677086b9128782f762499d" kindref="member">xStreamBufferSend( StreamBufferHandle_t xStreamBuffer,
                           const void *pvTxData,
                           size_t xDataLengthBytes,
-                          TickType_t xTicksToWait );
+                          TickType_t xTicksToWait )</ref>;
 </preformatted></para>
 <para>Sends bytes to a stream buffer. The bytes are copied into the stream buffer.</para>
 <para><emphasis><bold>NOTE</bold></emphasis>: Uniquely among FreeRTOS objects, the stream buffer implementation (so also the message buffer implementation, as message buffers are built on top of stream buffers) assumes there is only one task or interrupt that will write to the buffer (the writer), and only one task or interrupt that will read from the buffer (the reader). It is safe for the writer and reader to be different tasks or interrupts, but, unlike other FreeRTOS objects, it is not safe to have multiple different writers or multiple different readers. If there are to be multiple different writers then the application writer must place each call to a writing API function (such as <ref refid="stream__buffer_8h_1a35cdf3b6bf677086b9128782f762499d" kindref="member">xStreamBufferSend()</ref>) inside a critical section and set the send block time to 0. Likewise, if there are to be multiple different readers then the application writer must place each call to a reading API function (such as <ref refid="stream__buffer_8h_1a55efc144b988598d84a6087d3e20b507" kindref="member">xStreamBufferReceive()</ref>) inside a critical section and set the receive block time to 0.</para>
@@ -57,27 +57,31 @@ void vAFunction( StreamBufferHandle_t xStreamBuffer )
 size_t xBytesSent;
 uint8_t ucArrayToSend[] = { 0, 1, 2, 3 };
 char *pcStringToSend = &quot;String to send&quot;;
-const TickType_t x100ms = <ref refid="projdefs_8h_1a353d0f62b82a402cb3db63706c81ec3f" kindref="member">pdMS_TO_TICKS( 100 )</ref>;</preformatted></para>
-<para><preformatted>    // Send an array to the stream buffer, blocking for a maximum of 100ms to
+const TickType_t x100ms = <ref refid="projdefs_8h_1a353d0f62b82a402cb3db63706c81ec3f" kindref="member">pdMS_TO_TICKS( 100 )</ref>;
+
+    // Send an array to the stream buffer, blocking for a maximum of 100ms to
     // wait for enough space to be available in the stream buffer.
-    xBytesSent = xStreamBufferSend( xStreamBuffer, ( void * ) ucArrayToSend, sizeof( ucArrayToSend ), x100ms );</preformatted></para>
-<para><preformatted>    if( xBytesSent != sizeof( ucArrayToSend ) )
+    xBytesSent = xStreamBufferSend( xStreamBuffer, ( void * ) ucArrayToSend, sizeof( ucArrayToSend ), x100ms );
+
+    if( xBytesSent != sizeof( ucArrayToSend ) )
     {
         // The call to <ref refid="stream__buffer_8h_1a35cdf3b6bf677086b9128782f762499d" kindref="member">xStreamBufferSend()</ref> times out before there was enough
         // space in the buffer for the data to be written, but it did
         // successfully write xBytesSent bytes.
-    }</preformatted></para>
-<para><preformatted>    // Send the string to the stream buffer.  Return immediately if there is not
+    }
+
+    // Send the string to the stream buffer.  Return immediately if there is not
     // enough space in the buffer.
-    xBytesSent = xStreamBufferSend( xStreamBuffer, ( void * ) pcStringToSend, strlen( pcStringToSend ), 0 );</preformatted></para>
-<para><preformatted>    if( xBytesSent != strlen( pcStringToSend ) )
+    xBytesSent = xStreamBufferSend( xStreamBuffer, ( void * ) pcStringToSend, strlen( pcStringToSend ), 0 );
+
+    if( xBytesSent != strlen( pcStringToSend ) )
     {
         // The entire string could not be added to the stream buffer because
         // there was not enough free space in the buffer, but xBytesSent bytes
         // were sent.  Could try again to send the remaining bytes.
     }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

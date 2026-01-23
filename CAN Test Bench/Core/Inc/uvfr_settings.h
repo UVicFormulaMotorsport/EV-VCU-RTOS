@@ -22,7 +22,8 @@
 
 
 
-
+//This should nearly always work out to 0x080FE000, and goes 4 KB until it reaches the end of
+//the user flash region at 0x0FFFFF
 #define START_OF_USER_FLASH &_s_uvdata
 #define	TOP_OF_USER_FLASH &_e_uvdata
 
@@ -69,23 +70,23 @@
 #define IMD_OFFSET 128
 #define IMD_ADDR ((void*)(START_OF_USER_FLASH + IMD_MGROUP*256 + IMD_OFFSET))
 
-#define PDU_MGROUP 5
-#define PDU_OFFSET 0
-#define PDU_ADDR ((void*)(START_OF_USER_FLASH + PDU_MGROUP*256 + PDU_OFFSET))
+#define CONIFER_MGROUP 5
+#define CONIFER_OFFSET 0
+#define CONIFER_ADDR ((void*)(START_OF_USER_FLASH + CONIFER_MGROUP*256 + CONIFER_OFFSET))
 
-#define DAQ_HEAD_MGROUP 5
+#define DAQ_HEAD_MGROUP 6
 #define DAQ_HEAD_OFFSET 128
 #define DAQ_HEAD_ADDR ((daq_loop_args*)(START_OF_USER_FLASH + DAQ_HEAD_MGROUP*256 + DAQ_HEAD_OFFSET))
 
-#define DAQ_PARAMS1_MGROUP 6
+#define DAQ_PARAMS1_MGROUP 7
 #define DAQ_PARAMS1_OFFSET 0
 #define DAQ_PARAMS1_ADDR ((void*)(START_OF_USER_FLASH + DAQ_PARAMS1_MGROUP*256 + DAQ_PARAMS1_OFFSET))
 
-#define DAQ_PARAMS2_MGROUP 7
+#define DAQ_PARAMS2_MGROUP 8
 #define DAQ_PARAMS2_OFFSET 0
 #define DAQ_PARAMS2_ADDR
 
-#define DAQ_PARAMS3_MGROUP 8
+#define DAQ_PARAMS3_MGROUP 9
 #define DAQ_PARAMS3_OFFSET 0
 #define DAQ_PARAMS3_ADDR
 
@@ -93,6 +94,7 @@
 #define CRC_MGROUP1 14
 #define CRC_MGROUP2 15
 
+//This below macro lowkey confusing ngl, It seems as though there is in fact 4kB reserved, so why th
 #define SETTING_BRANCH_SIZE (256*10)
 
 #define CRC_POLY 0x04C11DB7
@@ -139,7 +141,11 @@ typedef enum{
 	SAVE_AND_APPLY_NEW_SETTINGS = 0x80,
 	DISCARD_NEW_SETTINGS = 0x82,
 	DISCARD_NEW_SETTINGS_AND_EXIT = 0x83,
-	FORCE_RESTORE_FACTORY_DEFAULT = 0x84
+	FORCE_RESTORE_FACTORY_DEFAULT = 0x84,
+	REQUEST_PEDAL_CALIBRATION = 0x90,
+	ADVANCE_CALIBRATION_SEQ = 0x91,
+	ABORT_CALIBRATION_SEQ = 0x92,
+	FINISH_CALIBRATION_SEQ = 0x93
 
 }laptop_CMD;
 
@@ -156,10 +162,10 @@ typedef struct uv_vehicle_settings{
 
 	daq_loop_args* daq_settings;
 
-	daq_datapoint* daq_param_list;
+	daq_msg* daq_param_list;
 
 
-	struct uv19_pdu_settings* pdu_settings;
+	struct conifer_settings* conifer_settings;
 	//struct motor_controller_settings motor_controller_settings;
 
 	uint16_t flags; /**< Bitfield containing info on whether each settings instance is factory default. 0 default, 1 altered*/
@@ -175,6 +181,7 @@ typedef struct motor_controller_settings{
 	uint32_t can_id_rx;
 	uint32_t mc_CAN_timeout;
 	uint8_t  proportional_gain;
+
 	uint32_t integral_time_constant;
 	uint8_t  integral_memory_max;
 	// extra
@@ -184,6 +191,9 @@ typedef struct motor_controller_settings{
 	uint16_t max_torque;   // if using 0x90 or similar torque command
 	uint16_t max_motor_temp; //max motor temp
 	uint16_t warning_motor_temp; //trigger point for motor temp
+
+
+	uint8_t  mc_bus;
 
 }motor_controller_settings;
 

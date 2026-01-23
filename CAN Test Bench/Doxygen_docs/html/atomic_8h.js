@@ -14,6 +14,6 @@ var atomic_8h =
     [ "Atomic_NAND_u32", "atomic_8h.html#a9c13a49fba8a8f1eeca954d6b9dbfac4", null ],
     [ "Atomic_OR_u32", "atomic_8h.html#af1dcc9bcd06047887bc57acb2133b622", null ],
     [ "Atomic_Subtract_u32", "atomic_8h.html#ac5d1592ac108f14a62aa88be210a205e", null ],
-    [ "Atomic_SwapPointers_p32", "atomic_8h.html#a64d255792849f5443c4209d746eb60c3", null ],
+    [ "Atomic_SwapPointers_p32", "atomic_8h.html#a98fb15ac72c617dd96a2a4ad55787b86", null ],
     [ "Atomic_XOR_u32", "atomic_8h.html#a070776e59f4253dda4ec58b5e2710e81", null ]
 ];

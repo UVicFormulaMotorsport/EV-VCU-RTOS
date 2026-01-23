@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_task_create_restricted_static" kind="group">
     <compoundname>xTaskCreateRestrictedStatic</compoundname>
     <title>xTaskCreateRestrictedStatic</title>
@@ -43,8 +43,9 @@ static const TaskParameters_t xCheckTaskParameters =
     100,        // usStackDepth - the stack size DEFINED IN WORDS.
     NULL,       // pvParameters - passed into the task function as the function parameters.
     ( 1UL | portPRIVILEGE_BIT ),// uxPriority - task priority, set the portPRIVILEGE_BIT if the task should run in a privileged state.
-    cStackBuffer,// puxStackBuffer - the buffer to be used as the task stack.</preformatted></para>
-<para><preformatted>    // xRegions - Allocate up to three separate memory regions for access by
+    cStackBuffer,// puxStackBuffer - the buffer to be used as the task stack.
+
+    // xRegions - Allocate up to three separate memory regions for access by
     // the task, with appropriate access permissions.  Different processors have
     // different memory alignment requirements - refer to the FreeRTOS documentation
     // for full information.
@@ -53,23 +54,28 @@ static const TaskParameters_t xCheckTaskParameters =
         { cReadWriteArray,              32,     portMPU_REGION_READ_WRITE },
         { cReadOnlyArray,               32,     portMPU_REGION_READ_ONLY },
         { cPrivilegedOnlyAccessArray,   128,    portMPU_REGION_PRIVILEGED_READ_WRITE }
-    }</preformatted></para>
-<para><preformatted>     // Holds the task&apos;s data structure.
-};</preformatted></para>
-<para><preformatted>int <ref refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main( void )</ref>
+    }
+
+    &amp;xTaskBuffer; // Holds the task&apos;s data structure.
+};
+
+int <ref refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" kindref="member">main( void )</ref>
 {
-TaskHandle_t xHandle;</preformatted></para>
-<para><preformatted>    // Create a task from the const structure defined above.  The task handle
+TaskHandle_t xHandle;
+
+    // Create a task from the const structure defined above.  The task handle
     // is requested (the second parameter is not NULL) but in this case just for
     // demonstration purposes as its not actually used.
-    xTaskCreateRestricted( &amp;xRegTest1Parameters, &amp;xHandle );</preformatted></para>
-<para><preformatted>    // Start the scheduler.
-    <ref refid="task_8h_1aaf9dca1065c60abdeb309d56ab7293cb" kindref="member">vTaskStartScheduler()</ref>;</preformatted></para>
-<para><preformatted>    // Will only get here if there was insufficient memory to create the idle
+    xTaskCreateRestricted( &amp;xRegTest1Parameters, &amp;xHandle );
+
+    // Start the scheduler.
+    <ref refid="task_8h_1aaf9dca1065c60abdeb309d56ab7293cb" kindref="member">vTaskStartScheduler()</ref>;
+
+    // Will only get here if there was insufficient memory to create the idle
     // and/or timer task.
     for( ;; );
 }
-   </preformatted> </para>
+   </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['nmi_5fhandler_1360',['NMI_Handler',['../stm32f4xx__it_8h.html#a6ad7a5e3ee69cb6db6a6b9111ba898bc',1,'NMI_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#a6ad7a5e3ee69cb6db6a6b9111ba898bc',1,'NMI_Handler(void):&#160;stm32f4xx_it.c']]],
-  ['nuke_5fhash_5ftable_1361',['nuke_hash_table',['../can_8h.html#acadda9ab3aa926b92a84e3f192c66547',1,'nuke_hash_table():&#160;can.c'],['../can_8c.html#acadda9ab3aa926b92a84e3f192c66547',1,'nuke_hash_table():&#160;can.c']]],
-  ['nukesettings_1362',['nukeSettings',['../uvfr__settings_8h.html#a4648237563030182a8309d8c75e12205',1,'nukeSettings(uv_vehicle_settings **settings_to_delete):&#160;uvfr_settings.c'],['../uvfr__settings_8c.html#a4648237563030182a8309d8c75e12205',1,'nukeSettings(uv_vehicle_settings **settings_to_delete):&#160;uvfr_settings.c']]]
+  ['logdiagnosticevent_0',['logDiagnosticEvent',['../uvfr__diagnostics_8h.html#a98c6d4943e1119a43bb560d7aa2998e5',1,'uvfr_diagnostics.h']]],
+  ['logvehiclefault_1',['logVehicleFault',['../uvfr__vehicle__logger_8h.html#aa83c417d242e0852d3da6e3df47252f0',1,'logVehicleFault(fault_event_type_e type, uv_task_info *task, const char *msg, const char *file, int line, const char *func, bool is_panic):&#160;uvfr_vehicle_logger.c'],['../uvfr__vehicle__logger_8c.html#aa83c417d242e0852d3da6e3df47252f0',1,'logVehicleFault(fault_event_type_e type, uv_task_info *task, const char *msg, const char *file, int line, const char *func, bool is_panic):&#160;uvfr_vehicle_logger.c']]]
 ];

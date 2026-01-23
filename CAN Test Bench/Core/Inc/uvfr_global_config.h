@@ -19,6 +19,7 @@
 #define FIRMWARE_MINOR_RELEASE 1
 #define FIRMWARE_PATCH_NUM 0
 
+#define UV_EN_ITM_LOG 1
 
 
 //memory management configuration
@@ -27,7 +28,7 @@
 #endif
 
 #ifndef USE_OS_MEM_MGMT
-#define USE_OS_MEM_MGMT 0
+#define USE_OS_MEM_MGMT 1
 #endif
 
 

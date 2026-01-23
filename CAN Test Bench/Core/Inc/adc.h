@@ -34,6 +34,10 @@ extern "C" {
 
 extern ADC_HandleTypeDef hadc1;
 
+extern ADC_HandleTypeDef hadc2;
+
+extern ADC_HandleTypeDef hadc3;
+
 /* USER CODE BEGIN Private defines */
 
 // 12 bit ADC resolution
@@ -58,11 +62,13 @@ extern ADC_HandleTypeDef hadc1;
 /* USER CODE END Private defines */
 
 void MX_ADC1_Init(void);
+void MX_ADC2_Init(void);
+void MX_ADC3_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
 void initADCTask(void);
-void processADCBuffer();
+void processADCBuffer(uint8_t adc);
 
 
 /* USER CODE END Prototypes */

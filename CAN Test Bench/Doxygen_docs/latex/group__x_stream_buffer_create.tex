@@ -1,16 +1,16 @@
-\hypertarget{group__x_stream_buffer_create}{}\doxysection{x\+Stream\+Buffer\+Create}
-\label{group__x_stream_buffer_create}\index{xStreamBufferCreate@{xStreamBufferCreate}}
-\mbox{\hyperlink{message__buffer_8h}{message\+\_\+buffer.\+h}}
+\doxysection{x\+Stream\+Buffer\+Create}
+\hypertarget{group__x_stream_buffer_create}{}\label{group__x_stream_buffer_create}\index{xStreamBufferCreate@{xStreamBufferCreate}}
+\doxylink{message__buffer_8h}{message\+\_\+buffer.\+h}
 
 
 \begin{DoxyPre}
-StreamBufferHandle\_t \mbox{\hyperlink{stream__buffer_8h_a39aa4dd8b83e2df7ded291f863fb5fed}{xStreamBufferCreate( size\_t xBufferSizeBytes, size\_t xTriggerLevelBytes )}};
+StreamBufferHandle\_t \doxylink{stream__buffer_8h_a39aa4dd8b83e2df7ded291f863fb5fed}{xStreamBufferCreate( size\_t xBufferSizeBytes, size\_t xTriggerLevelBytes )};
 \end{DoxyPre}
 
 
-Creates a new stream buffer using dynamically allocated memory. See \mbox{\hyperlink{stream__buffer_8h_a3c248575ac1b83801db605b32a118f77}{x\+Stream\+Buffer\+Create\+Static()}} for a version that uses statically allocated memory (memory that is allocated at compile time).
+Creates a new stream buffer using dynamically allocated memory. See \doxylink{stream__buffer_8h_a3c248575ac1b83801db605b32a118f77}{x\+Stream\+Buffer\+Create\+Static()} for a version that uses statically allocated memory (memory that is allocated at compile time).
 
-config\+S\+U\+P\+P\+O\+R\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+ON must be set to 1 or left undefined in \mbox{\hyperlink{_free_r_t_o_s_config_8h}{Free\+R\+T\+O\+S\+Config.\+h}} for \mbox{\hyperlink{stream__buffer_8h_a39aa4dd8b83e2df7ded291f863fb5fed}{x\+Stream\+Buffer\+Create()}} to be available.
+config\+SUPPORT\+\_\+\+DYNAMIC\+\_\+\+ALLOCATION must be set to 1 or left undefined in \doxylink{_free_r_t_o_s_config_8h}{Free\+RTOSConfig.\+h} for \doxylink{stream__buffer_8h_a39aa4dd8b83e2df7ded291f863fb5fed}{x\+Stream\+Buffer\+Create()} to be available.
 
 
 \begin{DoxyParams}{Parameters}
@@ -20,28 +20,22 @@ config\+S\+U\+P\+P\+O\+R\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-If N\+U\+LL is returned, then the stream buffer cannot be created because there is insufficient heap memory available for Free\+R\+T\+OS to allocate the stream buffer data structures and storage area. A non-\/\+N\+U\+LL value being returned indicates that the stream buffer has been created successfully -\/ the returned value should be stored as the handle to the created stream buffer.
+If NULL is returned, then the stream buffer cannot be created because there is insufficient heap memory available for Free\+RTOS to allocate the stream buffer data structures and storage area. A non-\/\+NULL value being returned indicates that the stream buffer has been created successfully -\/ the returned value should be stored as the handle to the created stream buffer.
 \end{DoxyReturn}
 Example use\+: 
-\begin{DoxyPre}\end{DoxyPre}
+\begin{DoxyPre}
 
-
-
-\begin{DoxyPre}void vAFunction( void )
+void vAFunction( void )
 \{
 StreamBufferHandle\_t xStreamBuffer;
-const size\_t xStreamBufferSizeBytes = 100, xTriggerLevel = 10;\end{DoxyPre}
+const size\_t xStreamBufferSizeBytes = 100, xTriggerLevel = 10;
 
-
-
-\begin{DoxyPre}    // Create a stream buffer that can hold 100 bytes.  The memory used to hold
+    // Create a stream buffer that can hold 100 bytes.  The memory used to hold
     // both the stream buffer structure and the data in the stream buffer is
     // allocated dynamically.
-    xStreamBuffer = \mbox{\hyperlink{stream__buffer_8h_a39aa4dd8b83e2df7ded291f863fb5fed}{xStreamBufferCreate( xStreamBufferSizeBytes, xTriggerLevel )}};\end{DoxyPre}
+    xStreamBuffer = \doxylink{stream__buffer_8h_a39aa4dd8b83e2df7ded291f863fb5fed}{xStreamBufferCreate( xStreamBufferSizeBytes, xTriggerLevel )};
 
-
-
-\begin{DoxyPre}    if( xStreamBuffer == NULL )
+    if( xStreamBuffer == NULL )
     \{
         // There was not enough heap memory space available to create the
         // stream buffer.
@@ -52,4 +46,4 @@ const size\_t xStreamBufferSizeBytes = 100, xTriggerLevel = 10;\end{DoxyPre}
     \}
 \}
 \end{DoxyPre}
- 
+   

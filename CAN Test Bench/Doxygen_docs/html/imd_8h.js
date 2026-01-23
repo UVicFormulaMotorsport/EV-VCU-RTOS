@@ -1,5 +1,7 @@
 var imd_8h =
 [
+    [ "uv_imd_settings", "structuv__imd__settings.html", "structuv__imd__settings" ],
+    [ "uv_imd_settings", "imd_8h.html#a0b894eb0fe09aff3c2fb836118b040f8", null ],
     [ "imd_error_flags", "imd_8h.html#a4456d255c2ceb447ad52b68087531b61", [
       [ "Err_temp", "imd_8h.html#a4456d255c2ceb447ad52b68087531b61afa71f4893ad7f39c03d991a2eae95368", null ],
       [ "Err_clock", "imd_8h.html#a4456d255c2ceb447ad52b68087531b61a0bab46bce7066da8e52221c8283cccbd", null ],

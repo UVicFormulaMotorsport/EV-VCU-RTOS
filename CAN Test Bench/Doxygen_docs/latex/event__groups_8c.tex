@@ -1,0 +1,283 @@
+\doxysection{Core/\+Free\+RTOS/\+Source/event\+\_\+groups.c File Reference}
+\hypertarget{event__groups_8c}{}\label{event__groups_8c}\index{Core/FreeRTOS/Source/event\_groups.c@{Core/FreeRTOS/Source/event\_groups.c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}task.\+h"{}}\newline
+{\ttfamily \#include "{}timers.\+h"{}}\newline
+{\ttfamily \#include "{}event\+\_\+groups.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_event_group_def__t}{Event\+Group\+Def\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{event__groups_8c_ab622d8c674f2a417a666a7ed89109e79}{MPU\+\_\+\+WRAPPERS\+\_\+\+INCLUDED\+\_\+\+FROM\+\_\+\+API\+\_\+\+FILE}}
+\item 
+\#define \mbox{\hyperlink{event__groups_8c_a1404686af7c8070fa57675707c817abc}{event\+CLEAR\+\_\+\+EVENTS\+\_\+\+ON\+\_\+\+EXIT\+\_\+\+BIT}}~0x01000000\+UL
+\item 
+\#define \mbox{\hyperlink{event__groups_8c_ab451d5ad95813d5ec7ff1784d69e9ec3}{event\+UNBLOCKED\+\_\+\+DUE\+\_\+\+TO\+\_\+\+BIT\+\_\+\+SET}}~0x02000000\+UL
+\item 
+\#define \mbox{\hyperlink{event__groups_8c_ae98d5f1271845ad42742aef9659e1568}{event\+WAIT\+\_\+\+FOR\+\_\+\+ALL\+\_\+\+BITS}}~0x04000000\+UL
+\item 
+\#define \mbox{\hyperlink{event__groups_8c_a46c8292a6ba88b017cca402f5baf670b}{event\+EVENT\+\_\+\+BITS\+\_\+\+CONTROL\+\_\+\+BYTES}}~0xff000000\+UL
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{struct_event_group_def__t}{Event\+Group\+Def\+\_\+t}} \mbox{\hyperlink{event__groups_8c_ae4fc9408a7fab90c6296379ff3cb0f11}{Event\+Group\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} \mbox{\hyperlink{event__groups_8c_a152ce51000f6d8d26afbd14b4794e036}{prv\+Test\+Wait\+Condition}} (const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Current\+Event\+Bits, const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Bits\+To\+Wait\+For, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Wait\+For\+All\+Bits) \mbox{\hyperlink{mpu__wrappers_8h_a4785c4f4a8c04b835139dcc2a6682078}{PRIVILEGED\+\_\+\+FUNCTION}}
+\item 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} \mbox{\hyperlink{event__groups_8c_ac38db316f0928c7ddaacb677a75dbc03}{x\+Event\+Group\+Sync}} (\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}} x\+Event\+Group, const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Bits\+To\+Set, const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Bits\+To\+Wait\+For, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait)
+\item 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} \mbox{\hyperlink{event__groups_8c_a379c5cca4552d3d8acd4c51e8220a6c3}{x\+Event\+Group\+Wait\+Bits}} (\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}} x\+Event\+Group, const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Bits\+To\+Wait\+For, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Clear\+On\+Exit, const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} x\+Wait\+For\+All\+Bits, \mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}} x\+Ticks\+To\+Wait)
+\item 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} \mbox{\hyperlink{event__groups_8c_a71dd2680fdfbdde7d6b10db203e266ba}{x\+Event\+Group\+Clear\+Bits}} (\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}} x\+Event\+Group, const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Bits\+To\+Clear)
+\item 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} \mbox{\hyperlink{event__groups_8c_adcb3d3f7dded9fa372bb1ee405c36b8d}{x\+Event\+Group\+Get\+Bits\+From\+ISR}} (\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}} x\+Event\+Group)
+\item 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} \mbox{\hyperlink{event__groups_8c_a9ac7cd970f50e2e50a494b656e0eb239}{x\+Event\+Group\+Set\+Bits}} (\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}} x\+Event\+Group, const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} ux\+Bits\+To\+Set)
+\item 
+void \mbox{\hyperlink{event__groups_8c_a6939faca89fc4ba52fa8288527042464}{v\+Event\+Group\+Delete}} (\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}} x\+Event\+Group)
+\item 
+void \mbox{\hyperlink{event__groups_8c_a54db6cc97bbb926aa4b78d5affc257d9}{v\+Event\+Group\+Set\+Bits\+Callback}} (void \texorpdfstring{$\ast$}{*}pv\+Event\+Group, const uint32\+\_\+t ul\+Bits\+To\+Set)
+\item 
+void \mbox{\hyperlink{event__groups_8c_a3bce459038e87064109c8462b1174c29}{v\+Event\+Group\+Clear\+Bits\+Callback}} (void \texorpdfstring{$\ast$}{*}pv\+Event\+Group, const uint32\+\_\+t ul\+Bits\+To\+Clear)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{event__groups_8c_a1404686af7c8070fa57675707c817abc}\index{event\_groups.c@{event\_groups.c}!eventCLEAR\_EVENTS\_ON\_EXIT\_BIT@{eventCLEAR\_EVENTS\_ON\_EXIT\_BIT}}
+\index{eventCLEAR\_EVENTS\_ON\_EXIT\_BIT@{eventCLEAR\_EVENTS\_ON\_EXIT\_BIT}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{eventCLEAR\_EVENTS\_ON\_EXIT\_BIT}{eventCLEAR\_EVENTS\_ON\_EXIT\_BIT}}
+{\footnotesize\ttfamily \label{event__groups_8c_a1404686af7c8070fa57675707c817abc} 
+\#define event\+CLEAR\+\_\+\+EVENTS\+\_\+\+ON\+\_\+\+EXIT\+\_\+\+BIT~0x01000000\+UL}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00057}{57}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, and \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{event__groups_8c_a46c8292a6ba88b017cca402f5baf670b}\index{event\_groups.c@{event\_groups.c}!eventEVENT\_BITS\_CONTROL\_BYTES@{eventEVENT\_BITS\_CONTROL\_BYTES}}
+\index{eventEVENT\_BITS\_CONTROL\_BYTES@{eventEVENT\_BITS\_CONTROL\_BYTES}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{eventEVENT\_BITS\_CONTROL\_BYTES}{eventEVENT\_BITS\_CONTROL\_BYTES}}
+{\footnotesize\ttfamily \label{event__groups_8c_a46c8292a6ba88b017cca402f5baf670b} 
+\#define event\+EVENT\+\_\+\+BITS\+\_\+\+CONTROL\+\_\+\+BYTES~0xff000000\+UL}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00060}{60}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00461}{x\+Event\+Group\+Clear\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, and \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{event__groups_8c_ab451d5ad95813d5ec7ff1784d69e9ec3}\index{event\_groups.c@{event\_groups.c}!eventUNBLOCKED\_DUE\_TO\_BIT\_SET@{eventUNBLOCKED\_DUE\_TO\_BIT\_SET}}
+\index{eventUNBLOCKED\_DUE\_TO\_BIT\_SET@{eventUNBLOCKED\_DUE\_TO\_BIT\_SET}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{eventUNBLOCKED\_DUE\_TO\_BIT\_SET}{eventUNBLOCKED\_DUE\_TO\_BIT\_SET}}
+{\footnotesize\ttfamily \label{event__groups_8c_ab451d5ad95813d5ec7ff1784d69e9ec3} 
+\#define event\+UNBLOCKED\+\_\+\+DUE\+\_\+\+TO\+\_\+\+BIT\+\_\+\+SET~0x02000000\+UL}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00058}{58}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00613}{v\+Event\+Group\+Delete()}}, \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, and \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{event__groups_8c_ae98d5f1271845ad42742aef9659e1568}\index{event\_groups.c@{event\_groups.c}!eventWAIT\_FOR\_ALL\_BITS@{eventWAIT\_FOR\_ALL\_BITS}}
+\index{eventWAIT\_FOR\_ALL\_BITS@{eventWAIT\_FOR\_ALL\_BITS}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{eventWAIT\_FOR\_ALL\_BITS}{eventWAIT\_FOR\_ALL\_BITS}}
+{\footnotesize\ttfamily \label{event__groups_8c_ae98d5f1271845ad42742aef9659e1568} 
+\#define event\+WAIT\+\_\+\+FOR\+\_\+\+ALL\+\_\+\+BITS~0x04000000\+UL}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00059}{59}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}, and \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{event__groups_8c_ab622d8c674f2a417a666a7ed89109e79}\index{event\_groups.c@{event\_groups.c}!MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE@{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}}
+\index{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE@{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}{MPU\_WRAPPERS\_INCLUDED\_FROM\_API\_FILE}}
+{\footnotesize\ttfamily \label{event__groups_8c_ab622d8c674f2a417a666a7ed89109e79} 
+\#define MPU\+\_\+\+WRAPPERS\+\_\+\+INCLUDED\+\_\+\+FROM\+\_\+\+API\+\_\+\+FILE}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00034}{34}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{event__groups_8c_ae4fc9408a7fab90c6296379ff3cb0f11}\index{event\_groups.c@{event\_groups.c}!EventGroup\_t@{EventGroup\_t}}
+\index{EventGroup\_t@{EventGroup\_t}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{EventGroup\_t}{EventGroup\_t}}
+{\footnotesize\ttfamily \label{event__groups_8c_ae4fc9408a7fab90c6296379ff3cb0f11} 
+typedef struct \mbox{\hyperlink{struct_event_group_def__t}{Event\+Group\+Def\+\_\+t}} \mbox{\hyperlink{event__groups_8c_ae4fc9408a7fab90c6296379ff3cb0f11}{Event\+Group\+\_\+t}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{event__groups_8c_a152ce51000f6d8d26afbd14b4794e036}\index{event\_groups.c@{event\_groups.c}!prvTestWaitCondition@{prvTestWaitCondition}}
+\index{prvTestWaitCondition@{prvTestWaitCondition}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{prvTestWaitCondition()}{prvTestWaitCondition()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a152ce51000f6d8d26afbd14b4794e036} 
+static \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}} prv\+Test\+Wait\+Condition (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Current\+Event\+Bits}{, }\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Bits\+To\+Wait\+For}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Wait\+For\+All\+Bits}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00671}{671}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, and \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00311}{x\+Event\+Group\+Wait\+Bits()}}.
+
+\Hypertarget{event__groups_8c_a3bce459038e87064109c8462b1174c29}\index{event\_groups.c@{event\_groups.c}!vEventGroupClearBitsCallback@{vEventGroupClearBitsCallback}}
+\index{vEventGroupClearBitsCallback@{vEventGroupClearBitsCallback}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{vEventGroupClearBitsCallback()}{vEventGroupClearBitsCallback()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a3bce459038e87064109c8462b1174c29} 
+void v\+Event\+Group\+Clear\+Bits\+Callback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Event\+Group}{, }\item[{const uint32\+\_\+t}]{ul\+Bits\+To\+Clear}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00665}{665}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{event__groups_8c_source_l00461}{x\+Event\+Group\+Clear\+Bits()}}.
+
+\Hypertarget{event__groups_8c_a6939faca89fc4ba52fa8288527042464}\index{event\_groups.c@{event\_groups.c}!vEventGroupDelete@{vEventGroupDelete}}
+\index{vEventGroupDelete@{vEventGroupDelete}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{vEventGroupDelete()}{vEventGroupDelete()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a6939faca89fc4ba52fa8288527042464} 
+void v\+Event\+Group\+Delete (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}}}]{x\+Event\+Group}{}\end{DoxyParamCaption})}
+
+\doxylink{event__groups_8h}{event\+\_\+groups.\+h} 
+\begin{DoxyPre}
+   void xEventGroupDelete( EventGroupHandle\_t xEventGroup );
+\end{DoxyPre}
+
+
+Delete an event group that was previously created by a call to x\+Event\+Group\+Create(). Tasks that are blocked on the event group will be unblocked and obtain 0 as the event group\textquotesingle{}s value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Event\+Group} & The event group being deleted. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00613}{613}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{event__groups_8c_source_l00058}{event\+UNBLOCKED\+\_\+\+DUE\+\_\+\+TO\+\_\+\+BIT\+\_\+\+SET}}, \mbox{\hyperlink{list_8h_source_l00255}{list\+CURRENT\+\_\+\+LIST\+\_\+\+LENGTH}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{list_8h_source_l00156}{x\+MINI\+\_\+\+LIST\+\_\+\+ITEM\+::px\+Next}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00620}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+DELETE}}, \mbox{\hyperlink{heap__4_8c_source_l00266}{v\+Port\+Free()}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{list_8h_source_l00169}{x\+LIST\+::x\+List\+End}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, and \mbox{\hyperlink{event__groups_8c_source_l00066}{Event\+Group\+Def\+\_\+t\+::x\+Tasks\+Waiting\+For\+Bits}}.
+
+\Hypertarget{event__groups_8c_a54db6cc97bbb926aa4b78d5affc257d9}\index{event\_groups.c@{event\_groups.c}!vEventGroupSetBitsCallback@{vEventGroupSetBitsCallback}}
+\index{vEventGroupSetBitsCallback@{vEventGroupSetBitsCallback}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{vEventGroupSetBitsCallback()}{vEventGroupSetBitsCallback()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a54db6cc97bbb926aa4b78d5affc257d9} 
+void v\+Event\+Group\+Set\+Bits\+Callback (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{pv\+Event\+Group}{, }\item[{const uint32\+\_\+t}]{ul\+Bits\+To\+Set}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00657}{657}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}.
+
+\Hypertarget{event__groups_8c_a71dd2680fdfbdde7d6b10db203e266ba}\index{event\_groups.c@{event\_groups.c}!xEventGroupClearBits@{xEventGroupClearBits}}
+\index{xEventGroupClearBits@{xEventGroupClearBits}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{xEventGroupClearBits()}{xEventGroupClearBits()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a71dd2680fdfbdde7d6b10db203e266ba} 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} x\+Event\+Group\+Clear\+Bits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}}}]{x\+Event\+Group}{, }\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Bits\+To\+Clear}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00461}{461}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{event__groups_8c_source_l00060}{event\+EVENT\+\_\+\+BITS\+\_\+\+CONTROL\+\_\+\+BYTES}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00604}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+CLEAR\+\_\+\+BITS}}, and \mbox{\hyperlink{event__groups_8c_source_l00065}{Event\+Group\+Def\+\_\+t\+::ux\+Event\+Bits}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00665}{v\+Event\+Group\+Clear\+Bits\+Callback()}}.
+
+\Hypertarget{event__groups_8c_adcb3d3f7dded9fa372bb1ee405c36b8d}\index{event\_groups.c@{event\_groups.c}!xEventGroupGetBitsFromISR@{xEventGroupGetBitsFromISR}}
+\index{xEventGroupGetBitsFromISR@{xEventGroupGetBitsFromISR}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{xEventGroupGetBitsFromISR()}{xEventGroupGetBitsFromISR()}}
+{\footnotesize\ttfamily \label{event__groups_8c_adcb3d3f7dded9fa372bb1ee405c36b8d} 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} x\+Event\+Group\+Get\+Bits\+From\+ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}}}]{x\+Event\+Group}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00503}{503}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{portmacro_8h_source_l00101}{port\+CLEAR\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, \mbox{\hyperlink{portmacro_8h_source_l00100}{port\+SET\+\_\+\+INTERRUPT\+\_\+\+MASK\+\_\+\+FROM\+\_\+\+ISR}}, and \mbox{\hyperlink{event__groups_8c_source_l00065}{Event\+Group\+Def\+\_\+t\+::ux\+Event\+Bits}}.
+
+\Hypertarget{event__groups_8c_a9ac7cd970f50e2e50a494b656e0eb239}\index{event\_groups.c@{event\_groups.c}!xEventGroupSetBits@{xEventGroupSetBits}}
+\index{xEventGroupSetBits@{xEventGroupSetBits}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{xEventGroupSetBits()}{xEventGroupSetBits()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a9ac7cd970f50e2e50a494b656e0eb239} 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} x\+Event\+Group\+Set\+Bits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}}}]{x\+Event\+Group}{, }\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Bits\+To\+Set}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00519}{519}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{event__groups_8c_source_l00057}{event\+CLEAR\+\_\+\+EVENTS\+\_\+\+ON\+\_\+\+EXIT\+\_\+\+BIT}}, \mbox{\hyperlink{event__groups_8c_source_l00060}{event\+EVENT\+\_\+\+BITS\+\_\+\+CONTROL\+\_\+\+BYTES}}, \mbox{\hyperlink{event__groups_8c_source_l00058}{event\+UNBLOCKED\+\_\+\+DUE\+\_\+\+TO\+\_\+\+BIT\+\_\+\+SET}}, \mbox{\hyperlink{event__groups_8c_source_l00059}{event\+WAIT\+\_\+\+FOR\+\_\+\+ALL\+\_\+\+BITS}}, \mbox{\hyperlink{list_8h_source_l00241}{list\+GET\+\_\+\+END\+\_\+\+MARKER}}, \mbox{\hyperlink{list_8h_source_l00225}{list\+GET\+\_\+\+HEAD\+\_\+\+ENTRY}}, \mbox{\hyperlink{list_8h_source_l00208}{list\+GET\+\_\+\+LIST\+\_\+\+ITEM\+\_\+\+VALUE}}, \mbox{\hyperlink{list_8h_source_l00233}{list\+GET\+\_\+\+NEXT}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00612}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+SET\+\_\+\+BITS}}, \mbox{\hyperlink{event__groups_8c_source_l00065}{Event\+Group\+Def\+\_\+t\+::ux\+Event\+Bits}}, \mbox{\hyperlink{tasks_8c_source_l03205}{v\+Task\+Remove\+From\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, and \mbox{\hyperlink{event__groups_8c_source_l00066}{Event\+Group\+Def\+\_\+t\+::x\+Tasks\+Waiting\+For\+Bits}}.
+
+
+
+Referenced by \mbox{\hyperlink{event__groups_8c_source_l00657}{v\+Event\+Group\+Set\+Bits\+Callback()}}, and \mbox{\hyperlink{event__groups_8c_source_l00191}{x\+Event\+Group\+Sync()}}.
+
+\Hypertarget{event__groups_8c_ac38db316f0928c7ddaacb677a75dbc03}\index{event\_groups.c@{event\_groups.c}!xEventGroupSync@{xEventGroupSync}}
+\index{xEventGroupSync@{xEventGroupSync}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{xEventGroupSync()}{xEventGroupSync()}}
+{\footnotesize\ttfamily \label{event__groups_8c_ac38db316f0928c7ddaacb677a75dbc03} 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} x\+Event\+Group\+Sync (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}}}]{x\+Event\+Group}{, }\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Bits\+To\+Set}{, }\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Bits\+To\+Wait\+For}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00191}{191}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{event__groups_8c_source_l00057}{event\+CLEAR\+\_\+\+EVENTS\+\_\+\+ON\+\_\+\+EXIT\+\_\+\+BIT}}, \mbox{\hyperlink{event__groups_8c_source_l00060}{event\+EVENT\+\_\+\+BITS\+\_\+\+CONTROL\+\_\+\+BYTES}}, \mbox{\hyperlink{event__groups_8c_source_l00058}{event\+UNBLOCKED\+\_\+\+DUE\+\_\+\+TO\+\_\+\+BIT\+\_\+\+SET}}, \mbox{\hyperlink{event__groups_8c_source_l00059}{event\+WAIT\+\_\+\+FOR\+\_\+\+ALL\+\_\+\+BITS}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00746}{port\+YIELD\+\_\+\+WITHIN\+\_\+\+API}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00227}{task\+SCHEDULER\+\_\+\+SUSPENDED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00588}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+SYNC\+\_\+\+BLOCK}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00592}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+SYNC\+\_\+\+END}}, \mbox{\hyperlink{event__groups_8c_source_l00065}{Event\+Group\+Def\+\_\+t\+::ux\+Event\+Bits}}, \mbox{\hyperlink{tasks_8c_source_l04601}{ux\+Task\+Reset\+Event\+Item\+Value()}}, \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{event__groups_8c_source_l00519}{x\+Event\+Group\+Set\+Bits()}}, \mbox{\hyperlink{task_8h_a0241000e08a261372186d34825a35979}{x\+Task\+Get\+Scheduler\+State()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, and \mbox{\hyperlink{event__groups_8c_source_l00066}{Event\+Group\+Def\+\_\+t\+::x\+Tasks\+Waiting\+For\+Bits}}.
+
+\Hypertarget{event__groups_8c_a379c5cca4552d3d8acd4c51e8220a6c3}\index{event\_groups.c@{event\_groups.c}!xEventGroupWaitBits@{xEventGroupWaitBits}}
+\index{xEventGroupWaitBits@{xEventGroupWaitBits}!event\_groups.c@{event\_groups.c}}
+\doxysubsubsection{\texorpdfstring{xEventGroupWaitBits()}{xEventGroupWaitBits()}}
+{\footnotesize\ttfamily \label{event__groups_8c_a379c5cca4552d3d8acd4c51e8220a6c3} 
+\mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}} x\+Event\+Group\+Wait\+Bits (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{event__groups_8h_acab96e0b6a5cab7f7b29822b79cc78ed}{Event\+Group\+Handle\+\_\+t}}}]{x\+Event\+Group}{, }\item[{const \mbox{\hyperlink{event__groups_8h_ab2f21b93db0b2a0ab64d7a81ff32ac2e}{Event\+Bits\+\_\+t}}}]{ux\+Bits\+To\+Wait\+For}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Clear\+On\+Exit}{, }\item[{const \mbox{\hyperlink{portmacro_8h_a46fb21e00ae0729d7515c0fbf2269796}{Base\+Type\+\_\+t}}}]{x\+Wait\+For\+All\+Bits}{, }\item[{\mbox{\hyperlink{portmacro_8h_aa69c48c6e902ce54f70886e6573c92a9}{Tick\+Type\+\_\+t}}}]{x\+Ticks\+To\+Wait}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{event__groups_8c_source_l00311}{311}} of file \mbox{\hyperlink{event__groups_8c_source}{event\+\_\+groups.\+c}}.
+
+
+
+References \mbox{\hyperlink{_free_r_t_o_s_config_8h_source_l00110}{config\+ASSERT}}, \mbox{\hyperlink{event__groups_8c_source_l00057}{event\+CLEAR\+\_\+\+EVENTS\+\_\+\+ON\+\_\+\+EXIT\+\_\+\+BIT}}, \mbox{\hyperlink{event__groups_8c_source_l00060}{event\+EVENT\+\_\+\+BITS\+\_\+\+CONTROL\+\_\+\+BYTES}}, \mbox{\hyperlink{event__groups_8c_source_l00058}{event\+UNBLOCKED\+\_\+\+DUE\+\_\+\+TO\+\_\+\+BIT\+\_\+\+SET}}, \mbox{\hyperlink{event__groups_8c_source_l00059}{event\+WAIT\+\_\+\+FOR\+\_\+\+ALL\+\_\+\+BITS}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00814}{mt\+COVERAGE\+\_\+\+TEST\+\_\+\+MARKER}}, \mbox{\hyperlink{projdefs_8h_source_l00044}{pd\+FALSE}}, \mbox{\hyperlink{projdefs_8h_source_l00045}{pd\+TRUE}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00746}{port\+YIELD\+\_\+\+WITHIN\+\_\+\+API}}, \mbox{\hyperlink{event__groups_8c_source_l00671}{prv\+Test\+Wait\+Condition()}}, \mbox{\hyperlink{task_8h_source_l00187}{task\+ENTER\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00202}{task\+EXIT\+\_\+\+CRITICAL}}, \mbox{\hyperlink{task_8h_source_l00227}{task\+SCHEDULER\+\_\+\+SUSPENDED}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00596}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+WAIT\+\_\+\+BITS\+\_\+\+BLOCK}}, \mbox{\hyperlink{_free_r_t_o_s_8h_source_l00600}{trace\+EVENT\+\_\+\+GROUP\+\_\+\+WAIT\+\_\+\+BITS\+\_\+\+END}}, \mbox{\hyperlink{event__groups_8c_source_l00065}{Event\+Group\+Def\+\_\+t\+::ux\+Event\+Bits}}, \mbox{\hyperlink{tasks_8c_source_l04601}{ux\+Task\+Reset\+Event\+Item\+Value()}}, \mbox{\hyperlink{tasks_8c_source_l03080}{v\+Task\+Place\+On\+Unordered\+Event\+List()}}, \mbox{\hyperlink{tasks_8c_source_l02109}{v\+Task\+Suspend\+All()}}, \mbox{\hyperlink{task_8h_a0241000e08a261372186d34825a35979}{x\+Task\+Get\+Scheduler\+State()}}, \mbox{\hyperlink{tasks_8c_source_l02193}{x\+Task\+Resume\+All()}}, and \mbox{\hyperlink{event__groups_8c_source_l00066}{Event\+Group\+Def\+\_\+t\+::x\+Tasks\+Waiting\+For\+Bits}}.
+
