@@ -1,4 +1,4 @@
-// Code to make human readable CAN messages for the device
+/// Code to make human readable CAN messages for the device
 
 
 
@@ -35,7 +35,6 @@ extern volatile bms_state_t g_bms_state; // volatile as these values may update 
 
 typedef struct { //TODO Needs populating
 	uint32_t BMS_CAN_timeout;
-<<<<<<< HEAD
 	uint32_t max_temp;
 
 
@@ -72,24 +71,9 @@ typedef struct { //TODO Needs populating
 
 //extern bms_settings_t g_bms_settings;
 
-=======
-	uint16_t max_cell_temp;
-	uint16_t min_cell_temp;
-	uint16_t min_soc;
-	uint16_t min_cell_voltage;
-	uint16_t max_cell_voltage;
-	uint16_t max_pack_voltage;
-	uint16_t min_pack_voltage;
-	uint16_t max_variance_between_cells;
-
-}bms_settings_t;
->>>>>>> origin/startup
 
 void BMS_Init(void* args);
 void BMS_OnMSg_0x6B0(uv_CAN_msg* msg);
 void BMS_OnMSg_0x6B1(uv_CAN_msg* msg);
 
 #endif
-
-
-
