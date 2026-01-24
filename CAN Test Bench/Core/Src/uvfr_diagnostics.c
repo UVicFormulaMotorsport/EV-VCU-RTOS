@@ -6,6 +6,8 @@
  */
 #define __UV_FILENAME__ "uvfr_diagnostics.c"
 #include "uvfr_utils.h"
+#include "bms.h"
+#include "imd.h"
 
 extern HeapStats_t xHeapStats;
 
@@ -24,16 +26,79 @@ void dispWheelSpeeds();
 void dispStateEngineStatus(){
 	return;
 }
+static void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit)
+{
+	int32_t scale = 1;
+	for(int i = 0; i < decimals; i++) scale *= 10;
+
+	int32_t whole = value / scale;
+	int32_t frac  = value % scale;
+	if(frac < 0) frac = -frac;
+
+	printf("%s: %ld", label, (long)whole);
+	if(decimals > 0){
+		printf(".%0*ld", decimals, (long)frac);
+	}
+	if(unit){
+		printf(" %s", unit);
+	}
+	printf("\n");
+}
+
+
+static void dispBMSStatus(void)
+{
+	printf("\nBMS STATUS\n");
+	printf("----------\n");
+
+	// From bms.c:
+	// pack_voltage_dV is 0.1V
+	// pack_current_dA is 0.1A (signed)
+	// soc_pct is % int
+	// min/max temps in C
+
+	print_fixed_d("Pack Voltage", (int32_t)g_bms_state.pack_voltage_dV, 1, "V");
+	print_fixed_d("Pack Current", (int32_t)g_bms_state.pack_current_dA, 1, "A");
+
+	printf("SOC: %u %%\n", (unsigned)g_bms_state.soc_pct);
+
+	printf("Min Cell Temp: %d C\n", (int)g_bms_state.min_cell_temp);
+	printf("Max Cell Temp: %d C\n", (int)g_bms_state.max_cell_temp);
+
+	printf("Relay State: 0x%04X\n", (unsigned)g_bms_state.relayState);
+
+	printf("MSG1 Corrupt: %u\n", (unsigned)g_bms_state.msg1corrupt);
+	printf("MSG2 Corrupt: %u\n", (unsigned)g_bms_state.msg2corrupt);
+}
+
+static void dispIMDStatus(void)
+{
+	printf("\nIMD STATUS\n");
+	printf("----------\n");
+
+	uint8_t serial_ok = IMD_GetSerial0Valid();
+	uint32_t serial_word = IMD_GetSerial0Word();
+
+	printf("Serial Valid: %u\n", (unsigned)serial_ok);
+	printf("Serial Word:  0x%08lX\n", (unsigned long)serial_word);
+
+	printf("IMD ONLINE: %s\n", serial_ok ? "YES" : "NO");
+}
+
+void dispStateEngineStatus(){
+	return;
+}
+
 
 void dispExtDeviceStatus(){
 	//BMS
+	dispBMSStatus();
+	//IMD
+	dispIMDStatus();
 
 	//PDU
 
 	//Motor Controller
-
-	//IMD
-
 
 	//DCDC
 
