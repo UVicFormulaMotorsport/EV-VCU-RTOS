@@ -9,9 +9,8 @@
 
 #include "uvfr_utils.h"
 
-SemaphoreHandle_t xWheelSpeedSem = NULL;
 extern volatile float wheel_speed[];
-float distance_travelled = 0;
+float distance_travelled;
 
 uv_status initOdometer(void* args){
 
@@ -22,11 +21,8 @@ uv_status initOdometer(void* args){
 		return UV_ERROR;
 	}
 
-	xWheelSpeedSem = xSemaphoreCreateBinary();
+	distance_travelled = 0; // resets distance traveled to 0 when odometer inits, for now..
 
-	if (xWheelSpeedSem == NULL) {
-	        // Handle error: memory allocation failed
-	}
 
 			//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
 	odom_task->task_name = "Odometer";
@@ -57,8 +53,10 @@ void odometerTask(void* args){
 
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
-	float delta_t = (float)params->task_period / 1000.0f;
 	float total_distance_m = distance_travelled;
+	TickType_t ticks_now; // variable to hold current ticks since beginning.
+	TickType_t ticks_difference = 0; // variable to hold difference between last time and now.
+	TickType_t ticks_last_time_d; // variable holds last time that ticks_difference was updated.
 
 		/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
 		 * execution actually takes
@@ -78,7 +76,11 @@ void odometerTask(void* args){
 
 		vTaskDelayUntil( &last_time, tick_period);
 
-		if (xSemaphoreTake(xWheelSpeedSem, portMAX_DELAY) == pdTRUE){
+		ticks_now = xTaskGetTickCount(); // gets current ticks since scheduler began
+		ticks_difference = ticks_now - ticks_last_time_d; // calculates time interval for calculating distance
+		delta_t = ticks_difference / (configTICK_RATE_HZ / 1000.0f);
+
+		if (delta_t > 100){
 			// average the front 2 wheels
 			float avg_speed_ms = (wheel_speed[0] + wheel_speed[1]) / 2.0f;
 			// calculate total distance
@@ -89,6 +91,9 @@ void odometerTask(void* args){
 			float speed_kmh = avg_speed_ms * 3.6f;
 			// TODO: Send speed_kmh over CANbus here
 			// idk.
+
+			// set ticks_last_time_d to current tick count
+			ticks_last_time_d = xTaskGetTickCount();
 		}
 
 		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);

@@ -284,9 +284,6 @@ void WheelSpeed_UpdateAll(void)
       wheel_rpm[i] = 0.0f;
     }
   }
-  if (xWheelSpeedSem != NULL){
-	  xSemaphoreGive(xWheelSpeedSem);
-  }
 }
 
 void dispWheelSpeeds(){
