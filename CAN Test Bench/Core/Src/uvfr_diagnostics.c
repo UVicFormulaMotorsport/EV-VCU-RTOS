@@ -23,9 +23,6 @@ extern HeapStats_t xHeapStats;
 
 void dispWheelSpeeds();
 
-void dispStateEngineStatus(){
-	return;
-}
 static void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit)
 {
 	int32_t scale = 1;

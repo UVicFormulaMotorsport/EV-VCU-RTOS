@@ -38,37 +38,37 @@ typedef struct uv_imd_settings{
 // These are requests that will return status bits (defined above) & the value requested
 enum imd_status_requests{
 	// The electrical isolation is in bytes 2 & 3
-	isolation_state = 0xE0,
+	uv_request_mux_isolation_state = 0xE0,
 
 	// Rp is the resistance from the positive of the battery to chassis
 	// Rn is the resistance from the negative of the battery to chassis
-	isolation_resistances = 0xE1,
+	uv_request_mux_isolation_resistances = 0xE1,
 
 	// Cp is the capacitance from the positive of the battery to chassis
 	// Cn is the capacitance from the negative of the battery to chassis
 	// Bytes 2 & 3 are Cp, bytes 5 & 6 are Cn, in nF
-	isolation_capacitances = 0xE2,
+	uv_request_mux_isolation_capacitances = 0xE2,
 
 	// High voltage battery voltages to chassis
-	voltages_Vp_and_Vn = 0xE3,
+	uv_request_mux_voltages_Vp_and_Vn = 0xE3,
 
 	// GLV battery voltage
-	battery_voltage = 0xE4,
+	uv_request_mux_battery_voltage = 0xE4,
 
 	// Error flags are a series of bits described below
-	Error_flags = 0xE5,
+	uv_request_mux_Error_flags = 0xE5,
 
 	// The IMD monitors charge stored in the system
-	safety_touch_energy = 0xE6,
+	uv_request_mux_safety_touch_energy = 0xE6,
 
 	// Also monitors if it is safe to touch
-	safety_touch_current = 0xE7,
+	uv_request_mux_safety_touch_current = 0xE7,
 
 	// This is just a parameter we can set
-	Max_battery_working_voltage = 0xF0,
+	uv_request_mux_Max_battery_working_voltage = 0xF0,
 
 	// We can read the temperature of the board
-	Temperature = 0x80,
+	uv_request_mux_Temperature = 0x80,
 };
 
 // If one of the error flags is set, then the harware error bit will go to 1
@@ -113,40 +113,13 @@ enum imd_high_resolution_measurements{
 // ---------------------------------------------------------------
 // Function declarations
 
-// This will parse the data received from CAN message
-void IMD_Parse_Message(int DLC, uint8_t Data[]);
 
-
-// Functions to check states are okay
-void IMD_Check_Status_Bits(uint8_t Data);
-void IMD_Check_Error_Flags(uint8_t Data[]);
-
-// Functions to check values are okay
-void IMD_Check_Isolation_State(uint8_t Data[]);
-void IMD_Check_Isolation_Resistances(uint8_t Data[]);
-void IMD_Check_Isolation_Capacitances(uint8_t Data[]);
-void IMD_Check_Voltages_Vp_and_Vn(uint8_t Data[]);
-void IMD_Check_Battery_Voltage(uint8_t Data[]);
-void IMD_Check_Safety_Touch_Energy(uint8_t Data[]);
-void IMD_Check_Safety_Touch_Current(uint8_t Data[]);
-void IMD_Check_Temperature(uint8_t Data[]);
-
-// Functions to check on startup
-void IMD_Check_Max_Battery_Working_Voltage(uint8_t Data[]);
-void IMD_Check_Part_Name(uint8_t Data[]);
-void IMD_Check_Version(uint8_t Data[]);
-void IMD_Check_Serial_Number(uint8_t Data[]);
-void IMD_Check_Uptime(uint8_t Data[]);
 
 // High resolution measurements
 
 
-// Function to request data from the IMD
-void IMD_Request_Status(uint8_t Status);
-
-// called on startup @deprecated
-void IMD_Startup();
-
+//Incoming can message reciever handler
+void IMD_CanRxHandler(uv_CAN_msg* msg);
 
 void initIMD(void* args);
 

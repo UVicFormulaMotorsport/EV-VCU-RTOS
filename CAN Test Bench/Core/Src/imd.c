@@ -40,8 +40,8 @@
 
 //the data length code im seeing for every MUX in the ref manual is 3
 // this is a result of id + 1 byte operator (read write etc) + 2 bytes data
-#ifndef standard_dlc
-#define standard_dlc 3
+#ifndef uv_standard_dlc
+#define uv_standard_dlc 3
 #endif
 
 // These are all the valid Request_mux parameters we want to consistently poll
@@ -150,12 +150,14 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 	// the uv_CAN_msg is being constructed and sent here
 
 	//All isolation related MUX
+	// edit all these later to use header file
 	uv_CAN_msg poll_isolation_state;
 	memset(&poll_isolation_state, 0, sizeof(poll_isolation_state));
 	poll_isolation_state.msg_id  = IMD_CAN_ID_Tx;
-	poll_isolation_state.dlc     = 1;                  // request is 1 byte (MUX)
-	poll_isolation_state.flags   = UV_CAN_EXTENDED_ID;
+	poll_isolation_state.dlc     = standard_dlc;                  // request is 1 byte (MUX)
+	poll_isolation_state.flags   = UV_CAN_EXTENDED_ID | CAN_BUS_1;
 	poll_isolation_state.data[0] = RequestMUX_isolation_state;
+	//poll_isolation_state.data[0] = uv_reqest_mux_isolation_state; // edit everything to use this
 
 	uv_CAN_msg poll_isolation_resistance;
 	memset(&poll_isolation_resistance, 0, sizeof(poll_isolation_resistance));
