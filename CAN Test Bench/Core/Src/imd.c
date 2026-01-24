@@ -18,16 +18,43 @@
 //TODO: set these the values as coressponding
 
 #ifndef IMD_CAN_ID_Tx
-#define IMD_CAN_ID_Tx  0x18FF50E5U   // REPALCE
+#define IMD_CAN_ID_Tx  0xA100101
+// Request from host is structured as:
+// 		0xA100101 + Operand Bit
 
 #ifndef IMD_CAN_ID_Rx
-#define IMD_CAN_ID_Rx  0x18FF50E6U   // REPLACE
+#define IMD_CAN_ID_Rx  0xA100100
 #endif
 
 // this is  IMD request code for serial
-#ifndef Serial_number_0
-#define Serial_number_0  0xA0        // REPLACE
+#ifndef RequestMUX_serial_number_0
+#define RequestMUX_serial_number_0  0x08
 #endif
+
+//the data length code im seeing for every MUX in the ref manual is 3
+// this is a result of id + 1 byte operator (read write etc) + 2 bytes data
+#ifndef standard_dlc
+#define standard_dlc 3
+
+// These are all the valid Request_mux parameters we want to consistently poll
+#ifndef RequestMUX_isolation_state
+#define RequestMUX_isolation_state 0xE0
+
+#ifndef RequestMUX_isolation_resistances
+#define RequestMUX_isolation_resistances 0xE1
+
+#ifndef RequestMUX_isolation_capacitances
+#define RequestMUX_isolation_capacitances 0xE2
+
+#ifndef RequestMUX_battery_voltage_vb
+#define RequestMUX_battery_voltage_vb 0xE4
+
+#ifndef RequestMUX_error_flags
+#define RequestMUX_error_flags 0xE5
+
+#ifndef RequestMUX_dynamic_iso_state
+#define RequestMUX_dynamic_iso_state 0xE7
+
 
 // single-word expected serial chunk for a “simple check”
 static const uint32_t IMD_EXPECTED_SERIAL0 = 0xB8DD9AF9U;
@@ -77,20 +104,83 @@ static uv_status IMD_RegisterWithXDevMon(void) {
         return UV_ERROR;
     }
 
-    // Add ONE poll message: serial0 request (acts like a ping)
-    uv_CAN_msg ping;
-    memset(&ping, 0, sizeof(ping));
-    ping.msg_id  = IMD_CAN_ID_Tx;
-    ping.dlc     = 1;
-    ping.flags   = 0;        // TODO set EXT flag if needed
-    ping.data[0] = Serial_number_0;
+    // messages that will be constantly polled and taken data from are here
+    // the uv_CAN_msg is being constructed and sent here
 
-    if (uvAddPollMsgToXdev(IMD, &ping) != UV_OK) {
+    //All isolation related MUX
+    uv_CAN_msg poll_isolation_state;
+    memset(&poll_isolation_state, 0, sizeof(poll_isolation_state));
+    poll_isolation_state.msg_id  = IMD_CAN_ID_Tx;
+    poll_isolation_state.dlc     = standard_dlc;
+    poll_isolation_state.flags   = UV_CAN_EXTENDED_ID;
+    poll_isolation_state.data[0] = RequestMUX_isolation_state;
+
+    uv_CAN_msg poll_isolation_resistance;
+	memset(&poll_isolation_resistance, 0, sizeof(poll_isolation_resistance));
+	poll_isolation_resistance.msg_id  = IMD_CAN_ID_Tx;
+	poll_isolation_resistance.dlc     = standard_dlc;
+	poll_isolation_resistance.flags   = UV_CAN_EXTENDED_ID;
+	poll_isolation_resistance.data[0] = RequestMUX_isolation_resistance;
+
+	uv_CAN_msg poll_isolation_capacitances;
+	memset(&poll_isolation_capacitances, 0, sizeof(poll_isolation_capacitances));
+	poll_isolation_capacitances.msg_id  = IMD_CAN_ID_Tx;
+	poll_isolation_capacitances.dlc     = standard_dlc;
+	poll_isolation_capacitances.flags   = UV_CAN_EXTENDED_ID;
+	poll_isolation_capacitances.data[0] = RequestMUX_isolation_capacitance;
+
+	uv_CAN_msg poll_dynamic_iso_state;
+	memset(&poll_dynamic_iso_state, 0, sizeof(poll_dynamic_iso_state));
+	poll_poll_dynamic_iso_state.msg_id  = IMD_CAN_ID_Tx;
+	poll_dynamic_iso_state.dlc     = standard_dlc;
+	poll_dynamic_iso_state.flags   = UV_CAN_EXTENDED_ID;
+	poll_dynamic_iso_state.data[0] = RequestMUX_isolation_capacitance;
+
+	//battery voltage MUX
+	uv_CAN_msg poll_battery_voltage_vb;
+	memset(&poll_battery_voltage_vb, 0, sizeof(poll_battery_voltage_vb));
+	poll_battery_voltage_vb.msg_id  = IMD_CAN_ID_Tx;
+	poll_battery_voltage_vb.dlc     = standard_dlc;
+	poll_battery_voltage_vb.flags   = UV_CAN_EXTENDED_ID;
+	poll_battery_voltage_vb.data[0] = RequestMUX_battery_voltage_vb;
+
+	//error flag MUX
+	uv_CAN_msg poll_error_flags;
+	memset(&poll_error_flags, 0, sizeof(poll_error_flags));
+	poll_error_flags.msg_id  = IMD_CAN_ID_Tx;
+	poll_error_flags.dlc     = standard_dlc;
+	poll_error_flags.flags   = UV_CAN_EXTENDED_ID;
+	poll_error_flags.data[0] = RequestMUX_error_flags;
+
+
+	//Add all current MUX to xdevmon, these are the values from the IMD we'll constantly be polling
+
+    if (uvAddPollMsgToXdev(IMD, &poll_isolation_state) != UV_OK) {
         return UV_ERROR;
     }
 
+    if (uvAddPollMsgToXdev(IMD, &poll_isolation_resistance) != UV_OK) {
+            return UV_ERROR;
+    }
+    if (uvAddPollMsgToXdev(IMD, &poll_isolation_capacitances) != UV_OK) {
+            return UV_ERROR;
+    }
+
+    if (uvAddPollMsgToXdev(IMD, &poll_dynamic_iso_state) != UV_OK) {
+            return UV_ERROR;
+     }
+
+    if (uvAddPollMsgToXdev(IMD, &poll_error_flags) != UV_OK) {
+            return UV_ERROR;
+     }
+
+    if (uvAddPollMsgToXdev(IMD, &poll_batter_voltage_vb) != UV_OK) {
+            return UV_ERROR;
+     }
     return UV_OK;
 }
+
+// send message once,
 
 
 // init task
@@ -166,6 +256,7 @@ void IMD_CanRxHandler(uint32_t can_id, const uint8_t data[8], uint8_t dlc) {
     if (dlc < 5) return; // need at least code + 4 bytes
 
     // only handle our "ping" response
+    // we need to add functionality here to handle all the different incoming messages
     if (data[0] != Serial_number_0) return;
 
     // imd.c (original) used [1..4] as the 32-bit chunk (keep consistent)
