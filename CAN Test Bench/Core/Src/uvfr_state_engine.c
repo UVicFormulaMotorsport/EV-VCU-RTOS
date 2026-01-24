@@ -146,6 +146,7 @@ uv_status changeVehicleState(uint16_t state){
 	if(retval != pdPASS || scd_args->meta_task_handle == NULL){
 		uvFree(scd_args);
 		uvPanic("State Transition Failed",0);
+		return UV_ERROR;
 	}
 	//scd_args->meta_task_handle = osThreadCreate(&SCD_thread,scd_args);
 

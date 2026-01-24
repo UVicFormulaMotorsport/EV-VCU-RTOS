@@ -290,7 +290,7 @@ void uvInit(void * arguments){
 	}
 	//If we get here, then we have timed out
 
-	initialisation_failure:
+	//initialisation_failure:
 
 
 	/** Clean up, clean up, everybody clean up, clean up, clean up, everybody do your share!
