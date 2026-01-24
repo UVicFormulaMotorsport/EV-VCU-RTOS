@@ -9,6 +9,9 @@
 
 #include "uvfr_utils.h"
 
+SemaphoreHandle_t xWheelSpeedSem = NULL;
+extern volatile float wheel_speed[];
+float distance_travelled = 0;
 
 uv_status initOdometer(void* args){
 
@@ -19,6 +22,11 @@ uv_status initOdometer(void* args){
 		return UV_ERROR;
 	}
 
+	xWheelSpeedSem = xSemaphoreCreateBinary();
+
+	if (xWheelSpeedSem == NULL) {
+	        // Handle error: memory allocation failed
+	}
 
 			//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
 	odom_task->task_name = "Odometer";
@@ -49,6 +57,9 @@ void odometerTask(void* args){
 
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
+	float delta_t = (float)params->task_period / 1000.0f;
+	float total_distance_m = distance_travelled;
+
 		/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
 		 * execution actually takes
 		 *
@@ -58,13 +69,27 @@ void odometerTask(void* args){
 		/**@endcode */
 	for(;;){
 		if(params->cmd_data == UV_KILL_CMD){
+			distance_travelled = total_distance_m; // Final save to persistent variable
 			killSelf(params);
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
+			distance_travelled = total_distance_m; // Save before suspending
 			suspendSelf(params);
 		}
+
 		vTaskDelayUntil( &last_time, tick_period);
 
-		//whatever you want
+		if (xSemaphoreTake(xWheelSpeedSem, portMAX_DELAY) == pdTRUE){
+			// average the front 2 wheels
+			float avg_speed_ms = (wheel_speed[0] + wheel_speed[1]) / 2.0f;
+			// calculate total distance
+			total_distance_m += (avg_speed_ms * delta_t);
+			// keep persistent variable updated
+			distance_travelled = total_distance_m;
+			// convert to km/h
+			float speed_kmh = avg_speed_ms * 3.6f;
+			// TODO: Send speed_kmh over CANbus here
+			// idk.
+		}
 
 		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
 

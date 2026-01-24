@@ -34,6 +34,8 @@ volatile float wheel_speed[] = {0,0,0,0};
 volatile float wheel_rpm[] = {0,0,0,0};
 volatile float frequency[] = {0,0,0,0};
 
+extern SemaphoreHandle_t xWheelSpeedSem;
+
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim3;
@@ -281,6 +283,9 @@ void WheelSpeed_UpdateAll(void)
       wheel_speed[i] = 0.0f;
       wheel_rpm[i] = 0.0f;
     }
+  }
+  if (xWheelSpeedSem != NULL){
+	  xSemaphoreGive(xWheelSpeedSem);
   }
 }
 
