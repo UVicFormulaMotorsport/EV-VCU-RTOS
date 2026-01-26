@@ -1,4 +1,12 @@
 // This where the code to handle IMD errors and such will go
+// Jan 2026
+// Rachan Grewal and Quazi Heider
+
+// personal note for myself: this does NOT handle logic for actually shutting down car
+// it logs data specifically for something like "What happened RIGHT BEFORE we shut down"
+// IMD itself handles all the safety logic at a hardware level, not software controlled.
+// it is less safe to handle shutdown logic in CAN because of noise and signal degradation
+
 #define __UV_FILENAME__ "imd.c"
 
 #include "imd.h"
@@ -40,8 +48,8 @@
 
 //the data length code im seeing for every MUX in the ref manual is 3
 // this is a result of id + 1 byte operator (read write etc) + 2 bytes data
-#ifndef uv_standard_dlc
-#define uv_standard_dlc 3
+#ifndef uv_imd_standard_dlc
+#define uv_imd_standard_dlc 3
 #endif
 
 // These are all the valid Request_mux parameters we want to consistently poll
@@ -120,6 +128,7 @@ static inline uint16_t u16_be(const uint8_t *p) {
 }
 
 
+// This is for sending an invdividual request, NOT polling consistently
 // Building a 1-byte request frame
 static void IMD_SendRequest(uint8_t code) {
 	uv_CAN_msg msg;
@@ -151,42 +160,53 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 
 	//All isolation related MUX
 	// edit all these later to use header file
+
+	//poll for electrical isolation in bytes 2 and 3
 	uv_CAN_msg poll_isolation_state;
 	memset(&poll_isolation_state, 0, sizeof(poll_isolation_state));
 	poll_isolation_state.msg_id  = IMD_CAN_ID_Tx;
-	poll_isolation_state.dlc     = standard_dlc;                  // request is 1 byte (MUX)
+	poll_isolation_state.dlc     = uv_imd_standard_dlc;                  // request is 1 byte (MUX)
 	poll_isolation_state.flags   = UV_CAN_EXTENDED_ID | CAN_BUS_1;
-	poll_isolation_state.data[0] = RequestMUX_isolation_state;
-	//poll_isolation_state.data[0] = uv_reqest_mux_isolation_state; // edit everything to use this
+	poll_isolation_state.data[0] = uv_request_mux_isolation_state; // edit everything to use this
 
+	//poll for resistance from postive of HV to chassis (Rp) and negative of HV to chassis (Rn)
 	uv_CAN_msg poll_isolation_resistance;
 	memset(&poll_isolation_resistance, 0, sizeof(poll_isolation_resistance));
 	poll_isolation_resistance.msg_id  = IMD_CAN_ID_Tx;
-	poll_isolation_resistance.dlc     = 1;
+	poll_isolation_resistance.dlc     = uv_imd_standard_dlc;
 	poll_isolation_resistance.flags   = UV_CAN_EXTENDED_ID;
-	poll_isolation_resistance.data[0] = RequestMUX_isolation_resistances;
+	poll_isolation_resistance.data[0] = uv_request_mux_isolation_resistances;
 
+	//poll for capacitance from from HV positive to chassis (Cp) and capacitance from HV negatie to chassis (Cn)
 	uv_CAN_msg poll_isolation_capacitances;
 	memset(&poll_isolation_capacitances, 0, sizeof(poll_isolation_capacitances));
 	poll_isolation_capacitances.msg_id  = IMD_CAN_ID_Tx;
-	poll_isolation_capacitances.dlc     = 1;
+	poll_isolation_capacitances.dlc     = uv_imd_standard_dlc;
 	poll_isolation_capacitances.flags   = UV_CAN_EXTENDED_ID;
-	poll_isolation_capacitances.data[0] = RequestMUX_isolation_capacitances;
+	poll_isolation_capacitances.data[0] = uv_request_mux_isolation_capacitances;
 
-	uv_CAN_msg poll_dynamic_iso_state;
+	// Poll for "safe to touch" aspect
+	// It does this calculation on its own, and we can log this to see what caused it to go out of sepc
+	uv_CAN_msg poll_safety_touch_energy;
+	memset(&poll_safety_touch_energy, 0, sizeof(poll_safety_touch_energy));
+	poll_safety_touch_energy.msg_id  = IMD_CAN_ID_Tx;
+	poll_safety_touch_energy.dlc     = uv_imd_standard_dlc;
+	poll_safety_touch_energy.flags   = UV_CAN_EXTENDED_ID;
+	poll_safety_touch_energy.data[0] = uv_request_mux_safety_touch_energy;
+	uv_CAN_msg poll_safety_touch_current;
 	memset(&poll_dynamic_iso_state, 0, sizeof(poll_dynamic_iso_state));
 	poll_dynamic_iso_state.msg_id  = IMD_CAN_ID_Tx;
-	poll_dynamic_iso_state.dlc     = 1;
+	poll_dynamic_iso_state.dlc     = uv_imd_standard_dlc;
 	poll_dynamic_iso_state.flags   = UV_CAN_EXTENDED_ID;
-	poll_dynamic_iso_state.data[0] = RequestMUX_dynamic_iso_state;
+	poll_dynamic_iso_state.data[0] = uv_request_mux_safety_touch_current;
 
 	//battery voltage MUX
 	uv_CAN_msg poll_battery_voltage_vb;
 	memset(&poll_battery_voltage_vb, 0, sizeof(poll_battery_voltage_vb));
 	poll_battery_voltage_vb.msg_id  = IMD_CAN_ID_Tx;
-	poll_battery_voltage_vb.dlc     = 1;
+	poll_battery_voltage_vb.dlc     = uv_imd_standard_dlc;
 	poll_battery_voltage_vb.flags   = UV_CAN_EXTENDED_ID;
-	poll_battery_voltage_vb.data[0] = RequestMUX_battery_voltage_vb;
+	poll_battery_voltage_vb.data[0] = uv_request_mux_battery_voltage;
 
 	//error flag MUX
 	uv_CAN_msg poll_error_flags;
@@ -194,7 +214,7 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 	poll_error_flags.msg_id  = IMD_CAN_ID_Tx;
 	poll_error_flags.dlc     = 1;
 	poll_error_flags.flags   = UV_CAN_EXTENDED_ID;
-	poll_error_flags.data[0] = RequestMUX_error_flags;
+	poll_error_flags.data[0] = uv_request_mux_Error_flags;
 
 
 	//Add all current MUX to xdevmon, these are the values from the IMD we'll constantly be polling
@@ -211,7 +231,7 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 		return UV_ERROR;
 	}
 
-	if (uvAddPollMsgToXdev(IMD, &poll_dynamic_iso_state) != UV_OK) {
+	if (uvAddPollMsgToXdev(IMD, &poll_safety_touch_current) != UV_OK) {
 		return UV_ERROR;
 	}
 
