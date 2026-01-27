@@ -1,11 +1,12 @@
 // Code to make human readable CAN messages for the device
 
 // This file will define message data as human readable stuff
-
-#include "main.h"
-
 #ifndef __IMD_H__
 #define __IMD_H__
+
+#include "main.h"
+#include "uvfr_utils.h"
+#include <stdint.h>
 
 // CAN ID is currently extended
 
@@ -112,6 +113,15 @@ enum imd_high_resolution_measurements{
 
 // ---------------------------------------------------------------
 // Function declarations
+uint8_t  IMD_IsOnline(void);
+uint8_t  IMD_GetStatusBits(void);
+
+uint16_t IMD_GetRpRaw(void);
+uint16_t IMD_GetRnRaw(void);
+uint16_t IMD_GetErrorFlagsRaw(void);
+
+uint8_t  IMD_GetSerial0Valid(void);
+uint32_t IMD_GetSerial0Word(void);
 
 
 

@@ -31,7 +31,7 @@ extern struct motor_controller_settings mc_default_settings;
 extern struct driving_loop_args default_dl_settings;
 
 extern struct daq_loop_args default_daq_settings;
-extern struct uv_imd_settings default_imd_settings;
+extern const uv_imd_settings default_imd_settings;
 extern bms_settings_t default_bms_settings;
 extern struct conifer_settings default_conifer_settings;
 extern daq_msg default_datapoints[];
@@ -265,7 +265,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->mc_settings = &mc_default_settings;
 	current_vehicle_settings->driving_loop_settings = &default_dl_settings;
 	//current_vehicle_settings->driving_loop_settings = NULL;
-	current_vehicle_settings->imd_settings = NULL;
+	current_vehicle_settings->imd_settings = &default_imd_settings;
 	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
 	current_vehicle_settings->daq_param_list = default_datapoints;

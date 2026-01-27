@@ -79,7 +79,7 @@ static void dispIMDStatus(void)
 	printf("Serial Valid: %u\n", (unsigned)serial_ok);
 	printf("Serial Word:  0x%08lX\n", (unsigned long)serial_word);
 
-	printf("IMD ONLINE: %s\n", serial_ok ? "YES" : "NO");
+	printf("IMD ONLINE: %s\n", IMD_IsOnline() ? "YES" : "NO");
 }
 
 void dispStateEngineStatus(){
