@@ -73,7 +73,9 @@ typedef struct { //TODO Needs populating
 
 
 void BMS_Init(void* args);
-void BMS_OnMSg_0x6B0(uv_CAN_msg* msg);
-void BMS_OnMSg_0x6B1(uv_CAN_msg* msg);
+
+
+void BMS_CANRxHandler_msg1(uv_CAN_msg* msg);
+void BMS_CANRxHandler_msg2(uv_CAN_msg* msg);
 
 #endif

@@ -60,7 +60,7 @@ bms_settings_t default_bms_settings = {
 
 
 };
-void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltageCANdata
+void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltageCANdata
 	// msg1 can handle current, voltage, charge, relay, checksum (corruption)
 	g_bms_state.pack_current_dA = (msg->data[0]<<8 | msg->data[1]); // x 0.1A
 	g_bms_state.pack_voltage_dV = (msg->data[2]<<8 | msg->data[3]); // x 0.1V
@@ -130,7 +130,7 @@ void BMS_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets processed in voltage
 
 }
 
-void BMS_msg2(uv_CAN_msg* msg){
+void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 	// msg2 can handle DCL (Max current output), tempurature, checksum
 	g_bms_state.dcl_dA = (msg->data[0]<<8 | msg->data[3]);
 	// this is the derate current limit - how much power is the motor allowed to send out at this given moment
