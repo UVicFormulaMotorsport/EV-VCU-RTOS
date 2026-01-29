@@ -62,6 +62,9 @@ static inline uv_status createXdevMutex(uint8_t xdev){
 	return UV_OK;
 }
 
+/** @brief Creates a Semaphore for an xDev
+ *
+ */
 static inline uv_status createXdevSemphr(uint8_t xdev){
 	xdev_registry[xdev].xdev_rx_smphr = xSemaphoreCreateBinary();
 	if (xdev_registry[xdev].xdev_rx_smphr == NULL){
@@ -92,7 +95,7 @@ uv_status uvRegisterExternalDevice(uint8_t device_id, TickType_t period, uint16_
 	//Take Mutex
 
 	//set attributes
-	memcpy(xdev_registry[device_id].name,name,8); //At most 7 chars of name
+	memcpy(xdev_registry[device_id].name,name,8); //At most 7 chars of name, and a null terminator
 
 	xdev_registry[device_id].period = period;
 	xdev_registry[device_id].flags = xd_flags;

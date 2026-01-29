@@ -84,7 +84,7 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 	//corrupt message
 	if (g_bms_state.msg1corrupt){
 		//uvPanic? corrupt bms message
-		return; // kill process as bad msg
+		//return; // kill process as bad msg
 	}
 
 	// --- PLAUSIBILITY CHECKS ---
@@ -94,7 +94,7 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 		g_bms_state.pack_current_dA > curr_bms_settings.current_plaus_max_dA) {
 		// raise fault for sensor range
 		// log warning for implausible amp range
-		return;  // fail-fast
+
 	}
 
 	// Voltage plausibility
@@ -102,7 +102,7 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 		g_bms_state.pack_voltage_dV > curr_bms_settings.voltage_plaus_max_dV) {
 		// raise fault for sensor range
 		// log warning for implausible voltage value
-		return;
+
 	}
 
 	// SOC checks
@@ -127,6 +127,9 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 		// regenerative braking should be on as battery within conditionsw
 	}
 	// in all other cases battery should be functioning as normal
+
+	BMS_CANRxHandler_msg1_end:
+	externalDeviceRxHandler(BMS);
 
 }
 
@@ -157,7 +160,7 @@ void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 	// incoming can msg plausibility
 	if (g_bms_state.msg2corrupt){
 		//uvPanic?
-		return;
+		//return; - commented out because unsure how checksom works
 	}
 
 	//tempurature value plausibilty checks
@@ -206,6 +209,9 @@ void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 		//normal operation
 	}
 
+	BMS_CANRxHandler_msg2_end:
+	externalDeviceRxHandler(BMS);
+
 }
 
 
@@ -213,16 +219,23 @@ void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 void BMS_Init(void* args){
 	uv_init_task_args* params = (uv_init_task_args*) args;
 
-	osDelay(200);
+	vTaskDelay(20);
 
 	uv_init_task_response response = {UV_OK,BMS,0,NULL};
 
-	if(xQueueSendToBack(params->init_info_queue,&response,100) != pdPASS){
-			//OOPS
+
+
+	insertCANMessageHandler(0x6B0, BMS_CANRxHandler_msg1, CAN_BUS_1);
+	insertCANMessageHandler(0x6B1, BMS_CANRxHandler_msg2, CAN_BUS_1);
+
+	if(uvRegisterExternalDevice(BMS, 100, XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT, "BMS")!=UV_OK){
+		response.status = UV_ERROR;
+		response.errmsg = "Failed to register BMS with XDEVMON";
 	}
 
-	insertCANMessageHandler(0x6B0, BMS_msg1, CAN_BUS_1);
-	insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_1);
+	if(xQueueSendToBack(params->init_info_queue,&response,100) != pdPASS){
+		//OOPS
+	}
 
 		//Kill yourself
 	vTaskSuspend(params->meta_task_handle);
