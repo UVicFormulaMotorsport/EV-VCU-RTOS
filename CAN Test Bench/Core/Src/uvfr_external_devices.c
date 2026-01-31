@@ -213,6 +213,9 @@ void xDevMon(void* args){
 		//Poll tasks
 		for(int i = 0; i<FINAL_XDEV;i++){
 			uint32_t per = (xdev_registry[i].period)/10;
+			if(per == 0){
+				continue;
+			}
 			if(k%per == 0){
 				if(pollXdev(i)==UV_ERROR){
 					//HANDLE ERROR HERE
@@ -274,6 +277,13 @@ uv_status uvSetupXdevs(){
  * so that tasks waiting on this specific external device are able to resume execution normally
  */
 void externalDeviceRxHandler(uint8_t device_id){
+	if(xdev_registry[device_id].xdev_mutex == NULL){
+		return;
+	}
+
+	if(xdev_registry[device_id].xdev_rx_smphr == NULL){
+		return;
+	}
 	xSemaphoreTake(xdev_registry[device_id].xdev_mutex, 0);
 	xdev_registry[device_id].last_heard_from = xTaskGetTickCount();
 	if(xSemaphoreGive(xdev_registry[device_id].xdev_mutex) != pdTRUE){

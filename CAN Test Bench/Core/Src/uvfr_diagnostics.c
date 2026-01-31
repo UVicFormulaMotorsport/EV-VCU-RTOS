@@ -75,10 +75,18 @@ static void dispIMDStatus(void)
 
 	uint8_t serial_ok = IMD_GetSerial0Valid();
 	uint32_t serial_word = IMD_GetSerial0Word();
+	uint8_t get_status_bits = IMD_GetStatusBits();
+	uint16_t get_rp_raw = IMD_GetRpRaw();
+	uint16_t get_rn_raw = IMD_GetRnRaw();
+	uint16_t get_errors = IMD_GetErrorFlagsRaw();
+	uint16_t get_safety_touch_current = IMD_GetSafetyTouchCurrent();
 
 	printf("Serial Valid: %u\n", (unsigned)serial_ok);
 	printf("Serial Word:  0x%08lX\n", (unsigned long)serial_word);
-
+	printf("Isolation Resistance (Rp): %u\n", (unsigned)get_rp_raw);
+	printf("Isolation Resistance (Rn): %u\n", (unsigned)get_rn_raw);
+	printf("Error Flags: %u\n", (unsigned)get_errors);
+	printf("Safe to touch? (Current Value): %u\n", (unsigned)get_safety_touch_current);
 	printf("IMD ONLINE: %s\n", IMD_IsOnline() ? "YES" : "NO");
 }
 
@@ -134,8 +142,8 @@ void dispVehicleStatusReport(){
 
 
 	dispExtDeviceStatus();
-	dispTractiveSystemStatus();
-	dispStateEngineStatus();
+	//dispTractiveSystemStatus();
+	//dispStateEngineStatus();
 
 
 	return;
@@ -237,7 +245,7 @@ int __io_putchar(int ch){
 uint32_t ITM_SendCharToReg (uint32_t ch,uint32_t port)
 {
   if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
-      ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */
+      ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */ //BUG: This seems wrong? What port?
   {
     while (ITM->PORT[port].u32 == 0UL)
     {
@@ -276,7 +284,7 @@ void vApplicationStackOverflowHook( TaskHandle_t xTask, char *pcTaskName ){
 	//This is where we end up if one of the tasks has a stack overflow
 
 	//STOP THE CAR
-
+	uvPanic("Stack_overflow",0);
 	//LOG WHAT HAPPENED
 
 	//What task did it
@@ -296,12 +304,16 @@ void vApplicationMallocFailedHook(){
 	//pvPortMalloc has failed
 
 	//STOP THE CAR
-
+	uvPanic("Failed Malloc",0);
 	//LOG WHAT HAPPENED
 
 	//What task did it
 
 	//Hang
+
+	for(;;){
+
+	}
 }
 
 

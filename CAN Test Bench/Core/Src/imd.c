@@ -34,7 +34,7 @@
 
 // TODO: pick the real bus the IMD is wired to
 #ifndef IMD_CAN_BUS
-#define IMD_CAN_BUS CAN_BUS_2
+#define IMD_CAN_BUS CAN_BUS_1
 #endif
 
 // Requests are 1 byte: MUX only
@@ -79,6 +79,8 @@ typedef struct {
 	uint16_t glv_raw;            // uv_request_mux_battery_voltage (E4) bytes 2..3
 	uint16_t error_flags_raw;    // uv_request_mux_Error_flags (E5) bytes 2..3
 	uint16_t temp_raw;           // uv_request_mux_Temperature (0x80) bytes 2..3 (if used)
+	uint16_t safety_touch_current; //uv_request_mux_safety_touch_current( (0xE6??) bytes something something
+									//i will fix this later -quazi from byrons computer
 
 	// ping / identity check
 	uint8_t  serial0_valid;
@@ -173,6 +175,13 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 	poll.dlc     = 1;
 	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
 	poll.data[0] = uv_request_mux_Temperature;
+	(void)uvAddPollMsgToXdev(IMD, &poll);
+
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_safety_touch_current;
 	(void)uvAddPollMsgToXdev(IMD, &poll);
 
 	return UV_OK;
@@ -279,6 +288,14 @@ void IMD_CanRxHandler(uv_CAN_msg* msg) {
 			break;
 		}
 
+		// Check safety touch -quazi from byrons computer
+		case uv_request_mux_safety_touch_current: {
+			if (msg->dlc < 4) break;
+			g_imd_state.safety_touch_current = msg->data[1];
+			g_imd_state.safety_touch_current = u16_be(&msg->data[2]);
+			break;
+		}
+
 		default:
 			// unhandled mux — ignore
 			break;
@@ -297,7 +314,7 @@ void initIMD(void* args) {
 	uv_init_task_args* params = (uv_init_task_args*) args;
 
 	// small delay like the BMS does (optional)
-	osDelay(200);
+	//osDelay(200);
 
 	uv_init_task_response resp;
 	memset(&resp, 0, sizeof(resp));
@@ -388,4 +405,8 @@ uint16_t IMD_GetRnRaw(void) {
 
 uint16_t IMD_GetErrorFlagsRaw(void) {
 	return g_imd_state.error_flags_raw;
+}
+
+uint16_t IMD_GetSafetyTouchCurrent(void){
+	return g_imd_state.safety_touch_current;
 }
