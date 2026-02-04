@@ -73,13 +73,13 @@ static void dispIMDStatus(void)
 	printf("\nIMD STATUS\n");
 	printf("----------\n");
 
-	uint8_t serial_ok = IMD_GetSerial0Valid();
-	uint32_t serial_word = IMD_GetSerial0Word();
-	uint8_t get_status_bits = IMD_GetStatusBits();
-	uint16_t get_rp_raw = IMD_GetRpRaw();
-	uint16_t get_rn_raw = IMD_GetRnRaw();
-	uint16_t get_errors = IMD_GetErrorFlagsRaw();
-	uint16_t get_safety_touch_current = IMD_GetSafetyTouchCurrent();
+	uint8_t serial_ok = IMD_GetSerial0Valid(); // get vailidity
+	uint32_t serial_word = IMD_GetSerial0Word(); // return serial
+	uint8_t get_status_bits = IMD_GetStatusBits(); // from enum imd_status_bits
+	uint16_t get_rp_raw = IMD_GetRpRaw(); // resistance positive (request_mux_isolation_resistances bytes 2-3
+	uint16_t get_rn_raw = IMD_GetRnRaw(); // resistance negative (request_mux_isolation_resistences bytes 5-6)
+	uint16_t get_errors = IMD_GetErrorFlagsRaw(); // error flags (request_mux_error_flags bytes 2-3)
+	uint16_t get_safety_touch_current = IMD_GetSafetyTouchCurrent(); //
 
 	printf("Serial Valid: %u\n", (unsigned)serial_ok);
 	printf("Serial Word:  0x%08lX\n", (unsigned long)serial_word);

@@ -33,7 +33,7 @@ typedef struct {
 extern volatile bms_state_t g_bms_state; // volatile as these values may update as the car runs
 // config / bounds
 
-typedef struct { //TODO Needs populating
+typedef struct bms_settings_t { //TODO Needs populating ( I added "bms_settings_t" in this line, can remove if causes errors
 	uint32_t BMS_CAN_timeout;
 	uint32_t max_temp;
 
