@@ -46,7 +46,7 @@ uv_status initOdometer(void* args){
 }
 
 
-/** @brief, gotta know what the distance travelled is fam
+/** @brief,
  *
  */
 void odometerTask(void* args){
@@ -54,9 +54,10 @@ void odometerTask(void* args){
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
 	float total_distance_m = distance_travelled;
-	TickType_t ticks_now; // variable to hold current ticks since beginning.
-	TickType_t ticks_difference = 0; // variable to hold difference between last time and now.
-	TickType_t ticks_last_time_d; // variable holds last time that ticks_difference was updated.
+	float avg_speed = 0.0f;
+	float speed_kmh = 0.0f;
+	uv_CAN_msg msg = {0};
+	uint8_t* byte_ptr;
 
 		/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
 		 * execution actually takes
@@ -76,25 +77,26 @@ void odometerTask(void* args){
 
 		vTaskDelayUntil( &last_time, tick_period);
 
-		ticks_now = xTaskGetTickCount(); // gets current ticks since scheduler began
-		ticks_difference = ticks_now - ticks_last_time_d; // calculates time interval for calculating distance
-		delta_t = ticks_difference / (configTICK_RATE_HZ / 1000.0f);
+		// average the front 2 wheels
+		avg_speed = (wheel_speed[0] + wheel_speed[1]) / 2.0f;
+		// calculate total distance
+		total_distance_m += (avg_speed * 0.001f);
+		// keep persistent variable updated
+		distance_travelled = total_distance_m;
+		// convert to km/h
+		speed_kmh = avg_speed * 3.6f;
+		// Send speed_kmh over CANbus here
+		byte_ptr = (uint8_t*)&speed_kmh;
+		msg.data[0] = byte_ptr[0];
+		msg.data[1] = byte_ptr[1];
+		msg.data[2] = byte_ptr[2];
+		msg.data[3] = byte_ptr[3];
+		msg.msg_id = 0x500;
+		msg.dlc = 4;
+		msg.flags = 0x01;
+		uvSendCanMSG(&msg);
 
-		if (delta_t > 100){
-			// average the front 2 wheels
-			float avg_speed_ms = (wheel_speed[0] + wheel_speed[1]) / 2.0f;
-			// calculate total distance
-			total_distance_m += (avg_speed_ms * delta_t);
-			// keep persistent variable updated
-			distance_travelled = total_distance_m;
-			// convert to km/h
-			float speed_kmh = avg_speed_ms * 3.6f;
-			// TODO: Send speed_kmh over CANbus here
-			// idk.
 
-			// set ticks_last_time_d to current tick count
-			ticks_last_time_d = xTaskGetTickCount();
-		}
 
 		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
 
