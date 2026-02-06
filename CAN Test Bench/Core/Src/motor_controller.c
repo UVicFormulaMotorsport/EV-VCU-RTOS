@@ -3,6 +3,8 @@
 #include "motor_controller.h"
 #include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
 #include "cmsis_os.h"      // For vTaskSuspend
+#include "FreeRTOS.h"
+#include "task.h"
 #include "uvfr_utils.h"    // For uvPanic, etc.
 #include <stdlib.h>
 #include <string.h>
@@ -21,7 +23,7 @@ extern QueueHandle_t CAN_Rx_Queue;
 //global variable for the last mc responce
 uv_CAN_msg last_mc_response;
 //global variable for timeout
-TickType_t last_driver_input_time = 0;
+//TickType_t last_driver_input_time = 0;
 
 //cyclic parameters
 int16_t mc_speed_rpm = 0;
@@ -39,9 +41,9 @@ motor_controller_settings mc_default_settings = {
     .can_id_tx              = 0x201,
     .can_id_rx              = 0x181,
     .mc_CAN_timeout         = 2,
-    .proportional_gain      = 10,   // uint8_t
-    .integral_time_constant = 400,  // uint32_t
-    .integral_memory_max    = 60,    // uint8_t (represents 60%)
+//    .proportional_gain      = 10,   // uint8_t
+//    .integral_time_constant = 400,  // uint32_t
+//    .integral_memory_max    = 60,    // uint8_t (represents 60%)
 
     // Scaled values (normalized to 32767)
     .max_speed              = 12357,   // (2457.5 RPM / 6500 RPM) * 32767
@@ -50,7 +52,119 @@ motor_controller_settings mc_default_settings = {
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
     .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
 	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
+	// current control
+	.cc_kp    				= 20,		//Kp (0..200) "Num" register 0x1C
+	.cc_ti    				= 600,		//Ti (ms) 			register 0x1D
+	.cc_tim   				= 100,		//TiM (%) 			register 0x2B
+	.cc_xkp2  				= 0,		//xKP2 				register 0xC9
+	.cc_kf    				= 0,		//Kf				register 0xCB
+	.cc_ramp  				= 2000,		//Ramp (us) 		register 0x25
+	// optional derating knobs
+	.imax_pk  				= 100,		//I max pk (%) or scaled A  register 0xC4
+	.icon_eff 				= 100,		//I con eff (Arms or %) 	register 0xC5
+	.t_peak2  				= 5,		//Topeak2 (s) 				register 0xF0
 };
+
+/**
+ * @brief Configure the Bamocar current controller (PI + feedforward + ramp).
+ *
+ * This function sets all primary current control tuning parameters used by the
+ * Bamocar inverter. These parameters define the closed-loop behavior of the
+ * motor current controller and directly affect torque response, stability,
+ * and transient behavior.
+ *
+ * Intended use:
+ *  - Called during initialization with conservative defaults, OR
+ *  - Called at runtime from a desktop tuning application over CAN
+ *
+ * Parameters (see Unitek documentation – Current Control):
+ *  - kp     : Proportional gain (MC_REG_KP)
+ *  - ti     : Integral time constant [ms] (MC_REG_TI)
+ *  - tim    : Max integral memory [%] (MC_REG_TIM)
+ *  - xkp2   : Gain multiplier at high current [%] (MC_REG_XKP2)
+ *  - kf     : Current feedforward gain (MC_REG_KF)
+ *  - ramp   : Current ramp rate [µs] (MC_REG_RAMP)
+ *
+ * All values are written directly to the inverter registers using MC_Set_Param().
+ * No scaling is performed here — the caller is responsible for providing values
+ * in the exact units and ranges expected by the Bamocar.
+ *
+ * @return UV_OK if all parameters are written successfully,
+ *         UV_ERROR if any register write fails.
+ *
+ * Safety note:
+ *  This function does NOT enable the motor or apply torque. It only updates
+ *  controller parameters and is safe to call while the motor is disabled.
+ */
+
+uv_status MC_SetCurrentControlParams(uint16_t kp, uint16_t ti, uint16_t tim,
+                                     uint16_t xkp2, uint16_t kf, uint16_t ramp)
+{
+    if (MC_Set_Param(MC_REG_KP, kp) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_TI, ti) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_TIM, tim) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_XKP2, xkp2) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_KF, kf) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_RAMP, ramp) != UV_OK) return UV_ERROR;
+    return UV_OK;
+}
+
+/**
+ * @brief Configure current limits and thermal derating behavior.
+ *
+ * This function sets all current limit and derating parameters that protect
+ * the motor, inverter, and wiring from overcurrent and overheating.
+ *
+ * These parameters define:
+ *  - Peak vs continuous current limits
+ *  - Allowed duration of overcurrent events
+ *  - Automatic current reduction based on speed, motor temperature,
+ *    and inverter temperature
+ *
+ * Intended use:
+ *  - Set once during startup based on hardware limits, OR
+ *  - Tuned via a desktop application during validation and testing
+ *
+ * Parameters (see Unitek documentation – Current Derating):
+ *  - imax_pk  : Peak current limit [% of device max] (MC_REG_IMAX_PK)
+ *  - icon_eff : Continuous current limit [% of device max] (MC_REG_ICON_EFF)
+ *  - tpeak2   : Max duration of peak current [s] (MC_REG_TPEAK2)
+ *
+ *  - ilim_dig : Digital input-based current reduction [%] (MC_REG_ILIM_DIG)
+ *  - ired_n   : Speed-based current reduction [%] (MC_REG_IRED_N)
+ *
+ *  - ired_td  : Start of inverter temperature derating (MC_REG_IRED_TD)
+ *  - ired_te  : End of inverter temperature derating (MC_REG_IRED_TE)
+ *  - ired_tm  : Start of motor temperature derating (MC_REG_IRED_TM)
+ *
+ * All values are written directly to the inverter registers using MC_Set_Param().
+ * No scaling or validation is performed here — the caller must ensure values
+ * are within safe and documented limits.
+ *
+ * @return UV_OK if all parameters are written successfully,
+ *         UV_ERROR if any register write fails.
+ *
+ * Safety note:
+ *  These limits are enforced internally by the inverter and act as a final
+ *  layer of protection even if higher-level software misbehaves.
+ */
+
+uv_status MC_SetDeratingParams(uint16_t imax_pk, uint16_t icon_eff, uint16_t tpeak2,
+                               uint16_t ilim_dig, uint16_t ired_n,
+                               uint16_t ired_td, uint16_t ired_te, uint16_t ired_tm)
+{
+    if (MC_Set_Param(MC_REG_IMAX_PK, imax_pk) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_ICON_EFF, icon_eff) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_TPEAK2, tpeak2) != UV_OK) return UV_ERROR;
+
+    if (MC_Set_Param(MC_REG_ILIM_DIG, ilim_dig) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_IRED_N, ired_n) != UV_OK) return UV_ERROR;
+
+    if (MC_Set_Param(MC_REG_IRED_TD, ired_td) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_IRED_TE, ired_te) != UV_OK) return UV_ERROR;
+    if (MC_Set_Param(MC_REG_IRED_TM, ired_tm) != UV_OK) return UV_ERROR;
+    return UV_OK;
+}
 
 
 /**
@@ -68,8 +182,8 @@ uint16_t sendTorqueToMotorController(float T_filtered)
 {
     if (T_filtered < 0.0f)
         T_filtered = 0.0f;
-    if (T_filtered > 256.0f)
-        T_filtered = 256.0f;
+    if (T_filtered > 230.0f)
+        T_filtered = 230.0f;
 
     //uint16_t torque_cmd = (uint16_t) T_filtered;
 
@@ -91,7 +205,10 @@ uint16_t sendTorqueToMotorController(float T_filtered)
     // Little-endian: LSB first then MSB
     torque_msg.data[1] = (uint8_t)(torque_cmd & 0xFF);
     torque_msg.data[2] = (uint8_t)((torque_cmd >> 8) & 0xFF);
+    //torque_msg.flags   = 0;
+    //TODO fix bug
     torque_msg.flags   = 0;
+
 
     if (uvSendCanMSG(&torque_msg) != UV_OK) {
         uvPanic("Failed to send torque command", 0);
@@ -115,7 +232,10 @@ void MC_Request_Data(uint8_t RegID)
     request_msg.data[0] = 0x3D;   // Request command identifier
     request_msg.data[1] = RegID;    // The register to be requested
     request_msg.data[2] = 0;
-    request_msg.flags   = 0;
+    //request_msg.flags   = 0;
+    //TODO Fix bug
+    request_msg.flags   = 0; //mc_settings->0;
+
 
     if (uvSendCanMSG(&request_msg) != UV_OK) {
         uvPanic("CAN Request Transmission Failed", 0);
@@ -144,7 +264,10 @@ uv_status MC_Set_Param(uint8_t RegID,uint16_t d){
 
     tx_msg.data[1] = d & 0xFF;
     tx_msg.data[2] = (d >> 8) & 0xFF;
-    tx_msg.data[3] = 0;
+    //TODO figure out bug
+    //tx_msg.data[3] = 0;
+    tx_msg.flags = 0; //mc_settings->0;
+
 
     if(uvSendCanMSG(&tx_msg) != UV_OK){
         uvPanic("MC_Param set fail", 0);
@@ -319,11 +442,16 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
  */
 void ProcessMotorControllerResponse(uv_CAN_msg* msg)
 {
-	//every incoming mc message gets stored for use later
-	memcpy(&last_mc_response, msg, sizeof(uv_CAN_msg));
-
+//	//every incoming mc message gets stored for use later
+//	memcpy(&last_mc_response, msg, sizeof(uv_CAN_msg));
+//
+//    if (!msg || msg->dlc < 2)
+//        return;
     if (!msg || msg->dlc < 2)
         return;
+
+    // every incoming mc message gets stored for use later
+    memcpy(&last_mc_response, msg, sizeof(uv_CAN_msg));
 
     uint8_t reg_id = msg->data[0];
 
@@ -403,7 +531,13 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
  */
 void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
 {
-    if (interval_ms < 1 || interval_ms > 254) return;
+	//TODO: figure out bug
+    //if (interval_ms < 1 || interval_ms > 254) return;
+    // allow 1..254 for streaming, and 0xFF to disable
+    if (!((interval_ms >= 1 && interval_ms <= 254) || interval_ms == 0xFF)) {
+        return;
+    }
+
 
     uint8_t regs[] = {
         N_actual,           // 0x30 — Actual Speed
@@ -416,8 +550,11 @@ void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
 		//LOGIMAP_ERRORS, // 0x8F — ERROR BIT map
 		motor_controller_errors_warnings,
     };
+    //this might have a bug
+    //for (int i = 0; i < sizeof(regs); i++) {
+    	//TODO: figure out if this is better
+    for (int i = 0; i < (int)(sizeof(regs)/sizeof(regs[0])); i++){
 
-    for (int i = 0; i < sizeof(regs); i++) {
         uv_CAN_msg tx;
         memset(&tx, 0, sizeof(tx));
 
