@@ -2,17 +2,19 @@
 
 #define __UV_FILENAME__ "motor_controller.c"
 
-#include "motor_controller.h"
-#include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
-#include "cmsis_os.h"      // For vTaskSuspend
-#include "FreeRTOS.h"
-#include "task.h"
-#include "uvfr_utils.h"    // For uvPanic, etc.
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
-#include "uvfr_settings.h"
-#include "cmsis_os.h"      // For vTaskSuspend
+//#include "motor_controller.h"
+//#include "can.h"           // For uvSendCanMSG, uv_CAN_msg, etc.
+//#include "cmsis_os.h"      // For vTaskSuspend
+//#include "FreeRTOS.h"
+//#include "task.h"
+//#include "uvfr_utils.h"    // For uvPanic, etc.
+//#include <stdlib.h>
+//#include <string.h>
+//#include <stdio.h>
+//#include "uvfr_settings.h"
+//#include "cmsis_os.h"      // For vTaskSuspend
+
+#include "uvfr_utils.h"
 
 extern uv_vehicle_settings* current_vehicle_settings;
 extern QueueHandle_t CAN_Rx_Queue;
@@ -60,7 +62,7 @@ motor_controller_settings mc_default_settings = {
     .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
 	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
 
-	.mc_bus 				= CAN_BUS_1
+	.mc_bus 				= CAN_BUS_1,
 	// current control
 	.cc_kp    				= 20,		//Kp (0..200) "Num" register 0x1C
 	.cc_ti    				= 600,		//Ti (ms) 			register 0x1D
@@ -202,7 +204,6 @@ uint16_t sendTorqueToMotorController(float T_filtered)
 
     //if T_filtered is 115 nm --> 1680 for bamocar
     //(115 / 230) * 32760 = 16380 ≈ 0x3FFC
-
     static uv_CAN_msg torque_msg;
     memset(&torque_msg, 0, sizeof(torque_msg));
 
@@ -571,12 +572,13 @@ void MC_EnableCyclicSpeedTransmission(uint8_t interval_ms)
 		max_motor_temp, 	//0xa3	- max motor temp
 		warning_motor_temp, //0xa2 - warning motor temp
 		//LOGIMAP_ERRORS, // 0x8F — ERROR BIT map
-		motor_controller_errors_warnings,
+		motor_controller_errors_warnings, //Errors and warnings duh
     };
     //this might have a bug
-    //for (int i = 0; i < sizeof(regs); i++) {
+    //YES IT DOES - BYRON sizeof(regs) is the size of the pointer, not the contents of the array!!
+    for (int i = 0; i < 8; i++) {
     	//TODO: figure out if this is better
-    for (int i = 0; i < (int)(sizeof(regs)/sizeof(regs[0])); i++){
+    //for (int i = 0; i < (int)(sizeof(regs)/sizeof(regs[0])); i++){
 
         uv_CAN_msg tx;
         memset(&tx, 0, sizeof(tx));

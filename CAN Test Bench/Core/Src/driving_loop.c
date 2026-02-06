@@ -52,16 +52,26 @@ extern enum uv_vehicle_state_t vehicle_state;
 
 // BMS health / freshness
 extern TickType_t bms_last_msg_time;  // [RTOS ticks]
-extern uint8_t    is_bms_connected;   // [bool-like], 0/1
+//extern uint8_t    is_bms_connected;   // [bool-like], 0/1
+#define is_bms_connected 1
 
 // BMS telemetry (verify scaling here matches pack message definitions)
-extern uint16_t packCurrent;   // [0.1 A]  => packCurrent * 0.1f = [A]
-extern uint16_t packVoltage;   // [0.1 V]  => packVoltage * 0.1f = [V]
-extern uint16_t packDCL;       // [0.1 A] or [A]? comment says "max discharge current" (assumed 0.1A below)
-extern uint16_t stateOfCharge; // [%] (often 0–100)
+extern volatile bms_state_t g_bms_state;
 
-extern uint16_t msg1corrupt;   // [bool-like], 0/1
-extern uint16_t msg2corrupt;   // [bool-like], 0/1
+
+//extern uint16_t packCurrent;   // [0.1 A]  => packCurrent * 0.1f = [A]
+#define packCurrent g_bms_state.pack_current_dA
+//extern uint16_t packVoltage;   // [0.1 V]  => packVoltage * 0.1f = [V]
+#define packVoltage g_bms_state.pack_voltage_dV
+//extern uint16_t packDCL;       // [0.1 A] or [A]? comment says "max discharge current" (assumed 0.1A below)
+#define packDCL g_bms_state.dcl_dA
+//extern uint16_t stateOfCharge; // [%] (often 0–100)
+#define stateOfCharge g_bms_state.soc_pct
+
+//extern uint16_t msg1corrupt;   // [bool-like], 0/1
+#define msg1corrupt 0
+//extern uint16_t msg2corrupt;   // [bool-like], 0/1
+#define msg2corrupt 0
 
 // -----------------------------------------------------------------------------
 // Driving loop settings
@@ -379,7 +389,7 @@ static bool bms_is_ok(void)
     const TickType_t timeout = pdMS_TO_TICKS(200);   // [RTOS ticks] (200ms)
 
     if (!is_bms_connected) return false;            // [bool]
-    if ((now - bms_last_msg_time) > timeout) return false; // [tick delta]
+    //if ((now - bms_last_msg_time) > timeout) return false; // [tick delta]
 
     if (msg1corrupt || msg2corrupt) return false;   // [bool-like]
 
@@ -507,6 +517,10 @@ void StartDrivingLoop(void *argument)
         }
 
         // 4) Pedal map: throttle [%] -> torque request [Nm]
+        //TODO: Tmax should be dependent on speed and such
+        //TODO: Does not take into account different Dmodes
+        //TODO:
+
         T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, dl_params); // [Nm]
 
         // Determine ramp direction for filter selection
