@@ -181,9 +181,8 @@ typedef struct motor_controller_settings{
 	uint32_t can_id_rx;
 	uint32_t mc_CAN_timeout;
 	uint8_t  proportional_gain;
-
-	uint32_t integral_time_constant;
-	uint8_t  integral_memory_max;
+//	uint32_t integral_time_constant;
+//	uint8_t  integral_memory_max;
 	// extra
 	uint16_t max_speed;    // e.g., RPM in register units (0x34)
 	uint16_t max_current;  // e.g., 0x4D
@@ -194,6 +193,15 @@ typedef struct motor_controller_settings{
 
 
 	uint8_t  mc_bus;
+    uint16_t cc_kp; //proportional gain, range 0-200, "NUM"
+    uint16_t cc_ti; // integral time constant, "ms"
+    uint16_t cc_tim; // max integral memory, "%"
+    uint16_t cc_xkp2; //high current gain multiplier "%"
+    uint16_t cc_kf; //current feef forward gain "NUM"
+    uint16_t cc_ramp; //current ramp rate "us"
+    uint16_t imax_pk; //peak current limit (% of max)
+    uint16_t icon_eff; //continous current effective limit "Arms or %"
+    uint16_t t_peak2; //Allowed peak overcurrent duration "sec"
 
 }motor_controller_settings;
 

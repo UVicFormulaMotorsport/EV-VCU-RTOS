@@ -6,6 +6,7 @@
 #include "uvfr_utils.h"
 #include "uvfr_settings.h"
 #include "can.h"
+#include "FreeRTOS.h"
 
 typedef struct motor_controller_settings motor_controller_settings;
 typedef struct uv_CAN_msg uv_CAN_msg;
@@ -21,14 +22,37 @@ extern int16_t mc_igbt_temp;
 extern TickType_t last_driver_input_time;
 
 /* Enums for CAN register IDs and other constants */
+// =========================
+// Bamocar Current Control + Derating (from Unitek table)
+// =========================
+enum motor_controller_current_ctrl_regs {
+    MC_REG_KP        = 0x1C, // Kp (Num)
+    MC_REG_TI        = 0x1D, // Ti (ms)  <-- Bamocar shows ms in the table
+    MC_REG_TIM       = 0x2B, // TiM (%) max integral memory
+
+    MC_REG_XKP2      = 0xC9, // xKP2 (%)
+    MC_REG_KF        = 0xCB, // Kf (Num) current feed forward
+    MC_REG_RAMP      = 0x25, // Ramp (us) ramp setting set current
+
+    MC_REG_IMAX_PK   = 0xC4, // I max pk (% of device peak current)
+    MC_REG_ICON_EFF  = 0xC5, // I con eff (% of device continuous current)
+    MC_REG_TPEAK2    = 0xF0, // T-peak2 (s) permitted overcurrent time
+
+    MC_REG_ILIM_DIG  = 0x46, // I limit (dig) (%) reduction when logic input active
+    MC_REG_IRED_N    = 0x3C, // I-red-N (%) reduction via actual speed
+
+    MC_REG_IRED_TD   = 0x58, // I-red-TD (Num) start reduction via output stage temp
+    MC_REG_IRED_TE   = 0x4C, // I-red-TE (Num) end reduction via output stage temp
+    MC_REG_IRED_TM   = 0xA2, // I-red-TM (Num) start reduction via motor temp
+};
+
 
 /* Speed parameters: */
 enum motor_controller_speed_parameters {
     N_actual = 0x30,  // actual motor speed in rpm (16-bit, little-endian)
     N_set    = 0x31,  // setpoint (used for speed command in our case)
-	M_set	 = 0x90,	//setpoint (used for torque command in our case)
+	M_Set	 = 0x90,	//setpoint (used for torque command in our case)
     N_cmd    = 0x32,  // command speed after ramp
-
     N_error  = 0x33,   // speed error
 	M_out	 = 0xA0	  // actual active current scaled
 
@@ -196,6 +220,15 @@ void Parse_Bamocar_Response(uv_CAN_msg* msg);
 void MC_setErrorMask(uint16_t new_mask);
 
 void MC_Shutdown(void);
+
+enum uv_status_t MC_Set_Param(uint8_t RegID, uint16_t d);
+enum uv_status_t MC_SetAndVerify_Param(uint8_t reg_id, uint16_t set_val);
+enum uv_status_t MC_SetCurrentControlParams(uint16_t kp, uint16_t ti, uint16_t tim,
+                                            uint16_t xkp2, uint16_t kf, uint16_t ramp);
+enum uv_status_t MC_SetDeratingParams(uint16_t imax_pk, uint16_t icon_eff, uint16_t tpeak2,
+                                      uint16_t ilim_dig, uint16_t ired_n,
+                                      uint16_t ired_td, uint16_t ired_te, uint16_t ired_tm);
+
 
 
 #endif /* __MOTOR_CONTROLLER_H__ */

@@ -28,7 +28,7 @@
 #endif
 
 #ifndef USE_OS_MEM_MGMT
-#define USE_OS_MEM_MGMT 1
+#define USE_OS_MEM_MGMT 0
 #endif
 
 
