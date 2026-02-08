@@ -56,7 +56,8 @@ motor_controller_settings mc_default_settings = {
 
     // Scaled values (normalized to 32767)
     .max_speed              = 12357,   // (2457.5 RPM / 6500 RPM) * 32767
-    .max_current            = 13107,   // (100 A / 250 A) * 32767
+    .max_current            = 13107,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
+	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
     .cont_current           = 7864,    // (60 A / 250 A) * 32767
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
     .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
@@ -178,40 +179,72 @@ uv_status MC_SetDeratingParams(uint16_t imax_pk, uint16_t icon_eff, uint16_t tpe
 }
 
 
+
 /**
- * @brief Sends a filtered torque command to the motor controller over CAN.
+ * @brief Send torque request to Bamocar using M_set (Iq) current control.
  *
- * This function scales the input torque (in Nm) to the Bamocar's expected format,
- * clamps it within the valid operating range, and transmits it as a direct torque
- * command using the N_set register. The final 16-bit value is sent via CAN using
- * the configured transmit ID.
+ * Input:
+ *   T_cmd_nm : requested motor torque [Nm]
  *
- * @param T_filtered The final torque value in Nm after filtering (typically 0–230 Nm).
- * @return 0 if successful, 1 if transmission failed.
+ * Output on CAN:
+ *   M_set (dig) : digital setpoint for active current Iq
+ *                Normalization: 32767 == I_fullscale_pk_A  (or “Imax pk” per manual)
+ *
+ * Assumptions / required settings:
+ *   mc_settings->motor_kt_nm_per_a   = motor torque constant Kt [Nm/A]
+ *   mc_settings->i_fullscale_a      = full-scale Iq current that equals 32767 [A]
+ *   mc_settings->max_current        = current limit in *digital* units (0..32767)
+ *
+ * Notes:
+ *   - This implements:   Iq_cmd[A] = T_cmd[Nm] / Kt[Nm/A]
+ *   - Then converts:     M_set[dig] = (Iq_cmd[A] / I_fullscale[A]) * 32767
  */
-uint16_t sendTorqueToMotorController(float T_filtered)
-{
-    if (T_filtered < 0.0f)
+uint16_t sendTorqueToMotorController(float T_filtered){
+
+    /* 0) Sanitize */
+    if (T_filtered < 0.0f) {
+        T_filtered = 0.0f; // [Nm] drive-only
+    }
+
+    /* 1) Motor constants (datasheet) */
+    const float Kt_Nm_per_A = 0.94f; // [Nm/A] (assumed consistent with Arms convention)
+
+    /* 2) Full-scale current reference for Bamocar normalization */
+    const float I_fs_arms = (float)mc_settings->iq_fullscale_arms; // [Arms] where 32767 == I_fs_arms
+
+    if (Kt_Nm_per_A <= 0.0f || I_fs_arms <= 0.0f) {
         T_filtered = 0.0f;
-    if (T_filtered > 230.0f)
-        T_filtered = 230.0f;
+    }
 
-    //uint16_t torque_cmd = (uint16_t) T_filtered;
+    /* 3) Torque -> current (Iq request) */
+    float Iq_cmd_arms = (Kt_Nm_per_A > 0.0f) ? (T_filtered / Kt_Nm_per_A) : 0.0f; // [Arms]
 
-    //scale to bamocar requirements of 32760
-    float T_MAX = 230.0f;
-    uint16_t torque_cmd = (uint16_t)((T_filtered / T_MAX) * 32760.0f);
+    /* 4) Convert digital current limit to Arms and clamp
+     * max_current is [dig] where 32767 == I_fs_arms
+     */
+    const float I_limit_arms =
+        ((float)mc_settings->max_current / 32767.0f) * I_fs_arms; // [Arms]
 
-    //if T_filtered is 115 nm --> 1680 for bamocar
-    //(115 / 230) * 32760 = 16380 ≈ 0x3FFC
+    if (Iq_cmd_arms > I_limit_arms) Iq_cmd_arms = I_limit_arms;
+    if (Iq_cmd_arms < 0.0f)         Iq_cmd_arms = 0.0f;
+
+    /* 5) Current -> Bamocar M_set digital
+     * trqcmd_dig = (Iq_cmd / I_fs) * 32767
+     */
+    int16_t trqcmd_dig = (int16_t)((Iq_cmd_arms / I_fs_arms) * 32767.0f);
+
+    if (trqcmd_dig >  32767) trqcmd_dig =  32767;
+    if (trqcmd_dig < -32767) trqcmd_dig = -32767;
+
+    //pack can message
     static uv_CAN_msg torque_msg;
     memset(&torque_msg, 0, sizeof(torque_msg));
 
     torque_msg.msg_id = mc_settings->can_id_tx;
     torque_msg.dlc    = 3;
-    // Use the N_set command (from your enum motor_controller_speed_parameters)
-    torque_msg.data[0] = N_set; //speed comand
-    //torque_msg.data[0] = M_Set; //torque command
+    // Use the N_set command
+    //torque_msg.data[0] = N_set; //speed comand
+    torque_msg.data[0] = M_Set; //torque command
     // Little-endian: LSB first then MSB
     torque_msg.data[1] = (uint8_t)(torque_cmd & 0xFF);
     torque_msg.data[2] = (uint8_t)((torque_cmd >> 8) & 0xFF);
@@ -278,8 +311,6 @@ uv_status MC_Set_Param(uint8_t RegID,uint16_t d){
 
     tx_msg.data[1] = d & 0xFF;
     tx_msg.data[2] = (d >> 8) & 0xFF;
-    //TODO figure out bug
-    //tx_msg.data[3] = 0;
     tx_msg.flags = 0; //mc_settings->0;
 
 
@@ -441,7 +472,7 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
     if (errors & bleed_resistor_overload) {
         uvPanic("Bleed Resistor Overload", 0);
     }
-    // You can add additional error checks as needed.
+    // can add additional error checks as needed.
 
 	//motor_controller_settings* settings = (motor_controller_settings*) params->specific_args;
 }

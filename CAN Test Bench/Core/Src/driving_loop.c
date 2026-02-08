@@ -231,6 +231,31 @@ enum uv_status_t initDrivingLoop(void *argument)
     return UV_OK;
 }
 
+//static float mapThrottleToTorqueAdaptive(float throttle_percent, const driving_loop_args* dl)
+//{
+//    // Normalize throttle to 0..1
+//    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f); // [unitless]
+//
+//    // Deadband normalized to 0..1
+//    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f); // [unitless]
+//
+//    // x = clamp((apps - dead)/(1 - dead))
+//    float x = (apps - dead) / (1.0f - dead); // [unitless]
+//    x = dl_clampf(x, 0.0f, 1.0f);            // [unitless]
+//
+//    if (x <= 0.0f) {
+//        return 0.0f; // [Nm]
+//    }
+//
+//    // smoothstep shaping: 3x^2 - 2x^3 (unitless)
+//    float f_drive = (3.0f * x * x) - (2.0f * x * x * x); // [unitless]
+//
+//    float T_max = (float)dl->absolute_max_motor_torque; // [Nm]
+//    float T_req = T_max * f_drive;                      // [Nm]
+//
+//    return T_req; // [Nm]
+//}
+
 // -----------------------------------------------------------------------------
 // Adaptive pedal map (DRIVE ONLY – NO REGEN)
 // throttle_percent: [%] 0..100
@@ -238,28 +263,41 @@ enum uv_status_t initDrivingLoop(void *argument)
 // -----------------------------------------------------------------------------
 static float mapThrottleToTorqueAdaptive(float throttle_percent, const driving_loop_args* dl)
 {
-    // Normalize throttle to 0..1
     float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f); // [unitless]
-
-    // Deadband normalized to 0..1
     const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f); // [unitless]
 
-    // x = clamp((apps - dead)/(1 - dead))
     float x = (apps - dead) / (1.0f - dead); // [unitless]
-    x = dl_clampf(x, 0.0f, 1.0f);            // [unitless]
+    x = dl_clampf(x, 0.0f, 1.0f);
 
     if (x <= 0.0f) {
         return 0.0f; // [Nm]
     }
 
-    // smoothstep shaping: 3x^2 - 2x^3 (unitless)
-    float f_drive = (3.0f * x * x) - (2.0f * x * x * x); // [unitless]
+    const float T_max = (float)dl->absolute_max_motor_torque; // [Nm]
 
-    float T_max = (float)dl->absolute_max_motor_torque; // [Nm]
-    float T_req = T_max * f_drive;                      // [Nm]
+    // Base pedal map (linear)
+    float T_req = T_max * x; // [Nm]
+
+    // Adaptive speed fade (RPM-based proxy for vehicle speed)
+    extern int16_t mc_speed_rpm;             // [RPM]
+    const float soften_rpm  = 4500.0f;       // [RPM] start fading above this speed
+    const float max_rpm     = (float)dl->absolute_max_motor_rpm; // [RPM]
+    const float soften_gain = 0.20f;         // [0..1] total reduction at max_rpm (0.20 = 20%)
+
+    if ((float)mc_speed_rpm > soften_rpm && max_rpm > soften_rpm) {
+        float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm); // [unitless]
+        t = dl_clampf(t, 0.0f, 1.0f);
+
+        float fade = 1.0f - (soften_gain * t); // [unitless]
+        T_req *= fade;                          // [Nm]
+    }
 
     return T_req; // [Nm]
 }
+
+
+
+
 
 // -----------------------------------------------------------------------------
 // “Race mode” filter shaping (placeholder)
@@ -268,8 +306,7 @@ static float mapThrottleToTorqueAdaptive(float throttle_percent, const driving_l
 #define AUTOCROSS    1
 #define ENDURANCE    2
 
-static inline float getKValue(int raceMode)
-{
+static inline float getKValue(int raceMode){
     float kVal = 0.3f; // [0–1] default smoothing gain
 
     if (raceMode == ACCELERATION) {
