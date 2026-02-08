@@ -186,6 +186,7 @@ typedef struct motor_controller_settings{
 	// extra
 	uint16_t max_speed;    // e.g., RPM in register units (0x34)
 	uint16_t max_current;  // e.g., 0x4D
+	float 	 iq_fullscale_arms; //ARMS max current
 	uint16_t cont_current; // e.g., 0x4E
 	uint16_t max_torque;   // if using 0x90 or similar torque command
 	uint16_t max_motor_temp; //max motor temp
