@@ -1,0 +1,221 @@
+\doxysection{temp\+\_\+monitoring.\+c}
+\hypertarget{temp__monitoring_8c_source}{}\label{temp__monitoring_8c_source}\index{Core/Src/temp\_monitoring.c@{Core/Src/temp\_monitoring.c}}
+\mbox{\hyperlink{temp__monitoring_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00002}00002\ \textcolor{comment}{\ *\ temp\_monitoring.c}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Oct\ 31,\ 2024}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ byo10}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{can_8h}{can.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{gpio_8h}{gpio.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00012}\mbox{\hyperlink{temp__monitoring_8c_a54b7b5cd8926f69b25d27181487c9e58}{00012}}\ uint16\_t\ \mbox{\hyperlink{temp__monitoring_8c_a54b7b5cd8926f69b25d27181487c9e58}{adc\_coolant\_temp1}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00013}\mbox{\hyperlink{temp__monitoring_8c_aaa62488c3860c7a41f14b8d2162e46fb}{00013}}\ uint16\_t\ \mbox{\hyperlink{temp__monitoring_8c_aaa62488c3860c7a41f14b8d2162e46fb}{adc\_coolant\_temp2}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00014}00014\ \textcolor{keyword}{extern}\ int16\_t\ \mbox{\hyperlink{temp__monitoring_8c_addd0636fe19f64a68688fb4c64eb8d9a}{mc\_motor\_temp}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00015}00015\ \textcolor{keyword}{extern}\ int16\_t\ \mbox{\hyperlink{temp__monitoring_8c_a1edd8dace1c45eaa85bb105f903248de}{mc\_igbt\_temp}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00017}\mbox{\hyperlink{temp__monitoring_8h_a4d862a74e85fea73d9089ed437f9859b}{00017}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{temp__monitoring_8c_a979dc6ff14a3ef1f72e3cbea884871b0}{initTempMonitor}}(\textcolor{keywordtype}{void}\ *\ arguments)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00018}00018\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ tm\_task\ =\ \mbox{\hyperlink{group__state__engine__api_gac977eb33c99a9ac0a5f51a7db20e24d6}{uvCreateTask}}();}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{if}(tm\_task\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Oh\ dear\ lawd}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//DO\ NOT\ TOUCH\ ANY\ OF\ THE\ FIELDS\ WE\ HAVENT\ ALREADY\ MENTIONED\ HERE.\ FOR\ THE\ LOVE\ OF\ GOD.}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00027}00027\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_ad24b438130bb3098ee5e855222dff21d}{task\_name}}\ =\ \textcolor{stringliteral}{"{}Temp\_monitor"{}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00030}00030\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_afcd240d2b6b01b4acea600ef4dfe8fbc}{task\_function}}\ =\ \mbox{\hyperlink{temp__monitoring_8c_a2a1d7fee4cea6ce07e4d4acc1b2ca752}{tempMonitorTask}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00031}00031\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_aff45751f7189980589d55379d1d5a355}{task\_priority}}\ =\ osPriorityNormal;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00034}00034\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_a353ec6bf2c42ab0920f3d1e671e568a3}{stack\_size}}\ =\ \mbox{\hyperlink{uvfr__state__engine_8h_a32571accb85a2d8f479c6066d7a46238}{\_UV\_DEFAULT\_TASK\_STACK\_SIZE}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00036}00036\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_ab24dea3bde4de2d839bf15e65c2df0d6}{active\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{UV\_ERROR\_STATE}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00037}00037\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_aafd4e2d916f50b54b99fd02d63831e43}{suspension\_states}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00038}00038\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_a6986d7216c7f889164931b37ab752c29}{deletion\_states}}\ =\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4abed5371c079ef927fb67d8bb8e8aa286}{PROGRAMMING}}\ |\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a7ff39f8abdc9adbfd693e412e4aaeb6e}{UV\_LAUNCH\_CONTROL}}\ ;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00040}00040\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}}\ =\ 200;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00042}00042\ \ \ \ \ tm\_task-\/>\mbox{\hyperlink{structuv__task__info_ae255dff9b38fc8c0754085060e8ae699}{task\_args}}\ =\ NULL;\ \textcolor{comment}{//TODO:\ Add\ actual\ settings\ dipshit}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00047}\mbox{\hyperlink{temp__monitoring_8c_a6ebc9edd0095edf64a08a3c2f9ed2efe}{00047}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{temp__monitoring_8c_a6ebc9edd0095edf64a08a3c2f9ed2efe}{testfunc}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}}\ ==\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}})\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00050}00050\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}}\ ==\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4aa4f9f0d81d66079ab97ea3abc3808969}{UV\_DRIVING}})\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{UV\_ERROR\_STATE}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00052}00052\ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}}\ ==\ \mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4ac1fcacc095b8c0f1c9f452d51815bcb5}{UV\_ERROR\_STATE}})\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00053}00053\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(\mbox{\hyperlink{group__state__engine__api_gga259abff5a03eaf908dc8f03d99f478e4a9ec1eef180c6208b25b08f0526dc5eb8}{UV\_READY}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00054}00054\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00055}00055\ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00057}\mbox{\hyperlink{temp__monitoring_8c_a42aed0ca516238bb78f401d645b7b930}{00057}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{temp__monitoring_8c_a42aed0ca516238bb78f401d645b7b930}{testfunc2}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00058}00058\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ response\ =\ \{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ .msg\_id\ =\ 0x65,}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ .dlc\ =\ 1}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00063}00063\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00065}00065\ \ \ \ \ response.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1];}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00066}00066\ \ \ \ \ response.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00067}00067\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&response);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00070}\mbox{\hyperlink{temp__monitoring_8c_aa416215627c38dc6970c3fbadf298112}{00070}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{temp__monitoring_8c_aa416215627c38dc6970c3fbadf298112}{testfunc3}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00071}00071\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ response\ =\ \{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ .msg\_id\ =\ 0x65,}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ .dlc\ =\ 1}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00077}00077\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00079}00079\ \ \ \ \ response.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1];}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00080}00080\ \ \ \ \ response.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00081}00081\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&response);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00082}00082\ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00090}\mbox{\hyperlink{temp__monitoring_8c_ac7d9684d79751bdc647dc20a0aaa892e}{00090}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{temp__monitoring_8c_ac7d9684d79751bdc647dc20a0aaa892e}{CAN\_1\_TEST\_msg}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00092}00092\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00093}00093\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00096}00096\ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00099}\mbox{\hyperlink{temp__monitoring_8c_a7b9570b4457ef57344b11b3b937feb82}{00099}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{temp__monitoring_8c_a7b9570b4457ef57344b11b3b937feb82}{CAN\_2\_TEST\_msg2}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00101}00101\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00102}00102\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00107}00107\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00112}\mbox{\hyperlink{temp__monitoring_8h_a2a1d7fee4cea6ce07e4d4acc1b2ca752}{00112}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{temp__monitoring_8c_a2a1d7fee4cea6ce07e4d4acc1b2ca752}{tempMonitorTask}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00113}00113\ \ \ \ \ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*\ params\ =\ (\mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}*)\ args;\ \textcolor{comment}{//Evil\ pointer\ typecast}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00115}00115\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ test\_msg;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00116}00116\ \ \ \ \ test\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00117}00117\ \ \ \ \ test\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00118}00118\ \ \ \ \ test\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00119}00119\ \ \ \ \ test\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00120}00120\ \ \ \ \ test\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ 0x85;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00121}00121\ \ \ \ \ test\_msg.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00123}00123\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x86,\ \mbox{\hyperlink{temp__monitoring_8c_a6ebc9edd0095edf64a08a3c2f9ed2efe}{testfunc}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00124}00124\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x87,\ \mbox{\hyperlink{temp__monitoring_8c_a6ebc9edd0095edf64a08a3c2f9ed2efe}{testfunc}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00125}00125\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x64,\ \mbox{\hyperlink{temp__monitoring_8c_aa416215627c38dc6970c3fbadf298112}{testfunc3}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00134}00134\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x64,\ \mbox{\hyperlink{temp__monitoring_8c_a42aed0ca516238bb78f401d645b7b930}{testfunc2}},\ \mbox{\hyperlink{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}{CAN\_BUS\_2}});}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00135}00135\ \ \ \ \ \textcolor{comment}{//insertCANMessageHandler(0x6B1,\ BMS\_msg2,\ CAN\_BUS\_2);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00138}00138\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ temp1;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00139}00139\ \ \ \ \ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}\ temp2;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00141}00141\ \ \ \ \ temp1.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00142}00142\ \ \ \ \ temp1.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00143}00143\ \ \ \ \ temp1.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00144}00144\ \ \ \ \ temp1.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00145}00145\ \ \ \ \ temp1.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ 0x85;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00146}00146\ \ \ \ \ temp1.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}};}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00148}00148\ \ \ \ \ temp2.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ =\ 9;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00149}00149\ \ \ \ \ temp2.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ =\ 10;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00150}00150\ \ \ \ \ temp2.\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]\ =\ 11;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00151}00151\ \ \ \ \ temp2.\mbox{\hyperlink{structuv___c_a_n__msg_aa74af3745c8b56910d7c309245541d37}{dlc}}\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00152}00152\ \ \ \ \ temp2.\mbox{\hyperlink{structuv___c_a_n__msg_aae369fbabe3cc5b71a89bb641c24aace}{msg\_id}}\ =\ 0xF5;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00153}00153\ \ \ \ \ temp2.\mbox{\hyperlink{structuv___c_a_n__msg_a3a3fdc7fed06a631fefa58ea44052d8d}{flags}}\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00156}00156\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&temp1);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00157}00157\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&temp2);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00158}00158\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00162}00162\ \ \ \ \ TickType\_t\ tick\_period\ =\ pdMS\_TO\_TICKS(params-\/>\mbox{\hyperlink{structuv__task__info_ad157811debce6672bb6d00da7e90b6ca}{task\_period}});\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00163}00163\ \ \ \ \ TickType\_t\ last\_time\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00171}00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//vTaskDelayUntil(\ \&last\_time,\ tick\_period);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00172}00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TASK\ DESTRUCTOR:\ CLEAN\ UP\ ANY\ RESOURCES\ USED\ BY\ THE\ TASK\ HERE}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(params);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00178}00178\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TASK\ SUSPENSION\ DESTRUCTOR:\ RELEASE\ THINGS\ LIKE\ MUTICES\ OR\ SEMAPHORES,\ BUT\ NO\ NEED\ TO\ DEALLOCATE\ ANY\ MEMORY}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspendSelf}}(params);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00182}00182\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00184}00184\ \ \ \ \ \ \ \ \ last\_time\ =\ xTaskGetTickCount();}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00186}00186\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Mohak\ code\ here}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00187}00187\ \textcolor{comment}{//\ \ \ \ \ \ TxData[0]\ =\ 0b10101010;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00188}00188\ \textcolor{comment}{//\ \ \ \ \ \ TxData[1]\ =\ 0b10101010;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00189}00189\ \textcolor{comment}{//\ \ \ \ \ \ TxData[2]\ =\ 0b10101010;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00190}00190\ \textcolor{comment}{//\ \ \ \ \ \ TxData[3]\ =\ 1;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00191}00191\ \textcolor{comment}{//\ \ \ \ \ \ TxData[4]\ =\ 2;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00192}00192\ \textcolor{comment}{//\ \ \ \ \ \ TxData[5]\ =\ 3;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00193}00193\ \textcolor{comment}{//\ \ \ \ \ \ TxData[6]\ =\ 0b10101010;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00194}00194\ \textcolor{comment}{//\ \ \ \ \ \ TxData[7]\ =\ 0b10101010;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00195}00195\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00196}00196\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00197}00197\ \textcolor{comment}{//\ \ \ \ \ \ HAL\_StatusTypeDef\ can\_send\_status;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00198}00198\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00199}00199\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ //vTaskDelay(400);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00200}00200\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00201}00201\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00202}00202\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00203}00203\ \textcolor{comment}{//\ \ \ \ \ \ TxHeader.IDE\ =\ CAN\_ID\_EXT;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00204}00204\ \textcolor{comment}{//\ \ \ \ \ \ TxHeader.ExtId\ =\ 0x1234;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00205}00205\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00206}00206\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00207}00207\ \textcolor{comment}{//\ \ \ \ \ \ TxHeader.DLC\ =\ 8;}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00208}00208\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00209}00209\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{comment}{//taskENTER\_CRITICAL();}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{comment}{//can\_send\_status\ =\ HAL\_CAN\_AddTxMessage(\&hcan2,\ \&TxHeader,\ TxData,\ \&TxMailbox);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{comment}{//taskEXIT\_CRITICAL();}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00213}00213\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00214}00214\ \ \ \ \ \ \ \ \ \textcolor{comment}{//if\ (can\_send\_status\ !=\ HAL\_OK)\{}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Transmission\ request\ Error\ */}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvPanic("{}Unable\ to\ Transmit\ CAN\ msg"{},can\_send\_status);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//handleCANbusError(\&hcan2,\ 0);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00218}00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvSendCanMSG(\&test\_msg);}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00222}00222\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//HAL\_GPIO\_TogglePin(GPIOD,GPIO\_PIN\_15);\ //BLUE}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00224}00224\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00225}00225\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6}{UV\_KILL\_CMD}}\ ||\ params-\/>\mbox{\hyperlink{structuv__task__info_af532b5031cd6a168a3ec45ab9ead4f23}{cmd\_data}}\ ==\ \mbox{\hyperlink{group__state__engine__api_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077}{UV\_SUSPEND\_CMD}})\{}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ The\ idea\ here\ is\ to\ skip\ the\ delay}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00227}00227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00228}00228\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00229}00229\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&temp1);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00230}00230\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_ga62414944c3b631f57fdd08e467bcf5a4}{uvSendCanMSG}}(\&temp2);}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00232}00232\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{group__state__engine__api_ga1fc770ae6f3a6643548e0fb00a732ae5}{uvTaskDelayUntil}}(params,\ last\_time,\ tick\_period);\ \textcolor{comment}{//The\ delay\ that\ keeps\ task\ on\ period\ theoretically}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00233}00233\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{temp__monitoring_8c_source_l00234}00234\ \}}
+
+\end{DoxyCode}

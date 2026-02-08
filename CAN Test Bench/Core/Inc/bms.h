@@ -1,4 +1,4 @@
-// Code to make human readable CAN messages for the device
+/// Code to make human readable CAN messages for the device
 
 
 
@@ -7,25 +7,75 @@
 
 #include "main.h"
 #include "uvfr_utils.h"
+#include <stdint.h>
 
+
+typedef uint8_t bool;
 #define DEFAULT_BMS_CAN_TIMEOUT ((uv_timespan_ms)200)
 
-typedef struct bms_settings_t{ //TODO Needs populating
-	uint32_t BMS_CAN_timeout;
-	uint16_t max_cell_temp;
-	uint16_t min_cell_temp;
-	uint16_t min_soc;
-	uint16_t min_cell_voltage;
-	uint16_t max_cell_voltage;
-	uint16_t max_pack_voltage;
-	uint16_t min_pack_voltage;
-	uint16_t max_variance_between_cells;
 
-}bms_settings_t;
+// Runtime state (telemetry)
+typedef struct {
+
+	uint16_t pack_current_dA; // 0.1 A units
+	uint16_t pack_voltage_dV; // 0.1 V units
+	uint16_t soc_pct; // 0-100%
+	uint16_t relayState;
+	bool msg1corrupt; //checksum
+
+	uint16_t dcl_dA; // 0.1 A max discharge current limit
+	uint16_t min_cell_temp; // celsius
+	uint16_t max_cell_temp; // celsius
+	bool msg2corrupt; // checksum
+
+} bms_state_t;
+
+extern volatile bms_state_t g_bms_state; // volatile as these values may update as the car runs
+// config / bounds
+
+typedef struct { //TODO Needs populating
+	uint32_t BMS_CAN_timeout;
+	uint32_t max_temp;
+
+
+
+	/* "_c" for temperature in C
+	 "_pct" for percentage value */
+	int16_t discharge_cold_fault_c; // -20
+	int16_t discharge_cold_warn_c;
+
+	int16_t charge_cold_fault_c;
+	int16_t charge_hot_fault_c;
+
+	int16_t discharge_hot_warn_c;
+	int16_t discharge_hot_derate_c; // safety check for when pack running too hot (limit power rate)
+	int16_t discharge_hot_fault_c;
+
+	// need to add settings definitions for DCL
+
+	uint8_t soc_low_warn_pct;
+	uint8_t soc_regen_disable_pct;
+
+	uint16_t derate_start_c;
+
+	// --- NEW: Plausibility ranges (°C, V, A) ---
+	int16_t  temp_plaus_min_c;     // e.g. -40
+	int16_t  temp_plaus_max_c;     // e.g. 100
+	int16_t  current_plaus_min_dA; // e.g. -20000  → -2000 A
+	int16_t  current_plaus_max_dA; // e.g.  20000  →  2000 A
+	uint16_t voltage_plaus_min_dV; // e.g.  0       →  0 V
+	uint16_t voltage_plaus_max_dV; // e.g.  8000    → 800 V
+
+	// extern uint16_t (var name) to call outside this file
+} bms_settings_t;
+
+//extern bms_settings_t g_bms_settings;
+
 
 void BMS_Init(void* args);
 
+
+void BMS_CANRxHandler_msg1(uv_CAN_msg* msg);
+void BMS_CANRxHandler_msg2(uv_CAN_msg* msg);
+
 #endif
-
-
-

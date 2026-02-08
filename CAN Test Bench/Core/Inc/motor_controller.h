@@ -2,6 +2,7 @@
 #define __MOTOR_CONTROLLER_H__
 
 #include "main.h"
+#include "FreeRTOS.h"
 #include "uvfr_utils.h"
 #include "uvfr_settings.h"
 #include "can.h"
@@ -216,6 +217,8 @@ uint16_t sendTorqueToMotorController(float T_filtered);
 void MC_Request_Data(uint8_t RegID);
 void ProcessMotorControllerResponse(uv_CAN_msg* msg);
 void Parse_Bamocar_Response(uv_CAN_msg* msg);
+void MC_setErrorMask(uint16_t new_mask);
+
 void MC_Shutdown(void);
 
 enum uv_status_t MC_Set_Param(uint8_t RegID, uint16_t d);

@@ -8,9 +8,11 @@ var can_8h =
     [ "CANbusTxSvcDaemon", "can_8h.html#a2357e197a9ac26277eec808769fe409f", null ],
     [ "HAL_CAN_RxFifo0MsgPendingCallback", "can_8h.html#a4e0742fef0f265347a75b7fa12012229", null ],
     [ "HAL_CAN_RxFifo1MsgPendingCallback", "can_8h.html#a4c51ef84434a42d4c5f9524d361c0703", null ],
-    [ "insertCANMessageHandler", "group__uvfr__can__api.html#ga81adc4a577110ce8fe1158b0dc302cc2", null ],
+    [ "insertCANMessageHandler", "group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6", null ],
+    [ "MX_CAN1_Init", "can_8h.html#a030a62a0956ab83394eb8354a0e97902", null ],
     [ "MX_CAN2_Init", "can_8h.html#a1ee5cd592134235b6c07f676784d47c3", null ],
-    [ "nuke_hash_table", "can_8h.html#acadda9ab3aa926b92a84e3f192c66547", null ],
+    [ "nuke_hash_table", "can_8h.html#af6b10418988114bc5b82f13501b99bdd", null ],
     [ "uvSendCanMSG", "group__uvfr__can__api.html#ga62414944c3b631f57fdd08e467bcf5a4", null ],
+    [ "hcan1", "can_8h.html#a1618d731d18d69e906e8a357b7cd3c8d", null ],
     [ "hcan2", "can_8h.html#ab77168d14df04ccca5d48612ee21ced8", null ]
 ];

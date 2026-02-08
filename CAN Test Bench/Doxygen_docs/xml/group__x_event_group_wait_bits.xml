@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_event_group_wait_bits" kind="group">
     <compoundname>xEventGroupWaitBits</compoundname>
     <title>xEventGroupWaitBits</title>
@@ -32,15 +32,16 @@ Example usage: <preformatted>
    // real event group internals.  This StaticEventGroup_t variable is passed
    // into the xSemaphoreCreateEventGroupStatic() function and is used to store
    // the event group&apos;s data structures
-   StaticEventGroup_t xEventGroupBuffer;</preformatted></para>
-<para><preformatted>   // Create the event group without dynamically allocating any memory.
+   StaticEventGroup_t xEventGroupBuffer;
+
+   // Create the event group without dynamically allocating any memory.
    xEventGroup = xEventGroupCreateStatic( &amp;xEventGroupBuffer );
   </preformatted> <ref refid="event__groups_8h" kindref="compound">event_groups.h</ref> <preformatted>
-   EventBits_t xEventGroupWaitBits(     EventGroupHandle_t xEventGroup,
+   EventBits_t <ref refid="event__groups_8h_1aab9d5b405bc57b7624dcabe9a9a503db" kindref="member">xEventGroupWaitBits(     EventGroupHandle_t xEventGroup,
                                     const EventBits_t uxBitsToWaitFor,
                                     const BaseType_t xClearOnExit,
                                     const BaseType_t xWaitForAllBits,
-                                    const TickType_t xTicksToWait );
+                                    const TickType_t xTicksToWait )</ref>;
 </preformatted></para>
 <para>[Potentially] block to wait for one or more bits to be set within a previously created event group.</para>
 <para>This function cannot be called from an interrupt.</para>
@@ -89,20 +90,23 @@ Example usage: <preformatted>
 </simplesect>
 Example usage: <preformatted>
   #define BIT_0 ( 1 &lt;&lt; 0 )
-  #define BIT_4 ( 1 &lt;&lt; 4 )</preformatted></para>
-<para><preformatted>  void aFunction( EventGroupHandle_t xEventGroup )
+  #define BIT_4 ( 1 &lt;&lt; 4 )
+
+  void aFunction( EventGroupHandle_t xEventGroup )
   {
   EventBits_t uxBits;
-  const TickType_t xTicksToWait = 100 / portTICK_PERIOD_MS;</preformatted></para>
-<para><preformatted>    // Wait a maximum of 100ms for either bit 0 or bit 4 to be set within
+  const TickType_t xTicksToWait = 100 / portTICK_PERIOD_MS;
+
+    // Wait a maximum of 100ms for either bit 0 or bit 4 to be set within
     // the event group.  Clear the bits before exiting.
     uxBits = xEventGroupWaitBits(
                 xEventGroup,    // The event group being tested.
                 BIT_0 | BIT_4,  // The bits within the event group to wait for.
                 pdTRUE,         // BIT_0 and BIT_4 should be cleared before returning.
                 pdFALSE,        // Don&apos;t wait for both bits, either bit will do.
-                xTicksToWait ); // Wait a maximum of 100ms for either bit to be set.</preformatted></para>
-<para><preformatted>    if( ( uxBits &amp; ( BIT_0 | BIT_4 ) ) == ( BIT_0 | BIT_4 ) )
+                xTicksToWait ); // Wait a maximum of 100ms for either bit to be set.
+
+    if( ( uxBits &amp; ( BIT_0 | BIT_4 ) ) == ( BIT_0 | BIT_4 ) )
     {
         // <ref refid="event__groups_8h_1aab9d5b405bc57b7624dcabe9a9a503db" kindref="member">xEventGroupWaitBits()</ref> returned because both bits were set.
     }
@@ -120,7 +124,7 @@ Example usage: <preformatted>
         // without either BIT_0 or BIT_4 becoming set.
     }
   }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

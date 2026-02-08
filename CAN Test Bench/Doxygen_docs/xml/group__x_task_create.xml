@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_task_create" kind="group">
     <compoundname>xTaskCreate</compoundname>
     <title>xTaskCreate</title>
@@ -78,25 +78,28 @@ void vTaskCode( void * pvParameters )
     {
      // Task code goes here.
     }
-}</preformatted></para>
-<para><preformatted>// Function that creates a task.
+}
+
+// Function that creates a task.
 void vOtherFunction( void )
 {
 static uint8_t ucParameterToPass;
-TaskHandle_t xHandle = NULL;</preformatted></para>
-<para><preformatted>    // Create the task, storing the handle.  Note that the passed parameter ucParameterToPass
+TaskHandle_t xHandle = NULL;
+
+    // Create the task, storing the handle.  Note that the passed parameter ucParameterToPass
     // must exist for the lifetime of the task, so in this case is declared static.  If it was just an
     // an automatic stack variable it might no longer exist, or at least have been corrupted, by the time
     // the new task attempts to access it.
     xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, &amp;ucParameterToPass, tskIDLE_PRIORITY, &amp;xHandle );
-    <ref refid="_free_r_t_o_s_8h_1a228c70cd48927d6ab730ed1a6dfbe35f" kindref="member">configASSERT( xHandle )</ref>;</preformatted></para>
-<para><preformatted>    // Use the handle to delete the task.
+    <ref refid="_free_r_t_o_s_config_8h_1a228c70cd48927d6ab730ed1a6dfbe35f" kindref="member">configASSERT( xHandle )</ref>;
+
+    // Use the handle to delete the task.
     if( xHandle != NULL )
     {
         vTaskDelete( xHandle );
     }
 }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

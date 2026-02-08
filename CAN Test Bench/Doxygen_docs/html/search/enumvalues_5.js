@@ -1,6 +1,21 @@
 var searchData=
 [
-  ['feedback_5fsignal_5ferror_1825',['feedback_signal_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc',1,'motor_controller.h']]],
-  ['feedback_5fsignal_5fproblem_1826',['feedback_signal_problem',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13',1,'motor_controller.h']]],
-  ['firmware_5fversion_1827',['firmware_version',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2',1,'motor_controller.h']]]
+  ['fault_5fcan_5fmsg_5ffail_0',['FAULT_CAN_MSG_FAIL',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7ad7c3022d92d026dcea399ca6b7596f6f',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fflash_5ferror_1',['FAULT_FLASH_ERROR',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7ad1cd65851e620a7bd83167aed89da821',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fmanual_2',['FAULT_MANUAL',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7a2f3aff82cbceeef5941adab89f849664',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fpanic_3',['FAULT_PANIC',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7acad6c5481d77b86811e813bf2cb86e74',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fscd_5ftimeout_4',['FAULT_SCD_TIMEOUT',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7aeebf822ffdacb8142529509902b26e77',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fsensor_5ferror_5',['FAULT_SENSOR_ERROR',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7ab17c5c4d6c93b4aaf3dbeb7633e68666',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fsettings_5fcorrupt_6',['FAULT_SETTINGS_CORRUPT',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7ab677aa7431bc1dd4e577f652affc10f3',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fstate_5fillegal_7',['FAULT_STATE_ILLEGAL',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7ad41d56d80b0c6a964e2ac6ce75be58f6',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5fstate_5ftransition_8',['FAULT_STATE_TRANSITION',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7a7db0ba3c20404847aa3ba1c75a873a0a',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5ftask_5ffail_9',['FAULT_TASK_FAIL',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7a8c2d9107d3d742dba57fe9ef907eadff',1,'uvfr_vehicle_logger.h']]],
+  ['fault_5ftask_5flate_10',['FAULT_TASK_LATE',['../uvfr__vehicle__logger_8h.html#a6678121815d6405973fdc68812442fc7ade261b8839db0bca183df572a1b01130',1,'uvfr_vehicle_logger.h']]],
+  ['feedback_5fsignal_5ferror_11',['feedback_signal_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc',1,'motor_controller.h']]],
+  ['feedback_5fsignal_5fproblem_12',['feedback_signal_problem',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13',1,'motor_controller.h']]],
+  ['final_5fconifer_5foutput_13',['FINAL_CONIFER_OUTPUT',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583',1,'uvfr_conifer.h']]],
+  ['finish_5fcalibration_5fseq_14',['FINISH_CALIBRATION_SEQ',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a10613c20ea71795b71b7c09c36de7d74',1,'uvfr_settings.h']]],
+  ['firmware_5fversion_15',['firmware_version',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2',1,'motor_controller.h']]],
+  ['force_5frestore_5ffactory_5fdefault_16',['FORCE_RESTORE_FACTORY_DEFAULT',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258',1,'uvfr_settings.h']]],
+  ['force_5fstate_5fchange_17',['FORCE_STATE_CHANGE',['../uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6',1,'uvfr_diagnostics.h']]]
 ];

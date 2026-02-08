@@ -1,12 +1,25 @@
 var daq_8c =
 [
+    [ "daq_param_list_node", "structdaq__param__list__node.html", "structdaq__param__list__node" ],
+    [ "daq_child_task", "structdaq__child__task.html", "structdaq__child__task" ],
     [ "_SRC_UVFR_DAQ", "daq_8c.html#a5a6490a76926af0287e58c4b1af260bd", null ],
+    [ "INV_DAQ_P", "daq_8c.html#aba239cbf28dfdbe0359593717f8705d5", null ],
+    [ "daq_child_task", "daq_8c.html#a2104fed000d8cb392baf5d14e06193c1", null ],
+    [ "daq_param_list_node", "daq_8c.html#a4a7e5c4a5e65c315010bab902f2268a6", null ],
+    [ "associateDaqParamWithVar", "daq_8c.html#a56ca1193de01115c27ceb3768994017f", null ],
+    [ "configureDaqSubTasks", "daq_8c.html#a9e1cd582f8748d018266ba4ab15561ae", null ],
     [ "daqMasterTask", "daq_8c.html#a433bb586ceab47aed8d633fa2ff8ce56", null ],
     [ "daqSubTask", "daq_8c.html#a740f6299f5ce19d6d94d148e13231dd9", null ],
-    [ "deleteDaqSubTask", "daq_8c.html#a25d6aad2bb791db6e28fdab0bbb026d5", null ],
-    [ "deleteParamList", "daq_8c.html#a5ad861e87cf80d5723cc62a2fbc31c86", null ],
     [ "initDaqTask", "daq_8c.html#af2c619df9f3d115dcbc511b0bb738e87", null ],
+    [ "insertParamToRegister", "daq_8c.html#ab5fd6b7e1a2b15c2c834291f9386d1ef", null ],
     [ "startDaqSubTasks", "daq_8c.html#a65df75bcd76d421bf28fca5704c8ff95", null ],
     [ "stopDaqSubTasks", "daq_8c.html#ad3997ae047f3e30136b3f2b668c8030a", null ],
-    [ "param_LUT", "daq_8c.html#a07e7f750fa90de582a1e994dcf9b57d0", null ]
+    [ "constant_zero", "daq_8c.html#a08de9f1889def4ee8d79962e6044bb0f", null ],
+    [ "coolant_temp_adc", "daq_8c.html#a2273a53b295e470100af298a0be7d8d7", null ],
+    [ "curr_daq_settings", "daq_8c.html#a5a9a97f4494923c066b5c4faaaaf8f88", null ],
+    [ "default_daq_settings", "daq_8c.html#a22b4a1eccdbbbf445f1847cc3a49c3e0", null ],
+    [ "default_datapoints", "daq_8c.html#af2240542724a20552b90fafa9642884d", null ],
+    [ "hadc1", "daq_8c.html#a22b804736f5648d52f639b2647d4ed13", null ],
+    [ "motor_temp_adc", "daq_8c.html#a0611933f2919b8900cd5e667043747fe", null ],
+    [ "tmp_daq_msg", "daq_8c.html#a46330ae75c3716f15677e104e8cced32", null ]
 ];

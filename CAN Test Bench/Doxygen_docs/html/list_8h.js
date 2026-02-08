@@ -29,7 +29,7 @@ var list_8h =
     [ "listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE", "list_8h.html#ac8b9d912bdcfdb5544f373d2a94268b2", null ],
     [ "listTEST_LIST_INTEGRITY", "list_8h.html#a337d6137e0a4d37321efc5c2f31dba22", null ],
     [ "listTEST_LIST_ITEM_INTEGRITY", "list_8h.html#a95b994725c299cdc81c74efc16210cc6", null ],
-    [ "List_t", "list_8h.html#afd590ef6400071b4d63d65ef90bea7f4", null ],
+    [ "List_t", "list_8h.html#ad14d7e3de1350e459c7c23c6f59c902a", null ],
     [ "ListItem_t", "list_8h.html#a1a62d469392f9bfe2443e7efab9c8398", null ],
     [ "MiniListItem_t", "list_8h.html#a542a8d55e98bc407593979e61f83cd02", null ],
     [ "uxListRemove", "list_8h.html#a2eb1558482076fff8cafc63419c2d34a", null ],

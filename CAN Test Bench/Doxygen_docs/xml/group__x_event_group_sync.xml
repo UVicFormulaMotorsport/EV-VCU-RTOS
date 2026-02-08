@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_event_group_sync" kind="group">
     <compoundname>xEventGroupSync</compoundname>
     <title>xEventGroupSync</title>
@@ -7,10 +7,10 @@
     </briefdescription>
     <detaileddescription>
 <para><ref refid="event__groups_8h" kindref="compound">event_groups.h</ref> <preformatted>
-   EventBits_t xEventGroupSync( EventGroupHandle_t xEventGroup,
+   EventBits_t <ref refid="event__groups_8h_1a869511456b86426f52e2eec898bff341" kindref="member">xEventGroupSync( EventGroupHandle_t xEventGroup,
                                 const EventBits_t uxBitsToSet,
                                 const EventBits_t uxBitsToWaitFor,
-                                TickType_t xTicksToWait );
+                                TickType_t xTicksToWait )</ref>;
 </preformatted></para>
 <para>Atomically set bits within an event group, then wait for a combination of bits to be set within the same event group. This functionality is typically used to synchronise multiple tasks, where each task has to wait for the other tasks to reach a synchronisation point before proceeding.</para>
 <para>This function cannot be used from an interrupt.</para>
@@ -54,64 +54,77 @@ Example usage: <preformatted>
 // Bits used by the three tasks.
 #define TASK_0_BIT      ( 1 &lt;&lt; 0 )
 #define TASK_1_BIT      ( 1 &lt;&lt; 1 )
-#define TASK_2_BIT      ( 1 &lt;&lt; 2 )</preformatted></para>
-<para><preformatted>#define ALL_SYNC_BITS ( TASK_0_BIT | TASK_1_BIT | TASK_2_BIT )</preformatted></para>
-<para><preformatted>// Use an event group to synchronise three tasks.  It is assumed this event
+#define TASK_2_BIT      ( 1 &lt;&lt; 2 )
+
+#define ALL_SYNC_BITS ( TASK_0_BIT | TASK_1_BIT | TASK_2_BIT )
+
+// Use an event group to synchronise three tasks.  It is assumed this event
 // group has already been created elsewhere.
-EventGroupHandle_t xEventBits;</preformatted></para>
-<para><preformatted>void vTask0( void *pvParameters )
+EventGroupHandle_t xEventBits;
+
+void vTask0( void *pvParameters )
 {
 EventBits_t uxReturn;
-TickType_t xTicksToWait = 100 / portTICK_PERIOD_MS;</preformatted></para>
-<para><preformatted>    for( ;; )
+TickType_t xTicksToWait = 100 / portTICK_PERIOD_MS;
+
+    for( ;; )
     {
-    // Perform task functionality here.</preformatted></para>
-<para><preformatted>    // Set bit 0 in the event flag to note this task has reached the
+    // Perform task functionality here.
+
+    // Set bit 0 in the event flag to note this task has reached the
     // sync point.  The other two tasks will set the other two bits defined
     // by ALL_SYNC_BITS.  All three tasks have reached the synchronisation
     // point when all the ALL_SYNC_BITS are set.  Wait a maximum of 100ms
     // for this to happen.
-    uxReturn = xEventGroupSync( xEventBits, TASK_0_BIT, ALL_SYNC_BITS, xTicksToWait );</preformatted></para>
-<para><preformatted>    if( ( uxReturn &amp; ALL_SYNC_BITS ) == ALL_SYNC_BITS )
+    uxReturn = xEventGroupSync( xEventBits, TASK_0_BIT, ALL_SYNC_BITS, xTicksToWait );
+
+    if( ( uxReturn &amp; ALL_SYNC_BITS ) == ALL_SYNC_BITS )
     {
         // All three tasks reached the synchronisation point before the call
         // to <ref refid="event__groups_8h_1a869511456b86426f52e2eec898bff341" kindref="member">xEventGroupSync()</ref> timed out.
     }
    }
-}</preformatted></para>
-<para><preformatted>void vTask1( void *pvParameters )
+}
+
+void vTask1( void *pvParameters )
 {
     for( ;; )
     {
-    // Perform task functionality here.</preformatted></para>
-<para><preformatted>    // Set bit 1 in the event flag to note this task has reached the
+    // Perform task functionality here.
+
+    // Set bit 1 in the event flag to note this task has reached the
     // synchronisation point.  The other two tasks will set the other two
     // bits defined by ALL_SYNC_BITS.  All three tasks have reached the
     // synchronisation point when all the ALL_SYNC_BITS are set.  Wait
     // indefinitely for this to happen.
-    xEventGroupSync( xEventBits, TASK_1_BIT, ALL_SYNC_BITS, portMAX_DELAY );</preformatted></para>
-<para><preformatted>    // <ref refid="event__groups_8h_1a869511456b86426f52e2eec898bff341" kindref="member">xEventGroupSync()</ref> was called with an indefinite block time, so
+    xEventGroupSync( xEventBits, TASK_1_BIT, ALL_SYNC_BITS, portMAX_DELAY );
+
+    // <ref refid="event__groups_8h_1a869511456b86426f52e2eec898bff341" kindref="member">xEventGroupSync()</ref> was called with an indefinite block time, so
     // this task will only reach here if the syncrhonisation was made by all
     // three tasks, so there is no need to test the return value.
     }
-}</preformatted></para>
-<para><preformatted>void vTask2( void *pvParameters )
+}
+
+void vTask2( void *pvParameters )
 {
     for( ;; )
     {
-    // Perform task functionality here.</preformatted></para>
-<para><preformatted>    // Set bit 2 in the event flag to note this task has reached the
+    // Perform task functionality here.
+
+    // Set bit 2 in the event flag to note this task has reached the
     // synchronisation point.  The other two tasks will set the other two
     // bits defined by ALL_SYNC_BITS.  All three tasks have reached the
     // synchronisation point when all the ALL_SYNC_BITS are set.  Wait
     // indefinitely for this to happen.
-    xEventGroupSync( xEventBits, TASK_2_BIT, ALL_SYNC_BITS, portMAX_DELAY );</preformatted></para>
-<para><preformatted>    // <ref refid="event__groups_8h_1a869511456b86426f52e2eec898bff341" kindref="member">xEventGroupSync()</ref> was called with an indefinite block time, so
+    xEventGroupSync( xEventBits, TASK_2_BIT, ALL_SYNC_BITS, portMAX_DELAY );
+
+    // <ref refid="event__groups_8h_1a869511456b86426f52e2eec898bff341" kindref="member">xEventGroupSync()</ref> was called with an indefinite block time, so
     // this task will only reach here if the syncrhonisation was made by all
     // three tasks, so there is no need to test the return value.
    }
-}</preformatted></para>
-<para><preformatted></preformatted> </para>
+}
+
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

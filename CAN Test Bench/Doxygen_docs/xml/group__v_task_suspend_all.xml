@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_task_suspend_all" kind="group">
     <compoundname>vTaskSuspendAll</compoundname>
     <title>vTaskSuspendAll</title>
@@ -15,25 +15,31 @@ void vTask1( void * pvParameters )
 {
     for( ;; )
     {
-     // Task code goes here.</preformatted></para>
-<para><preformatted>     // ...</preformatted></para>
-<para><preformatted>     // At some point the task wants to perform a long operation during
+     // Task code goes here.
+
+     // ...
+
+     // At some point the task wants to perform a long operation during
      // which it does not want to get swapped out.  It cannot use
      // taskENTER_CRITICAL ()/taskEXIT_CRITICAL () as the length of the
      // operation may cause interrupts to be missed - including the
-     // ticks.</preformatted></para>
-<para><preformatted>     // Prevent the real time kernel swapping out the task.
-     vTaskSuspendAll ();</preformatted></para>
-<para><preformatted>     // Perform the operation here.  There is no need to use critical
+     // ticks.
+
+     // Prevent the real time kernel swapping out the task.
+     vTaskSuspendAll ();
+
+     // Perform the operation here.  There is no need to use critical
      // sections as we have all the microcontroller processing time.
      // During this time interrupts will still operate and the kernel
-     // tick count will be maintained.</preformatted></para>
-<para><preformatted>     // ...</preformatted></para>
-<para><preformatted>     // The operation is complete.  Restart the kernel.
+     // tick count will be maintained.
+
+     // ...
+
+     // The operation is complete.  Restart the kernel.
      xTaskResumeAll ();
     }
 }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

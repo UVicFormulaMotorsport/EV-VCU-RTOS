@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_task_suspend" kind="group">
     <compoundname>vTaskSuspend</compoundname>
     <title>vTaskSuspend</title>
@@ -22,22 +22,31 @@
 Example usage: <preformatted>
 void vAFunction( void )
 {
-TaskHandle_t xHandle;</preformatted></para>
-<para><preformatted>    // Create a task, storing the handle.
-    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, &amp;xHandle );</preformatted></para>
-<para><preformatted>    // ...</preformatted></para>
-<para><preformatted>    // Use the handle to suspend the created task.
-    vTaskSuspend( xHandle );</preformatted></para>
-<para><preformatted>    // ...</preformatted></para>
-<para><preformatted>    // The created task will not run during this period, unless
-    // another task calls vTaskResume( xHandle ).</preformatted></para>
-<para><preformatted>    //...</preformatted></para>
-<para><preformatted>    // Suspend ourselves.
-    vTaskSuspend( NULL );</preformatted></para>
-<para><preformatted>    // We cannot get here unless another task calls vTaskResume
+TaskHandle_t xHandle;
+
+    // Create a task, storing the handle.
+    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, &amp;xHandle );
+
+    // ...
+
+    // Use the handle to suspend the created task.
+    vTaskSuspend( xHandle );
+
+    // ...
+
+    // The created task will not run during this period, unless
+    // another task calls vTaskResume( xHandle ).
+
+    //...
+
+
+    // Suspend ourselves.
+    vTaskSuspend( NULL );
+
+    // We cannot get here unless another task calls vTaskResume
     // with our handle as the parameter.
 }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

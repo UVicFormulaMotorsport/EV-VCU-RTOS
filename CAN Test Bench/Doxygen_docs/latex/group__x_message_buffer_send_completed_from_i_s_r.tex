@@ -1,26 +1,22 @@
-\hypertarget{group__x_message_buffer_send_completed_from_i_s_r}{}\doxysection{x\+Message\+Buffer\+Send\+Completed\+From\+I\+SR}
-\label{group__x_message_buffer_send_completed_from_i_s_r}\index{xMessageBufferSendCompletedFromISR@{xMessageBufferSendCompletedFromISR}}
-\mbox{\hyperlink{message__buffer_8h}{message\+\_\+buffer.\+h}}
+\doxysection{x\+Message\+Buffer\+Send\+Completed\+From\+ISR}
+\hypertarget{group__x_message_buffer_send_completed_from_i_s_r}{}\label{group__x_message_buffer_send_completed_from_i_s_r}\index{xMessageBufferSendCompletedFromISR@{xMessageBufferSendCompletedFromISR}}
+\doxylink{message__buffer_8h}{message\+\_\+buffer.\+h}
 
-
-\begin{DoxyPre}
-BaseType\_t \mbox{\hyperlink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{xMessageBufferSendCompletedFromISR( MessageBufferHandle\_t xStreamBuffer, BaseType\_t *pxHigherPriorityTaskWoken )}};
-\end{DoxyPre}
-
+Base\+Type\+\_\+t \doxylink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+ISR( Message\+Buffer\+Handle\+\_\+t x\+Stream\+Buffer, Base\+Type\+\_\+t \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken )};
 
 For advanced users only.
 
-The sb\+S\+E\+N\+D\+\_\+\+C\+O\+M\+P\+L\+E\+T\+E\+D() macro is called from within the Free\+R\+T\+OS A\+P\+Is when data is sent to a message buffer or stream buffer. If there was a task that was blocked on the message or stream buffer waiting for data to arrive then the sb\+S\+E\+N\+D\+\_\+\+C\+O\+M\+P\+L\+E\+T\+E\+D() macro sends a notification to the task to remove it from the Blocked state. \mbox{\hyperlink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+I\+S\+R()}} does the same thing. It is provided to enable application writers to implement their own version of sb\+S\+E\+N\+D\+\_\+\+C\+O\+M\+P\+L\+E\+T\+E\+D(), and M\+U\+ST N\+OT BE U\+S\+ED AT A\+NY O\+T\+H\+ER T\+I\+ME.
+The \doxylink{stream__buffer_8c_aa75273dfbcd92710254df0165ae1da5d}{sb\+SEND\+\_\+\+COMPLETED()} macro is called from within the Free\+RTOS APIs when data is sent to a message buffer or stream buffer. If there was a task that was blocked on the message or stream buffer waiting for data to arrive then the \doxylink{stream__buffer_8c_aa75273dfbcd92710254df0165ae1da5d}{sb\+SEND\+\_\+\+COMPLETED()} macro sends a notification to the task to remove it from the Blocked state. \doxylink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+ISR()} does the same thing. It is provided to enable application writers to implement their own version of \doxylink{stream__buffer_8c_aa75273dfbcd92710254df0165ae1da5d}{sb\+SEND\+\_\+\+COMPLETED()}, and MUST NOT BE USED AT ANY OTHER TIME.
 
-See the example implemented in Free\+R\+T\+O\+S/\+Demo/\+Minimal/\+Message\+Buffer\+A\+M\+P.\+c for additional information.
+See the example implemented in Free\+RTOS/\+Demo/\+Minimal/\+Message\+Buffer\+AMP.\+c for additional information.
 
 
 \begin{DoxyParams}{Parameters}
 {\em x\+Stream\+Buffer} & The handle of the stream buffer to which data was written.\\
 \hline
-{\em px\+Higher\+Priority\+Task\+Woken} & $\ast$px\+Higher\+Priority\+Task\+Woken should be initialised to pd\+F\+A\+L\+SE before it is passed into \mbox{\hyperlink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+I\+S\+R()}}. If calling \mbox{\hyperlink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+I\+S\+R()}} removes a task from the Blocked state, and the task has a priority above the priority of the currently running task, then $\ast$px\+Higher\+Priority\+Task\+Woken will get set to pd\+T\+R\+UE indicating that a context switch should be performed before exiting the I\+SR.\\
+{\em px\+Higher\+Priority\+Task\+Woken} & \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken should be initialised to pd\+FALSE before it is passed into \doxylink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+ISR()}. If calling \doxylink{message__buffer_8h_a45918d12bf530cb2b4bf21c0936460a9}{x\+Message\+Buffer\+Send\+Completed\+From\+ISR()} removes a task from the Blocked state, and the task has a priority above the priority of the currently running task, then \texorpdfstring{$\ast$}{*}px\+Higher\+Priority\+Task\+Woken will get set to pd\+TRUE indicating that a context switch should be performed before exiting the ISR.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-If a task was removed from the Blocked state then pd\+T\+R\+UE is returned. Otherwise pd\+F\+A\+L\+SE is returned. 
+If a task was removed from the Blocked state then pd\+TRUE is returned. Otherwise pd\+FALSE is returned.
 \end{DoxyReturn}

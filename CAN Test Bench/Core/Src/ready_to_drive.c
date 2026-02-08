@@ -4,7 +4,7 @@
  *  Created on: Apr 28, 2025
  *      Author: karni
  */
-
+#define __UV_FILENAME__ "ready_to_drive.c"
 #include "uvfr_utils.h"
 
 void rtdTask(void* args);
@@ -57,6 +57,8 @@ void rtdTask(void* args){
 		//Are they pushing the start button?
 
 		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
+			//initialize torque to zero
+			sendTorqueToMotorController(0.0f);
 			vTaskDelay(500);
 
 

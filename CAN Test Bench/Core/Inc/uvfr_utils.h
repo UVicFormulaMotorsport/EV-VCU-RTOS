@@ -24,23 +24,20 @@
 #include "uvfr_global_config.h"
 
 #include "main.h"
-#include "cmsis_os.h"
 #include "adc.h"
 #include "can.h"
 #include "dma.h"
 #include "tim.h"
 #include "gpio.h"
-#include "spi.h"
 
-#include "FreeRTOS.h"
-#include "task.h"
-#include "message_buffer.h"
+#include "uvfr_data_proccessing.h"
 
 #include "uvfr_settings.h"
 #include "uvfr_state_engine.h"
 #include "uvfr_diagnostics.h"
 #include "rb_tree.h"
 #include "uvfr_vehicle_commands.h"
+#include "uvfr_external_devices.h"
 
 #include "bms.h"
 #include "motor_controller.h"
@@ -49,9 +46,9 @@
 #include "pdu.h"
 #include "daq.h"
 
-//Only used for debugging
-#include "oled.h"
 
+
+#include "uvfr_conifer.h"
 #include "uvfr_vehicle_logger.h"
 //mainstay meat and potatoes tasks
 #include "driving_loop.h"
@@ -63,6 +60,10 @@
 //#include "stdlib.h"
 #include "stdint.h"
 #include <stdlib.h>
+#include "cmsis_os.h"
+#include "FreeRTOS.h"
+#include "message_buffer.h"
+#include "task.h"
 
 
 /** @addtogroup utility_macros
@@ -122,13 +123,17 @@ setBits(num,mask,data);
 /** @brief lil treat to help us avoid the dreaded null pointer dereference
  *
  */
-#define safePtrRead(x) (*((x)?x:uvPanic("nullptr_deref",0)))
+#define safePtrReadStrict(x) (*((x)?x:uvPanic("nullptr_deref",0)))
+#define safePtrRead(x) ((x)?(*x):(0))
 #define safePtrWrite(p,x) (*((p)?p:&x))
 
 
 /** Wish.com Boolean */
 #define false 0
 #define true !false
+
+/** Converts a macro argument to a string literal */
+#define TEXTIFY(A) #A
 
 /**@} */
 
@@ -140,6 +145,8 @@ typedef enum uv_task_cmd_e uv_task_cmd;
 //typedef enum
 typedef uint8_t uv_ext_device_id;
 typedef uint32_t uv_timespan_ms;
+
+//typedef enum CONIFER_OUTPUT conifer_output_channel;
 
 
 
@@ -205,11 +212,24 @@ enum uv_driving_mode_t{
  *
  */
 enum uv_external_device{
-	MOTOR_CONTROLLER = 0,
-	BMS = 1,
-	IMD = 2,
-	PDU = 3
+	MOTOR_CONTROLLER,
+	BMS,
+	IMD,
+	PDU,
+	STEERING_WHEEL,
+	TMS,
+	DCDC,
+	FINAL_XDEV //RESERVED
+
 };
+
+typedef enum uv_xdev_status{
+	XDEV_OK, //External device OK
+	XDEV_WARNING, //The external device is reporting warnings
+	XDEV_ERROR, //The external device has reported an error
+	XDEV_TIMEOUT, //External devices has timed out
+	XDEV_NC
+}xdev_status;
 
 typedef enum access_control_t{
 	UV_NONE,
@@ -262,9 +282,18 @@ typedef union access_control_info{
 }access_control_info;
 
 
-#define UV_CAN_EXTENDED_ID 0x01
+#define UV_CAN_EXTENDED_ID 0b00000001
+#define UV_IDE_BIT UV_CAN_EXTENDED_ID
+
+#define CAN_BUS_1 0b00000010
+#define CAN_BUS_2 0b00000100
+
+
 #define UV_CAN_CHANNEL_MASK 0b00000110
-#define UV_CAN_DYNAMIC_MEM  0b00001000
+#define UV_CAN_DYNAMIC_MEM  0b00001000 //DEPRECATED
+
+//Use this sparingly. Messages with this bit set will skip the queue. If everything skips the queue, nothing does.
+#define UV_CAN_CRIT_MSG_BIT 0b10000000
 
 
 /** @brief Representative of a CAN message
@@ -273,7 +302,7 @@ typedef union access_control_info{
 typedef struct uv_CAN_msg{
 	uint8_t flags; /**< Bitfield that contains some basic information about the message:
 	-Bit 0: Is the message an extended ID message, or a standard ID message? 1 For extended.
-	-Bits 1:2 Which CANbus is being used to send the message? 01 -> CAN1 10 -> CAN2 11-> CAN3 (doesnt exist yet). Will default to CAN1 if all zeros*/
+	-Bits 1:2 Which CANbus is being used to send the message? 00-> whatever the default is 01 -> CAN1 10 -> CAN2 11-> CAN3 (doesnt exist yet). Will default to CAN1 if all zeros*/
 
 	uint8_t dlc; /**<Data Length Code, representing how many bytes of data are present*/
 	uint32_t msg_id; /**<The ID of a message*/
@@ -312,16 +341,37 @@ typedef struct uv_task_msg_t{
 }uv_task_msg;
 
 
+#define XDEV_DEVICE_EXPECTED 	(0x01U<<0) //Set as 1 to indicate that we expect this device to be connected
+#define XDEV_CHECK_TIMEOUT_BIT 	(0x01U<<1) //Set as 1 to have XDevMon check for timeout
+#define XDEV_POLLING_REQUIRED	(0x01U<<2) //Set as 1 to have XDevMon poll at the period
+#define XDEV_POLLED_LAST_CYCLE	(0x01U<<3) //Reserved for internal use
+#define XDEV_UHH_UHH_DUHH
 
 
 
+/** Represents an external device, and all the info that is needed
+ *
+ */
+typedef struct xdev_info{
+	char name[8];
+	TickType_t activation_time; //Time device turns on
+	TickType_t last_heard_from; //Last heard from
+	TickType_t period; //Period at which we either expect a message to be received at, or poll something
+	uint32_t ecode1;
+	uint32_t ecode2;
 
+	void* xdev_poll_msgs;
 
-typedef struct p_status{
-	uv_status peripheral_status;
-	TickType_t activation_time;
+	SemaphoreHandle_t xdev_mutex; //Mutex for editing the
+	SemaphoreHandle_t xdev_rx_smphr;
 
-}p_status;
+	uint16_t flags; //Me when there are flags
+
+	xdev_status peripheral_status; //Status of the peripheral
+
+}xdev_info;
+
+typedef xdev_info* xdev_handle;
 
 
 /** @brief Struct designed to act like the @c uv_task_info struct,
@@ -344,7 +394,7 @@ typedef struct uv_init_task_args{
 typedef struct uv_internal_params{
 	uv_init_struct* init_params;
 	uv_vehicle_settings* vehicle_settings;
-	p_status peripheral_status[8];
+	xdev_status peripheral_status[8];
 	uint16_t e_code[8];
 }uv_internal_params;
 

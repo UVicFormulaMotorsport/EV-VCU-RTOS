@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_task_delay_until" kind="group">
     <compoundname>vTaskDelayUntil</compoundname>
     <title>vTaskDelayUntil</title>
@@ -34,17 +34,19 @@ Example usage: <preformatted>
 void vTaskFunction( void * pvParameters )
 {
 TickType_t xLastWakeTime;
-const TickType_t xFrequency = 10;</preformatted></para>
-<para><preformatted>    // Initialise the xLastWakeTime variable with the current time.
+const TickType_t xFrequency = 10;
+
+    // Initialise the xLastWakeTime variable with the current time.
     xLastWakeTime = xTaskGetTickCount ();
     for( ;; )
     {
      // Wait for the next cycle.
-     vTaskDelayUntil( &amp;xLastWakeTime, xFrequency );</preformatted></para>
-<para><preformatted>     // Perform action here.
+     vTaskDelayUntil( &amp;xLastWakeTime, xFrequency );
+
+     // Perform action here.
     }
 }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

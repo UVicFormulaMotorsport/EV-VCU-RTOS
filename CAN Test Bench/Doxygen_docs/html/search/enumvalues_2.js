@@ -1,10 +1,23 @@
 var searchData=
 [
-  ['can_5ftimeout_5ferror_1781',['CAN_timeout_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa425430d2585733363b6043ed70ebd7ab',1,'motor_controller.h']]],
-  ['check_5fecode_5fid_1782',['check_ecode_ID',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3d2e8b6cb27af4a0a1121c419594bbfa',1,'motor_controller.h']]],
-  ['clear_5ferrors_1783',['clear_errors',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242ae138a3e61cb9bb9076598775b7810347',1,'motor_controller.h']]],
-  ['critical_5fac_5fcurrent_1784',['critical_AC_current',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa29aa452fe3c693b96c17c09849ee1633',1,'motor_controller.h']]],
-  ['current_5fderate_5ftemperature_1785',['current_derate_temperature',['../motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645ac6969717754fedde42de1813b1ecddd0',1,'motor_controller.h']]],
-  ['current_5fdriving_5fmode_1786',['CURRENT_DRIVING_MODE',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00',1,'daq.h']]],
-  ['current_5ffeed_5fforward_1787',['current_feed_forward',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521a4e45c20669f9d0f09fce08e26865cfa2',1,'motor_controller.h']]]
+  ['can_5ftimeout_5ferror_0',['CAN_timeout_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa425430d2585733363b6043ed70ebd7ab',1,'motor_controller.h']]],
+  ['cannot_5fperform_5frequest_1',['CANNOT_PERFORM_REQUEST',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a6d038d621b53bce1f3da19a4d1796c60',1,'uvfr_settings.h']]],
+  ['check_5fecode_5fid_2',['check_ecode_ID',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3d2e8b6cb27af4a0a1121c419594bbfa',1,'motor_controller.h']]],
+  ['clear_5ferrors_3',['clear_errors',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242ae138a3e61cb9bb9076598775b7810347',1,'motor_controller.h']]],
+  ['clear_5ffaults_4',['CLEAR_FAULTS',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694ab8a24171d3940ec1ea3160842c3e4b4b',1,'uvfr_settings.h']]],
+  ['conifer_5fdrv_5finit_5ferr_5',['CONIFER_DRV_INIT_ERR',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3adaad86f5baeba4529599e349c3f3c56745',1,'uvfr_conifer.h']]],
+  ['conifer_5fdrv_5finvalid_5fabstract_5fch_6',['CONIFER_DRV_INVALID_ABSTRACT_CH',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada513d52fd089b84f7b7f0c73286db2b12',1,'uvfr_conifer.h']]],
+  ['conifer_5fdrv_5finvalid_5fhw_5fch_5fid_7',['CONIFER_DRV_INVALID_HW_CH_ID',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada711a7bda8e3e2292d599ecfebbb6e696',1,'uvfr_conifer.h']]],
+  ['conifer_5fdrv_5finvalid_5fhw_5floc_8',['CONIFER_DRV_INVALID_HW_LOC',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada4598cbd8d9606f38b278174d82fce19f',1,'uvfr_conifer.h']]],
+  ['conifer_5fdrv_5fok_9',['CONIFER_DRV_OK',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada09f50082ea105939a0745b2fb9da2ff6',1,'uvfr_conifer.h']]],
+  ['conifer_5fext_5fdevice_5fnor_5frespond_10',['CONIFER_EXT_DEVICE_NOR_RESPOND',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada143d7749b88b1c91d4a42ecb39772376',1,'uvfr_conifer.h']]],
+  ['conifer_5fext_5fdevice_5fnot_5ffound_11',['CONIFER_EXT_DEVICE_NOT_FOUND',['../uvfr__conifer_8h.html#a90a4fb6acd14a5771c4d515a7ff5b3ada9a5a4465642ecb024571e4ccbd82f2cb',1,'uvfr_conifer.h']]],
+  ['coolant_5fpump1_12',['COOLANT_PUMP1',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a93a22d07555bc0324619287d998826e6',1,'uvfr_conifer.h']]],
+  ['coolant_5fpump2_13',['COOLANT_PUMP2',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82a8895bde82e1fa2fd98131c0ca5ceddf0',1,'uvfr_conifer.h']]],
+  ['coolant_5ftemp_5fadc_14',['COOLANT_TEMP_ADC',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a5bdd2cd7badbaa890b54c82af7da4035',1,'daq.h']]],
+  ['critical_5fac_5fcurrent_15',['critical_AC_current',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa29aa452fe3c693b96c17c09849ee1633',1,'motor_controller.h']]],
+  ['current_5factual_16',['CURRENT_ACTUAL',['../motor__controller_8h.html#aefe525453e2d5fb5ff19de9f98247c7ca08745ee38252c5952330efe1591df091',1,'motor_controller.h']]],
+  ['current_5fderate_5ftemperature_17',['current_derate_temperature',['../motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645ac6969717754fedde42de1813b1ecddd0',1,'motor_controller.h']]],
+  ['current_5fdriving_5fmode_18',['CURRENT_DRIVING_MODE',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ad3d7141ef864656b0311087f12528a00',1,'daq.h']]],
+  ['current_5ffeed_5fforward_19',['current_feed_forward',['../motor__controller_8h.html#a3f03fa29b56b9f1f2cf0a36f989f9521a4e45c20669f9d0f09fce08e26865cfa2',1,'motor_controller.h']]]
 ];

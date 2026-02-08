@@ -1,14 +1,14 @@
-\hypertarget{group__x_semaphore_create_counting}{}\doxysection{x\+Semaphore\+Create\+Counting}
-\label{group__x_semaphore_create_counting}\index{xSemaphoreCreateCounting@{xSemaphoreCreateCounting}}
+\doxysection{x\+Semaphore\+Create\+Counting}
+\hypertarget{group__x_semaphore_create_counting}{}\label{group__x_semaphore_create_counting}\index{xSemaphoreCreateCounting@{xSemaphoreCreateCounting}}
 semphr. h 
 \begin{DoxyPre}SemaphoreHandle\_t xSemaphoreCreateCounting( UBaseType\_t uxMaxCount, UBaseType\_t uxInitialCount )\end{DoxyPre}
 
 
 Creates a new counting semaphore instance, and returns a handle by which the new counting semaphore can be referenced.
 
-In many usage scenarios it is faster and more memory efficient to use a direct to task notification in place of a counting semaphore! \href{http://www.freertos.org/RTOS-task-notifications.html}{\texttt{ http\+://www.\+freertos.\+org/\+R\+T\+O\+S-\/task-\/notifications.\+html}}
+In many usage scenarios it is faster and more memory efficient to use a direct to task notification in place of a counting semaphore! \href{http://www.freertos.org/RTOS-task-notifications.html}{\texttt{ http\+://www.\+freertos.\+org/\+RTOS-\/task-\/notifications.\+html}}
 
-Internally, within the Free\+R\+T\+OS implementation, counting semaphores use a block of memory, in which the counting semaphore structure is stored. If a counting semaphore is created using x\+Semaphore\+Create\+Counting() then the required memory is automatically dynamically allocated inside the x\+Semaphore\+Create\+Counting() function. (see \href{http://www.freertos.org/a00111.html}{\texttt{ http\+://www.\+freertos.\+org/a00111.\+html}}). If a counting semaphore is created using x\+Semaphore\+Create\+Counting\+Static() then the application writer can instead optionally provide the memory that will get used by the counting semaphore. x\+Semaphore\+Create\+Counting\+Static() therefore allows a counting semaphore to be created without using any dynamic memory allocation.
+Internally, within the Free\+RTOS implementation, counting semaphores use a block of memory, in which the counting semaphore structure is stored. If a counting semaphore is created using x\+Semaphore\+Create\+Counting() then the required memory is automatically dynamically allocated inside the x\+Semaphore\+Create\+Counting() function. (see \href{http://www.freertos.org/a00111.html}{\texttt{ http\+://www.\+freertos.\+org/a00111.\+html}}). If a counting semaphore is created using x\+Semaphore\+Create\+Counting\+Static() then the application writer can instead optionally provide the memory that will get used by the counting semaphore. x\+Semaphore\+Create\+Counting\+Static() therefore allows a counting semaphore to be created without using any dynamic memory allocation.
 
 Counting semaphores are typically used for two things\+:
 
@@ -32,28 +32,22 @@ Handle to the created semaphore. Null if the semaphore could not be created.
 \end{DoxyReturn}
 Example usage\+: 
 \begin{DoxyPre}
-SemaphoreHandle\_t xSemaphore;\end{DoxyPre}
+SemaphoreHandle\_t xSemaphore;
 
-
-
-\begin{DoxyPre}void vATask( void * pvParameters )
+void vATask( void * pvParameters )
 \{
-SemaphoreHandle\_t xSemaphore = NULL;\end{DoxyPre}
+SemaphoreHandle\_t xSemaphore = NULL;
 
-
-
-\begin{DoxyPre}   // Semaphore cannot be used before a call to xSemaphoreCreateCounting().
+   // Semaphore cannot be used before a call to xSemaphoreCreateCounting().
    // The max value to which the semaphore can count should be 10, and the
    // initial value assigned to the count should be 0.
-   xSemaphore = xSemaphoreCreateCounting( 10, 0 );\end{DoxyPre}
+   xSemaphore = xSemaphoreCreateCounting( 10, 0 );
 
-
-
-\begin{DoxyPre}   if( xSemaphore != NULL )
+   if( xSemaphore != NULL )
    \{
        // The semaphore was created successfully.
        // The semaphore can now be used.
    \}
 \}
 \end{DoxyPre}
- 
+   

@@ -1,10 +1,10 @@
-\hypertarget{group__v_semaphore_create_binary}{}\doxysection{v\+Semaphore\+Create\+Binary}
-\label{group__v_semaphore_create_binary}\index{vSemaphoreCreateBinary@{vSemaphoreCreateBinary}}
+\doxysection{v\+Semaphore\+Create\+Binary}
+\hypertarget{group__v_semaphore_create_binary}{}\label{group__v_semaphore_create_binary}\index{vSemaphoreCreateBinary@{vSemaphoreCreateBinary}}
 semphr. h 
 \begin{DoxyPre}vSemaphoreCreateBinary( SemaphoreHandle\_t xSemaphore )\end{DoxyPre}
 
 
-In many usage scenarios it is faster and more memory efficient to use a direct to task notification in place of a binary semaphore! \href{http://www.freertos.org/RTOS-task-notifications.html}{\texttt{ http\+://www.\+freertos.\+org/\+R\+T\+O\+S-\/task-\/notifications.\+html}}
+In many usage scenarios it is faster and more memory efficient to use a direct to task notification in place of a binary semaphore! \href{http://www.freertos.org/RTOS-task-notifications.html}{\texttt{ http\+://www.\+freertos.\+org/\+RTOS-\/task-\/notifications.\+html}}
 
 This old v\+Semaphore\+Create\+Binary() macro is now deprecated in favour of the x\+Semaphore\+Create\+Binary() function. Note that binary semaphores created using the v\+Semaphore\+Create\+Binary() macro are created in a state such that the first call to \textquotesingle{}take\textquotesingle{} the semaphore would pass, whereas binary semaphores created using x\+Semaphore\+Create\+Binary() are created in a state such that the the semaphore must first be \textquotesingle{}given\textquotesingle{} before it can be \textquotesingle{}taken\textquotesingle{}.
 
@@ -19,23 +19,19 @@ This type of semaphore can be used for pure synchronisation between tasks or bet
 \end{DoxyParams}
 Example usage\+: 
 \begin{DoxyPre}
-SemaphoreHandle\_t xSemaphore = NULL;\end{DoxyPre}
+SemaphoreHandle\_t xSemaphore = NULL;
 
-
-
-\begin{DoxyPre}void vATask( void * pvParameters )
+void vATask( void * pvParameters )
 \{
    // Semaphore cannot be used before a call to vSemaphoreCreateBinary ().
    // This is a macro so pass the variable in directly.
-   vSemaphoreCreateBinary( xSemaphore );\end{DoxyPre}
+   vSemaphoreCreateBinary( xSemaphore );
 
-
-
-\begin{DoxyPre}   if( xSemaphore != NULL )
+   if( xSemaphore != NULL )
    \{
        // The semaphore was created successfully.
        // The semaphore can now be used.
    \}
 \}
 \end{DoxyPre}
- 
+   

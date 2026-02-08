@@ -1,0 +1,210 @@
+\doxysection{Queue\+Definition Struct Reference}
+\hypertarget{struct_queue_definition}{}\label{struct_queue_definition}\index{QueueDefinition@{QueueDefinition}}
+\doxysubsubsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_queue_definition_a487dc7e43b380c58212cba72bc33e0ed}{pc\+Head}}
+\item 
+int8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{struct_queue_definition_abdf13cc013c8488848cee3fce4f0fed3}{pc\+Write\+To}}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\mbox{\hyperlink{queue_8c_afa576747932ccf4c923633fc6a46a0d8}{QueuePointers\_t}} \mbox{\hyperlink{struct_queue_definition_aea4a2daf33054ff6b535f158bd4007f0}{xQueue}}\\
+\>\mbox{\hyperlink{queue_8c_a8806dcfc511df585a0b4daf54a9a909a}{SemaphoreData\_t}} \mbox{\hyperlink{struct_queue_definition_adb2c0818274974553c619ff953b6f477}{xSemaphore}}\\
+\} \mbox{\hyperlink{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}{u}}\\
+
+\end{tabbing}\item 
+\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \mbox{\hyperlink{struct_queue_definition_aaab135c4345cb0393d6ff3cd5164c7b2}{x\+Tasks\+Waiting\+To\+Send}}
+\item 
+\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} \mbox{\hyperlink{struct_queue_definition_af6d61526f77beee659cd604a0c473359}{x\+Tasks\+Waiting\+To\+Receive}}
+\item 
+volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{struct_queue_definition_a12b07a40152d0f21488ca06d362d13d1}{ux\+Messages\+Waiting}}
+\item 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{struct_queue_definition_ae80d17a812c669d4d41265b7f693988c}{ux\+Length}}
+\item 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} \mbox{\hyperlink{struct_queue_definition_a81bb7d3826909244baa9debf5a55abb0}{ux\+Item\+Size}}
+\item 
+volatile int8\+\_\+t \mbox{\hyperlink{struct_queue_definition_ac750a3f75a6e174adbc697e473a0dd13}{c\+Rx\+Lock}}
+\item 
+volatile int8\+\_\+t \mbox{\hyperlink{struct_queue_definition_a24ac3f0707f098da2a22244d843fcf82}{c\+Tx\+Lock}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00097}{97}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+\doxysubsection{Field Documentation}
+\Hypertarget{struct_queue_definition_ac750a3f75a6e174adbc697e473a0dd13}\index{QueueDefinition@{QueueDefinition}!cRxLock@{cRxLock}}
+\index{cRxLock@{cRxLock}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{cRxLock}{cRxLock}}
+{\footnotesize\ttfamily \label{struct_queue_definition_ac750a3f75a6e174adbc697e473a0dd13} 
+volatile int8\+\_\+t Queue\+Definition\+::c\+Rx\+Lock}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00115}{115}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, and \mbox{\hyperlink{queue_8c_source_l01785}{x\+Queue\+Receive\+From\+ISR()}}.
+
+\Hypertarget{struct_queue_definition_a24ac3f0707f098da2a22244d843fcf82}\index{QueueDefinition@{QueueDefinition}!cTxLock@{cTxLock}}
+\index{cTxLock@{cTxLock}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{cTxLock}{cTxLock}}
+{\footnotesize\ttfamily \label{struct_queue_definition_a24ac3f0707f098da2a22244d843fcf82} 
+volatile int8\+\_\+t Queue\+Definition\+::c\+Tx\+Lock}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00116}{116}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}.
+
+\Hypertarget{struct_queue_definition_a487dc7e43b380c58212cba72bc33e0ed}\index{QueueDefinition@{QueueDefinition}!pcHead@{pcHead}}
+\index{pcHead@{pcHead}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{pcHead}{pcHead}}
+{\footnotesize\ttfamily \label{struct_queue_definition_a487dc7e43b380c58212cba72bc33e0ed} 
+int8\+\_\+t\texorpdfstring{$\ast$}{*} Queue\+Definition\+::pc\+Head}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00099}{99}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00422}{prv\+Initialise\+New\+Queue()}}, and \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}.
+
+\Hypertarget{struct_queue_definition_abdf13cc013c8488848cee3fce4f0fed3}\index{QueueDefinition@{QueueDefinition}!pcWriteTo@{pcWriteTo}}
+\index{pcWriteTo@{pcWriteTo}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{pcWriteTo}{pcWriteTo}}
+{\footnotesize\ttfamily \label{struct_queue_definition_abdf13cc013c8488848cee3fce4f0fed3} 
+int8\+\_\+t\texorpdfstring{$\ast$}{*} Queue\+Definition\+::pc\+Write\+To}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00100}{100}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, and \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}.
+
+\Hypertarget{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81}\index{QueueDefinition@{QueueDefinition}!u@{u}}
+\index{u@{u}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{[union]}{[union]}}
+{\footnotesize\ttfamily \label{struct_queue_definition_a93a8f29e573aaa9cbbff7d6f2957ee81} 
+union  \{ ... \}  Queue\+Definition\+::u}
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01876}{x\+Queue\+Peek\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{struct_queue_definition_a81bb7d3826909244baa9debf5a55abb0}\index{QueueDefinition@{QueueDefinition}!uxItemSize@{uxItemSize}}
+\index{uxItemSize@{uxItemSize}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{uxItemSize}{uxItemSize}}
+{\footnotesize\ttfamily \label{struct_queue_definition_a81bb7d3826909244baa9debf5a55abb0} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} Queue\+Definition\+::ux\+Item\+Size}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00113}{113}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00422}{prv\+Initialise\+New\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01876}{x\+Queue\+Peek\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01785}{x\+Queue\+Receive\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{struct_queue_definition_ae80d17a812c669d4d41265b7f693988c}\index{QueueDefinition@{QueueDefinition}!uxLength@{uxLength}}
+\index{uxLength@{uxLength}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{uxLength}{uxLength}}
+{\footnotesize\ttfamily \label{struct_queue_definition_ae80d17a812c669d4d41265b7f693988c} 
+\mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} Queue\+Definition\+::ux\+Length}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00112}{112}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l00422}{prv\+Initialise\+New\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02331}{prv\+Is\+Queue\+Full()}}, \mbox{\hyperlink{queue_8c_source_l01946}{ux\+Queue\+Spaces\+Available()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l02352}{x\+Queue\+Is\+Queue\+Full\+From\+ISR()}}.
+
+\Hypertarget{struct_queue_definition_a12b07a40152d0f21488ca06d362d13d1}\index{QueueDefinition@{QueueDefinition}!uxMessagesWaiting@{uxMessagesWaiting}}
+\index{uxMessagesWaiting@{uxMessagesWaiting}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{uxMessagesWaiting}{uxMessagesWaiting}}
+{\footnotesize\ttfamily \label{struct_queue_definition_a12b07a40152d0f21488ca06d362d13d1} 
+volatile \mbox{\hyperlink{portmacro_8h_a646f89d4298e4f5afd522202b11cb2e6}{UBase\+Type\+\_\+t}} Queue\+Definition\+::ux\+Messages\+Waiting}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00111}{111}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02291}{prv\+Is\+Queue\+Empty()}}, \mbox{\hyperlink{queue_8c_source_l02331}{prv\+Is\+Queue\+Full()}}, \mbox{\hyperlink{queue_8c_source_l01963}{ux\+Queue\+Messages\+Waiting\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01946}{ux\+Queue\+Spaces\+Available()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l02312}{x\+Queue\+Is\+Queue\+Empty\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l02352}{x\+Queue\+Is\+Queue\+Full\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01876}{x\+Queue\+Peek\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01785}{x\+Queue\+Receive\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{struct_queue_definition_aea4a2daf33054ff6b535f158bd4007f0}\index{QueueDefinition@{QueueDefinition}!xQueue@{xQueue}}
+\index{xQueue@{xQueue}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{xQueue}{xQueue}}
+{\footnotesize\ttfamily \label{struct_queue_definition_aea4a2daf33054ff6b535f158bd4007f0} 
+\mbox{\hyperlink{queue_8c_afa576747932ccf4c923633fc6a46a0d8}{Queue\+Pointers\+\_\+t}} Queue\+Definition\+::x\+Queue}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00104}{104}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02153}{prv\+Copy\+Data\+From\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, and \mbox{\hyperlink{queue_8c_source_l01876}{x\+Queue\+Peek\+From\+ISR()}}.
+
+\Hypertarget{struct_queue_definition_adb2c0818274974553c619ff953b6f477}\index{QueueDefinition@{QueueDefinition}!xSemaphore@{xSemaphore}}
+\index{xSemaphore@{xSemaphore}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{xSemaphore}{xSemaphore}}
+{\footnotesize\ttfamily \label{struct_queue_definition_adb2c0818274974553c619ff953b6f477} 
+\mbox{\hyperlink{queue_8c_a8806dcfc511df585a0b4daf54a9a909a}{Semaphore\+Data\+\_\+t}} Queue\+Definition\+::x\+Semaphore}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00105}{105}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02074}{prv\+Copy\+Data\+To\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{struct_queue_definition_af6d61526f77beee659cd604a0c473359}\index{QueueDefinition@{QueueDefinition}!xTasksWaitingToReceive@{xTasksWaitingToReceive}}
+\index{xTasksWaitingToReceive@{xTasksWaitingToReceive}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{xTasksWaitingToReceive}{xTasksWaitingToReceive}}
+{\footnotesize\ttfamily \label{struct_queue_definition_af6d61526f77beee659cd604a0c473359} 
+\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Receive}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00109}{109}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l00950}{x\+Queue\+Generic\+Send\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01112}{x\+Queue\+Give\+From\+ISR()}}, \mbox{\hyperlink{queue_8c_source_l01636}{x\+Queue\+Peek()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+\Hypertarget{struct_queue_definition_aaab135c4345cb0393d6ff3cd5164c7b2}\index{QueueDefinition@{QueueDefinition}!xTasksWaitingToSend@{xTasksWaitingToSend}}
+\index{xTasksWaitingToSend@{xTasksWaitingToSend}!QueueDefinition@{QueueDefinition}}
+\doxysubsubsection{\texorpdfstring{xTasksWaitingToSend}{xTasksWaitingToSend}}
+{\footnotesize\ttfamily \label{struct_queue_definition_aaab135c4345cb0393d6ff3cd5164c7b2} 
+\mbox{\hyperlink{list_8h_ad14d7e3de1350e459c7c23c6f59c902a}{List\+\_\+t}} Queue\+Definition\+::x\+Tasks\+Waiting\+To\+Send}
+
+
+
+Definition at line \mbox{\hyperlink{queue_8c_source_l00108}{108}} of file \mbox{\hyperlink{queue_8c_source}{queue.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{queue_8c_source_l02171}{prv\+Unlock\+Queue()}}, \mbox{\hyperlink{queue_8c_source_l00255}{x\+Queue\+Generic\+Reset()}}, \mbox{\hyperlink{queue_8c_source_l00740}{x\+Queue\+Generic\+Send()}}, \mbox{\hyperlink{queue_8c_source_l01277}{x\+Queue\+Receive()}}, \mbox{\hyperlink{queue_8c_source_l01785}{x\+Queue\+Receive\+From\+ISR()}}, and \mbox{\hyperlink{queue_8c_source_l01418}{x\+Queue\+Semaphore\+Take()}}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Core/\+Free\+RTOS/\+Source/\mbox{\hyperlink{queue_8c}{queue.\+c}}\end{DoxyCompactItemize}

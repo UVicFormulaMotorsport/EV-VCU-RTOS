@@ -1,11 +1,8 @@
-\hypertarget{group__x_event_group_sync}{}\doxysection{x\+Event\+Group\+Sync}
-\label{group__x_event_group_sync}\index{xEventGroupSync@{xEventGroupSync}}
-\mbox{\hyperlink{event__groups_8h}{event\+\_\+groups.\+h}} 
+\doxysubsection{x\+Event\+Group\+Sync}
+\hypertarget{group__x_event_group_sync}{}\label{group__x_event_group_sync}\index{xEventGroupSync@{xEventGroupSync}}
+\doxylink{event__groups_8h}{event\+\_\+groups.\+h} 
 \begin{DoxyPre}
-   EventBits\_t xEventGroupSync( EventGroupHandle\_t xEventGroup,
-                                const EventBits\_t uxBitsToSet,
-                                const EventBits\_t uxBitsToWaitFor,
-                                TickType\_t xTicksToWait );
+   EventBits\_t \doxylink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync( EventGroupHandle\_t xEventGroup,                                 const EventBits\_t uxBitsToSet,                                 const EventBits\_t uxBitsToWaitFor,                                 TickType\_t xTicksToWait )};
 \end{DoxyPre}
 
 
@@ -27,108 +24,82 @@ The function will return before its block time expires if the bits specified by 
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-The value of the event group at the time either the bits being waited for became set, or the block time expired. Test the return value to know which bits were set. If \mbox{\hyperlink{event__groups_8h_a869511456b86426f52e2eec898bff341}{x\+Event\+Group\+Sync()}} returned because its timeout expired then not all the bits being waited for will be set. If \mbox{\hyperlink{event__groups_8h_a869511456b86426f52e2eec898bff341}{x\+Event\+Group\+Sync()}} returned because all the bits it was waiting for were set then the returned value is the event group value before any bits were automatically cleared.
+The value of the event group at the time either the bits being waited for became set, or the block time expired. Test the return value to know which bits were set. If \doxylink{event__groups_8h_a869511456b86426f52e2eec898bff341}{x\+Event\+Group\+Sync()} returned because its timeout expired then not all the bits being waited for will be set. If \doxylink{event__groups_8h_a869511456b86426f52e2eec898bff341}{x\+Event\+Group\+Sync()} returned because all the bits it was waiting for were set then the returned value is the event group value before any bits were automatically cleared.
 \end{DoxyReturn}
 Example usage\+: 
 \begin{DoxyPre}
 // Bits used by the three tasks.
 \#define TASK\_0\_BIT      ( 1 << 0 )
 \#define TASK\_1\_BIT      ( 1 << 1 )
-\#define TASK\_2\_BIT      ( 1 << 2 )\end{DoxyPre}
+\#define TASK\_2\_BIT      ( 1 << 2 )
 
+\#define ALL\_SYNC\_BITS ( TASK\_0\_BIT | TASK\_1\_BIT | TASK\_2\_BIT )
 
-
-\begin{DoxyPre}\#define ALL\_SYNC\_BITS ( TASK\_0\_BIT | TASK\_1\_BIT | TASK\_2\_BIT )\end{DoxyPre}
-
-
-
-\begin{DoxyPre}// Use an event group to synchronise three tasks.  It is assumed this event
+// Use an event group to synchronise three tasks.  It is assumed this event
 // group has already been created elsewhere.
-EventGroupHandle\_t xEventBits;\end{DoxyPre}
+EventGroupHandle\_t xEventBits;
 
-
-
-\begin{DoxyPre}void vTask0( void *pvParameters )
+void vTask0( void *pvParameters )
 \{
 EventBits\_t uxReturn;
-TickType\_t xTicksToWait = 100 / portTICK\_PERIOD\_MS;\end{DoxyPre}
+TickType\_t xTicksToWait = 100 / portTICK\_PERIOD\_MS;
 
-
-
-\begin{DoxyPre}    for( ;; )
+    for( ;; )
     \{
-    // Perform task functionality here.\end{DoxyPre}
+    // Perform task functionality here.
 
-
-
-\begin{DoxyPre}    // Set bit 0 in the event flag to note this task has reached the
+    // Set bit 0 in the event flag to note this task has reached the
     // sync point.  The other two tasks will set the other two bits defined
     // by ALL\_SYNC\_BITS.  All three tasks have reached the synchronisation
     // point when all the ALL\_SYNC\_BITS are set.  Wait a maximum of 100ms
     // for this to happen.
-    uxReturn = xEventGroupSync( xEventBits, TASK\_0\_BIT, ALL\_SYNC\_BITS, xTicksToWait );\end{DoxyPre}
+    uxReturn = xEventGroupSync( xEventBits, TASK\_0\_BIT, ALL\_SYNC\_BITS, xTicksToWait );
 
-
-
-\begin{DoxyPre}    if( ( uxReturn \& ALL\_SYNC\_BITS ) == ALL\_SYNC\_BITS )
+    if( ( uxReturn \& ALL\_SYNC\_BITS ) == ALL\_SYNC\_BITS )
     \{
         // All three tasks reached the synchronisation point before the call
-        // to \mbox{\hyperlink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync()}} timed out.
+        // to \doxylink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync()} timed out.
     \}
    \}
-\}\end{DoxyPre}
+\}
 
-
-
-\begin{DoxyPre}void vTask1( void *pvParameters )
+void vTask1( void *pvParameters )
 \{
     for( ;; )
     \{
-    // Perform task functionality here.\end{DoxyPre}
+    // Perform task functionality here.
 
-
-
-\begin{DoxyPre}    // Set bit 1 in the event flag to note this task has reached the
+    // Set bit 1 in the event flag to note this task has reached the
     // synchronisation point.  The other two tasks will set the other two
     // bits defined by ALL\_SYNC\_BITS.  All three tasks have reached the
     // synchronisation point when all the ALL\_SYNC\_BITS are set.  Wait
     // indefinitely for this to happen.
-    xEventGroupSync( xEventBits, TASK\_1\_BIT, ALL\_SYNC\_BITS, portMAX\_DELAY );\end{DoxyPre}
+    xEventGroupSync( xEventBits, TASK\_1\_BIT, ALL\_SYNC\_BITS, portMAX\_DELAY );
 
-
-
-\begin{DoxyPre}    // \mbox{\hyperlink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync()}} was called with an indefinite block time, so
+    // \doxylink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync()} was called with an indefinite block time, so
     // this task will only reach here if the syncrhonisation was made by all
     // three tasks, so there is no need to test the return value.
     \}
-\}\end{DoxyPre}
+\}
 
-
-
-\begin{DoxyPre}void vTask2( void *pvParameters )
+void vTask2( void *pvParameters )
 \{
     for( ;; )
     \{
-    // Perform task functionality here.\end{DoxyPre}
+    // Perform task functionality here.
 
-
-
-\begin{DoxyPre}    // Set bit 2 in the event flag to note this task has reached the
+    // Set bit 2 in the event flag to note this task has reached the
     // synchronisation point.  The other two tasks will set the other two
     // bits defined by ALL\_SYNC\_BITS.  All three tasks have reached the
     // synchronisation point when all the ALL\_SYNC\_BITS are set.  Wait
     // indefinitely for this to happen.
-    xEventGroupSync( xEventBits, TASK\_2\_BIT, ALL\_SYNC\_BITS, portMAX\_DELAY );\end{DoxyPre}
+    xEventGroupSync( xEventBits, TASK\_2\_BIT, ALL\_SYNC\_BITS, portMAX\_DELAY );
 
-
-
-\begin{DoxyPre}    // \mbox{\hyperlink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync()}} was called with an indefinite block time, so
+    // \doxylink{event__groups_8h_a869511456b86426f52e2eec898bff341}{xEventGroupSync()} was called with an indefinite block time, so
     // this task will only reach here if the syncrhonisation was made by all
     // three tasks, so there is no need to test the return value.
    \}
-\}\end{DoxyPre}
+\}
 
-
-
-\begin{DoxyPre}\end{DoxyPre}
- 
+\end{DoxyPre}
+   

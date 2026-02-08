@@ -80,7 +80,7 @@ var group__state__engine__api =
     [ "uv_scd_response", "group__state__engine__api.html#ga856f7f6f3b6b92f655aafc552606ffea", null ],
     [ "uv_task_cmd", "group__state__engine__api.html#gae1b70a2c1baa7da5592e7324008636e4", null ],
     [ "uv_task_info", "group__state__engine__api.html#gaebe69bead1b7c3a1371ffe610708e0ef", null ],
-    [ "uv_task_status", "group__state__engine__api.html#ga82006c09ffd194e360785bb51a39ec3f", null ],
+    [ "uv_task_status", "group__state__engine__api.html#gaa48d94d79434359ef85419a315f42f9e", null ],
     [ "uv_vehicle_state", "group__state__engine__api.html#ga140983d0a0ccbfd2d5f2c93183cbe797", null ],
     [ "os_flag", "group__state__engine__api.html#gae85df48ed635b45630243b13b6e7d890", [
       [ "UV_OS_LOG_MEM", "group__state__engine__api.html#ggae85df48ed635b45630243b13b6e7d890a01fe6bc8a712283339b685288b720cca", null ],
@@ -128,7 +128,9 @@ var group__state__engine__api =
       [ "UV_HALT", "group__state__engine__api.html#gga259abff5a03eaf908dc8f03d99f478e4a2d3dc239e61931f9f779b71e84005b1b", null ]
     ] ],
     [ "changeVehicleState", "group__state__engine__api.html#gaa3ad3e8df75177c00265881c16563212", null ],
-    [ "uvCreateTask", "group__state__engine__api.html#ga99bfc92472cdc99e9005e9d3c792909a", null ],
+    [ "initRTDtask", "group__state__engine__api.html#ga2cef5ea1ce8c53aae9a3508d4c23ceeb", null ],
+    [ "uvCrashIntoWall", "group__state__engine__api.html#ga6ef6aecf05463ae84b5968fd17583cc9", null ],
+    [ "uvCreateTask", "group__state__engine__api.html#gac977eb33c99a9ac0a5f51a7db20e24d6", null ],
     [ "uvDeInitStateEngine", "group__state__engine__api.html#ga5cb739823b10b90a139315356aa6b22f", null ],
     [ "uvInitStateEngine", "group__state__engine__api.html#ga5c608f3832c45eac6e2da198d4ef1ba0", null ],
     [ "uvStartStateMachine", "group__state__engine__api.html#ga2ad1d74b5783a51355c047be6642fab8", null ],

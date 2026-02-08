@@ -45,6 +45,13 @@
 
 
 #include "uvfr_utils.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "semphr.h"
+#include "cmsis_os.h"
+#include "message_buffer.h"
+
 
 
 //#include "uvfr_utils.h"
@@ -191,7 +198,7 @@ typedef struct uv_os_settings{
 
 #define UV_TASK_VEHICLE_APPLICATION    0x0001U<<(0)
 #define UV_TASK_PERIODIC_SVC           0x0001U<<(1)
-#define UV_TASK_DORMANT_SVC            0b0000000000000011
+#define UV_TASK_DORMANT_SVC            0b0000000000000011 //Bruh this syntax is wacko
 #define UV_TASK_GENERIC_SVC			   0x0001U<<(2)
 #define UV_TASK_MANAGER_MASK           0b0000000000000011
 #define UV_TASK_LOG_START_STOP_TIME    0x0001U<<(2)
@@ -203,7 +210,7 @@ typedef struct uv_os_settings{
 #define UV_TASK_ERR_IN_CHILD		   0x0001U<<(8)
 #define UV_TASK_AWAITING_DELETION	   0x0001U<<(9)
 #define UV_TASK_DEFER_DELETION		   0x0001U<<(10)
-#define UV_TASK_DEADLINE_NOT_ENFORCED  0x00
+#define UV_TASK_DEADLINE_NOT_ENFORCED  0x00 //TODO what the fuck is this piece of shit, empty macro?? HUH???
 #define UV_TASK_PRIO_INCREMENTATION    0x0001U<<(11)
 #define UV_TASK_DEADLINE_FIRM		   0x0001U<<(12)
 #define UV_TASK_DEADLINE_HARD		   (0x0001U<<(11)|0x0001U<<(12))
@@ -344,6 +351,8 @@ uv_status updateRunningTasks();
 
 uv_status changeVehicleState(uint16_t state);
 
+char* uvGetStateString();
+
 //void uvPanic(char* msg, uint8_t msg_len); //ruh roh scoobs, something has gone a little bit fucky wucky
 void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, const char* func);
 
@@ -355,7 +364,7 @@ void __uvPanic(char* msg, uint8_t msg_len, const char* file, const int line, con
  * vehicle state.
  *
  */
-#define uvPanic(msg, errnum) __uvPanic(msg, errnum, __FILE__,__LINE__,__FUNCTION__)
+#define uvPanic(msg, errnum) __uvPanic(msg, errnum, __UV_FILENAME__,__LINE__,__FUNCTION__)
 #endif
 
 void killSelf(struct uv_task_info * t);

@@ -1,0 +1,567 @@
+\doxysection{cmsis\+\_\+os.\+h}
+\hypertarget{cmsis__os_8h_source}{}\label{cmsis__os_8h_source}\index{Core/FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h@{Core/FreeRTOS/Source/CMSIS\_RTOS/cmsis\_os.h}}
+\mbox{\hyperlink{cmsis__os_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00001}00001\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00002}00002\ \textcolor{comment}{\ *\ \$Date:\ \ \ \ \ \ \ \ 5.\ February\ 2013}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00003}00003\ \textcolor{comment}{\ *\ \$Revision:\ \ \ \ V1.02}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00004}00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00005}00005\ \textcolor{comment}{\ *\ Project:\ \ \ \ \ \ CMSIS-\/RTOS\ API}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00006}00006\ \textcolor{comment}{\ *\ Title:\ \ \ \ \ \ \ \ cmsis\_os.h\ header\ file}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00007}00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00008}00008\ \textcolor{comment}{\ *\ Version\ 0.02}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00009}00009\ \textcolor{comment}{\ *\ \ \ \ Initial\ Proposal\ Phase}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00010}00010\ \textcolor{comment}{\ *\ Version\ 0.03}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00011}00011\ \textcolor{comment}{\ *\ \ \ \ osKernelStart\ added,\ optional\ feature:\ main\ started\ as\ thread}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00012}00012\ \textcolor{comment}{\ *\ \ \ \ osSemaphores\ have\ standard\ behavior}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00013}00013\ \textcolor{comment}{\ *\ \ \ \ osTimerCreate\ does\ not\ start\ the\ timer,\ added\ osTimerStart}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00014}00014\ \textcolor{comment}{\ *\ \ \ \ osThreadPass\ is\ renamed\ to\ osThreadYield}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00015}00015\ \textcolor{comment}{\ *\ Version\ 1.01}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00016}00016\ \textcolor{comment}{\ *\ \ \ \ Support\ for\ C++\ interface}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00017}00017\ \textcolor{comment}{\ *\ \ \ \ \ -\/\ const\ attribute\ removed\ from\ the\ osXxxxDef\_t\ typedef's}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00018}00018\ \textcolor{comment}{\ *\ \ \ \ \ -\/\ const\ attribute\ added\ to\ the\ osXxxxDef\ macros}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00019}00019\ \textcolor{comment}{\ *\ \ \ \ Added:\ osTimerDelete,\ osMutexDelete,\ osSemaphoreDelete}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00020}00020\ \textcolor{comment}{\ *\ \ \ \ Added:\ osKernelInitialize}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00021}00021\ \textcolor{comment}{\ *\ Version\ 1.02}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00022}00022\ \textcolor{comment}{\ *\ \ \ \ Control\ functions\ for\ short\ timeouts\ in\ microsecond\ resolution:}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00023}00023\ \textcolor{comment}{\ *\ \ \ \ Added:\ osKernelSysTick,\ osKernelSysTickFrequency,\ osKernelSysTickMicroSec}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00024}00024\ \textcolor{comment}{\ *\ \ \ \ Removed:\ osSignalGet\ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00025}00025\ \textcolor{comment}{\ *\ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00026}00026\ \textcolor{comment}{\ *\ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00027}00027\ \textcolor{comment}{\ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00028}00028\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00029}00029\ \textcolor{comment}{\ *\ Portions\ Copyright\ {\ucr}\ 2016\ STMicroelectronics\ International\ N.V.\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00030}00030\ \textcolor{comment}{\ *\ Portions\ Copyright\ (c)\ 2013\ ARM\ LIMITED}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00031}00031\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00032}00032\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00033}00033\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00034}00034\ \textcolor{comment}{\ *\ \ -\/\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00035}00035\ \textcolor{comment}{\ *\ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00036}00036\ \textcolor{comment}{\ *\ \ -\/\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00037}00037\ \textcolor{comment}{\ *\ \ \ \ notice,\ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00038}00038\ \textcolor{comment}{\ *\ \ \ \ documentation\ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00039}00039\ \textcolor{comment}{\ *\ \ -\/\ Neither\ the\ name\ of\ ARM\ \ nor\ the\ names\ of\ its\ contributors\ may\ be\ used}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00040}00040\ \textcolor{comment}{\ *\ \ \ \ to\ endorse\ or\ promote\ products\ derived\ from\ this\ software\ without}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00041}00041\ \textcolor{comment}{\ *\ \ \ \ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00042}00042\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00043}00043\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00044}00044\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00045}00045\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00046}00046\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00047}00047\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00048}00048\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00049}00049\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00050}00050\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00051}00051\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00052}00052\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00053}00053\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00054}00054\ \textcolor{comment}{\ *-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00057}00057\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_free_r_t_o_s_8h}{FreeRTOS.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00058}00058\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{event__groups_8h}{event\_groups.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00059}00059\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{queue_8h}{queue.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00060}00060\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{semphr_8h}{semphr.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00061}00061\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{task_8h}{task.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00062}00062\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{timers_8h}{timers.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00141}00141\ \textcolor{preprocessor}{\#ifndef\ \_CMSIS\_OS\_H}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00142}00142\ \textcolor{preprocessor}{\#define\ \_CMSIS\_OS\_H}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00145}\mbox{\hyperlink{cmsis__os_8h_a702196bacccbb978620c736b209387f1}{00145}}\ \textcolor{preprocessor}{\#define\ osCMSIS\ \ \ \ \ \ \ \ \ \ \ 0x10002\ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00148}\mbox{\hyperlink{cmsis__os_8h_ab78dce646fabec479c5f34bc5175b7de}{00148}}\ \textcolor{preprocessor}{\#define\ osCMSIS\_KERNEL\ \ \ \ 0x10000\ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00151}\mbox{\hyperlink{cmsis__os_8h_a47cf03658f01cdffca688e9096b58289}{00151}}\ \textcolor{preprocessor}{\#define\ osKernelSystemId\ "{}KERNEL\ V1.00"{}\ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00154}\mbox{\hyperlink{cmsis__os_8h_a22f7d235bc9f783933bd5a981fd79696}{00154}}\ \textcolor{preprocessor}{\#define\ osFeature\_MainThread\ \ \ 1\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00155}\mbox{\hyperlink{cmsis__os_8h_add84b683001de327894851b428587caa}{00155}}\ \textcolor{preprocessor}{\#define\ osFeature\_Pool\ \ \ \ \ \ \ \ \ 1\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00156}\mbox{\hyperlink{cmsis__os_8h_aceb2e0071ce160d153047f2eac1aca8e}{00156}}\ \textcolor{preprocessor}{\#define\ osFeature\_MailQ\ \ \ \ \ \ \ \ 1\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00157}\mbox{\hyperlink{cmsis__os_8h_a479a6561f859e3d4818e25708593d203}{00157}}\ \textcolor{preprocessor}{\#define\ osFeature\_MessageQ\ \ \ \ \ 1\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00158}\mbox{\hyperlink{cmsis__os_8h_a01edde265710d883b6e237d34a6ef4a6}{00158}}\ \textcolor{preprocessor}{\#define\ osFeature\_Signals\ \ \ \ \ \ 8\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00159}\mbox{\hyperlink{cmsis__os_8h_a7da4c7bfb340779c9fc7b321f5ab3e3a}{00159}}\ \textcolor{preprocessor}{\#define\ osFeature\_Semaphore\ \ \ \ 1\ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00160}\mbox{\hyperlink{cmsis__os_8h_a6c97d38879ae86491628f6e647639bad}{00160}}\ \textcolor{preprocessor}{\#define\ osFeature\_Wait\ \ \ \ \ \ \ \ \ 0\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00161}\mbox{\hyperlink{cmsis__os_8h_ae554ec16c23c5b7d65affade2a351891}{00161}}\ \textcolor{preprocessor}{\#define\ osFeature\_SysTick\ \ \ \ \ \ 1\ \ \ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00163}00163\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00164}00164\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00165}00165\ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00166}00166\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00168}00168\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00169}00169\ \textcolor{comment}{//\ ====\ Enumeration,\ structures,\ defines\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00173}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849a}{00173}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00174}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa549e79a43ff4f8b2b31afb613f5caa81}{00174}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa549e79a43ff4f8b2b31afb613f5caa81}{osPriorityIdle}}\ \ \ \ \ \ \ \ \ \ =\ -\/3,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00175}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa61cb822239ac8f66dfbdc7291598a3d4}{00175}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa61cb822239ac8f66dfbdc7291598a3d4}{osPriorityLow}}\ \ \ \ \ \ \ \ \ \ \ =\ -\/2,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00176}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa193b650117c209b4a203954542bcc3e6}{00176}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa193b650117c209b4a203954542bcc3e6}{osPriorityBelowNormal}}\ \ \ =\ -\/1,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00177}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa45a2895ad30c79fb97de18cac7cc19f1}{00177}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa45a2895ad30c79fb97de18cac7cc19f1}{osPriorityNormal}}\ \ \ \ \ \ \ \ =\ \ 0,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00178}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b}{00178}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa17b36cd9cd38652c2bc6d4803990674b}{osPriorityAboveNormal}}\ \ \ =\ +1,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00179}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa914433934143a9ba767e59577c56e6c2}{00179}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa914433934143a9ba767e59577c56e6c2}{osPriorityHigh}}\ \ \ \ \ \ \ \ \ \ =\ +2,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00180}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa1485dec3702434a1ec3cb74c7a17a4af}{00180}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aa1485dec3702434a1ec3cb74c7a17a4af}{osPriorityRealtime}}\ \ \ \ \ \ =\ +3,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00181}00181\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aae35f5e2f9c64ad346822521b643bdea4}{osPriorityError}}\ \ \ \ \ \ \ \ \ =\ \ 0x84\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00182}\mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849aae35f5e2f9c64ad346822521b643bdea4}{00182}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849a}{osPriority}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00183}00183\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00186}\mbox{\hyperlink{cmsis__os_8h_a9eb9a7a797a42e4b55eb171ecc609ddb}{00186}}\ \textcolor{preprocessor}{\#define\ osWaitForever\ \ \ \ \ 0xFFFFFFFF\ \ \ \ \ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00190}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{00190}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00191}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea9e1c9e2550bb4de8969a935acffc968f}{00191}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea9e1c9e2550bb4de8969a935acffc968f}{osOK}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \ \ \ \ 0,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00192}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea5df7e9643aa8a2f5f3a6f6ec59758518}{00192}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea5df7e9643aa8a2f5f3a6f6ec59758518}{osEventSignal}}\ \ \ \ \ \ \ \ \ \ \ =\ \ 0x08,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00193}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ead604f3673359dd4ac643b16dc5a2c342}{00193}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ead604f3673359dd4ac643b16dc5a2c342}{osEventMessage}}\ \ \ \ \ \ \ \ \ \ =\ \ 0x10,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00194}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea15b12e42b42b53f35fb8a2724ad02926}{00194}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea15b12e42b42b53f35fb8a2724ad02926}{osEventMail}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \ 0x20,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00195}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea78f477732375c0e1fca814e369618177}{00195}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea78f477732375c0e1fca814e369618177}{osEventTimeout}}\ \ \ \ \ \ \ \ \ \ =\ \ 0x40,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00196}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eac24adca6a5d072c9f01c32178ba0d109}{00196}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eac24adca6a5d072c9f01c32178ba0d109}{osErrorParameter}}\ \ \ \ \ \ \ \ =\ \ 0x80,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00197}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea8fc5801e8b0482bdf22ad63a77f0155d}{00197}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea8fc5801e8b0482bdf22ad63a77f0155d}{osErrorResource}}\ \ \ \ \ \ \ \ \ =\ \ 0x81,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00198}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea314d24a49003f09459035db0dd7c9467}{00198}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea314d24a49003f09459035db0dd7c9467}{osErrorTimeoutResource}}\ \ =\ \ 0xC1,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00199}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea21635bdc492d3094fe83027fa4a30e2f}{00199}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea21635bdc492d3094fe83027fa4a30e2f}{osErrorISR}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \ 0x82,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00200}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eaf6552310a817452aedfcd453f2805d65}{00200}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eaf6552310a817452aedfcd453f2805d65}{osErrorISRRecursive}}\ \ \ \ \ =\ \ 0x83,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00201}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eab7dda0ef504817659334cbfd650ae56f}{00201}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eab7dda0ef504817659334cbfd650ae56f}{osErrorPriority}}\ \ \ \ \ \ \ \ \ =\ \ 0x84,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00202}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eaf1fac0240218e51eb30a13da2f8aae81}{00202}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eaf1fac0240218e51eb30a13da2f8aae81}{osErrorNoMemory}}\ \ \ \ \ \ \ \ \ =\ \ 0x85,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00203}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea4672c8a0c0f6bb1d7981da4602e8e9ee}{00203}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea4672c8a0c0f6bb1d7981da4602e8e9ee}{osErrorValue}}\ \ \ \ \ \ \ \ \ \ \ \ =\ \ 0x86,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00204}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea5fde24ff588ec5ab9cb8314bade26fbc}{00204}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99ea5fde24ff588ec5ab9cb8314bade26fbc}{osErrorOS}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \ 0xFF,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00205}00205\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eac7a77f5fe18a15a357790c36a4aca1b1}{os\_status\_reserved}}\ \ \ \ \ \ =\ \ 0x7FFFFFFF\ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00206}\mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99eac7a77f5fe18a15a357790c36a4aca1b1}{00206}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00207}00207\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00208}00208\ \textcolor{preprocessor}{\#if\ (\ INCLUDE\_eTaskGetState\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00209}00209\ \textcolor{comment}{/*\ Thread\ state\ returned\ by\ osThreadGetState\ */}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00210}00210\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00211}00211\ \ \ \ \ osThreadRunning\ \ \ =\ 0x0,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ A\ thread\ is\ querying\ the\ state\ of\ itself,\ so\ must\ be\ running.\ */}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00212}00212\ \ \ \ \ osThreadReady\ \ \ \ \ =\ 0x1\ ,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ thread\ being\ queried\ is\ in\ a\ read\ or\ pending\ ready\ list.\ */}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00213}00213\ \ \ \ \ osThreadBlocked\ \ \ =\ 0x2,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ thread\ being\ queried\ is\ in\ the\ Blocked\ state.\ */}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00214}00214\ \ \ \ \ osThreadSuspended\ =\ 0x3,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ thread\ being\ queried\ is\ in\ the\ Suspended\ state,\ or\ is\ in\ the\ Blocked\ state\ with\ an\ infinite\ time\ out.\ */}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00215}00215\ \ \ \ \ osThreadDeleted\ \ \ =\ 0x4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ The\ thread\ being\ queried\ has\ been\ deleted,\ but\ its\ TCB\ has\ not\ yet\ been\ freed.\ */}\ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00216}00216\ \ \ osThreadError\ \ \ \ \ =\ 0x7FFFFFFF}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00217}00217\ \}\ osThreadState;}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00218}00218\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INCLUDE\_eTaskGetState\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00222}\mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9}{00222}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00223}\mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9ad21712f8df5f97069c82dc9eec37b951}{00223}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9ad21712f8df5f97069c82dc9eec37b951}{osTimerOnce}}\ \ \ \ \ \ \ \ \ \ \ \ \ =\ \ \ \ \ 0,\ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00224}00224\ \ \ \mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9ab9c91f9699162edb09bb7c90c11c8788}{osTimerPeriodic}}\ \ \ \ \ \ \ \ \ =\ \ \ \ \ 1\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00225}\mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9ab9c91f9699162edb09bb7c90c11c8788}{00225}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9}{os\_timer\_type}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00229}\mbox{\hyperlink{cmsis__os_8h_a3a96994ab8318050b476d72d890ce765}{00229}}\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{cmsis__os_8h_a3a96994ab8318050b476d72d890ce765}{os\_pthread}})\ (\textcolor{keywordtype}{void}\ \textcolor{keyword}{const}\ *argument);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00230}00230\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00233}\mbox{\hyperlink{cmsis__os_8h_a7904cad2180c6b3a0ac112fe8ff273e7}{00233}}\ \textcolor{keyword}{typedef}\ void\ (*\mbox{\hyperlink{cmsis__os_8h_a7904cad2180c6b3a0ac112fe8ff273e7}{os\_ptimer}})\ (\textcolor{keywordtype}{void}\ \textcolor{keyword}{const}\ *argument);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00235}00235\ \textcolor{comment}{//\ >>>\ the\ following\ data\ type\ definitions\ may\ shall\ adapted\ towards\ a\ specific\ RTOS}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00239}\mbox{\hyperlink{cmsis__os_8h_a217fdd2811440d39a6e8c868a0b8ec82}{00239}}\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structtsk_task_control_block}{TaskHandle\_t}}\ \mbox{\hyperlink{cmsis__os_8h_a217fdd2811440d39a6e8c868a0b8ec82}{osThreadId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00240}00240\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00243}\mbox{\hyperlink{cmsis__os_8h_a6416f2f47941043a63be8453cecce5be}{00243}}\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{timers_8h_ae2aa96927b4806e5dcfd264ba7bc8bf6}{TimerHandle\_t}}\ \mbox{\hyperlink{cmsis__os_8h_a6416f2f47941043a63be8453cecce5be}{osTimerId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00247}\mbox{\hyperlink{cmsis__os_8h_abba580e11219b5ec867b5b26ac0b87f4}{00247}}\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_queue_definition}{SemaphoreHandle\_t}}\ \mbox{\hyperlink{cmsis__os_8h_abba580e11219b5ec867b5b26ac0b87f4}{osMutexId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00248}00248\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00251}\mbox{\hyperlink{cmsis__os_8h_a954e9c06583b05ae736d07e4e40097d5}{00251}}\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_queue_definition}{SemaphoreHandle\_t}}\ \mbox{\hyperlink{cmsis__os_8h_a954e9c06583b05ae736d07e4e40097d5}{osSemaphoreId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00255}\mbox{\hyperlink{cmsis__os_8h_a08d2e20fd9bbd96220fe068d420f3686}{00255}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__pool__cb}{os\_pool\_cb}}\ *\mbox{\hyperlink{cmsis__os_8h_a08d2e20fd9bbd96220fe068d420f3686}{osPoolId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00259}\mbox{\hyperlink{cmsis__os_8h_a8c191fd2b1369c8942873496a186a022}{00259}}\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{struct_queue_definition}{QueueHandle\_t}}\ \mbox{\hyperlink{cmsis__os_8h_a8c191fd2b1369c8942873496a186a022}{osMessageQId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00260}00260\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00263}\mbox{\hyperlink{cmsis__os_8h_a1dac049fb7725a8af8b26c71cbb373b5}{00263}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__mail_q__cb}{os\_mailQ\_cb}}\ *\mbox{\hyperlink{cmsis__os_8h_a1dac049fb7725a8af8b26c71cbb373b5}{osMailQId}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00265}00265\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00266}00266\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00267}00267\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00268}00268\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structx_s_t_a_t_i_c___t_c_b}{StaticTask\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ osStaticThreadDef\_t;}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00269}00269\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structx_s_t_a_t_i_c___t_i_m_e_r}{StaticTimer\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ osStaticTimerDef\_t;}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00270}00270\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structx_s_t_a_t_i_c___q_u_e_u_e}{StaticSemaphore\_t}}\ \ \ \ \ \ \ \ \ \ osStaticMutexDef\_t;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00271}00271\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structx_s_t_a_t_i_c___q_u_e_u_e}{StaticSemaphore\_t}}\ \ \ \ \ \ \ \ \ \ osStaticSemaphoreDef\_t;}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00272}00272\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{structx_s_t_a_t_i_c___q_u_e_u_e}{StaticQueue\_t}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ osStaticMessageQDef\_t;}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00274}00274\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00275}00275\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00276}00276\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00277}00277\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00278}00278\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00281}\mbox{\hyperlink{structos__thread__def}{00281}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__thread__def}{os\_thread\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00282}\mbox{\hyperlink{structos__thread__def_a4d5b1b8556ab113f3b891f93d3d8c409}{00282}}\ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structos__thread__def_a4d5b1b8556ab113f3b891f93d3d8c409}{name}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00283}\mbox{\hyperlink{structos__thread__def_a0df2a4614d013387de75eebe66a6e3f9}{00283}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a3a96994ab8318050b476d72d890ce765}{os\_pthread}}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__thread__def_a0df2a4614d013387de75eebe66a6e3f9}{pthread}};\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00284}\mbox{\hyperlink{structos__thread__def_a5e4e35a5f44d174a558a289688022e64}{00284}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849a}{osPriority}}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__thread__def_a5e4e35a5f44d174a558a289688022e64}{tpriority}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00285}\mbox{\hyperlink{structos__thread__def_afd50a1965f6fb28cc37fdfdca5d07e4e}{00285}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__thread__def_afd50a1965f6fb28cc37fdfdca5d07e4e}{instances}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00286}\mbox{\hyperlink{structos__thread__def_aa0dd2cff64a499a08f422dd159fe5780}{00286}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__thread__def_aa0dd2cff64a499a08f422dd159fe5780}{stacksize}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00287}00287\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00288}00288\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *buffer;\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00289}00289\ \ \ osStaticThreadDef\_t\ \ \ \ *controlblock;\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00290}00290\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00291}\mbox{\hyperlink{cmsis__os_8h_a92f46bd508dcc685135882e2cf37ac8c}{00291}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_a92f46bd508dcc685135882e2cf37ac8c}{osThreadDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00292}00292\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00295}\mbox{\hyperlink{structos__timer__def}{00295}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__timer__def}{os\_timer\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00296}\mbox{\hyperlink{structos__timer__def_a7e7df6a1b8c1a1149a19d8c7f19cfe05}{00296}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_a7904cad2180c6b3a0ac112fe8ff273e7}{os\_ptimer}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__timer__def_a7e7df6a1b8c1a1149a19d8c7f19cfe05}{ptimer}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00297}00297\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00298}00298\ \ \ osStaticTimerDef\_t\ \ \ \ \ \ \ \ *controlblock;\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00299}00299\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00300}\mbox{\hyperlink{cmsis__os_8h_a2144eb7d94a485f516bf0b09078f883a}{00300}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_a2144eb7d94a485f516bf0b09078f883a}{osTimerDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00301}00301\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00304}\mbox{\hyperlink{structos__mutex__def}{00304}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__mutex__def}{os\_mutex\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00305}\mbox{\hyperlink{structos__mutex__def_a6364fe3b28142d23aaa03343c627957f}{00305}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__mutex__def_a6364fe3b28142d23aaa03343c627957f}{dummy}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00306}00306\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00307}00307\ \ \ osStaticMutexDef\_t\ \ \ \ \ \ \ \ \ *controlblock;\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00308}00308\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00309}\mbox{\hyperlink{cmsis__os_8h_ac2907bdcc057de650ea61777a0e92d11}{00309}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_ac2907bdcc057de650ea61777a0e92d11}{osMutexDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00310}00310\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00313}\mbox{\hyperlink{structos__semaphore__def}{00313}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__semaphore__def}{os\_semaphore\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00314}\mbox{\hyperlink{structos__semaphore__def_aa95cbcddf4e435fc610035765a58269d}{00314}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__semaphore__def_aa95cbcddf4e435fc610035765a58269d}{dummy}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00315}00315\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00316}00316\ \ \ osStaticSemaphoreDef\_t\ \ \ \ \ *controlblock;\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00317}00317\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00318}\mbox{\hyperlink{cmsis__os_8h_acf4486afa668a4499003e1a750eb8ab1}{00318}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_acf4486afa668a4499003e1a750eb8ab1}{osSemaphoreDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00319}00319\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00322}\mbox{\hyperlink{structos__pool__def}{00322}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__pool__def}{os\_pool\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00323}\mbox{\hyperlink{structos__pool__def_a7a455b537ba119df57a704a3c4ac8b40}{00323}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__pool__def_a7a455b537ba119df57a704a3c4ac8b40}{pool\_sz}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00324}\mbox{\hyperlink{structos__pool__def_a815cc2ca8f46c006e460d57fa0f3be6a}{00324}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__pool__def_a815cc2ca8f46c006e460d57fa0f3be6a}{item\_sz}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00325}\mbox{\hyperlink{structos__pool__def_acf74f1070644e33a567bc13a944fcb87}{00325}}\ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structos__pool__def_acf74f1070644e33a567bc13a944fcb87}{pool}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00326}\mbox{\hyperlink{cmsis__os_8h_ac47b811c41974c0bb74521a50c7983b7}{00326}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_ac47b811c41974c0bb74521a50c7983b7}{osPoolDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00327}00327\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00330}\mbox{\hyperlink{structos__message_q__def}{00330}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__message_q__def}{os\_messageQ\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00331}\mbox{\hyperlink{structos__message_q__def_afc8e51d4d45e959fab77977baf8eb970}{00331}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__message_q__def_afc8e51d4d45e959fab77977baf8eb970}{queue\_sz}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00332}\mbox{\hyperlink{structos__message_q__def_ae38d83bb9cb36d9ce40e511330bb2c29}{00332}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__message_q__def_ae38d83bb9cb36d9ce40e511330bb2c29}{item\_sz}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00333}00333\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00334}00334\ \ \ uint8\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *buffer;\ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00335}00335\ \ \ osStaticMessageQDef\_t\ \ \ *controlblock;\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00336}00336\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00337}00337\ \ \ \textcolor{comment}{//void\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *pool;\ \ \ \ ///<\ memory\ array\ for\ messages}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00338}\mbox{\hyperlink{cmsis__os_8h_a552ffc97e37e403acff6a59793ad26eb}{00338}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_a552ffc97e37e403acff6a59793ad26eb}{osMessageQDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00339}00339\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00342}\mbox{\hyperlink{structos__mail_q__def}{00342}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__mail_q__def}{os\_mailQ\_def}}\ \ \{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00343}\mbox{\hyperlink{structos__mail_q__def_a2614df3d7904500621666abc01808f22}{00343}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__mail_q__def_a2614df3d7904500621666abc01808f22}{queue\_sz}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00344}\mbox{\hyperlink{structos__mail_q__def_a582330af53f89bd1f2ce4a27c7facb07}{00344}}\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos__mail_q__def_a582330af53f89bd1f2ce4a27c7facb07}{item\_sz}};\ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00345}\mbox{\hyperlink{structos__mail_q__def_aa63c90b916f131886850f433a5fe6ca3}{00345}}\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structos__mail_q__cb}{os\_mailQ\_cb}}\ **\mbox{\hyperlink{structos__mail_q__def_aa63c90b916f131886850f433a5fe6ca3}{cb}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00346}\mbox{\hyperlink{cmsis__os_8h_ab6d3ddc7d8cea9901544118bed1a3d1c}{00346}}\ \}\ \mbox{\hyperlink{cmsis__os_8h_ab6d3ddc7d8cea9901544118bed1a3d1c}{osMailQDef\_t}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00347}00347\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00351}\mbox{\hyperlink{structos_event}{00351}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }\{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00352}\mbox{\hyperlink{structos_event_aafcd2cedd08e033f9df25fd9875caaf2}{00352}}\ \ \ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos_event_aafcd2cedd08e033f9df25fd9875caaf2}{status}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00353}00353\ \ \ \textcolor{keyword}{union\ \ }\{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00354}\mbox{\hyperlink{structos_event_a5d2bb38f7be9c75f508646c24d2de4b1}{00354}}\ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos_event_a5d2bb38f7be9c75f508646c24d2de4b1}{v}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00355}\mbox{\hyperlink{structos_event_a70b8f3f364cf158c9e538c5f590d1393}{00355}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structos_event_a70b8f3f364cf158c9e538c5f590d1393}{p}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00356}\mbox{\hyperlink{structos_event_ad63c33b8b5d3bb37b45433d7c67d1e09}{00356}}\ \ \ \ \ int32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos_event_ad63c33b8b5d3bb37b45433d7c67d1e09}{signals}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00357}\mbox{\hyperlink{structos_event_ad759680596c29d49337e1eacaa839eb8}{00357}}\ \ \ \}\ value;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00358}00358\ \ \ \textcolor{keyword}{union\ \ }\{}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00359}\mbox{\hyperlink{structos_event_aeeccddfa51120e20a2316e73bdba099a}{00359}}\ \ \ \ \ \mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structos_event_aeeccddfa51120e20a2316e73bdba099a}{mail\_id}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00360}\mbox{\hyperlink{structos_event_af759bde42477c29f56ed1bf8a19c4db8}{00360}}\ \ \ \ \ \mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ \ \ \ \ \ \ \mbox{\hyperlink{structos_event_af759bde42477c29f56ed1bf8a19c4db8}{message\_id}};\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00361}\mbox{\hyperlink{structos_event_a1e815de1015bac118ccb3e6724401d00}{00361}}\ \ \ \}\ def;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00362}00362\ \}\ \mbox{\hyperlink{structos_event}{osEvent}};}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00363}00363\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00364}00364\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00365}00365\ \textcolor{comment}{//\ \ ====\ Kernel\ Control\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00366}00366\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00370}\mbox{\hyperlink{cmsis__os_8h_a53d078a801022e202e8115c083ece68e}{00370}}\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a53d078a801022e202e8115c083ece68e}{osKernelInitialize}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00371}00371\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00375}00375\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_aab668ffd2ea76bb0a77ab0ab385eaef2}{osKernelStart}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00376}00376\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00380}00380\ int32\_t\ \mbox{\hyperlink{cmsis__os_8h_a3b571de44cd3094c643247a7397f86b5}{osKernelRunning}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00381}00381\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00382}00382\ \textcolor{preprocessor}{\#if\ (defined\ (osFeature\_SysTick)\ \ \&\&\ \ (osFeature\_SysTick\ !=\ 0))\ \ \ \ \ }\textcolor{comment}{//\ System\ Timer\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00383}00383\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00387}00387\ uint32\_t\ \mbox{\hyperlink{cmsis__os_8h_ad0262e4688e95d1e9038afd9bcc16001}{osKernelSysTick}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00391}\mbox{\hyperlink{cmsis__os_8h_a9e0954d52722673e2031233a2ab99960}{00391}}\ \textcolor{preprocessor}{\#define\ osKernelSysTickFrequency\ \ \ \ \ \ (configTICK\_RATE\_HZ)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00392}00392\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00396}\mbox{\hyperlink{cmsis__os_8h_ae12c190af42d7310d8006d64f4ed5a88}{00396}}\ \textcolor{preprocessor}{\#define\ osKernelSysTickMicroSec(microsec)\ (((uint64\_t)microsec\ *\ (osKernelSysTickFrequency))\ /\ 1000000)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00397}00397\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00398}00398\ \textcolor{preprocessor}{\#endif\ \ \ \ }\textcolor{comment}{//\ System\ Timer\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00399}00399\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00400}00400\ \textcolor{comment}{//\ \ ====\ Thread\ Management\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00401}00401\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00409}00409\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00410}00410\ \textcolor{preprocessor}{\#define\ osThreadDef(name,\ thread,\ priority,\ instances,\ stacksz)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00411}00411\ \textcolor{preprocessor}{extern\ const\ osThreadDef\_t\ os\_thread\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00412}00412\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00413}00413\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00414}00414\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00415}00415\ \textcolor{preprocessor}{\#define\ osThreadDef(name,\ thread,\ priority,\ instances,\ stacksz)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00416}00416\ \textcolor{preprocessor}{const\ osThreadDef\_t\ os\_thread\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00417}00417\ \textcolor{preprocessor}{\{\ \#name,\ (thread),\ (priority),\ (instances),\ (stacksz),\ NULL,\ NULL\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00418}00418\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00419}00419\ \textcolor{preprocessor}{\#define\ osThreadStaticDef(name,\ thread,\ priority,\ instances,\ stacksz,\ buffer,\ control)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00420}00420\ \textcolor{preprocessor}{const\ osThreadDef\_t\ os\_thread\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00421}00421\ \textcolor{preprocessor}{\{\ \#name,\ (thread),\ (priority),\ (instances),\ (stacksz),\ (buffer),\ (control)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00422}00422\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//configSUPPORT\_STATIC\_ALLOCATION\ ==\ 0}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00423}00423\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00424}\mbox{\hyperlink{cmsis__os_8h_a1537e80813785bebbc3cbab3226eb04f}{00424}}\ \textcolor{preprocessor}{\#define\ osThreadDef(name,\ thread,\ priority,\ instances,\ stacksz)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00425}00425\ \textcolor{preprocessor}{const\ osThreadDef\_t\ os\_thread\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00426}00426\ \textcolor{preprocessor}{\{\ \#name,\ (thread),\ (priority),\ (instances),\ (stacksz)\}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00427}00427\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00428}00428\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00429}00429\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00434}\mbox{\hyperlink{cmsis__os_8h_af0c7c6b5e09f8be198312144b5c9e453}{00434}}\ \textcolor{preprocessor}{\#define\ osThread(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00435}00435\ \textcolor{preprocessor}{\&os\_thread\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00436}00436\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00442}00442\ \mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ \mbox{\hyperlink{cmsis__os_8h_ac59b5713cb083702dce759c73fd90dff}{osThreadCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__thread__def}{osThreadDef\_t}}\ *thread\_def,\ \textcolor{keywordtype}{void}\ *argument);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00443}00443\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00447}00447\ \mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ \mbox{\hyperlink{cmsis__os_8h_ab1df2a28925862ef8f9cf4e1c995c5a7}{osThreadGetId}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00448}00448\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00453}00453\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_aea135bb90eb853eff39e0800b91bbeab}{osThreadTerminate}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00458}00458\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_af13a667493c5d629a90c13e113b99233}{osThreadYield}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00459}00459\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00465}00465\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a0dfb90ccf1f6e4b54b9251b12d1cbc8b}{osThreadSetPriority}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id,\ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849a}{osPriority}}\ priority);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00466}00466\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00471}00471\ \mbox{\hyperlink{cmsis__os_8h_a7f2b42f1983b9107775ec2a1c69a849a}{osPriority}}\ \mbox{\hyperlink{cmsis__os_8h_a4299d838978bc2aae5e4350754e6a4e9}{osThreadGetPriority}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00472}00472\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00473}00473\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00474}00474\ \textcolor{comment}{//\ \ ====\ Generic\ Wait\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00475}00475\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00479}00479\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a02e19d5e723bfb06ba9324d625162255}{osDelay}}\ (uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00480}00480\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00481}00481\ \textcolor{preprocessor}{\#if\ (defined\ (osFeature\_Wait)\ \ \&\&\ \ (osFeature\_Wait\ !=\ 0))\ \ \ \ \ }\textcolor{comment}{//\ Generic\ Wait\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00482}00482\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00487}00487\ \mbox{\hyperlink{structos_event}{osEvent}}\ osWait\ (uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00488}00488\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00489}00489\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ Generic\ Wait\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00491}00491\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00492}00492\ \textcolor{comment}{//\ \ ====\ Timer\ Management\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00498}00498\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00499}00499\ \textcolor{preprocessor}{\#define\ osTimerDef(name,\ function)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00500}00500\ \textcolor{preprocessor}{extern\ const\ osTimerDef\_t\ os\_timer\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00501}00501\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00502}00502\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00503}00503\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )\ }}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00504}00504\ \textcolor{preprocessor}{\#define\ osTimerDef(name,\ function)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00505}00505\ \textcolor{preprocessor}{const\ osTimerDef\_t\ os\_timer\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00506}00506\ \textcolor{preprocessor}{\{\ (function),\ NULL\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00507}00507\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00508}00508\ \textcolor{preprocessor}{\#define\ osTimerStaticDef(name,\ function,\ control)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00509}00509\ \textcolor{preprocessor}{const\ osTimerDef\_t\ os\_timer\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00510}00510\ \textcolor{preprocessor}{\{\ (function),\ (control)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00511}00511\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//configSUPPORT\_STATIC\_ALLOCATION\ ==\ 0}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00512}\mbox{\hyperlink{cmsis__os_8h_a1c720627e08d1cc1afcad44e799ed492}{00512}}\ \textcolor{preprocessor}{\#define\ osTimerDef(name,\ function)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00513}00513\ \textcolor{preprocessor}{const\ osTimerDef\_t\ os\_timer\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00514}00514\ \textcolor{preprocessor}{\{\ (function)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00515}00515\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00516}00516\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00522}\mbox{\hyperlink{cmsis__os_8h_a1b8d670eaf964b2910fa06885e650678}{00522}}\ \textcolor{preprocessor}{\#define\ osTimer(name)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00523}00523\ \textcolor{preprocessor}{\&os\_timer\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00531}00531\ \mbox{\hyperlink{cmsis__os_8h_a6416f2f47941043a63be8453cecce5be}{osTimerId}}\ \mbox{\hyperlink{cmsis__os_8h_aedd312bfdca04e0b8162b666e09a1ae6}{osTimerCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__timer__def}{osTimerDef\_t}}\ *timer\_def,\ \mbox{\hyperlink{cmsis__os_8h_adac860eb9e1b4b0619271e6595ed83d9}{os\_timer\_type}}\ type,\ \textcolor{keywordtype}{void}\ *argument);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00532}00532\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00538}00538\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a27a797a401b068e2644d1125f22a07ca}{osTimerStart}}\ (\mbox{\hyperlink{cmsis__os_8h_a6416f2f47941043a63be8453cecce5be}{osTimerId}}\ timer\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00539}00539\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00544}00544\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a58f36b121a812936435cacc6e1e0e091}{osTimerStop}}\ (\mbox{\hyperlink{cmsis__os_8h_a6416f2f47941043a63be8453cecce5be}{osTimerId}}\ timer\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00545}00545\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00550}00550\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a746b8043d906849bd65e3900fcb483cf}{osTimerDelete}}\ (\mbox{\hyperlink{cmsis__os_8h_a6416f2f47941043a63be8453cecce5be}{osTimerId}}\ timer\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00551}00551\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00552}00552\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00553}00553\ \textcolor{comment}{//\ \ ====\ Signal\ Management\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00554}00554\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00560}00560\ int32\_t\ \mbox{\hyperlink{cmsis__os_8h_a3de2730654589d6c3559c4b9e2825553}{osSignalSet}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id,\ int32\_t\ signals);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00561}00561\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00567}\mbox{\hyperlink{cmsis__os_8h_a87283a6ebc31ce9ed42baf3ea7e4eab6}{00567}}\ int32\_t\ \mbox{\hyperlink{cmsis__os_8h_a87283a6ebc31ce9ed42baf3ea7e4eab6}{osSignalClear}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id,\ int32\_t\ signals);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00568}00568\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00574}00574\ \mbox{\hyperlink{structos_event}{osEvent}}\ \mbox{\hyperlink{cmsis__os_8h_a38860acda96df47da6923348d96fc4c9}{osSignalWait}}\ (int32\_t\ signals,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00575}00575\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00576}00576\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00577}00577\ \textcolor{comment}{//\ \ ====\ Mutex\ Management\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00578}00578\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00583}00583\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00584}00584\ \textcolor{preprocessor}{\#define\ osMutexDef(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00585}00585\ \textcolor{preprocessor}{extern\ const\ osMutexDef\_t\ os\_mutex\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00586}00586\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00587}00587\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00588}00588\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00589}00589\ \textcolor{preprocessor}{\#define\ osMutexDef(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00590}00590\ \textcolor{preprocessor}{const\ osMutexDef\_t\ os\_mutex\_def\_\#\#name\ =\ \{\ 0,\ NULL\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00591}00591\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00592}00592\ \textcolor{preprocessor}{\#define\ osMutexStaticDef(name,\ control)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00593}00593\ \textcolor{preprocessor}{const\ osMutexDef\_t\ os\_mutex\_def\_\#\#name\ =\ \{\ 0,\ (control)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00594}00594\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//configSUPPORT\_STATIC\_ALLOCATION\ ==\ 0}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00595}\mbox{\hyperlink{cmsis__os_8h_a9b522438489d7c402c95332b58bc94f3}{00595}}\ \textcolor{preprocessor}{\#define\ osMutexDef(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00596}00596\ \textcolor{preprocessor}{const\ osMutexDef\_t\ os\_mutex\_def\_\#\#name\ =\ \{\ 0\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00597}00597\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00598}00598\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00599}00599\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00600}00600\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00601}00601\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00606}\mbox{\hyperlink{cmsis__os_8h_a1122a86faa64b4a0880c76cf68d0c934}{00606}}\ \textcolor{preprocessor}{\#define\ osMutex(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00607}00607\ \textcolor{preprocessor}{\&os\_mutex\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00608}00608\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00613}00613\ \mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ \mbox{\hyperlink{cmsis__os_8h_a5c9de56e717016e39e788064e9a291cc}{osMutexCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__mutex__def}{osMutexDef\_t}}\ *mutex\_def);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00614}00614\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00620}00620\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a5e1752b73f573ee015dbd9ef1edaba13}{osMutexWait}}\ (\mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ mutex\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00621}00621\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00626}00626\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a006e4744d741e8e132c3d5bbc295afe1}{osMutexRelease}}\ (\mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ mutex\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00627}00627\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00632}00632\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_ac27e24135185d51d18f3dabc20910219}{osMutexDelete}}\ (\mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ mutex\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00633}00633\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00634}00634\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00635}00635\ \textcolor{comment}{//\ \ ====\ Semaphore\ Management\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00636}00636\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00637}00637\ \textcolor{preprocessor}{\#if\ (defined\ (osFeature\_Semaphore)\ \ \&\&\ \ (osFeature\_Semaphore\ !=\ 0))\ \ \ \ \ }\textcolor{comment}{//\ Semaphore\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00638}00638\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00643}00643\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00644}00644\ \textcolor{preprocessor}{\#define\ osSemaphoreDef(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00645}00645\ \textcolor{preprocessor}{extern\ const\ osSemaphoreDef\_t\ os\_semaphore\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00646}00646\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00647}00647\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00648}00648\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00649}00649\ \textcolor{preprocessor}{\#define\ osSemaphoreDef(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00650}00650\ \textcolor{preprocessor}{const\ osSemaphoreDef\_t\ os\_semaphore\_def\_\#\#name\ =\ \{\ 0,\ NULL\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00651}00651\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00652}00652\ \textcolor{preprocessor}{\#define\ osSemaphoreStaticDef(name,\ control)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00653}00653\ \textcolor{preprocessor}{const\ osSemaphoreDef\_t\ os\_semaphore\_def\_\#\#name\ =\ \{\ 0,\ (control)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00654}00654\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00655}00655\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//configSUPPORT\_STATIC\_ALLOCATION\ ==\ 0}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00656}\mbox{\hyperlink{cmsis__os_8h_a9e66fe361749071e5ab87826c43c2f1b}{00656}}\ \textcolor{preprocessor}{\#define\ osSemaphoreDef(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00657}00657\ \textcolor{preprocessor}{const\ osSemaphoreDef\_t\ os\_semaphore\_def\_\#\#name\ =\ \{\ 0\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00658}00658\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00659}00659\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00660}00660\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00665}\mbox{\hyperlink{cmsis__os_8h_a03761ee8d2c3cd4544e18364ab301dac}{00665}}\ \textcolor{preprocessor}{\#define\ osSemaphore(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00666}00666\ \textcolor{preprocessor}{\&os\_semaphore\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00667}00667\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00673}00673\ \mbox{\hyperlink{struct_queue_definition}{osSemaphoreId}}\ \mbox{\hyperlink{cmsis__os_8h_a97381e8e55cd47cec390bf57c96d6edb}{osSemaphoreCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__semaphore__def}{osSemaphoreDef\_t}}\ *semaphore\_def,\ int32\_t\ count);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00674}00674\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00680}00680\ int32\_t\ \mbox{\hyperlink{cmsis__os_8h_acc15b0fc8ce1167fe43da33042e62098}{osSemaphoreWait}}\ (\mbox{\hyperlink{struct_queue_definition}{osSemaphoreId}}\ semaphore\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00681}00681\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00686}00686\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_ab108914997c49e14d8ff1ae0d1988ca0}{osSemaphoreRelease}}\ (\mbox{\hyperlink{struct_queue_definition}{osSemaphoreId}}\ semaphore\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00687}00687\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00692}00692\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_abae2801ac2c096f6e8c69a264908f595}{osSemaphoreDelete}}\ (\mbox{\hyperlink{struct_queue_definition}{osSemaphoreId}}\ semaphore\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00693}00693\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00694}00694\ \textcolor{preprocessor}{\#endif\ \ \ \ \ }\textcolor{comment}{//\ Semaphore\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00695}00695\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00696}00696\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00697}00697\ \textcolor{comment}{//\ \ ====\ Memory\ Pool\ Management\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00698}00698\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00699}00699\ \textcolor{preprocessor}{\#if\ (defined\ (osFeature\_Pool)\ \ \&\&\ \ (osFeature\_Pool\ !=\ 0))\ \ }\textcolor{comment}{//\ Memory\ Pool\ Management\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00700}00700\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00707}00707\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00708}00708\ \textcolor{preprocessor}{\#define\ osPoolDef(name,\ no,\ type)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00709}00709\ \textcolor{preprocessor}{extern\ const\ osPoolDef\_t\ os\_pool\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00710}00710\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00711}\mbox{\hyperlink{cmsis__os_8h_a87b471d4fe2d5dbd0040708edd52771b}{00711}}\ \textcolor{preprocessor}{\#define\ osPoolDef(name,\ no,\ type)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00712}00712\ \textcolor{preprocessor}{const\ osPoolDef\_t\ os\_pool\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00713}00713\ \textcolor{preprocessor}{\{\ (no),\ sizeof(type),\ NULL\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00714}00714\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00715}00715\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00720}\mbox{\hyperlink{cmsis__os_8h_a5f0b204a82327533d420210125c90697}{00720}}\ \textcolor{preprocessor}{\#define\ osPool(name)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00721}00721\ \textcolor{preprocessor}{\&os\_pool\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00722}00722\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00727}00727\ \mbox{\hyperlink{structos__pool__cb}{osPoolId}}\ \mbox{\hyperlink{cmsis__os_8h_a34af5c4f4ab38f4138ea7f1f9ece3a1a}{osPoolCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__pool__def}{osPoolDef\_t}}\ *pool\_def);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00728}00728\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00733}00733\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{cmsis__os_8h_aa0b2994f1a866c19e0d11e6e0d44f543}{osPoolAlloc}}\ (\mbox{\hyperlink{structos__pool__cb}{osPoolId}}\ pool\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00734}00734\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00739}00739\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{cmsis__os_8h_a9f129fcad4730fbd1048ad4fa262f36a}{osPoolCAlloc}}\ (\mbox{\hyperlink{structos__pool__cb}{osPoolId}}\ pool\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00740}00740\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00746}00746\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a4a861e9c469c9d0daf5721bf174f8e54}{osPoolFree}}\ (\mbox{\hyperlink{structos__pool__cb}{osPoolId}}\ pool\_id,\ \textcolor{keywordtype}{void}\ *block);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00747}00747\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00748}00748\ \textcolor{preprocessor}{\#endif\ \ \ }\textcolor{comment}{//\ Memory\ Pool\ Management\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00749}00749\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00750}00750\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00751}00751\ \textcolor{comment}{//\ \ ====\ Message\ Queue\ Management\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00752}00752\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00753}00753\ \textcolor{preprocessor}{\#if\ (defined\ (osFeature\_MessageQ)\ \ \&\&\ \ (osFeature\_MessageQ\ !=\ 0))\ \ \ \ \ }\textcolor{comment}{//\ Message\ Queues\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00754}00754\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00761}00761\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00762}00762\ \textcolor{preprocessor}{\#define\ osMessageQDef(name,\ queue\_sz,\ type)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00763}00763\ \textcolor{preprocessor}{extern\ const\ osMessageQDef\_t\ os\_messageQ\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00764}00764\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00765}00765\ \textcolor{preprocessor}{\#if(\ configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00766}00766\ \textcolor{preprocessor}{\#define\ osMessageQDef(name,\ queue\_sz,\ type)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00767}00767\ \textcolor{preprocessor}{const\ osMessageQDef\_t\ os\_messageQ\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00768}00768\ \textcolor{preprocessor}{\{\ (queue\_sz),\ sizeof\ (type),\ NULL,\ NULL\ \ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00769}00769\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00770}00770\ \textcolor{preprocessor}{\#define\ osMessageQStaticDef(name,\ queue\_sz,\ type,\ buffer,\ control)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00771}00771\ \textcolor{preprocessor}{const\ osMessageQDef\_t\ os\_messageQ\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00772}00772\ \textcolor{preprocessor}{\{\ (queue\_sz),\ sizeof\ (type)\ ,\ (buffer),\ (control)\}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00773}00773\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{//configSUPPORT\_STATIC\_ALLOCATION\ ==\ 1}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00774}\mbox{\hyperlink{cmsis__os_8h_ac9a6a6276c12609793e7701afcc82326}{00774}}\ \textcolor{preprocessor}{\#define\ osMessageQDef(name,\ queue\_sz,\ type)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00775}00775\ \textcolor{preprocessor}{const\ osMessageQDef\_t\ os\_messageQ\_def\_\#\#name\ =\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00776}00776\ \textcolor{preprocessor}{\{\ (queue\_sz),\ sizeof\ (type)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00777}00777\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00778}00778\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00779}00779\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00780}00780\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00785}\mbox{\hyperlink{cmsis__os_8h_a2d446a0b4bb90bf05d6f92eedeaabc97}{00785}}\ \textcolor{preprocessor}{\#define\ osMessageQ(name)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00786}00786\ \textcolor{preprocessor}{\&os\_messageQ\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00787}00787\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00793}00793\ \mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ \mbox{\hyperlink{cmsis__os_8h_af3b9345cf426304d46565152bc26fb78}{osMessageCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__message_q__def}{osMessageQDef\_t}}\ *queue\_def,\ \mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00794}00794\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00801}00801\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_ac0dcf462fc92de8ffaba6cc004514a6d}{osMessagePut}}\ (\mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ queue\_id,\ uint32\_t\ info,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00802}00802\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00808}00808\ \mbox{\hyperlink{structos_event}{osEvent}}\ \mbox{\hyperlink{cmsis__os_8h_a6c6892b8f2296cca6becd57ca2d7e1ae}{osMessageGet}}\ (\mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ queue\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00809}00809\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00810}00810\ \textcolor{preprocessor}{\#endif\ \ \ \ \ }\textcolor{comment}{//\ Message\ Queues\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00811}00811\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00812}00812\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00813}00813\ \textcolor{comment}{//\ \ ====\ Mail\ Queue\ Management\ Functions\ ====}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00814}00814\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00815}00815\ \textcolor{preprocessor}{\#if\ (defined\ (osFeature\_MailQ)\ \ \&\&\ \ (osFeature\_MailQ\ !=\ 0))\ \ \ \ \ }\textcolor{comment}{//\ Mail\ Queues\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00816}00816\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00823}00823\ \textcolor{preprocessor}{\#if\ defined\ (osObjectsExternal)\ \ }\textcolor{comment}{//\ object\ is\ external}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00824}00824\ \textcolor{preprocessor}{\#define\ osMailQDef(name,\ queue\_sz,\ type)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00825}00825\ \textcolor{preprocessor}{extern\ struct\ os\_mailQ\_cb\ *os\_mailQ\_cb\_\#\#name\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00826}00826\ \textcolor{preprocessor}{extern\ osMailQDef\_t\ os\_mailQ\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00827}00827\ \textcolor{preprocessor}{\#else\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ define\ the\ object}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00828}\mbox{\hyperlink{cmsis__os_8h_a58d712b16c0c6668059f509386d1e55b}{00828}}\ \textcolor{preprocessor}{\#define\ osMailQDef(name,\ queue\_sz,\ type)\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00829}00829\ \textcolor{preprocessor}{struct\ os\_mailQ\_cb\ *os\_mailQ\_cb\_\#\#name;\ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00830}00830\ \textcolor{preprocessor}{const\ osMailQDef\_t\ os\_mailQ\_def\_\#\#name\ =\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00831}00831\ \textcolor{preprocessor}{\{\ (queue\_sz),\ sizeof\ (type),\ (\&os\_mailQ\_cb\_\#\#name)\ \}}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00832}00832\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00833}00833\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00838}\mbox{\hyperlink{cmsis__os_8h_ad2deeb66d51ade54e63d8f87ff2ec9d2}{00838}}\ \textcolor{preprocessor}{\#define\ osMailQ(name)\ \ \(\backslash\)}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00839}00839\ \textcolor{preprocessor}{\&os\_mailQ\_def\_\#\#name}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00840}00840\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00846}00846\ \mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ \mbox{\hyperlink{cmsis__os_8h_aa177e7fe5820dd70d8c9e46ded131174}{osMailCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__mail_q__def}{osMailQDef\_t}}\ *queue\_def,\ \mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00847}00847\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00853}00853\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{cmsis__os_8h_adf5ce811bd6a56e617e902a1db6c2194}{osMailAlloc}}\ (\mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ queue\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00854}00854\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00860}00860\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{cmsis__os_8h_a8fde74f6fe5b9e88f75cc5eb8f2124fd}{osMailCAlloc}}\ (\mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ queue\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00861}00861\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00867}00867\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a485ef6f81854ebda8ffbce4832181e02}{osMailPut}}\ (\mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ queue\_id,\ \textcolor{keywordtype}{void}\ *mail);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00868}00868\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00874}00874\ \mbox{\hyperlink{structos_event}{osEvent}}\ \mbox{\hyperlink{cmsis__os_8h_ac6ad7e6e7d6c4a80e60da22c57a42ccd}{osMailGet}}\ (\mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ queue\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00875}00875\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00881}00881\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a27c1060cf21393f96b4fd1ed1c0167cc}{osMailFree}}\ (\mbox{\hyperlink{structos__mail_q__cb}{osMailQId}}\ queue\_id,\ \textcolor{keywordtype}{void}\ *mail);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00882}00882\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00883}00883\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ Mail\ Queues\ available}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00884}00884\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00885}00885\ \textcolor{comment}{/***************************\ Additional\ specific\ APIs\ to\ Free\ RTOS\ ************/}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00891}00891\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{cmsis__os_8h_ab169d629ebefc57e030b324d4cce9eea}{osSystickHandler}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00892}00892\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00893}00893\ \textcolor{preprocessor}{\#if\ (\ INCLUDE\_eTaskGetState\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00899}00899\ osThreadState\ \mbox{\hyperlink{cmsis__os_8c_a381aadde8a97dfb66e87c43e2aef4e69}{osThreadGetState}}(\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00900}00900\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INCLUDE\_eTaskGetState\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00901}00901\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00902}00902\ \textcolor{preprocessor}{\#if\ (\ INCLUDE\_eTaskGetState\ ==\ 1\ )}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00909}00909\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8c_a93ec30401d0d8ad26f2dedadcfd5a397}{osThreadIsSuspended}}(\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00910}00910\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00911}00911\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INCLUDE\_eTaskGetState\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00912}00912\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00918}00918\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a204bf99a22ca8fe85b1f8028f0268278}{osThreadSuspend}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00919}00919\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00925}00925\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a98905f234a096669566e7b93272b2653}{osThreadResume}}\ (\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00926}00926\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00931}00931\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a56a2ad8a2fb63a7fdad28d2e9411c3a1}{osThreadSuspendAll}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00932}00932\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00937}00937\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a909a8098efc243cec5729ac51fdb3bdc}{osThreadResumeAll}}\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00938}00938\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00947}00947\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_afc406147a5d66dda6ff62d338a7c99cd}{osDelayUntil}}\ (uint32\_t\ *PreviousWakeTime,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00948}00948\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00954}00954\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a0c9e0cca7aca466bb8887fb56e4b4cc8}{osAbortDelay}}(\mbox{\hyperlink{structtsk_task_control_block}{osThreadId}}\ thread\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00955}00955\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00963}00963\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a72dea6af29c3caa97b583da895237697}{osThreadList}}\ (uint8\_t\ *buffer);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00964}00964\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00971}00971\ \mbox{\hyperlink{structos_event}{osEvent}}\ \mbox{\hyperlink{cmsis__os_8h_aee1081c573fe04809315378a37c0ce23}{osMessagePeek}}\ (\mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ queue\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00972}00972\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00978}00978\ uint32\_t\ \mbox{\hyperlink{cmsis__os_8h_a272501325655aa8bbf36ecd36e38bc56}{osMessageWaiting}}(\mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ queue\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00979}00979\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00985}00985\ uint32\_t\ \mbox{\hyperlink{cmsis__os_8h_a4f80ea3dd0140a782dc3e79fc7d1cba6}{osMessageAvailableSpace}}(\mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ queue\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00986}00986\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00992}00992\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_aa6eff4b4ee9e73ab881840eaf329c469}{osMessageDelete}}\ (\mbox{\hyperlink{struct_queue_definition}{osMessageQId}}\ queue\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00993}00993\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l00999}00999\ \mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ \mbox{\hyperlink{cmsis__os_8h_a09a8e658872a88d284f8143bcb62cff6}{osRecursiveMutexCreate}}\ (\textcolor{keyword}{const}\ \mbox{\hyperlink{structos__mutex__def}{osMutexDef\_t}}\ *mutex\_def);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01000}01000\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01006}01006\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a14c641c81a487a21851555cab5c04531}{osRecursiveMutexRelease}}\ (\mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ mutex\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01007}01007\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01014}01014\ \mbox{\hyperlink{cmsis__os_8h_ae2e091fefc4c767117727bd5aba4d99e}{osStatus}}\ \mbox{\hyperlink{cmsis__os_8h_a479c5c0d01b4f43854761026d2054b30}{osRecursiveMutexWait}}\ (\mbox{\hyperlink{struct_queue_definition}{osMutexId}}\ mutex\_id,\ uint32\_t\ millisec);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01015}01015\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01021}01021\ uint32\_t\ \mbox{\hyperlink{cmsis__os_8h_a5aaec061a877326be39a4998f7690567}{osSemaphoreGetCount}}(\mbox{\hyperlink{struct_queue_definition}{osSemaphoreId}}\ semaphore\_id);}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01022}01022\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01023}01023\ \textcolor{preprocessor}{\#ifdef\ \ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01024}01024\ \}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01025}01025\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01026}01026\ }
+\DoxyCodeLine{\Hypertarget{cmsis__os_8h_source_l01027}01027\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\ \_CMSIS\_OS\_H}}
+
+\end{DoxyCode}
