@@ -219,7 +219,7 @@ void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 static uv_status BMS_RegisterWithXDevMon(void){
 	TickType_t period_ms = 100; // poll every 100 ms
 
-	uint16_t flags = XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT | XDEV_POLLING_REQUIRED;
+	uint16_t flags = XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT;
 
 	if (uvRegisterExternalDevice(BMS, period_ms, flags, "BMS") != UV_OK) {
 			return UV_ERROR; // error when registering device
