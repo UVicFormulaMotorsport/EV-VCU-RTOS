@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__cr_d_e_l_a_y" kind="group">
     <compoundname>crDELAY</compoundname>
     <title>crDELAY</title>
@@ -34,18 +34,22 @@ void vACoRoutine( CoRoutineHandle_t xHandle, UBaseType_t uxIndex )
 // Variables in co-routines must be declared static if they must maintain value across a blocking call.
 // This may not be necessary for const variables.
 // We are to delay for 200ms.
-static const xTickType xDelayTime = 200 / portTICK_PERIOD_MS;</preformatted></para>
-<para><preformatted>    // Must start every co-routine with a call to <ref refid="croutine_8h_1a19a57a201a325e8af1207ed68c4aedde" kindref="member">crSTART()</ref>;
-    <ref refid="croutine_8h_1a19a57a201a325e8af1207ed68c4aedde" kindref="member">crSTART( xHandle )</ref>;</preformatted></para>
-<para><preformatted>    for( ;; )
+static const xTickType xDelayTime = 200 / portTICK_PERIOD_MS;
+
+    // Must start every co-routine with a call to <ref refid="croutine_8h_1a19a57a201a325e8af1207ed68c4aedde" kindref="member">crSTART()</ref>;
+    <ref refid="croutine_8h_1a19a57a201a325e8af1207ed68c4aedde" kindref="member">crSTART( xHandle )</ref>;
+
+    for( ;; )
     {
        // Delay for 200ms.
-       <ref refid="croutine_8h_1a05a06feb11028f2d1d440ea335f562ba" kindref="member">crDELAY( xHandle, xDelayTime )</ref>;</preformatted></para>
-<para><preformatted>       // Do something here.
-    }</preformatted></para>
-<para><preformatted>    // Must end every co-routine with a call to <ref refid="croutine_8h_1ae6038cc976689b50000475ebfc4e2f23" kindref="member">crEND()</ref>;
+       <ref refid="croutine_8h_1a05a06feb11028f2d1d440ea335f562ba" kindref="member">crDELAY( xHandle, xDelayTime )</ref>;
+
+       // Do something here.
+    }
+
+    // Must end every co-routine with a call to <ref refid="croutine_8h_1ae6038cc976689b50000475ebfc4e2f23" kindref="member">crEND()</ref>;
     <ref refid="croutine_8h_1ae6038cc976689b50000475ebfc4e2f23" kindref="member">crEND()</ref>;
-}</preformatted> </para>
+}</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

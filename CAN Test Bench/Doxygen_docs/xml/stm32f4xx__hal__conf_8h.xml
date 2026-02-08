@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="stm32f4xx__hal__conf_8h" kind="file" language="C++">
     <compoundname>stm32f4xx_hal_conf.h</compoundname>
     <includes local="yes">stm32f4xx_hal_rcc.h</includes>
@@ -11,27 +11,9 @@
     <includes local="yes">stm32f4xx_hal_can.h</includes>
     <includes local="yes">stm32f4xx_hal_flash.h</includes>
     <includes local="yes">stm32f4xx_hal_pwr.h</includes>
-    <includes local="yes">stm32f4xx_hal_spi.h</includes>
     <includes local="yes">stm32f4xx_hal_tim.h</includes>
+    <includedby refid="daq_8c" local="yes">Core/Src/daq.c</includedby>
     <incdepgraph>
-      <node id="3">
-        <label>stm32f4xx_hal_gpio.h</label>
-      </node>
-      <node id="7">
-        <label>stm32f4xx_hal_adc.h</label>
-      </node>
-      <node id="6">
-        <label>stm32f4xx_hal_cortex.h</label>
-      </node>
-      <node id="12">
-        <label>stm32f4xx_hal_tim.h</label>
-      </node>
-      <node id="5">
-        <label>stm32f4xx_hal_dma.h</label>
-      </node>
-      <node id="10">
-        <label>stm32f4xx_hal_pwr.h</label>
-      </node>
       <node id="1">
         <label>Core/Inc/stm32f4xx_hal_conf.h</label>
         <link refid="stm32f4xx__hal__conf_8h"/>
@@ -55,26 +37,51 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
       </node>
-      <node id="9">
-        <label>stm32f4xx_hal_flash.h</label>
-      </node>
-      <node id="2">
-        <label>stm32f4xx_hal_rcc.h</label>
-      </node>
-      <node id="4">
-        <label>stm32f4xx_hal_exti.h</label>
+      <node id="7">
+        <label>stm32f4xx_hal_adc.h</label>
       </node>
       <node id="8">
         <label>stm32f4xx_hal_can.h</label>
       </node>
+      <node id="6">
+        <label>stm32f4xx_hal_cortex.h</label>
+      </node>
+      <node id="5">
+        <label>stm32f4xx_hal_dma.h</label>
+      </node>
+      <node id="4">
+        <label>stm32f4xx_hal_exti.h</label>
+      </node>
+      <node id="9">
+        <label>stm32f4xx_hal_flash.h</label>
+      </node>
+      <node id="3">
+        <label>stm32f4xx_hal_gpio.h</label>
+      </node>
+      <node id="10">
+        <label>stm32f4xx_hal_pwr.h</label>
+      </node>
+      <node id="2">
+        <label>stm32f4xx_hal_rcc.h</label>
+      </node>
       <node id="11">
-        <label>stm32f4xx_hal_spi.h</label>
+        <label>stm32f4xx_hal_tim.h</label>
       </node>
     </incdepgraph>
-      <sectiondef kind="define">
+    <invincdepgraph>
+      <node id="1">
+        <label>Core/Inc/stm32f4xx_hal_conf.h</label>
+        <link refid="stm32f4xx__hal__conf_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Core/Src/daq.c</label>
+        <link refid="daq_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
       <memberdef kind="define" id="stm32f4xx__hal__conf_8h_1a877ae99e8c47a609ea97c888912bf75f" prot="public" static="no">
         <name>HAL_MODULE_ENABLED</name>
         <briefdescription>
@@ -105,16 +112,6 @@
         <inbodydescription>
         </inbodydescription>
         <location file="Core/Inc/stm32f4xx_hal_conf.h" line="42" column="9" bodyfile="Core/Inc/stm32f4xx_hal_conf.h" bodystart="42" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="define" id="stm32f4xx__hal__conf_8h_1a8ad4712bf4add56892d057778e826e0c" prot="public" static="no">
-        <name>HAL_SPI_MODULE_ENABLED</name>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Inc/stm32f4xx_hal_conf.h" line="65" column="9" bodyfile="Core/Inc/stm32f4xx_hal_conf.h" bodystart="65" bodyend="-1"/>
       </memberdef>
       <memberdef kind="define" id="stm32f4xx__hal__conf_8h_1a23382b8f04b3e6db2c59dfa1ef5ea4a2" prot="public" static="no">
         <name>HAL_TIM_MODULE_ENABLED</name>
@@ -198,7 +195,7 @@
       </memberdef>
       <memberdef kind="define" id="stm32f4xx__hal__conf_8h_1aeafcff4f57440c60e64812dddd13e7cb" prot="public" static="no">
         <name>HSE_VALUE</name>
-        <initializer>8000000U</initializer>
+        <initializer>25000000U</initializer>
         <briefdescription>
 <para>Adjust the value of External High Speed oscillator (HSE) used in your application. This value is used by the RCC HAL module to compute the system frequency (when HSE is used as system clock source, directly or through the PLL). </para>
         </briefdescription>
@@ -1202,7 +1199,7 @@
         </inbodydescription>
         <location file="Core/Inc/stm32f4xx_hal_conf.h" line="488" column="12" bodyfile="Core/Inc/stm32f4xx_hal_conf.h" bodystart="488" bodyend="-1"/>
       </memberdef>
-      </sectiondef>
+    </sectiondef>
     <briefdescription>
 <para>HAL configuration template file. This file should be copied to the application folder and renamed to <ref refid="stm32f4xx__hal__conf_8h" kindref="compound">stm32f4xx_hal_conf.h</ref>. </para>
     </briefdescription>
@@ -1216,7 +1213,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>BEGIN<sp/>Header<sp/>*/</highlight></codeline>
-<codeline lineno="21"><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Header<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="22"><highlight class="normal"></highlight></codeline>
 <codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Define<sp/>to<sp/>prevent<sp/>recursive<sp/>inclusion<sp/>-------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__STM32F4xx_HAL_CONF_H</highlight><highlight class="normal"></highlight></codeline>
@@ -1230,7 +1227,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Exported<sp/>constants<sp/>--------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>##########################<sp/>Module<sp/>Selection<sp/>##############################<sp/>*/</highlight></codeline>
-<codeline lineno="38" refid="stm32f4xx__hal__conf_8h_1a877ae99e8c47a609ea97c888912bf75f" refkind="member"><highlight class="preprocessor">#define<sp/>HAL_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="stm32f4xx__hal__conf_8h_1a877ae99e8c47a609ea97c888912bf75f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAL_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
 <codeline lineno="40"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_CRYP_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="41" refid="stm32f4xx__hal__conf_8h_1a476f1655c969ae57e89a74d98c75f43f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAL_ADC_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
@@ -1257,7 +1254,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_SAI_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_SD_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_MMC_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65" refid="stm32f4xx__hal__conf_8h_1a8ad4712bf4add56892d057778e826e0c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAL_SPI_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_SPI_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="66" refid="stm32f4xx__hal__conf_8h_1a23382b8f04b3e6db2c59dfa1ef5ea4a2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAL_TIM_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_UART_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>HAL_USART_MODULE_ENABLED<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
@@ -1285,40 +1282,40 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="90" refid="stm32f4xx__hal__conf_8h_1aa9b5a3a425901e097de70092dbe31e0f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HAL_CORTEX_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="91"><highlight class="normal"></highlight></codeline>
 <codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>##########################<sp/>HSE/HSI<sp/>Values<sp/>adaptation<sp/>#####################<sp/>*/</highlight></codeline>
-<codeline lineno="98"><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSE_VALUE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="99" refid="stm32f4xx__hal__conf_8h_1aeafcff4f57440c60e64812dddd13e7cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSE_VALUE<sp/><sp/><sp/><sp/>8000000U<sp/></highlight></codeline>
-<codeline lineno="100"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSE_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSE_VALUE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="stm32f4xx__hal__conf_8h_1aeafcff4f57440c60e64812dddd13e7cb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSE_VALUE<sp/><sp/><sp/><sp/>25000000U<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSE_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="101"><highlight class="normal"></highlight></codeline>
 <codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSE_STARTUP_TIMEOUT)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="103" refid="stm32f4xx__hal__conf_8h_1a68ecbc9b0a1a40a1ec9d18d5e9747c4f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSE_STARTUP_TIMEOUT<sp/><sp/><sp/><sp/>100U<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="104"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSE_STARTUP_TIMEOUT<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="stm32f4xx__hal__conf_8h_1a68ecbc9b0a1a40a1ec9d18d5e9747c4f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSE_STARTUP_TIMEOUT<sp/><sp/><sp/><sp/>100U<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSE_STARTUP_TIMEOUT<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="105"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSI_VALUE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="112" refid="stm32f4xx__hal__conf_8h_1aaa8c76e274d0f6dd2cefb5d0b17fbc37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSI_VALUE<sp/><sp/><sp/><sp/>((uint32_t)16000000U)<sp/></highlight></codeline>
-<codeline lineno="113"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSI_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(HSI_VALUE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="stm32f4xx__hal__conf_8h_1aaa8c76e274d0f6dd2cefb5d0b17fbc37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>HSI_VALUE<sp/><sp/><sp/><sp/>((uint32_t)16000000U)<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HSI_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="114"><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(LSI_VALUE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="119" refid="stm32f4xx__hal__conf_8h_1a4872023e65449c0506aac3ea6bec99e9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#define<sp/>LSI_VALUE<sp/><sp/>32000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="120"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LSI_VALUE<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="126"><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(LSE_VALUE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="127" refid="stm32f4xx__hal__conf_8h_1a7bbb9d19e5189a6ccd0fb6fa6177d20d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#define<sp/>LSE_VALUE<sp/><sp/>32768U<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="128"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LSE_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(LSI_VALUE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="stm32f4xx__hal__conf_8h_1a4872023e65449c0506aac3ea6bec99e9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#define<sp/>LSI_VALUE<sp/><sp/>32000U<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LSI_VALUE<sp/>*/</highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(LSE_VALUE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="stm32f4xx__hal__conf_8h_1a7bbb9d19e5189a6ccd0fb6fa6177d20d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/>#define<sp/>LSE_VALUE<sp/><sp/>32768U<sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LSE_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="129"><highlight class="normal"></highlight></codeline>
 <codeline lineno="130"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(LSE_STARTUP_TIMEOUT)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="131" refid="stm32f4xx__hal__conf_8h_1a85e6fc812dc26f7161a04be2568a5462" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>LSE_STARTUP_TIMEOUT<sp/><sp/><sp/><sp/>5000U<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="132"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LSE_STARTUP_TIMEOUT<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131" refid="stm32f4xx__hal__conf_8h_1a85e6fc812dc26f7161a04be2568a5462" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>LSE_STARTUP_TIMEOUT<sp/><sp/><sp/><sp/>5000U<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>LSE_STARTUP_TIMEOUT<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(EXTERNAL_CLOCK_VALUE)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="140" refid="stm32f4xx__hal__conf_8h_1a8c47c935e91e70569098b41718558648" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>EXTERNAL_CLOCK_VALUE<sp/><sp/><sp/><sp/>12288000U<sp/></highlight></codeline>
-<codeline lineno="141"><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>EXTERNAL_CLOCK_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined<sp/><sp/>(EXTERNAL_CLOCK_VALUE)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="stm32f4xx__hal__conf_8h_1a8c47c935e91e70569098b41718558648" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>EXTERNAL_CLOCK_VALUE<sp/><sp/><sp/><sp/>12288000U<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>EXTERNAL_CLOCK_VALUE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="142"><highlight class="normal"></highlight></codeline>
 <codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Tip:<sp/>To<sp/>avoid<sp/>modifying<sp/>this<sp/>file<sp/>each<sp/>time<sp/>you<sp/>need<sp/>to<sp/>use<sp/>different<sp/>HSE,</highlight></codeline>
 <codeline lineno="144"><highlight class="comment"><sp/><sp/><sp/>===<sp/><sp/>you<sp/>can<sp/>define<sp/>the<sp/>HSE<sp/>value<sp/>in<sp/>your<sp/>toolchain<sp/>compiler<sp/>preprocessor.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
 <codeline lineno="146"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>###########################<sp/>System<sp/>Configuration<sp/>#########################<sp/>*/</highlight></codeline>
-<codeline lineno="150" refid="stm32f4xx__hal__conf_8h_1aae550dad9f96d52cfce5e539adadbbb4" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>VDD_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3300U<sp/></highlight></codeline>
-<codeline lineno="151" refid="stm32f4xx__hal__conf_8h_1ae27809d4959b9fd5b5d974e3e1c77d2e" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>TICK_INT_PRIORITY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15U<sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="152" refid="stm32f4xx__hal__conf_8h_1ad048ac737242c2c2cb9f4a72953d10ce" refkind="member"><highlight class="preprocessor">#define<sp/><sp/>USE_RTOS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="stm32f4xx__hal__conf_8h_1aae550dad9f96d52cfce5e539adadbbb4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>VDD_VALUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>3300U<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="stm32f4xx__hal__conf_8h_1ae27809d4959b9fd5b5d974e3e1c77d2e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>TICK_INT_PRIORITY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>15U<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="stm32f4xx__hal__conf_8h_1ad048ac737242c2c2cb9f4a72953d10ce" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>USE_RTOS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="153" refid="stm32f4xx__hal__conf_8h_1a13fc0d5e7bb925385c0cc0772ba6a391" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>PREFETCH_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="154" refid="stm32f4xx__hal__conf_8h_1a3379989d46599c7e19a43f42e9145a4a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>INSTRUCTION_CACHE_ENABLE<sp/><sp/><sp/><sp/><sp/>1U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="155" refid="stm32f4xx__hal__conf_8h_1a5b4c32a40cf49b06c0d761e385949a6b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>DATA_CACHE_ENABLE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1U</highlight><highlight class="normal"></highlight></codeline>
@@ -1364,7 +1361,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="195" refid="stm32f4xx__hal__conf_8h_1a6879802837c27d8761d8a8fdab626891" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/>USE_HAL_WWDG_REGISTER_CALLBACKS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U<sp/></highlight><highlight class="comment">/*<sp/>WWDG<sp/>register<sp/>callback<sp/>disabled<sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="196"><highlight class="normal"></highlight></codeline>
 <codeline lineno="197"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>##########################<sp/>Assert<sp/>Selection<sp/>##############################<sp/>*/</highlight></codeline>
-<codeline lineno="202"><highlight class="comment">/*<sp/>#define<sp/>USE_FULL_ASSERT<sp/><sp/><sp/><sp/>1U<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>#define<sp/>USE_FULL_ASSERT<sp/><sp/><sp/><sp/>1U<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="203"><highlight class="normal"></highlight></codeline>
 <codeline lineno="204"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>##################<sp/>Ethernet<sp/>peripheral<sp/>configuration<sp/>#####################<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="205"><highlight class="normal"></highlight></codeline>
@@ -1398,26 +1395,26 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="233"><highlight class="normal"></highlight></codeline>
 <codeline lineno="234"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Section<sp/>3:<sp/>Common<sp/>PHY<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="235"><highlight class="normal"></highlight></codeline>
-<codeline lineno="236" refid="stm32f4xx__hal__conf_8h_1a8abe1a40c71e68881ec669d59f513fdb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_BCR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0000U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="237" refid="stm32f4xx__hal__conf_8h_1a4b8f2c29a9e74412395e1b1809666838" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_BSR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0001U)<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="239" refid="stm32f4xx__hal__conf_8h_1a6f5048620b3dde8583f7f1118e9de187" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x8000U)<sp/><sp/></highlight></codeline>
-<codeline lineno="240" refid="stm32f4xx__hal__conf_8h_1a7833d885caa7e29abbebfb90a4b96f86" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_LOOPBACK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x4000U)<sp/><sp/></highlight></codeline>
-<codeline lineno="241" refid="stm32f4xx__hal__conf_8h_1a5729771244f68779fc694ba819cd60a5" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_FULLDUPLEX_100M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x2100U)<sp/><sp/></highlight></codeline>
-<codeline lineno="242" refid="stm32f4xx__hal__conf_8h_1a1ac901a4ad405241d90a5c10104b8986" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_HALFDUPLEX_100M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x2000U)<sp/><sp/></highlight></codeline>
-<codeline lineno="243" refid="stm32f4xx__hal__conf_8h_1a6b6254fd3dacbf1578a9d8058cd86373" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_FULLDUPLEX_10M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0100U)<sp/><sp/></highlight></codeline>
-<codeline lineno="244" refid="stm32f4xx__hal__conf_8h_1a4fa7ca6faf60ee074576ebb6103f8dd4" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_HALFDUPLEX_10M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0000U)<sp/><sp/></highlight></codeline>
-<codeline lineno="245" refid="stm32f4xx__hal__conf_8h_1a9b7f5c8f71047ee449f21562d26b1b43" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_AUTONEGOTIATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x1000U)<sp/><sp/></highlight></codeline>
-<codeline lineno="246" refid="stm32f4xx__hal__conf_8h_1a66c4b69bd08dc25b6730365d3ff740c9" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_RESTART_AUTONEGOTIATION<sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0200U)<sp/><sp/></highlight></codeline>
-<codeline lineno="247" refid="stm32f4xx__hal__conf_8h_1aa0b1e6d4a23470fc1ac4f9222b51f8a0" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_POWERDOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0800U)<sp/><sp/></highlight></codeline>
-<codeline lineno="248" refid="stm32f4xx__hal__conf_8h_1a7d5233295134a385866eb5bdafe2162b" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_ISOLATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0400U)<sp/><sp/></highlight></codeline>
-<codeline lineno="250" refid="stm32f4xx__hal__conf_8h_1a36c4dbd5f6df1f5eaefa010929ef9773" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_AUTONEGO_COMPLETE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0020U)<sp/><sp/></highlight></codeline>
-<codeline lineno="251" refid="stm32f4xx__hal__conf_8h_1ace209074499dbef0b97300da5bd7c707" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_LINKED_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0004U)<sp/><sp/></highlight></codeline>
-<codeline lineno="252" refid="stm32f4xx__hal__conf_8h_1a057b4d3fb66548d65c291a5b41611be2" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_JABBER_DETECTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0002U)<sp/><sp/></highlight></codeline>
-<codeline lineno="254"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>Section<sp/>4:<sp/>Extended<sp/>PHY<sp/>Registers<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="255" refid="stm32f4xx__hal__conf_8h_1a32b55e84d27cf298a77f54b133cd1acc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_SR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t))<sp/><sp/><sp/><sp/></highlight></codeline>
-<codeline lineno="257" refid="stm32f4xx__hal__conf_8h_1a74c081bc55e9ff96bf229f44e96c6155" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_SPEED_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t))<sp/><sp/></highlight></codeline>
-<codeline lineno="258" refid="stm32f4xx__hal__conf_8h_1ab928f45585242fde1a8d81a2d9ed22d0" refkind="member"><highlight class="preprocessor">#define<sp/>PHY_DUPLEX_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t))<sp/><sp/></highlight></codeline>
-<codeline lineno="260"><highlight class="preprocessor"></highlight><highlight class="comment">/*<sp/>##################<sp/>SPI<sp/>peripheral<sp/>configuration<sp/>##########################<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236" refid="stm32f4xx__hal__conf_8h_1a8abe1a40c71e68881ec669d59f513fdb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_BCR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0000U)<sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237" refid="stm32f4xx__hal__conf_8h_1a4b8f2c29a9e74412395e1b1809666838" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_BSR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0001U)<sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239" refid="stm32f4xx__hal__conf_8h_1a6f5048620b3dde8583f7f1118e9de187" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x8000U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240" refid="stm32f4xx__hal__conf_8h_1a7833d885caa7e29abbebfb90a4b96f86" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_LOOPBACK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x4000U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241" refid="stm32f4xx__hal__conf_8h_1a5729771244f68779fc694ba819cd60a5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_FULLDUPLEX_100M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x2100U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="stm32f4xx__hal__conf_8h_1a1ac901a4ad405241d90a5c10104b8986" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_HALFDUPLEX_100M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x2000U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243" refid="stm32f4xx__hal__conf_8h_1a6b6254fd3dacbf1578a9d8058cd86373" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_FULLDUPLEX_10M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0100U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244" refid="stm32f4xx__hal__conf_8h_1a4fa7ca6faf60ee074576ebb6103f8dd4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_HALFDUPLEX_10M<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0000U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245" refid="stm32f4xx__hal__conf_8h_1a9b7f5c8f71047ee449f21562d26b1b43" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_AUTONEGOTIATION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x1000U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246" refid="stm32f4xx__hal__conf_8h_1a66c4b69bd08dc25b6730365d3ff740c9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_RESTART_AUTONEGOTIATION<sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0200U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="247" refid="stm32f4xx__hal__conf_8h_1aa0b1e6d4a23470fc1ac4f9222b51f8a0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_POWERDOWN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0800U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="stm32f4xx__hal__conf_8h_1a7d5233295134a385866eb5bdafe2162b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_ISOLATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0400U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="250" refid="stm32f4xx__hal__conf_8h_1a36c4dbd5f6df1f5eaefa010929ef9773" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_AUTONEGO_COMPLETE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0020U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251" refid="stm32f4xx__hal__conf_8h_1ace209074499dbef0b97300da5bd7c707" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_LINKED_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0004U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="252" refid="stm32f4xx__hal__conf_8h_1a057b4d3fb66548d65c291a5b41611be2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_JABBER_DETECTION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t)0x0002U)<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Section<sp/>4:<sp/>Extended<sp/>PHY<sp/>Registers<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255" refid="stm32f4xx__hal__conf_8h_1a32b55e84d27cf298a77f54b133cd1acc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_SR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t))<sp/><sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257" refid="stm32f4xx__hal__conf_8h_1a74c081bc55e9ff96bf229f44e96c6155" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_SPEED_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t))<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258" refid="stm32f4xx__hal__conf_8h_1ab928f45585242fde1a8d81a2d9ed22d0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>PHY_DUPLEX_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((uint16_t))<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>##################<sp/>SPI<sp/>peripheral<sp/>configuration<sp/>##########################<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="261"><highlight class="normal"></highlight></codeline>
 <codeline lineno="262"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>CRC<sp/>FEATURE:<sp/>Use<sp/>to<sp/>activate<sp/>CRC<sp/>feature<sp/>inside<sp/>HAL<sp/>SPI<sp/>Driver</highlight></codeline>
 <codeline lineno="263"><highlight class="comment">*<sp/>Activated:<sp/>CRC<sp/>code<sp/>is<sp/>present<sp/>inside<sp/>driver</highlight></codeline>
@@ -1427,7 +1424,7 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="267" refid="stm32f4xx__hal__conf_8h_1a4c6fab687afc7ba4469b1b2d34472358" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>USE_SPI_CRC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0U</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="268"><highlight class="normal"></highlight></codeline>
 <codeline lineno="269"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Includes<sp/>------------------------------------------------------------------*/</highlight></codeline>
-<codeline lineno="274"><highlight class="preprocessor">#ifdef<sp/>HAL_RCC_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>HAL_RCC_MODULE_ENABLED</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="275"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#include<sp/>&quot;stm32f4xx_hal_rcc.h&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="276"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HAL_RCC_MODULE_ENABLED<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="277"><highlight class="normal"></highlight></codeline>
@@ -1628,9 +1625,8 @@ Copyright (c) 2017 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="472"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>HAL_MMC_MODULE_ENABLED<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="473"><highlight class="normal"></highlight></codeline>
 <codeline lineno="474"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Exported<sp/>macro<sp/>------------------------------------------------------------*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="475"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/><sp/>USE_FULL_ASSERT</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="476"><highlight class="normal"></highlight></codeline>
-<codeline lineno="484"><highlight class="preprocessor"><sp/><sp/>#define<sp/>assert_param(expr)<sp/>((expr)<sp/>?<sp/>(void)0U<sp/>:<sp/>assert_failed((uint8_t<sp/>*)__FILE__,<sp/>__LINE__))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="475"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/><sp/>USE_FULL_ASSERT</highlight></codeline>
+<codeline lineno="484"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/>#define<sp/>assert_param(expr)<sp/>((expr)<sp/>?<sp/>(void)0U<sp/>:<sp/>assert_failed((uint8_t<sp/>*)__FILE__,<sp/>__LINE__))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="485"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Exported<sp/>functions<sp/>-------------------------------------------------------<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="486"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>assert_failed(uint8_t*<sp/>file,<sp/>uint32_t<sp/>line);</highlight></codeline>
 <codeline lineno="487"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>

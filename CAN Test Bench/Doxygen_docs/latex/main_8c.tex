@@ -1,66 +1,89 @@
-\hypertarget{main_8c}{}\doxysection{Core/\+Src/main.c File Reference}
-\label{main_8c}\index{Core/Src/main.c@{Core/Src/main.c}}
+\doxysection{Core/\+Src/main.c File Reference}
+\hypertarget{main_8c}{}\label{main_8c}\index{Core/Src/main.c@{Core/Src/main.c}}
 
 
 \+: Main program body  
 
 
-{\ttfamily \#include \char`\"{}main.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}cmsis\+\_\+os.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}adc.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}can.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}dma.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}spi.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}tim.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}gpio.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}constants.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}bms.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}dash.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}imd.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}motor\+\_\+controller.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}pdu.\+h\char`\"{}}\newline
-\doxysubsection*{Macros}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}adc.\+h"{}}\newline
+{\ttfamily \#include "{}can.\+h"{}}\newline
+{\ttfamily \#include "{}dma.\+h"{}}\newline
+{\ttfamily \#include "{}tim.\+h"{}}\newline
+{\ttfamily \#include "{}gpio.\+h"{}}\newline
+{\ttfamily \#include "{}constants.\+h"{}}\newline
+{\ttfamily \#include "{}bms.\+h"{}}\newline
+{\ttfamily \#include "{}dash.\+h"{}}\newline
+{\ttfamily \#include "{}imd.\+h"{}}\newline
+{\ttfamily \#include "{}motor\+\_\+controller.\+h"{}}\newline
+{\ttfamily \#include "{}pdu.\+h"{}}\newline
+{\ttfamily \#include "{}../\+Free\+RTOS/\+Source/\+CMSIS\+\_\+\+RTOS/cmsis\+\_\+os.\+h"{}}\newline
+Include dependency graph for main.\+c\+:
+% FIG 0
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{main_8c_a764dcd92a2e2229e53e2090201243643}{D\+E\+B\+U\+G\+\_\+\+C\+A\+N\+\_\+\+I\+N\+\_\+\+M\+A\+IN}}~0
+\#define \mbox{\hyperlink{main_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+}}~"{}main.\+c"{}
+\item 
+\#define \mbox{\hyperlink{main_8c_a243a02d5ffdb9b84887eaef667137588}{MAIN\+\_\+C}}
+\item 
+\#define \mbox{\hyperlink{main_8c_a764dcd92a2e2229e53e2090201243643}{DEBUG\+\_\+\+CAN\+\_\+\+IN\+\_\+\+MAIN}}~0
 \end{DoxyCompactItemize}
-\doxysubsection*{Functions}
+\doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{main_8c_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+\_\+\+Config}} (void)
 \begin{DoxyCompactList}\small\item\em System Clock Configuration. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{main_8c_abade755e13d07c10889ae83143656158}{M\+X\+\_\+\+F\+R\+E\+E\+R\+T\+O\+S\+\_\+\+Init}} (void)
-\begin{DoxyCompactList}\small\item\em Free\+R\+T\+OS initialization. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
 \begin{DoxyCompactList}\small\item\em The application entry point. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{main_8c_af20a88180db1113be1e89266917d148b}{H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback}} (A\+D\+C\+\_\+\+Handle\+Type\+Def $\ast$hadc)
+void \mbox{\hyperlink{main_8c_af20a88180db1113be1e89266917d148b}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}hadc)
 \item 
-void \mbox{\hyperlink{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}{H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+E\+X\+T\+I\+\_\+\+Callback}} (uint16\+\_\+t G\+P\+I\+O\+\_\+\+Pin)
+void \mbox{\hyperlink{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}{HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback}} (uint16\+\_\+t GPIO\+\_\+\+Pin)
 \item 
-void \mbox{\hyperlink{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2}{H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Level\+Out\+Of\+Window\+Callback}} (A\+D\+C\+\_\+\+Handle\+Type\+Def $\ast$hadc)
+void \mbox{\hyperlink{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}hadc)
 \item 
-void \mbox{\hyperlink{main_8c_a8a3b0ad512a6e6c6157440b68d395eac}{H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+Period\+Elapsed\+Callback}} (T\+I\+M\+\_\+\+Handle\+Type\+Def $\ast$htim)
+void \mbox{\hyperlink{main_8c_a8a3b0ad512a6e6c6157440b68d395eac}{HAL\+\_\+\+TIM\+\_\+\+Period\+Elapsed\+Callback}} (TIM\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}htim)
 \begin{DoxyCompactList}\small\item\em Period elapsed callback in non blocking mode. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8c_a1730ffe1e560465665eb47d9264826f9}{Error\+\_\+\+Handler}} (void)
 \begin{DoxyCompactList}\small\item\em This function is executed in case of error occurrence. \end{DoxyCompactList}\end{DoxyCompactItemize}
-\doxysubsection*{Variables}
+\doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-volatile uint32\+\_\+t \mbox{\hyperlink{main_8c_a8c60277435d9f53a21fed2e4ae28a66a}{adc\+\_\+buf1}} \mbox{[}\mbox{\hyperlink{adc_8h_a241b375208136bfc174d8aac59759293}{A\+D\+C1\+\_\+\+B\+U\+F\+\_\+\+L\+EN}}\mbox{]}
+volatile uint32\+\_\+t \mbox{\hyperlink{main_8c_a817e5dcaacef6179442cda2a57010a73}{adc\+\_\+buf1}} \mbox{[}5\mbox{]}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{main_8c_a549b3590f54dfc129d2eebf2604c16e8}{adc1\+\_\+\+A\+P\+P\+S1}}
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a549b3590f54dfc129d2eebf2604c16e8}{adc1\+\_\+\+APPS1}}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}{adc1\+\_\+\+A\+P\+P\+S2}}
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}{adc1\+\_\+\+APPS2}}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{main_8c_ad36d3aa4037203058df6816d56f4c186}{adc1\+\_\+\+B\+P\+S1}}
+uint16\+\_\+t \mbox{\hyperlink{main_8c_ad36d3aa4037203058df6816d56f4c186}{adc1\+\_\+\+BPS1}}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc}{adc1\+\_\+\+B\+P\+S2}}
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc}{adc1\+\_\+\+BPS2}}
 \item 
-volatile uint32\+\_\+t \mbox{\hyperlink{main_8c_a820ab8aecc5744f003ca984a1d960da1}{adc\+\_\+buf2}} \mbox{[}\mbox{\hyperlink{adc_8h_aa11cd6f12825030de59c9466913e011a}{A\+D\+C2\+\_\+\+B\+U\+F\+\_\+\+L\+EN}}\mbox{]}
+uint16\+\_\+t \mbox{\hyperlink{main_8c_abf17ebb52454739180f1dc73b3ecbeb4}{adc1\+\_\+pack\+\_\+curr}}
 \item 
-uint16\+\_\+t \mbox{\hyperlink{main_8c_a05d60ecdd2dcf9cb28968d8027d1d5ce}{adc2\+\_\+\+Coolant\+Temp}}
+volatile uint32\+\_\+t \mbox{\hyperlink{main_8c_a3d4329dfd539cc7ef6393d06e8843c8b}{adc\+\_\+buf2}} \mbox{[}7\mbox{]}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a5cec22e756a9564ed41db01f5cc7b7ee}{adc2\+\_\+\+Coolant\+Temp1}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a74d7b9bf7d093dc8ac52d098e27dc4ad}{adc2\+\_\+\+Coolant\+Temp2}}
 \item 
 uint16\+\_\+t \mbox{\hyperlink{main_8c_a9211365d419c877b3b4f8074ef19cb33}{adc2\+\_\+\+Coolant\+Flow}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_ae4e62f12be2bae57a3b44486718bbd8f}{adc2\+\_\+steering\+\_\+pos}}
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{main_8c_a00aefe44ac90f84a2fb521ad082788ab}{adc\+\_\+buf3}} \mbox{[}4\mbox{]}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_ac54f887b9c45abc7af151b9daf4a99d2}{adc3\+\_\+damper\+\_\+\+FL}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a7e91d48b1ba127b12810cab41dc74015}{adc3\+\_\+damper\+\_\+\+FR}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_a2e4a1dd465581f14d83bce70270bcbb4}{adc3\+\_\+damper\+\_\+\+RL}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{main_8c_ac69ffb1724eb930386724aa5d7ce4593}{adc3\+\_\+damper\+\_\+\+RR}}
+\item 
+Task\+Handle\+\_\+t \mbox{\hyperlink{main_8c_a142da7a698285a444ffffb0d1d791023}{init\+\_\+task\+\_\+handle}}
+\item 
+\mbox{\hyperlink{structuv__init__struct}{uv\+\_\+init\+\_\+struct}} \mbox{\hyperlink{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}{init\+\_\+settings}}
 \end{DoxyCompactItemize}
 
 
@@ -70,29 +93,53 @@ uint16\+\_\+t \mbox{\hyperlink{main_8c_a9211365d419c877b3b4f8074ef19cb33}{adc2\+
 \begin{DoxyAttention}{Attention}
 
 \end{DoxyAttention}
-Copyright (c) 2023 S\+T\+Microelectronics. All rights reserved.
+Copyright (c) 2023 STMicroelectronics. All rights reserved.
 
-This software is licensed under terms that can be found in the L\+I\+C\+E\+N\+SE file in the root directory of this software component. If no L\+I\+C\+E\+N\+SE file comes with this software, it is provided A\+S-\/\+IS. 
+This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-\/\+IS. 
+
+Definition in file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{main_8c_a764dcd92a2e2229e53e2090201243643}\label{main_8c_a764dcd92a2e2229e53e2090201243643}} 
-\index{main.c@{main.c}!DEBUG\_CAN\_IN\_MAIN@{DEBUG\_CAN\_IN\_MAIN}}
+\Hypertarget{main_8c_a368892c5fb38bdcdfae7b7e2a22602b4}\index{main.c@{main.c}!\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}}
+\index{\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{\_\_UV\_FILENAME\_\_}{\_\_UV\_FILENAME\_\_}}
+{\footnotesize\ttfamily \label{main_8c_a368892c5fb38bdcdfae7b7e2a22602b4} 
+\#define \+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+~"{}main.\+c"{}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00019}{19}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a764dcd92a2e2229e53e2090201243643}\index{main.c@{main.c}!DEBUG\_CAN\_IN\_MAIN@{DEBUG\_CAN\_IN\_MAIN}}
 \index{DEBUG\_CAN\_IN\_MAIN@{DEBUG\_CAN\_IN\_MAIN}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{DEBUG\_CAN\_IN\_MAIN}{DEBUG\_CAN\_IN\_MAIN}}
-{\footnotesize\ttfamily \#define D\+E\+B\+U\+G\+\_\+\+C\+A\+N\+\_\+\+I\+N\+\_\+\+M\+A\+IN~0}
+{\footnotesize\ttfamily \label{main_8c_a764dcd92a2e2229e53e2090201243643} 
+\#define DEBUG\+\_\+\+CAN\+\_\+\+IN\+\_\+\+MAIN~0}
 
 
 
-Definition at line 51 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00054}{54}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+\Hypertarget{main_8c_a243a02d5ffdb9b84887eaef667137588}\index{main.c@{main.c}!MAIN\_C@{MAIN\_C}}
+\index{MAIN\_C@{MAIN\_C}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{MAIN\_C}{MAIN\_C}}
+{\footnotesize\ttfamily \label{main_8c_a243a02d5ffdb9b84887eaef667137588} 
+\#define MAIN\+\_\+C}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00020}{20}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{main_8c_a1730ffe1e560465665eb47d9264826f9}\label{main_8c_a1730ffe1e560465665eb47d9264826f9}} 
-\index{main.c@{main.c}!Error\_Handler@{Error\_Handler}}
+\Hypertarget{main_8c_a1730ffe1e560465665eb47d9264826f9}\index{main.c@{main.c}!Error\_Handler@{Error\_Handler}}
 \index{Error\_Handler@{Error\_Handler}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{Error\_Handler()}{Error\_Handler()}}
-{\footnotesize\ttfamily void Error\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a1730ffe1e560465665eb47d9264826f9} 
+void Error\+\_\+\+Handler (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
@@ -105,66 +152,68 @@ This function is executed in case of error occurrence.
 \end{DoxyRetVals}
 
 
-Definition at line 378 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00365}{365}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Msp\+Init(), H\+A\+L\+\_\+\+C\+A\+N\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback(), I\+M\+D\+\_\+\+Parse\+\_\+\+Message(), I\+M\+D\+\_\+\+Request\+\_\+\+Status(), M\+X\+\_\+\+A\+D\+C1\+\_\+\+Init(), M\+X\+\_\+\+A\+D\+C2\+\_\+\+Init(), M\+X\+\_\+\+C\+A\+N2\+\_\+\+Init(), M\+X\+\_\+\+S\+P\+I1\+\_\+\+Init(), M\+X\+\_\+\+T\+I\+M3\+\_\+\+Init(), P\+D\+U\+\_\+disable\+\_\+brake\+\_\+light(), P\+D\+U\+\_\+disable\+\_\+coolant\+\_\+pump(), P\+D\+U\+\_\+disable\+\_\+cooling\+\_\+fans(), P\+D\+U\+\_\+disable\+\_\+motor\+\_\+controller(), P\+D\+U\+\_\+disable\+\_\+shutdown\+\_\+circuit(), P\+D\+U\+\_\+enable\+\_\+brake\+\_\+light(), P\+D\+U\+\_\+enable\+\_\+coolant\+\_\+pump(), P\+D\+U\+\_\+enable\+\_\+cooling\+\_\+fans(), P\+D\+U\+\_\+enable\+\_\+motor\+\_\+controller(), P\+D\+U\+\_\+enable\+\_\+shutdown\+\_\+circuit(), P\+D\+U\+\_\+speaker\+\_\+chirp(), System\+Clock\+\_\+\+Config(), Update\+\_\+\+Batt\+\_\+\+Temp(), Update\+\_\+\+R\+P\+M(), and Update\+\_\+\+State\+\_\+\+Of\+\_\+\+Charge().
+Referenced by \mbox{\hyperlink{adc_8c_source_l00356}{HAL\+\_\+\+ADC\+\_\+\+Msp\+Init()}}, \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}, \mbox{\hyperlink{imd_8c_source_l00185}{IMD\+\_\+\+Request\+\_\+\+Status()}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00181}{MX\+\_\+\+ADC2\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00282}{MX\+\_\+\+ADC3\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00156}{MX\+\_\+\+CAN1\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00232}{MX\+\_\+\+CAN2\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00071}{MX\+\_\+\+TIM11\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00031}{MX\+\_\+\+TIM3\+\_\+\+Init()}}, \mbox{\hyperlink{main_8c_source_l00236}{System\+Clock\+\_\+\+Config()}}, \mbox{\hyperlink{dash_8c_source_l00029}{Update\+\_\+\+Batt\+\_\+\+Temp()}}, \mbox{\hyperlink{dash_8c_source_l00009}{Update\+\_\+\+RPM()}}, and \mbox{\hyperlink{dash_8c_source_l00048}{Update\+\_\+\+State\+\_\+\+Of\+\_\+\+Charge()}}.
 
-\mbox{\Hypertarget{main_8c_af20a88180db1113be1e89266917d148b}\label{main_8c_af20a88180db1113be1e89266917d148b}} 
-\index{main.c@{main.c}!HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}}
+\Hypertarget{main_8c_af20a88180db1113be1e89266917d148b}\index{main.c@{main.c}!HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}}
 \index{HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{HAL\_ADC\_ConvCpltCallback()}{HAL\_ADC\_ConvCpltCallback()}}
-{\footnotesize\ttfamily void H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback (\begin{DoxyParamCaption}\item[{A\+D\+C\+\_\+\+Handle\+Type\+Def $\ast$}]{hadc }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_af20a88180db1113be1e89266917d148b} 
+void HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback (\begin{DoxyParamCaption}\item[{ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{hadc}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 275 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00295}{295}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, adc1\+\_\+\+B\+P\+S1, adc1\+\_\+\+B\+P\+S2, A\+D\+C1\+\_\+\+S\+A\+M\+P\+L\+ES, adc2\+\_\+\+Coolant\+Flow, adc2\+\_\+\+Coolant\+Temp, adc\+\_\+buf1, and adc\+\_\+buf2.
+References \mbox{\hyperlink{adc_8c_source_l00049}{hadc1}}, \mbox{\hyperlink{adc_8c_source_l00050}{hadc2}}, \mbox{\hyperlink{adc_8c_source_l00051}{hadc3}}, and \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
 
-\mbox{\Hypertarget{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2}\label{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2}} 
-\index{main.c@{main.c}!HAL\_ADC\_LevelOutOfWindowCallback@{HAL\_ADC\_LevelOutOfWindowCallback}}
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2}\index{main.c@{main.c}!HAL\_ADC\_LevelOutOfWindowCallback@{HAL\_ADC\_LevelOutOfWindowCallback}}
 \index{HAL\_ADC\_LevelOutOfWindowCallback@{HAL\_ADC\_LevelOutOfWindowCallback}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{HAL\_ADC\_LevelOutOfWindowCallback()}{HAL\_ADC\_LevelOutOfWindowCallback()}}
-{\footnotesize\ttfamily void H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Level\+Out\+Of\+Window\+Callback (\begin{DoxyParamCaption}\item[{A\+D\+C\+\_\+\+Handle\+Type\+Def $\ast$}]{hadc }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2} 
+void HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback (\begin{DoxyParamCaption}\item[{ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{hadc}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 330 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00317}{317}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, hadc1, Red\+\_\+\+L\+E\+D\+\_\+\+G\+P\+I\+O\+\_\+\+Port, and Red\+\_\+\+L\+E\+D\+\_\+\+Pin.
+References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, and \mbox{\hyperlink{adc_8c_source_l00049}{hadc1}}.
 
-\mbox{\Hypertarget{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}\label{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}} 
-\index{main.c@{main.c}!HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}}
+\Hypertarget{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}\index{main.c@{main.c}!HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}}
 \index{HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{HAL\_GPIO\_EXTI\_Callback()}{HAL\_GPIO\_EXTI\_Callback()}}
-{\footnotesize\ttfamily void H\+A\+L\+\_\+\+G\+P\+I\+O\+\_\+\+E\+X\+T\+I\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{G\+P\+I\+O\+\_\+\+Pin }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f} 
+void HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{GPIO\+\_\+\+Pin}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line 321 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00308}{308}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
-\mbox{\Hypertarget{main_8c_a8a3b0ad512a6e6c6157440b68d395eac}\label{main_8c_a8a3b0ad512a6e6c6157440b68d395eac}} 
-\index{main.c@{main.c}!HAL\_TIM\_PeriodElapsedCallback@{HAL\_TIM\_PeriodElapsedCallback}}
+\Hypertarget{main_8c_a8a3b0ad512a6e6c6157440b68d395eac}\index{main.c@{main.c}!HAL\_TIM\_PeriodElapsedCallback@{HAL\_TIM\_PeriodElapsedCallback}}
 \index{HAL\_TIM\_PeriodElapsedCallback@{HAL\_TIM\_PeriodElapsedCallback}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{HAL\_TIM\_PeriodElapsedCallback()}{HAL\_TIM\_PeriodElapsedCallback()}}
-{\footnotesize\ttfamily void H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+Period\+Elapsed\+Callback (\begin{DoxyParamCaption}\item[{T\+I\+M\+\_\+\+Handle\+Type\+Def $\ast$}]{htim }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a8a3b0ad512a6e6c6157440b68d395eac} 
+void HAL\+\_\+\+TIM\+\_\+\+Period\+Elapsed\+Callback (\begin{DoxyParamCaption}\item[{TIM\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}}]{htim}{}\end{DoxyParamCaption})}
 
 
 
 Period elapsed callback in non blocking mode. 
 
 \begin{DoxyNote}{Note}
-This function is called when T\+I\+M1 interrupt took place, inside H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+I\+R\+Q\+Handler(). It makes a direct call to H\+A\+L\+\_\+\+Inc\+Tick() to increment a global variable \char`\"{}uw\+Tick\char`\"{} used as application time base. 
+This function is called when TIM1 interrupt took place, inside HAL\+\_\+\+TIM\+\_\+\+IRQHandler(). It makes a direct call to HAL\+\_\+\+Inc\+Tick() to increment a global variable "{}uw\+Tick"{} used as application time base. 
 \end{DoxyNote}
 
 \begin{DoxyParams}{Parameters}
-{\em htim} & \+: T\+IM handle \\
+{\em htim} & \+: TIM handle \\
 \hline
 \end{DoxyParams}
 
@@ -174,17 +223,17 @@ This function is called when T\+I\+M1 interrupt took place, inside H\+A\+L\+\_\+
 \end{DoxyRetVals}
 
 
-Definition at line 354 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00341}{341}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References A\+D\+C2\+\_\+\+B\+U\+F\+\_\+\+L\+EN, adc\+\_\+buf2, hadc2, and htim3.
+References \mbox{\hyperlink{tim_8c_source_l00027}{htim3}}.
 
-\mbox{\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\label{main_8c_a840291bc02cba5474a4cb46a9b9566fe}} 
-\index{main.c@{main.c}!main@{main}}
+\Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
 \index{main@{main}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{main()}{main()}}
-{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
@@ -197,190 +246,294 @@ The application entry point.
 \end{DoxyRetVals}
 
 
-Definition at line 97 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00111}{111}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References adc1\+\_\+\+A\+P\+P\+S1, adc1\+\_\+\+A\+P\+P\+S2, handle\+C\+A\+Nbus\+Error(), hcan2, M\+X\+\_\+\+A\+D\+C1\+\_\+\+Init(), M\+X\+\_\+\+A\+D\+C2\+\_\+\+Init(), M\+X\+\_\+\+C\+A\+N2\+\_\+\+Init(), M\+X\+\_\+\+D\+M\+A\+\_\+\+Init(), M\+X\+\_\+\+F\+R\+E\+E\+R\+T\+O\+S\+\_\+\+Init(), M\+X\+\_\+\+G\+P\+I\+O\+\_\+\+Init(), M\+X\+\_\+\+S\+P\+I1\+\_\+\+Init(), M\+X\+\_\+\+T\+I\+M3\+\_\+\+Init(), System\+Clock\+\_\+\+Config(), Tx\+Data, Tx\+Header, Tx\+Mailbox, and Update\+\_\+\+R\+P\+M().
+References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{can_8c_source_l00076}{handle\+CANbus\+Error()}}, \mbox{\hyperlink{can_8c_source_l00153}{hcan2}}, \mbox{\hyperlink{main_8c_source_l00086}{init\+\_\+settings}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00181}{MX\+\_\+\+ADC2\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00282}{MX\+\_\+\+ADC3\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00156}{MX\+\_\+\+CAN1\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00232}{MX\+\_\+\+CAN2\+\_\+\+Init()}}, \mbox{\hyperlink{dma_8c_source_l00039}{MX\+\_\+\+DMA\+\_\+\+Init()}}, \mbox{\hyperlink{gpio_8c_source_l00042}{MX\+\_\+\+GPIO\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00071}{MX\+\_\+\+TIM11\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00031}{MX\+\_\+\+TIM3\+\_\+\+Init()}}, \mbox{\hyperlink{main_8c_source_l00236}{System\+Clock\+\_\+\+Config()}}, \mbox{\hyperlink{system__stm32f4xx_8c_source_l00137}{System\+Core\+Clock}}, \mbox{\hyperlink{constants_8c_source_l00010}{Tx\+Data}}, \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}, \mbox{\hyperlink{constants_8c_source_l00011}{Tx\+Mailbox}}, \mbox{\hyperlink{dash_8c_source_l00009}{Update\+\_\+\+RPM()}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00024}{uv\+Assert}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 
-\mbox{\Hypertarget{main_8c_abade755e13d07c10889ae83143656158}\label{main_8c_abade755e13d07c10889ae83143656158}} 
-\index{main.c@{main.c}!MX\_FREERTOS\_Init@{MX\_FREERTOS\_Init}}
-\index{MX\_FREERTOS\_Init@{MX\_FREERTOS\_Init}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{MX\_FREERTOS\_Init()}{MX\_FREERTOS\_Init()}}
-{\footnotesize\ttfamily void M\+X\+\_\+\+F\+R\+E\+E\+R\+T\+O\+S\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
-
-
-
-Free\+R\+T\+OS initialization. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em None} & \\
-\hline
-\end{DoxyParams}
-
-\begin{DoxyRetVals}{Return values}
-{\em None} & \\
-\hline
-\end{DoxyRetVals}
-\begin{DoxyAttention}{Attention}
-D\+O\+NT Y\+OU F\+U\+C\+K\+I\+NG D\+A\+RE D\+E\+L\+E\+TE T\+H\+E\+SE G\+O\+TO S\+T\+A\+T\+E\+M\+E\+N\+TS, T\+H\+EY A\+RE C\+R\+I\+T\+I\+C\+AL TO S\+T\+OP T\+HE OS F\+R\+OM H\+A\+N\+G\+I\+NG I\+T\+S\+E\+LF
-\end{DoxyAttention}
-
-
-Definition at line 160 of file freertos.\+c.
-
-
-
-References default\+Task\+Handle, init\+\_\+settings, init\+\_\+task\+\_\+handle, Start\+Default\+Task(), uv\+\_\+init\+\_\+struct\+::use\+\_\+default\+\_\+settings, and uv\+Init().
-
-
-
-Referenced by main().
-
-\mbox{\Hypertarget{main_8c_a70af21c671abfcc773614a9a4f63d920}\label{main_8c_a70af21c671abfcc773614a9a4f63d920}} 
-\index{main.c@{main.c}!SystemClock\_Config@{SystemClock\_Config}}
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{main_8c_a70af21c671abfcc773614a9a4f63d920}\index{main.c@{main.c}!SystemClock\_Config@{SystemClock\_Config}}
 \index{SystemClock\_Config@{SystemClock\_Config}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{SystemClock\_Config()}{SystemClock\_Config()}}
-{\footnotesize\ttfamily void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{main_8c_a70af21c671abfcc773614a9a4f63d920} 
+void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
 System Clock Configuration. 
 
-
-\begin{DoxyRetVals}{Return values}
-{\em None} & \\
-\hline
-\end{DoxyRetVals}
 Configure the main internal regulator output voltage
 
-Initializes the R\+CC Oscillators according to the specified parameters in the R\+C\+C\+\_\+\+Osc\+Init\+Type\+Def structure.
+Initializes the RCC Oscillators according to the specified parameters in the RCC\+\_\+\+Osc\+Init\+Type\+Def structure.
 
-Initializes the C\+PU, A\+HB and A\+PB buses clocks
+Initializes the CPU, AHB and APB buses clocks
 
-Definition at line 217 of file main.\+c.
-
-
-
-References Error\+\_\+\+Handler().
+Definition at line \mbox{\hyperlink{main_8c_source_l00236}{236}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by main().
+References \mbox{\hyperlink{main_8c_source_l00365}{Error\+\_\+\+Handler()}}.
 
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+
+Here is the call graph for this function\+:
+% FIG 3
 
 
 \doxysubsection{Variable Documentation}
-\mbox{\Hypertarget{main_8c_a549b3590f54dfc129d2eebf2604c16e8}\label{main_8c_a549b3590f54dfc129d2eebf2604c16e8}} 
-\index{main.c@{main.c}!adc1\_APPS1@{adc1\_APPS1}}
+\Hypertarget{main_8c_a549b3590f54dfc129d2eebf2604c16e8}\index{main.c@{main.c}!adc1\_APPS1@{adc1\_APPS1}}
 \index{adc1\_APPS1@{adc1\_APPS1}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc1\_APPS1}{adc1\_APPS1}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+A\+P\+P\+S1}
+{\footnotesize\ttfamily \label{main_8c_a549b3590f54dfc129d2eebf2604c16e8} 
+uint16\+\_\+t adc1\+\_\+\+APPS1}
 
 
 
-Definition at line 64 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00067}{67}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback(), H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Level\+Out\+Of\+Window\+Callback(), main(), and Start\+Driving\+Loop().
+Referenced by \mbox{\hyperlink{main_8c_source_l00317}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{main_8c_source_l00111}{main()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 
-\mbox{\Hypertarget{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}\label{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}} 
-\index{main.c@{main.c}!adc1\_APPS2@{adc1\_APPS2}}
+\Hypertarget{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}\index{main.c@{main.c}!adc1\_APPS2@{adc1\_APPS2}}
 \index{adc1\_APPS2@{adc1\_APPS2}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc1\_APPS2}{adc1\_APPS2}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+A\+P\+P\+S2}
+{\footnotesize\ttfamily \label{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30} 
+uint16\+\_\+t adc1\+\_\+\+APPS2}
 
 
 
-Definition at line 65 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00068}{68}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback(), H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Level\+Out\+Of\+Window\+Callback(), main(), and Start\+Driving\+Loop().
+Referenced by \mbox{\hyperlink{main_8c_source_l00317}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{main_8c_source_l00111}{main()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 
-\mbox{\Hypertarget{main_8c_ad36d3aa4037203058df6816d56f4c186}\label{main_8c_ad36d3aa4037203058df6816d56f4c186}} 
-\index{main.c@{main.c}!adc1\_BPS1@{adc1\_BPS1}}
+\Hypertarget{main_8c_ad36d3aa4037203058df6816d56f4c186}\index{main.c@{main.c}!adc1\_BPS1@{adc1\_BPS1}}
 \index{adc1\_BPS1@{adc1\_BPS1}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc1\_BPS1}{adc1\_BPS1}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+B\+P\+S1}
+{\footnotesize\ttfamily \label{main_8c_ad36d3aa4037203058df6816d56f4c186} 
+uint16\+\_\+t adc1\+\_\+\+BPS1}
 
 
 
-Definition at line 66 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00069}{69}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback(), and Start\+Driving\+Loop().
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 
-\mbox{\Hypertarget{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc}\label{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc}} 
-\index{main.c@{main.c}!adc1\_BPS2@{adc1\_BPS2}}
+\Hypertarget{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc}\index{main.c@{main.c}!adc1\_BPS2@{adc1\_BPS2}}
 \index{adc1\_BPS2@{adc1\_BPS2}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc1\_BPS2}{adc1\_BPS2}}
-{\footnotesize\ttfamily uint16\+\_\+t adc1\+\_\+\+B\+P\+S2}
+{\footnotesize\ttfamily \label{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc} 
+uint16\+\_\+t adc1\+\_\+\+BPS2}
 
 
 
-Definition at line 67 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00070}{70}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback(), and Start\+Driving\+Loop().
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
 
-\mbox{\Hypertarget{main_8c_a9211365d419c877b3b4f8074ef19cb33}\label{main_8c_a9211365d419c877b3b4f8074ef19cb33}} 
-\index{main.c@{main.c}!adc2\_CoolantFlow@{adc2\_CoolantFlow}}
+\Hypertarget{main_8c_abf17ebb52454739180f1dc73b3ecbeb4}\index{main.c@{main.c}!adc1\_pack\_curr@{adc1\_pack\_curr}}
+\index{adc1\_pack\_curr@{adc1\_pack\_curr}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc1\_pack\_curr}{adc1\_pack\_curr}}
+{\footnotesize\ttfamily \label{main_8c_abf17ebb52454739180f1dc73b3ecbeb4} 
+uint16\+\_\+t adc1\+\_\+pack\+\_\+curr}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00071}{71}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_a9211365d419c877b3b4f8074ef19cb33}\index{main.c@{main.c}!adc2\_CoolantFlow@{adc2\_CoolantFlow}}
 \index{adc2\_CoolantFlow@{adc2\_CoolantFlow}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc2\_CoolantFlow}{adc2\_CoolantFlow}}
-{\footnotesize\ttfamily uint16\+\_\+t adc2\+\_\+\+Coolant\+Flow}
+{\footnotesize\ttfamily \label{main_8c_a9211365d419c877b3b4f8074ef19cb33} 
+uint16\+\_\+t adc2\+\_\+\+Coolant\+Flow}
 
 
 
-Definition at line 71 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00076}{76}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback().
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
 
-\mbox{\Hypertarget{main_8c_a05d60ecdd2dcf9cb28968d8027d1d5ce}\label{main_8c_a05d60ecdd2dcf9cb28968d8027d1d5ce}} 
-\index{main.c@{main.c}!adc2\_CoolantTemp@{adc2\_CoolantTemp}}
-\index{adc2\_CoolantTemp@{adc2\_CoolantTemp}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{adc2\_CoolantTemp}{adc2\_CoolantTemp}}
-{\footnotesize\ttfamily uint16\+\_\+t adc2\+\_\+\+Coolant\+Temp}
-
-
-
-Definition at line 70 of file main.\+c.
+\Hypertarget{main_8c_a5cec22e756a9564ed41db01f5cc7b7ee}\index{main.c@{main.c}!adc2\_CoolantTemp1@{adc2\_CoolantTemp1}}
+\index{adc2\_CoolantTemp1@{adc2\_CoolantTemp1}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc2\_CoolantTemp1}{adc2\_CoolantTemp1}}
+{\footnotesize\ttfamily \label{main_8c_a5cec22e756a9564ed41db01f5cc7b7ee} 
+uint16\+\_\+t adc2\+\_\+\+Coolant\+Temp1}
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback().
+Definition at line \mbox{\hyperlink{main_8c_source_l00074}{74}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
-\mbox{\Hypertarget{main_8c_a8c60277435d9f53a21fed2e4ae28a66a}\label{main_8c_a8c60277435d9f53a21fed2e4ae28a66a}} 
-\index{main.c@{main.c}!adc\_buf1@{adc\_buf1}}
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_a74d7b9bf7d093dc8ac52d098e27dc4ad}\index{main.c@{main.c}!adc2\_CoolantTemp2@{adc2\_CoolantTemp2}}
+\index{adc2\_CoolantTemp2@{adc2\_CoolantTemp2}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc2\_CoolantTemp2}{adc2\_CoolantTemp2}}
+{\footnotesize\ttfamily \label{main_8c_a74d7b9bf7d093dc8ac52d098e27dc4ad} 
+uint16\+\_\+t adc2\+\_\+\+Coolant\+Temp2}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00075}{75}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_ae4e62f12be2bae57a3b44486718bbd8f}\index{main.c@{main.c}!adc2\_steering\_pos@{adc2\_steering\_pos}}
+\index{adc2\_steering\_pos@{adc2\_steering\_pos}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc2\_steering\_pos}{adc2\_steering\_pos}}
+{\footnotesize\ttfamily \label{main_8c_ae4e62f12be2bae57a3b44486718bbd8f} 
+uint16\+\_\+t adc2\+\_\+steering\+\_\+pos}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00077}{77}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_ac54f887b9c45abc7af151b9daf4a99d2}\index{main.c@{main.c}!adc3\_damper\_FL@{adc3\_damper\_FL}}
+\index{adc3\_damper\_FL@{adc3\_damper\_FL}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc3\_damper\_FL}{adc3\_damper\_FL}}
+{\footnotesize\ttfamily \label{main_8c_ac54f887b9c45abc7af151b9daf4a99d2} 
+uint16\+\_\+t adc3\+\_\+damper\+\_\+\+FL}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00080}{80}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_a7e91d48b1ba127b12810cab41dc74015}\index{main.c@{main.c}!adc3\_damper\_FR@{adc3\_damper\_FR}}
+\index{adc3\_damper\_FR@{adc3\_damper\_FR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc3\_damper\_FR}{adc3\_damper\_FR}}
+{\footnotesize\ttfamily \label{main_8c_a7e91d48b1ba127b12810cab41dc74015} 
+uint16\+\_\+t adc3\+\_\+damper\+\_\+\+FR}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00081}{81}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_a2e4a1dd465581f14d83bce70270bcbb4}\index{main.c@{main.c}!adc3\_damper\_RL@{adc3\_damper\_RL}}
+\index{adc3\_damper\_RL@{adc3\_damper\_RL}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc3\_damper\_RL}{adc3\_damper\_RL}}
+{\footnotesize\ttfamily \label{main_8c_a2e4a1dd465581f14d83bce70270bcbb4} 
+uint16\+\_\+t adc3\+\_\+damper\+\_\+\+RL}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00082}{82}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_ac69ffb1724eb930386724aa5d7ce4593}\index{main.c@{main.c}!adc3\_damper\_RR@{adc3\_damper\_RR}}
+\index{adc3\_damper\_RR@{adc3\_damper\_RR}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc3\_damper\_RR}{adc3\_damper\_RR}}
+{\footnotesize\ttfamily \label{main_8c_ac69ffb1724eb930386724aa5d7ce4593} 
+uint16\+\_\+t adc3\+\_\+damper\+\_\+\+RR}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00083}{83}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+
+\Hypertarget{main_8c_a817e5dcaacef6179442cda2a57010a73}\index{main.c@{main.c}!adc\_buf1@{adc\_buf1}}
 \index{adc\_buf1@{adc\_buf1}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc\_buf1}{adc\_buf1}}
-{\footnotesize\ttfamily volatile uint32\+\_\+t adc\+\_\+buf1\mbox{[}\mbox{\hyperlink{adc_8h_a241b375208136bfc174d8aac59759293}{A\+D\+C1\+\_\+\+B\+U\+F\+\_\+\+L\+EN}}\mbox{]}}
+{\footnotesize\ttfamily \label{main_8c_a817e5dcaacef6179442cda2a57010a73} 
+volatile uint32\+\_\+t adc\+\_\+buf1\mbox{[}5\mbox{]}}
 
 
 
-Definition at line 62 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00065}{65}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback().
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
 
-\mbox{\Hypertarget{main_8c_a820ab8aecc5744f003ca984a1d960da1}\label{main_8c_a820ab8aecc5744f003ca984a1d960da1}} 
-\index{main.c@{main.c}!adc\_buf2@{adc\_buf2}}
+\Hypertarget{main_8c_a3d4329dfd539cc7ef6393d06e8843c8b}\index{main.c@{main.c}!adc\_buf2@{adc\_buf2}}
 \index{adc\_buf2@{adc\_buf2}!main.c@{main.c}}
 \doxysubsubsection{\texorpdfstring{adc\_buf2}{adc\_buf2}}
-{\footnotesize\ttfamily volatile uint32\+\_\+t adc\+\_\+buf2\mbox{[}\mbox{\hyperlink{adc_8h_aa11cd6f12825030de59c9466913e011a}{A\+D\+C2\+\_\+\+B\+U\+F\+\_\+\+L\+EN}}\mbox{]}}
+{\footnotesize\ttfamily \label{main_8c_a3d4329dfd539cc7ef6393d06e8843c8b} 
+volatile uint32\+\_\+t adc\+\_\+buf2\mbox{[}7\mbox{]}}
 
 
 
-Definition at line 69 of file main.\+c.
+Definition at line \mbox{\hyperlink{main_8c_source_l00073}{73}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by H\+A\+L\+\_\+\+A\+D\+C\+\_\+\+Conv\+Cplt\+Callback(), and H\+A\+L\+\_\+\+T\+I\+M\+\_\+\+Period\+Elapsed\+Callback().
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
+
+\Hypertarget{main_8c_a00aefe44ac90f84a2fb521ad082788ab}\index{main.c@{main.c}!adc\_buf3@{adc\_buf3}}
+\index{adc\_buf3@{adc\_buf3}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{adc\_buf3}{adc\_buf3}}
+{\footnotesize\ttfamily \label{main_8c_a00aefe44ac90f84a2fb521ad082788ab} 
+volatile uint32\+\_\+t adc\+\_\+buf3\mbox{[}4\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00079}{79}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
+
+\Hypertarget{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}\index{main.c@{main.c}!init\_settings@{init\_settings}}
+\index{init\_settings@{init\_settings}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{init\_settings}{init\_settings}}
+{\footnotesize\ttfamily \label{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5} 
+\mbox{\hyperlink{structuv__init__struct}{uv\+\_\+init\+\_\+struct}} init\+\_\+settings}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00086}{86}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+
+\Hypertarget{main_8c_a142da7a698285a444ffffb0d1d791023}\index{main.c@{main.c}!init\_task\_handle@{init\_task\_handle}}
+\index{init\_task\_handle@{init\_task\_handle}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{init\_task\_handle}{init\_task\_handle}}
+{\footnotesize\ttfamily \label{main_8c_a142da7a698285a444ffffb0d1d791023} 
+Task\+Handle\+\_\+t init\+\_\+task\+\_\+handle}
+
+
+
+Definition at line \mbox{\hyperlink{main_8c_source_l00085}{85}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 

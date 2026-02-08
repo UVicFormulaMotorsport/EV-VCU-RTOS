@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_event_group_clear_bits_from_i_s_r" kind="group">
     <compoundname>xEventGroupClearBitsFromISR</compoundname>
     <title>xEventGroupClearBitsFromISR</title>
@@ -32,22 +32,25 @@
 </simplesect>
 Example usage: <preformatted>
   #define BIT_0 ( 1 &lt;&lt; 0 )
-  #define BIT_4 ( 1 &lt;&lt; 4 )</preformatted></para>
-<para><preformatted>  // An event group which it is assumed has already been created by a call to
+  #define BIT_4 ( 1 &lt;&lt; 4 )
+
+  // An event group which it is assumed has already been created by a call to
   // xEventGroupCreate().
-  EventGroupHandle_t xEventGroup;</preformatted></para>
-<para><preformatted>  void anInterruptHandler( void )
+  EventGroupHandle_t xEventGroup;
+
+  void anInterruptHandler( void )
   {
     // Clear bit 0 and bit 4 in xEventGroup.
     xResult = xEventGroupClearBitsFromISR(
                         xEventGroup,     // The event group being updated.
-                        BIT_0 | BIT_4 ); // The bits being set.</preformatted></para>
-<para><preformatted>    if( xResult == pdPASS )
+                        BIT_0 | BIT_4 ); // The bits being set.
+
+    if( xResult == pdPASS )
     {
         // The message was posted successfully.
     }
  }
-  </preformatted> </para>
+  </preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

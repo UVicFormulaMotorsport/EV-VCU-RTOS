@@ -24,6 +24,13 @@ typedef enum{
 	VCU_ERROR_BITFIELD4,
 	VCU_CURRENT_UPTIME,
 	VCU_TOTAL_UPTIME,
+	OS_AVAILABLE_HEAP,
+	OS_LARGEST_FREE_BLOCK,
+	OS_SMALLEST_FREE_BLOCK,
+	OS_NUM_FREE_BLOCKS,
+	OS_MIN_EVER_FREE_BYTES,
+	OS_NUM_SUCCESSFUL_ALLOCS,
+	OS_NUM_SUCCESSFUL_FREES,
 	VEH_DISTANCE_RUN,
 	VEH_DISTANCE_TOTAL,
 	VEH_LAPNUM,
@@ -73,12 +80,13 @@ typedef enum{
 }loggable_params;
 
 
-typedef struct daq_datapoint{ //8 bytes, convenient, no?
+typedef struct daq_msg{ //8 bytes, convenient, no?
 	uint32_t can_id; /**< */
-	uint16_t param;	/**< Which loggable param are we logging boys? */
+	uint16_t param[4];	/**< Which loggable param are we logging? */
+	uint8_t type[4]; /**< Datatype of the data */
 	uint8_t period; /**< Time between transmissions in ms*/
-	uint8_t type; /**< Datatype of the data */
-}daq_datapoint; /**< */
+
+}daq_msg;
 
 
 

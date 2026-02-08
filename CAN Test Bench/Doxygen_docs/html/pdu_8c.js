@@ -1,15 +1,17 @@
 var pdu_8c =
 [
-    [ "initPDU", "pdu_8c.html#afaa6671d51bcd0687c87ac635ff70d95", null ],
-    [ "PDU_disable_brake_light", "pdu_8c.html#ad7b67b3c1618a7c50a5d6d9f9e13a89f", null ],
-    [ "PDU_disable_coolant_pump", "pdu_8c.html#aebeb35957c80be85dc938efe72c8e825", null ],
-    [ "PDU_disable_cooling_fans", "pdu_8c.html#a3c665494b7f9fb4e025ff31d24c97072", null ],
-    [ "PDU_disable_motor_controller", "pdu_8c.html#a6b189c4013c1cb97ff696a9bc05def5e", null ],
-    [ "PDU_disable_shutdown_circuit", "pdu_8c.html#a67ed21c50014c891cc0031655a30aef9", null ],
-    [ "PDU_enable_brake_light", "pdu_8c.html#aa5479c0d6ab8d58683e99bf102d60db8", null ],
-    [ "PDU_enable_coolant_pump", "pdu_8c.html#aef2fd854287906cac1734f08a6edcf2a", null ],
-    [ "PDU_enable_cooling_fans", "pdu_8c.html#a9d736981007eb7fc9691275dc7b6c05c", null ],
-    [ "PDU_enable_motor_controller", "pdu_8c.html#ae3eaaae4438e04d63fe04cc23a201810", null ],
-    [ "PDU_enable_shutdown_circuit", "pdu_8c.html#a0f2b86f2db7ee86b014ccc246c8b674d", null ],
-    [ "PDU_speaker_chirp", "pdu_8c.html#a42e33c33fc1dea26555ff7b20984b186", null ]
+    [ "FIRST_20A_CH", "pdu_8c.html#a5a3ac33c553f70682dc9e1bfe20d2bd5", null ],
+    [ "HIGHEST_CH", "pdu_8c.html#a627e824d1da0b03a662b47db524e213c", null ],
+    [ "U19_PDU_20A_BIT", "pdu_8c.html#a4be4453fd393a9705e3ce4146cce40c8", null ],
+    [ "U19_PDU_EN_BIT", "pdu_8c.html#a847c8eaa8d2029dd5d8b1b782aae2c9b", null ],
+    [ "initPDU", "pdu_8c.html#a1fe919a957b7055fcd240d738195d529", null ],
+    [ "u19updatePduChannel", "pdu_8c.html#a5dda8bbdef27d5c2afee8f3d2b706bd1", null ],
+    [ "last_received_from_PDU", "pdu_8c.html#af7f4e4ce3dd3398a53cb24643396f8ec", null ],
+    [ "msg_to_PDU", "pdu_8c.html#aaf55cb4c7c83957aad36af8fd38ad0a8", null ],
+    [ "pdu_last_Rx_time", "pdu_8c.html#a018ff3186fd2ca7dd9a7825c777252d4", null ],
+    [ "pdu_tx_mutex", "pdu_8c.html#aeec4d7363e8f081b457d92c49d7c5322", null ],
+    [ "read_20A_vals", "pdu_8c.html#a1da857742290329216cb538e70930f23", null ],
+    [ "read_5A_vals", "pdu_8c.html#a5e0b76d0cfbe5852aca54c518f3ebfd8", null ],
+    [ "set_20A_vals", "pdu_8c.html#a3f670253d50011b79a50a97b52623a4e", null ],
+    [ "set_5A_vals", "pdu_8c.html#a5ec56ae805d39218abf3c5b4853bd1bc", null ]
 ];

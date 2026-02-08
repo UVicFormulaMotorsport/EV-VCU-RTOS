@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_create_recursive_mutex_static" kind="group">
     <compoundname>xSemaphoreCreateRecursiveMutexStatic</compoundname>
     <title>xSemaphoreCreateRecursiveMutexStatic</title>
@@ -27,19 +27,21 @@
 </simplesect>
 Example usage: <preformatted>
 SemaphoreHandle_t xSemaphore;
-StaticSemaphore_t xMutexBuffer;</preformatted></para>
-<para><preformatted>void vATask( void * pvParameters )
+StaticSemaphore_t xMutexBuffer;
+
+void vATask( void * pvParameters )
 {
    // A recursive semaphore cannot be used before it is created.  Here a
    // recursive mutex is created using xSemaphoreCreateRecursiveMutexStatic().
    // The address of xMutexBuffer is passed into the function, and will hold
    // the mutexes data structures - so no dynamic memory allocation will be
    // attempted.
-   xSemaphore = xSemaphoreCreateRecursiveMutexStatic( &amp;xMutexBuffer );</preformatted></para>
-<para><preformatted>   // As no dynamic memory allocation was performed, xSemaphore cannot be NULL,
+   xSemaphore = xSemaphoreCreateRecursiveMutexStatic( &amp;xMutexBuffer );
+
+   // As no dynamic memory allocation was performed, xSemaphore cannot be NULL,
    // so there is no need to check it.
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

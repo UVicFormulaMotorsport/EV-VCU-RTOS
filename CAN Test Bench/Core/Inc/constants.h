@@ -6,6 +6,9 @@
 extern CAN_TxHeaderTypeDef   TxHeader;
 extern CAN_RxHeaderTypeDef   RxHeader;
 
+extern CAN_TxHeaderTypeDef   TxHeader2;
+extern CAN_RxHeaderTypeDef   RxHeader2;
+
 extern uint8_t               TxData[8];
 extern uint32_t              TxMailbox;
 extern uint8_t               RxData[8];

@@ -21,5 +21,6 @@ var group__utility__macros =
     [ "serializeSmallE16", "group__utility__macros.html#ga5c017766f44df98dde492a5e406e221c", null ],
     [ "serializeSmallE32", "group__utility__macros.html#ga0fa9d4460bcee65d79e048b43dc879fd", null ],
     [ "setBits", "group__utility__macros.html#ga50e87beac8a57dd01bdaed51450269e3", null ],
+    [ "TEXTIFY", "group__utility__macros.html#ga94253da7c896b6bad6f37138776820b4", null ],
     [ "true", "group__utility__macros.html#ga41f9c5fb8b08eb5dc3edce4dcb37fee7", null ]
 ];

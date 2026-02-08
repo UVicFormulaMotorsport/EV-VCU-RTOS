@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="syscalls_8c" kind="file" language="C++">
     <compoundname>syscalls.c</compoundname>
     <includes local="no">sys/stat.h</includes>
@@ -11,27 +11,6 @@
     <includes local="no">sys/time.h</includes>
     <includes local="no">sys/times.h</includes>
     <incdepgraph>
-      <node id="2">
-        <label>sys/stat.h</label>
-      </node>
-      <node id="9">
-        <label>sys/times.h</label>
-      </node>
-      <node id="3">
-        <label>stdlib.h</label>
-      </node>
-      <node id="4">
-        <label>errno.h</label>
-      </node>
-      <node id="6">
-        <label>signal.h</label>
-      </node>
-      <node id="7">
-        <label>time.h</label>
-      </node>
-      <node id="8">
-        <label>sys/time.h</label>
-      </node>
       <node id="1">
         <label>Core/Src/syscalls.c</label>
         <link refid="syscalls_8c"/>
@@ -52,11 +31,32 @@
         <childnode refid="9" relation="include">
         </childnode>
       </node>
+      <node id="4">
+        <label>errno.h</label>
+      </node>
+      <node id="6">
+        <label>signal.h</label>
+      </node>
       <node id="5">
         <label>stdio.h</label>
       </node>
+      <node id="3">
+        <label>stdlib.h</label>
+      </node>
+      <node id="2">
+        <label>sys/stat.h</label>
+      </node>
+      <node id="8">
+        <label>sys/time.h</label>
+      </node>
+      <node id="9">
+        <label>sys/times.h</label>
+      </node>
+      <node id="7">
+        <label>time.h</label>
+      </node>
     </incdepgraph>
-      <sectiondef kind="var">
+    <sectiondef kind="var">
       <memberdef kind="variable" id="syscalls_8c_1aa006daaf11f1e2e45a6ababaf463212b" prot="public" static="no" mutable="no">
         <type>char **</type>
         <definition>char** environ</definition>
@@ -71,9 +71,9 @@
         </inbodydescription>
         <location file="Core/Src/syscalls.c" line="40" column="6" bodyfile="Core/Src/syscalls.c" bodystart="40" bodyend="-1"/>
       </memberdef>
-      </sectiondef>
-      <sectiondef kind="func">
-      <memberdef kind="function" id="syscalls_8c_1aa53ed4b191897a1bfc205aa1da005d24" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="syscalls_8c_1aa53ed4b191897a1bfc205aa1da005d24" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int __io_putchar</definition>
         <argsstring>(int ch) __attribute__((weak))</argsstring>
@@ -90,7 +90,7 @@
         </inbodydescription>
         <location file="Core/Src/syscalls.c" line="35" column="12" declfile="Core/Src/syscalls.c" declline="35" declcolumn="12"/>
       </memberdef>
-      <memberdef kind="function" id="syscalls_8c_1ad0122671640a3af49792ddaa59e8294e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="syscalls_8c_1ad0122671640a3af49792ddaa59e8294e" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>int</type>
         <definition>int __io_getchar</definition>
         <argsstring>(void)</argsstring>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/syscalls.c" line="36" column="12" bodyfile="Core/Src/syscalls.c" bodystart="36" bodyend="39"/>
+        <location file="Core/Src/syscalls.c" line="36" column="12" bodyfile="Core/Src/syscalls.c" bodystart="36" bodyend="39" declfile="Core/Src/syscalls.c" declline="36" declcolumn="12"/>
         <referencedby refid="syscalls_8c_1af9aace1b44b73111e15aa39f06f43456" compoundref="syscalls_8c" startline="67" endline="78">__attribute__</referencedby>
       </memberdef>
       <memberdef kind="function" id="syscalls_8c_1a25c7f100d498300fff65568c2fcfe639" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -431,7 +431,7 @@
         </inbodydescription>
         <location file="Core/Src/syscalls.c" line="169" column="5" bodyfile="Core/Src/syscalls.c" bodystart="169" bodyend="176"/>
       </memberdef>
-      </sectiondef>
+    </sectiondef>
     <briefdescription>
 <para>STM32CubeIDE Minimal System calls file. </para>
     </briefdescription>
@@ -448,7 +448,7 @@ Copyright (c) 2020-2023 STMicroelectronics. All rights reserved.</para>
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"></codeline>
-<codeline lineno="23"><highlight class="comment">/*<sp/>Includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="24"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/stat.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="26"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;errno.h&gt;</highlight><highlight class="normal"></highlight></codeline>
@@ -460,7 +460,7 @@ Copyright (c) 2020-2023 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="32"><highlight class="normal"></highlight></codeline>
 <codeline lineno="33"><highlight class="normal"></highlight></codeline>
 <codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Variables<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="syscalls_8c_1aa53ed4b191897a1bfc205aa1da005d24" kindref="member">__io_putchar</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ch)<sp/><ref refid="syscalls_8c_1af9aace1b44b73111e15aa39f06f43456" kindref="member">__attribute__</ref>((weak));</highlight></codeline>
+<codeline lineno="35" refid="syscalls_8c_1aa53ed4b191897a1bfc205aa1da005d24" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="syscalls_8c_1aa53ed4b191897a1bfc205aa1da005d24" kindref="member">__io_putchar</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ch)<sp/><ref refid="syscalls_8c_1af9aace1b44b73111e15aa39f06f43456" kindref="member">__attribute__</ref>((weak));</highlight></codeline>
 <codeline lineno="36" refid="syscalls_8c_1ad0122671640a3af49792ddaa59e8294e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="syscalls_8c_1ad0122671640a3af49792ddaa59e8294e" kindref="member">__io_getchar</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)<sp/><ref refid="syscalls_8c_1af9aace1b44b73111e15aa39f06f43456" kindref="member">__attribute__</ref>((weak));</highlight></codeline>
 <codeline lineno="37"><highlight class="normal"></highlight></codeline>
 <codeline lineno="38"><highlight class="normal"></highlight></codeline>

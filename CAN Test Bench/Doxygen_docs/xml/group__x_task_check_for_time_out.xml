@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_task_check_for_time_out" kind="group">
     <compoundname>xTaskCheckForTimeOut</compoundname>
     <title>xTaskCheckForTimeOut</title>
@@ -40,16 +40,19 @@ Example Usage: <preformatted>
    // continues until either the buffer contains at least uxWantedBytes bytes,
    // or the total amount of time spent in the Blocked state reaches
    // MAX_TIME_TO_WAIT – at which point the task reads however many bytes are
-   // available up to a maximum of uxWantedBytes.</preformatted></para>
-<para><preformatted>   size_t xUART_Receive( uint8_t *pucBuffer, size_t uxWantedBytes )
+   // available up to a maximum of uxWantedBytes.
+
+   size_t xUART_Receive( uint8_t *pucBuffer, size_t uxWantedBytes )
    {
    size_t uxReceived = 0;
    TickType_t xTicksToWait = MAX_TIME_TO_WAIT;
-   TimeOut_t xTimeOut;</preformatted></para>
-<para><preformatted>    // Initialize xTimeOut.  This records the time at which this function
+   TimeOut_t xTimeOut;
+
+    // Initialize xTimeOut.  This records the time at which this function
     // was entered.
-    vTaskSetTimeOutState( &amp;xTimeOut );</preformatted></para>
-<para><preformatted>    // Loop until the buffer contains the wanted number of bytes, or a
+    vTaskSetTimeOutState( &amp;xTimeOut );
+
+    // Loop until the buffer contains the wanted number of bytes, or a
     // timeout occurs.
     while( UART_bytes_in_rx_buffer( pxUARTInstance ) &lt; uxWantedBytes )
     {
@@ -63,20 +66,23 @@ Example Usage: <preformatted>
             //Timed out before the wanted number of bytes were available,
             // exit the loop.
             break;
-        }</preformatted></para>
-<para><preformatted>        // Wait for a maximum of xTicksToWait ticks to be notified that the
+        }
+
+        // Wait for a maximum of xTicksToWait ticks to be notified that the
         // receive interrupt has placed more data into the buffer.
         ulTaskNotifyTake( pdTRUE, xTicksToWait );
-    }</preformatted></para>
-<para><preformatted>    // Attempt to read uxWantedBytes from the receive buffer into pucBuffer.
+    }
+
+    // Attempt to read uxWantedBytes from the receive buffer into pucBuffer.
     // The actual number of bytes read (which might be less than
     // uxWantedBytes) is returned.
     uxReceived = UART_read_from_receive_buffer( pxUARTInstance,
                                                 pucBuffer,
-                                                uxWantedBytes );</preformatted></para>
-<para><preformatted>    return uxReceived;
+                                                uxWantedBytes );
+
+    return uxReceived;
    }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

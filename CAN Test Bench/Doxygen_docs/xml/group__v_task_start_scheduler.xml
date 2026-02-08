@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_task_start_scheduler" kind="group">
     <compoundname>vTaskStartScheduler</compoundname>
     <title>vTaskStartScheduler</title>
@@ -13,12 +13,14 @@
 void vAFunction( void )
 {
     // Create at least one task before starting the kernel.
-    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );</preformatted></para>
-<para><preformatted>    // Start the real time kernel with preemption.
-    vTaskStartScheduler ();</preformatted></para>
-<para><preformatted>    // Will not get here unless a task calls vTaskEndScheduler ()
+    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
+
+    // Start the real time kernel with preemption.
+    vTaskStartScheduler ();
+
+    // Will not get here unless a task calls vTaskEndScheduler ()
 }
-  </preformatted> </para>
+  </preformatted></para>
     </detaileddescription>
   </compounddef>
 </doxygen>

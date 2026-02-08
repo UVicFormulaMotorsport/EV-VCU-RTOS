@@ -1,13 +1,13 @@
-\hypertarget{group__x_task_create_restricted}{}\doxysection{x\+Task\+Create\+Restricted}
-\label{group__x_task_create_restricted}\index{xTaskCreateRestricted@{xTaskCreateRestricted}}
+\doxysection{x\+Task\+Create\+Restricted}
+\hypertarget{group__x_task_create_restricted}{}\label{group__x_task_create_restricted}\index{xTaskCreateRestricted@{xTaskCreateRestricted}}
 task. h 
 \begin{DoxyPre}
  BaseType\_t xTaskCreateRestricted( TaskParameters\_t *pxTaskDefinition, TaskHandle\_t *pxCreatedTask );\end{DoxyPre}
 
 
-Only available when config\+S\+U\+P\+P\+O\+R\+T\+\_\+\+D\+Y\+N\+A\+M\+I\+C\+\_\+\+A\+L\+L\+O\+C\+A\+T\+I\+ON is set to 1.
+Only available when config\+SUPPORT\+\_\+\+DYNAMIC\+\_\+\+ALLOCATION is set to 1.
 
-x\+Task\+Create\+Restricted() should only be used in systems that include an M\+PU implementation.
+x\+Task\+Create\+Restricted() should only be used in systems that include an MPU implementation.
 
 Create a new task and add it to the list of tasks that are ready to run. The function parameters define the memory regions and associated access permissions allocated to the task.
 
@@ -15,13 +15,13 @@ See x\+Task\+Create\+Restricted\+Static() for a version that does not use any dy
 
 
 \begin{DoxyParams}{Parameters}
-{\em px\+Task\+Definition} & Pointer to a structure that contains a member for each of the normal x\+Task\+Create() parameters (see the x\+Task\+Create() A\+PI documentation) plus an optional stack buffer and the memory region definitions.\\
+{\em px\+Task\+Definition} & Pointer to a structure that contains a member for each of the normal x\+Task\+Create() parameters (see the x\+Task\+Create() API documentation) plus an optional stack buffer and the memory region definitions.\\
 \hline
 {\em px\+Created\+Task} & Used to pass back a handle by which the created task can be referenced.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pd\+P\+A\+SS if the task was successfully created and added to a ready list, otherwise an error code defined in the file \mbox{\hyperlink{projdefs_8h}{projdefs.\+h}}
+pd\+PASS if the task was successfully created and added to a ready list, otherwise an error code defined in the file \doxylink{projdefs_8h}{projdefs.\+h}
 \end{DoxyReturn}
 Example usage\+: 
 \begin{DoxyPre}
@@ -29,15 +29,13 @@ Example usage\+:
 static const TaskParameters\_t xCheckTaskParameters =
 \{
     vATask,     // pvTaskCode -\/ the function that implements the task.
-    "ATask",    // pcName -\/ just a text name for the task to assist debugging.
+    "{}ATask"{},    // pcName -\/ just a text name for the task to assist debugging.
     100,        // usStackDepth -\/ the stack size DEFINED IN WORDS.
     NULL,       // pvParameters -\/ passed into the task function as the function parameters.
     ( 1UL | portPRIVILEGE\_BIT ),// uxPriority -\/ task priority, set the portPRIVILEGE\_BIT if the task should run in a privileged state.
-    cStackBuffer,// puxStackBuffer -\/ the buffer to be used as the task stack.\end{DoxyPre}
+    cStackBuffer,// puxStackBuffer -\/ the buffer to be used as the task stack.
 
-
-
-\begin{DoxyPre}    // xRegions -\/ Allocate up to three separate memory regions for access by
+    // xRegions -\/ Allocate up to three separate memory regions for access by
     // the task, with appropriate access permissions.  Different processors have
     // different memory alignment requirements -\/ refer to the FreeRTOS documentation
     // for full information.
@@ -47,41 +45,33 @@ static const TaskParameters\_t xCheckTaskParameters =
         \{ cReadOnlyArray,               32,     portMPU\_REGION\_READ\_ONLY \},
         \{ cPrivilegedOnlyAccessArray,   128,    portMPU\_REGION\_PRIVILEGED\_READ\_WRITE \}
     \}
-\};\end{DoxyPre}
+\};
 
-
-
-\begin{DoxyPre}int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main( void )}}
+int \doxylink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main( void )}
 \{
-TaskHandle\_t xHandle;\end{DoxyPre}
+TaskHandle\_t xHandle;
 
-
-
-\begin{DoxyPre}    // Create a task from the const structure defined above.  The task handle
+    // Create a task from the const structure defined above.  The task handle
     // is requested (the second parameter is not NULL) but in this case just for
     // demonstration purposes as its not actually used.
-    xTaskCreateRestricted( \&xRegTest1Parameters, \&xHandle );\end{DoxyPre}
+    xTaskCreateRestricted( \&xRegTest1Parameters, \&xHandle );
 
+    // Start the scheduler.
+    \doxylink{task_8h_aaf9dca1065c60abdeb309d56ab7293cb}{vTaskStartScheduler()};
 
-
-\begin{DoxyPre}    // Start the scheduler.
-    \mbox{\hyperlink{task_8h_aaf9dca1065c60abdeb309d56ab7293cb}{vTaskStartScheduler()}};\end{DoxyPre}
-
-
-
-\begin{DoxyPre}    // Will only get here if there was insufficient memory to create the idle
+    // Will only get here if there was insufficient memory to create the idle
     // and/or timer task.
     for( ;; );
 \}
    \end{DoxyPre}
-
+  
 
 task. h 
 \begin{DoxyPre}
- void \mbox{\hyperlink{task_8h_ad889595baff9faf9efe02f3696825409}{vTaskAllocateMPURegions( TaskHandle\_t xTask, const MemoryRegion\_t * const pxRegions )}};\end{DoxyPre}
+ void \doxylink{task_8h_ad889595baff9faf9efe02f3696825409}{vTaskAllocateMPURegions( TaskHandle\_t xTask, const MemoryRegion\_t * const pxRegions )};\end{DoxyPre}
 
 
-Memory regions are assigned to a restricted task when the task is created by a call to x\+Task\+Create\+Restricted(). These regions can be redefined using \mbox{\hyperlink{task_8h_ad889595baff9faf9efe02f3696825409}{v\+Task\+Allocate\+M\+P\+U\+Regions()}}.
+Memory regions are assigned to a restricted task when the task is created by a call to x\+Task\+Create\+Restricted(). These regions can be redefined using \doxylink{task_8h_ad889595baff9faf9efe02f3696825409}{v\+Task\+Allocate\+MPURegions()}.
 
 
 \begin{DoxyParams}{Parameters}
@@ -102,25 +92,21 @@ static const MemoryRegion\_t xAltRegions[ portNUM\_CONFIGURABLE\_REGIONS ] =
     \{ ucOneKByte,       1024,       portMPU\_REGION\_READ\_WRITE \},
     \{ 0,                0,          0 \},
     \{ 0,                0,          0 \}
-\};\end{DoxyPre}
+\};
 
-
-
-\begin{DoxyPre}void vATask( void *pvParameters )
+void vATask( void *pvParameters )
 \{
     // This task was created such that it has access to certain regions of
     // memory as defined by the MPU configuration.  At some point it is
     // desired that these MPU regions are replaced with that defined in the
-    // xAltRegions const struct above.  Use a call to \mbox{\hyperlink{task_8h_ad889595baff9faf9efe02f3696825409}{vTaskAllocateMPURegions()}}
+    // xAltRegions const struct above.  Use a call to \doxylink{task_8h_ad889595baff9faf9efe02f3696825409}{vTaskAllocateMPURegions()}
     // for this purpose.  NULL is used as the task handle to indicate that this
     // function should modify the MPU regions of the calling task.
-    vTaskAllocateMPURegions( NULL, xAltRegions );\end{DoxyPre}
+    vTaskAllocateMPURegions( NULL, xAltRegions );
 
-
-
-\begin{DoxyPre}    // Now the task can continue its function, but from this point on can only
+    // Now the task can continue its function, but from this point on can only
     // access its stack and the ucOneKByte array (unless any other statically
     // defined or shared regions have been declared elsewhere).
 \}
    \end{DoxyPre}
- 
+   

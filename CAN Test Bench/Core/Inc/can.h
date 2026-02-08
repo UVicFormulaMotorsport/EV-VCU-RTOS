@@ -33,6 +33,8 @@ extern "C" {
 #include "uvfr_utils.h"
 /* USER CODE END Includes */
 
+extern CAN_HandleTypeDef hcan1;
+
 extern CAN_HandleTypeDef hcan2;
 
 /* USER CODE BEGIN Private defines */
@@ -45,6 +47,7 @@ typedef enum uv_status_t uv_status;
 
 /* USER CODE END Private defines */
 
+void MX_CAN1_Init(void);
 void MX_CAN2_Init(void);
 
 /* USER CODE BEGIN Prototypes */
@@ -59,8 +62,8 @@ void CANbusRxSvcDaemon(void* args);
 
 
 //int callFunctionFromCANid(uint32_t CAN_id, uint8_t* data, uint8_t length);
-void insertCANMessageHandler(uint32_t id, void* handlerfunc);
-void nuke_hash_table();
+void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num);
+void nuke_hash_table(int can_num);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

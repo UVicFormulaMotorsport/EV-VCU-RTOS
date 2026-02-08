@@ -11,7 +11,7 @@ var croutine_8h =
     [ "crSET_STATE1", "croutine_8h.html#a345ffc731dc40152bfb1162453ecc1f7", null ],
     [ "crSTART", "croutine_8h.html#a19a57a201a325e8af1207ed68c4aedde", null ],
     [ "CoRoutineHandle_t", "croutine_8h.html#a33b9d058688c92258155b5756d9936dd", null ],
-    [ "CRCB_t", "croutine_8h.html#a4d7cfb67be3465d9caeadd21c19e4401", null ],
+    [ "CRCB_t", "croutine_8h.html#a1c15f304ffe02d0777ae2509b3658e6f", null ],
     [ "crCOROUTINE_CODE", "croutine_8h.html#a397a7505718dd366d8411ce324c49758", null ],
     [ "vCoRoutineAddToDelayedList", "croutine_8h.html#a6b5b1c5857d38b79c96636754208e32d", null ],
     [ "vCoRoutineSchedule", "croutine_8h.html#a5333c649a2c063006ca3cd7a3b5b9240", null ],

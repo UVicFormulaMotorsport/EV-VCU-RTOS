@@ -4,7 +4,7 @@
  *  Created on: Apr 28, 2025
  *      Author: karni
  */
-
+#define __UV_FILENAME__ "ready_to_drive.c"
 #include "uvfr_utils.h"
 
 void rtdTask(void* args);

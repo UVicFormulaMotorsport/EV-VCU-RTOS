@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__v_task_end_scheduler" kind="group">
     <compoundname>vTaskEndScheduler</compoundname>
     <title>vTaskEndScheduler</title>
@@ -17,23 +17,27 @@ void vTaskCode( void * pvParameters )
 {
     for( ;; )
     {
-     // Task code goes here.</preformatted></para>
-<para><preformatted>     // At some point we want to end the real time kernel processing
+     // Task code goes here.
+
+     // At some point we want to end the real time kernel processing
      // so call ...
      vTaskEndScheduler ();
     }
-}</preformatted></para>
-<para><preformatted>void vAFunction( void )
+}
+
+void vAFunction( void )
 {
     // Create at least one task before starting the kernel.
-    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );</preformatted></para>
-<para><preformatted>    // Start the real time kernel with preemption.
-    vTaskStartScheduler ();</preformatted></para>
-<para><preformatted>    // Will only get here when the vTaskCode () task has called
+    xTaskCreate( vTaskCode, &quot;NAME&quot;, STACK_SIZE, NULL, tskIDLE_PRIORITY, NULL );
+
+    // Start the real time kernel with preemption.
+    vTaskStartScheduler ();
+
+    // Will only get here when the vTaskCode () task has called
     // vTaskEndScheduler ().  When we get here we are back to single task
     // execution.
 }
-  </preformatted> </para>
+  </preformatted></para>
     </detaileddescription>
   </compounddef>
 </doxygen>

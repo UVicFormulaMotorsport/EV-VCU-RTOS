@@ -1,12 +1,15 @@
 <?xml version='1.0' encoding='UTF-8' standalone='no'?>
-<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.16">
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.12.0" xml:lang="en-US">
   <compounddef id="group__x_semaphore_take_recursive" kind="group">
     <compoundname>xSemaphoreTakeRecursive</compoundname>
     <title>xSemaphoreTakeRecursive</title>
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para>semphr. h xSemaphoreTakeRecursive( SemaphoreHandle_t xMutex, TickType_t xBlockTime )</para>
+<para>semphr. h xSemaphoreTakeRecursive(
+                           SemaphoreHandle_t xMutex,
+                           TickType_t xBlockTime
+                         )</para>
 <para><emphasis>Macro</emphasis> to recursively obtain, or &apos;take&apos;, a mutex type semaphore. The mutex must have previously been created using a call to xSemaphoreCreateRecursiveMutex();</para>
 <para>configUSE_RECURSIVE_MUTEXES must be set to 1 in <ref refid="_free_r_t_o_s_config_8h" kindref="compound">FreeRTOSConfig.h</ref> for this macro to be available.</para>
 <para>This macro must not be used on mutexes created using xSemaphoreCreateMutex().</para>
@@ -31,42 +34,48 @@
 <simplesect kind="return"><para>pdTRUE if the semaphore was obtained. pdFALSE if xBlockTime expired without the semaphore becoming available.</para>
 </simplesect>
 Example usage: <preformatted>
-SemaphoreHandle_t xMutex = NULL;</preformatted></para>
-<para><preformatted>// A task that creates a mutex.
+SemaphoreHandle_t xMutex = NULL;
+
+// A task that creates a mutex.
 void vATask( void * pvParameters )
 {
    // Create the mutex to guard a shared resource.
    xMutex = xSemaphoreCreateRecursiveMutex();
-}</preformatted></para>
-<para><preformatted>// A task that uses the mutex.
+}
+
+// A task that uses the mutex.
 void vAnotherTask( void * pvParameters )
 {
-   // ... Do other things.</preformatted></para>
-<para><preformatted>   if( xMutex != NULL )
+   // ... Do other things.
+
+   if( xMutex != NULL )
    {
        // See if we can obtain the mutex.  If the mutex is not available
        // wait 10 ticks to see if it becomes free.
        if( xSemaphoreTakeRecursive( xSemaphore, ( TickType_t ) 10 ) == pdTRUE )
        {
            // We were able to obtain the mutex and can now access the
-           // shared resource.</preformatted></para>
-<para><preformatted>           // ...
+           // shared resource.
+
+           // ...
            // For some reason due to the nature of the code further calls to
            // xSemaphoreTakeRecursive() are made on the same mutex.  In real
            // code these would not be just sequential calls as this would make
            // no sense.  Instead the calls are likely to be buried inside
            // a more complex call structure.
            xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 );
-           xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 );</preformatted></para>
-<para><preformatted>           // The mutex has now been &apos;taken&apos; three times, so will not be
+           xSemaphoreTakeRecursive( xMutex, ( TickType_t ) 10 );
+
+           // The mutex has now been &apos;taken&apos; three times, so will not be
            // available to another task until it has also been given back
            // three times.  Again it is unlikely that real code would have
            // these calls sequentially, but instead buried in a more complex
            // call structure.  This is just for illustrative purposes.
            xSemaphoreGiveRecursive( xMutex );
            xSemaphoreGiveRecursive( xMutex );
-           xSemaphoreGiveRecursive( xMutex );</preformatted></para>
-<para><preformatted>           // Now the mutex can be taken by other tasks.
+           xSemaphoreGiveRecursive( xMutex );
+
+           // Now the mutex can be taken by other tasks.
        }
        else
        {
@@ -75,7 +84,7 @@ void vAnotherTask( void * pvParameters )
        }
    }
 }
-</preformatted> </para>
+</preformatted>   </para>
     </detaileddescription>
   </compounddef>
 </doxygen>

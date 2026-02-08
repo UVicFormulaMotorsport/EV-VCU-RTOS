@@ -1,575 +1,412 @@
 // This where the code to handle IMD errors and such will go
+// Jan 2026
+// Rachan Grewal and Quazi Heider
+//
+// personal note for myself: this does NOT handle logic for actually shutting down car
+// it logs data specifically for something like "What happened RIGHT BEFORE we shut down"
+// IMD itself handles all the safety logic at a hardware level, not software controlled.
+// it is less safe to handle shutdown logic in CAN because of noise and signal degradation
 
+#define __UV_FILENAME__ "imd.c"
 
 #include "imd.h"
-
-// We need to include can.h because we will send CAN messages through the functions in that file
-// When a CAN message comes it will throw an interrupt can.c deals with the incoming message
-// the function in can.c gets the ID and sends the data to  the functions here
 #include "can.h"
 #include "main.h"
 #include "constants.h"
 #include "uvfr_utils.h"
+#include "uvfr_external_devices.h"
 
-// We need to include pdu.h for the shutdown circuit
-#include "pdu.h"
+#include <string.h>
+#include <stdint.h>
 
+/* =========================================================
+ * CAN IDs / bus
+ * ========================================================= */
 
+// TODO: replace these CAN IDs using the IMD datasheet
+#ifndef IMD_CAN_ID_Tx
+#define IMD_CAN_ID_Tx  0x0A100101UL
+#endif
 
-uint8_t IMD_status_bits = 0;
-uint8_t IMD_High_Uncertainty = 0;
+#ifndef IMD_CAN_ID_Rx
+#define IMD_CAN_ID_Rx  0x0A100100UL
+#endif
 
+// TODO: pick the real bus the IMD is wired to
+#ifndef IMD_CAN_BUS
+#define IMD_CAN_BUS CAN_BUS_1
+#endif
 
+// Requests are 1 byte: MUX only
+#define IMD_REQ_DLC 1
 
-// Declarations for the IMD part name to be checked on startup
-uint32_t IMD_Read_Part_Name[4];
-const uint32_t IMD_Expected_Part_Name[4];
+/* =========================================================
+ * Optional: simple "ping" serial check
+ * ========================================================= */
 
-uint8_t IMD_Part_Name_0_Set = 0;
-uint8_t IMD_Part_Name_1_Set = 0;
-uint8_t IMD_Part_Name_2_Set = 0;
-uint8_t IMD_Part_Name_3_Set = 0;
-uint8_t IMD_Part_Name_Set = 0;
+// If you don't want the init to fail based on serial, set this to 0
+#ifndef IMD_ENABLE_SERIAL_CHECK
+#define IMD_ENABLE_SERIAL_CHECK 1
+#endif
 
+// Replace it with real serial chunk OR disable serial check.
+static const uint32_t IMD_EXPECTED_SERIAL0 = 0xB8DD9AF9U;
 
-uint32_t IMD_Read_Version[3];
-const uint32_t IMD_Expected_Version[3];
-
-uint8_t IMD_Version_0_Set = 0;
-uint8_t IMD_Version_1_Set = 0;
-uint8_t IMD_Version_2_Set = 0;
-uint8_t IMD_Version_Set = 0;
-
-
-// Declarations for the IMD serial number to be checked on startup
-uint32_t IMD_Read_Serial_Number[4];
-const uint32_t IMD_Expected_Serial_Number[4] = {0xB8DD9AF9,
-												0x6094F48B,
-												0x1F1C3794,
-												0xFCF9A95B};
-uint8_t IMD_Serial_Number_0_Set = 0;
-uint8_t IMD_Serial_Number_1_Set = 0;
-uint8_t IMD_Serial_Number_2_Set = 0;
-uint8_t IMD_Serial_Number_3_Set = 0;
-uint8_t IMD_Serial_Number_Set = 0;
-
-
-int32_t IMD_Temperature;
-
-
-// If there is a hardware error, that one bit will be a 1 in the status bits -> read error flags
-// error flags will return the status bits which will have a 1 in HE bit -> infinite loop
-uint8_t IMD_error_flags_requested = 0;
-
-
-uv_imd_settings default_imd_settings = {
-	.min_isolation_resistances = 10000,
-	.expected_isolation_capacitances = 100,
-	.max_imd_temperature = 60
-
+// Default IMD settings stored in flash SBLOCK (used by uvfr_settings.c)
+const uv_imd_settings default_imd_settings = {
+    .min_isolation_resistances       = 500,  // TODO pick real threshold (kOhm? raw?)
+    .expected_isolation_capacitances = 0,    // TODO (nF? raw?)
+    .max_imd_temperature             = 105,  // degC (if that’s what datasheet uses)
 };
 
-// Need a function to parse the CAN message data received from the IMD
-void IMD_Parse_Message(int DLC, uint8_t Data[]){
-	// The first step is to look at the first byte to figure out what we're looking at
 
-	switch (Data[0]){
-		// important checks
-		case isolation_state:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Isolation_State(Data);
-		break;
+/* =========================================================
+ * Local state
+ * ========================================================= */
 
-		case isolation_resistances:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Isolation_Resistances(Data);
-		break;
+typedef struct {
+	uint8_t online;
 
-		case isolation_capacitances:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Isolation_Capacitances(Data);
-		break;
+	// status bits byte from IMD replies
+	uint8_t status_bits;
 
-		case voltages_Vp_and_Vn:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Voltages_Vp_and_Vn(Data);
-		break;
+	// parsed raw values (exact units depend on datasheet)
+	uint16_t iso_state_raw;      // uv_request_mux_isolation_state (E0)
+	uint16_t rp_raw;             // uv_request_mux_isolation_resistances (E1) bytes 2..3
+	uint16_t rn_raw;             // uv_request_mux_isolation_resistances (E1) bytes 5..6
+	uint16_t cp_nf;              // uv_request_mux_isolation_capacitances (E2) bytes 2..3
+	uint16_t cn_nf;              // uv_request_mux_isolation_capacitances (E2) bytes 5..6
+	uint16_t glv_raw;            // uv_request_mux_battery_voltage (E4) bytes 2..3
+	uint16_t error_flags_raw;    // uv_request_mux_Error_flags (E5) bytes 2..3
+	uint16_t temp_raw;           // uv_request_mux_Temperature (0x80) bytes 2..3 (if used)
+	uint16_t safety_touch_current; //uv_request_mux_safety_touch_current( (0xE6??) bytes something something
+									//i will fix this later -quazi from byrons computer
 
-		case battery_voltage:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Battery_Voltage(Data);
-		break;
+	// ping / identity check
+	uint8_t  serial0_valid;
+	uint32_t serial0_word;
+} imd_state_t;
 
-		case Error_flags:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Error_Flags(Data);
-		break;
-
-		case safety_touch_energy:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Safety_Touch_Energy(Data);
-		break;
-
-		case safety_touch_current:
-			IMD_Check_Status_Bits(Data[1]);
-			IMD_Check_Safety_Touch_Current(Data);
-		break;
-
-		// high resolution measurements
-		case Vn_hi_res:
-			// do something
-		break;
-
-		case Vp_hi_res:
-			// do something
-		break;
-
-		case Vexc_hi_res:
-			// do something
-		break;
-
-		case Vb_hi_res:
-			// do something
-		break;
-
-		case Vpwr_hi_res:
-			// do something
-		break;
-
-		case Temperature:
-			IMD_Check_Temperature(Data);
-		break;
-
-		case Max_battery_working_voltage:
-			IMD_Check_Max_Battery_Working_Voltage(Data);
-		break;
-
-		// ugly syntax below
-		case Part_name_0:
-		case Part_name_1:
-		case Part_name_2:
-		case Part_name_3:
-			IMD_Check_Part_Name(Data);
-		break;
-
-		case Version_0:
-		case Version_1:
-		case Version_2:
-			IMD_Check_Version(Data);
-		break;
-
-		case Serial_number_0:
-		case Serial_number_1:
-		case Serial_number_2:
-		case Serial_number_3:
-			IMD_Check_Serial_Number(Data);
-		break;
-
-		case Uptime_counter:
-			// call check uptime counter
-		break;
+static volatile imd_state_t g_imd_state = {0};
 
 
-		default: // This is a code that is not recognized (bad)
-			Error_Handler();
-		break;
+/* =========================================================
+ * Helpers
+ * ========================================================= */
+
+static inline uint16_t u16_be(const uint8_t *p) {
+	return (uint16_t)((p[0] << 8) | p[1]);
+}
+
+// Sending a one-byte request frame (MUX only)
+static void IMD_SendRequest(uint8_t mux_code) {
+	uv_CAN_msg msg;
+	memset(&msg, 0, sizeof(msg));
+
+	msg.msg_id  = IMD_CAN_ID_Tx;
+	msg.dlc     = IMD_REQ_DLC;
+	msg.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	msg.data[0] = mux_code;
+
+	uvSendCanMSG(&msg);
+}
+
+
+/* =========================================================
+ * XDevMon integration
+ * ========================================================= */
+
+static uv_status IMD_RegisterWithXDevMon(void) {
+	TickType_t period_ms = 100;
+
+	uint16_t flags = XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT | XDEV_POLLING_REQUIRED;
+
+	if (uvRegisterExternalDevice(IMD, period_ms, flags, "IMD") != UV_OK) {
+		return UV_ERROR;
 	}
 
+	// Add poll messages (DLC MUST BE 1 in your system)
+	uv_CAN_msg poll;
+
+	// --- ping / serial chunk (optional but useful) ---
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = Serial_number_0;
+	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) return UV_ERROR;
+
+	// --- isolation resistance (your requested “certain value”) ---
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_isolation_resistances;
+	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) return UV_ERROR;
+
+	// --- error flags (super useful to log) ---
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_Error_flags;
+	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) return UV_ERROR;
+
+	// Optional extra polls (enable as you want)
+	// isolation state
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_isolation_state;
+	(void)uvAddPollMsgToXdev(IMD, &poll);
+
+	// capacitances
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_isolation_capacitances;
+	(void)uvAddPollMsgToXdev(IMD, &poll);
+
+	// temperature
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_Temperature;
+	(void)uvAddPollMsgToXdev(IMD, &poll);
+
+	memset(&poll, 0, sizeof(poll));
+	poll.msg_id  = IMD_CAN_ID_Tx;
+	poll.dlc     = 1;
+	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	poll.data[0] = uv_request_mux_safety_touch_current;
+	(void)uvAddPollMsgToXdev(IMD, &poll);
+
+	return UV_OK;
 }
 
 
-// --------------------------------------------------------------------------------------
-// This sends the message to request data. The specific status requested is passed as arg
-// The IMD will then send a message with the same code and the data
-// --------------------------------------------------------------------------------------
-void IMD_Request_Status(uint8_t Status){
-	TxHeader.IDE = CAN_ID_EXT;
-	TxHeader.ExtId = IMD_CAN_ID_Tx;
-	TxHeader.DLC = 1;
-	TxData[0] = Status;
+/* =========================================================
+ * CAN RX handler (BMS style)
+ * ========================================================= */
 
-	if (HAL_CAN_AddTxMessage(&hcan2, &TxHeader, TxData, &TxMailbox) != HAL_OK){
-		/* Transmission request Error */
-		Error_Handler();
-    }
-	TxHeader.IDE = CAN_ID_STD;
-}
+void IMD_CanRxHandler(uv_CAN_msg* msg) {
+	if (!msg) return;
+	if (msg->msg_id != IMD_CAN_ID_Rx) return;
+	if (msg->dlc < 1) return;
 
-// --------------------------------------------------------------------------------------
+	// data[0] is always the returned MUX
+	uint8_t mux = msg->data[0];
 
+	// mark online every time we get something valid
+	g_imd_state.online = 1;
 
+	switch (mux) {
 
+		// -------------------------------------------------
+		// Manufacturer serial chunk 0: bytes [1..4]
+		// -------------------------------------------------
+		case Serial_number_0: {
+			if (msg->dlc < 5) break;
 
+			uint32_t word =
+				((uint32_t)msg->data[1] << 24) |
+				((uint32_t)msg->data[2] << 16) |
+				((uint32_t)msg->data[3] <<  8) |
+				((uint32_t)msg->data[4] <<  0);
 
-
-
-
-
-
-
-// --------------------------------------------------------------------------------------
-// Functions to check status
-// AFAIK the IMD will not send a CAN msg when the status changes - we need to constantly poll it
-// --------------------------------------------------------------------------------------
-
-// A lot of the messages will include status bits
-// Check for faults
-// Then check what the error is to display it for driver
-void IMD_Check_Status_Bits(uint8_t Data){
-	// The touch energy bit will be 1 when connected to batteries
-	// High uncertainty isn't also something we really care about
-	// No idea about excitation pulse
-	uint8_t mask = 0b10001111;
-
-	if ((Data & mask) != 0){
-		// Send message to error handler to shutdown car
-		//Trigger_Shutdown_Circuit();
-
-		if ((Data & Isolation_status_bit0) || (Data & Isolation_status_bit1)){
-			// Isolation fault BAD
-			// Want to display fault to dash
+			g_imd_state.serial0_word  = word;
+			g_imd_state.serial0_valid = 1;
+			break;
 		}
 
-		// This function is only passed the first byte of info so we can't read the error flags
-		// If we pass the entire data array in then we will read the wrong data
-		// Need to explicitly request error flags and then read it
-		// Use a bool to check if we have already requested error flags otherwise it will request repeatedly
-		if (Data & Hardware_Error){
-			// TODO
-			// display to dash
-			if (!IMD_error_flags_requested){
-				IMD_Request_Status(Error_flags);
-				IMD_error_flags_requested = 1;
-			}
+		// -------------------------------------------------
+		// Isolation state (E0): status bits at [1], value at [2..3]
+		// -------------------------------------------------
+		case uv_request_mux_isolation_state: {
+			if (msg->dlc < 4) break;
+			g_imd_state.status_bits  = msg->data[1];
+			g_imd_state.iso_state_raw = u16_be(&msg->data[2]);
+			break;
 		}
 
-		if (Data & Low_Battery_Voltage){
-			// display low voltage on dash
-			// If the HV battery ever throws this error it is because of a disconnect
-		}
-		if (Data & High_Battery_Voltage){
-			// display high voltage on dash
-			// If the HV battery ever throws this error it is bad
-		}
-	}
-	// Could check other faults we don't really care about
-
-	IMD_High_Uncertainty = Data & High_Uncertainty;
-	// If we made it here then there is no error so exit to check rest of message
-}
-
-// We need to look at the 2nd and 3rd bytes in the array for the error flags
-void IMD_Check_Error_Flags(uint8_t Data[]){
-	// Need to check the bits to see what caused the hardware error
-	// Want to display message to dash for safety reasons
-	uint16_t IMD_Error_Flags = (Data[1] << 8) | Data[2];
-
-	// We want to shutdown if any of these are true
-
-	if (IMD_Error_Flags & Err_Vx1){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_Vx2){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_CH){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_VxR){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_Vexi){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_Vpwr){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_Watchdog){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_clock){
-		// print to dash I guess
-	}
-	if (IMD_Error_Flags & Err_temp){
-		// print to dash I guess
-	}
-}
-
-
-
-// This is the function that will be called when a CAN message is received that has the isolation state data
-void IMD_Check_Isolation_State(uint8_t Data[]){
-
-	uint16_t isolation = (Data[2] << 8) | Data[3];
-
-	// If the isolation is less than 500 Ohms / volt and the uncertainty is less than 5%
-	if ( (isolation < 500) && (Data[4] <= 5) ){
-
-		// TODO disable shutdown circuit and display error
-		IMD_High_Uncertainty = 0;
-	}
-
-}
-
-// Not sure if we necessarily need to check isolation resistances
-// check isolation state will be much more important
-// We should, however, check this on startup
-void IMD_Check_Isolation_Resistances(uint8_t Data[]){
-
-	uint16_t Rp_resistance = (Data[2] << 8) | Data[3];
-
-	// If the isolation resistance between the positive terminal and the chassis
-	// is less than 250 kOhms and the uncertainty is less than 5%
-	if ( (Rp_resistance < 250) && (Data[4] <= 5) ){
-
-		// TODO disable shutdown circuit and display error
-		IMD_High_Uncertainty = 0;
-	}
-
-
-	uint16_t Rn_resistance = (Data[5] << 8) | Data[6];
-
-	// If the isolation resistance between the negative terminal and the chassis
-	// is less than 250 kOhms and the uncertainty is less than 5%
-	if ( (Rn_resistance < 250) && (Data[7] <= 5) ){
-
-		// TODO disable shutdown circuit and display error
-		IMD_High_Uncertainty = 0;
-	}
-}
-
-
-void IMD_Check_Isolation_Capacitances(uint8_t Data[]){
-
-	// I don't know how useful this will be
-
-}
-
-
-void IMD_Check_Voltages_Vp_and_Vn(uint8_t Data[]){
-
-	// This could potentially be useful on startup
-
-}
-
-
-void IMD_Check_Battery_Voltage(uint8_t Data[]){
-
-	// This could be useful to compare with BMS and make sure things are working well
-	// startup function really
-
-}
-
-void IMD_Check_Temperature(uint8_t Data[]){
-	// TODO
-
-	// byte 1-4 in motorola
-	IMD_Temperature = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
-
-}
-
-// -----------------------------------------------------------------------------------
-// These functions could check to see if stuff is safe to touch
-
-void IMD_Check_Safety_Touch_Energy(uint8_t Data[]){
-
-	// I don't really know how to make use of these functions
-
-}
-
-
-void IMD_Check_Safety_Touch_Current(uint8_t Data[]){
-	// TODO
-}
-
-
-
-
-
-
-// ----------------------------------------------------------------------------
-// Data that could be checked on startup to make sure everything is good
-
-void IMD_Check_Max_Battery_Working_Voltage(uint8_t Data[]){
-	uint16_t Max_Battery_Voltage = (Data[1] << 8) | Data[2];
-
-	if (Max_Battery_Voltage != 571){
-		// Max_Battery_Voltage not configured properly
-	}
-
-}
-
-
-// This function checks the part name of the IMD matches expected
-// The part name is split into 4 messages, each of 4 bytes
-// Because it is split over 4 messages, we need to compare only once we have read all messages
-void IMD_Check_Part_Name(uint8_t Data[]){
-	// TODO
-
-	// This function will be called from the CAN msg parser
-	// It will get the array of data bits. We need to check which part name
-	// We then store the 4 bytes in an array of 32 bit int to compare at the end
-
-	switch (Data[0]){
-		case Part_name_0:
-			IMD_Read_Part_Name[0] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Part_Name_0_Set = 1;
-		break;
-		case Part_name_1:
-			IMD_Read_Part_Name[1] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Part_Name_1_Set = 1;
-		break;
-		case Part_name_2:
-			IMD_Read_Part_Name[2] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Part_Name_2_Set = 1;
-		break;
-		case Part_name_3:
-			IMD_Read_Part_Name[3] = (Data[4] << 24) | (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Part_Name_3_Set = 1;
-		break;
-	}
-
-	if (IMD_Part_Name_0_Set && IMD_Part_Name_1_Set && IMD_Part_Name_2_Set && IMD_Part_Name_3_Set){
-		IMD_Part_Name_Set = 1;
-	}
-
-	if (IMD_Part_Name_Set){
-		// Check part number matches expected
-		for (int i = 0; i < 4; ++i){
-			if (IMD_Read_Part_Name[0] != IMD_Expected_Part_Name[0]){
-				//error
-			}
+		// -------------------------------------------------
+		// Isolation resistances (E1):
+		// Rp: bytes [2..3]
+		// Rn: bytes [5..6]
+		// -------------------------------------------------
+		case uv_request_mux_isolation_resistances: {
+			if (msg->dlc < 7) break;
+			g_imd_state.status_bits = msg->data[1];
+			g_imd_state.rp_raw      = u16_be(&msg->data[2]);
+			g_imd_state.rn_raw      = u16_be(&msg->data[5]);
+			break;
 		}
 
-	}
-
-}
-
-void IMD_Check_Version(uint8_t Data[]){
-	// TODO
-
-	// This function will be called from the CAN msg parser
-	// It will get the array of data bits. We need to check which firmware version
-	// We then store the 4 bytes in an array of 32 bit int to compare at the end
-
-	switch (Data[0]){
-		case Version_0:
-			IMD_Read_Version[0] = (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Version_0_Set = 1;
-		break;
-		case Version_1:
-			IMD_Read_Version[1] = (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Version_1_Set = 1;
-		break;
-		case Version_2:
-			IMD_Read_Version[2] = (Data[3] << 16) | (Data[2] << 8) | Data[1];
-			IMD_Version_2_Set = 1;
-		break;
-	}
-
-	if (IMD_Version_0_Set && IMD_Version_1_Set && IMD_Version_2_Set){
-		IMD_Version_Set = 1;
-	}
-
-	if (IMD_Version_Set){
-		// Check part number matches expected
-		for (int i = 0; i < 3; ++i){
-			if (IMD_Read_Version[0] != IMD_Expected_Version[0]){
-				//error
-			}
+		// -------------------------------------------------
+		// Isolation capacitances (E2):
+		// Cp: bytes [2..3]
+		// Cn: bytes [5..6]
+		// -------------------------------------------------
+		case uv_request_mux_isolation_capacitances: {
+			if (msg->dlc < 7) break;
+			g_imd_state.status_bits = msg->data[1];
+			g_imd_state.cp_nf       = u16_be(&msg->data[2]);
+			g_imd_state.cn_nf       = u16_be(&msg->data[5]);
+			break;
 		}
 
-	}
-}
-
-// This function checks the serial number of the IMD matches expected
-// The part name is split into 4 messages, each of 4 bytes
-// Because it is split over 4 messages, we need to compare only once we have read all messages
-void IMD_Check_Serial_Number(uint8_t Data[]){
-
-	// This function will be called from the CAN msg parser
-	// It will get the array of data bits. We need to check which serial number
-	// We then store the 4 bytes in an array of 32 bit int to compare at the end
-	// The serial number is found by concatenating 3 - 2 - 1 -0
-
-	switch (Data[0]){
-		case Serial_number_0:
-			IMD_Read_Serial_Number[0] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
-			IMD_Serial_Number_0_Set = 1;
-		break;
-		case Serial_number_1:
-			IMD_Read_Serial_Number[1] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
-			IMD_Serial_Number_1_Set = 1;
-		break;
-		case Serial_number_2:
-			IMD_Read_Serial_Number[2] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
-			IMD_Serial_Number_2_Set = 1;
-		break;
-		case Serial_number_3:
-			IMD_Read_Serial_Number[3] = (Data[1] << 24) | (Data[2] << 16) | (Data[3] << 8) | Data[4];
-			IMD_Serial_Number_3_Set = 1;
-		break;
-	}
-
-	if (IMD_Serial_Number_0_Set && IMD_Serial_Number_1_Set && IMD_Serial_Number_2_Set && IMD_Serial_Number_3_Set){
-		IMD_Serial_Number_Set = 1;
-	}
-
-	if (IMD_Serial_Number_Set){
-		// Check serial number matches expected
-		for (int i = 0; i < 4; ++i){
-			if (IMD_Read_Serial_Number[i] != IMD_Expected_Serial_Number[i]){
-				//error
-			}
+		// -------------------------------------------------
+		// GLV battery voltage (E4): value at [2..3]
+		// -------------------------------------------------
+		case uv_request_mux_battery_voltage: {
+			if (msg->dlc < 4) break;
+			g_imd_state.status_bits = msg->data[1];
+			g_imd_state.glv_raw     = u16_be(&msg->data[2]);
+			break;
 		}
+
+		// -------------------------------------------------
+		// Error flags (E5): value at [2..3]
+		// -------------------------------------------------
+		case uv_request_mux_Error_flags: {
+			if (msg->dlc < 4) break;
+			g_imd_state.status_bits    = msg->data[1];
+			g_imd_state.error_flags_raw = u16_be(&msg->data[2]);
+			break;
+		}
+
+		// -------------------------------------------------
+		// Temperature (0x80): value at [2..3] (confirm in datasheet)
+		// -------------------------------------------------
+		case uv_request_mux_Temperature: {
+			if (msg->dlc < 4) break;
+			g_imd_state.status_bits = msg->data[1];
+			g_imd_state.temp_raw    = u16_be(&msg->data[2]);
+			break;
+		}
+
+		// Check safety touch -quazi from byrons computer
+		case uv_request_mux_safety_touch_current: {
+			if (msg->dlc < 4) break;
+			g_imd_state.safety_touch_current = msg->data[1];
+			g_imd_state.safety_touch_current = u16_be(&msg->data[2]);
+			break;
+		}
+
+		default:
+			// unhandled mux — ignore
+			break;
 	}
 
+	// CRITICAL: tells XDevMon / init waiters that IMD responded
+	externalDeviceRxHandler(IMD);
 }
 
-void IMD_Check_Uptime(uint8_t Data[]){
-	// TODO
-}
 
-void IMD_Startup(){
-	// TODO
-	// Run check for serial number, max voltage, and such
+/* =========================================================
+ * init task (like BMS_Init but with ping check)
+ * ========================================================= */
 
-	// The first check is the serial number
-
-	IMD_Request_Status(Serial_number_0);
-	IMD_Request_Status(Serial_number_1);
-	IMD_Request_Status(Serial_number_2);
-	IMD_Request_Status(Serial_number_3);
-
-	IMD_Request_Status(Version_0);
-	IMD_Request_Status(Version_1);
-	IMD_Request_Status(Version_2);
-
-	IMD_Request_Status(Part_name_0);
-	IMD_Request_Status(Part_name_1);
-	IMD_Request_Status(Part_name_2);
-	IMD_Request_Status(Part_name_3);
-
-	IMD_Request_Status(Max_battery_working_voltage);
-	IMD_Request_Status(isolation_state);
-	// Can check further things
-
-}
-
-void initIMD(void* args){
+void initIMD(void* args) {
 	uv_init_task_args* params = (uv_init_task_args*) args;
-	uv_init_task_response response = {UV_OK,IMD,0,NULL};
-	vTaskDelay(100); //Pretend to be doing something for now
 
-	if(xQueueSendToBack(params->init_info_queue,&response,100) != pdPASS){
-			//OOPS
-		uvPanic("Failed to enqueue IMD OK Response",0);
+	// small delay like the BMS does (optional)
+	//osDelay(200);
+
+	uv_init_task_response resp;
+	memset(&resp, 0, sizeof(resp));
+	resp.device = IMD;
+	resp.status = UV_ERROR;
+	resp.errmsg = "IMD init fail";
+	resp.nchar  = 12;
+
+	if (!params || !params->init_info_queue) {
+		vTaskDelete(NULL);
 	}
 
+	// clear state
+	memset((void*)&g_imd_state, 0, sizeof(g_imd_state));
 
+	// register rx handler first (so the “ping” can be received)
+	insertCANMessageHandler(IMD_CAN_ID_Rx, IMD_CanRxHandler, IMD_CAN_BUS);
+
+	// register with xdevmon + add poll list
+	if (IMD_RegisterWithXDevMon() != UV_OK) {
+		resp.errmsg = "IMD xdev reg";
+		resp.nchar  = 12;
+		goto done;
+	}
+
+	// send one immediate ping (don’t wait for next poll tick)
+	IMD_SendRequest(Serial_number_0);
+
+	// wait for response (externalDeviceRxHandler(IMD) will release semaphore)
+	if (uvWaitOnExternalDevice(IMD, pdMS_TO_TICKS(300)) != UV_OK) {
+		resp.errmsg = "IMD no resp";
+		resp.nchar  = 11;
+		goto done;
+	}
+
+#if IMD_ENABLE_SERIAL_CHECK
+	// basic “did we talk to the right device” check
+	if (!(g_imd_state.serial0_valid && (g_imd_state.serial0_word == IMD_EXPECTED_SERIAL0))) {
+		resp.errmsg = "IMD serial bad";
+		resp.nchar  = 14;
+		goto done;
+	}
+#endif
+
+	resp.status = UV_OK;
+	resp.errmsg = NULL;
+	resp.nchar  = 0;
+
+done:
+	(void)xQueueSendToBack(params->init_info_queue, &resp, 100);
+
+	// same style as BMS: init task suspends itself
 	vTaskSuspend(params->meta_task_handle);
 }
 
 
+/* =========================================================
+ * Getter functions (simple + safe for other modules)
+ * ========================================================= */
 
+// NOTE: These return RAW values. Once you confirm the datasheet scaling,
+// we can make these return real units (kOhm, nF, V, etc).
 
+uint8_t IMD_IsOnline(void) {
+	return g_imd_state.online;
+}
+
+uint8_t IMD_GetSerial0Valid(void) {
+	return g_imd_state.serial0_valid;
+}
+
+uint32_t IMD_GetSerial0Word(void) {
+	return g_imd_state.serial0_word;
+}
+
+uint8_t IMD_GetStatusBits(void) {
+	return g_imd_state.status_bits;
+}
+
+// “certain value”: isolation resistance (Rp/Rn)
+uint16_t IMD_GetRpRaw(void) {
+	return g_imd_state.rp_raw;
+}
+
+uint16_t IMD_GetRnRaw(void) {
+	return g_imd_state.rn_raw;
+}
+
+uint16_t IMD_GetErrorFlagsRaw(void) {
+	return g_imd_state.error_flags_raw;
+}
+
+uint16_t IMD_GetSafetyTouchCurrent(void){
+	return g_imd_state.safety_touch_current;
+}

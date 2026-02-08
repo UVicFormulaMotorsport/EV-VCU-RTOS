@@ -10,8 +10,12 @@ var adc_8h =
     [ "ADC2_MAX_VOLT", "adc_8h.html#a824204b3b4d276be32036d1618e42706", null ],
     [ "ADC2_MIN_VOLT", "adc_8h.html#aa6d050ac0cee0697ae8dc052b6e43160", null ],
     [ "ADC2_SAMPLES", "adc_8h.html#afc06e56ca77ce358966ae2f4e9262c7e", null ],
+    [ "initADCTask", "adc_8h.html#a4ba1683325a3553851abf884b905f1b1", null ],
     [ "MX_ADC1_Init", "adc_8h.html#acccd58aa70215a6b184ad242312ffd0c", null ],
     [ "MX_ADC2_Init", "adc_8h.html#a101e2e3433dfe72bbbd0ae3a84489263", null ],
+    [ "MX_ADC3_Init", "adc_8h.html#ac633a37a9db8b1f45a5f70f973cf05c4", null ],
+    [ "processADCBuffer", "adc_8h.html#a4c6ee15b5d6c19b7fa8ed17cb534c8f9", null ],
     [ "hadc1", "adc_8h.html#a22b804736f5648d52f639b2647d4ed13", null ],
-    [ "hadc2", "adc_8h.html#acd9221f1aa19aebfe0b744947f2daf49", null ]
+    [ "hadc2", "adc_8h.html#acd9221f1aa19aebfe0b744947f2daf49", null ],
+    [ "hadc3", "adc_8h.html#a984624bcf28d1b2fb7e4e18349f65d5c", null ]
 ];

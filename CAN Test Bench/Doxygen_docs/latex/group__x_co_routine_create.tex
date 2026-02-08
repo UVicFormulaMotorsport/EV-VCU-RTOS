@@ -1,27 +1,23 @@
-\hypertarget{group__x_co_routine_create}{}\doxysection{x\+Co\+Routine\+Create}
-\label{group__x_co_routine_create}\index{xCoRoutineCreate@{xCoRoutineCreate}}
+\doxysection{x\+Co\+Routine\+Create}
+\hypertarget{group__x_co_routine_create}{}\label{group__x_co_routine_create}\index{xCoRoutineCreate@{xCoRoutineCreate}}
 croutine. h 
 \begin{DoxyPre}
-BaseType\_t xCoRoutineCreate(
-                                crCOROUTINE\_CODE pxCoRoutineCode,
-                                UBaseType\_t uxPriority,
-                                UBaseType\_t uxIndex
-                              );\end{DoxyPre}
+BaseType\_t \doxylink{croutine_8h_ae0e03637a3d2c134e9b52006f353d8c0}{xCoRoutineCreate(                                 crCOROUTINE\_CODE pxCoRoutineCode,                                 UBaseType\_t uxPriority,                                 UBaseType\_t uxIndex                               )};\end{DoxyPre}
 
 
 Create a new co-\/routine and add it to the list of co-\/routines that are ready to run.
 
 
 \begin{DoxyParams}{Parameters}
-{\em px\+Co\+Routine\+Code} & Pointer to the co-\/routine function. Co-\/routine functions require special syntax -\/ see the co-\/routine section of the W\+EB documentation for more information.\\
+{\em px\+Co\+Routine\+Code} & Pointer to the co-\/routine function. Co-\/routine functions require special syntax -\/ see the co-\/routine section of the WEB documentation for more information.\\
 \hline
 {\em ux\+Priority} & The priority with respect to other co-\/routines at which the co-\/routine will run.\\
 \hline
-{\em ux\+Index} & Used to distinguish between different co-\/routines that execute the same function. See the example below and the co-\/routine section of the W\+EB documentation for further information.\\
+{\em ux\+Index} & Used to distinguish between different co-\/routines that execute the same function. See the example below and the co-\/routine section of the WEB documentation for further information.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-pd\+P\+A\+SS if the co-\/routine was successfully created and added to a ready list, otherwise an error code defined with \mbox{\hyperlink{projdefs_8h}{Proj\+Defs.\+h}}.
+pd\+PASS if the co-\/routine was successfully created and added to a ready list, otherwise an error code defined with \doxylink{projdefs_8h}{Proj\+Defs.\+h}.
 \end{DoxyReturn}
 Example usage\+: 
 \begin{DoxyPre}
@@ -31,16 +27,12 @@ void vFlashCoRoutine( CoRoutineHandle\_t xHandle, UBaseType\_t uxIndex )
 // Variables in co-\/routines must be declared static if they must maintain value across a blocking call.
 // This may not be necessary for const variables.
 static const char cLedToFlash[ 2 ] = \{ 5, 6 \};
-static const TickType\_t uxFlashRates[ 2 ] = \{ 200, 400 \};\end{DoxyPre}
+static const TickType\_t uxFlashRates[ 2 ] = \{ 200, 400 \};
 
+    // Must start every co-\/routine with a call to \doxylink{croutine_8h_a19a57a201a325e8af1207ed68c4aedde}{crSTART()};
+    \doxylink{croutine_8h_a19a57a201a325e8af1207ed68c4aedde}{crSTART( xHandle )};
 
-
-\begin{DoxyPre}    // Must start every co-\/routine with a call to \mbox{\hyperlink{croutine_8h_a19a57a201a325e8af1207ed68c4aedde}{crSTART()}};
-    \mbox{\hyperlink{croutine_8h_a19a57a201a325e8af1207ed68c4aedde}{crSTART( xHandle )}};\end{DoxyPre}
-
-
-
-\begin{DoxyPre}    for( ;; )
+    for( ;; )
     \{
         // This co-\/routine just delays for a fixed period, then toggles
         // an LED.  Two co-\/routines are created using this function, so
@@ -48,26 +40,20 @@ static const TickType\_t uxFlashRates[ 2 ] = \{ 200, 400 \};\end{DoxyPre}
         // LED to flash and how int32\_t to delay.  This assumes xQueue has
         // already been created.
         vParTestToggleLED( cLedToFlash[ uxIndex ] );
-        \mbox{\hyperlink{croutine_8h_a05a06feb11028f2d1d440ea335f562ba}{crDELAY( xHandle, uxFlashRates[ uxIndex ] )}};
-    \}\end{DoxyPre}
+        \doxylink{croutine_8h_a05a06feb11028f2d1d440ea335f562ba}{crDELAY( xHandle, uxFlashRates[ uxIndex ] )};
+    \}
 
+    // Must end every co-\/routine with a call to \doxylink{croutine_8h_ae6038cc976689b50000475ebfc4e2f23}{crEND()};
+    \doxylink{croutine_8h_ae6038cc976689b50000475ebfc4e2f23}{crEND()};
+\}
 
-
-\begin{DoxyPre}    // Must end every co-\/routine with a call to \mbox{\hyperlink{croutine_8h_ae6038cc976689b50000475ebfc4e2f23}{crEND()}};
-    \mbox{\hyperlink{croutine_8h_ae6038cc976689b50000475ebfc4e2f23}{crEND()}};
-\}\end{DoxyPre}
-
-
-
-\begin{DoxyPre}// Function that creates two co-\/routines.
+// Function that creates two co-\/routines.
 void vOtherFunction( void )
 \{
 uint8\_t ucParameterToPass;
-TaskHandle\_t xHandle;\end{DoxyPre}
+TaskHandle\_t xHandle;
 
-
-
-\begin{DoxyPre}    // Create two co-\/routines at priority 0.  The first is given index 0
+    // Create two co-\/routines at priority 0.  The first is given index 0
     // so (from the code above) toggles LED 5 every 200 ticks.  The second
     // is given index 1 so toggles LED 6 every 400 ticks.
     for( uxIndex = 0; uxIndex < 2; uxIndex++ )
@@ -76,4 +62,4 @@ TaskHandle\_t xHandle;\end{DoxyPre}
     \}
 \}
   \end{DoxyPre}
- 
+   
