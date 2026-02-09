@@ -17,7 +17,7 @@
 #include "uvfr_utils.h"
 
 extern uv_vehicle_settings* current_vehicle_settings;
-extern QueueHandle_t CAN_Rx_Queue;
+//extern QueueHandle_t CAN_Rx_Queue;
 
 // Redirect all mc_settings.x to actual config struct
 #define mc_settings (current_vehicle_settings->mc_settings)
@@ -55,6 +55,7 @@ motor_controller_settings mc_default_settings = {
 //    .integral_memory_max    = 60,    // uint8_t (represents 60%)
 
     // Scaled values (normalized to 32767)
+	//TODO: make these values unscaled, in units
     .max_speed              = 12357,   // (2457.5 RPM / 6500 RPM) * 32767
     .max_current            = 13107,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
@@ -207,6 +208,7 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     }
 
     /* 1) Motor constants (datasheet) */
+    //TODO: Make this tunable
     const float Kt_Nm_per_A = 0.94f; // [Nm/A] (assumed consistent with Arms convention)
 
     /* 2) Full-scale current reference for Bamocar normalization */
@@ -214,6 +216,7 @@ uint16_t sendTorqueToMotorController(float T_filtered){
 
     if (Kt_Nm_per_A <= 0.0f || I_fs_arms <= 0.0f) {
         T_filtered = 0.0f;
+        uvPanic("Literally undriveable, how the fuck?",0);
     }
 
     /* 3) Torque -> current (Iq request) */
@@ -234,7 +237,7 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     int16_t trqcmd_dig = (int16_t)((Iq_cmd_arms / I_fs_arms) * 32767.0f);
 
     if (trqcmd_dig >  32767) trqcmd_dig =  32767;
-    if (trqcmd_dig < -32767) trqcmd_dig = -32767;
+    if (trqcmd_dig < -32768) trqcmd_dig = -32768;
 
     //pack can message
     static uv_CAN_msg torque_msg;
@@ -246,8 +249,8 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     //torque_msg.data[0] = N_set; //speed comand
     torque_msg.data[0] = M_Set; //torque command
     // Little-endian: LSB first then MSB
-    torque_msg.data[1] = (uint8_t)(torque_cmd & 0xFF);
-    torque_msg.data[2] = (uint8_t)((torque_cmd >> 8) & 0xFF);
+    torque_msg.data[1] = (uint8_t)(trqcmd_dig & 0xFF);
+    torque_msg.data[2] = (uint8_t)((trqcmd_dig >> 8) & 0xFF);
     torque_msg.flags   = mc_settings->mc_bus;
 
 
@@ -657,6 +660,7 @@ void MC_Startup(void* args)
     //subsequently the motor controller error handler
     insertCANMessageHandler(mc_settings->can_id_rx, ProcessMotorControllerResponse, mc_settings->mc_bus);
 
+    uvRegisterExternalDevice(MOTOR_CONTROLLER, 100, XDEV_DEVICE_EXPECTED|XDEV_CHECK_TIMEOUT_BIT, "Bamocar");
     //start cyclic transmission
     MC_EnableCyclicSpeedTransmission(100); // every 100ms
 

@@ -153,10 +153,10 @@ void uvInit(void * arguments){
 	BeepBeepMotherFucker();
 
 	//coniferEnChannel(COOLANT_PUMP1);
-	coniferEnChannel(BAMO_RUN);
-	coniferEnChannel(BAMO_RFE);
-	coniferEnChannel(SDC_BOARD_PWR);
-	coniferEnChannel(HVIL_PWR);
+	//coniferEnChannel(BAMO_RUN);
+	//coniferEnChannel(BAMO_RFE);
+
+	//coniferEnChannel(HVIL_PWR);
 
 	vTaskDelay(2); //Allow idle task to figure its shit out
 
@@ -315,7 +315,7 @@ void uvInit(void * arguments){
 
 	}
 
-
+	coniferEnChannel(SDC_BOARD_PWR);
 	//vQueueDelete(init_validation_queue);
 	//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
 	vTaskDelete(init_task_handle);

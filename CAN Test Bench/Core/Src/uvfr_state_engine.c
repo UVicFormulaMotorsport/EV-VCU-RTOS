@@ -141,7 +141,7 @@ uv_status changeVehicleState(uint16_t state){
 	scd_args->meta_task_handle = NULL;
 	BaseType_t retval;
 
-	retval = xTaskCreate(_stateChangeDaemon,"scd",256,scd_args,osPriorityAboveNormal,&(scd_args->meta_task_handle));
+	retval = xTaskCreate(_stateChangeDaemon,"scd",256,scd_args,4,&(scd_args->meta_task_handle));
 
 	if(retval != pdPASS || scd_args->meta_task_handle == NULL){
 		uvFree(scd_args);
@@ -1529,10 +1529,12 @@ char* uvGetStateString(){
 	case UV_INIT:
 		retval = "INIT\0";
 	default:
+
+		retval = "UNKNOWN\0";
 		break;
 	}
 
-	return "UNKNOWN\0";
+	return retval;
 }
 
 
