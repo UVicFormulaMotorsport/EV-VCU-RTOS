@@ -56,9 +56,7 @@ void rtdTask(void* args){
 
 		//Are they pushing the start button?
 
-		if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)){
-			//initialize torque to zero
-			sendTorqueToMotorController(0.0f);
+		if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
 			vTaskDelay(500);
 
 

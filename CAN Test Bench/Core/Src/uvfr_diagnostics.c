@@ -23,7 +23,7 @@ extern HeapStats_t xHeapStats;
 
 void dispWheelSpeeds();
 
-static void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit)
+void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit)
 {
 	int32_t scale = 1;
 	for(int i = 0; i < decimals; i++) scale *= 10;
@@ -141,7 +141,7 @@ void dispVehicleStatusReport(){
 	printf("Vehicle State %s \n",str);
 
 
-	dispExtDeviceStatus();
+	//dispExtDeviceStatus();
 	//dispTractiveSystemStatus();
 	//dispStateEngineStatus();
 
@@ -160,7 +160,7 @@ void uvBackgroundDiagnosticsDaemon(void* args){
 
 #ifdef DEBUG
 	if(k%10 == 0){
-		dispVehicleStatusReport();
+		//dispVehicleStatusReport();
 	}
 #endif
 
@@ -194,6 +194,7 @@ uv_status uvInitDiagnostics(){
 	diag_task->active_states = 0xFFFF;
 	diag_task->task_name = "diagDaemon";
 	diag_task->stack_size = 1024;
+	diag_task->task_priority = 1;
 
 
 	uvStartTask(&var,diag_task);

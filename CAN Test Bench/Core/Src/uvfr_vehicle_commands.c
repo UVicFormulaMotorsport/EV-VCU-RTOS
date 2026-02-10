@@ -37,7 +37,7 @@ void uvStopHornCallbackFunc(TimerHandle_t xTim){
 	coniferDisChannel(HORN);
 }
 
-#define RTD_SOUND_PERIOD 3000
+#define RTD_SOUND_PERIOD 2000
 
 static inline void abortEnergization(){
 
@@ -94,6 +94,7 @@ uv_status uvEnergizeTractiveSystem(){
 	vTaskDelay(5000); //I think 5 Seconds is enough time but IDRK
 
 	//How?
+	//TODO close the loop here
 
 	//Cycle RFE and RUN
 
