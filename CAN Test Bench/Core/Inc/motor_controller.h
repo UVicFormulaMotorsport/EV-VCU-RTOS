@@ -156,6 +156,55 @@ enum motor_controller_status_information_errors_warnings {
     bleeder_resistor_warning           = 1 << 7
 };
 
+/* Unitek / Bamocar Status Mask (ID 0x8F)
+ * Little-endian on the wire:
+ *   data[0..1] = error mask (bits 0–15)
+ *   data[2..3] = warning mask (bits 16–31 before shift)
+ */
+/* Status information: Error(s) mask (ID 0x8F low word), 16-bit */
+//enum motor_controller_status_information_errors {
+//    motor_controller_errors_warnings       = 0x8F,   // register ID (fine to keep)
+//
+//    eprom_read_error                       = (1u << 0),
+//    hardware_fault                         = (1u << 1),
+//    rotate_field_enable_not_present_run    = (1u << 2),
+//    CAN_timeout_error                      = (1u << 3),
+//    feedback_signal_error                  = (1u << 4),
+//    mains_voltage_min_limit                = (1u << 5),
+//    motor_temp_max_limit                   = (1u << 6),
+//    IGBT_temp_max_limit                    = (1u << 7),
+//    mains_voltage_max_limit                = (1u << 8),
+//    critical_AC_current                    = (1u << 9),
+//    race_away_detected                     = (1u << 10),
+//    ecode_timeout_error                    = (1u << 11),
+//    watchdog_reset                         = (1u << 12),
+//    AC_current_offset_fault                = (1u << 13),
+//    internal_hardware_voltage_problem      = (1u << 14),
+//    bleed_resistor_overload                = (1u << 15),
+//};
+//
+//enum motor_controller_status_information_warnings_hi16 {
+//    parameter_conflict_detected       = (1u << 0),
+//    special_CPU_fault                 = (1u << 1),
+//    rotate_field_enable_not_present_norun = (1u << 2),
+//    auxiliary_voltage_min_limit       = (1u << 3),
+//    feedback_signal_problem           = (1u << 4),
+//    warning_5                         = (1u << 5),
+//    motor_temperature_warning         = (1u << 6),
+//    IGBT_temperature_warning          = (1u << 7),
+//    Vout_saturation_max_limit         = (1u << 8),
+//    warning_9                         = (1u << 9),
+//    speed_actual_resolution_limit     = (1u << 10),
+//    check_ecode_ID                    = (1u << 11),
+//    tripzone_glitch_detected          = (1u << 12),
+//    ADC_sequencer_problem             = (1u << 13),
+//    ADC_measurement_problem           = (1u << 14),
+//    bleeder_resistor_warning          = (1u << 15),
+//};
+
+
+
+
 /* I/O enum (placeholder) */
 enum motor_controller_io {
     todo6969 = 6969
