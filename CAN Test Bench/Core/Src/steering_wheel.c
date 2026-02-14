@@ -17,6 +17,7 @@ static uint8_t write_pos;
 static uint8_t read_pos;
 
 
+// call this at startup. the id is 0x334, timeout is 200ms. so steering_wheel_init(0x334, 200) 
 void steering_wheel_init(uint32_t id, uint32_t to){
     can_id  = id;
     timeout_ms = to;
@@ -26,6 +27,7 @@ void steering_wheel_init(uint32_t id, uint32_t to){
     write_pos = read_pos = 0;
 }
 
+// call in main to chekc timeout
 void steering_wheel_update(void){
     uint32_t now = HAL_GetTick();
 
