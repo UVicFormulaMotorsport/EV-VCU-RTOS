@@ -525,6 +525,10 @@ void StartDrivingLoop(void *argument)
 
     bool safe = true;
 
+    if(uvEnergizeTractiveSystem()!= UV_OK){
+    	//Hmmm interesting
+    }
+
     for (;;)
     {
         // Task control (kill/suspend)

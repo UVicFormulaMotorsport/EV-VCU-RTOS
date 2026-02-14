@@ -34,6 +34,8 @@ uv_status initRTDtask(void* args){
 
 		rtd_task->task_args = NULL; //TODO: Add actual settings dipshit
 
+		rtd_task->task_flags = 0x0000;
+
 
 		return UV_OK;
 }
@@ -57,12 +59,14 @@ void rtdTask(void* args){
 		//Are they pushing the start button?
 
 		if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
-			vTaskDelay(500);
+			vTaskDelay(10);
 
 
 
-
-			changeVehicleState(UV_DRIVING);
+			if(vehicle_state != UV_DRIVING){
+				changeVehicleState(UV_DRIVING);
+			}
+			vTaskDelay(100);
 
 		}
 

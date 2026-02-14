@@ -422,7 +422,7 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
     if (length < 2)
         return;
 
-    uint16_t errors = (uint16_t)((data[1] << 8) | data[0]);
+    uint16_t errors = (uint16_t)((data[0] << 8) | data[1]);
 
     errors = errors & (~mc_error_mask);
 
@@ -654,7 +654,10 @@ void MC_Startup(void* args)
 	//toggle pin
     //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
 
-	MC_setErrorMask(mains_voltage_min_limit|rotate_field_enable_not_present_run);
+	MC_setErrorMask(mains_voltage_min_limit|
+			rotate_field_enable_not_present_run|
+			AC_current_offset_fault);
+	//MC_setErrorMask(0xFFFFFFFF);
 
     //Register CAN RX handler first and routes eveyrthing though processmotorcontrollerresponse
     //subsequently the motor controller error handler

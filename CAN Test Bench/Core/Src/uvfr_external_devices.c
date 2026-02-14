@@ -44,6 +44,14 @@ __attribute__((constructor)) void __cfgDefaultXdevRegistry(){
  *
  */
 uv_status uvWaitOnExternalDevice(uint8_t device_id, TickType_t time_to_wait){
+	if(device_id >= FINAL_XDEV){
+		return UV_ERROR;
+	}
+
+	if(xdev_registry[device_id].xdev_rx_smphr == NULL){
+		return UV_ERROR;
+	}
+
 	if(xSemaphoreTake(xdev_registry[device_id].xdev_rx_smphr,time_to_wait) == pdTRUE){
 		return UV_OK;
 	}
