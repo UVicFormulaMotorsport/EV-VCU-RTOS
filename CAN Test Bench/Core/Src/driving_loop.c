@@ -103,8 +103,8 @@ driving_loop_args default_dl_settings =
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
 
     /* HARD PHYSICAL LIMITS */
-    .absolute_max_acc_pwr       = 20,   // [W] placeholder bring-up
-    .absolute_max_motor_torque  = 230,  // [Nm]
+    .absolute_max_acc_pwr       = 2000,   // [W] placeholder bring-up
+    .absolute_max_motor_torque  = 75,  // [Nm]
     .absolute_max_accum_current = 200,  // [A]
     .max_accum_current_5s       = 200,  // [A]
     .absolute_max_motor_rpm     = 6500, // [RPM]
@@ -134,9 +134,9 @@ driving_loop_args default_dl_settings =
 
     /* APPS / BPS SCALING */
     .apps1_top    = 2300, //0x09F9, // [ADC counts] 100% throttle
-    .apps1_bottom = 1505, // [ADC counts] 0% throttle
+    .apps1_bottom = 1550, // [ADC counts] 0% throttle
     .apps2_top    = 1712, // [ADC counts] 100% throttle
-    .apps2_bottom = 930, // [ADC counts] 0% throttle
+    .apps2_bottom = 977, // [ADC counts] 0% throttle
 
     /* PLAUSIBILITY & SAFETY */
     .apps_plausibility_check_threshold       = 30,  // [%] allowed APPS mismatch
@@ -671,6 +671,8 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl)
     // Speed -> omega (use magnitude for power math)
     float omega = fabsf(dl_getOmegaRadS(mc_speed_rpm)); // [rad/s]
 
+    printf("MC Speed RPM: %d \t",mc_speed_rpm);
+    print_fixed_d("Omega",(omega*1000),3,"rad/s");
     // 0) Start from hard torque ceiling
     float T_allow = (float)dl->absolute_max_motor_torque; // [Nm]
 
@@ -684,14 +686,18 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl)
 //        float T_absP = ((float)dl->absolute_max_acc_pwr) / omega; // [Nm]
 //        T_allow = fminf(T_allow, T_absP);
         float T_absP = torqueCapFromAbsPower(omega, dl);
+        print_fixed_d("T_abs_pwr:",(T_absP*1000),3,"Nm");
         T_allow = fminf(T_allow, T_absP);
     }
 
     // 2) BMS power cap (V * DCL) if BMS OK
     if (bms_is_ok()) {
         float T_bms = torqueCapFromBMS(omega); // [Nm]
+        print_fixed_d("T_BMS:",(T_bms*1000),3,"Nm");
         T_allow = fminf(T_allow, T_bms);
     }
+
+
 
     // Final sanity clamp
     return dl_clampf(T_allow, 0.0f, (float)dl->absolute_max_motor_torque);
@@ -869,7 +875,7 @@ void StartDrivingLoop(void *argument)
 //        T_REQ = mapThrottleToTorqueFromMode(throttle_percent, dl_params, dm);
 
         //Temporary:
-        T_REQ = T_REQ/2.0f;
+        //T_REQ = T_REQ/2.0f;
 
         print_fixed_d("T_REQ", T_REQ*1000, 3, "Nm");
         // Determine ramp direction for filter selection
@@ -942,13 +948,13 @@ static bool performSafetyChecks(driving_loop_args* dl_params,
     float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value); // [%]
     float brake_percent    = calculateBrakePercentage(bps1_value);                  // [%]
 
-    printf("APPS1 Value: %d\n",apps1_value);
+    printf("APPS1 Value: %d\t",apps1_value);
     print_fixed_d("APPS1 Percent",(uint32_t)(apps1_ratio*10000),2,"%");
-    printf("APPS2 Value: %d\n",apps2_value);
+    printf("APPS2 Value: %d\t",apps2_value);
     print_fixed_d("APPS2 Percent",(uint32_t)(apps2_ratio*10000),2,"%");
     print_fixed_d("APPS Delta",(uint32_t)(apps_diff_percent*100),2,"%");
-    printf("BPS1 Value: %d\n",bps1_value);
-    printf("BPS2 Value: %d\n",bps2_value);
+    printf("BPS1 Value: %d\t",bps1_value);
+    printf("BPS2 Value: %d\t",bps2_value);
     print_fixed_d("Brake Percent",(uint32_t)(brake_percent*100),2,"%");
 
 

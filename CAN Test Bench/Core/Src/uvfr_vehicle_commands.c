@@ -48,6 +48,10 @@ uv_status uvEnergizeTractiveSystem(){
 	TimerHandle_t htim;
 	//Final error check
 
+	coniferEnChannel(SDC_BOARD_PWR);
+
+	vTaskDelay(250);
+
 	if(0){
 		return UV_ERROR;
 	}
@@ -84,7 +88,7 @@ uv_status uvEnergizeTractiveSystem(){
 		//This will require additional handling to determine the cause of the error
 		//It is likely a result of something being unplugged, BMS faults should be noticeable, possibly the BSPD is the issue?
 		//IDRK what this might be a result of
-		uvOpenSDC();
+		//uvOpenSDC();
 		return UV_ERROR;
 	}
 
@@ -115,7 +119,7 @@ uv_status uvEnergizeTractiveSystem(){
 	vTaskDelay(15);
 
 	//Re-enable motor controller OC/UC errors
-	MC_setErrorMask(0);//Enable all MC ERRORs
+	//MC_setErrorMask(0);//Enable all MC ERRORs
 	return UV_OK;
 
 }

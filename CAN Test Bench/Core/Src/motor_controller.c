@@ -57,7 +57,7 @@ motor_controller_settings mc_default_settings = {
     // Scaled values (normalized to 32767)
 	//TODO: make these values unscaled, in units
     .max_speed              = 12357,   // (2457.5 RPM / 6500 RPM) * 32767
-    .max_current            = 13107,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
+    .max_current            = 2600,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
     .cont_current           = 7864,    // (60 A / 250 A) * 32767
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
@@ -77,6 +77,8 @@ motor_controller_settings mc_default_settings = {
 	.icon_eff 				= 100,		//I con eff (Arms or %) 	register 0xC5
 	.t_peak2  				= 5,		//Topeak2 (s) 				register 0xF0
 };
+
+void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
 
 /**
  * @brief Configure the Bamocar current controller (PI + feedforward + ramp).
@@ -221,9 +223,9 @@ uint16_t sendTorqueToMotorController(float T_filtered){
 
     /* 3) Torque -> current (Iq request) */
     float Iq_cmd_arms = (Kt_Nm_per_A > 0.0f) ? (T_filtered / Kt_Nm_per_A) : 0.0f; // [Arms]
-
+    print_fixed_d("IQ_CMD_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
     /* 4) Convert digital current limit to Arms and clamp
-     * max_current is [dig] where 32767 == I_fs_arms
+     * max_current is [dig] where 32767 == I_fs_arms3
      */
     const float I_limit_arms =
         ((float)mc_settings->max_current / 32767.0f) * I_fs_arms; // [Arms]
@@ -231,10 +233,13 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     if (Iq_cmd_arms > I_limit_arms) Iq_cmd_arms = I_limit_arms;
     if (Iq_cmd_arms < 0.0f)         Iq_cmd_arms = 0.0f;
 
+    print_fixed_d("Ilim_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+
     /* 5) Current -> Bamocar M_set digital
      * trqcmd_dig = (Iq_cmd / I_fs) * 32767
      */
     int16_t trqcmd_dig = (int16_t)((Iq_cmd_arms / I_fs_arms) * 32767.0f);
+    printf("digital command %d \n",trqcmd_dig);
 
     if (trqcmd_dig >  32767) trqcmd_dig =  32767;
     if (trqcmd_dig < -32768) trqcmd_dig = -32768;
@@ -517,7 +522,10 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
         case N_actual:  // SPEED_ACTUAL (0x30)
             if (msg->dlc >= 3) {
                 int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
-                mc_speed_rpm = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+                mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500);
+                //2457.5 RPM / 6500 RPM) * 32767
+                //mc_speed_rpm = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+
             }
             break;
 

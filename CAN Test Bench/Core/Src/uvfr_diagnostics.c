@@ -11,17 +11,66 @@
 
 extern HeapStats_t xHeapStats;
 
-#define DEBUG_PORT_GENERAL 0
-#define DEBUG_PORT_OS 1
-#define DEBUG_PORT_TRACTIVE_SYSTEM 2
-#define DEBUG_PORT_XDEV 3
-#define DEBUG_PORT_CONIFER 4
-#define DEBUG_PORT_STATE_ENGINE 5
-#define DEBUG_PORT_CSV 6
+//#define DEBUG_PORT_GENERAL 0
+//#define DEBUG_PORT_OS 1
+//#define DEBUG_PORT_TRACTIVE_SYSTEM 2
+//#define DEBUG_PORT_XDEV 3
+//#define DEBUG_PORT_CONIFER 4
+//#define DEBUG_PORT_STATE_ENGINE 5
+//#define DEBUG_PORT_CSV 6
 
+typedef struct{
+	uint32_t port;
+	char* str;
+}uv_print_request;
 
+QueueHandle_t print_queue;
 
 void dispWheelSpeeds();
+
+static uint32_t ITM_SendCharToReg (char ch,uint32_t port);
+static uv_status __debugWriteInternal(char* str,uint32_t port);
+
+int32_t sprint_fixed_d(char* buf, const char* label, int32_t value, int decimals, const char* unit)
+{
+	int32_t nchars_written = 0;
+	int32_t tmp = 0;
+	int32_t scale = 1;
+	for(int i = 0; i < decimals; i++) scale *= 10;
+
+	int32_t whole = value / scale;
+	int32_t frac  = value % scale;
+	if(frac < 0) frac = -frac;
+
+	tmp = sprintf(buf,"%s: %ld", label, (long)whole);
+	if(tmp < 0){
+		return -1;
+	}else{
+		nchars_written += tmp;
+		buf += tmp;
+	}
+	if(decimals > 0){
+		tmp = sprintf(buf,".%0*ld", decimals, (long)frac);
+		if(tmp < 0){
+			return -1;
+		}
+		nchars_written += tmp;
+		buf += tmp;
+	}
+	if(unit){
+		tmp = sprintf(buf," %s", unit);
+		if(tmp < 0){
+			return -1;
+		}
+		nchars_written += tmp;
+		buf += tmp;
+	}
+	tmp = sprintf(buf,"\n");
+	buf += tmp;
+
+
+	return nchars_written;
+}
 
 void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit)
 {
@@ -197,7 +246,27 @@ uv_status uvInitDiagnostics(){
 	diag_task->task_priority = 1;
 
 
+
+
+
+	//TestPorts lol;
+	if(__debugWriteInternal("Testing Port 0\n \0",0)!=UV_OK){
+		uvPanic("ITM_FAIL",0);
+	}
+
+	if(__debugWriteInternal("Testing Port 1\n \0",1)!=UV_OK){
+		uvPanic("ITM_FAIL",0);
+	}
+
+	if(__debugWriteInternal("Testing Port 2\n \0",2)!=UV_OK){
+			uvPanic("ITM_FAIL",0);
+	}
+
+	if(__debugWriteInternal("Testing Port 3\n \0",3)!=UV_OK){
+				uvPanic("ITM_FAIL",0);
+	}
 	uvStartTask(&var,diag_task);
+
 	return UV_OK;
 }
 
@@ -243,21 +312,18 @@ int __io_putchar(int ch){
 #ifdef DEBUG
 #define MAX_DEBUGSTRING_LENGTH 256
 //Basically like ITM_SendChar, however you can send to one of several registers
-uint32_t ITM_SendCharToReg (uint32_t ch,uint32_t port)
+static uint32_t ITM_SendCharToReg (char ch, uint32_t port)
 {
-  if (((ITM->TCR & ITM_TCR_ITMENA_Msk) != 0UL) &&      /* ITM enabled */
-      ((ITM->TER & 1UL               ) != 0UL)   )     /* ITM Port #0 enabled */ //BUG: This seems wrong? What port?
-  {
-    while (ITM->PORT[port].u32 == 0UL)
-    {
-      __NOP();
+    if (port < 32) { // ITM has 32 ports (0-31)
+        // Check if ITM is enabled and port stimulus is enabled
+        if ((ITM->TCR & ITM_TCR_ITMENA_Msk) && (ITM->TER & (1UL << port))) {
+            while (ITM->PORT[port].u32 == 0); // Wait for port to be ready
+            ITM->PORT[port].u8 = (uint8_t)ch;
+        }
     }
-    ITM->PORT[port].u8 = (uint8_t)ch;
-  }
-  return (ch);
 }
 
-uv_status __debugWrite(char* str,uint32_t port){
+static uv_status __debugWriteInternal(char* str,uint32_t port){
 	int i = 0;
 	while(i<MAX_DEBUGSTRING_LENGTH){
 		if(ITM_SendCharToReg(str[i],port)!=str[i]){
@@ -267,12 +333,16 @@ uv_status __debugWrite(char* str,uint32_t port){
 		if(str[i] == '\0'){
 			break;
 		}
+
+		i++;
 	}
 
 	return UV_OK;
 }
 
-
+uv_status __debugWrite(char* str, uint32_t port){
+	return UV_OK;
+}
 
 
 void uvAssertFailed(char* file, uint16_t line, TaskHandle_t task, char* condition){
