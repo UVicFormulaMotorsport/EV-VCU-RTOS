@@ -351,31 +351,226 @@ static float mapThrottleToTorqueAdaptive(float throttle_percent,
 
 //FOR DRIVING MODE IMPLMENTATION
 static float mapAdaptiveFromMode(float throttle_percent, float T_max,
-                                 const driving_loop_args* dl, const drivingMode* dm)
+                                 const driving_loop_args* dl,
+                                 const drivingMode* dm)
 {
+    /*
+     * STEP 0: Normalize throttle input to 0–1 with deadband
+     * apps = throttle as fraction (0–1)
+     * dead = deadband fraction (0–1)
+     * After deadband removal:
+     *   x = 0     at bottom of pedal
+     *   x = 1     at full pedal
+     */
     float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
     const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
-
     float x = (apps - dead) / (1.0f - dead);
     x = dl_clampf(x, 0.0f, 1.0f);
+    // If below deadband, request zero torque immediately
+    if (x <= 0.0f) return 0.0f;
 
-    float T_req = T_max * x; // base linear
+    /*
+     * STEP 1: Pedal curve shaping  f(x)
+     * curve_type selects how throttle maps to torque fraction:
+     * 0 = Linear        f(x) = x
+     * 1 = Power-law     f(x) = x^s
+     * 2 = Smoothstep    f(x) = 3x^2 - 2x^3
+     * These only shape driver "feel".
+     * They do NOT enforce limits.
+     */
 
-    // Optional “soften at speed” from mode params
+    float f = x;  // default linear behavior
+
+    //pick your fighter
+    const uint8_t curve_type = dm->map_fn_params.adaptive.curve_type;
+
+    if (curve_type == 0) {
+        // Linear: direct proportional mapping
+        // f(x) = x
+        // Already assigned above
+    }
+    else if (curve_type == 1) {
+        // Power-law: softens low pedal, ramps harder near the top
+        // s > 1.0 → softer initial response
+        // s = 1.0 → linear
+        float s = dm->map_fn_params.adaptive.curve_s;
+        // Prevent degenerate exponent
+        if (s < 0.1f) s = 0.1f;
+        f = powf(x, s);
+    }
+    else {
+        // Smoothstep cubic: OEM-style S-curve
+        // f(x) = 3x^2 - 2x^3
+        // - zero slope at x=0
+        // - zero slope at x=1
+        // - smooth, progressive feel
+        f = (3.0f * x * x) - (2.0f * x * x * x);
+    }
+
+    /*
+     * STEP 2: Adaptive low-speed fade
+     Purpose: Reduce torque sensitivity at very low speeds.
+     Formula (paper-style):
+     fade = rpm / (rpm + rpm_fade)
+     Behavior:
+     rpm = 0        → fade = 0
+     rpm = rpm_fade → fade = 0.5
+     rpm >> rpm_fade → fade ≈ 1
+     This prevents aggressive jerk at low speed
+     */
     extern int16_t mc_speed_rpm;
+
+    // Use magnitude (reverse should behave same as forward)
+    float rpm = (float)mc_speed_rpm;
+    if (rpm < 0.0f) rpm = -rpm;
+
+    float rpm_fade = dm->map_fn_params.adaptive.rpm_fade;
+
+    // Prevent divide-by-zero or unstable behavior
+    if (rpm_fade < 1.0f) rpm_fade = 1.0f;
+
+    float fade = rpm / (rpm + rpm_fade);
+    fade = dl_clampf(fade, 0.0f, 1.0f);
+
+    /* Base adaptive torque request */
+    float T_req = T_max * f * fade;
+
+    /*
+     * STEP 3: Optional high-RPM softening
+     Separate from adaptive fade.
+     If rpm > soften_rpm:
+     gradually reduce torque as rpm approaches max_rpm.
+     Used to:
+     - reduce harshness near top speed
+     */
+
     float soften_gain = dm->map_fn_params.adaptive.soften_gain;
     float soften_rpm  = (float)dm->map_fn_params.adaptive.soften_rpm;
     float max_rpm     = (float)dm->map_fn_params.adaptive.max_rpm;
 
-    if (soften_gain > 0.0f && max_rpm > soften_rpm && (float)mc_speed_rpm > soften_rpm) {
+    if (soften_gain > 0.0f &&
+        max_rpm > soften_rpm &&
+        (float)mc_speed_rpm > soften_rpm)
+    {
         float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
         t = dl_clampf(t, 0.0f, 1.0f);
+
         T_req *= (1.0f - soften_gain * t);
     }
 
-    // Optional offset
-    T_req += (float)dm->map_fn_params.adaptive.offset;
+    /* Final safety clamp to allowed torque ceiling */
+    return dl_clampf(T_req, 0.0f, T_max);
+}
 
+static float mapAdaptiveFromMode(float throttle_percent, float T_max,
+                                 const driving_loop_args* dl,
+                                 const drivingMode* dm)
+{
+    /*
+     * STEP 0: Normalize throttle input to 0–1 with deadband
+     * apps = throttle as fraction (0–1)
+     * dead = deadband fraction (0–1)
+     * After deadband removal:
+     *   x = 0     at bottom of pedal
+     *   x = 1     at full pedal
+     */
+    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
+    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
+    float x = (apps - dead) / (1.0f - dead);
+    x = dl_clampf(x, 0.0f, 1.0f);
+    // If below deadband, request zero torque immediately
+    if (x <= 0.0f) return 0.0f;
+
+    /*
+     * STEP 1: Pedal curve shaping  f(x)
+     * curve_type selects how throttle maps to torque fraction:
+     * 0 = Linear        f(x) = x
+     * 1 = Power-law     f(x) = x^s
+     * 2 = Smoothstep    f(x) = 3x^2 - 2x^3
+     * These only shape driver "feel".
+     * They do NOT enforce limits.
+     */
+
+    float f = x;  // default linear behavior
+
+    //pick your fighter
+    const uint8_t curve_type = dm->map_fn_params.adaptive.curve_type;
+
+    if (curve_type == 0) {
+        // Linear: direct proportional mapping
+        // f(x) = x
+        // Already assigned above
+    }
+    else if (curve_type == 1) {
+        // Power-law: softens low pedal, ramps harder near the top
+        // s > 1.0 → softer initial response
+        // s = 1.0 → linear
+        float s = dm->map_fn_params.adaptive.curve_s;
+        // Prevent degenerate exponent
+        if (s < 0.1f) s = 0.1f;
+        f = powf(x, s);
+    }
+    else {
+        // Smoothstep cubic: OEM-style S-curve
+        // f(x) = 3x^2 - 2x^3
+        // - zero slope at x=0
+        // - zero slope at x=1
+        // - smooth, progressive feel
+        f = (3.0f * x * x) - (2.0f * x * x * x);
+    }
+
+    /*
+     * STEP 2: Adaptive low-speed fade
+     Purpose: Reduce torque sensitivity at very low speeds.
+     Formula (paper-style):
+     fade = rpm / (rpm + rpm_fade)
+     Behavior:
+     rpm = 0        → fade = 0
+     rpm = rpm_fade → fade = 0.5
+     rpm >> rpm_fade → fade ≈ 1
+     This prevents aggressive jerk at low speed
+     */
+    extern int16_t mc_speed_rpm;
+
+    // Use magnitude (reverse should behave same as forward)
+    float rpm = (float)mc_speed_rpm;
+    if (rpm < 0.0f) rpm = -rpm;
+
+    float rpm_fade = dm->map_fn_params.adaptive.rpm_fade;
+
+    // Prevent divide-by-zero or unstable behavior
+    if (rpm_fade < 1.0f) rpm_fade = 1.0f;
+
+    float fade = rpm / (rpm + rpm_fade);
+    fade = dl_clampf(fade, 0.0f, 1.0f);
+
+    /* Base adaptive torque request */
+    float T_req = T_max * f * fade;
+
+    /*
+     * STEP 3: Optional high-RPM softening
+     Separate from adaptive fade.
+     If rpm > soften_rpm:
+     gradually reduce torque as rpm approaches max_rpm.
+     Used to:
+     - reduce harshness near top speed
+     */
+
+    float soften_gain = dm->map_fn_params.adaptive.soften_gain;
+    float soften_rpm  = (float)dm->map_fn_params.adaptive.soften_rpm;
+    float max_rpm     = (float)dm->map_fn_params.adaptive.max_rpm;
+
+    if (soften_gain > 0.0f &&
+        max_rpm > soften_rpm &&
+        (float)mc_speed_rpm > soften_rpm)
+    {
+        float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
+        t = dl_clampf(t, 0.0f, 1.0f);
+
+        T_req *= (1.0f - soften_gain * t);
+    }
+
+    /* Final safety clamp to allowed torque ceiling */
     return dl_clampf(T_req, 0.0f, T_max);
 }
 
