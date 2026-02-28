@@ -75,6 +75,10 @@ void uvInit(void * arguments){
 	if(uvSettingsInit() != UV_OK){
 		__uvInitPanic();
 
+#ifdef DEBUG
+		printf("Failed to initialize settings \n");
+#endif
+
 		/**Once the settings are initialized, we will
 		 * initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged*/
 	}
