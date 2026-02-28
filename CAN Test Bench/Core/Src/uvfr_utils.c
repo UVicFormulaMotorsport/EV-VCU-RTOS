@@ -75,11 +75,15 @@ void uvInit(void * arguments){
 	if(uvSettingsInit() != UV_OK){
 		__uvInitPanic();
 
+#ifdef DEBUG
+		printf("Failed to initialize settings \n");
+#endif
+
 		/**Once the settings are initialized, we will
 		 * initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged*/
 	}
 
-	vTaskDelay(1);
+	//vTaskDelay(1);
 
 
 
@@ -148,6 +152,10 @@ void uvInit(void * arguments){
 	if(coniferInit() != UV_OK){
 		//RUHH ROHH
 		uvPanic("Failed to start conifer",0);
+	}
+
+	if(coniferDisChannel(HVIL_PWR)!= UV_OK){
+		uvPanic("WTF",0);
 	}
 
 	BeepBeepMotherFucker();
@@ -315,7 +323,9 @@ void uvInit(void * arguments){
 
 	}
 
-	coniferEnChannel(SDC_BOARD_PWR);
+	if(coniferEnChannel(SDC_BOARD_PWR)!=UV_OK){
+		uvPanic("SDCB_PWR_EN_FAIL",0);
+	}
 	//vQueueDelete(init_validation_queue);
 	//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
 	vTaskDelete(init_task_handle);

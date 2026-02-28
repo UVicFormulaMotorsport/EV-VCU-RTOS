@@ -105,13 +105,13 @@ uv_status changeVehicleState(uint16_t state){
 	/** If the state we wish to change to is the same as the state we're in, then
 	 * no need to be executing any of this fancy code
 	 */
-//	if(state == vehicle_state || vehicle_state == UV_ERROR_STATE){
-//		return UV_ABORTED;
-//	}
+	if(state == vehicle_state || vehicle_state == UV_ERROR_STATE){
+		return UV_ABORTED;
+	}
 
-	if(state == vehicle_state){
-			return UV_ABORTED;
-		}
+//	if(state == vehicle_state){
+//			return UV_ABORTED;
+//		}
 
 	previous_state = vehicle_state;
 	vehicle_state = state;
@@ -171,6 +171,8 @@ uv_status initRTDtask(void* args);
 uv_status uvInitStateEngine(){
 	//create all the managed tasks :)
 	_task_register = uvMalloc(sizeof(uv_task_info)*MAX_NUM_MANAGED_TASKS);
+
+	memset(_task_register,0,sizeof(uv_task_info)*MAX_NUM_MANAGED_TASKS);
 
 	if(_task_register == NULL){
 		__uvInitPanic();
@@ -325,7 +327,7 @@ uv_task_info *uvCreateTask(){
 
 	_newtask->task_handle = NULL;
 
-	_newtask->task_flags |= UV_TASK_VEHICLE_APPLICATION;
+	_newtask->task_flags = UV_TASK_VEHICLE_APPLICATION;
 
 	return _newtask;
 }
@@ -717,9 +719,10 @@ void __uvPanic(char* msg, fault_event_type_e type, const char* file, const int l
 
 	if(is_can_ok){
 		//uvSecureVehicle(); // ensure safe state of vehicle.
+		uvDeEnergizeTractiveSystem();
 	}
 	changeVehicleState(UV_ERROR_STATE); // log a fault from here then create
-	//TODO: We should probably keep a log of this or something
+
 
 	logVehicleFault(type,NULL,msg,file,line,func,true);
 }

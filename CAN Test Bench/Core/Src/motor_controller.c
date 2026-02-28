@@ -57,7 +57,7 @@ motor_controller_settings mc_default_settings = {
     // Scaled values (normalized to 32767)
 	//TODO: make these values unscaled, in units
     .max_speed              = 12357,   // (2457.5 RPM / 6500 RPM) * 32767
-    .max_current            = 13107,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
+    .max_current            = 2600,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
     .cont_current           = 7864,    // (60 A / 250 A) * 32767
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
@@ -77,6 +77,13 @@ motor_controller_settings mc_default_settings = {
 	.icon_eff 				= 100,		//I con eff (Arms or %) 	register 0xC5
 	.t_peak2  				= 5,		//Topeak2 (s) 				register 0xF0
 };
+
+void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
+
+#ifdef DEBUG_DL
+extern char dl_debug_printbuf[256];
+extern char* dl_cur_printbuf;
+#endif
 
 /**
  * @brief Configure the Bamocar current controller (PI + feedforward + ramp).
@@ -222,8 +229,12 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     /* 3) Torque -> current (Iq request) */
     float Iq_cmd_arms = (Kt_Nm_per_A > 0.0f) ? (T_filtered / Kt_Nm_per_A) : 0.0f; // [Arms]
 
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"IQ_CMD_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+#endif
+
     /* 4) Convert digital current limit to Arms and clamp
-     * max_current is [dig] where 32767 == I_fs_arms
+     * max_current is [dig] where 32767 == I_fs_arms3
      */
     const float I_limit_arms =
         ((float)mc_settings->max_current / 32767.0f) * I_fs_arms; // [Arms]
@@ -231,10 +242,19 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     if (Iq_cmd_arms > I_limit_arms) Iq_cmd_arms = I_limit_arms;
     if (Iq_cmd_arms < 0.0f)         Iq_cmd_arms = 0.0f;
 
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"Ilim_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+#endif
+
     /* 5) Current -> Bamocar M_set digital
      * trqcmd_dig = (Iq_cmd / I_fs) * 32767
      */
     int16_t trqcmd_dig = (int16_t)((Iq_cmd_arms / I_fs_arms) * 32767.0f);
+
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"digital command %d \n",trqcmd_dig);
+#endif
+
 
     if (trqcmd_dig >  32767) trqcmd_dig =  32767;
     if (trqcmd_dig < -32768) trqcmd_dig = -32768;
@@ -422,7 +442,7 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
     if (length < 2)
         return;
 
-    uint16_t errors = (uint16_t)((data[1] << 8) | data[0]);
+    uint16_t errors = (uint16_t)((data[0] << 8) | data[1]);
 
     errors = errors & (~mc_error_mask);
 
@@ -517,7 +537,10 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
         case N_actual:  // SPEED_ACTUAL (0x30)
             if (msg->dlc >= 3) {
                 int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
-                mc_speed_rpm = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+                mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500);
+                //2457.5 RPM / 6500 RPM) * 32767
+                //mc_speed_rpm = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+
             }
             break;
 
@@ -654,7 +677,10 @@ void MC_Startup(void* args)
 	//toggle pin
     //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
 
-	MC_setErrorMask(mains_voltage_min_limit|rotate_field_enable_not_present_run);
+	MC_setErrorMask(mains_voltage_min_limit|
+			rotate_field_enable_not_present_run|
+			AC_current_offset_fault);
+	//MC_setErrorMask(0xFFFFFFFF);
 
     //Register CAN RX handler first and routes eveyrthing though processmotorcontrollerresponse
     //subsequently the motor controller error handler

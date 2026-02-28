@@ -96,5 +96,7 @@ void uvSecureVehicle();
 
 uv_status uvEnergizeTractiveSystem();
 
+uv_status uvDeEnergizeTractiveSystem();
+
 
 #endif /* INC_UVFR_VEHICLE_COMMANDS_H_ */

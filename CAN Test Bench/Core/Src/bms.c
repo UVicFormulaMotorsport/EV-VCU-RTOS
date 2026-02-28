@@ -135,7 +135,8 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 
 void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 	// msg2 can handle DCL (Max current output), tempurature, checksum
-	g_bms_state.dcl_dA = (msg->data[0]<<8 | msg->data[3]);
+	//g_bms_state.dcl_dA = (msg->data[0]<<8 | msg->data[3]);
+	g_bms_state.dcl_dA = (msg->data[0]<<8 | msg->data[1]);
 	// this is the derate current limit - how much power is the motor allowed to send out at this given moment
 	// determined within the incoming msg?? i actually dont understand why, shouldnt we be the one telling the battery how much it can ouput
 	// this value would be useful in creating limp mode, can be static

@@ -105,7 +105,7 @@ static bool child_task_active = false;
  * operation requested by a laptop
  *
  */
-const uv_CAN_msg vcu_ack_msg = {
+uv_CAN_msg vcu_ack_msg = {
 	.flags = 0x00,
 	.dlc = 1,
 	.data = {0x10,0,0,0,0,0,0,0},
@@ -116,7 +116,7 @@ const uv_CAN_msg vcu_ack_msg = {
  * to perform some requested action
  *
  */
-const uv_CAN_msg vcu_ack_failed_msg = {
+uv_CAN_msg vcu_ack_failed_msg = {
 	.flags = 0x00,
 	.dlc = 1,
 	.data = {0x11,0,0,0,0,0,0,0},
@@ -387,6 +387,11 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 		if(uvLoadSettingsFromFlash() == UV_OK){
 			//Attempt to load flash settings. If that somehow fails, revert to factory defaults
 			use_factory_default = false;
+
+#ifdef DEBUG
+			printf("FLASH SETTINGS LOADED\n");
+#endif
+
 		}else if(uvLoadSettingsFromFlash()== UV_OK){
 			//Could not actually load from flash. BAD!
 			//In this case we would like to revert to factory defaults!
@@ -610,6 +615,10 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 //	if(uvValidateChecksums(tmp) != UV_OK){
 //		return UV_ABORTED;
 //	}
+
+	/* The proceeding lines are for formatting purposes and for validation of future SBLOCKS
+	 *
+	 */
 
 	*((uint32_t*)(tmp + 0)) = MAGIC_NUMBER; //Identifies that this is in fact a valid S_Block
 	*((uint32_t*)(tmp + 4)) = 0x00000001; //Little reminder for future VCU that the settings were recently changed
@@ -1144,7 +1153,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 //	settingCopy(0,0,0);
 
 
-	return UV_OK;
+
 
 }
 
@@ -1155,6 +1164,8 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 
 uv_status uvResetFlashToDefault(void* new_sblock){
+
+	printf("RESETTING FLASH TO DEFAULT\n");
 	//void* new_sblock = uvMalloc(SETTING_BRANCH_SIZE);
 
 	if(new_sblock == NULL){

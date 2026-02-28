@@ -27,7 +27,19 @@
 	uvAssertFailed(__UV_FILENAME__, __LINE__, ctask, TEXTIFY(x));\
 }
 
+//
+typedef enum{
+	DEBUG_PORT_GENERAL = 0,
+	DEBUG_PORT_OS = 1,
+	DEBUG_PORT_ACCUM = 2,
+	DEBUG_PORT_TRACTIVE = 3,
+	DEBUG_PORT_XDEV = 4,
+	DEBUG_PORT_STATE_ENGINE = 5,
+	DEBUG_PORT_IDEK = 6,
+	DEBUG_PORT_CSV = 7
+}debug_port;
 
+//
 typedef enum{
 	ENTER_DIAGNOSTICS_MODE,
 	EXIT_DIAGNOSTICS_MODE,
@@ -52,12 +64,16 @@ void __tic();
 
 uint32_t __toc();
 
-uint32_t ITM_SendCharToReg (uint32_t ch,uint32_t port);
-uv_status __debugWrite(char* str,uint32_t port);
+int32_t sprint_fixed_d(char* buf, const char* label, int32_t value, int decimals, const char* unit);
+void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
+
+uv_status __debugWrite(char* str, uint32_t port);
 
 #ifdef DEBUG
 #define tic() __tic()
 #define toc() __toc()
+
+//#define DEBUG_DL
 
 #define debugWrite(x,y) __debugWrite(x,y)
 
@@ -66,6 +82,8 @@ uv_status __debugWrite(char* str,uint32_t port);
 
 #define tic()
 #define toc()
+
+#define debugWrite(x,y)
 
 #endif
 

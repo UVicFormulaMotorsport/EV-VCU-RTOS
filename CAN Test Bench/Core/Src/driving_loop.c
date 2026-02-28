@@ -96,26 +96,24 @@ driving_loop_args default_dl_settings =
     /* DRIVER FEEL / TORQUE SHAPING */
     .throttle_deadband_percent = 0.0f,  // [%] throttle deadband
     .torque_zero_threshold_nm  = 0.0f,  // [Nm] snap-to-zero threshold
-    .filter_k_accel            = 0.4f,  // [0–1] accel filter gain
-    .filter_k_decel            = 1.0f,  // [0–1] decel filter gain
     .torque_rate_up_nm_per_s   = 1e9f,  // [Nm/s] (1e9 disables effectively)
     .torque_rate_down_nm_per_s = 1e9f,  // [Nm/s]
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
 
     /* HARD PHYSICAL LIMITS */
-    .absolute_max_acc_pwr       = 20,   // [W] placeholder bring-up
-    .absolute_max_motor_torque  = 230,  // [Nm]
+    .absolute_max_acc_pwr       = 2000,   // [W] placeholder bring-up
+    .absolute_max_motor_torque  = 75,  // [Nm]
     .absolute_max_accum_current = 200,  // [A]
     .max_accum_current_5s       = 200,  // [A]
     .absolute_max_motor_rpm     = 6500, // [RPM]
     .regen_rpm_cutoff           = 1000, // [RPM]
 
     /* PLAUSIBILITY & SAFETY */
-    .apps_mismatch_time_ms = 100, // [ms] mismatch persistence time (currently not enforced in logic below)
+    //.apps_mismatch_time_ms = 100, // [ms] mismatch persistence time (currently not enforced in logic below)
 
     /* DERATING / LIMITING */
-    .default_power_limit_w   = 0, // [W] (0 = unused)
-    .default_current_limit_a = 0, // [A] (0 = unused)
+   // .default_power_limit_w   = 0, // [W] (0 = unused)
+   // .default_current_limit_a = 0, // [A] (0 = unused)
 
     /* ========================= 16-bit fields (uint16_t) ========================= */
 
@@ -134,9 +132,9 @@ driving_loop_args default_dl_settings =
 
     /* APPS / BPS SCALING */
     .apps1_top    = 2300, //0x09F9, // [ADC counts] 100% throttle
-    .apps1_bottom = 1505, // [ADC counts] 0% throttle
+    .apps1_bottom = 1550, // [ADC counts] 0% throttle
     .apps2_top    = 1712, // [ADC counts] 100% throttle
-    .apps2_bottom = 930, // [ADC counts] 0% throttle
+    .apps2_bottom = 977, // [ADC counts] 0% throttle
 
     /* PLAUSIBILITY & SAFETY */
     .apps_plausibility_check_threshold       = 30,  // [%] allowed APPS mismatch
@@ -146,17 +144,25 @@ driving_loop_args default_dl_settings =
 
     /* ========================= 8-bit fields ========================= */
     .torque_limit_source_mask = 0, // [bitmask]
-    .num_driving_modes        = 2,// 3, // [count]
+    .num_driving_modes        = 3,// 3, // [count]
     .period                   = 10, // [ms] DL period setting (task_period currently used separately)
 
-//    .dmodes = {
-//    	{0},
-//    	{0},
-//		{0},
-//		{0},
+
 		.dmodes = {
 		    [0] = {
 		        .control_map_fn = DL_MAP_LINEAR,
+				.kVal = 0.5,
+				.adaptive_settings = {
+						.soften_gain = 0, //0.20f,
+						.soften_rpm  = 4500,
+						.max_rpm     = 6500,
+						.offset      = 0,
+						.base_slope = 1.0f,  // if you actually use it
+
+				},
+
+
+
 		        .map_fn_params.linear = {
 		            .slope  = 1.0f,
 		            .offset = 0,
@@ -167,19 +173,36 @@ driving_loop_args default_dl_settings =
 		    },
 
 		    [1] = {
-		        .control_map_fn = DL_MAP_ADAPTIVE,
-		        .map_fn_params.adaptive = {
-		            .soften_gain = 0, //0.20f,
-		            .soften_rpm  = 4500,
-		            .max_rpm     = 6500,
-		            .offset      = 0,
-		            // .base_slope = 1.0f,  // if you actually use it
-		        },
+		        .control_map_fn = DL_MAP_EXP,
+				.kVal = 0.5,
+				.adaptive_settings = {
+						.soften_gain = 0, //0.20f,
+						.soften_rpm  = 4500,
+						.max_rpm     = 6500,
+						.offset      = 0,
+						.base_slope = 1.0f,  // if you actually use it
+
+				},
+				.map_fn_params.exp = {
+						.s = 1.5f,
+				},
 		    },
 
-		    [2] = {0},
-		    [3] = {0},
-		},
+		    [2] = {
+		    	.control_map_fn = DL_MAP_CUBIC,
+				.kVal = 0.5,
+				.adaptive_settings = {
+					.soften_gain = 0, //0.20f,
+					.soften_rpm  = 4500,
+					.max_rpm     = 6500,
+					.offset      = 0,
+					.base_slope = 1.0f,  // if you actually use it
+
+				},
+
+		    },
+			[3] = {0},
+	},
      // [struct array] mode table (optional / future)
 };
 
@@ -190,10 +213,10 @@ bool  is_accelerating = false; // [bool]
 float T_PREV = 0.0f;           // [Nm] previous torque actually sent (post-limits)
 float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter/limits)
 
-static bool torque_inhibit_active = false; // [bool] latched inhibit
+static bool torque_inhibit_active = false; PRIVILEGED_DATA // [bool] latched inhibit
 
-static uint8_t __current_dmode = 0; //[Unitless] Index of current driving mode
-SemaphoreHandle_t dmode_mutex = NULL;
+static uint8_t __current_dmode = 2; PRIVILEGED_DATA//[Unitless] Index of current driving mode
+SemaphoreHandle_t dmode_mutex = NULL; PRIVILEGED_DATA
 
 //Macro to make the driving mode seem much simpler
 #define driving_mode driving_args->dmodes[__current_dmode]
@@ -209,13 +232,19 @@ TickType_t last_driver_input_time = 0; // [RTOS ticks]
 static float last_throttle_percent = 0.0f; // [%]
 static float last_brake_percent    = 0.0f; // [%]
 
+#ifdef DEBUG_DL
+char dl_debug_printbuf[512] = {0};
+char* dl_cur_printbuf = dl_debug_printbuf;
+#endif
+
 // -----------------------------------------------------------------------------
 // Forward declarations
 // -----------------------------------------------------------------------------
 static float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2);
-static float calculateBrakePercentage(uint16_t bps1);
+//static float calculateBrakePercentage(uint16_t bps1);
 
 void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
+static inline float dl_getOmegaRadS(int16_t rpm);
 
 static bool  performSafetyChecks(driving_loop_args* dl_params,
                                  uint16_t apps1_value,
@@ -224,7 +253,7 @@ static bool  performSafetyChecks(driving_loop_args* dl_params,
                                  uint16_t bps2_value,
                                  DL_internal_state_t* dl_status);
 
-static inline float getKValue(int raceMode);
+static inline float getKValue();
 static inline float applyTorqueFilter(float T_req, float T_prev, bool is_accelerating);
 
 static inline float dl_clampf(float x, float lo, float hi);
@@ -232,8 +261,8 @@ static inline float dl_slewLimit(float target, float prev, float rate_nm_per_s, 
 
 static bool  bms_is_ok(void);
 static float torqueCapFromBMS(float omega_rad_s);
-static float limitTorque(float T_cmd, float T_prev, const driving_loop_args* dl, float dt_s);
-static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl);
+static float limitTorque(float T_cmd, float T_prev, const driving_loop_args* dl, float dt_s, drivingMode* dm);
+static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl,const drivingMode* dm);
 
 
 // -----------------------------------------------------------------------------
@@ -267,7 +296,7 @@ enum uv_status_t initDrivingLoop(void *argument)
     dl_task->deletion_states = UV_INIT | UV_READY | PROGRAMMING | UV_SUSPENDED |
                                UV_LAUNCH_CONTROL | UV_ERROR_STATE; // [state bitmask]
 
-    dl_task->task_period = 100; // [ms] RTOS scheduling period used by wrapper
+    dl_task->task_period = 10; // [ms] RTOS scheduling period used by wrapper
     dl_task->task_args   = NULL;
 
     return UV_OK;
@@ -278,76 +307,40 @@ enum uv_status_t initDrivingLoop(void *argument)
 // throttle_percent: [%] 0..100
 // returns: torque request [Nm]
 // -----------------------------------------------------------------------------
-static float mapThrottleToTorqueLinear(float throttle_percent,
-                                       float T_max,
-                                       const driving_loop_args* dl)
-{
-    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
-
-    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
-
-    float x = (apps - dead) / (1.0f - dead);
-    x = dl_clampf(x, 0.0f, 1.0f);
-
-    return T_max * x; // [Nm]
-}
+//static float mapThrottleToTorqueLinear(float throttle_percent,
+//                                       float T_max,
+//                                       const driving_loop_args* dl)
+//{
+//    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
+//
+//    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
+//
+//    float x = (apps - dead) / (1.0f - dead);
+//    x = dl_clampf(x, 0.0f, 1.0f);
+//
+//    return T_max * x; // [Nm]
+//}
 
 //FOR DRIVING MODE IMPLMENTATION
-static float mapLinearFromMode(float throttle_percent, float T_max,
-                               const driving_loop_args* dl, const drivingMode* dm)
-{
-    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
-    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
+//static float mapLinearFromMode(float throttle_percent, float T_max,
+//                               const driving_loop_args* dl, const drivingMode* dm)
+//{
+//    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
+//    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
+//
+//    float x = (apps - dead) / (1.0f - dead);
+//    x = dl_clampf(x, 0.0f, 1.0f);
+//
+//    // Optional mode offset/slope (if you want it)
+//    float y = (dm->map_fn_params.linear.slope * x) + (float)dm->map_fn_params.linear.offset;
+//
+//    // Clamp to 0..1 of requested torque envelope
+//    y = dl_clampf(y, 0.0f, 1.0f);
+//
+//    return T_max * y;
+//}
 
-    float x = (apps - dead) / (1.0f - dead);
-    x = dl_clampf(x, 0.0f, 1.0f);
 
-    // Optional mode offset/slope (if you want it)
-    float y = (dm->map_fn_params.linear.slope * x) + (float)dm->map_fn_params.linear.offset;
-
-    // Clamp to 0..1 of requested torque envelope
-    y = dl_clampf(y, 0.0f, 1.0f);
-
-    return T_max * y;
-}
-
-// -----------------------------------------------------------------------------
-// Adaptive pedal map
-// throttle_percent: [%] 0..100
-// T_max: current torque ceiling [Nm]
-// Behavior:
-//   - Applies throttle deadband
-//   - Linear scale 0..T_max
-//   - Softens torque at high RPM
-// return: torque request [Nm]
-// -----------------------------------------------------------------------------
-static float mapThrottleToTorqueAdaptive(float throttle_percent,
-	                                         float T_max,
-	                                         const driving_loop_args* dl){
-	float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
-	    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
-
-	    float x = (apps - dead) / (1.0f - dead);
-	    x = dl_clampf(x, 0.0f, 1.0f);
-
-	    if (x <= 0.0f) return 0.0f;
-
-	    float T_req = T_max * x; // <-- key change
-
-	    // keep your speed fade if you want (but this should probably be DMODE)
-	    extern int16_t mc_speed_rpm;
-	    const float soften_rpm  = 4500.0f;
-	    const float max_rpm     = (float)dl->absolute_max_motor_rpm;
-	    const float soften_gain = 0.20f;
-
-	    if ((float)mc_speed_rpm > soften_rpm && max_rpm > soften_rpm) {
-	        float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
-	        t = dl_clampf(t, 0.0f, 1.0f);
-	        T_req *= (1.0f - soften_gain * t);
-	    }
-
-	    return T_req;
-}
 
 //FOR DRIVING MODE IMPLMENTATION
 static float mapAdaptiveFromMode(float throttle_percent, float T_max,
@@ -382,18 +375,18 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
     float f = x;  // default linear behavior
 
     //pick your fighter
-    const uint8_t curve_type = dm->map_fn_params.adaptive.curve_type;
+    const uint8_t curve_type = dm->control_map_fn;
 
-    if (curve_type == 0) {
+    if (curve_type == DL_MAP_LINEAR) {
         // Linear: direct proportional mapping
         // f(x) = x
         // Already assigned above
     }
-    else if (curve_type == 1) {
+    else if (curve_type == DL_MAP_EXP) {
         // Power-law: softens low pedal, ramps harder near the top
         // s > 1.0 → softer initial response
         // s = 1.0 → linear
-        float s = dm->map_fn_params.adaptive.curve_s;
+        float s = dm->map_fn_params.exp.s;
         // Prevent degenerate exponent
         if (s < 0.1f) s = 0.1f;
         f = powf(x, s);
@@ -424,128 +417,18 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
     float rpm = (float)mc_speed_rpm;
     if (rpm < 0.0f) rpm = -rpm;
 
-    float rpm_fade = dm->map_fn_params.adaptive.rpm_fade;
+//    float rpm_fade = dm->adaptive_settings.rpm_fade;
+//
+//    // Prevent divide-by-zero or unstable behavior
+//    if (rpm_fade < 1.0f) rpm_fade = 1.0f;
+//
+//    float fade = rpm / (rpm + rpm_fade);
+//    fade = dl_clampf(fade, 0.0f, 1.0f);
+//
+//    /* Base adaptive torque request */
+//    float T_req = T_max * f * fade;
 
-    // Prevent divide-by-zero or unstable behavior
-    if (rpm_fade < 1.0f) rpm_fade = 1.0f;
-
-    float fade = rpm / (rpm + rpm_fade);
-    fade = dl_clampf(fade, 0.0f, 1.0f);
-
-    /* Base adaptive torque request */
-    float T_req = T_max * f * fade;
-
-    /*
-     * STEP 3: Optional high-RPM softening
-     Separate from adaptive fade.
-     If rpm > soften_rpm:
-     gradually reduce torque as rpm approaches max_rpm.
-     Used to:
-     - reduce harshness near top speed
-     */
-
-    float soften_gain = dm->map_fn_params.adaptive.soften_gain;
-    float soften_rpm  = (float)dm->map_fn_params.adaptive.soften_rpm;
-    float max_rpm     = (float)dm->map_fn_params.adaptive.max_rpm;
-
-    if (soften_gain > 0.0f &&
-        max_rpm > soften_rpm &&
-        (float)mc_speed_rpm > soften_rpm)
-    {
-        float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
-        t = dl_clampf(t, 0.0f, 1.0f);
-
-        T_req *= (1.0f - soften_gain * t);
-    }
-
-    /* Final safety clamp to allowed torque ceiling */
-    return dl_clampf(T_req, 0.0f, T_max);
-}
-
-static float mapAdaptiveFromMode(float throttle_percent, float T_max,
-                                 const driving_loop_args* dl,
-                                 const drivingMode* dm)
-{
-    /*
-     * STEP 0: Normalize throttle input to 0–1 with deadband
-     * apps = throttle as fraction (0–1)
-     * dead = deadband fraction (0–1)
-     * After deadband removal:
-     *   x = 0     at bottom of pedal
-     *   x = 1     at full pedal
-     */
-    float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
-    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
-    float x = (apps - dead) / (1.0f - dead);
-    x = dl_clampf(x, 0.0f, 1.0f);
-    // If below deadband, request zero torque immediately
-    if (x <= 0.0f) return 0.0f;
-
-    /*
-     * STEP 1: Pedal curve shaping  f(x)
-     * curve_type selects how throttle maps to torque fraction:
-     * 0 = Linear        f(x) = x
-     * 1 = Power-law     f(x) = x^s
-     * 2 = Smoothstep    f(x) = 3x^2 - 2x^3
-     * These only shape driver "feel".
-     * They do NOT enforce limits.
-     */
-
-    float f = x;  // default linear behavior
-
-    //pick your fighter
-    const uint8_t curve_type = dm->map_fn_params.adaptive.curve_type;
-
-    if (curve_type == 0) {
-        // Linear: direct proportional mapping
-        // f(x) = x
-        // Already assigned above
-    }
-    else if (curve_type == 1) {
-        // Power-law: softens low pedal, ramps harder near the top
-        // s > 1.0 → softer initial response
-        // s = 1.0 → linear
-        float s = dm->map_fn_params.adaptive.curve_s;
-        // Prevent degenerate exponent
-        if (s < 0.1f) s = 0.1f;
-        f = powf(x, s);
-    }
-    else {
-        // Smoothstep cubic: OEM-style S-curve
-        // f(x) = 3x^2 - 2x^3
-        // - zero slope at x=0
-        // - zero slope at x=1
-        // - smooth, progressive feel
-        f = (3.0f * x * x) - (2.0f * x * x * x);
-    }
-
-    /*
-     * STEP 2: Adaptive low-speed fade
-     Purpose: Reduce torque sensitivity at very low speeds.
-     Formula (paper-style):
-     fade = rpm / (rpm + rpm_fade)
-     Behavior:
-     rpm = 0        → fade = 0
-     rpm = rpm_fade → fade = 0.5
-     rpm >> rpm_fade → fade ≈ 1
-     This prevents aggressive jerk at low speed
-     */
-    extern int16_t mc_speed_rpm;
-
-    // Use magnitude (reverse should behave same as forward)
-    float rpm = (float)mc_speed_rpm;
-    if (rpm < 0.0f) rpm = -rpm;
-
-    float rpm_fade = dm->map_fn_params.adaptive.rpm_fade;
-
-    // Prevent divide-by-zero or unstable behavior
-    if (rpm_fade < 1.0f) rpm_fade = 1.0f;
-
-    float fade = rpm / (rpm + rpm_fade);
-    fade = dl_clampf(fade, 0.0f, 1.0f);
-
-    /* Base adaptive torque request */
-    float T_req = T_max * f * fade;
+    float T_req = T_max*f;
 
     /*
      * STEP 3: Optional high-RPM softening
@@ -556,9 +439,9 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
      - reduce harshness near top speed
      */
 
-    float soften_gain = dm->map_fn_params.adaptive.soften_gain;
-    float soften_rpm  = (float)dm->map_fn_params.adaptive.soften_rpm;
-    float max_rpm     = (float)dm->map_fn_params.adaptive.max_rpm;
+    float soften_gain = dm->adaptive_settings.soften_gain;
+    float soften_rpm  = (float)dm->adaptive_settings.soften_rpm;
+    float max_rpm     = (float)dm->adaptive_settings.max_rpm;
 
     if (soften_gain > 0.0f &&
         max_rpm > soften_rpm &&
@@ -626,18 +509,8 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
 #define ENDURANCE    2
 
 //TODO should be part of DMODE
-static inline float getKValue(int raceMode){
-    float kVal = 0.3f; // [0–1] default smoothing gain
-
-    if (raceMode == ACCELERATION) {
-        kVal = 0.7f; // [0–1]
-    } else if (raceMode == AUTOCROSS) {
-        kVal = 0.4f; // [0–1]
-    } else if (raceMode == ENDURANCE) {
-        kVal = 0.2f; // [0–1]
-    }
-
-    return kVal; // [0–1]
+static inline float getKValue(){
+    return driving_mode.kVal; // [0–1]
 }
 
 // -----------------------------------------------------------------------------
@@ -669,7 +542,7 @@ static float calculateThrottlePercentage(uint16_t apps1, uint16_t apps2)
 // bps1: [ADC counts]
 // return: brake [%] 0..100
 // -----------------------------------------------------------------------------
-static float calculateBrakePercentage(uint16_t bps1)
+float calculateBrakePercentage(uint16_t bps1)
 {
     // Sanity bounds (ADC counts)
     if (bps1 < driving_args->min_BPS_value || bps1 > driving_args->max_BPS_value) { // [ADC counts]
@@ -706,7 +579,7 @@ static float calculateBrakePercentage(uint16_t bps1)
  */
 static inline float applyTorqueFilter(float T_req, float T_prev, bool is_accelerating)
 {
-    float FILTER_K = getKValue(ACCELERATION); // [0–1] accel smoothing gain
+    float FILTER_K = getKValue(); // [0–1] accel smoothing gain
 
     // Never allow “lag” when torque is dropping (pedal lift / brake)
     if (!is_accelerating) {
@@ -748,7 +621,7 @@ static inline float dl_slewLimit(float target, float prev, float rate_nm_per_s, 
     float delta    = target - prev;        // [Nm]
 
     if (delta >  max_step) return prev + max_step; // [Nm]
-    if (delta < -max_step) return prev - max_step; // [Nm]
+    if (delta < -max_step) return prev - max_step; // [Nm] //NOTE: This is not rules compliant, I aint sayin shit tho
     return target;                                  // [Nm]
 }
 
@@ -781,7 +654,8 @@ static float torqueCapFromBMS(float omega_rad_s)
     float V = packVoltage * 0.1f; // [V]
 
     // packDCL assumed [0.1 A] -> [A] (verify scaling from BMS message)
-    float I = packDCL * 0.1f;     // [A]
+    //float I = packDCL * 0.1f;     // [A]
+    float I = (float)packDCL;     // [A]
 
     float P_max = V * I;          // [W] electrical power cap
 
@@ -802,7 +676,7 @@ static float torqueCapFromBMS(float omega_rad_s)
 //   - Slew rate limiting
 // return: torque to send [Nm]
 // -----------------------------------------------------------------------------
-static float limitTorque(float T_cmd, float T_prev, const driving_loop_args* dl, float dt_s)
+static float limitTorque(float T_cmd, float T_prev, const driving_loop_args* dl, float dt_s, drivingMode* dm)
 {
     // 0) Hard BMS safety gate
     if (!bms_is_ok()) {
@@ -812,24 +686,21 @@ static float limitTorque(float T_cmd, float T_prev, const driving_loop_args* dl,
     float T = T_cmd; // [Nm]
 
     // 1) Absolute motor torque clamp (hard cap)
-    T = dl_clampf(T, 0.0f, (float)dl->absolute_max_motor_torque); // [Nm]
+    float T_Lim = fminf((float)dl->absolute_max_motor_torque,(float)dm->max_motor_torque);
+    T = dl_clampf(T, 0.0f, T_Lim); // [Nm]
 
     // 2) Optional slew-rate limiting (Nm/s)
     float rate = (T >= T_prev) ? dl->torque_rate_up_nm_per_s
                                : dl->torque_rate_down_nm_per_s; // [Nm/s]
 
+    //Slew rate limiting. Should slew rate be depent on dmode? IDK
     T = dl_slewLimit(T, T_prev, rate, dt_s); // [Nm]
-    //MOVE TO CEILINGS
-    // 3) Power envelope from BMS: T <= P_max / omega
-//    extern int16_t mc_speed_rpm; // [RPM] from motor_controller.c feedback
-//    float omega = ((float)mc_speed_rpm * 2.0f * 3.1415926f) / 60.0f; // [rad/s]
-//    float T_cap_bms = torqueCapFromBMS(omega); // [Nm]
-    //T = fminf(T, T_cap_bms); // [Nm]
 
     return T; // [Nm]
 }
 
-static float dl_getOmegaRadS(int16_t rpm)
+//Converts between rpm and rad/s
+static inline float dl_getOmegaRadS(int16_t rpm)
 {
     return ((float)rpm * 2.0f * 3.1415926f) / 60.0f; // [rad/s]
 }
@@ -840,12 +711,13 @@ static float dl_getOmegaRadS(int16_t rpm)
 // omega: [rad/s]
 // return: torque cap [Nm]
 // -----------------------------------------------------------------------------
-static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl)
+static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl, const drivingMode* dm)
 {
     omega_rad_s = fabsf(omega_rad_s);
+    uint32_t max_pwr = (dl->absolute_max_acc_pwr < dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
 
     if (omega_rad_s < 10.0f) return 1e9f;          // avoid divide-by-zero region
-    if (dl->absolute_max_acc_pwr == 0u) return 1e9f; // disabled
+    if (max_pwr == 0u) return 1e9f; // disabled
 
     return ((float)dl->absolute_max_acc_pwr) / omega_rad_s; // [Nm]
 }
@@ -858,16 +730,26 @@ static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* d
 //   - Absolute pack power cap (if enabled)
 //   - BMS power cap (if BMS OK)
 // return: max allowed torque [Nm]
+//TODO make me driving mode!
 // -----------------------------------------------------------------------------
-static float dl_computeTorqueCeiling(const driving_loop_args* dl)
+static float dl_computeTorqueCeiling(const driving_loop_args* dl, const drivingMode* dm)
 {
     extern int16_t mc_speed_rpm;
 
     // Speed -> omega (use magnitude for power math)
     float omega = fabsf(dl_getOmegaRadS(mc_speed_rpm)); // [rad/s]
 
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"MC Speed RPM: %d \t",mc_speed_rpm);
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf, "Omega",(omega*1000),3,"rad/s");
+#endif
     // 0) Start from hard torque ceiling
     float T_allow = (float)dl->absolute_max_motor_torque; // [Nm]
+
+    //Apply torque ceiling for specific driving mode
+    if (dm && dm->max_motor_torque > 0u) {
+        T_allow = fminf(T_allow, (float)dm->max_motor_torque);
+    }
 
     // If we're basically stopped, stay torque-limited (avoid divide by ~0)
     if (omega < 10.0f) {
@@ -878,15 +760,27 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl)
     if (dl->absolute_max_acc_pwr > 0u) {
 //        float T_absP = ((float)dl->absolute_max_acc_pwr) / omega; // [Nm]
 //        T_allow = fminf(T_allow, T_absP);
-        float T_absP = torqueCapFromAbsPower(omega, dl);
+        float T_absP = torqueCapFromAbsPower(omega, dl, dm); //Takes into account dmode max power
+
+#ifdef DEBUG_DL
+        dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_abs_pwr:",(T_absP*1000),3,"Nm");
+#endif
+
         T_allow = fminf(T_allow, T_absP);
     }
 
     // 2) BMS power cap (V * DCL) if BMS OK
     if (bms_is_ok()) {
         float T_bms = torqueCapFromBMS(omega); // [Nm]
+
+#ifdef DEBUG_DL
+        dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_BMS:",(T_bms*1000),3,"Nm");
+#endif
         T_allow = fminf(T_allow, T_bms);
     }
+
+    //TODO: Thermal derate?
+
 
     // Final sanity clamp
     return dl_clampf(T_allow, 0.0f, (float)dl->absolute_max_motor_torque);
@@ -926,32 +820,6 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl)
 //}
 
 
-//FOR DRIVING MODE
-//static float mapThrottleToTorqueFromMode(float throttle_percent,
-//                                         const driving_loop_args* dl,
-//                                         const drivingMode* dm)
-//{
-//    float T_allow = dl_computeAllowedTorqueMax(dl, dm);
-//
-//    if (!dm) {
-//        // default behavior if mode missing
-//        return mapLinearFromMode(throttle_percent, T_allow, dl, &(drivingMode){0});
-//    }
-//
-//    switch (dm->control_map_fn) {
-//        case DL_MAP_LINEAR:
-//            return mapLinearFromMode(throttle_percent, T_allow, dl, dm);
-//
-//        case DL_MAP_ADAPTIVE:
-//            return mapAdaptiveFromMode(throttle_percent, T_allow, dl, dm);
-//
-//        default:
-//            return mapLinearFromMode(throttle_percent, T_allow, dl, dm);
-//    }
-//}
-
-
-
 
 // -----------------------------------------------------------------------------
 // Driving Loop Task
@@ -964,44 +832,66 @@ void StartDrivingLoop(void *argument)
 
     // Active driving-loop parameters (flash-configurable)
     driving_loop_args* dl_params = current_vehicle_settings->driving_loop_settings; // [ptr]
+    drivingMode* cdm = &driving_mode;
 
     // Period handling
     TickType_t tick_period = pdMS_TO_TICKS(params->task_period); // [RTOS ticks] from [ms]
     TickType_t last_time   = xTaskGetTickCount();                // [RTOS ticks]
     last_driver_input_time = last_time;                          // [RTOS ticks]
 
+#ifdef DEBUG
+    //uint32_t exec_time_us = 0;
+#endif
+
 
     bool safe = true;
+
+    if(uvEnergizeTractiveSystem()!= UV_OK){
+    	//Hmmm interesting
+    }
 
     for (;;)
     {
         // Task control (kill/suspend)
         if (params->cmd_data == UV_KILL_CMD) {
+        	uvDeEnergizeTractiveSystem();
             killSelf(params);
         } else if (params->cmd_data == UV_SUSPEND_CMD) {
             suspendSelf(params);
         }
 
+#ifdef DEBUG_DL
+        dl_cur_printbuf = dl_debug_printbuf;
+#endif
+
         // Run at fixed interval
         vTaskDelayUntil(&last_time, tick_period); // [ticks]
 
+
+        tic();
+
         // Snapshot ADC values so mid-loop changes don’t produce mixed samples
+
+        taskENTER_CRITICAL();//Critical section to avoid bullshit interrupting this
         const uint16_t apps1_value = adc1_APPS1; // [ADC counts]
         const uint16_t apps2_value = adc1_APPS2; // [ADC counts]
         const uint16_t bps1_value  = adc1_BPS1;  // [ADC counts]
         const uint16_t bps2_value  = adc1_BPS2;  // [ADC counts]
+        taskEXIT_CRITICAL();
 
         float T_filtered = 0.0f; // [Nm]
 
         float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value); // [%]
         float brake_percent    = calculateBrakePercentage(bps1_value);                  // [%]
 
-        //TODO be able to turn car off
-        /** if Speed = 0 and brakes pressed and start button rising edge
-         *
-         * go back to "idle state"
-         *
-         */
+
+        //This code is responsible for exiting driving mode, and reverting to ready state
+        if((brake_percent > 10.0)&&(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0))){
+        	extern int16_t mc_speed_rpm;
+        	if(mc_speed_rpm == 0){
+        		changeVehicleState(UV_READY);
+        	}
+        }
 
         if(!safe){
         	T_filtered = 0.0f;                   // [Nm]
@@ -1028,6 +918,11 @@ void StartDrivingLoop(void *argument)
             continue;
         }
 
+#ifdef DEBUG_DL
+        debugWrite(dl_debug_printbuf,DEBUG_PORT_TRACTIVE);
+        dl_cur_printbuf = dl_debug_printbuf;
+#endif
+
         // 2) Convert raw ADC -> pedal percentages
         //float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value); // [%]
         //float brake_percent    = calculateBrakePercentage(bps1_value);                  // [%]
@@ -1047,9 +942,13 @@ void StartDrivingLoop(void *argument)
         //TODO: Does not take into account different Dmodes
 
         //T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, dl_params); // [Nm]
-        float T_allow = dl_computeTorqueCeiling(dl_params);
-        print_fixed_d("T_allow", (int32_t)(T_allow*1000), 3, "Nm");
-        T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, T_allow, dl_params); //[Nm]
+        float T_allow = dl_computeTorqueCeiling(dl_params,cdm);
+
+#ifdef DEBUG_DL
+        dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_allow", (int32_t)(T_allow*1000), 3, "Nm");
+#endif
+
+        //T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, T_allow, dl_params); //[Nm]
 
         //POWER MAP VROOM VROOM?
        // T_REQ = mapThrottleToTorquePower(throttle_percent, T_allow, dl_params);
@@ -1059,18 +958,22 @@ void StartDrivingLoop(void *argument)
 //        const drivingMode* dm = &dl_params->dmodes[__current_dmode];
 //        T_REQ = mapThrottleToTorqueFromMode(throttle_percent, dl_params, dm);
 
+        T_REQ = mapAdaptiveFromMode(throttle_percent,T_allow, dl_params,cdm);
+
         //Temporary:
         T_REQ = T_REQ/2.0f;
-
-        print_fixed_d("T_REQ", T_REQ*1000, 3, "Nm");
+#ifdef DEBUG_DL
+        dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_REQ", T_REQ*1000, 3, "Nm");
+#endif
         // Determine ramp direction for filter selection
         is_accelerating = (T_REQ >= T_PREV); // [bool]
 
         // Apply filter: keeps drop instant and rise smoothed
         T_filtered = applyTorqueFilter(T_REQ, T_PREV, is_accelerating); // [Nm]
 
-        print_fixed_d("T_filtered", T_filtered*1000, 3, "Nm");
-
+#ifdef DEBUG_DL
+        dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_filtered", T_filtered*1000, 3, "Nm");
+#endif
         // Bring-up scaling: halves torque before limits (temporary)
         //T_filtered = T_filtered / 2.0f; // [Nm]
 
@@ -1078,10 +981,11 @@ void StartDrivingLoop(void *argument)
         float dt_s = (float)params->task_period / 1000.0f; // [s]
 
         // Apply limit stack (BMS gate, hard torque cap, slew, power envelope)
-        float T_to_send = limitTorque(T_filtered, T_PREV, dl_params, dt_s); // [Nm]
+        float T_to_send = limitTorque(T_filtered, T_PREV, dl_params, dt_s, cdm); // [Nm]
 
-        print_fixed_d("T_to_send", T_to_send*1000, 3, "Nm");
-
+#ifdef DEBUG_DL
+        dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_to_send", T_to_send*1000, 3, "Nm");
+#endif
         // Only allow torque output in the driving state
         if (vehicle_state == UV_DRIVING) {
             sendTorqueToMotorController(T_to_send); // [Nm]
@@ -1091,6 +995,13 @@ void StartDrivingLoop(void *argument)
 
         // Save post-limit torque for next loop iteration
         T_PREV = T_to_send; // [Nm]
+
+#ifdef DEBUG_DL
+        debugWrite(dl_debug_printbuf,DEBUG_PORT_TRACTIVE);
+#endif
+
+        //exec_time_us = toc();
+        //printf("DL ex time: %d \n",exec_time_us);
 
     }
 }
@@ -1133,29 +1044,35 @@ static bool performSafetyChecks(driving_loop_args* dl_params,
     float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value); // [%]
     float brake_percent    = calculateBrakePercentage(bps1_value);                  // [%]
 
-    printf("APPS1 Value: %d\n",apps1_value);
-    print_fixed_d("APPS1 Percent",(uint32_t)(apps1_ratio*10000),2,"%");
-    printf("APPS2 Value: %d\n",apps2_value);
-    print_fixed_d("APPS2 Percent",(uint32_t)(apps2_ratio*10000),2,"%");
-    print_fixed_d("APPS Delta",(uint32_t)(apps_diff_percent*100),2,"%");
-    printf("BPS1 Value: %d\n",bps1_value);
-    printf("BPS2 Value: %d\n",bps2_value);
-    print_fixed_d("Brake Percent",(uint32_t)(brake_percent*100),2,"%");
-
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"APPS1 Value: %d\t",apps1_value);
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"APPS1 Percent",(uint32_t)(apps1_ratio*10000),2,"%");
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"APPS2 Value: %d\t",apps2_value);
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"APPS2 Percent",(uint32_t)(apps2_ratio*10000),2,"%");
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"APPS Delta",(uint32_t)(apps_diff_percent*100),2,"%");
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"BPS1 Value: %d\t",bps1_value);
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"BPS2 Value: %d\t",bps2_value);
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"Brake Percent",(uint32_t)(brake_percent*100),2,"%");
+#endif
 
     // --- Absolute bounds checks (raw ADC safety) ---
     // If any sensor violates its absolute bounds, torque is inhibited immediately.
     if (apps1_value < dl_params->apps1_abs_min_val || apps1_value > dl_params->apps1_abs_max_val) {
         torque_inhibit_active = true; // [bool]
         *dl_status = Erroneous;       // [enum]
-        printf("APPS1 Out of bounds\n");
 
+#ifdef DEBUG_DL
+        printf("APPS1 Out of bounds\n");
+#endif
         return false;
     }
     if (apps2_value < dl_params->apps2_abs_min_val || apps2_value > dl_params->apps2_abs_max_val) {
         torque_inhibit_active = true; // [bool]
         *dl_status = Erroneous;       // [enum]
+
+#ifdef DEBUG_DL
         printf("APPS2 Out of bounds\n");
+#endif
         //printf("APPS2 Value: %d\n",apps2_value);
         return false;
     }
