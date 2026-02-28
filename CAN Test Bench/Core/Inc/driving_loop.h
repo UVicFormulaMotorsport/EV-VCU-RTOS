@@ -208,5 +208,6 @@ typedef struct driving_loop_args
  * ========================================================================== */
 enum uv_status_t initDrivingLoop(void *argument);
 void StartDrivingLoop(void *argument);
+float calculateBrakePercentage(uint16_t bps1);
 
 #endif /* INC_DRIVING_LOOP_H_ */

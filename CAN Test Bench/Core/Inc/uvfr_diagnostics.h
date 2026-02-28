@@ -33,9 +33,10 @@ typedef enum{
 	DEBUG_PORT_OS = 1,
 	DEBUG_PORT_ACCUM = 2,
 	DEBUG_PORT_TRACTIVE = 3,
-	DEBUT_PORT_XDEV = 4,
-	DEBUT_PORT_STATE_ENGINE = 5,
-	DEBUT_PORT_CSV = 6
+	DEBUG_PORT_XDEV = 4,
+	DEBUG_PORT_STATE_ENGINE = 5,
+	DEBUG_PORT_IDEK = 6,
+	DEBUG_PORT_CSV = 7
 }debug_port;
 
 //
@@ -71,6 +72,8 @@ uv_status __debugWrite(char* str, uint32_t port);
 #ifdef DEBUG
 #define tic() __tic()
 #define toc() __toc()
+
+#define DEBUG_DL
 
 #define debugWrite(x,y) __debugWrite(x,y)
 

@@ -66,6 +66,7 @@ int32_t sprint_fixed_d(char* buf, const char* label, int32_t value, int decimals
 		buf += tmp;
 	}
 	tmp = sprintf(buf,"\n");
+	nchars_written += tmp;
 	buf += tmp;
 
 
@@ -119,6 +120,8 @@ static void dispBMSStatus(void)
 
 static void dispIMDStatus(void)
 {
+
+	char buf[256] = {0};
 	printf("\nIMD STATUS\n");
 	printf("----------\n");
 
@@ -186,11 +189,11 @@ void dispVehicleStatusReport(){
 
 
 	printf("VEHICLE_STATUS:\n --------------------------------------- \n");
-	printf("System Time: [ %l ] \t",systime);
+	printf("System Time: [ %d ] \t",systime);
 	printf("Vehicle State %s \n",str);
 
 
-	//dispExtDeviceStatus();
+	dispExtDeviceStatus();
 	//dispTractiveSystemStatus();
 	//dispStateEngineStatus();
 
@@ -340,8 +343,9 @@ static uv_status __debugWriteInternal(char* str,uint32_t port){
 	return UV_OK;
 }
 
+//TODO RTOSiffy this to delegate printing to the actual task responsible for that
 uv_status __debugWrite(char* str, uint32_t port){
-	return UV_OK;
+	return __debugWriteInternal(str,port);
 }
 
 
@@ -392,6 +396,14 @@ void vApplicationTickHook( void ){
 	//This is not used but it makes the compiler STFU
 }
 
-void __tic();
+static uint32_t tictime_us = 0xFFFFFFFF;
 
-uint32_t __toc();
+void __tic(){
+	tictime_us = __HAL_TIM_GET_COUNTER(&htim5);
+}
+
+uint32_t __toc(){
+	uint32_t now = __HAL_TIM_GET_COUNTER(&htim5);
+	if (tictime_us > now) return 0;
+	return now - tictime_us;
+}

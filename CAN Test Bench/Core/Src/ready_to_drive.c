@@ -9,6 +9,8 @@
 
 void rtdTask(void* args);
 
+extern uint16_t adc1_BPS1;
+
 uv_status initRTDtask(void* args){
 	uv_task_info* rtd_task = uvCreateTask();
 
@@ -24,7 +26,7 @@ uv_status initRTDtask(void* args){
 		rtd_task->task_function = rtdTask;
 		rtd_task->task_priority = 2; //Slightly more important than the children tasks
 
-		rtd_task->stack_size = 64;
+		rtd_task->stack_size = 128;
 
 		rtd_task->active_states = UV_READY;
 		rtd_task->suspension_states = 0x00;
@@ -43,6 +45,10 @@ uv_status initRTDtask(void* args){
 void rtdTask(void* args){
 	uv_task_info* params = (uv_task_info*)args;
 
+	while(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
+		vTaskDelay(10);
+	}
+
 	for(;;){
 
 		if(params->cmd_data == UV_KILL_CMD){ // to perform task control (suspend/kill)
@@ -58,7 +64,9 @@ void rtdTask(void* args){
 
 		//Are they pushing the start button?
 
-		if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
+		float brake_percent = calculateBrakePercentage(adc1_BPS1);
+
+		if((HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0))&&(brake_percent > 10.0)){
 			vTaskDelay(10);
 
 

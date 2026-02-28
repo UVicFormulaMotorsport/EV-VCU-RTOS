@@ -80,6 +80,11 @@ motor_controller_settings mc_default_settings = {
 
 void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
 
+#ifdef DEBUG_DL
+extern char dl_debug_printbuf[256];
+extern char* dl_cur_printbuf;
+#endif
+
 /**
  * @brief Configure the Bamocar current controller (PI + feedforward + ramp).
  *
@@ -223,7 +228,11 @@ uint16_t sendTorqueToMotorController(float T_filtered){
 
     /* 3) Torque -> current (Iq request) */
     float Iq_cmd_arms = (Kt_Nm_per_A > 0.0f) ? (T_filtered / Kt_Nm_per_A) : 0.0f; // [Arms]
-    print_fixed_d("IQ_CMD_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"IQ_CMD_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+#endif
+
     /* 4) Convert digital current limit to Arms and clamp
      * max_current is [dig] where 32767 == I_fs_arms3
      */
@@ -233,13 +242,19 @@ uint16_t sendTorqueToMotorController(float T_filtered){
     if (Iq_cmd_arms > I_limit_arms) Iq_cmd_arms = I_limit_arms;
     if (Iq_cmd_arms < 0.0f)         Iq_cmd_arms = 0.0f;
 
-    print_fixed_d("Ilim_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"Ilim_RMS: ", (Iq_cmd_arms*1000) , 3, "A");
+#endif
 
     /* 5) Current -> Bamocar M_set digital
      * trqcmd_dig = (Iq_cmd / I_fs) * 32767
      */
     int16_t trqcmd_dig = (int16_t)((Iq_cmd_arms / I_fs_arms) * 32767.0f);
-    printf("digital command %d \n",trqcmd_dig);
+
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprintf(dl_cur_printbuf,"digital command %d \n",trqcmd_dig);
+#endif
+
 
     if (trqcmd_dig >  32767) trqcmd_dig =  32767;
     if (trqcmd_dig < -32768) trqcmd_dig = -32768;

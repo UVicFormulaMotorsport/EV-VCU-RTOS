@@ -119,7 +119,20 @@ uv_status uvEnergizeTractiveSystem(){
 	vTaskDelay(15);
 
 	//Re-enable motor controller OC/UC errors
-	//MC_setErrorMask(0);//Enable all MC ERRORs
+
+	MC_setErrorMask(0);//Enable all MC ERRORs
 	return UV_OK;
 
+}
+
+
+
+uv_status uvDeEnergizeTractiveSystem(){
+	coniferDisChannel(BAMO_RUN);
+	coniferDisChannel(BAMO_RFE);
+	vTaskDelay(10);
+	coniferDisChannel(HVIL_PWR);
+	MC_setErrorMask(mains_voltage_min_limit|
+				rotate_field_enable_not_present_run|
+				AC_current_offset_fault);
 }
