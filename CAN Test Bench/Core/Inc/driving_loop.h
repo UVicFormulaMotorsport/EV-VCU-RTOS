@@ -97,7 +97,9 @@ typedef struct drivingMode
     /* 32-bit fields */
     uint32_t max_acc_pwr;        /**< mode power cap [W] (0 = disabled) */ //16
     uint32_t max_motor_torque;   /**< mode torque cap [Nm] (0 = disabled) */ //20
-    uint32_t max_current;        /**< mode current cap [A] (0 = disabled) */ //24
+    //uint32_t max_current;        /**< mode current cap [A] (0 = disabled) */ //24
+
+    float kVal;					 /**< mode K value for filtering */
 
     /* 16-bit fields */
     uint16_t flags; //28
