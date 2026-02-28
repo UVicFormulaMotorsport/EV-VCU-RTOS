@@ -54,6 +54,7 @@ void uvInit(void * arguments){
 
 #ifdef DEBUG
 	printf("ENTERING uvInit\n");
+	printf("STARTING BOOT SEQUENCE:\n");
 #endif
 
 	char* error_msg = NULL;
@@ -72,16 +73,25 @@ void uvInit(void * arguments){
 	 *
 	 */
 
+#ifdef DEBUG
+		printf("Loading Vehicle Settings\n");
+#endif
+
 	if(uvSettingsInit() != UV_OK){
-		__uvInitPanic();
 
 #ifdef DEBUG
 		printf("Failed to initialize settings \n");
 #endif
+		__uvInitPanic();
+
+
 
 		/**Once the settings are initialized, we will
 		 * initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged*/
 	}
+#ifdef DEBUG
+		printf("Settings Successfully Initialized \n");
+#endif
 
 	//vTaskDelay(1);
 
@@ -95,6 +105,10 @@ void uvInit(void * arguments){
 	* we cannot proceed without a fully operational state engine.
 	*/
 	if(uvInitStateEngine() != UV_OK){
+
+#ifdef DEBUG
+		printf("Failed to initialize state engine \n");
+#endif
 		__uvInitPanic();
 
 		/** Once the state machine is initialized we get to actually start the thing.
@@ -108,6 +122,9 @@ void uvInit(void * arguments){
 	 *
 	 */
 	if(uvStartStateMachine() != UV_OK){
+#ifdef DEBUG
+		printf("State Engine Not Started \n");
+#endif
 		__uvInitPanic();
 	}
 
@@ -117,7 +134,9 @@ void uvInit(void * arguments){
 	 *
 	 */
 	if(uvInitDiagnostics() != UV_OK){
-
+#ifdef DEBUG
+		printf("State Engine Not Started \n");
+#endif
 
 	}
 
@@ -125,6 +144,10 @@ void uvInit(void * arguments){
 	 * tasks that will be running.
 	 *
 	 */
+
+#ifdef DEBUG
+		printf("Initializing CAN Drivers\n");
+#endif
 
 	uv_task_info* canTxtask = uvCreateServiceTask();
 	canTxtask->task_function = CANbusTxSvcDaemon;
@@ -138,6 +161,11 @@ void uvInit(void * arguments){
 	canRxtask->task_name = CAN_RX_DAEMON_NAME;
 	canRxtask->stack_size = 256;
 	//super basic for now, just need something working
+
+#ifdef DEBUG
+		printf("Starting CAN Drivers\n");
+#endif
+
 	uint32_t var = 0; //dummy var
 	uvStartTask(&var,canTxtask);
 	uvStartTask(&var,canRxtask);
@@ -148,7 +176,9 @@ void uvInit(void * arguments){
 	 * Next we setup conifer and the associated drivers. This is needed, because we need to enable power
 	 * to devices such as the BMS, and motor controller so that we can talk to them over CANbus
 	 */
-
+#ifdef DEBUG
+		printf("Initializing CONIFER\n");
+#endif
 	if(coniferInit() != UV_OK){
 		//RUHH ROHH
 		uvPanic("Failed to start conifer",0);
@@ -282,8 +312,15 @@ void uvInit(void * arguments){
 
 
 		if(ext_devices_status == 0){
+#ifdef DEBUG
+		printf("Successfully Contacted XDEVs\n");
+#endif
 			//SUCCESS
 			//Set vehicle state to "idle"
+
+#ifdef DEBUG
+		printf("Transitioning to READY state\n");
+#endif
 			if(changeVehicleState(UV_READY) == UV_OK){
 				break;
 			}else{
@@ -305,7 +342,9 @@ void uvInit(void * arguments){
 	 *	The following code cleans up all the threads that were running, and free up used memory
 	 *
 	 */
-
+#ifdef DEBUG
+		printf("Cleaning Up Resources\n");
+#endif
 	vTaskDelete(MC_init_args->meta_task_handle);
 	uvFree(MC_init_args);
 
@@ -318,6 +357,9 @@ void uvInit(void * arguments){
 	//vTaskDelete(PDU_init_args->meta_task_handle);
 	//uvFree(PDU_init_args);
 
+#ifdef DEBUG
+		printf("Starting XDevMon\n");
+#endif
 
 	if(uvSetupXdevs()!=UV_OK){
 

@@ -359,14 +359,24 @@ uv_status uvConfigSettingTask(void* args){
  */
 
 uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
+#ifdef DEBUG
+	printf("Initializing Settings\n");
+#endif
 
 	insertCANMessageHandler(0x520,handleIncomingLaptopMsg, CAN_BUS_1); //Allows us to talk with laptop
 	insertCANMessageHandler(0x520,handleIncomingLaptopMsg, CAN_BUS_2);
+
+
 
 	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
 
 
 	if(current_vehicle_settings == NULL){
+#ifdef DEBUG
+	printf("ERROR: could not allocate setting struct\n");
+#endif
+
+
 		//HMMM
 		__uvInitPanic(); // deeply unfortunate
 		return UV_ERROR;
@@ -379,23 +389,38 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 	bool use_factory_default = true;
 	bool force_flash_rewrite = false;
 
+#ifdef DEBUG
+	printf("Searching For Valid User Defined Settings:\n");
+#endif
+
+
 	//Check for existing valid flash settings
 	uv_status retval = uvValidateFlashSettings();
 
+
 	if(retval == UV_OK){ //If the thing responds with OK, then we attempt to load flash settings
+
+#ifdef DEBUG
+		printf("Valid Settings Located In Flash\n");
+		printf("Using Settings From Flash\n");
+#endif
 
 		if(uvLoadSettingsFromFlash() == UV_OK){
 			//Attempt to load flash settings. If that somehow fails, revert to factory defaults
 			use_factory_default = false;
 
 #ifdef DEBUG
-			printf("FLASH SETTINGS LOADED\n");
+			printf("Flash settings loaded on first attempt\n");
 #endif
 
-		}else if(uvLoadSettingsFromFlash()== UV_OK){
+		}else if(uvLoadSettingsFromFlash() != UV_OK){
 			//Could not actually load from flash. BAD!
 			//In this case we would like to revert to factory defaults!
 			use_factory_default = true;
+
+#ifdef DEBUG
+			printf("Could not load flash settings in two attempts: reverting to factory defaults\n");
+#endif
 		}
 
 		//In this case, we need to check to see if we need to send out a msg for the VCU
@@ -408,21 +433,42 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 
 
 	}else{
+#ifdef DEBUG
+		printf("No Valid Settings in Flash:");
+		printf("Reverting to factory defaults, and overwriting flash with defaults\n");
+#endif
 		use_factory_default = true;
 		force_flash_rewrite = true;
 	}
 
 	if(use_factory_default == true){
+#ifdef DEBUG
+		printf("Loading Default Settings\n");
+#endif
+
 		if(setupDefaultSettings() == UV_OK){
+#ifdef DEBUG
+			printf("Default settings loaded on first attempt\n");
+#endif
 			//great success.
 		}else if(setupDefaultSettings() != UV_OK){
 			//FAILURE TO EVEN LOAD THE DEFAULTS, THIS CAR IS UNDRIVEABLE
 			__uvInitPanic();
 			return UV_ERROR;
 		}
+
+#ifdef DEBUG
+		printf("Default settings loaded on second attempt\n");
+#endif
 	}
 
+	//Code to force reversion to factory default
 	if(force_flash_rewrite == true){
+#ifdef DEBUG
+		printf("Beginning flash reset\n");
+#endif
+
+
 		void* tmp_sblock = uvMalloc(SETTING_BRANCH_SIZE);
 		if(uvResetFlashToDefault(tmp_sblock)==UV_OK){
 			//Things to do upon success (this thing is somewhat self explanitory
@@ -620,6 +666,10 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	 *
 	 */
 
+#ifdef DEBUG
+	printf("Writing Program Metadata\n");
+#endif
+
 	*((uint32_t*)(tmp + 0)) = MAGIC_NUMBER; //Identifies that this is in fact a valid S_Block
 	*((uint32_t*)(tmp + 4)) = 0x00000001; //Little reminder for future VCU that the settings were recently changed
 	*((uint16_t*)(tmp + 8)) = 0x1000;
@@ -642,6 +692,10 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 
 
 	void* addr = FLASH_SBLOCK_START;
+
+#ifdef DEBUG
+	printf("Unlocking Flash\n");
+#endif
 
 	if(HAL_FLASH_Unlock() != HAL_OK){
 		*ecode = FLASH_NOT_UNLOCKED;
@@ -728,6 +782,10 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 
 	tmp = sblock;
 	addr = START_OF_USER_FLASH;
+
+#ifdef DEBUG
+	printf("Verifying Write Operation\n");
+#endif
 
 	while(addr < TOP_OF_FLASH_SBLOCK){
 		if(*((uint32_t*)tmp) != *((uint32_t*)addr)){
@@ -883,6 +941,11 @@ uv_status uvSendSpecificParam(uint8_t* origin, uint8_t mgroup, uint8_t m_offset,
 uv_status uvValidateFlashSettings(){
 	void* tmp = START_OF_USER_FLASH;
 	if(*((uint32_t*)tmp) != MAGIC_NUMBER){
+#ifdef DEBUG
+		printf("Magic Number Not Found\n");
+#endif
+
+
 		return UV_ERROR;// Nice blank slate
 	}
 
@@ -925,6 +988,7 @@ uv_status uvValidateFlashSettings(){
 	if(*((uint8_t*)(tmp + 24)) != sizeof(output_channel_settings)){
 		return UV_ERROR;
 	}
+
 
 	return UV_OK;
 }
@@ -1164,14 +1228,18 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 
 uv_status uvResetFlashToDefault(void* new_sblock){
-
+#ifdef DEBUG
 	printf("RESETTING FLASH TO DEFAULT\n");
+#endif
 	//void* new_sblock = uvMalloc(SETTING_BRANCH_SIZE);
 
 	if(new_sblock == NULL){
 		return UV_ERROR; //definately not ideal
 	}
 
+#ifdef DEBUG
+	printf("Initializing Empty Buffer Slots to 0xFFFFFFFF\n");
+#endif
 	for(int i = 0; i<SETTING_BRANCH_SIZE; i += 4){
 		*((uint32_t*)(new_sblock + i)) = 0xFFFFFFFF;
 	} //Become Zeros
@@ -1179,7 +1247,9 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	*((uint32_t*)(new_sblock)) = MAGIC_NUMBER;
 
 	//uint32_t pdiff = ((uint32_t)new_sblock) - ((uint32_t)START_OF_USER_FLASH);
-
+#ifdef DEBUG
+	printf("Copying Defaults to Temp Buffer\n");
+#endif
 	settingCopy((uint8_t*)(&default_vehicle),new_sblock + GENERAL_VEH_INFO_OFFSET,sizeof(veh_gen_info));
 
 	//OS
@@ -1208,14 +1278,23 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	settingCopy((uint8_t*)(default_datapoints),(new_sblock + 256*DAQ_PARAMS1_MGROUP + DAQ_PARAMS1_OFFSET),sizeof(uv_imd_settings)*default_daq_settings.total_params_logged);
 //	settingCopy(0,0,0);
 //	settingCopy(0,0,0);
-
+#ifdef DEBUG
+	printf("Overwriting Flash\n");
+#endif
 
 	uint32_t ecode = 0;
 	if(uvSaveSettingsToFlash(new_sblock, &ecode) == UV_OK){
+#ifdef DEBUG
+		printf("Saved To Flash in One Attempt\n");
+#endif
 			//Try once
 		return UV_OK;
 		//uvSendCanMSG(&vcu_ack_msg); //report success
 	}else if(uvSaveSettingsToFlash(new_sblock, &ecode) == UV_OK){
+#ifdef DEBUG
+		printf("Saved To Flash in Two Attempts\n");
+#endif
+
 		//Try again
 		///uvSendCanMSG(&vcu_ack_msg);
 		return UV_OK;

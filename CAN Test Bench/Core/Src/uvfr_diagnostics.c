@@ -240,6 +240,9 @@ uv_status uvExitDiagnosticMode(){
  *
  */
 uv_status uvInitDiagnostics(){
+#ifdef DEBUG
+		printf("Initializing Diagnostics\n");
+#endif
 	uint32_t var = 0;
 	uv_task_info* diag_task = uvCreateServiceTask();
 	diag_task->task_function = uvBackgroundDiagnosticsDaemon;

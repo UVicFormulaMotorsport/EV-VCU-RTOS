@@ -74,6 +74,7 @@ uv_status __debugWrite(char* str, uint32_t port);
 #define toc() __toc()
 
 //#define DEBUG_DL
+#define BOOT_LOG
 
 #define debugWrite(x,y) __debugWrite(x,y)
 
