@@ -27,7 +27,8 @@ typedef uint16_t MC_POWER;
 typedef enum
 {
     DL_MAP_LINEAR   = 0,
-    DL_MAP_ADAPTIVE = 1
+    DL_MAP_CUBIC = 1,
+	DL_MAP_EXP = 2
 } dl_map_mode_t;
 
 /* Driving loop internal status */
@@ -68,11 +69,22 @@ typedef struct adaptive_torque_map_args
     //16
 } adaptive_torque_map_args;
 
+typedef struct scurve_map_args{
+	uint32_t dummy;
+
+}scurve_map_args;
+
+typedef struct exponential_map_args{
+	float s;
+
+}exponential_map_args;
+
 /** @brief Union holding whichever map params are active for a driving mode */
 typedef union drivingModeParams
 {
     linear_torque_map_args   linear;
-    adaptive_torque_map_args adaptive;
+    exponential_map_args exp;
+    scurve_map_args scurve;
 } drivingModeParams;
 
 /* ============================================================================
@@ -93,6 +105,8 @@ typedef struct drivingMode
 
     /* map selection */
     dl_map_mode_t control_map_fn;  /**< which mapping mode to use */ //32
+
+    adaptive_torque_map_args adaptive_settings;
 
     /* union last */
     drivingModeParams map_fn_params; /**< parameters for the selected map */ //36

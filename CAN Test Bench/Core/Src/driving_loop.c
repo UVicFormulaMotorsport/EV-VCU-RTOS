@@ -146,7 +146,7 @@ driving_loop_args default_dl_settings =
 
     /* ========================= 8-bit fields ========================= */
     .torque_limit_source_mask = 0, // [bitmask]
-    .num_driving_modes        = 2,// 3, // [count]
+    .num_driving_modes        = 3,// 3, // [count]
     .period                   = 10, // [ms] DL period setting (task_period currently used separately)
 
 //    .dmodes = {
@@ -157,6 +157,17 @@ driving_loop_args default_dl_settings =
 		.dmodes = {
 		    [0] = {
 		        .control_map_fn = DL_MAP_LINEAR,
+				.adaptive_settings = {
+						.soften_gain = 0, //0.20f,
+						.soften_rpm  = 4500,
+						.max_rpm     = 6500,
+						.offset      = 0,
+						.base_slope = 1.0f,  // if you actually use it
+
+				},
+
+
+
 		        .map_fn_params.linear = {
 		            .slope  = 1.0f,
 		            .offset = 0,
@@ -167,17 +178,39 @@ driving_loop_args default_dl_settings =
 		    },
 
 		    [1] = {
-		        .control_map_fn = DL_MAP_ADAPTIVE,
-		        .map_fn_params.adaptive = {
-		            .soften_gain = 0, //0.20f,
-		            .soften_rpm  = 4500,
-		            .max_rpm     = 6500,
-		            .offset      = 0,
-		            // .base_slope = 1.0f,  // if you actually use it
-		        },
+		        .control_map_fn = DL_MAP_EXP,
+//		        .map_fn_params.adaptive = {
+//		            .soften_gain = 0, //0.20f,
+//		            .soften_rpm  = 4500,
+//		            .max_rpm     = 6500,
+//		            .offset      = 0,
+//		            // .base_slope = 1.0f,  // if you actually use it
+//		        },
+				.adaptive_settings = {
+						.soften_gain = 0, //0.20f,
+						.soften_rpm  = 4500,
+						.max_rpm     = 6500,
+						.offset      = 0,
+						.base_slope = 1.0f,  // if you actually use it
+
+				},
+				.map_fn_params.exp = {
+						.s = 1.5f,
+				},
 		    },
 
-		    [2] = {0},
+		    [2] = {
+		    		.control_map_fn = DL_MAP_CUBIC,
+					.adaptive_settings = {
+											.soften_gain = 0, //0.20f,
+											.soften_rpm  = 4500,
+											.max_rpm     = 6500,
+											.offset      = 0,
+											.base_slope = 1.0f,  // if you actually use it
+
+									},
+
+		    },
 		    [3] = {0},
 		},
      // [struct array] mode table (optional / future)
@@ -192,7 +225,7 @@ float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter
 
 static bool torque_inhibit_active = false; // [bool] latched inhibit
 
-static uint8_t __current_dmode = 0; //[Unitless] Index of current driving mode
+static uint8_t __current_dmode = 2; //[Unitless] Index of current driving mode
 SemaphoreHandle_t dmode_mutex = NULL;
 
 //Macro to make the driving mode seem much simpler
@@ -273,7 +306,7 @@ enum uv_status_t initDrivingLoop(void *argument)
     dl_task->deletion_states = UV_INIT | UV_READY | PROGRAMMING | UV_SUSPENDED |
                                UV_LAUNCH_CONTROL | UV_ERROR_STATE; // [state bitmask]
 
-    dl_task->task_period = 100; // [ms] RTOS scheduling period used by wrapper
+    dl_task->task_period = 10; // [ms] RTOS scheduling period used by wrapper
     dl_task->task_args   = NULL;
 
     return UV_OK;
@@ -317,71 +350,157 @@ static float mapLinearFromMode(float throttle_percent, float T_max,
     return T_max * y;
 }
 
-// -----------------------------------------------------------------------------
-// Adaptive pedal map
-// throttle_percent: [%] 0..100
-// T_max: current torque ceiling [Nm]
-// Behavior:
-//   - Applies throttle deadband
-//   - Linear scale 0..T_max
-//   - Softens torque at high RPM
-// return: torque request [Nm]
-// -----------------------------------------------------------------------------
-static float mapThrottleToTorqueAdaptive(float throttle_percent,
-	                                         float T_max,
-	                                         const driving_loop_args* dl){
-	float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
-	    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
-
-	    float x = (apps - dead) / (1.0f - dead);
-	    x = dl_clampf(x, 0.0f, 1.0f);
-
-	    if (x <= 0.0f) return 0.0f;
-
-	    float T_req = T_max * x; // <-- key change
-
-	    // keep your speed fade if you want (but this should probably be DMODE)
-	    extern int16_t mc_speed_rpm;
-	    const float soften_rpm  = 4500.0f;
-	    const float max_rpm     = (float)dl->absolute_max_motor_rpm;
-	    const float soften_gain = 0.20f;
-
-	    if ((float)mc_speed_rpm > soften_rpm && max_rpm > soften_rpm) {
-	        float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
-	        t = dl_clampf(t, 0.0f, 1.0f);
-	        T_req *= (1.0f - soften_gain * t);
-	    }
-
-	    return T_req;
-}
+//DEPRECATED
+//// -----------------------------------------------------------------------------
+//// Adaptive pedal map
+//// throttle_percent: [%] 0..100
+//// T_max: current torque ceiling [Nm]
+//// Behavior:
+////   - Applies throttle deadband
+////   - Linear scale 0..T_max
+////   - Softens torque at high RPM
+//// return: torque request [Nm]
+//// -----------------------------------------------------------------------------
+//static float mapThrottleToTorqueAdaptive(float throttle_percent,
+//	                                         float T_max,
+//	                                         const driving_loop_args* dl){
+//	float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
+//	    const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
+//
+//	    float x = (apps - dead) / (1.0f - dead);
+//	    x = dl_clampf(x, 0.0f, 1.0f);
+//
+//	    if (x <= 0.0f) return 0.0f;
+//
+//	    float T_req = T_max * x; // <-- key change
+//
+//	    // keep your speed fade if you want (but this should probably be DMODE)
+//	    extern int16_t mc_speed_rpm;
+//	    const float soften_rpm  = 4500.0f;
+//	    const float max_rpm     = (float)dl->absolute_max_motor_rpm;
+//	    const float soften_gain = 0.20f;
+//
+//	    if ((float)mc_speed_rpm > soften_rpm && max_rpm > soften_rpm) {
+//	        float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
+//	        t = dl_clampf(t, 0.0f, 1.0f);
+//	        T_req *= (1.0f - soften_gain * t);
+//	    }
+//
+//	    return T_req;
+//}
 
 //FOR DRIVING MODE IMPLMENTATION
 static float mapAdaptiveFromMode(float throttle_percent, float T_max,
-                                 const driving_loop_args* dl, const drivingMode* dm)
+                                 const driving_loop_args* dl,
+                                 const drivingMode* dm)
 {
+    /*
+     * STEP 0: Normalize throttle input to 0–1 with deadband
+     * apps = throttle as fraction (0–1)
+     * dead = deadband fraction (0–1)
+     * After deadband removal:
+     *   x = 0     at bottom of pedal
+     *   x = 1     at full pedal
+     */
     float apps = dl_clampf(throttle_percent / 100.0f, 0.0f, 1.0f);
     const float dead = dl_clampf(dl->throttle_deadband_percent / 100.0f, 0.0f, 0.9f);
-
     float x = (apps - dead) / (1.0f - dead);
     x = dl_clampf(x, 0.0f, 1.0f);
+    // If below deadband, request zero torque immediately
+    if (x <= 0.0f) return 0.0f;
 
-    float T_req = T_max * x; // base linear
+    /*
+     * STEP 1: Pedal curve shaping  f(x)
+     * curve_type selects how throttle maps to torque fraction:
+     * 0 = Linear        f(x) = x
+     * 1 = Power-law     f(x) = x^s
+     * 2 = Smoothstep    f(x) = 3x^2 - 2x^3
+     * These only shape driver "feel".
+     * They do NOT enforce limits.
+     */
 
-    // Optional “soften at speed” from mode params
+    float f = x;  // default linear behavior
+
+    //pick your fighter
+    const uint8_t curve_type = dm->control_map_fn;
+
+    if (curve_type == DL_MAP_LINEAR) {
+        // Linear: direct proportional mapping
+        // f(x) = x
+        // Already assigned above
+    }
+    else if (curve_type == DL_MAP_EXP) {
+        // Power-law: softens low pedal, ramps harder near the top
+        // s > 1.0 → softer initial response
+        // s = 1.0 → linear
+        float s = dm->map_fn_params.exp.s;
+        // Prevent degenerate exponent
+        if (s < 0.1f) s = 0.1f;
+        f = powf(x, s);
+    }
+    else {
+        // Smoothstep cubic: OEM-style S-curve
+        // f(x) = 3x^2 - 2x^3
+        // - zero slope at x=0
+        // - zero slope at x=1
+        // - smooth, progressive feel
+        f = (3.0f * x * x) - (2.0f * x * x * x);
+    }
+
+    /*
+     * STEP 2: Adaptive low-speed fade
+     Purpose: Reduce torque sensitivity at very low speeds.
+     Formula (paper-style):
+     fade = rpm / (rpm + rpm_fade)
+     Behavior:
+     rpm = 0        → fade = 0
+     rpm = rpm_fade → fade = 0.5
+     rpm >> rpm_fade → fade ≈ 1
+     This prevents aggressive jerk at low speed
+     */
     extern int16_t mc_speed_rpm;
-    float soften_gain = dm->map_fn_params.adaptive.soften_gain;
-    float soften_rpm  = (float)dm->map_fn_params.adaptive.soften_rpm;
-    float max_rpm     = (float)dm->map_fn_params.adaptive.max_rpm;
 
-    if (soften_gain > 0.0f && max_rpm > soften_rpm && (float)mc_speed_rpm > soften_rpm) {
+    // Use magnitude (reverse should behave same as forward)
+    float rpm = (float)mc_speed_rpm;
+    if (rpm < 0.0f) rpm = -rpm;
+
+//    float rpm_fade = dm->adaptive_settings.rpm_fade;
+//
+//    // Prevent divide-by-zero or unstable behavior
+//    if (rpm_fade < 1.0f) rpm_fade = 1.0f;
+//
+//    float fade = rpm / (rpm + rpm_fade);
+//    fade = dl_clampf(fade, 0.0f, 1.0f);
+//
+//    /* Base adaptive torque request */
+//    float T_req = T_max * f * fade;
+
+    float T_req = T_max*f;
+
+    /*
+     * STEP 3: Optional high-RPM softening
+     Separate from adaptive fade.
+     If rpm > soften_rpm:
+     gradually reduce torque as rpm approaches max_rpm.
+     Used to:
+     - reduce harshness near top speed
+     */
+
+    float soften_gain = dm->adaptive_settings.soften_gain;
+    float soften_rpm  = (float)dm->adaptive_settings.soften_rpm;
+    float max_rpm     = (float)dm->adaptive_settings.max_rpm;
+
+    if (soften_gain > 0.0f &&
+        max_rpm > soften_rpm &&
+        (float)mc_speed_rpm > soften_rpm)
+    {
         float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
         t = dl_clampf(t, 0.0f, 1.0f);
+
         T_req *= (1.0f - soften_gain * t);
     }
 
-    // Optional offset
-    T_req += (float)dm->map_fn_params.adaptive.offset;
-
+    /* Final safety clamp to allowed torque ceiling */
     return dl_clampf(T_req, 0.0f, T_max);
 }
 
@@ -670,6 +789,7 @@ static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* d
 //   - Absolute pack power cap (if enabled)
 //   - BMS power cap (if BMS OK)
 // return: max allowed torque [Nm]
+//TODO make me driving mode!
 // -----------------------------------------------------------------------------
 static float dl_computeTorqueCeiling(const driving_loop_args* dl)
 {
@@ -754,28 +874,28 @@ static float dl_computeAllowedTorqueMax(const driving_loop_args* dl, const drivi
 
 
 //FOR DRIVING MODE
-static float mapThrottleToTorqueFromMode(float throttle_percent,
-                                         const driving_loop_args* dl,
-                                         const drivingMode* dm)
-{
-    float T_allow = dl_computeAllowedTorqueMax(dl, dm);
-
-    if (!dm) {
-        // default behavior if mode missing
-        return mapLinearFromMode(throttle_percent, T_allow, dl, &(drivingMode){0});
-    }
-
-    switch (dm->control_map_fn) {
-        case DL_MAP_LINEAR:
-            return mapLinearFromMode(throttle_percent, T_allow, dl, dm);
-
-        case DL_MAP_ADAPTIVE:
-            return mapAdaptiveFromMode(throttle_percent, T_allow, dl, dm);
-
-        default:
-            return mapLinearFromMode(throttle_percent, T_allow, dl, dm);
-    }
-}
+//static float mapThrottleToTorqueFromMode(float throttle_percent,
+//                                         const driving_loop_args* dl,
+//                                         const drivingMode* dm)
+//{
+//    float T_allow = dl_computeAllowedTorqueMax(dl, dm);
+//
+//    if (!dm) {
+//        // default behavior if mode missing
+//        return mapLinearFromMode(throttle_percent, T_allow, dl, &(drivingMode){0});
+//    }
+//
+//    switch (dm->control_map_fn) {
+//        case DL_MAP_LINEAR:
+//            return mapLinearFromMode(throttle_percent, T_allow, dl, dm);
+//
+//        case DL_MAP_ADAPTIVE:
+//            return mapAdaptiveFromMode(throttle_percent, T_allow, dl, dm);
+//
+//        default:
+//            return mapLinearFromMode(throttle_percent, T_allow, dl, dm);
+//    }
+//}
 
 
 
@@ -791,6 +911,7 @@ void StartDrivingLoop(void *argument)
 
     // Active driving-loop parameters (flash-configurable)
     driving_loop_args* dl_params = current_vehicle_settings->driving_loop_settings; // [ptr]
+    drivingMode* cdm = &driving_mode;
 
     // Period handling
     TickType_t tick_period = pdMS_TO_TICKS(params->task_period); // [RTOS ticks] from [ms]
@@ -908,7 +1029,7 @@ void StartDrivingLoop(void *argument)
         dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_allow", (int32_t)(T_allow*1000), 3, "Nm");
 #endif
 
-        T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, T_allow, dl_params); //[Nm]
+        //T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, T_allow, dl_params); //[Nm]
 
         //POWER MAP VROOM VROOM?
        // T_REQ = mapThrottleToTorquePower(throttle_percent, T_allow, dl_params);
@@ -917,6 +1038,8 @@ void StartDrivingLoop(void *argument)
         //FOR DRIVING MODE
 //        const drivingMode* dm = &dl_params->dmodes[__current_dmode];
 //        T_REQ = mapThrottleToTorqueFromMode(throttle_percent, dl_params, dm);
+
+        T_REQ = mapAdaptiveFromMode(throttle_percent,T_allow, dl_params,&driving_mode);
 
         //Temporary:
         T_REQ = T_REQ/2.0f;
