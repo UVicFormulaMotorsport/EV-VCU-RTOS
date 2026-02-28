@@ -1164,6 +1164,8 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 
 uv_status uvResetFlashToDefault(void* new_sblock){
+
+	printf("RESETTING FLASH TO DEFAULT\n");
 	//void* new_sblock = uvMalloc(SETTING_BRANCH_SIZE);
 
 	if(new_sblock == NULL){
