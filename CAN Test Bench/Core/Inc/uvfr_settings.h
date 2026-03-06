@@ -18,7 +18,7 @@
 
 
 
-#define ENABLE_FLASH_SETTINGS 0
+#define ENABLE_FLASH_SETTINGS 1
 
 
 
@@ -58,35 +58,35 @@
 #define MOTOR_ADDR (struct motor_controller_settings*)(START_OF_USER_FLASH + MOTOR_MGROUP*256 + MOTOR_OFFSET)
 
 
-#define DRIVING_MGROUP 2
+#define DRIVING_MGROUP 3
 #define DRIVING_OFFSET 0
-#define DRIVING_ADDR ((driving_loop_args*)(START_OF_USER_FLASH + DRIVING_MGROUP + DRIVING_OFFSET))
+#define DRIVING_ADDR ((driving_loop_args*)(START_OF_USER_FLASH + DRIVING_MGROUP*256 + DRIVING_OFFSET))
 
-#define BMS_MGROUP 4
+#define BMS_MGROUP 6
 #define BMS_OFFSET 0
 #define BMS_ADDR NULL
 
-#define IMD_MGROUP 4
+#define IMD_MGROUP 6
 #define IMD_OFFSET 128
 #define IMD_ADDR ((void*)(START_OF_USER_FLASH + IMD_MGROUP*256 + IMD_OFFSET))
 
-#define CONIFER_MGROUP 5
+#define CONIFER_MGROUP 7
 #define CONIFER_OFFSET 0
 #define CONIFER_ADDR ((void*)(START_OF_USER_FLASH + CONIFER_MGROUP*256 + CONIFER_OFFSET))
 
-#define DAQ_HEAD_MGROUP 6
+#define DAQ_HEAD_MGROUP 9
 #define DAQ_HEAD_OFFSET 128
 #define DAQ_HEAD_ADDR ((daq_loop_args*)(START_OF_USER_FLASH + DAQ_HEAD_MGROUP*256 + DAQ_HEAD_OFFSET))
 
-#define DAQ_PARAMS1_MGROUP 7
+#define DAQ_PARAMS1_MGROUP 10
 #define DAQ_PARAMS1_OFFSET 0
 #define DAQ_PARAMS1_ADDR ((void*)(START_OF_USER_FLASH + DAQ_PARAMS1_MGROUP*256 + DAQ_PARAMS1_OFFSET))
 
-#define DAQ_PARAMS2_MGROUP 8
+#define DAQ_PARAMS2_MGROUP 11
 #define DAQ_PARAMS2_OFFSET 0
 #define DAQ_PARAMS2_ADDR
 
-#define DAQ_PARAMS3_MGROUP 9
+#define DAQ_PARAMS3_MGROUP 12
 #define DAQ_PARAMS3_OFFSET 0
 #define DAQ_PARAMS3_ADDR
 
@@ -118,6 +118,7 @@ typedef struct veh_gen_info{
 	uint8_t test5;
 
 	uint32_t test6;
+	uint32_t aa;
 
 }veh_gen_info;
 

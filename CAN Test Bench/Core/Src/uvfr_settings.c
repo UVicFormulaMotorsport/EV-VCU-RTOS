@@ -16,7 +16,7 @@
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
 
-typedef struct output_channel_settings output_channel_settings;
+//typedef struct output_channel_settings output_channel_settings;
 
 
 extern PRIVILEGED_DATA uint8_t _s_uvdata; //Start and end of user flash symbols
@@ -129,6 +129,39 @@ uv_CAN_msg vcu_ack_failed_msg = {
 uv_status uvValidateFlashSettings();
 uv_status uvResetFlashToDefault();
 void uvSettingsProgrammerTask(void* args);
+
+
+#ifdef DEBUG
+
+static void printDMode(){
+	int x = 1;
+	x++;
+}
+
+static inline void printDLSettings(){
+	driving_loop_args* dl = current_vehicle_settings->driving_loop_settings;
+	print_fixed_d("abs_max_acc_pwr:",dl->absolute_max_acc_pwr,0,"W");
+	print_fixed_d("abs_max_motor_torque:",dl->absolute_max_motor_torque,0,"Nm");
+	print_fixed_d("apps1_top:",dl->apps1_top,0," ");
+	print_fixed_d("apps1_bottom:",dl->apps1_bottom,0," ");
+	print_fixed_d("apps2_top:",dl->apps2_top,0," ");
+	print_fixed_d("apps2_bottom:",dl->apps2_bottom,0," ");
+	print_fixed_d("torque_inhibit_apps_percent:",dl->torque_inhibit_apps_percent*1000,3,"%");
+	print_fixed_d("torque_inhibit_bps_percent:",dl->torque_inhibit_bps_percent*1000,3,"%");
+
+
+}
+
+static inline void printMCSettings(){
+
+}
+
+static inline void printDAQSettings(){
+
+}
+
+
+#endif
 
 /** @brief Internal function that is used to copy an arbitrary amount of data from point A to point B
  *
@@ -268,7 +301,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->imd_settings = &default_imd_settings;
 	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
-	current_vehicle_settings->daq_param_list = default_datapoints;
+	current_vehicle_settings->daq_param_list = &default_datapoints;
 	current_vehicle_settings->conifer_settings = &default_conifer_settings;
 
 
@@ -687,7 +720,12 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	*((uint8_t*)(tmp + 21)) = sizeof(bms_settings_t);
 	*((uint8_t*)(tmp + 22)) = sizeof(daq_loop_args);
 	*((uint8_t*)(tmp + 23)) = sizeof(daq_msg);
-	*((uint8_t*)(tmp + 24)) = sizeof(output_channel_settings);
+	*((uint8_t*)(tmp + 24)) = (uint8_t)sizeof(conifer_settings);
+	//*((uint8_t*)(tmp + 25)) = (uint8_t)sizeof(conifer_settings);
+	//*((uint8_t*)(tmp + 26)) = (uint8_t)sizeof(conifer_settings);
+	//*((uint8_t*)(tmp + 27)) = (uint8_t)sizeof(conifer_settings);
+
+	*((uint8_t*)(tmp + 28)) = 0x7F;
 
 
 
@@ -985,7 +1023,7 @@ uv_status uvValidateFlashSettings(){
 		return UV_ERROR;
 	}
 
-	if(*((uint8_t*)(tmp + 24)) != sizeof(output_channel_settings)){
+	if(*((uint8_t*)(tmp + 24)) != (uint8_t)sizeof(conifer_settings)){
 		return UV_ERROR;
 	}
 
@@ -1268,7 +1306,7 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	settingCopy((uint8_t*)(&default_imd_settings),(new_sblock+256*IMD_MGROUP+IMD_OFFSET),sizeof(uv_imd_settings));
 
 	//CONIFER
-	settingCopy((uint8_t*)(&default_conifer_settings),new_sblock + 256*CONIFER_MGROUP + CONIFER_OFFSET,sizeof(output_channel_settings));
+	settingCopy((uint8_t*)(&default_conifer_settings),new_sblock + 256*CONIFER_MGROUP + CONIFER_OFFSET,sizeof(conifer_settings));
 
 
 	//DAQ Head + Meta settings
@@ -1381,7 +1419,7 @@ void sendAllSettingsWorker(void* args){
 		//Handle this error
 	}else if(uvSendSettingGroup(origin,DAQ_HEAD_MGROUP,DAQ_HEAD_OFFSET,sizeof(daq_loop_args))!=UV_OK){
 		//Handle this error
-	}else if(uvSendSettingGroup(origin,CONIFER_MGROUP,CONIFER_OFFSET,sizeof(output_channel_settings)) != UV_OK){
+	}else if(uvSendSettingGroup(origin,CONIFER_MGROUP,CONIFER_OFFSET,sizeof(conifer_settings)) != UV_OK){
 		//Handle this error
 	}
 

@@ -49,8 +49,6 @@ bms_settings_t default_bms_settings = {
 
 		// Plausibility ranges
 		// These values may need to be changed
-		.temp_plaus_min_c        = -40,
-		.temp_plaus_max_c        = 100,
 		.current_plaus_min_dA    = -20000,   // -2000 A
 		.current_plaus_max_dA    =  20000,   // +2000 A
 		.voltage_plaus_min_dV    = 0,        // 0 V
@@ -128,7 +126,7 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 	}
 	// in all other cases battery should be functioning as normal
 
-	BMS_CANRxHandler_msg1_end:
+
 	externalDeviceRxHandler(BMS);
 
 }
@@ -210,7 +208,7 @@ void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 		//normal operation
 	}
 
-	BMS_CANRxHandler_msg2_end:
+
 	externalDeviceRxHandler(BMS);
 
 }

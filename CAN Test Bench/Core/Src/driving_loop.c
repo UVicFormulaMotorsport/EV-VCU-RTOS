@@ -150,8 +150,11 @@ driving_loop_args default_dl_settings =
 
 		.dmodes = {
 		    [0] = {
-		        .control_map_fn = DL_MAP_LINEAR,
+		    	.dm_name = "Cool Exponent1",
+		        .control_map_fn = DL_MAP_EXP,
 				.kVal = 0.5,
+				.max_acc_pwr = 1000,
+				.max_motor_torque = 30,
 				.adaptive_settings = {
 						.soften_gain = 0, //0.20f,
 						.soften_rpm  = 4500,
@@ -163,18 +166,20 @@ driving_loop_args default_dl_settings =
 
 
 
-		        .map_fn_params.linear = {
-		            .slope  = 1.0f,
-		            .offset = 0,
-		        },
+				.map_fn_params.exp = {
+					.s = 1.5f,
+				},
 		        // optional caps
 		        //.max_motor_torque = 230,
 		        //.max_acc_pwr      = 0,
 		    },
 
 		    [1] = {
+		    	.dm_name = "Cool Exponent2",
 		        .control_map_fn = DL_MAP_EXP,
 				.kVal = 0.5,
+				.max_acc_pwr = 1000,
+				.max_motor_torque = 30,
 				.adaptive_settings = {
 						.soften_gain = 0, //0.20f,
 						.soften_rpm  = 4500,
@@ -184,13 +189,16 @@ driving_loop_args default_dl_settings =
 
 				},
 				.map_fn_params.exp = {
-						.s = 1.5f,
+						.s = 0.67f,
 				},
 		    },
 
 		    [2] = {
+		    	.dm_name = "The CUBE",
 		    	.control_map_fn = DL_MAP_CUBIC,
 				.kVal = 0.5,
+				.max_acc_pwr = 750,
+				.max_motor_torque = 30,
 				.adaptive_settings = {
 					.soften_gain = 0, //0.20f,
 					.soften_rpm  = 4500,
@@ -198,6 +206,9 @@ driving_loop_args default_dl_settings =
 					.offset      = 0,
 					.base_slope = 1.0f,  // if you actually use it
 
+				},
+				.map_fn_params.exp = {
+					.s = 1.5f,
 				},
 
 		    },
@@ -296,7 +307,7 @@ enum uv_status_t initDrivingLoop(void *argument)
     dl_task->deletion_states = UV_INIT | UV_READY | PROGRAMMING | UV_SUSPENDED |
                                UV_LAUNCH_CONTROL | UV_ERROR_STATE; // [state bitmask]
 
-    dl_task->task_period = 10; // [ms] RTOS scheduling period used by wrapper
+    dl_task->task_period = 100; // [ms] RTOS scheduling period used by wrapper
     dl_task->task_args   = NULL;
 
     return UV_OK;
@@ -714,7 +725,10 @@ static inline float dl_getOmegaRadS(int16_t rpm)
 static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl, const drivingMode* dm)
 {
     omega_rad_s = fabsf(omega_rad_s);
-    uint32_t max_pwr = (dl->absolute_max_acc_pwr < dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
+    uint32_t max_pwr = (dl->absolute_max_acc_pwr > dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf, "Power Limit:",max_pwr,0,"W");
+#endif
 
     if (omega_rad_s < 10.0f) return 1e9f;          // avoid divide-by-zero region
     if (max_pwr == 0u) return 1e9f; // disabled
@@ -750,6 +764,8 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl, const drivingM
     if (dm && dm->max_motor_torque > 0u) {
         T_allow = fminf(T_allow, (float)dm->max_motor_torque);
     }
+
+
 
     // If we're basically stopped, stay torque-limited (avoid divide by ~0)
     if (omega < 10.0f) {
@@ -961,7 +977,7 @@ void StartDrivingLoop(void *argument)
         T_REQ = mapAdaptiveFromMode(throttle_percent,T_allow, dl_params,cdm);
 
         //Temporary:
-        T_REQ = T_REQ/2.0f;
+        //T_REQ = T_REQ/2.0f;
 #ifdef DEBUG_DL
         dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_REQ", T_REQ*1000, 3, "Nm");
 #endif

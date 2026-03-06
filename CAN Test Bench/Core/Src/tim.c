@@ -229,6 +229,19 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef* tim_baseHandle)
 
 
 // -------- INTERRUPT -----------
+void handle_wheel_interrupt(uint32_t wheel_index)
+{
+  uint32_t now = __HAL_TIM_GET_COUNTER(&htim5);
+  uint32_t last = last_timestamp[wheel_index];
+
+  if (now >= last) {
+      period[wheel_index] = now - last;
+  } else {
+      period[wheel_index] = (0xFFFFFFFF - last) + now; // Handle timer overflow
+  }
+  last_timestamp[wheel_index] = now;
+}
+
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
@@ -242,18 +255,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
-void handle_wheel_interrupt(uint32_t wheel_index)
-{
-  uint32_t now = __HAL_TIM_GET_COUNTER(&htim5);
-  uint32_t last = last_timestamp[wheel_index];
 
-  if (now >= last) {
-      period[wheel_index] = now - last;
-  } else {
-      period[wheel_index] = (0xFFFFFFFF - last) + now; // Handle timer overflow
-  }
-  last_timestamp[wheel_index] = now;
-}
 
 void WheelSpeed_UpdateAll(void)
 {

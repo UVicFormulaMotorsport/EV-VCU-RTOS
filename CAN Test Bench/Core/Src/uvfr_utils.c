@@ -395,6 +395,9 @@ void uvSysResetDaemon(void* args){
 
 enum uv_status_t uvUtilsReset(uint8_t reset_type){
 	//xTaskCreate(uvSysResetDaemon,"reset",128,NULL,5,&reset_handle);
+
+	uvDeEnergizeTractiveSystem();
+	vTaskDelay(10);
 	vTaskSuspendAll();
 
 	HAL_Delay(250);//Cannot use vTaskDelay cause the scheduler is no longer active

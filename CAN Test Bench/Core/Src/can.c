@@ -663,11 +663,11 @@ void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num) {
     	if(xSemaphoreTake(callback_table_1_mutex,10) == pdTRUE){
 
     	}else{
-    		return UV_ERROR;
+    		return;
 
     	}
 
-    	}
+    }
 
 
     	if(CAN_callback_table_1[index].CAN_id == 0){ //This means the hash entry is empty and can now be used, since 0 is not a real CAN id
@@ -717,7 +717,7 @@ void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num) {
     	    if(xSemaphoreTake(callback_table_2_mutex,10) == pdTRUE){
 
     	    }else{
-    	    	return UV_ERROR;
+    	    	return;
 
     	    }
     	}
@@ -851,6 +851,55 @@ uv_status __uvCANtxCritSection(uv_CAN_msg* tx_msg){
 		return UV_ERROR;
 	}else{
 		taskEXIT_CRITICAL();
+	}
+	return UV_OK;
+}
+
+
+uv_status __uvCANtxCritSectionFromISR(uv_CAN_msg* tx_msg){
+	CAN_HandleTypeDef* pHcan = NULL;
+	BaseType_t isr_status = 0;
+
+
+	if(tx_msg == NULL){
+		//uvPanic("cannot send null CAN msg",0);
+	}
+
+	if((tx_msg->flags)& CAN_BUS_1){
+		pHcan = &hcan1;
+	}else{
+		pHcan = &hcan2;
+	}
+
+	if((tx_msg->flags)& UV_CAN_EXTENDED_ID){
+		TxHeader.IDE = CAN_ID_EXT;
+		TxHeader.ExtId = tx_msg->msg_id;
+	}else{
+		TxHeader.IDE = CAN_ID_STD;
+		TxHeader.StdId = tx_msg->msg_id;
+	}
+
+	TxHeader.DLC = tx_msg->dlc;
+	int cnt = 0;
+
+	isr_status = taskENTER_CRITICAL_FROM_ISR();
+
+	while(HAL_CAN_GetTxMailboxesFreeLevel(pHcan) == 0){
+		if(cnt >= 24000){
+			break;
+		}
+
+	}
+
+
+	if (HAL_CAN_AddTxMessage(pHcan, &TxHeader, tx_msg->data, &TxMailbox) != HAL_OK){
+		/* Transmission request Error */
+		taskEXIT_CRITICAL_FROM_ISR(isr_status);
+		is_can_ok = 0;
+		//uvPanic("Unable to Transmit CAN msg",0);
+		return UV_ERROR;
+	}else{
+		taskEXIT_CRITICAL_FROM_ISR(isr_status);
 	}
 	return UV_OK;
 }
