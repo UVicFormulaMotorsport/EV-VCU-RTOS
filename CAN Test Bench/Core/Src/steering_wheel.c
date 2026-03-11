@@ -2,6 +2,7 @@
 #include "stm32f4xx_hal.h"
 #include <stdint.h>
 #include "can.h"
+#include "uvfr_external_devices.h"
 
 
 #define MASK_BYTE 6 // this is from ecumaster docs
@@ -20,6 +21,8 @@ static uint8_t read_pos;
 
 
 // call this at startup. the id is 0x334, timeout is 200ms. so steering_wheel_init(0x334, 200) 
+// TO DO: steering_wheel_init(0x334, 200);
+// TO DO: insertCANMessageHandler(0x334, sw_CANRxHandler, CAN_BUS_1); in the init task
 void steering_wheel_init(uint32_t id, uint32_t to){
     can_id  = id;
     timeout_ms = to;
@@ -72,7 +75,7 @@ void steering_wheel_can_frame(uint32_t id, const uint8_t *data, uint8_t len){
     old_mask = btn_mask;
     btn_mask = new_mask;
 
-    externalDeviceRxHandler(STEERING_WHEEL);
+    //externalDeviceRxHandler(STEERING_WHEEL);
 }
 
 bool steering_wheel_get_event(btn_event_t *event){
