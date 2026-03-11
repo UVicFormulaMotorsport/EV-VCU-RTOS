@@ -1,14 +1,16 @@
 #include "steering_wheel.h"
 #include "stm32f4xx_hal.h"
 #include <stdint.h>
+#include "can.h"
+
 
 #define MASK_BYTE 6 // this is from ecumaster docs
 #define HEART_BYTE 7 
 
 static uint32_t can_id;
 static uint32_t timeout_ms;
-static uint32_t btn_mask;
-static uint32_t old_mask;
+static uint8_t btn_mask;
+static uint8_t old_mask;
 static uint32_t last_time;
 static bool is_dead;
 
@@ -69,6 +71,8 @@ void steering_wheel_can_frame(uint32_t id, const uint8_t *data, uint8_t len){
     }
     old_mask = btn_mask;
     btn_mask = new_mask;
+
+    externalDeviceRxHandler(STEERING_WHEEL);
 }
 
 bool steering_wheel_get_event(btn_event_t *event){
@@ -87,4 +91,9 @@ bool steering_wheel_btn_pressed(button_t btn){
 
 bool steering_wheel_timed_out(void){
     return is_dead;
+}
+
+void sw_CANRxHandler(uv_CAN_msg* msg){
+    steering_wheel_can_frame(msg->msg_id, msg->data, msg->dlc);
+    
 }
