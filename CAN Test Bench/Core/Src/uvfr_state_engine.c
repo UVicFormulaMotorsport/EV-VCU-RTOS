@@ -932,7 +932,7 @@ void _stateChangeDaemon(void * args) PRIVILEGED_FUNCTION{
 		vTaskDelay(2);
 	}
 
-	SCD_active = true;
+	SCD_active = true; //Poor Man's Mutex
 
 
 	uint32_t task_tracker = 0x00000000;

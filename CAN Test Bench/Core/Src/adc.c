@@ -631,7 +631,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 
 void StartADCTask(void *argument) {
 	(void)argument;
-    TickType_t tick_rate = pdMS_TO_TICKS(5); // 5 ms cycle
+    TickType_t tick_rate = pdMS_TO_TICKS(100); // 5 ms cycle
     TickType_t last_wake_time = xTaskGetTickCount(); // capture the current tick count as the starting point
 
     for (;;) {

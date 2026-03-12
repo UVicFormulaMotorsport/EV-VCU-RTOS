@@ -54,7 +54,8 @@ enum motor_controller_speed_parameters {
 	M_Set	 = 0x90,	//setpoint (used for torque command in our case)
     N_cmd    = 0x32,  // command speed after ramp
     N_error  = 0x33,   // speed error
-	M_out	 = 0xA0	  // actual active current scaled
+	M_out	 = 0xA0,	  // actual active current scaled
+	N_actual_filt = 0xA8
 
 };
 

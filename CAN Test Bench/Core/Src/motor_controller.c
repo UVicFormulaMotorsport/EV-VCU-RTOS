@@ -467,7 +467,7 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
         uvPanic("Mains Voltage Below Minimum Limit", 0);
     }
     if (errors & motor_temp_max_limit) {
-        //uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
+        uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
     }
     if (errors & IGBT_temp_max_limit) {
         uvPanic("IGBT Temperature Exceeded Maximum Limit", 0);
@@ -538,7 +538,7 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
         case N_actual:  // SPEED_ACTUAL (0x30)
             if (msg->dlc >= 3) {
                 int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
-                mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500);
+                mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500); //Slightly smaller now
                 //2457.5 RPM / 6500 RPM) * 32767
                 //mc_speed_rpm = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
 
