@@ -66,6 +66,12 @@ typedef struct adaptive_torque_map_args
 
     /* Optional clamp helpers */
     uint16_t max_rpm;       /**< clamp behavior near max rpm */ //14
+    uint16_t rpm_fade; //rpm_fade defines the speed where torque = 50% of requested value
+
+    uint16_t coast_rpm_start;   /**< [rpm] below this, coasting window is largest */
+    uint16_t coast_rpm_end;     /**< [rpm] above this, coasting window is smallest */
+    float    coast_p_low;       /**< [0..1] p_co at low speed (bigger dead/coast zone) */
+    float    coast_p_high;      /**< [0..1] p_co at higher speed (smaller coast zone) */
     //16
 } adaptive_torque_map_args;
 
