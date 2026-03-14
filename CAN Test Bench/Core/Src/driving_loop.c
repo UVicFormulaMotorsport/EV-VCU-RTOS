@@ -214,10 +214,10 @@ driving_loop_args default_dl_settings =
 		    		  .kVal = 0.55f,                 // a little smoother than accel
 		    		  .adaptive_settings = {
 		    		    .rpm_fade        = 450,       // noticeable low-speed smoothing
-		    		    .coast_rpm_start = 0,
-		    		    .coast_rpm_end   = 1200,      // coast shrinks by ~1200 rpm
+		    		    .coast_rpm_start = 0,		// The speed where the map starts moving (usually 0 RPM).
+		    		    .coast_rpm_end   = 1200,      // The speed where the map reaches its final "High Speed" shape.
 		    		    .coast_p_low     = 0.03f,     // 3% pedal is coast at standstill
-		    		    .coast_p_high    = 0.02f,     // 2% once rolling
+		    		    .coast_p_high    = 0.02f,     // 2% once rolling at 1200 rpm
 		    		    .soften_gain     = 0.00f,
 		    		    .soften_rpm      = 4500,
 		    		    .max_rpm         = 6500,
@@ -432,39 +432,77 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
     if (vehicle_rpm < 0.0f)
         vehicle_rpm = -vehicle_rpm;
 
+
     /* === Per-mode tuning parameters === */
-    float zero_torque_at_low_speed = dm->adaptive_settings.coast_p_low;   // Pedal fraction that produces 0 torque at standstill
-    float zero_torque_at_high_speed = dm->adaptive_settings.coast_p_high;  // Pedal fraction that produces 0 torque once rolling
-    float low_speed_rpm =(float)dm->adaptive_settings.coast_rpm_start; // RPM where max coasting applies
-    float high_speed_rpm =(float)dm->adaptive_settings.coast_rpm_end;   // RPM where min coasting applies
 
-    /* Keep values safe */
-    zero_torque_at_low_speed  = dl_clampf(zero_torque_at_low_speed,  0.0f, 0.9f);
-    zero_torque_at_high_speed = dl_clampf(zero_torque_at_high_speed, 0.0f, 0.9f);
+        // [Ratio 0.0 to 1.0] The "Deadzone" size at 0 RPM (e.g., 0.05 = 5%).
+        // This provides a safety buffer so the car doesn't "creep" at a standstill.
+        float zero_torque_at_low_speed = dm->adaptive_settings.coast_p_low;
 
-    /* === Compute speed-dependent zero-torque threshold === */
-    float zero_torque_threshold = zero_torque_at_high_speed;
+        // [Ratio 0.0 to 1.0] The "Deadzone" size at high speed (e.g., 0.02 = 2%).
+        // Shrinking the deadzone here makes the car feel more responsive once moving.
+        float zero_torque_at_high_speed = dm->adaptive_settings.coast_p_high;
 
-    /* Only interpolate if speed band is valid */
-    if (high_speed_rpm > low_speed_rpm){
-        /* interpolation factor (0 at low_speed_rpm, 1 at high_speed_rpm) */
-        float speed_fraction =(vehicle_rpm - low_speed_rpm) /(high_speed_rpm - low_speed_rpm);
-        speed_fraction = dl_clampf(speed_fraction, 0.0f, 1.0f);
-        /* Interpolate zero-torque threshold based on speed */
-        zero_torque_threshold =(1.0f - speed_fraction) * zero_torque_at_low_speed +speed_fraction * zero_torque_at_high_speed;
-    }
+        // [RPM] The motor speed where the map starts moving (usually 0 RPM).
+        float low_speed_rpm =(float)dm->adaptive_settings.coast_rpm_start;
 
-    /* === Apply coasting region === */
-    /* If pedal is still inside zero-torque zone → coast */
-    if (x <= zero_torque_threshold)
-        return 0.0f;
-    /* Shift and rescale remaining pedal travel */
-    float shifted_pedal =
-        (x - zero_torque_threshold) /(1.0f - zero_torque_threshold);
+        // [RPM] The motor speed where the map reaches its final "high speed" shape (e.g., 1200 RPM).
+        float high_speed_rpm =(float)dm->adaptive_settings.coast_rpm_end;
 
-    shifted_pedal = dl_clampf(shifted_pedal, 0.0f, 1.0f);
-    /* From here on, use shifted pedal */
-    x = shifted_pedal;
+        /* Keep values safe (Clamps to 0.0-0.9 range to ensure the pedal always works) */
+        zero_torque_at_low_speed  = dl_clampf(zero_torque_at_low_speed,  0.0f, 0.9f);
+        zero_torque_at_high_speed = dl_clampf(zero_torque_at_high_speed, 0.0f, 0.9f);
+
+        /* === Compute speed-dependent zero-torque threshold === */
+
+        /* THE ZERO TORQUE THRESHOLD:
+         * This is the "Live Edge." It is the specific point on the pedal travel where
+         * the motor transitions from doing nothing (coasting) to applying torque.
+         */
+        float zero_torque_threshold = zero_torque_at_high_speed;
+
+        /* CHECK: (high_speed_rpm > low_speed_rpm)
+         * This ensures the tuning range is valid to avoid dividing by zero in the math below.
+         */
+        if (high_speed_rpm > low_speed_rpm){
+
+            /* THE SPEED FRACTION (The "Where am I?" Variable):
+             * Tells us how far we are in the transition from 0 to 1200 RPM.
+             * 0.0 = At/below Start RPM. 0.5 = Halfway (600 RPM). 1.0 = At/above End RPM.
+             */
+            float speed_fraction =(vehicle_rpm - low_speed_rpm) /(high_speed_rpm - low_speed_rpm);
+            speed_fraction = dl_clampf(speed_fraction, 0.0f, 1.0f);
+
+            /* INTERPOLATE:
+             * Slides the threshold between Low (5%) and High (2%) based on the speed_fraction.
+             * As you speed up, the threshold (deadzone) gets smaller.
+             */
+            zero_torque_threshold =(1.0f - speed_fraction) * zero_torque_at_low_speed + speed_fraction * zero_torque_at_high_speed;
+        }
+
+
+        /* === Apply coasting region === */
+
+        /* THE COAST GATE:
+         * If current pedal position (x) is below the threshold we just calculated, force 0 Nm.
+         * This is the "Electronic Coast" zone where the car rolls freely.
+         */
+        if (x <= zero_torque_threshold)
+            return 0.0f; // [Nm] Return zero torque
+
+
+        /* THE SHIFT AND RESCALE:
+         * Stretches the remaining pedal travel (from threshold to 100%) back to a 0.0-1.0 range.
+         * This prevents a "jump" in torque when you cross the threshold.
+         * Formula: (Foot_Position - Deadzone) / (Available_Pedal_Range)
+         */
+        float shifted_pedal = (x - zero_torque_threshold) / (1.0f - zero_torque_threshold);
+
+
+        shifted_pedal = dl_clampf(shifted_pedal, 0.0f, 1.0f);
+
+        /* Use shifted_pedal (x) for the final torque curves (Linear, Exponential, etc.) */
+        x = shifted_pedal;
 
     /*
      * STEP 1B : Pedal curve shaping  f(x)
@@ -485,6 +523,33 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
         // Linear: direct proportional mapping
         // f(x) = x
         // Already assigned above
+        /* =======================================================================
+         * STEP 2: TU/e Paper Adaptive Low-Speed Fade
+         * * Instead of reducing torque at high speed (softening), this reduces
+         * sensitivity at low speed to prevent "jerky" launches.
+         * ======================================================================= */
+
+    //    // 1. Get the tuning constant (in RPM)
+    //    float v_fade = (float)dm->adaptive_settings.rpm_fade;
+    //
+    //    // 2. Use absolute RPM for the calculation
+    //    float vehicle_rpm = fabsf((float)mc_speed_rpm);
+    //
+    //    // 3. The "Launch Torque" Epsilon
+    //    // In the paper's theory, if RPM=0, Torque=0 (the car would never move).
+    //    // We use a small epsilon to ensure the car can actually start.
+    //    const float v_epsilon = 10.0f; // [rpm] Adjust this for "bite" off the line
+    //    float v_for_calc = (vehicle_rpm < v_epsilon) ? v_epsilon : vehicle_rpm;
+    //
+    //    // 4. Calculate the Paper's Fade Factor: v / (v + v_fade)
+    //    // Example: if v_fade = 250, at 250 RPM you get 50% torque. At 2500 RPM you get 91%.
+    //    float paper_fade = v_for_calc / (v_for_calc + v_fade);
+    //
+    //    // 5. Final Safety Clamp (0.0 to 1.0)
+    //    paper_fade = dl_clampf(paper_fade, 0.0f, 1.0f);
+    //
+    //    // 6. Apply to the torque request
+    //    T_req *= paper_fade;
     }
     else if (curve_type == DL_MAP_EXP) {
         // Power-law: softens low pedal, ramps harder near the top
@@ -505,7 +570,7 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
     }
 
     /* =======================================================================
-     * STEP 2: OPtional Adaptive Low-Speed Fade
+     * STEP 2: Optional Adaptive Low-Speed Fade
      * Research Paper equation:
      *     T_req(p, v) = p * T_max(v) * ( v / (v + v_fade) )
      Implementation:
@@ -583,7 +648,7 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
 
     if (soften_gain > 0.0f &&
         max_rpm > soften_rpm &&
-        (float)mc_speed_rpm > soften_rpm)
+        vehicle_rpm > soften_rpm)
     {
         float t = ((float)mc_speed_rpm - soften_rpm) / (max_rpm - soften_rpm);
         t = dl_clampf(t, 0.0f, 1.0f);

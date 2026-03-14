@@ -534,7 +534,7 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
     externalDeviceRxHandler(MOTOR_CONTROLLER);
 
     switch (reg_id) {
-        case N_actual:  // SPEED_ACTUAL (0x30)
+        case N_actual: { // SPEED_ACTUAL (0x30)
             if (msg->dlc >= 3) {
                 int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
                 mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500);
@@ -543,13 +543,21 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
 
             }
             break;
+        }
 
-        case CURRENT_ACTUAL:  // 0x31: 16-bit, little-endian
+        case CURRENT_ACTUAL:{  // 0x31: 16-bit, little-endian
             if (msg->dlc >= 3) {
                 int16_t current_raw = (int16_t)((msg->data[2] << 8) | msg->data[1]);
-                mc_current = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+                //mc_current = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+                /* CURRENT SCALING (Amps)
+                * Logic: (raw_value / 32767) * I_fullscale_arms
+                 * Based on your settings: I_fs_arms = 250
+                  */
+                 float I_fs_arms = (float)mc_settings->iq_fullscale_arms;
+                 mc_current = (int16_t)((float)current_raw * (I_fs_arms / 32767.0f));
             }
             break;
+        }
 
         //case LOGIMAP_ERRORS:  // 0x82: error bitfield, little-endian
 //        case motor_controller_errors_warnings:
@@ -558,13 +566,14 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
 //            }
 //            break;
 
-        case LOGIMAP_IO:  // 0x83: I/O status, 16-bit, little-endian
+        case LOGIMAP_IO: { // 0x83: I/O status, 16-bit, little-endian
             if (msg->dlc >= 3) {
                 uint16_t io_flags = (uint16_t)((msg->data[2] << 8) | msg->data[1]);
             }
             break;
+        }
 
-        case POS_ACTUAL:  // 0x86: 32-bit value, little-endian
+        case POS_ACTUAL: { // 0x86: 32-bit value, little-endian
             if (msg->dlc >= 5) {
                 int32_t pos = (int32_t)((msg->data[4] << 24) |
                                         (msg->data[3] << 16) |
@@ -572,28 +581,89 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
                                          msg->data[1]);
             }
             break;
+        }
 
-        case motor_controller_errors_warnings:
+        case motor_controller_errors_warnings:{
             // For error/warning responses using this register, assume a 16-bit field
             if (msg->dlc >= 3) {
                 MotorControllerErrorHandler_16bitLE(&msg->data[1], 2);
             }
             break;
-        case M_out:		//0xA0: actual active current scaled
+        }
+        case M_out:	{	//0xA0: actual active current scaled
             mc_torque_cmd = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
             break;
+        }
 
-        case motor_temperature:		//0x49: motor temperature
-            mc_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+        case motor_temperature:	{	//0x49: motor temperature
+            //mc_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+            int16_t raw_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+            //mc_motor_temp = (int16_t)((float)raw_m_temp / 204.8f);
+
+            /* * T-MOTOR
+             * Mapping: 0 to 32000 Num
+             * Logic: Based on the "Analog Temperature VdcBus Manual", the motor
+             * temperature (using a KTY81-210 sensor
+             * To convert this to Celsius, a linear factor of 204.8 is applied,
+             * where 32000 represents approximately 156.25°C based off the graph cited below
+             * * Citation: "Analog Temperature VdcBus Manual",.
+             */
+            mc_motor_temp = (int16_t)((float)raw_motor_temp / 204.8f);
+            //int16_t tMotorMapped = (int16_t)raw_motor_temp; // Direct mapping to 0..32000 range
+
             break;
+        }
 
-        case igbt_temperature:		//0x4A: igbt temperature
-            mc_igbt_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+        case igbt_temperature: {	//0x4A: igbt temperature
+            //mc_igbt_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+            int16_t raw_igbt_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+
+            /* * IGBT (POWER STAGE) TEMPERATURE SCALING
+             * Target Mapping: 0 to 32767 Num (REGID 0x4A)
+             * Logic: The IGBTs use internal NTC sensors that follow a non-linear curve
+             * specific to the Bamocar hardware.
+             * * Citation: "Bamocar D3 Manual", Section 6.2 Power Stages - Temperature.
+             * Reference Table (examples from manual):
+             * 125°C = 28480 | 100°C = 26702 | 25°C = 18797
+             */
+            // Pass the address of the global mc_igbt_temp to be updated
+            lookupIgbtTemp(raw_igbt_temp, &mc_igbt_temp);
             break;
+        }
 
-        default:
+        default: {
             // Handle other responses as needed or call a default parser.
             break;
+        }
+    }
+}
+
+/**
+ * IGBT (POWER STAGE) TEMPERATURE - VOID VERSION
+ * @brief Non-linear lookup for IGBT Temp
+ * Citation: "Bamocar D3 Manual", Section 6.2 Power Stages
+ */
+void lookupIgbtTemp(int16_t T_deg, int16_t* result) {
+    // static const: Keeps tables in Flash memory (important for RTOS memory management)
+    static const float temps[]   = { -30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125 };
+    static const int16_t units[] = { 16308, 16387, 16487, 16609, 16757, 16938, 17151, 17400, 17688, 18017, 18387, 18797, 19247, 19733, 20250, 20793, 21357, 21933, 22515, 23097, 23671, 24232, 24775, 25296, 25792, 26261, 26702, 27114, 27497, 27851, 28179, 28480 };
+
+    if (T_deg <= units[0]) {
+        *result = (int16_t)temps[0];
+        return;
+    }
+    if (T_deg >= units[31]) {
+        *result = (int16_t)temps[31];
+        return;
+    }
+
+    // Explicitly declare 'int i' to avoid redefinition errors in RTOS tasks
+    for (int i = 0; i < 31; i++) {
+        if (T_deg < units[i + 1]) {
+            float slope = (temps[i + 1] - temps[i]) / (float)(units[i + 1] - units[i]);
+            *result = (int16_t)(temps[i] + slope * (T_deg - units[i]));
+            return;
+        }
     }
 }
 
