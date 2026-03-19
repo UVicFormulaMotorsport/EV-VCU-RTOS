@@ -630,13 +630,14 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 #define DEBUG_TOGGLE_LED() HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15)
 
 void StartADCTask(void *argument) {
-    TickType_t tick_rate = pdMS_TO_TICKS(100); // 100ms cycle
+	(void)argument;
+    TickType_t tick_rate = pdMS_TO_TICKS(100); // 5 ms cycle
     TickType_t last_wake_time = xTaskGetTickCount(); // capture the current tick count as the starting point
 
     for (;;) {
         DEBUG_TOGGLE_LED(); // Optional - shows task is alive
         if(HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_buf1, 4) != HAL_OK){
-        	int a = 0;
+        	//int a = 0;
         }
 
         if(HAL_ADC_Start_DMA(&hadc2, (uint32_t *)adc_buf2, 7)!= HAL_OK){

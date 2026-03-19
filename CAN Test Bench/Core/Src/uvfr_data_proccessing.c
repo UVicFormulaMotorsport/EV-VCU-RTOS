@@ -10,7 +10,7 @@
 uint8_t isLutReverseable_ii(LUT_ii_t* lut){
 	uint8_t n = lut->n;
 	int32_t* Y = lut->y;
-	uint8_t idir = 0;
+	int8_t idir = 0;
 	if(Y[1] == Y[2]){
 		return NON_REVERSABLE;
 	}
@@ -22,7 +22,7 @@ uint8_t isLutReverseable_ii(LUT_ii_t* lut){
 	}
 
 	for(int i = 1;i<n;i++){
-		uint8_t dir = 0;
+		int8_t dir = 0;
 		if(Y[i] == Y[i-1]){
 			return NON_REVERSABLE;
 		}
@@ -52,7 +52,7 @@ uint8_t isLutReverseable_ii(LUT_ii_t* lut){
 uint8_t isLutReverseable_if(LUT_if_t* lut){
 	uint8_t n = lut->n;
 	float* Y = lut->y;
-	uint8_t idir = 0;
+	int8_t idir = 0;
 	if(Y[1] == Y[2]){
 		return NON_REVERSABLE;
 	}
@@ -64,7 +64,7 @@ uint8_t isLutReverseable_if(LUT_if_t* lut){
 	}
 
 	for(int i = 1;i<n;i++){
-		uint8_t dir = 0;
+		int8_t dir = 0;
 		if(Y[i] == Y[i-1]){
 			return NON_REVERSABLE;
 		}
@@ -94,7 +94,7 @@ uint8_t isLutReverseable_if(LUT_if_t* lut){
 uint8_t isLutReverseable_ff(LUT_ff_t* lut){
 	uint8_t n = lut->n;
 	float* Y = lut->y;
-	uint8_t idir = 0;
+	int8_t idir = 0;
 	if(Y[1] == Y[2]){
 		return NON_REVERSABLE;
 	}
@@ -106,7 +106,7 @@ uint8_t isLutReverseable_ff(LUT_ff_t* lut){
 	}
 
 	for(int i = 1;i<n;i++){
-		uint8_t dir = 0;
+		int8_t dir = 0;
 		if(Y[i] == Y[i-1]){
 			return NON_REVERSABLE;
 		}
@@ -324,17 +324,17 @@ inline float linterp_ff(float* x, float* y,float x0,uint8_t n){
 
 }
 
-int32_t splineInt_ii(int32_t* x, int32_t* y, int32_t x0,uint8_t n){
-
-}
-
-float splineInt_if(int32_t* x, float* y, int32_t x0,uint8_t n){
-
-}
-
-float splineInt_ff(float* x, float* y, float x0,uint8_t n){
-
-}
+//int32_t splineInt_ii(int32_t* x, int32_t* y, int32_t x0,uint8_t n){
+//
+//}
+//
+//float splineInt_if(int32_t* x, float* y, int32_t x0,uint8_t n){
+//
+//}
+//
+//float splineInt_ff(float* x, float* y, float x0,uint8_t n){
+//
+//}
 
 
 //These go from x to y
@@ -351,7 +351,7 @@ int32_t xToY_ii(LUT_ii_t* lut,int32_t x){
 		return 0;
 	}
 	int32_t* X = lut->x;
-	float* Y = lut->y;
+	int32_t* Y = lut->y;
 
 	uint8_t n = lut->n;
 

@@ -186,68 +186,102 @@ driving_loop_args default_dl_settings =
 	 *                   high → faster torque response
 	 * =============================================================================
 	 */
-		.dmodes = {
-		    [0] = {
-		    		  .control_map_fn = DL_MAP_LINEAR,
-		    		  .kVal = 0.65f,                 // quicker response than 0.5
-		    		  .adaptive_settings = {
-		    		    .rpm_fade        = 250,       // mild launch softening (or set 1 to “almost off”)
-		    		    .coast_rpm_start = 0,
-		    		    .coast_rpm_end   = 0,         // disable moving coast band
-		    		    .coast_p_low     = 0.00f,     // no coast at any speed
-		    		    .coast_p_high    = 0.00f,
-		    		    .soften_gain     = 0.00f,
-		    		    .soften_rpm      = 4500,
-		    		    .max_rpm         = 6500,
-		    		    .offset          = 0,
-		    		    .base_slope      = 1.0f,
-		    		  },
-		    		  .map_fn_params.linear = { .slope = 1.0f, .offset = 0,
-		    		},
-		        // optional caps
-		        //.max_motor_torque = 230,
-		        //.max_acc_pwr      = 0,
-		    },
+	.dmodes = {
+			    [0] = {
+			    	.dm_name = "Cool Exponent1",
+			        .control_map_fn = DL_MAP_EXP,
+					.kVal = 0.75,
+					.max_acc_pwr = 2000,
+					.max_motor_torque = 70,
+					.adaptive_settings = {
+							.soften_gain = 0, //0.20f,
+							.soften_rpm  = 4500,
+							.max_rpm     = 6500,
+							.offset      = 0,
+							.base_slope = 1.0f,  // if you actually use it
+							.coast_rpm_start = 0,
+							.coast_rpm_end   = 6000,      // coast shrinks by ~600 rpm
+							.coast_p_low     = 0.03f,     // 3% pedal is coast at standstill
+							.coast_p_high    = 0.02f,     // 2% once rolling
 
-		    [1] = {
-		    		  .control_map_fn = DL_MAP_EXP,
-		    		  .kVal = 0.55f,                 // a little smoother than accel
-		    		  .adaptive_settings = {
-		    		    .rpm_fade        = 450,       // noticeable low-speed smoothing
-		    		    .coast_rpm_start = 0,		// The speed where the map starts moving (usually 0 RPM).
-		    		    .coast_rpm_end   = 1200,      // The speed where the map reaches its final "High Speed" shape.
-		    		    .coast_p_low     = 0.03f,     // 3% pedal is coast at standstill
-		    		    .coast_p_high    = 0.02f,     // 2% once rolling at 1200 rpm
-		    		    .soften_gain     = 0.00f,
-		    		    .soften_rpm      = 4500,
-		    		    .max_rpm         = 6500,
-		    		    .offset          = 0,
-		    		    .base_slope      = 1.0f,
-		    		  },
-		    		  .map_fn_params.exp = {
-		    				  .s = 1.6f,   // good starting exponent
-				},
-		    },
+					},
 
-		    [2] = {
-		    		.control_map_fn = DL_MAP_CUBIC,
-		    		 .kVal = 0.45f,                 // smoothest
-		    		 .adaptive_settings = {
-		    		    .rpm_fade        = 700,       // softer launch + smoother crawl
-		    		    .coast_rpm_start = 0,
-		    		    .coast_rpm_end   = 1800,      // coast shrinks by ~1800 rpm
-		    		    .coast_p_low     = 0.05f,     // 5% coast at standstill
-		    		    .coast_p_high    = 0.03f,     // 3% once rolling
-		    		    .soften_gain     = 0.00f,
-		    		    .soften_rpm      = 4500,
-		    		    .max_rpm         = 6500,
-		    		    .offset          = 0,
-		    		    .base_slope      = 1.0f,
-				},
 
-		    },
-			[3] = {0},
-	},
+
+					.map_fn_params.exp = {
+						.s = 1.2f,
+					},
+			        // optional caps
+			        //.max_motor_torque = 230,
+			        //.max_acc_pwr      = 0,
+			    },
+
+			    [1] = {
+			    	.dm_name = "Cool Exponent2",
+			        .control_map_fn = DL_MAP_EXP,
+					.kVal = 0.5,
+					.max_acc_pwr = 1000,
+					.max_motor_torque = 30,
+					.adaptive_settings = {
+							.soften_gain = 0, //0.20f,
+							.soften_rpm  = 4500,
+							.max_rpm     = 6500,
+							.offset      = 0,
+							.base_slope = 1.0f,  // if you actually use it
+							.coast_rpm_start = 10,
+							.coast_rpm_end   = 1200,      // coast shrinks by ~1200 rpm
+							.coast_p_low     = 0.03f,     // 3% pedal is coast at standstill
+							.coast_p_high    = 0.02f,     // 2% once rolling
+
+					},
+					.map_fn_params.exp = {
+							.s = 0.67f,
+					},
+			    },
+
+			    [2] = {
+			    	.dm_name = "The CUBE",
+			    	.control_map_fn = DL_MAP_CUBIC,
+					.kVal = 0.5,
+					.max_acc_pwr = 750,
+					.max_motor_torque = 30,
+					.adaptive_settings = {
+						.soften_gain = 0, //0.20f,
+						.soften_rpm  = 4500,
+						.max_rpm     = 6500,
+						.offset      = 0,
+						.base_slope = 1.0f,  // if you actually use it
+						.coast_rpm_start = 0,
+						.coast_rpm_end   = 1800,      // coast shrinks by ~1800 rpm
+						.coast_p_low     = 0.05f,     // 5% coast at standstill
+						.coast_p_high    = 0.03f,     // 3% once rolling
+
+					},
+					.map_fn_params.exp = {
+						.s = 1.5f,
+					},
+
+			    },
+				[3]= {}
+				//[0] = {
+//				.control_map_fn = DL_MAP_LINEAR,
+//				.kVal = 0.65f,                 // quicker response than 0.5
+//				.adaptive_settings = {
+//				.rpm_fade        = 250,       // mild launch softening (or set 1 to “almost off”)
+//				.coast_rpm_start = 0,
+//				.coast_rpm_end   = 0,         // disable moving coast band
+//				.coast_p_low     = 0.00f,     // no coast at any speed
+//				.coast_p_high    = 0.00f,
+//				 .soften_gain     = 0.00f,
+//				                         .soften_rpm      = 4500,
+//				                         .max_rpm         = 6500,
+//				                         .offset          = 0,
+//				                         .base_slope      = 1.0f,
+//				                       },
+//				                       .map_fn_params.linear = { .slope = 1.0f, .offset = 0,
+//				                     },
+				                 // optional c
+		},
      // [struct array] mode table (optional / future)
 };
 
@@ -260,7 +294,7 @@ float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter
 
 static bool torque_inhibit_active = false; PRIVILEGED_DATA // [bool] latched inhibit
 
-static uint8_t __current_dmode = 2; PRIVILEGED_DATA//[Unitless] Index of current driving mode
+static uint8_t __current_dmode = 0; PRIVILEGED_DATA//[Unitless] Index of current driving mode
 SemaphoreHandle_t dmode_mutex = NULL; PRIVILEGED_DATA
 
 //Macro to make the driving mode seem much simpler
@@ -316,12 +350,15 @@ static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* d
 enum uv_status_t initDrivingLoop(void *argument)
 {
     (void)argument;
+    extern int16_t mc_speed_rpm;
 
     // Associate DAQ parameters with live ADC variables (ADC counts)
     associateDaqParamWithVar(APPS1_ADC_VAL, &adc1_APPS1); // [ADC counts]
     associateDaqParamWithVar(APPS2_ADC_VAL, &adc1_APPS2); // [ADC counts]
     associateDaqParamWithVar(BPS1_ADC_VAL,  &adc1_BPS1);  // [ADC counts]
     associateDaqParamWithVar(BPS2_ADC_VAL,  &adc1_BPS2);  // [ADC counts]
+
+    associateDaqParamWithVar(MOTOR_RPM, &mc_speed_rpm);
 
     uv_task_info* dl_task = uvCreateTask(); // [ptr]
     if (dl_task == NULL) {
@@ -341,7 +378,7 @@ enum uv_status_t initDrivingLoop(void *argument)
     dl_task->deletion_states = UV_INIT | UV_READY | PROGRAMMING | UV_SUSPENDED |
                                UV_LAUNCH_CONTROL | UV_ERROR_STATE; // [state bitmask]
 
-    dl_task->task_period = 10; // [ms] RTOS scheduling period used by wrapper
+    dl_task->task_period = 100; // [ms] RTOS scheduling period used by wrapper
     dl_task->task_args   = NULL;
 
     return UV_OK;
@@ -432,77 +469,39 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
     if (vehicle_rpm < 0.0f)
         vehicle_rpm = -vehicle_rpm;
 
-
     /* === Per-mode tuning parameters === */
+    float zero_torque_at_low_speed = dm->adaptive_settings.coast_p_low;   // Pedal fraction that produces 0 torque at standstill
+    float zero_torque_at_high_speed = dm->adaptive_settings.coast_p_high;  // Pedal fraction that produces 0 torque once rolling
+    float low_speed_rpm =(float)dm->adaptive_settings.coast_rpm_start; // RPM where max coasting applies
+    float high_speed_rpm =(float)dm->adaptive_settings.coast_rpm_end;   // RPM where min coasting applies
 
-        // [Ratio 0.0 to 1.0] The "Deadzone" size at 0 RPM (e.g., 0.05 = 5%).
-        // This provides a safety buffer so the car doesn't "creep" at a standstill.
-        float zero_torque_at_low_speed = dm->adaptive_settings.coast_p_low;
+    /* Keep values safe */
+    zero_torque_at_low_speed  = dl_clampf(zero_torque_at_low_speed,  0.0f, 0.9f);
+    zero_torque_at_high_speed = dl_clampf(zero_torque_at_high_speed, 0.0f, 0.9f);
 
-        // [Ratio 0.0 to 1.0] The "Deadzone" size at high speed (e.g., 0.02 = 2%).
-        // Shrinking the deadzone here makes the car feel more responsive once moving.
-        float zero_torque_at_high_speed = dm->adaptive_settings.coast_p_high;
+    /* === Compute speed-dependent zero-torque threshold === */
+    float zero_torque_threshold = zero_torque_at_high_speed;
 
-        // [RPM] The motor speed where the map starts moving (usually 0 RPM).
-        float low_speed_rpm =(float)dm->adaptive_settings.coast_rpm_start;
+    /* Only interpolate if speed band is valid */
+    if (high_speed_rpm > low_speed_rpm){
+        /* interpolation factor (0 at low_speed_rpm, 1 at high_speed_rpm) */
+        float speed_fraction =(vehicle_rpm - low_speed_rpm) /(high_speed_rpm - low_speed_rpm);
+        speed_fraction = dl_clampf(speed_fraction, 0.0f, 1.0f);
+        /* Interpolate zero-torque threshold based on speed */
+        zero_torque_threshold =(1.0f - speed_fraction) * zero_torque_at_low_speed +speed_fraction * zero_torque_at_high_speed;
+    }
 
-        // [RPM] The motor speed where the map reaches its final "high speed" shape (e.g., 1200 RPM).
-        float high_speed_rpm =(float)dm->adaptive_settings.coast_rpm_end;
+    /* === Apply coasting region === */
+    /* If pedal is still inside zero-torque zone → coast */
+    if (x <= zero_torque_threshold)
+        return 0.0f;
+    /* Shift and rescale remaining pedal travel */
+    float shifted_pedal =
+        (x - zero_torque_threshold) /(1.0f - zero_torque_threshold);
 
-        /* Keep values safe (Clamps to 0.0-0.9 range to ensure the pedal always works) */
-        zero_torque_at_low_speed  = dl_clampf(zero_torque_at_low_speed,  0.0f, 0.9f);
-        zero_torque_at_high_speed = dl_clampf(zero_torque_at_high_speed, 0.0f, 0.9f);
-
-        /* === Compute speed-dependent zero-torque threshold === */
-
-        /* THE ZERO TORQUE THRESHOLD:
-         * This is the "Live Edge." It is the specific point on the pedal travel where
-         * the motor transitions from doing nothing (coasting) to applying torque.
-         */
-        float zero_torque_threshold = zero_torque_at_high_speed;
-
-        /* CHECK: (high_speed_rpm > low_speed_rpm)
-         * This ensures the tuning range is valid to avoid dividing by zero in the math below.
-         */
-        if (high_speed_rpm > low_speed_rpm){
-
-            /* THE SPEED FRACTION (The "Where am I?" Variable):
-             * Tells us how far we are in the transition from 0 to 1200 RPM.
-             * 0.0 = At/below Start RPM. 0.5 = Halfway (600 RPM). 1.0 = At/above End RPM.
-             */
-            float speed_fraction =(vehicle_rpm - low_speed_rpm) /(high_speed_rpm - low_speed_rpm);
-            speed_fraction = dl_clampf(speed_fraction, 0.0f, 1.0f);
-
-            /* INTERPOLATE:
-             * Slides the threshold between Low (5%) and High (2%) based on the speed_fraction.
-             * As you speed up, the threshold (deadzone) gets smaller.
-             */
-            zero_torque_threshold =(1.0f - speed_fraction) * zero_torque_at_low_speed + speed_fraction * zero_torque_at_high_speed;
-        }
-
-
-        /* === Apply coasting region === */
-
-        /* THE COAST GATE:
-         * If current pedal position (x) is below the threshold we just calculated, force 0 Nm.
-         * This is the "Electronic Coast" zone where the car rolls freely.
-         */
-        if (x <= zero_torque_threshold)
-            return 0.0f; // [Nm] Return zero torque
-
-
-        /* THE SHIFT AND RESCALE:
-         * Stretches the remaining pedal travel (from threshold to 100%) back to a 0.0-1.0 range.
-         * This prevents a "jump" in torque when you cross the threshold.
-         * Formula: (Foot_Position - Deadzone) / (Available_Pedal_Range)
-         */
-        float shifted_pedal = (x - zero_torque_threshold) / (1.0f - zero_torque_threshold);
-
-
-        shifted_pedal = dl_clampf(shifted_pedal, 0.0f, 1.0f);
-
-        /* Use shifted_pedal (x) for the final torque curves (Linear, Exponential, etc.) */
-        x = shifted_pedal;
+    shifted_pedal = dl_clampf(shifted_pedal, 0.0f, 1.0f);
+    /* From here on, use shifted pedal */
+    x = shifted_pedal;
 
     /*
      * STEP 1B : Pedal curve shaping  f(x)
@@ -917,7 +916,10 @@ static inline float dl_getOmegaRadS(int16_t rpm)
 static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl, const drivingMode* dm)
 {
     omega_rad_s = fabsf(omega_rad_s);
-    uint32_t max_pwr = (dl->absolute_max_acc_pwr < dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
+    uint32_t max_pwr = (dl->absolute_max_acc_pwr > dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf, "Power Limit:",max_pwr,0,"W");
+#endif
 
     if (omega_rad_s < 10.0f) return 1e9f;          // avoid divide-by-zero region
     if (max_pwr == 0u) return 1e9f; // disabled
@@ -953,6 +955,8 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl, const drivingM
     if (dm && dm->max_motor_torque > 0u) {
         T_allow = fminf(T_allow, (float)dm->max_motor_torque);
     }
+
+
 
     // If we're basically stopped, stay torque-limited (avoid divide by ~0)
     if (omega < 10.0f) {
@@ -1053,6 +1057,8 @@ void StartDrivingLoop(void *argument)
     	//Hmmm interesting
     }
 
+    vTaskDelay(500);
+
     for (;;)
     {
         // Task control (kill/suspend)
@@ -1095,6 +1101,10 @@ void StartDrivingLoop(void *argument)
         		changeVehicleState(UV_READY);
         	}
         }
+
+//        int a = *((int*)0x08200000); //Deliberately trigger hardfault
+//        a++;
+
 
         if(!safe){
         	T_filtered = 0.0f;                   // [Nm]
@@ -1164,7 +1174,7 @@ void StartDrivingLoop(void *argument)
         T_REQ = mapAdaptiveFromMode(throttle_percent,T_allow, dl_params,cdm);
 
         //Temporary:
-        T_REQ = T_REQ/2.0f;
+        //T_REQ = T_REQ/2.0f;
 #ifdef DEBUG_DL
         dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf,"T_REQ", T_REQ*1000, 3, "Nm");
 #endif

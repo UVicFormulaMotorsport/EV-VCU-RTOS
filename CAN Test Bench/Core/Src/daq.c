@@ -263,6 +263,7 @@ uv_CAN_msg tmp_daq_msg;
  */
 uv_status initDaqTask(void * args){
 	//MX_ADC1_Init; //calling initialization of ADC1
+	(void)args;
 
 	curr_daq_settings = current_vehicle_settings->daq_settings;
 	datapoints = current_vehicle_settings->daq_param_list;

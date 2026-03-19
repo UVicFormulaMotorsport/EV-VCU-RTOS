@@ -16,7 +16,12 @@
 #define VCU_TO_LAPTOP_ID 0x420
 #define LAPTOP_TO_VCU_ID 0x520
 
-typedef struct output_channel_settings output_channel_settings;
+#ifdef DEBUG_SETTINGS
+char settings_debug_buf[256];
+char* tmp;
+#endif
+
+//typedef struct output_channel_settings output_channel_settings;
 
 
 extern PRIVILEGED_DATA uint8_t _s_uvdata; //Start and end of user flash symbols
@@ -130,6 +135,39 @@ uv_status uvValidateFlashSettings();
 uv_status uvResetFlashToDefault();
 void uvSettingsProgrammerTask(void* args);
 
+
+#ifdef DEBUG
+
+static void printDMode(){
+	int x = 1;
+	x++;
+}
+
+static inline void printDLSettings(){
+	driving_loop_args* dl = current_vehicle_settings->driving_loop_settings;
+	print_fixed_d("abs_max_acc_pwr:",dl->absolute_max_acc_pwr,0,"W");
+	print_fixed_d("abs_max_motor_torque:",dl->absolute_max_motor_torque,0,"Nm");
+	print_fixed_d("apps1_top:",dl->apps1_top,0," ");
+	print_fixed_d("apps1_bottom:",dl->apps1_bottom,0," ");
+	print_fixed_d("apps2_top:",dl->apps2_top,0," ");
+	print_fixed_d("apps2_bottom:",dl->apps2_bottom,0," ");
+	print_fixed_d("torque_inhibit_apps_percent:",dl->torque_inhibit_apps_percent*1000,3,"%");
+	print_fixed_d("torque_inhibit_bps_percent:",dl->torque_inhibit_bps_percent*1000,3,"%");
+
+
+}
+
+static inline void printMCSettings(){
+
+}
+
+static inline void printDAQSettings(){
+
+}
+
+
+#endif
+
 /** @brief Internal function that is used to copy an arbitrary amount of data from point A to point B
  *
  */
@@ -170,9 +208,21 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 
 	last_contact_with_laptop = xTaskGetTickCount();
 
+#ifdef DEBUG_SETTINGS
+	tmp = settings_debug_buf;
+	tmp += sprintf(tmp,"MSG received: ");
+#endif
+
 
 	switch(cmd_byte){
 	case LAPTOP_HANDSHAKE:
+#ifdef DEBUG_SETTINGS
+
+	tmp += sprintf(tmp,"Handshake\n\0");
+
+#endif
+
+
 		is_laptop_connected = true;
 		last_contact_with_laptop = xTaskGetTickCount();
 
@@ -187,6 +237,11 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 		uvSendCanMSG(&blank_msg);
 		break;
 	case ENTER_PROGRAMMING_MODE:
+#ifdef DEBUG_SETTINGS
+
+	tmp += sprintf(tmp,"Program Req\n");
+#endif
+
 
 		if(vehicle_state == UV_READY){
 
@@ -200,6 +255,10 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 		break;
 	case REQUEST_VCU_STATUS:
 		//TODO Respond with VCU status
+#ifdef DEBUG_SETTINGS
+	tmp += sprintf(tmp,"Program Req\n\0");
+	//debugWrite(settings_debug_buf,1);
+#endif
 
 		if(uvTransmitVehicleStatus()!=UV_OK){
 			//Handle this error.
@@ -207,6 +266,10 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 
 		break;
 	case GENERIC_ACK:
+#ifdef DEBUG_SETTINGS
+	tmp += sprintf(tmp,"Ack Message\n");
+	//debugWrite(settings_debug_buf,1);
+#endif
 		//Could come at any time, however here we are
 		break;
 	case REQUEST_ALL_JOURNAL_ENTRIES:
@@ -223,6 +286,11 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 	case DISCARD_NEW_SETTINGS_AND_EXIT:
 	case FORCE_RESTORE_FACTORY_DEFAULT:
 		//We need to be in programming mode for these.
+#ifdef DEBUG_SETTINGS
+	tmp += sprintf(tmp,"\n");
+	//debugWrite(settings_debug_buf,1);
+#endif
+
 		if(vehicle_state == PROGRAMMING){
 			if(settings_queue != NULL){
 				if(xQueueSend(settings_queue,msg,0) != pdTRUE){
@@ -243,6 +311,11 @@ void handleIncomingLaptopMsg(uv_CAN_msg* msg) PRIVILEGED_FUNCTION{
 
 		break;
 	}
+
+#ifdef DEBUG_SETTINGS
+	tmp = settings_debug_buf;
+	debugWrite(settings_debug_buf,1);
+#endif
 }
 
 /** @brief Function that allocates the neccessary space for all the vehicle settings, and
@@ -268,7 +341,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->imd_settings = &default_imd_settings;
 	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
-	current_vehicle_settings->daq_param_list = default_datapoints;
+	current_vehicle_settings->daq_param_list = &default_datapoints;
 	current_vehicle_settings->conifer_settings = &default_conifer_settings;
 
 
@@ -359,14 +432,24 @@ uv_status uvConfigSettingTask(void* args){
  */
 
 uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
+#ifdef DEBUG
+	printf("Initializing Settings\n");
+#endif
 
 	insertCANMessageHandler(0x520,handleIncomingLaptopMsg, CAN_BUS_1); //Allows us to talk with laptop
 	insertCANMessageHandler(0x520,handleIncomingLaptopMsg, CAN_BUS_2);
+
+
 
 	current_vehicle_settings = uvMalloc(sizeof(uv_vehicle_settings));
 
 
 	if(current_vehicle_settings == NULL){
+#ifdef DEBUG
+	printf("ERROR: could not allocate setting struct\n");
+#endif
+
+
 		//HMMM
 		__uvInitPanic(); // deeply unfortunate
 		return UV_ERROR;
@@ -379,23 +462,38 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 	bool use_factory_default = true;
 	bool force_flash_rewrite = false;
 
+#ifdef DEBUG
+	printf("Searching For Valid User Defined Settings:\n");
+#endif
+
+
 	//Check for existing valid flash settings
 	uv_status retval = uvValidateFlashSettings();
 
+
 	if(retval == UV_OK){ //If the thing responds with OK, then we attempt to load flash settings
+
+#ifdef DEBUG
+		printf("Valid Settings Located In Flash\n");
+		printf("Using Settings From Flash\n");
+#endif
 
 		if(uvLoadSettingsFromFlash() == UV_OK){
 			//Attempt to load flash settings. If that somehow fails, revert to factory defaults
 			use_factory_default = false;
 
 #ifdef DEBUG
-			printf("FLASH SETTINGS LOADED\n");
+			printf("Flash settings loaded on first attempt\n");
 #endif
 
-		}else if(uvLoadSettingsFromFlash()== UV_OK){
+		}else if(uvLoadSettingsFromFlash() != UV_OK){
 			//Could not actually load from flash. BAD!
 			//In this case we would like to revert to factory defaults!
 			use_factory_default = true;
+
+#ifdef DEBUG
+			printf("Could not load flash settings in two attempts: reverting to factory defaults\n");
+#endif
 		}
 
 		//In this case, we need to check to see if we need to send out a msg for the VCU
@@ -408,21 +506,42 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
 
 
 	}else{
+#ifdef DEBUG
+		printf("No Valid Settings in Flash:");
+		printf("Reverting to factory defaults, and overwriting flash with defaults\n");
+#endif
 		use_factory_default = true;
 		force_flash_rewrite = true;
 	}
 
 	if(use_factory_default == true){
+#ifdef DEBUG
+		printf("Loading Default Settings\n");
+#endif
+
 		if(setupDefaultSettings() == UV_OK){
+#ifdef DEBUG
+			printf("Default settings loaded on first attempt\n");
+#endif
 			//great success.
 		}else if(setupDefaultSettings() != UV_OK){
 			//FAILURE TO EVEN LOAD THE DEFAULTS, THIS CAR IS UNDRIVEABLE
 			__uvInitPanic();
 			return UV_ERROR;
 		}
+
+#ifdef DEBUG
+		printf("Default settings loaded on second attempt\n");
+#endif
 	}
 
+	//Code to force reversion to factory default
 	if(force_flash_rewrite == true){
+#ifdef DEBUG
+		printf("Beginning flash reset\n");
+#endif
+
+
 		void* tmp_sblock = uvMalloc(SETTING_BRANCH_SIZE);
 		if(uvResetFlashToDefault(tmp_sblock)==UV_OK){
 			//Things to do upon success (this thing is somewhat self explanitory
@@ -444,11 +563,19 @@ uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
  */
 uv_status uvUpdateTmpSettings(uint8_t* tmp_settings, uint8_t memgroup, uint8_t m_offset, uint8_t size, uint8_t* data){
 	if(!tmp_settings){
+#ifdef DEBUG_SETTINGS
+	printf("ERROR: NULL TEMP SETTINGS BUFFER\n");
+#endif
+
+
 		return UV_ERROR;
 	}
 
 	if(memgroup > 12){
 		//out of range
+#ifdef DEBUG_SETTINGS
+	printf("ERROR: OUT OF BOUNDS MGROUP\n");
+#endif
 		return UV_ERROR;
 	}
 
@@ -457,13 +584,18 @@ uv_status uvUpdateTmpSettings(uint8_t* tmp_settings, uint8_t memgroup, uint8_t m
 	 * Attempting to write a parameter like this will result in a busfault.
 	 */
 	if(((m_offset + size)%128)<size){
-
+#ifdef DEBUG_SETTINGS
+	printf("ERROR: SETTING CROSSES 128Byte BLOCK BOUNDARY\n");
+#endif
 		return UV_ERROR;
 	}
 
 	//Check for certain illegal combinations of things below:
 	//This first case is to see if it is editing the reserved area of the sblock.
 	if((memgroup == 0)&&(m_offset < 32)){
+#ifdef DEBUG_SETTINGS
+		printf("ERROR: CANNOT OVERWRITE PROGRAM METADATA\n");
+#endif
 		return UV_ERROR;
 	}
 
@@ -474,7 +606,9 @@ uv_status uvUpdateTmpSettings(uint8_t* tmp_settings, uint8_t memgroup, uint8_t m
 	}
 
 
-
+#ifdef DEBUG_SETTINGS
+		printf("Edited setting at address %p\n",(tmp_settings + offset));
+#endif
 	return UV_OK;
 }
 
@@ -620,6 +754,10 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	 *
 	 */
 
+#ifdef DEBUG
+	printf("Writing Program Metadata\n");
+#endif
+
 	*((uint32_t*)(tmp + 0)) = MAGIC_NUMBER; //Identifies that this is in fact a valid S_Block
 	*((uint32_t*)(tmp + 4)) = 0x00000001; //Little reminder for future VCU that the settings were recently changed
 	*((uint16_t*)(tmp + 8)) = 0x1000;
@@ -637,11 +775,20 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 	*((uint8_t*)(tmp + 21)) = sizeof(bms_settings_t);
 	*((uint8_t*)(tmp + 22)) = sizeof(daq_loop_args);
 	*((uint8_t*)(tmp + 23)) = sizeof(daq_msg);
-	*((uint8_t*)(tmp + 24)) = sizeof(output_channel_settings);
+	*((uint8_t*)(tmp + 24)) = (uint8_t)sizeof(conifer_settings);
+	//*((uint8_t*)(tmp + 25)) = (uint8_t)sizeof(conifer_settings);
+	//*((uint8_t*)(tmp + 26)) = (uint8_t)sizeof(conifer_settings);
+	//*((uint8_t*)(tmp + 27)) = (uint8_t)sizeof(conifer_settings);
+
+	*((uint8_t*)(tmp + 28)) = 0x7F;
 
 
 
 	void* addr = FLASH_SBLOCK_START;
+
+#ifdef DEBUG
+	printf("Unlocking Flash\n");
+#endif
 
 	if(HAL_FLASH_Unlock() != HAL_OK){
 		*ecode = FLASH_NOT_UNLOCKED;
@@ -728,6 +875,10 @@ uv_status uvSaveSettingsToFlash(void* sblock, uint32_t* ecode) PRIVILEGED_FUNCTI
 
 	tmp = sblock;
 	addr = START_OF_USER_FLASH;
+
+#ifdef DEBUG
+	printf("Verifying Write Operation\n");
+#endif
 
 	while(addr < TOP_OF_FLASH_SBLOCK){
 		if(*((uint32_t*)tmp) != *((uint32_t*)addr)){
@@ -856,9 +1007,16 @@ uv_status uvSendSpecificParam(uint8_t* origin, uint8_t mgroup, uint8_t m_offset,
 	blank_msg.data[1] = m_offset;
 	blank_msg.dlc = 2 + size;
 
-	uint8_t* ptr = START_OF_USER_FLASH + 256*mgroup + m_offset;
 
-	for(int i = 0; i<4 ;i++){
+
+	uint8_t* ptr = origin + 256*mgroup + m_offset;
+
+#ifdef DEBUG_SETTINGS
+		printf("Sending Specific Parameter With\n");
+		printf("Size: %d Mgroup: %d Offset: %d At Address: %p \n",size,mgroup,m_offset,ptr);
+#endif
+
+	for(int i = 0; i<size ;i++){
 		blank_msg.data[2+i] = *(ptr+i);
 	}
 
@@ -883,6 +1041,11 @@ uv_status uvSendSpecificParam(uint8_t* origin, uint8_t mgroup, uint8_t m_offset,
 uv_status uvValidateFlashSettings(){
 	void* tmp = START_OF_USER_FLASH;
 	if(*((uint32_t*)tmp) != MAGIC_NUMBER){
+#ifdef DEBUG
+		printf("Magic Number Not Found\n");
+#endif
+
+
 		return UV_ERROR;// Nice blank slate
 	}
 
@@ -922,9 +1085,10 @@ uv_status uvValidateFlashSettings(){
 		return UV_ERROR;
 	}
 
-	if(*((uint8_t*)(tmp + 24)) != sizeof(output_channel_settings)){
+	if(*((uint8_t*)(tmp + 24)) != (uint8_t)sizeof(conifer_settings)){
 		return UV_ERROR;
 	}
+
 
 	return UV_OK;
 }
@@ -949,6 +1113,10 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 	uv_CAN_msg tmp_msg; //messages get written into here when
 
+#ifdef DEBUG_SETTINGS
+	printf("Entering Settings Programmer Task:\n");
+#endif
+
 	//Allocates memory for the temporary settings that will be edited
 	void* new_tmp_settings = uvCreateTmpSettingsCopy();
 
@@ -956,6 +1124,10 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 		//Did not create temp settings >:(
 		uvSendCanMSG(&vcu_ack_failed_msg); //Let laptop know of our failures
 	}
+
+#ifdef DEBUG_SETTINGS
+	printf("Created TMP SBLOCK");
+#endif
 
 	ptask_handle = params->task_handle;
 
@@ -998,10 +1170,17 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 		switch(cmd_byte){
 			case SET_SPECIFIC_PARAM ... END_OF_SPECIFIC_PARAMS:
+#ifdef DEBUG_SETTINGS
+	printf("Set specific param message received:\n");
+#endif
 				mgroup = (cmd_byte &(0b00011111));
 				m_offset = tmp_msg.data[1];
 				d_type = tmp_msg.data[2];
 				d_size = data_size[d_type];
+
+#ifdef DEBUG_SETTINGS
+	printf("Mgroup: %d Offset: %d  Variable Size (bytes): %d",mgroup,m_offset,d_size);
+#endif
 
 
 				if(uvUpdateTmpSettings(new_tmp_settings, mgroup, m_offset, d_size, (tmp_msg.data + 3)) == UV_OK){
@@ -1046,6 +1225,10 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				break;
 			case SAVE_AND_APPLY_NEW_SETTINGS:
 				//Save and apply. Hoo boy.
+
+#ifdef DEBUG_SETTINGS
+		printf("Save and Apply Settings Requested\n");
+#endif
 				uint32_t ecode = 0;
 				if(uvSaveSettingsToFlash(new_tmp_settings, &ecode) == UV_OK){
 					//Try once
@@ -1078,9 +1261,16 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 					}
 				}
 
+#ifdef DEBUG_SETTINGS
+		printf("SYSTEM RESET\n");
+#endif
+		uvUtilsReset(0);
 
 				break;
 			case DISCARD_NEW_SETTINGS:
+#ifdef DEBUG_SETTINGS
+		printf("Discarding Temporary Settings\n");
+#endif
 				if(uvFree(new_tmp_settings) == UV_OK){
 					new_tmp_settings = uvCreateTmpSettingsCopy();
 
@@ -1101,18 +1291,35 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 				}
 				break;
 			case DISCARD_NEW_SETTINGS_AND_EXIT:
+#ifdef DEBUG_SETTINGS
+		printf("Discarding and Exiting\n");
+#endif
 
 				//uvFree(new_tmp_settings); //No need to free, this happens in the destructor
 				changeVehicleState(UV_READY);
 				uvSendCanMSG(&vcu_ack_msg);
 				break;
 			case FORCE_RESTORE_FACTORY_DEFAULT:
+#ifdef DEBUG_SETTINGS
+		printf("Reset to Factory Default Requested\n");
+#endif
 
 				if(uvResetFlashToDefault(new_tmp_settings) == UV_OK){
 					//Success
+#ifdef DEBUG_SETTINGS
+		printf("Reset to Factory Default Completed\n");
+#endif
+
+		//TODO: Send ACK MESSAGE
 				}else{
 					//failure
 
+#ifdef DEBUG_SETTINGS
+		printf("Reset to Factory Default Failed\n");
+#endif
+
+
+		//TODO: Send NACK
 				}
 
 
@@ -1164,14 +1371,18 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 
 
 uv_status uvResetFlashToDefault(void* new_sblock){
-
+#ifdef DEBUG
 	printf("RESETTING FLASH TO DEFAULT\n");
+#endif
 	//void* new_sblock = uvMalloc(SETTING_BRANCH_SIZE);
 
 	if(new_sblock == NULL){
 		return UV_ERROR; //definately not ideal
 	}
 
+#ifdef DEBUG
+	printf("Initializing Empty Buffer Slots to 0xFFFFFFFF\n");
+#endif
 	for(int i = 0; i<SETTING_BRANCH_SIZE; i += 4){
 		*((uint32_t*)(new_sblock + i)) = 0xFFFFFFFF;
 	} //Become Zeros
@@ -1179,7 +1390,9 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	*((uint32_t*)(new_sblock)) = MAGIC_NUMBER;
 
 	//uint32_t pdiff = ((uint32_t)new_sblock) - ((uint32_t)START_OF_USER_FLASH);
-
+#ifdef DEBUG
+	printf("Copying Defaults to Temp Buffer\n");
+#endif
 	settingCopy((uint8_t*)(&default_vehicle),new_sblock + GENERAL_VEH_INFO_OFFSET,sizeof(veh_gen_info));
 
 	//OS
@@ -1198,7 +1411,7 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	settingCopy((uint8_t*)(&default_imd_settings),(new_sblock+256*IMD_MGROUP+IMD_OFFSET),sizeof(uv_imd_settings));
 
 	//CONIFER
-	settingCopy((uint8_t*)(&default_conifer_settings),new_sblock + 256*CONIFER_MGROUP + CONIFER_OFFSET,sizeof(output_channel_settings));
+	settingCopy((uint8_t*)(&default_conifer_settings),new_sblock + 256*CONIFER_MGROUP + CONIFER_OFFSET,sizeof(conifer_settings));
 
 
 	//DAQ Head + Meta settings
@@ -1208,14 +1421,23 @@ uv_status uvResetFlashToDefault(void* new_sblock){
 	settingCopy((uint8_t*)(default_datapoints),(new_sblock + 256*DAQ_PARAMS1_MGROUP + DAQ_PARAMS1_OFFSET),sizeof(uv_imd_settings)*default_daq_settings.total_params_logged);
 //	settingCopy(0,0,0);
 //	settingCopy(0,0,0);
-
+#ifdef DEBUG
+	printf("Overwriting Flash\n");
+#endif
 
 	uint32_t ecode = 0;
 	if(uvSaveSettingsToFlash(new_sblock, &ecode) == UV_OK){
+#ifdef DEBUG
+		printf("Saved To Flash in One Attempt\n");
+#endif
 			//Try once
 		return UV_OK;
 		//uvSendCanMSG(&vcu_ack_msg); //report success
 	}else if(uvSaveSettingsToFlash(new_sblock, &ecode) == UV_OK){
+#ifdef DEBUG
+		printf("Saved To Flash in Two Attempts\n");
+#endif
+
 		//Try again
 		///uvSendCanMSG(&vcu_ack_msg);
 		return UV_OK;
@@ -1302,7 +1524,7 @@ void sendAllSettingsWorker(void* args){
 		//Handle this error
 	}else if(uvSendSettingGroup(origin,DAQ_HEAD_MGROUP,DAQ_HEAD_OFFSET,sizeof(daq_loop_args))!=UV_OK){
 		//Handle this error
-	}else if(uvSendSettingGroup(origin,CONIFER_MGROUP,CONIFER_OFFSET,sizeof(output_channel_settings)) != UV_OK){
+	}else if(uvSendSettingGroup(origin,CONIFER_MGROUP,CONIFER_OFFSET,sizeof(conifer_settings)) != UV_OK){
 		//Handle this error
 	}
 

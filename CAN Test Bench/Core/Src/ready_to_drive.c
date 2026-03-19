@@ -12,6 +12,7 @@ void rtdTask(void* args);
 extern uint16_t adc1_BPS1;
 
 uv_status initRTDtask(void* args){
+	(void)args;
 	uv_task_info* rtd_task = uvCreateTask();
 
 		if(rtd_task == NULL){

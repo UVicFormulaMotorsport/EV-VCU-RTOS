@@ -46,12 +46,56 @@
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+void safelyDisableVehicleFromISR();
+uv_status __uvCANtxCritSectionFromISR(uv_CAN_msg* tx_msg);
+abstract_conifer_channel* __manually_get_ch_info(conifer_output_channel ch);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void safelyDisableVehicleFromISR(){
+	uv_CAN_msg msg = {
+		.flags = CAN_BUS_2,
+		.dlc = 1,
+		.msg_id = 0x710
+	};
 
+	abstract_conifer_channel* tmp_ch = __manually_get_ch_info(BAMO_RFE);
+	//Disable RFE
+
+	msg.data[0] = (tmp_ch->hardware_mapping)&0x00FF;
+
+	__uvCANtxCritSectionFromISR(&msg);
+
+
+	tmp_ch = __manually_get_ch_info(HVIL_PWR);
+	//Disable SDC
+	msg.data[0] = (tmp_ch->hardware_mapping)&0x00FF;
+
+	__uvCANtxCritSectionFromISR(&msg);
+
+
+	//NULL TORQUE REQUEST
+	msg.flags = current_vehicle_settings->mc_settings->mc_bus;
+	msg.dlc = 3;
+	msg.msg_id = current_vehicle_settings->mc_settings->can_id_tx;
+	msg.data[0] = M_Set; //0 Torque allowed
+	msg.data[1] = 0x00;
+	msg.data[2] = 0x00;
+
+	__uvCANtxCritSectionFromISR(&msg);
+
+
+	msg.data[0] = 0x51; //Sets to disable the thing
+	msg.data[1] = 0x04;
+	msg.data[2] = 0x00;
+	//Disable MC Manually
+	__uvCANtxCritSectionFromISR(&msg);
+
+	//__uvCANtxCritSectionFromISR(&msg);
+
+	return;
+}
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -78,7 +122,8 @@ extern TIM_HandleTypeDef htim1;
 void NMI_Handler(void)
 {
   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
-
+	safelyDisableVehicleFromISR();
+	vTaskEndScheduler();
   /* USER CODE END NonMaskableInt_IRQn 0 */
   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
   while (1)
@@ -93,7 +138,9 @@ void NMI_Handler(void)
 void HardFault_Handler(void)
 {
   /* USER CODE BEGIN HardFault_IRQn 0 */
-
+	//TURN OF CAR the CAR MUST TURN OFF REPEAT WE NEED TO TURN THE CAR OFF AHH OHH AA EE
+	safelyDisableVehicleFromISR();
+	vTaskEndScheduler();
   /* USER CODE END HardFault_IRQn 0 */
   while (1)
   {
@@ -108,7 +155,8 @@ void HardFault_Handler(void)
 void MemManage_Handler(void)
 {
   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
-
+	safelyDisableVehicleFromISR();
+	vTaskEndScheduler();
   /* USER CODE END MemoryManagement_IRQn 0 */
   while (1)
   {
@@ -123,7 +171,8 @@ void MemManage_Handler(void)
 void BusFault_Handler(void)
 {
   /* USER CODE BEGIN BusFault_IRQn 0 */
-
+	safelyDisableVehicleFromISR();
+	vTaskEndScheduler();
   /* USER CODE END BusFault_IRQn 0 */
   while (1)
   {
@@ -138,7 +187,8 @@ void BusFault_Handler(void)
 void UsageFault_Handler(void)
 {
   /* USER CODE BEGIN UsageFault_IRQn 0 */
-
+	safelyDisableVehicleFromISR();
+	vTaskEndScheduler();
   /* USER CODE END UsageFault_IRQn 0 */
   while (1)
   {
@@ -409,5 +459,7 @@ void CAN2_SCE_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+
 
 /* USER CODE END 1 */

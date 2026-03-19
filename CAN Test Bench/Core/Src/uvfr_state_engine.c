@@ -172,11 +172,17 @@ uv_status uvInitStateEngine(){
 	//create all the managed tasks :)
 	_task_register = uvMalloc(sizeof(uv_task_info)*MAX_NUM_MANAGED_TASKS);
 
-	memset(_task_register,0,sizeof(uv_task_info)*MAX_NUM_MANAGED_TASKS);
+
 
 	if(_task_register == NULL){
 		__uvInitPanic();
 	}
+
+	memset(_task_register,0,sizeof(uv_task_info)*MAX_NUM_MANAGED_TASKS);
+
+#ifdef DEBUG
+		printf("Allocated Task Register\n");
+#endif
 
 	svc_task_manager = uvCreateServiceTask();
 	task_manager = uvCreateServiceTask();
@@ -185,11 +191,40 @@ uv_status uvInitStateEngine(){
 		__uvInitPanic();
 	}
 
-	initDrivingLoop(NULL); //create the main driving loop task
+#ifdef DEBUG
+		printf("Initializing Task Manager and SVC Task Manager\n");
+#endif
+
+#ifdef DEBUG
+		printf("Initializing Driving Loop\n");
+#endif
+	if(initDrivingLoop(NULL)!=UV_OK){
+		//ERROR
+	}
+
+#ifdef DEBUG
+		printf("Initializing Temp Monitor\n");
+#endif
 	initTempMonitor(NULL); //create the temperature monitoring task
+
+#ifdef DEBUG
+		printf("Initializing Daq Task\n");
+#endif
 	initDaqTask(NULL);
+
+#ifdef DEBUG
+		printf("Initializing Odometer\n");
+#endif
 	initOdometer(NULL);
+
+#ifdef DEBUG
+		printf("Initializing Setting Config Daemon\n");
+#endif
 	uvConfigSettingTask(NULL);
+
+#ifdef DEBUG
+		printf("Initializing RTD Task\n");
+#endif
 	initRTDtask(NULL);
 
 
@@ -221,6 +256,9 @@ void uvCrashIntoWall(){
  * the state engine and the background tasks. This unlocks the ability for the vehicle to do basically anything.
  */
 uv_status uvStartStateMachine(){
+#ifdef DEBUG
+		printf("Starting State Machine\n");
+#endif
 
 	os_settings = current_vehicle_settings->os_settings;
 
@@ -894,7 +932,7 @@ void _stateChangeDaemon(void * args) PRIVILEGED_FUNCTION{
 		vTaskDelay(2);
 	}
 
-	SCD_active = true;
+	SCD_active = true; //Poor Man's Mutex
 
 
 	uint32_t task_tracker = 0x00000000;

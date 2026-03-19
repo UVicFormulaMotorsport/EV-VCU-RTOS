@@ -9,8 +9,8 @@
 //#include "task.h"
 //#include "uvfr_utils.h"    // For uvPanic, etc.
 //#include <stdlib.h>
-//#include <string.h>
-//#include <stdio.h>
+#include <string.h>
+#include <stdio.h>
 //#include "uvfr_settings.h"
 //#include "cmsis_os.h"      // For vTaskSuspend
 
@@ -308,9 +308,10 @@ void MC_Request_Data(uint8_t RegID)
  *	Returns UV_OK if it receives one, returns UV_ABORTED if timeout, returns UV_ERROR if something
  *	goes catastrophically wrong.
  */
-uv_status MC_await_param(uint8_t param, TickType_t time_to_wait){
-	TickType_t time_called = xTaskGetTickCount();
-}
+//uv_status MC_await_param(uint8_t param, TickType_t time_to_wait){
+//	TickType_t time_called = xTaskGetTickCount();
+//	return UV_ERROR;
+//}
 
 /**
  * @brief Sends a parameter write command to the motor controller.
@@ -407,18 +408,18 @@ uv_status MC_SetAndVerify_Param(uint8_t reg_id, uint16_t set_val)
  * This example assumes that the data bytes are stored as:
  *   data[0] = LSB, data[3] = MSB.
  */
-void Parse_Bamocar_Response(uv_CAN_msg* msg)
-{
-    if (!msg || msg->dlc < 4) {
-        uvPanic("Invalid motor controller response", 0);
-        return;
-    }
-    uint32_t val = (uint32_t)((msg->data[3] << 24) |
-                              (msg->data[2] << 16) |
-                              (msg->data[1] << 8)  |
-                               msg->data[0]);
-    //printf("Parsed 32-bit LE value: 0x%08X\n", val);
-}
+//void Parse_Bamocar_Response(uv_CAN_msg* msg)
+//{
+//    if (!msg || msg->dlc < 4) {
+//        uvPanic("Invalid motor controller response", 0);
+//        return;
+//    }
+//    uint32_t val = (uint32_t)((msg->data[3] << 24) |
+//                              (msg->data[2] << 16) |
+//                              (msg->data[1] << 8)  |
+//                               msg->data[0]);
+//    //printf("Parsed 32-bit LE value: 0x%08X\n", val);
+//}
 
 void MC_setErrorMask(uint16_t new_mask){
 	mc_error_mask = new_mask;
@@ -466,7 +467,7 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
         uvPanic("Mains Voltage Below Minimum Limit", 0);
     }
     if (errors & motor_temp_max_limit) {
-        //uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
+        uvPanic("Motor Temperature Exceeded Maximum Limit", 0);
     }
     if (errors & IGBT_temp_max_limit) {
         uvPanic("IGBT Temperature Exceeded Maximum Limit", 0);
@@ -537,7 +538,7 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
         case N_actual: { // SPEED_ACTUAL (0x30)
             if (msg->dlc >= 3) {
                 int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
-                mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500);
+                mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500); //Slightly smaller now
                 //2457.5 RPM / 6500 RPM) * 32767
                 //mc_speed_rpm = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
 
@@ -896,9 +897,9 @@ void MC_Shutdown(void)
         // 2. Set speed or torque to zero
         // Use one of these depending on your control mode:
         // --- If using speed mode:
-        MC_Set_Param(0x31, 0x0000);  // N_set = 0
+        //MC_Set_Param(0x31, 0x0000);  // N_set = 0
         // --- If using torque mode (comment out one or the other):
-        // uint16_t sendTorqueToMotorController(0.0f);
+        sendTorqueToMotorController(0.0f);
 
         vTaskDelay(pdMS_TO_TICKS(10));
 

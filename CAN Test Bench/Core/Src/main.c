@@ -40,6 +40,7 @@
 #include "motor_controller.h"
 #include "pdu.h"
 #include "../FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h"
+#include <stdio.h>
 
 
 /* USER CODE END Includes */
@@ -209,28 +210,10 @@ int main(void)
 
   vTaskStartScheduler();
 
-    //Update_Batt_Temp(69); // temp debugging
-
-
-  while (1) //we should deadass never reach this point in the code lol
-  {
-	  // For debugging purposes
-	  HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
-
-
-	  // into string and store in dma_result_buffer character array
-	  Update_RPM(adc1_APPS1);
-	  HAL_Delay(1000);
-	  Update_RPM(adc1_APPS2);
-	  HAL_Delay(1000);
+  //We only get here if for whatever god forsaken reason somebody calls vTaskEndScheduler();
 
 
 
-
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
   /* USER CODE END 3 */
 }
 

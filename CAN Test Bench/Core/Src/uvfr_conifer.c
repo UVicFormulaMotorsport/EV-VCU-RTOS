@@ -53,6 +53,15 @@ uv_status (*fbck_getters[8]) (abstract_conifer_channel*, uint32_t*) = {0,0,0,0,0
 
 //typedef enum uv_status_t uv_status;
 
+/** @brief
+ *  @warning PLEASE DO NOT JUST BE CALLING THIS. THIS IS MEANT TO BE HIDDEN. ONLY CALL FROM ERROR ISRS
+ *
+ */
+abstract_conifer_channel* __manually_get_ch_info(conifer_output_channel ch){
+	return &(ch_table[ch]);
+
+}
+
 /** @brief Generates the default channel list at runtime, because this is less painful than trying to statically declare it
  *
  */
