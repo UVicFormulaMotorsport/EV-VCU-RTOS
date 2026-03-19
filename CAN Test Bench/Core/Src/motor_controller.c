@@ -598,6 +598,7 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
         case motor_temperature:	{	//0x49: motor temperature
             //mc_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
             int16_t raw_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+            lookupMotorTemp(raw_motor_temp, &mc_motor_temp);
             //mc_motor_temp = (int16_t)((float)raw_m_temp / 204.8f);
 
             /* * T-MOTOR
@@ -608,8 +609,9 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
              * where 32000 represents approximately 156.25°C based off the graph cited below
              * * Citation: "Analog Temperature VdcBus Manual",.
              */
-            mc_motor_temp = (int16_t)((float)raw_motor_temp / 204.8f);
+            //mc_motor_temp = (int16_t)((float)raw_motor_temp / 204.8f);
             //int16_t tMotorMapped = (int16_t)raw_motor_temp; // Direct mapping to 0..32000 range
+
 
             break;
         }
@@ -638,6 +640,53 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
     }
 }
 
+/**
+ * @brief Approximate KTY81 motor temperature lookup from Bamocar raw value.
+ *
+ * Converts the raw Bamocar motor temperature register value into an
+ * approximate human-readable temperature in °C using a lookup table
+ * derived from the KTY81 graph.
+ *
+ * @param raw_motor_temp  Raw motor temperature register value from Bamocar.
+ * @param result          Pointer to output temperature in °C.
+ */
+void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
+{
+    static const int16_t temp_c[] = {
+        -30, -20, -10,   0,  10,  20,  25,  30,  40,  50,
+         60,  70,  80,  90, 100, 110, 120, 130, 140, 150
+    };
+
+    static const int16_t raw_units[] = {
+         4700, 5200, 5700, 6200, 6700, 7200, 7500, 7800, 8400, 9000,
+         9600,10200,10800,11400,12000,12600,13200,13800,14400,15000
+    };
+
+    const int lut_len = sizeof(temp_c) / sizeof(temp_c[0]);
+
+    if (raw_motor_temp <= raw_units[0]) {
+        *result = temp_c[0];
+        return;
+    }
+
+    if (raw_motor_temp >= raw_units[lut_len - 1]) {
+        *result = temp_c[lut_len - 1];
+        return;
+    }
+
+    for (int i = 0; i < lut_len - 1; i++) {
+        if (raw_motor_temp < raw_units[i + 1]) {
+            float slope = ((float)(temp_c[i + 1] - temp_c[i])) /
+                          ((float)(raw_units[i + 1] - raw_units[i]));
+
+            *result = (int16_t)(temp_c[i] +
+                                slope * (raw_motor_temp - raw_units[i]));
+            return;
+        }
+    }
+
+    *result = temp_c[lut_len - 1];
+}
 /**
  * IGBT (POWER STAGE) TEMPERATURE - VOID VERSION
  * @brief Non-linear lookup for IGBT Temp
