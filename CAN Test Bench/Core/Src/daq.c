@@ -55,20 +55,35 @@ daq_loop_args default_daq_settings = {
 	.daq_child_priority = 1
 };
 
+// All messages here will be in CAN2, because dash has the ability to read direct from CAN1.
 daq_msg default_datapoints[] ={
+	// ADC Values for pedal position
 	{.can_id = 0x530,
 	.param = {APPS1_ADC_VAL,APPS2_ADC_VAL,BPS1_ADC_VAL,BPS2_ADC_VAL},
 	.period = 50,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
 
+	// Percent values for accel/brake pedal position
+	// these will be displayed on dash
+	{.can_id = 0x531,
+	.param = {APPS_PERCENT, BPS_PERCENT, INV_DAQ_P, INV_DAQ_P},
+	.period = 50,
+	.type = {UV_UINT16, UV_UINT16,0, 0}},
 
-
+	// Uptime, vehicle state (diff to driving mode?)
 	{.can_id = 0x540,
 	.param = {VCU_CURRENT_UPTIME,VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P},
 	.period = 250,
-	.type = {UV_UINT32,UV_UINT16,0,0}},
+	.type = {UV_UINT32,UV_UINT16,0,0}}, // where to find each datatype again?
 
+	// start adding in here
 	{.can_id = 0x541,
+	.param = {VEH_DISTANCE_RUN, VEH_DISTANCE_TOTAL, VEH_SPEED, VEH_DRIVE_MODE},
+	.period = 250,
+	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
+
+	// OS telemetry
+	{.can_id = 0x542,
 	.param = {OS_AVAILABLE_HEAP,OS_MIN_EVER_FREE_BYTES,INV_DAQ_P,INV_DAQ_P},
 	.period = 250,
 	.type = {UV_UINT32,UV_UINT32,0,0}},
