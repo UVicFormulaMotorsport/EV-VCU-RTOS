@@ -217,7 +217,7 @@ driving_loop_args default_dl_settings =
 			    },
 
 			    [1] = {
-			    	.dm_name = "Cool Exponent2",
+			    	.dm_name = "Cooler then your EX",
 			        .control_map_fn = DL_MAP_EXP,
 					.kVal = 0.5,
 					.max_acc_pwr = 1000,
@@ -954,7 +954,30 @@ static inline float dl_getOmegaRadS(int16_t rpm)
 static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* dl, const drivingMode* dm)
 {
     omega_rad_s = fabsf(omega_rad_s);
-    uint32_t max_pwr = (dl->absolute_max_acc_pwr > dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
+
+    /* OLD BEHAVIOR (kept as fallback/reference)
+     * This selected min(global, mode) but later returned torque using GLOBAL only.
+     */
+    //uint32_t max_pwr = (dl->absolute_max_acc_pwr > dm->max_acc_pwr)? dm->max_acc_pwr : dl->absolute_max_acc_pwr;
+
+    /* NEW BEHAVIOR
+     * 0 means disabled for each source.
+     * - only global enabled -> use global
+     * - only mode enabled   -> use mode
+     * - both enabled        -> use stricter (minimum)
+     * - both disabled       -> no cap from this source
+     */
+    uint32_t global_pwr = dl->absolute_max_acc_pwr;
+    uint32_t mode_pwr = (dm != NULL) ? dm->max_acc_pwr : 0u;
+    uint32_t max_pwr = 0u;
+
+    if (global_pwr == 0u) {
+        max_pwr = mode_pwr;
+    } else if (mode_pwr == 0u) {
+        max_pwr = global_pwr;
+    } else {
+        max_pwr = (global_pwr < mode_pwr) ? global_pwr : mode_pwr;
+    }
 #ifdef DEBUG_DL
     dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf, "Power Limit:",max_pwr,0,"W");
 #endif
@@ -962,7 +985,11 @@ static float torqueCapFromAbsPower(float omega_rad_s, const driving_loop_args* d
     if (omega_rad_s < 10.0f) return 1e9f;          // avoid divide-by-zero region
     if (max_pwr == 0u) return 1e9f; // disabled
 
-    return ((float)dl->absolute_max_acc_pwr) / omega_rad_s; // [Nm]
+    /* OLD BEHAVIOR (kept as fallback/reference)
+     * return ((float)dl->absolute_max_acc_pwr) / omega_rad_s;
+     */
+
+    return ((float)max_pwr) / omega_rad_s; // [Nm]
 }
 
 
@@ -1001,10 +1028,15 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl, const drivingM
         return dl_clampf(T_allow, 0.0f, (float)dl->absolute_max_motor_torque);
     }
 
-    // 1) Absolute pack power cap (config constant)
-    if (dl->absolute_max_acc_pwr > 0u) {
-//        float T_absP = ((float)dl->absolute_max_acc_pwr) / omega; // [Nm]
-//        T_allow = fminf(T_allow, T_absP);
+        // 1) Absolute/mode pack power cap (whichever is enabled, stricter wins)
+        {
+        /* OLD BEHAVIOR (kept as fallback/reference)
+         * if (dl->absolute_max_acc_pwr > 0u) {
+         *     float T_absP = torqueCapFromAbsPower(omega, dl, dm);
+         *     T_allow = fminf(T_allow, T_absP);
+         * }
+         */
+
         float T_absP = torqueCapFromAbsPower(omega, dl, dm); //Takes into account dmode max power
 
 #ifdef DEBUG_DL

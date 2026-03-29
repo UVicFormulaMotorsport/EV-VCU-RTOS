@@ -447,8 +447,11 @@ float xToY_if(LUT_if_t* lut,int32_t x){
 		}else if(extrap == LUT_EXTRAPOLATE_LINEAR){
 			int32_t dx = X[n-1] - X[n-2];
 			float dy = Y[n-1] - Y[n-2];
-			float m = dy/dx;
-			return (Y[0] + m*(x - X[n-1]));
+			if(dx == 0){
+				return Y[n-1];
+			}
+			float m = dy/((float)dx);
+			return (Y[n-1] + m*(x - X[n-1]));
 		}else{
 			return 0;
 		}
@@ -458,14 +461,26 @@ float xToY_if(LUT_if_t* lut,int32_t x){
 
 	switch(interp){
 	case LUT_LINTERP:
-		break;
+		for(int i = 0; i < (n - 1); i++){
+			if(x <= X[i + 1]){
+				int32_t dx = X[i + 1] - X[i];
+				if(dx == 0){
+					return Y[i];
+				}
+
+				float dy = Y[i + 1] - Y[i];
+				float m = dy/((float)dx);
+				return (Y[i] + m*(x - X[i]));
+			}
+		}
+
+		return Y[n - 1];
 
 	case LUT_SPLINE:
-		break;
+		return 0;
 	default:
-		break;
+		return 0;
 	}
-	return 0;
 }
 
 float xToY_ff(LUT_ff_t* lut,float x){

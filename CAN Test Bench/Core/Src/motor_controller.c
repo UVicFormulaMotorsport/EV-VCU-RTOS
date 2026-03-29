@@ -653,40 +653,96 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
  */
 void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
 {
-    static const int16_t temp_c[] = {
+    /*
+     * LUT maps Bamocar raw motor-temperature register units -> degC.
+     *
+     * x-axis  (raw_units): raw ADC-like units from the inverter register.
+     * y-axis  (temp_c)   : human-readable temperature in degrees Celsius.
+     *
+     * Keep both arrays in the same order and with matching indices.
+     * Example: raw_units[i] corresponds to temp_c[i].
+     */
+    static float temp_c[] = {
         -30, -20, -10,   0,  10,  20,  25,  30,  40,  50,
          60,  70,  80,  90, 100, 110, 120, 130, 140, 150
     };
 
-    static const int16_t raw_units[] = {
+    static int32_t raw_units[] = {
          4700, 5200, 5700, 6200, 6700, 7200, 7500, 7800, 8400, 9000,
          9600,10200,10800,11400,12000,12600,13200,13800,14400,15000
     };
 
-    const int lut_len = sizeof(temp_c) / sizeof(temp_c[0]);
+        /*
+        * FALLBACK (OLD BEHAVIOR, NO DATA-PROCESSING DEPENDENCY)
+        * -------------------------------------------------------
+        * Keep this block as a quick rollback/reference path.
+        *
+        * To use it:
+        * 1) Comment out the LUT_if_t/xToY_if call below.
+        * 2) Uncomment this block.
+        */
+        //{
+        //    const int lut_len = (int)(sizeof(temp_c) / sizeof(temp_c[0]));
+        //
+        //    if (raw_motor_temp <= raw_units[0]) {
+        //        *result = (int16_t)temp_c[0];
+        //        return;
+        //    }
+        //
+        //    if (raw_motor_temp >= raw_units[lut_len - 1]) {
+        //        *result = (int16_t)temp_c[lut_len - 1];
+        //        return;
+        //    }
+        //
+        //    for (int i = 0; i < lut_len - 1; i++) {
+        //        if (raw_motor_temp < raw_units[i + 1]) {
+        //            float slope = ((float)(temp_c[i + 1] - temp_c[i])) /
+        //                          ((float)(raw_units[i + 1] - raw_units[i]));
+        //
+        //            *result = (int16_t)(temp_c[i] +
+        //                                slope * (raw_motor_temp - raw_units[i]));
+        //            return;
+        //        }
+        //    }
+        //
+        //    *result = (int16_t)temp_c[lut_len - 1];
+        //    return;
+        //}
 
-    if (raw_motor_temp <= raw_units[0]) {
-        *result = temp_c[0];
+    /* Output pointer check so callers can safely pass through error paths. */
+    if (result == NULL) {
         return;
     }
 
-    if (raw_motor_temp >= raw_units[lut_len - 1]) {
-        *result = temp_c[lut_len - 1];
+    /*
+     * Build a LUT_if_t so this function uses the shared data-processing module
+     * instead of carrying a custom interpolation implementation locally.
+     *
+     * Flags:
+     * - LUT_LINTERP: linear interpolation between points.
+     * - LUT_CAP_AT_MAX_MIN: clamp outside table instead of extrapolating.
+     */
+    static LUT_if_t motor_temp_lut = {
+        .x = raw_units,
+        .y = temp_c,
+        .n = (uint8_t)(sizeof(raw_units) / sizeof(raw_units[0])),
+        .flags = (LUT_LINTERP | LUT_CAP_AT_MAX_MIN)
+    };
+
+    /*
+     * Validate LUT once per call path to catch malformed table edits.
+     * If validation fails, output a safe fallback value and return.
+     */
+    if (validateLUT_if(&motor_temp_lut) != UV_OK) {
+        *result = 0;
         return;
     }
 
-    for (int i = 0; i < lut_len - 1; i++) {
-        if (raw_motor_temp < raw_units[i + 1]) {
-            float slope = ((float)(temp_c[i + 1] - temp_c[i])) /
-                          ((float)(raw_units[i + 1] - raw_units[i]));
-
-            *result = (int16_t)(temp_c[i] +
-                                slope * (raw_motor_temp - raw_units[i]));
-            return;
-        }
-    }
-
-    *result = temp_c[lut_len - 1];
+    /*
+     * xToY_if performs clamping + interpolation according to LUT flags.
+     * Cast back to int16_t because mc_motor_temp is stored as integer degC.
+     */
+    *result = (int16_t)xToY_if(&motor_temp_lut, (int32_t)raw_motor_temp);
 }
 /**
  * IGBT (POWER STAGE) TEMPERATURE - VOID VERSION
@@ -706,8 +762,6 @@ void lookupIgbtTemp(int16_t T_deg, int16_t* result) {
         *result = (int16_t)temps[31];
         return;
     }
-
-    // Explicitly declare 'int i' to avoid redefinition errors in RTOS tasks
     for (int i = 0; i < 31; i++) {
         if (T_deg < units[i + 1]) {
             float slope = (temps[i + 1] - temps[i]) / (float)(units[i + 1] - units[i]);
