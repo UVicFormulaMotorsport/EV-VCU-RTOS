@@ -36,16 +36,18 @@ typedef enum{
 	VEH_LAPNUM,
 	VEH_SPEED,
 		VEH_DRIVE_MODE, // 1, 2, 3 represents drive mode
-	MOTOR_RPM, /**< RPM as reported by motor controller */
-	MOTOR_TEMP, /**< Motor Temp as reported by motor controller */
+		MOTOR_RPM, /**< RPM as reported by motor controller */
+		MOTOR_TORQUE, /**< Torque requested from motor reported by motor controller */
 	MOTOR_CURRENT, /**< Motor Phase currents as reported by motor controller */
 	MC_VOLTAGE, /**< Pack voltage as measured by motor_controller*/
 	MC_CURRENT, /**< Pack current as measured by motor_controller*/
 	MC_TEMP, /**< Motor controller temperature*/
 	MC_ERRORS, /**< Motor controller errors bitfield*/
+	// BMS is on CAN1
 	BMS_CURRENT, /**< Pack current measured by BMS*/
 	BMS_VOLTAGE, /**< Pack voltage as measured by BMS*/
 	BMS_ERRORS, /**< Error codes in BMS*/
+	//
 	MAX_CELL_TEMP, /**< Max Temperature of a cell from BMS */
 	MIN_CELL_TEMP, /**< Min Temperature of a cell*/
 	AVG_CELL_TEMP,/**< Average Cell Temp*/
@@ -76,7 +78,7 @@ typedef enum{
 		IMD_CN_NF,
 		IMD_TEMP_RAW,
 	SUS_DAMPER_FL,
-	SUS_DUMPER_FR,
+	SUS_DAMPER_FR,
 	SUS_DAMPER_RL,
 	SUS_DAMPER_RR,
 	WSS_FR,

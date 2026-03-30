@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include "uvfr_settings.h"
 #include "cmsis_os.h"      // For vTaskSuspend
+#include "daq.h" 		   // for dash
 
 extern uv_vehicle_settings* current_vehicle_settings;
 extern QueueHandle_t CAN_Rx_Queue;
@@ -31,11 +32,19 @@ int16_t mc_current = 0;
 int16_t mc_torque_cmd = 0;
 int16_t mc_motor_temp = 0;
 int16_t mc_igbt_temp = 0;
+uint16_t mc_errors = 0;
+
 
 //Masks between errors and warnings
 uint16_t mc_error_mask = 0;
 uint16_t mc_warning_mask = 0;
 
+//for daq.c and dash functions
+
+uint16_t mc_rpm = (uint16_t)mc_speed_rpm;
+uint16_t mc_torque_request = (uint16_t)mc_torque_cmd;
+uint16_t mc_temps = (uint16_t)mc_motor_temp;
+uint16_t mc_err = (uint16_t)mc_errors;
 
 
 /* Global default settings variable defined here.
@@ -482,6 +491,11 @@ void MC_Startup(void* args)
 {
 	//toggle pin
     //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+
+	associateDaqParamWithVar(MOTOR_RPM, &mc_rpm);
+	associateDaqParamWithVar(MOTOR_TEMP, &mc_temps);
+	associateDaqParamWithVar(MC_ERRORS, &mc_err);
+	associateDaqParamWithVar(MOTOR_TORQUE, &mc_torque_request);
 
 	MC_setErrorMask(mains_voltage_min_limit|rotate_field_enable_not_present_run);
 

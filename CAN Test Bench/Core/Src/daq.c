@@ -48,7 +48,7 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 3,
+	.total_params_logged = 6, // CHANGE THIS!!!!!!!!!!!!!!!!!
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = CAN_BUS_2,
@@ -62,6 +62,7 @@ daq_msg default_datapoints[] ={
 	.param = {APPS1_ADC_VAL,APPS2_ADC_VAL,BPS1_ADC_VAL,BPS2_ADC_VAL},
 	.period = 50,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
+	// Logged for telem purposes
 
 	// Percent values for accel/brake pedal position
 	// these will be displayed on dash
@@ -69,18 +70,27 @@ daq_msg default_datapoints[] ={
 	.param = {APPS_PERCENT, BPS_PERCENT, INV_DAQ_P, INV_DAQ_P},
 	.period = 50,
 	.type = {UV_UINT16, UV_UINT16,0, 0}},
+	//displayed
 
-	// Uptime, vehicle state (diff to driving mode?)
+	//ADC Values for suspension
+	{.can_id = 0x532,
+	.param = {SUS_DAMPER_FR, SUS_DAMPER_FL, SUS_DAMPER_RR, SUS_DAMPER_RL},
+	.period = 50,
+	.type = {UV_UINT16, UV_UINT16,0, 0}},
+
+	// Uptime, vehicle state (UV_ERROR, UV_PANIC, etc)
 	{.can_id = 0x540,
 	.param = {VCU_CURRENT_UPTIME,VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P},
 	.period = 250,
 	.type = {UV_UINT32,UV_UINT16,0,0}}, // where to find each datatype again?
+	// Logged for syncing with VCU internal time
 
-	// start adding in here
+	// Vehicle distance telem
 	{.can_id = 0x541,
 	.param = {VEH_DISTANCE_RUN, VEH_DISTANCE_TOTAL, VEH_SPEED, VEH_DRIVE_MODE},
 	.period = 250,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
+	// How is vehicle speed defined and how is it different to motor speed?
 
 	// OS telemetry
 	{.can_id = 0x542,
@@ -88,7 +98,14 @@ daq_msg default_datapoints[] ={
 	.period = 250,
 	.type = {UV_UINT32,UV_UINT32,0,0}},
 
-
+	// Motor/motor controller telems
+	{.can_id = 0x543,
+	.param = {MOTOR_RPM,MOTOR_TEMP,MOTOR_TORQUE,INV_DAQ_P},
+	.period = 250,
+	.type = {UV_UINT16,UV_UINT16,UV_UINT16,0}},
+	// These used int16_t variables in motor_controller.c
+	// typecasted into unsigned 16 bits, then associated in Motor_startup
+	// Not sure if this is the right way to go about this
 
 
 };

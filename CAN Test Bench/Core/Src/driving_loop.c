@@ -49,6 +49,9 @@ static TickType_t last_input_change_time = 0;
 static float last_throttle_percent = 0.0f;
 static float last_brake_percent = 0.0f;
 
+uint16_t throttle_percent_i = 0;
+uint16_t brake_percent_i = 0;
+
 #define TORQUE_DECAY_STEP 2.5f //// Nm per loop step (adjust as needed)
 #define THROTTLE_ZERO_THRESHOLD 0.01f // // Below this % throttle, we consider "off"
 static bool sent_zero_torque = false; //// Track if we already dropped torque to 0
@@ -317,6 +320,9 @@ void StartDrivingLoop(void * argument){
 			//Compute throttle %
 			float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value);
 			float brake_percent = calculateBrakePercentage(bps1_value);
+
+			throttle_percent_i = (uint16_t) throttle_percent;
+			brake_percent_i = (uint16_t) brake_percent;
 
 
 			// ---------------------- not used atm
