@@ -31,7 +31,12 @@
 #define USE_OS_MEM_MGMT 0
 #endif
 
+#ifdef DEBUG
+#define IGNORE_BRAKE
+#define IGNORE_BMS
+/*spicy debug*/
 
+#endif
 
 
 #endif /* INC_UVFR_GLOBAL_CONFIG_H_ */

@@ -660,8 +660,24 @@ void processADCBuffer(uint8_t adc) {
 	case 1:
 		adc1_APPS1 = adc_buf1[0]; //These are the locations for the sensor inputs for APPS and BPS
 		adc1_APPS2 = adc_buf1[1];
+
+
+		/* Ignore brake DEBUG*/
+#ifdef IGNORE_BRAKE
+		if (vehicle_state = UV_READY){
+			adc1_BPS1 = 300;
+			adc1_BPS2 = 300;
+		}
+		else {
+			adc1_BPS1 = 50;
+			adc1_BPS2 = 50;
+		}
+
+
+#else
 		adc1_BPS1  = adc_buf1[2];
 		adc1_BPS2  = adc_buf1[3];
+#endif
 		adc1_pack_curr = adc_buf1[4];
 		break;
 	case 2:
