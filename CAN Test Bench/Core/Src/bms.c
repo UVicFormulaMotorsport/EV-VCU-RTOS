@@ -17,7 +17,24 @@
 // 0x6B0
 // 0x6B1
 
-volatile bms_state_t g_bms_state = {0};
+
+
+#ifdef IGNORE_BMS
+	volatile bms_state_t g_bms_state = {
+			.pack_current_dA = 0, // 0.1 A units
+			.pack_voltage_dV = 4790, // 0.1 V units
+			.soc_pct = 60, // 0-100%
+			.relayState = 1,
+			.msg1corrupt = 0, //checksum
+
+			.dcl_dA = 110// 0.1 A max discharge current limit
+			.min_cell_temp = 22, // celsius
+			.max_cell_temp = 26, // celsius
+			.msg2corrupt = 0,// checksum
+	};
+#else
+	volatile bms_state_t g_bms_state = {0};
+#endif
 
 #define curr_bms_settings (*(current_vehicle_settings->bms_settings))
 
