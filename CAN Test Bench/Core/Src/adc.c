@@ -700,15 +700,19 @@ void processADCBuffer(uint8_t adc) {
 
 }
 
-
+/** Initializes the ADC task
+ *
+ */
 void initADCTask(void) {
+	//TODO: Change this to give state engine observability of ADC
+
     BaseType_t result = xTaskCreate(
         StartADCTask,         // Task function
         "ADC Task",           // Name for debugging
         128,                  // Stack size (adjust if needed)
         NULL,                 // No args
         osPriorityAboveNormal, // Priority
-        NULL                  // No task handle needed
+        NULL                  // No task handle needed -- EVIL
     );
 
     if (result != pdPASS) {

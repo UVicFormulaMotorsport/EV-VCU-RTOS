@@ -48,6 +48,7 @@ typedef struct linear_torque_map_args
 {
     int32_t offset;  /**< output offset (units depend on implementation) */
     float   slope;   /**< gain (units depend on implementation) */
+    uint32_t reserved[2];
 } linear_torque_map_args;
 
 /** @brief Adaptive map parameters
@@ -59,29 +60,33 @@ typedef struct adaptive_torque_map_args
     float   base_slope;     /**< baseline slope */
     int32_t offset;         /**< output offset */ //4
 
+    float    coast_p_low;       /**< [0..1] p_co at low speed (bigger dead/coast zone) */ //8
+    float    coast_p_high;      /**< [0..1] p_co at higher speed (smaller coast zone) */ //12
+
     /* Softening at speed (optional) */
-    float    soften_gain;   /**< 0..1 fraction to reduce at high speed */ //8
-    uint16_t soften_rpm;    /**< start softening above this rpm */ //12
+    float    soften_gain;   /**< 0..1 fraction to reduce at high speed */ //16
+    uint16_t soften_rpm;    /**< start softening above this rpm */ //20
 
 
     /* Optional clamp helpers */
-    uint16_t max_rpm;       /**< clamp behavior near max rpm */ //14
-    uint16_t rpm_fade; //rpm_fade defines the speed where torque = 50% of requested value
+    uint16_t max_rpm;       /**< clamp behavior near max rpm */ //22
+    uint16_t rpm_fade; //rpm_fade defines the speed where torque = 50% of requested value //24
 
-    uint16_t coast_rpm_start;   /**< [rpm] below this, coasting window is largest */
-    uint16_t coast_rpm_end;     /**< [rpm] above this, coasting window is smallest */
-    float    coast_p_low;       /**< [0..1] p_co at low speed (bigger dead/coast zone) */
-    float    coast_p_high;      /**< [0..1] p_co at higher speed (smaller coast zone) */
-    //16
+    uint16_t coast_rpm_start;   /**< [rpm] below this, coasting window is largest */ //26
+    uint16_t coast_rpm_end;     /**< [rpm] above this, coasting window is smallest */ //28
+
+    uint16_t buffer_16b; //30
+    //32 bytes total
 } adaptive_torque_map_args;
 
 typedef struct scurve_map_args{
-	uint32_t dummy;
+	uint32_t dummy[4];
 
 }scurve_map_args;
 
 typedef struct exponential_map_args{
 	float s;
+	uint32_t dummy[3];
 
 }exponential_map_args;
 
@@ -92,6 +97,14 @@ typedef union drivingModeParams
     exponential_map_args exp;
     scurve_map_args scurve;
 } drivingModeParams;
+
+typedef enum drivingModeFlags{
+	DM_EN_REGEN = (0x01U<<0),
+	DM_EN_TIPIN_CONTROL = (0x01U<<1),
+	DM_EN_HS_SOFTENING = (0x01U<<2),
+	DM_EN_TC = (0x01U<<3),
+	DM_LUDICROUS_MODE = (0x01U<<4)
+}drivingModeFlags;
 
 /* ============================================================================
  * Driving Modes (per-mode caps + map selection)
@@ -105,19 +118,21 @@ typedef struct drivingMode
     uint32_t max_motor_torque;   /**< mode torque cap [Nm] (0 = disabled) */ //20
     //uint32_t max_current;        /**< mode current cap [A] (0 = disabled) */ //24
 
-    float kVal;					 /**< mode K value for filtering */
+    float kVal;					 /**< mode K value for filtering */ //28
 
     /* 16-bit fields */
-    uint16_t flags; //28
-    uint16_t reserved16b; //30 - maintains bit alignment
+    uint16_t flags; //32
+    uint16_t reserved16b; //34 - maintains bit alignment
 
     /* map selection */
-    dl_map_mode_t control_map_fn;  /**< which mapping mode to use */ //32
+    uint32_t control_map_fn;  /**< which mapping mode to use */ //32
 
-    adaptive_torque_map_args adaptive_settings;
-
+    adaptive_torque_map_args adaptive_settings; //Starts on byte 36
+    //lasts until byte 68
     /* union last */
+
     drivingModeParams map_fn_params; /**< parameters for the selected map */ //36
+    //last till byte 84
 } drivingMode;
 
 typedef enum dmode_flags{
@@ -219,9 +234,11 @@ typedef struct driving_loop_args
     uint8_t reserved8b_1; //135
 	//136
 
+    uint8_t reserved[36]; //gets us to 172, allows generous futureproofing
     /* ========================= Arrays / structs ========================= */
 
-    drivingMode dmodes[4];                // Per-mode caps + map params
+    //dmodes are 84 bytes each
+    drivingMode dmodes[4];                // Per-mode caps + map params //uses upto byte 252 of the 2nd mgroup
 
 } driving_loop_args;
 

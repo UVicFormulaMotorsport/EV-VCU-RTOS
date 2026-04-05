@@ -48,7 +48,7 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 3,
+	.total_params_logged = 4,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = CAN_BUS_2,
@@ -61,7 +61,10 @@ daq_msg default_datapoints[] ={
 	.period = 50,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
 
-
+	{.can_id = 0x531,
+	.param = {MOTOR_RPM, APPS_PERCENT, BPS_PERCENT, INV_DAQ_P},
+	.period = 50,
+	.type = {UV_UINT16,UV_UINT16,UV_UINT16,0}},
 
 	{.can_id = 0x540,
 	.param = {VCU_CURRENT_UPTIME,VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P},
@@ -329,13 +332,13 @@ void daqMasterTask(void* args){
 	//TickType_t last_time = xTaskGetTickCount();		/**@endcode */
 	for(;;){
 		if(params->cmd_data == UV_KILL_CMD){
-			//stopDaqSubTasks();
+			stopDaqSubTasks();
 
 			killSelf(params);
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
-			//stopDaqSubTasks();
+			stopDaqSubTasks();
 
-			//suspendSelf(params);
+			suspendSelf(params);
 		}
 		uvTaskDelay(params,params->task_period);
 	}

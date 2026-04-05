@@ -101,7 +101,7 @@ driving_loop_args default_dl_settings =
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
 
     /* HARD PHYSICAL LIMITS */
-    .absolute_max_acc_pwr       = 2000,   // [W] placeholder bring-up
+    .absolute_max_acc_pwr       = 4000,   // [W] placeholder bring-up
     .absolute_max_motor_torque  = 75,  // [Nm]
     .absolute_max_accum_current = 200,  // [A]
     .max_accum_current_5s       = 200,  // [A]
@@ -352,6 +352,8 @@ enum uv_status_t initDrivingLoop(void *argument)
     (void)argument;
     extern int16_t mc_speed_rpm;
 
+    dmode_mutex = xSemaphoreCreateMutex();
+
     // Associate DAQ parameters with live ADC variables (ADC counts)
     associateDaqParamWithVar(APPS1_ADC_VAL, &adc1_APPS1); // [ADC counts]
     associateDaqParamWithVar(APPS2_ADC_VAL, &adc1_APPS2); // [ADC counts]
@@ -382,6 +384,17 @@ enum uv_status_t initDrivingLoop(void *argument)
     dl_task->task_args   = NULL;
 
     return UV_OK;
+}
+
+uv_status cycleDmode(){
+	if(dmode_mutex == NULL){
+		return UV_ERROR;
+	}
+
+	if(xSemaphoreTake(dmode_mutex,2) == pdTRUE){
+		__current_dmode = (__current_dmode + 1)%(current_vehicle_settings->driving_loop_settings->num_driving_modes);
+		xSemaphoreGive(dmode_mutex);
+	}
 }
 
 // -----------------------------------------------------------------------------
@@ -1008,6 +1021,8 @@ void StartDrivingLoop(void *argument)
 {
     uv_task_info* params = (uv_task_info*)argument; // [ptr task metadata]
 
+    xSemaphoreTake(dmode_mutex,2);
+
     DL_internal_state_t dl_status = Plausible;   // [enum] plausibility state
 
     // Active driving-loop parameters (flash-configurable)
@@ -1037,8 +1052,11 @@ void StartDrivingLoop(void *argument)
         // Task control (kill/suspend)
         if (params->cmd_data == UV_KILL_CMD) {
         	uvDeEnergizeTractiveSystem();
+        	xSemaphoreGive(dmode_mutex);
             killSelf(params);
         } else if (params->cmd_data == UV_SUSPEND_CMD) {
+        	uvDeEnergizeTractiveSystem();
+        	xSemaphoreGive(dmode_mutex);
             suspendSelf(params);
         }
 
