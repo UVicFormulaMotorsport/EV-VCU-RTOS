@@ -664,13 +664,13 @@ void processADCBuffer(uint8_t adc) {
 
 		/* Ignore brake DEBUG*/
 #ifdef IGNORE_BRAKE
-		if (vehicle_state = UV_READY){
-			adc1_BPS1 = 300;
-			adc1_BPS2 = 300;
+		if (vehicle_state == UV_READY){
+			adc1_BPS1 = 800;
+			adc1_BPS2 = 800;
 		}
 		else {
-			adc1_BPS1 = 50;
-			adc1_BPS2 = 50;
+			adc1_BPS1 = 300;
+			adc1_BPS2 = 300;
 		}
 
 

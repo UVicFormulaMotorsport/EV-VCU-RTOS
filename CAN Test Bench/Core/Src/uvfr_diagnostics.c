@@ -10,6 +10,7 @@
 #include "imd.h"
 
 extern HeapStats_t xHeapStats;
+//TaskStatus_t task_stats[MAX_NUM_MANAGED_TASKS+5];
 
 //#define DEBUG_PORT_GENERAL 0
 //#define DEBUG_PORT_OS 1
@@ -18,6 +19,8 @@ extern HeapStats_t xHeapStats;
 //#define DEBUG_PORT_CONIFER 4
 //#define DEBUG_PORT_STATE_ENGINE 5
 //#define DEBUG_PORT_CSV 6
+
+#define DEBUG_LOG_TASK_RUNTIME_STATS
 
 typedef struct{
 	uint32_t port;
@@ -207,8 +210,12 @@ void dispVehicleStatusReport(){
 void uvBackgroundDiagnosticsDaemon(void* args){
 	uv_task_info* params = (uv_task_info*) args;
 	int k = 0;
+	UBaseType_t n_active_tasks = 0;
+
 	for(;;){
 		vTaskDelay(100);
+
+
 
 #ifdef DEBUG
 	if(k%10 == 0){

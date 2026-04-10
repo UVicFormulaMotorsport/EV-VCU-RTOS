@@ -101,9 +101,9 @@ driving_loop_args default_dl_settings =
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
 
     /* HARD PHYSICAL LIMITS */
-    .absolute_max_acc_pwr       = 4000,   // [W] placeholder bring-up
-    .absolute_max_motor_torque  = 75,  // [Nm]
-    .absolute_max_accum_current = 200,  // [A]
+    .absolute_max_acc_pwr       = 75000,   // [W] placeholder bring-up
+    .absolute_max_motor_torque  = 140,  // [Nm]
+    .absolute_max_accum_current = 100,  // [A]
     .max_accum_current_5s       = 200,  // [A]
     .absolute_max_motor_rpm     = 6500, // [RPM]
     .regen_rpm_cutoff           = 1000, // [RPM]
@@ -122,19 +122,19 @@ driving_loop_args default_dl_settings =
     .max_apps_offset  = 0, // [ADC counts]
     .min_apps_value   = 0, // [ADC counts]
 
-    .apps1_abs_min_val = 0x0200, // [ADC counts]
+    .apps1_abs_min_val = 0x0020, // [ADC counts]
     .apps1_abs_max_val = 0x10C4, // [ADC counts]
-    .apps2_abs_min_val = 0x0202, // [ADC counts]
+    .apps2_abs_min_val = 0x0000, // [ADC counts]
     .apps2_abs_max_val = 0x1029, // [ADC counts]
 
     .min_BPS_value = 0x00F0, // [ADC counts]
     .max_BPS_value = 0x0B7E, // [ADC counts]
 
     /* APPS / BPS SCALING */
-    .apps1_top    = 2300, //0x09F9, // [ADC counts] 100% throttle
-    .apps1_bottom = 1550, // [ADC counts] 0% throttle
-    .apps2_top    = 1712, // [ADC counts] 100% throttle
-    .apps2_bottom = 977, // [ADC counts] 0% throttle
+    .apps1_top    = 2000, //0x09F9, // [ADC counts] 100% throttle
+    .apps1_bottom = 450, // [ADC counts] 0% throttle
+    .apps2_top    = 1500, // [ADC counts] 100% throttle
+    .apps2_bottom = 5, // [ADC counts] 0% throttle
 
     /* PLAUSIBILITY & SAFETY */
     .apps_plausibility_check_threshold       = 30,  // [%] allowed APPS mismatch
@@ -191,8 +191,8 @@ driving_loop_args default_dl_settings =
 			    	.dm_name = "Cool Exponent1",
 			        .control_map_fn = DL_MAP_EXP,
 					.kVal = 0.75,
-					.max_acc_pwr = 2000,
-					.max_motor_torque = 70,
+					.max_acc_pwr = 5000,
+					.max_motor_torque = 100,
 					.adaptive_settings = {
 							.soften_gain = 0, //0.20f,
 							.soften_rpm  = 4500,

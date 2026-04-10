@@ -97,6 +97,22 @@ extern "C" {
 #endif
 
 #include "mpu_wrappers.h"
+#include "stm32f4xx_hal.h"
+
+#ifndef portCONFIGURE_TIMER_FOR_RUN_TIME_STATS
+#define portCONFIGURE_TIMER_FOR_RUN_TIME_STATS();
+#endif
+
+#ifndef portGET_RUN_TIME_COUNTER_VALUE
+#ifndef TIM_IMPLEMENTATION
+	extern TIM_HandleTypeDef htim5;
+#endif
+
+#define portGET_RUN_TIME_COUNTER_VALUE() __HAL_TIM_GET_COUNTER(&htim5)
+
+#endif
+
+
 
 /*
  * Setup the stack of a new task so it is ready to be placed under the

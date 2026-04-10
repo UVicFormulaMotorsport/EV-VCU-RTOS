@@ -27,7 +27,7 @@
 			.relayState = 1,
 			.msg1corrupt = 0, //checksum
 
-			.dcl_dA = 110// 0.1 A max discharge current limit
+			.dcl_dA = 110,// 0.1 A max discharge current limit
 			.min_cell_temp = 22, // celsius
 			.max_cell_temp = 26, // celsius
 			.msg2corrupt = 0,// checksum

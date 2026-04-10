@@ -34,7 +34,7 @@
 
 // TODO: pick the real bus the IMD is wired to
 #ifndef IMD_CAN_BUS
-#define IMD_CAN_BUS CAN_BUS_1
+#define IMD_CAN_BUS CAN_BUS_2
 #endif
 
 // Requests are 1 byte: MUX only

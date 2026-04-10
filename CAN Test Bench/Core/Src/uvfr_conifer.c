@@ -99,10 +99,10 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	n++;
 
 	//DASH + Steering wheel
-//	__ch_list[n].ch = DASH_PWR;
-//	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_10;
-//	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
-//	n++;
+	__ch_list[n].ch = DASH_PWR;
+	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_10;
+	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
+	n++;
 
 	//VCU
 	__ch_list[n].ch = VCU_PWR;
@@ -148,7 +148,7 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 
 	//SDC ORIGIN
 	__ch_list[n].ch = HVIL_PWR;
-	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_10;
+	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_16;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
 

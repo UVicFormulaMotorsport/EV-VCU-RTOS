@@ -89,6 +89,7 @@ uv_status uvEnergizeTractiveSystem(){
 		//It is likely a result of something being unplugged, BMS faults should be noticeable, possibly the BSPD is the issue?
 		//IDRK what this might be a result of
 		//uvOpenSDC();
+		coniferDisChannel(HORN);
 		return UV_ERROR;
 	}
 
@@ -105,6 +106,7 @@ uv_status uvEnergizeTractiveSystem(){
 	if(coniferEnChannel(BAMO_RFE)!=UV_OK){
 		//ERROR
 		uvPanic("RFE ERR",0);
+		coniferDisChannel(HORN);
 	}
 
 	vTaskDelay(75); //I made this number up ngl
@@ -114,6 +116,7 @@ uv_status uvEnergizeTractiveSystem(){
 		vTaskDelay(10);
 		(void) uvOpenSDC();
 		uvPanic("RUN ERR",0);
+		coniferDisChannel(HORN);
 	}
 
 	vTaskDelay(15);
@@ -121,6 +124,7 @@ uv_status uvEnergizeTractiveSystem(){
 	//Re-enable motor controller OC/UC errors
 
 	MC_setErrorMask(0);//Enable all MC ERRORs
+	coniferDisChannel(HORN);
 	return UV_OK;
 
 }

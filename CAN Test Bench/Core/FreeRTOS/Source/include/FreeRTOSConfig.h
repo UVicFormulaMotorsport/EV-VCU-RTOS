@@ -37,6 +37,7 @@
 #define configENABLE_BACKWARD_COMPATIBILITY      0
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION  1
 #define configRECORD_STACK_HIGH_ADDRESS          1
+#define configGENERATE_RUN_TIME_STATS			 1
 /* USER CODE BEGIN MESSAGE_BUFFER_LENGTH_TYPE */
 
 #define configCHECK_FOR_STACK_OVERFLOW 			 2
@@ -78,6 +79,8 @@ to exclude the API function. */
 #define INCLUDE_eTaskGetState                1
 #define INCLUDE_xTaskAbortDelay              1
 #define INCLUDE_xTaskGetHandle               1
+
+
 
 /* Cortex-M specific definitions. */
 #ifdef __NVIC_PRIO_BITS

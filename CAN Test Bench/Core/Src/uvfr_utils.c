@@ -321,7 +321,7 @@ void uvInit(void * arguments){
 #ifdef DEBUG
 		printf("Transitioning to READY state\n");
 #endif
-			if(changeVehicleState(UV_READY) == UV_OK){
+			if(changeVehicleState(UV_READY) != UV_ERROR){
 				break;
 			}else{
 				uvPanic("Unable To Change State to Ready",0);
@@ -365,14 +365,24 @@ void uvInit(void * arguments){
 
 	}
 
+#ifdef DEBUG
+		printf("EN SDC RELAY BOARD\n");
+#endif
+
 	if(coniferEnChannel(SDC_BOARD_PWR)!=UV_OK){
 		uvPanic("SDCB_PWR_EN_FAIL",0);
 	}
 	//vQueueDelete(init_validation_queue);
 	//HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_15);
+
+#ifdef DEBUG
+		printf("Delete Init Task\n");
+#endif
 	vTaskDelete(init_task_handle);
 	//return;
-
+	for(;;){
+		vTaskDelay(1000);//Should not get here but if does, then just allow this to occur
+	}
 }
 
 void uvSysResetDaemon(void* args){
