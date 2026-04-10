@@ -74,6 +74,11 @@ extern volatile bms_state_t g_bms_state;
 #define msg2corrupt 0
 
 // -----------------------------------------------------------------------------
+// Throttle/Brake pct values (global)
+// -----------------------------------------------------------------------------
+uint8_t g_throttle_percent = 0.0f;
+uint8_t g_brake_percent = 0.0f;
+// -----------------------------------------------------------------------------
 // Driving loop settings
 // -----------------------------------------------------------------------------
 driving_loop_args* driving_args = NULL;  // [ptr] active DL settings
@@ -361,6 +366,9 @@ enum uv_status_t initDrivingLoop(void *argument)
     associateDaqParamWithVar(BPS2_ADC_VAL,  &adc1_BPS2);  // [ADC counts]
 
     associateDaqParamWithVar(MOTOR_RPM, &mc_speed_rpm);
+
+    associateDaqParamWithVar(THROTTLE_PCT, &g_throttle_percent);
+    associateDaqParamWithVar(BRAKE_PCT, &g_brake_percent);
 
     uv_task_info* dl_task = uvCreateTask(); // [ptr]
     if (dl_task == NULL) {
@@ -1082,7 +1090,10 @@ void StartDrivingLoop(void *argument)
         float T_filtered = 0.0f; // [Nm]
 
         float throttle_percent = calculateThrottlePercentage(apps1_value, apps2_value); // [%]
-        float brake_percent    = calculateBrakePercentage(bps1_value);                  // [%]
+        float brake_percent    = calculateBrakePercentage(bps1_value);  // [%]
+
+        g_throttle_percent = (uint8_t)throttle_percent;
+        g_brake_percent    = (uint8_t)brake_percent;
 
 
         //This code is responsible for exiting driving mode, and reverting to ready state
