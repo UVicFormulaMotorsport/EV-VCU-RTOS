@@ -193,7 +193,7 @@ driving_loop_args default_dl_settings =
 	 */
 	.dmodes = {
 			    [0] = {
-			    	.dm_name = "Cool Exponent1",
+			    	.dm_name = "BenchSpin",
 			        .control_map_fn = DL_MAP_EXP,
 					.kVal = 0.75,
 					.max_acc_pwr = 5000,
@@ -222,11 +222,11 @@ driving_loop_args default_dl_settings =
 			    },
 
 			    [1] = {
-			    	.dm_name = "Cool Exponent2",
+			    	.dm_name = "FirstTrack",
 			        .control_map_fn = DL_MAP_EXP,
 					.kVal = 0.5,
-					.max_acc_pwr = 1000,
-					.max_motor_torque = 30,
+					.max_acc_pwr = 20000,
+					.max_motor_torque = 100,
 					.adaptive_settings = {
 							.soften_gain = 0, //0.20f,
 							.soften_rpm  = 4500,
@@ -240,7 +240,7 @@ driving_loop_args default_dl_settings =
 
 					},
 					.map_fn_params.exp = {
-							.s = 0.67f,
+							.s = 1.25f,
 					},
 			    },
 
@@ -562,6 +562,10 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
         f = (3.0f * x * x) - (2.0f * x * x * x);
     }
 
+#ifdef DEBUG_DL
+    dl_cur_printbuf += sprint_fixed_d(dl_cur_printbuf, "DL Power Proportion:",f*1000,3,"");
+#endif
+
     /* =======================================================================
      * STEP 2: OPtional Adaptive Low-Speed Fade
      * Research Paper equation:
@@ -650,7 +654,8 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
     }
 
     /* Final safety clamp to allowed torque ceiling */
-    return dl_clampf(T_req, 0.0f, T_max);
+    float retval = dl_clampf(T_req, 0.0f, T_max);
+    return retval;
 }
 
 // -----------------------------------------------------------------------------
@@ -1040,7 +1045,11 @@ void StartDrivingLoop(void *argument)
     // Period handling
     TickType_t tick_period = pdMS_TO_TICKS(params->task_period); // [RTOS ticks] from [ms]
     TickType_t last_time   = xTaskGetTickCount();                // [RTOS ticks]
-    last_driver_input_time = last_time;                          // [RTOS ticks]
+    last_driver_input_time = last_time;
+    // [RTOS ticks]
+
+    //brakelight status
+    uint8_t bl_on = 0;
 
 #ifdef DEBUG
     //uint32_t exec_time_us = 0;
@@ -1094,6 +1103,15 @@ void StartDrivingLoop(void *argument)
 
         g_throttle_percent = (uint8_t)throttle_percent;
         g_brake_percent    = (uint8_t)brake_percent;
+
+
+        if((brake_percent > 10) && (bl_on == 0)){
+        	coniferEnChannel(BRAKE_LIGHT);
+        	bl_on = 1;
+        }else if((brake_percent < 8) && (bl_on == 1)){
+        	coniferDisChannel(BRAKE_LIGHT);
+        	bl_on = 0;
+        }
 
 
         //This code is responsible for exiting driving mode, and reverting to ready state

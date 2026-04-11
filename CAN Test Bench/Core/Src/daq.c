@@ -62,7 +62,7 @@ daq_msg default_datapoints[] ={
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
 
 	{.can_id = 0x531,
-	.param = {MOTOR_RPM, APPS_PERCENT, BPS_PERCENT, INV_DAQ_P},
+	.param = {MOTOR_RPM, THROTTLE_PCT, BRAKE_PCT, INV_DAQ_P},
 	.period = 50,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,0}},
 

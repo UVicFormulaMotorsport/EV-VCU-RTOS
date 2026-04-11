@@ -46,6 +46,8 @@ uv_status initRTDtask(void* args){
 void rtdTask(void* args){
 	uv_task_info* params = (uv_task_info*)args;
 
+	uint8_t bl_on = 0;
+
 	while(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
 		vTaskDelay(10);
 	}
@@ -66,6 +68,14 @@ void rtdTask(void* args){
 		//Are they pushing the start button?
 
 		float brake_percent = calculateBrakePercentage(adc1_BPS1);
+
+		if((brake_percent > 10) && (bl_on == 0)){
+			coniferEnChannel(BRAKE_LIGHT);
+			bl_on = 1;
+		}else if((brake_percent < 8) && bl_on == 1){
+			coniferDisChannel(BRAKE_LIGHT);
+			bl_on = 0;
+		}
 
 		if((HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0))&&(brake_percent > 10.0)){
 			vTaskDelay(10);

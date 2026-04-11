@@ -56,7 +56,7 @@ motor_controller_settings mc_default_settings = {
 
     // Scaled values (normalized to 32767)
 	//TODO: make these values unscaled, in units
-    .max_speed              = 12357,   // (2457.5 RPM / 6500 RPM) * 32767
+    .max_speed              = 32767,   // (2457.5 RPM / 6500 RPM) * 32767
     .max_current            = 2600,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
     .cont_current           = 7864,    // (60 A / 250 A) * 32767
