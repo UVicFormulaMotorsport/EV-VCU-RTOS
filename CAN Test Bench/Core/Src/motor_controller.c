@@ -56,8 +56,8 @@ motor_controller_settings mc_default_settings = {
 
     // Scaled values (normalized to 32767)
 	//TODO: make these values unscaled, in units
-    .max_speed              = 32767,   // (2457.5 RPM / 6500 RPM) * 32767
-    .max_current            = 2600,   // DIG CURRENT LIMIT (100 A / 250 A) * 32767
+    .max_speed              = 32767, //12357,   // (2457.5 RPM / 6500 RPM) * 32767
+    .max_current            = 19516, //2600,   // 140 Nm --> I = T / kt = 140 / 0.94 = 148.9 A --> DIG CURRENT LIMIT (148.9 A / 250 A) * 32767 = 19516
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
     .cont_current           = 7864,    // (60 A / 250 A) * 32767
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
@@ -535,7 +535,7 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
     externalDeviceRxHandler(MOTOR_CONTROLLER);
 
     switch (reg_id) {
-        case N_actual:  // SPEED_ACTUAL (0x30)
+        case N_actual: { // SPEED_ACTUAL (0x30)
             if (msg->dlc >= 3) {
                 int16_t speed = (int16_t)((msg->data[2] << 8) | msg->data[1]);
                 mc_speed_rpm = (int16_t)(((float)speed/32767.0f)*6500); //Slightly smaller now
@@ -544,13 +544,21 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
 
             }
             break;
+        }
 
-        case CURRENT_ACTUAL:  // 0x31: 16-bit, little-endian
+        case CURRENT_ACTUAL:{  // 0x31: 16-bit, little-endian
             if (msg->dlc >= 3) {
                 int16_t current_raw = (int16_t)((msg->data[2] << 8) | msg->data[1]);
-                mc_current = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+                //mc_current = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+                /* CURRENT SCALING (Amps)
+                * Logic: (raw_value / 32767) * I_fullscale_arms
+                 * Based on your settings: I_fs_arms = 250
+                  */
+                 float I_fs_arms = (float)mc_settings->iq_fullscale_arms;
+                 mc_current = (int16_t)((float)current_raw * (I_fs_arms / 32767.0f));
             }
             break;
+        }
 
         //case LOGIMAP_ERRORS:  // 0x82: error bitfield, little-endian
 //        case motor_controller_errors_warnings:
@@ -559,13 +567,14 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
 //            }
 //            break;
 
-        case LOGIMAP_IO:  // 0x83: I/O status, 16-bit, little-endian
+        case LOGIMAP_IO: { // 0x83: I/O status, 16-bit, little-endian
             if (msg->dlc >= 3) {
                 uint16_t io_flags = (uint16_t)((msg->data[2] << 8) | msg->data[1]);
             }
             break;
+        }
 
-        case POS_ACTUAL:  // 0x86: 32-bit value, little-endian
+        case POS_ACTUAL: { // 0x86: 32-bit value, little-endian
             if (msg->dlc >= 5) {
                 int32_t pos = (int32_t)((msg->data[4] << 24) |
                                         (msg->data[3] << 16) |
@@ -573,28 +582,192 @@ void ProcessMotorControllerResponse(uv_CAN_msg* msg)
                                          msg->data[1]);
             }
             break;
+        }
 
-        case motor_controller_errors_warnings:
+        case motor_controller_errors_warnings:{
             // For error/warning responses using this register, assume a 16-bit field
             if (msg->dlc >= 3) {
                 MotorControllerErrorHandler_16bitLE(&msg->data[1], 2);
             }
             break;
-        case M_out:		//0xA0: actual active current scaled
+        }
+        case M_out:	{	//0xA0: actual active current scaled
             mc_torque_cmd = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
             break;
+        }
 
-        case motor_temperature:		//0x49: motor temperature
-            mc_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+        case motor_temperature:	{	//0x49: motor temperature
+            //mc_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+            int16_t raw_motor_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+            lookupMotorTemp(raw_motor_temp, &mc_motor_temp);
+            //mc_motor_temp = (int16_t)((float)raw_m_temp / 204.8f);
+
+            /* * T-MOTOR
+             * Mapping: 0 to 32000 Num
+             * Logic: Based on the "Analog Temperature VdcBus Manual", the motor
+             * temperature (using a KTY81-210 sensor
+             * To convert this to Celsius, a linear factor of 204.8 is applied,
+             * where 32000 represents approximately 156.25°C based off the graph cited below
+             * * Citation: "Analog Temperature VdcBus Manual",.
+             */
+            //mc_motor_temp = (int16_t)((float)raw_motor_temp / 204.8f);
+            //int16_t tMotorMapped = (int16_t)raw_motor_temp; // Direct mapping to 0..32000 range
+
+
             break;
+        }
 
-        case igbt_temperature:		//0x4A: igbt temperature
-            mc_igbt_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+        case igbt_temperature: {	//0x4A: igbt temperature
+            //mc_igbt_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]); //cyclic
+            int16_t raw_igbt_temp = (int16_t)((msg->data[2] << 8) | msg->data[1]);
+
+            /* * IGBT (POWER STAGE) TEMPERATURE SCALING
+             * Target Mapping: 0 to 32767 Num (REGID 0x4A)
+             * Logic: The IGBTs use internal NTC sensors that follow a non-linear curve
+             * specific to the Bamocar hardware.
+             * * Citation: "Bamocar D3 Manual", Section 6.2 Power Stages - Temperature.
+             * Reference Table (examples from manual):
+             * 125°C = 28480 | 100°C = 26702 | 25°C = 18797
+             */
+            // Pass the address of the global mc_igbt_temp to be updated
+            lookupIgbtTemp(raw_igbt_temp, &mc_igbt_temp);
             break;
+        }
 
-        default:
+        default: {
             // Handle other responses as needed or call a default parser.
             break;
+        }
+    }
+}
+
+/**
+ * @brief Approximate KTY81 motor temperature lookup from Bamocar raw value.
+ *
+ * Converts the raw Bamocar motor temperature register value into an
+ * approximate human-readable temperature in °C using a lookup table
+ * derived from the KTY81 graph.
+ *
+ * @param raw_motor_temp  Raw motor temperature register value from Bamocar.
+ * @param result          Pointer to output temperature in °C.
+ */
+void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
+{
+    /*
+     * LUT maps Bamocar raw motor-temperature register units -> degC.
+     *
+     * x-axis  (raw_units): raw ADC-like units from the inverter register.
+     * y-axis  (temp_c)   : human-readable temperature in degrees Celsius.
+     *
+     * Keep both arrays in the same order and with matching indices.
+     * Example: raw_units[i] corresponds to temp_c[i].
+     */
+    static float temp_c[] = {
+        -30, -20, -10,   0,  10,  20,  25,  30,  40,  50,
+         60,  70,  80,  90, 100, 110, 120, 130, 140, 150
+    };
+
+    static int32_t raw_units[] = {
+         4700, 5200, 5700, 6200, 6700, 7200, 7500, 7800, 8400, 9000,
+         9600,10200,10800,11400,12000,12600,13200,13800,14400,15000
+    };
+
+        /*
+        * FALLBACK (OLD BEHAVIOR, NO DATA-PROCESSING DEPENDENCY)
+        * -------------------------------------------------------
+        * Keep this block as a quick rollback/reference path.
+        *
+        * To use it:
+        * 1) Comment out the LUT_if_t/xToY_if call below.
+        * 2) Uncomment this block.
+        */
+        //{
+        //    const int lut_len = (int)(sizeof(temp_c) / sizeof(temp_c[0]));
+        //
+        //    if (raw_motor_temp <= raw_units[0]) {
+        //        *result = (int16_t)temp_c[0];
+        //        return;
+        //    }
+        //
+        //    if (raw_motor_temp >= raw_units[lut_len - 1]) {
+        //        *result = (int16_t)temp_c[lut_len - 1];
+        //        return;
+        //    }
+        //
+        //    for (int i = 0; i < lut_len - 1; i++) {
+        //        if (raw_motor_temp < raw_units[i + 1]) {
+        //            float slope = ((float)(temp_c[i + 1] - temp_c[i])) /
+        //                          ((float)(raw_units[i + 1] - raw_units[i]));
+        //
+        //            *result = (int16_t)(temp_c[i] +
+        //                                slope * (raw_motor_temp - raw_units[i]));
+        //            return;
+        //        }
+        //    }
+        //
+        //    *result = (int16_t)temp_c[lut_len - 1];
+        //    return;
+        //}
+
+    /* Output pointer check so callers can safely pass through error paths. */
+    if (result == NULL) {
+        return;
+    }
+
+    /*
+     * Build a LUT_if_t so this function uses the shared data-processing module
+     * instead of carrying a custom interpolation implementation locally.
+     *
+     * Flags:
+     * - LUT_LINTERP: linear interpolation between points.
+     * - LUT_CAP_AT_MAX_MIN: clamp outside table instead of extrapolating.
+     */
+    static LUT_if_t motor_temp_lut = {
+        .x = raw_units,
+        .y = temp_c,
+        .n = (uint8_t)(sizeof(raw_units) / sizeof(raw_units[0])),
+        .flags = (LUT_LINTERP | LUT_CAP_AT_MAX_MIN)
+    };
+
+    /*
+     * Validate LUT once per call path to catch malformed table edits.
+     * If validation fails, output a safe fallback value and return.
+     */
+    if (validateLUT_if(&motor_temp_lut) != UV_OK) {
+        *result = 0;
+        return;
+    }
+
+    /*
+     * xToY_if performs clamping + interpolation according to LUT flags.
+     * Cast back to int16_t because mc_motor_temp is stored as integer degC.
+     */
+    *result = (int16_t)xToY_if(&motor_temp_lut, (int32_t)raw_motor_temp);
+}
+/**
+ * IGBT (POWER STAGE) TEMPERATURE - VOID VERSION
+ * @brief Non-linear lookup for IGBT Temp
+ * Citation: "Bamocar D3 Manual", Section 6.2 Power Stages
+ */
+void lookupIgbtTemp(int16_t T_deg, int16_t* result) {
+    // static const: Keeps tables in Flash memory (important for RTOS memory management)
+    static const float temps[]   = { -30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125 };
+    static const int16_t units[] = { 16308, 16387, 16487, 16609, 16757, 16938, 17151, 17400, 17688, 18017, 18387, 18797, 19247, 19733, 20250, 20793, 21357, 21933, 22515, 23097, 23671, 24232, 24775, 25296, 25792, 26261, 26702, 27114, 27497, 27851, 28179, 28480 };
+
+    if (T_deg <= units[0]) {
+        *result = (int16_t)temps[0];
+        return;
+    }
+    if (T_deg >= units[31]) {
+        *result = (int16_t)temps[31];
+        return;
+    }
+    for (int i = 0; i < 31; i++) {
+        if (T_deg < units[i + 1]) {
+            float slope = (temps[i + 1] - temps[i]) / (float)(units[i + 1] - units[i]);
+            *result = (int16_t)(temps[i] + slope * (T_deg - units[i]));
+            return;
+        }
     }
 }
 
