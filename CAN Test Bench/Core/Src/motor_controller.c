@@ -725,7 +725,8 @@ void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
     static LUT_if_t motor_temp_lut = {
         .x = raw_units,
         .y = temp_c,
-        .n = (uint8_t)(sizeof(raw_units) / sizeof(raw_units[0])),
+        //.n = (uint8_t)(sizeof(raw_units) / sizeof(raw_units[0])), - BUG - sizeof(raw_units is size of pointer)
+		.n = 20,
         .flags = (LUT_LINTERP | LUT_CAP_AT_MAX_MIN)
     };
 
@@ -762,6 +763,8 @@ void lookupIgbtTemp(int16_t T_deg, int16_t* result) {
         *result = (int16_t)temps[31];
         return;
     }
+
+    //TODO use dataprocessing LUT dependency to decrease executable size
     for (int i = 0; i < 31; i++) {
         if (T_deg < units[i + 1]) {
             float slope = (temps[i + 1] - temps[i]) / (float)(units[i + 1] - units[i]);
