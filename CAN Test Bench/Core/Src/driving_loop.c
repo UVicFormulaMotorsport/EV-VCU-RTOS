@@ -100,9 +100,12 @@ driving_loop_args default_dl_settings =
     .torque_rate_down_nm_per_s = 1e9f,  // [Nm/s]
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
 
-    /* HARD PHYSICAL LIMITS */
-    .absolute_max_acc_pwr       = 2000,   // [W] placeholder bring-up
-    .absolute_max_motor_torque  = 75,  // [Nm]
+    /* HARD PHYSICAL LIMITS (SYSTEM MAXIMA)
+     * These are global hard limits for the whole car.
+     * Active operating ceilings are computed later as min(global limit, mode limit, BMS limit).
+     */
+    .absolute_max_acc_pwr       = 80000, // [W] global system max power cap
+    .absolute_max_motor_torque  = 230,   // [Nm] global system max torque cap
     .absolute_max_accum_current = 200,  // [A]
     .max_accum_current_5s       = 200,  // [A]
     .absolute_max_motor_rpm     = 6500, // [RPM]
@@ -186,82 +189,73 @@ driving_loop_args default_dl_settings =
 	 *                   high → faster torque response
 	 * =============================================================================
 	 */
-	.dmodes = {
-			    [0] = {
-			    	.dm_name = "Cool Exponent1",
-			        .control_map_fn = DL_MAP_EXP,
-					.kVal = 0.75,
-					.max_acc_pwr = 2000,
-					.max_motor_torque = 70,
-					.adaptive_settings = {
-							.soften_gain = 0, //0.20f,
-							.soften_rpm  = 4500,
-							.max_rpm     = 6500,
-							.offset      = 0,
-							.base_slope = 1.0f,  // if you actually use it
-							.coast_rpm_start = 0,
-							.coast_rpm_end   = 6000,      // coast shrinks by ~600 rpm
-							.coast_p_low     = 0.03f,     // 3% pedal is coast at standstill
-							.coast_p_high    = 0.02f,     // 2% once rolling
+    .dmodes = {
+                [0] = {
+                	.dm_name = "Cool EXP 1",
+                .control_map_fn = DL_MAP_EXP,
+                    .kVal = 0.85f,
+                    .max_acc_pwr = 80000,      // [W] mode operating ceiling (active cap uses min(global, mode))
+                    .max_motor_torque = 220,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
+                    .adaptive_settings = {
+                            .soften_gain = 0.08f,
+                            .soften_rpm  = 5200,
+                            .max_rpm     = 6500,
+                            .offset      = 0,
+                            .base_slope  = 1.0f, // currently unused by active map code (reserved for future shaping)
+                            .coast_rpm_start = 0,
+                            .coast_rpm_end   = 700,
+                            .coast_p_low     = 0.01f,
+                            .coast_p_high    = 0.00f,
+                    },
+                    .map_fn_params.exp = {
+                        .s = 0.90f, // exponent used by EXP map: f(x) = x^s
+                    },
+            },
 
-					},
+                [1] = {
+                	.dm_name = "Cooler then your EX",
+                .control_map_fn = DL_MAP_EXP,
+                    .kVal = 0.60f,
+                    .max_acc_pwr = 55000,      // [W] mode operating ceiling (active cap uses min(global, mode))
+                    .max_motor_torque = 160,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
+                    .adaptive_settings = {
+                            .soften_gain = 0.20f,
+                            .soften_rpm  = 4800,
+                            .max_rpm     = 6500,
+                            .offset      = 0,
+                            .base_slope  = 1.0f, // currently unused by active map code (reserved for future shaping)
+                            .coast_rpm_start = 0,
+                            .coast_rpm_end   = 1400,
+                            .coast_p_low     = 0.03f,
+                            .coast_p_high    = 0.015f,
+                    },
+                    .map_fn_params.exp = {
+                        .s = 1.20f, // exponent used by EXP map: f(x) = x^s
+                    },
+            },
 
+                [2] = {
+                	.dm_name = "THE CUBE",
+                	.control_map_fn = DL_MAP_CUBIC,
+                    .kVal = 0.45f,
+                    .max_acc_pwr = 30000,      // [W] mode operating ceiling (active cap uses min(global, mode))
+                    .max_motor_torque = 100,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
+                    .adaptive_settings = {
+                        .soften_gain = 0.35f,
+                        .soften_rpm  = 4200,
+                        .max_rpm     = 6500,
+                        .offset      = 0,
+                        .base_slope  = 1.0f, // currently unused by active map code (reserved for future shaping)
+                        .coast_rpm_start = 0,
+                        .coast_rpm_end   = 2200,
+                        .coast_p_low     = 0.05f,
+                        .coast_p_high    = 0.025f,
+                    },
+                    .map_fn_params.exp = {
+                        .s = 1.5f, // ignored in CUBIC mode; only used when control_map_fn = DL_MAP_EXP
+                    },
 
-
-					.map_fn_params.exp = {
-						.s = 1.2f,
-					},
-			        // optional caps
-			        //.max_motor_torque = 230,
-			        //.max_acc_pwr      = 0,
-			    },
-
-			    [1] = {
-			    	.dm_name = "Cooler then your EX",
-			        .control_map_fn = DL_MAP_EXP,
-					.kVal = 0.5,
-					.max_acc_pwr = 1000,
-					.max_motor_torque = 30,
-					.adaptive_settings = {
-							.soften_gain = 0, //0.20f,
-							.soften_rpm  = 4500,
-							.max_rpm     = 6500,
-							.offset      = 0,
-							.base_slope = 1.0f,  // if you actually use it
-							.coast_rpm_start = 10,
-							.coast_rpm_end   = 1200,      // coast shrinks by ~1200 rpm
-							.coast_p_low     = 0.03f,     // 3% pedal is coast at standstill
-							.coast_p_high    = 0.02f,     // 2% once rolling
-
-					},
-					.map_fn_params.exp = {
-							.s = 0.67f,
-					},
-			    },
-
-			    [2] = {
-			    	.dm_name = "The CUBE",
-			    	.control_map_fn = DL_MAP_CUBIC,
-					.kVal = 0.5,
-					.max_acc_pwr = 750,
-					.max_motor_torque = 30,
-					.adaptive_settings = {
-						.soften_gain = 0, //0.20f,
-						.soften_rpm  = 4500,
-						.max_rpm     = 6500,
-						.offset      = 0,
-						.base_slope = 1.0f,  // if you actually use it
-						.coast_rpm_start = 0,
-						.coast_rpm_end   = 1800,      // coast shrinks by ~1800 rpm
-						.coast_p_low     = 0.05f,     // 5% coast at standstill
-						.coast_p_high    = 0.03f,     // 3% once rolling
-
-					},
-					.map_fn_params.exp = {
-						.s = 1.5f,
-					},
-
-			    },
+                },
 				[3]= {}
 				//[0] = {
 //				.control_map_fn = DL_MAP_LINEAR,
@@ -604,6 +598,19 @@ static float mapAdaptiveFromMode(float throttle_percent, float T_max,
         // - zero slope at x=1
         // - smooth, progressive feel
         f = (3.0f * x * x) - (2.0f * x * x * x);
+
+        /*
+         * Optional true sigmoid shape (commented out on purpose):
+         * - Uses base_slope as "steepness" (k)
+         * - k ~ 4..12 is a practical tuning range
+         * - Normalized so f(0)=0 and f(1)=1
+         *
+         * float k = dl_clampf(dm->adaptive_settings.base_slope, 4.0f, 12.0f);
+         * float s0 = 1.0f / (1.0f + expf( 0.5f * k));
+         * float s1 = 1.0f / (1.0f + expf(-0.5f * k));
+         * float sx = 1.0f / (1.0f + expf(-(x - 0.5f) * k));
+         * f = (sx - s0) / (s1 - s0);
+         */
     }
 
     /* =======================================================================
@@ -1063,41 +1070,6 @@ static float dl_computeTorqueCeiling(const driving_loop_args* dl, const drivingM
     return dl_clampf(T_allow, 0.0f, (float)dl->absolute_max_motor_torque);
 }
 
-
-//FOR DRIVING MODE
-//static float dl_computeAllowedTorqueMax(const driving_loop_args* dl, const drivingMode* dm)
-//{
-//    extern int16_t mc_speed_rpm;
-//
-//    float omega = fabsf(dl_getOmegaRadS(mc_speed_rpm));
-//    float T_allow = (float)dl->absolute_max_motor_torque;
-//
-//    // Mode torque cap (0 means disabled)
-//    if (dm && dm->max_motor_torque > 0u) {
-//        T_allow = fminf(T_allow, (float)dm->max_motor_torque);
-//    }
-//
-//    if (omega > 10.0f) {
-//        // Absolute power cap
-//        if (dl->absolute_max_acc_pwr > 0u) {
-//            T_allow = fminf(T_allow, ((float)dl->absolute_max_acc_pwr) / omega);
-//        }
-//        // Mode power cap
-//        if (dm && dm->max_acc_pwr > 0u) {
-//            T_allow = fminf(T_allow, ((float)dm->max_acc_pwr) / omega);
-//        }
-//        // BMS power cap (V*DCL)
-//        if (bms_is_ok()) {
-//            float T_bms = torqueCapFromBMS(omega);
-//            T_allow = fminf(T_allow, T_bms);
-//        }
-//    }
-//
-//    return dl_clampf(T_allow, 0.0f, (float)dl->absolute_max_motor_torque);
-//}
-
-
-
 // -----------------------------------------------------------------------------
 // Driving Loop Task
 // -----------------------------------------------------------------------------
@@ -1233,15 +1205,11 @@ void StartDrivingLoop(void *argument)
 
         //T_REQ = mapThrottleToTorqueAdaptive(throttle_percent, T_allow, dl_params); //[Nm]
 
-        //POWER MAP VROOM VROOM?
-       // T_REQ = mapThrottleToTorquePower(throttle_percent, T_allow, dl_params);
-
-
         //FOR DRIVING MODE
 //        const drivingMode* dm = &dl_params->dmodes[__current_dmode];
 //        T_REQ = mapThrottleToTorqueFromMode(throttle_percent, dl_params, dm);
 
-        T_REQ = mapAdaptiveFromMode(throttle_percent,T_allow, dl_params,cdm);
+        T_REQ = mapAdaptiveFromMode(throttle_percent,T_allow, dl_params,cdm); //[Nm] 
 
         //Temporary:
         //T_REQ = T_REQ/2.0f;
