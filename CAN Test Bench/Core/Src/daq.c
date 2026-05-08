@@ -48,7 +48,7 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 3,
+	.total_params_logged = 4,
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = CAN_BUS_2,
@@ -73,7 +73,10 @@ daq_msg default_datapoints[] ={
 	.period = 250,
 	.type = {UV_UINT32,UV_UINT32,0,0}},
 
-
+	{.can_id = 0x542,
+	.param = {VEH_DISTANCE_RUN,VEH_SPEED,INV_DAQ_P,INV_DAQ_P},
+	.period = 100,
+	.type = {UV_FLOAT,UV_FLOAT,0,0}},
 
 
 };

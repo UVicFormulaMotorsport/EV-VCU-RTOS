@@ -47,7 +47,9 @@ void MX_TIM5_Init(void);
 void MX_TIM11_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+void handle_wheel_interrupt(uint32_t wheel_index);
+void WheelSpeed_UpdateAll(void);
+void dispWheelSpeeds(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -34,8 +34,6 @@ volatile float wheel_speed[] = {0,0,0,0};
 volatile float wheel_rpm[] = {0,0,0,0};
 volatile float frequency[] = {0,0,0,0};
 
-extern SemaphoreHandle_t xWheelSpeedSem;
-
 /* USER CODE END 0 */
 
 TIM_HandleTypeDef htim3;
@@ -259,9 +257,6 @@ void handle_wheel_interrupt(uint32_t wheel_index)
 
 void WheelSpeed_UpdateAll(void)
 {
-    // TODO: Loop through each wheel
-    // TODO: Convert period → frequency
-    // TODO: Convert frequency → speed
   for (uint8_t i = 0; i < NUM_WHEELS; i++) {
 	  if(__HAL_TIM_GET_COUNTER(&htim5) - last_timestamp[i]  > 500000){
 		  frequency[i] = 0.0f;
@@ -270,11 +265,9 @@ void WheelSpeed_UpdateAll(void)
 	  }
 
     if (period[i] > 0) {
-      // Convert period (µs) → frequency (Hz)
-      float period_s = (period[i] * TIMER_TICK_US) / 1e6f; // Convert to seconds
+      float period_s = (period[i] * TIMER_TICK_US) / 1e6f;
       frequency[i] = 1.0f / period_s;
 
-      // Convert frequency → speed
       float rev_per_sec = frequency[i] / PULSES_PER_REV;
       wheel_speed[i] = rev_per_sec * WHEEL_CIRCUMFERENCE_M;
       wheel_rpm[i] = rev_per_sec * 60.0f;
@@ -283,6 +276,18 @@ void WheelSpeed_UpdateAll(void)
       wheel_speed[i] = 0.0f;
       wheel_rpm[i] = 0.0f;
     }
+  }
+
+  /* Publish latest speeds to the odometer queue.
+   * xQueueOverwrite keeps the queue at depth 1 so stale readings
+   * never accumulate if the consumer is slower than the producer. */
+  if (wheel_speed_queue != NULL) {
+    WheelSpeedData data;
+    for (uint8_t i = 0; i < NUM_WHEELS; i++) {
+      data.wheel_speed[i] = wheel_speed[i];
+    }
+    data.timestamp = xTaskGetTickCount();
+    xQueueOverwrite(wheel_speed_queue, &data);
   }
 }
 

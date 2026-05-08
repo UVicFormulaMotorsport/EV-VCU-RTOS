@@ -9,10 +9,19 @@
 
 #include "uvfr_utils.h"
 
-extern volatile float wheel_speed[];
-float distance_travelled;
+QueueHandle_t wheel_speed_queue = NULL;
+
+float odom_distance_m = 0.0f;  /* registered with DAQ as VEH_DISTANCE_RUN */
+float odom_speed_m_s  = 0.0f;  /* registered with DAQ as VEH_SPEED */
+
 
 uv_status initOdometer(void* args){
+
+	wheel_speed_queue = xQueueCreate(1, sizeof(WheelSpeedData));
+	if (wheel_speed_queue == NULL) return UV_ERROR;
+
+	associateDaqParamWithVar(VEH_DISTANCE_RUN, &odom_distance_m);
+	associateDaqParamWithVar(VEH_SPEED,        &odom_speed_m_s);
 
 	uv_task_info* odom_task = uvCreateTask();
 
@@ -20,8 +29,6 @@ uv_status initOdometer(void* args){
 				//Oh dear lawd
 		return UV_ERROR;
 	}
-
-	distance_travelled = 0; // resets distance traveled to 0 when odometer inits, for now..
 
 
 			//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
@@ -46,60 +53,37 @@ uv_status initOdometer(void* args){
 }
 
 
-/** @brief,
+/** @brief Integrates wheel speed readings into a running odometer distance.
  *
+ * Calls WheelSpeed_UpdateAll() each period, which posts the latest four wheel
+ * speeds to wheel_speed_queue via xQueueOverwrite.  The task then reads that
+ * snapshot and accumulates distance using the fixed 100 ms task period.
  */
 void odometerTask(void* args){
 
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
-	float total_distance_m = distance_travelled;
-	float avg_speed = 0.0f;
-	float speed_kmh = 0.0f;
-	uv_CAN_msg msg = {0};
-	uint8_t* byte_ptr;
-
-		/**These here lines set the delay. This task executes exactly at the period specified, regardless of how long the task
-		 * execution actually takes
-		 *
-		 @code*/
-	TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
+	TickType_t tick_period = pdMS_TO_TICKS(params->task_period);
 	TickType_t last_time = xTaskGetTickCount();
-		/**@endcode */
+
+	const float dt_s = params->task_period / 1000.0f;
+
 	for(;;){
 		if(params->cmd_data == UV_KILL_CMD){
-			distance_travelled = total_distance_m; // Final save to persistent variable
 			killSelf(params);
 		}else if(params->cmd_data == UV_SUSPEND_CMD){
-			distance_travelled = total_distance_m; // Save before suspending
 			suspendSelf(params);
 		}
+		vTaskDelayUntil(&last_time, tick_period);
 
-		vTaskDelayUntil( &last_time, tick_period);
+		WheelSpeed_UpdateAll();
 
-		// average the front 2 wheels
-		avg_speed = (wheel_speed[0] + wheel_speed[1]) / 2.0f;
-		// calculate total distance
-		total_distance_m += (avg_speed * 0.001f);
-		// keep persistent variable updated
-		distance_travelled = total_distance_m;
-		// convert to km/h
-		speed_kmh = avg_speed * 3.6f;
-		// Send speed_kmh over CANbus here
-		byte_ptr = (uint8_t*)&speed_kmh;
-		msg.data[0] = byte_ptr[0];
-		msg.data[1] = byte_ptr[1];
-		msg.data[2] = byte_ptr[2];
-		msg.data[3] = byte_ptr[3];
-		msg.msg_id = 0x500;
-		msg.dlc = 4;
-		msg.flags = 0x01;
-		uvSendCanMSG(&msg);
-
-
-
-		HAL_GPIO_TogglePin(GPIOD,GPIO_PIN_13);
-
+		WheelSpeedData reading;
+		if (xQueueReceive(wheel_speed_queue, &reading, 0) == pdTRUE) {
+			odom_speed_m_s = (reading.wheel_speed[0] + reading.wheel_speed[1] +
+			                  reading.wheel_speed[2] + reading.wheel_speed[3]) / 4.0f;
+			odom_distance_m += odom_speed_m_s * dt_s;
+		}
 	}
 
 }
