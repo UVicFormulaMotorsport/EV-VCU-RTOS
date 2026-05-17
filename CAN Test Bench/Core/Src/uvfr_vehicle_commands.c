@@ -4,6 +4,23 @@
 
 typedef struct output_channel_settings output_channel_settings;
 
+#ifdef VIBECHECK
+//Special code here
+
+void vibeCheckInit(){
+
+}
+
+void vCTimCallbackFunc(){
+
+}
+
+void stuckButtonCallBackFunc(){
+
+}
+
+#endif
+
 void BeepBeepMotherFucker(){
 	coniferEnChannel(HORN);
 	vTaskDelay(300);

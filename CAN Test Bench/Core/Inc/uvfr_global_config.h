@@ -38,5 +38,6 @@
 
 #endif
 
+#define VIBECHECK
 
 #endif /* INC_UVFR_GLOBAL_CONFIG_H_ */

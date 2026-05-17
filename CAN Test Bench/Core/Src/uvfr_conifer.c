@@ -69,25 +69,25 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	uint8_t n = 0;
 
 	//Accumulator power
-	__ch_list[n].ch = GENERAL_ACCU_PWR1;
+	__ch_list[n].ch = GENERAL_ACCU_PWR1; // not problem
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_5;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
 	n++;
 
 	//Motor controller power
-	__ch_list[n].ch = BAMO_PWR;
+	__ch_list[n].ch = BAMO_PWR; //Not problem
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_7;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
 	n++;
 
 	//RFE
-	__ch_list[n].ch = BAMO_RFE;
+	__ch_list[n].ch = BAMO_RFE; //not problem
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_11;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
 
 	//RUN
-	__ch_list[n].ch = BAMO_RUN;
+	__ch_list[n].ch = BAMO_RUN; //Not problem
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_15;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
@@ -96,6 +96,7 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	__ch_list[n].ch = BSPD_PWR;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_13;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
+	//__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
 
 	//DASH + Steering wheel
@@ -104,7 +105,7 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
 	n++;
 
-	//VCU
+	//VCU - NOT PROBLEM
 	__ch_list[n].ch = VCU_PWR;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_6;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
@@ -116,7 +117,7 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
 
-	//RTD BUZZER
+//	RTD BUZZER
 	__ch_list[n].ch = HORN;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_9;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;

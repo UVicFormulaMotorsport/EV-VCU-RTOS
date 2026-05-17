@@ -137,9 +137,9 @@ driving_loop_args default_dl_settings =
 
     /* APPS / BPS SCALING */
     .apps1_top    = 2000, //0x09F9, // [ADC counts] 100% throttle
-    .apps1_bottom = 450, // [ADC counts] 0% throttle
-    .apps2_top    = 1500, // [ADC counts] 100% throttle
-    .apps2_bottom = 5, // [ADC counts] 0% throttle
+    .apps1_bottom = 1055, // [ADC counts] 0% throttle
+    .apps2_top    = 1540, // [ADC counts] 100% throttle
+    .apps2_bottom = 675, // [ADC counts] 0% throttle
 
     /* PLAUSIBILITY & SAFETY */
     .apps_plausibility_check_threshold       = 30,  // [%] allowed APPS mismatch
@@ -310,7 +310,7 @@ float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter
 
 static bool torque_inhibit_active = false; PRIVILEGED_DATA // [bool] latched inhibit
 
-static uint8_t __current_dmode = 0; PRIVILEGED_DATA//[Unitless] Index of current driving mode
+static uint8_t __current_dmode = 3; PRIVILEGED_DATA//[Unitless] Index of current driving mode
 SemaphoreHandle_t dmode_mutex = NULL; PRIVILEGED_DATA
 
 //Macro to make the driving mode seem much simpler
