@@ -149,7 +149,7 @@ driving_loop_args default_dl_settings =
 
     /* ========================= 8-bit fields ========================= */
     .torque_limit_source_mask = 0, // [bitmask]
-    .num_driving_modes        = 3,// 3, // [count]
+    .num_driving_modes        = 4,// 3, // [count]
     .period                   = 10, // [ms] DL period setting (task_period currently used separately)
 	/* =============================================================================
 	 * Adaptive Pedal Map Tuning Guide (Per Driving Mode)
@@ -258,45 +258,48 @@ driving_loop_args default_dl_settings =
                     },
 
                 },
-				[3]= {
+//				[3]= {
+//                    .dm_name = "THE CUBE",
+//                	.control_map_fn = DL_MAP_CUBIC,
+//                    .kVal = 0.45f,
+//                    .max_acc_pwr = 10000,      // [W] mode operating ceiling (active cap uses min(global, mode))
+//                    .max_motor_torque = 50,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
+//                    .adaptive_settings = {
+//                        .soften_gain = 0.35f,
+//                        .soften_rpm  = 4200,
+//                        .max_rpm     = 6500,
+//                        .offset      = 0,
+//                        .base_slope  = 1.0f, // currently unused by active map code (reserved for future shaping)
+//                        .coast_rpm_start = 0,
+//                        .coast_rpm_end   = 2200,
+//                        .coast_p_low     = 0.05f,
+//                        .coast_p_high    = 0.025f,
+//                    },
+//                    .map_fn_params.exp = {
+//                        .s = 1.5f, // ignored in CUBIC mode; only used when control_map_fn = DL_MAP_EXP
+//                    },
+//                }
+                [3] = {
                     .dm_name = "THE CUBE",
-                	.control_map_fn = DL_MAP_CUBIC,
-                    .kVal = 0.45f,
-                    .max_acc_pwr = 30000,      // [W] mode operating ceiling (active cap uses min(global, mode))
-                    .max_motor_torque = 100,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
+                    .control_map_fn = DL_MAP_EXP,
+                    .kVal = 0.3f,              // slow, smooth response
+                    .max_acc_pwr = 10000,      // [W] 10 kW
+                    .max_motor_torque = 50,    // [Nm] low-speed torque cap
                     .adaptive_settings = {
-                        .soften_gain = 0.35f,
-                        .soften_rpm  = 4200,
-                        .max_rpm     = 6500,
+                        .soften_gain = 0.5f,
+                        .soften_rpm  = 1200,
+                        .max_rpm     = 1650,
                         .offset      = 0,
-                        .base_slope  = 1.0f, // currently unused by active map code (reserved for future shaping)
+                        .base_slope  = 1.0f,
                         .coast_rpm_start = 0,
-                        .coast_rpm_end   = 2200,
+                        .coast_rpm_end   = 500,
                         .coast_p_low     = 0.05f,
-                        .coast_p_high    = 0.025f,
+                        .coast_p_high    = 0.02f,
                     },
                     .map_fn_params.exp = {
-                        .s = 1.5f, // ignored in CUBIC mode; only used when control_map_fn = DL_MAP_EXP
+                        .s = 1.5f,             // soft exponential feel
                     },
-                }
-				//[0] = {
-//				.control_map_fn = DL_MAP_LINEAR,
-//				.kVal = 0.65f,                 // quicker response than 0.5
-//				.adaptive_settings = {
-//				.rpm_fade        = 250,       // mild launch softening (or set 1 to “almost off”)
-//				.coast_rpm_start = 0,
-//				.coast_rpm_end   = 0,         // disable moving coast band
-//				.coast_p_low     = 0.00f,     // no coast at any speed
-//				.coast_p_high    = 0.00f,
-//				 .soften_gain     = 0.00f,
-//				                         .soften_rpm      = 4500,
-//				                         .max_rpm         = 6500,
-//				                         .offset          = 0,
-//				                         .base_slope      = 1.0f,
-//				                       },
-//				                       .map_fn_params.linear = { .slope = 1.0f, .offset = 0,
-//				                     },
-				                 // optional c
+                },
 		},
      // [struct array] mode table (optional / future)
 };
@@ -310,7 +313,7 @@ float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter
 
 static bool torque_inhibit_active = false; PRIVILEGED_DATA // [bool] latched inhibit
 
-static uint8_t __current_dmode = 0; PRIVILEGED_DATA//[Unitless] Index of current driving mode
+static uint8_t __current_dmode = 2; PRIVILEGED_DATA//[Unitless] Index of current driving mode
 SemaphoreHandle_t dmode_mutex = NULL; PRIVILEGED_DATA
 
 //Macro to make the driving mode seem much simpler
@@ -970,23 +973,55 @@ static float limitTorque(float T_cmd, float T_prev, const driving_loop_args* dl,
 {
     // 0) Hard BMS safety gate
     if (!bms_is_ok()) {
-        return 0.0f; // [Nm]
+        return 0.0f;
     }
 
-    float T = T_cmd; // [Nm]
+    float T = T_cmd;
 
     // 1) Absolute motor torque clamp (hard cap)
-    float T_Lim = fminf((float)dl->absolute_max_motor_torque,(float)dm->max_motor_torque);
-    T = dl_clampf(T, 0.0f, T_Lim); // [Nm]
+    float T_Lim = fminf((float)dl->absolute_max_motor_torque, (float)dm->max_motor_torque);
+    T = dl_clampf(T, 0.0f, T_Lim);
 
-    // 2) Optional slew-rate limiting (Nm/s)
+//    // 2) Speed taper: reduce torque linearly from 95% to 100% of max RPM
+//        //
+//        // Goal: prevent the motor from exceeding absolute_max_motor_rpm by smoothly
+//        // reducing torque to zero as speed approaches the limit, rather than cutting
+//        // torque abruptly which would cause a jolt.
+//        //
+//        // Example with absolute_max_motor_rpm = 1650:
+//        //   Below 1567 RPM (95%)  -> no reduction, full torque allowed
+//        //   At     1567 RPM (95%) -> torque_fraction = 1.0, no reduction yet
+//        //   At     1608 RPM (97%) -> torque_fraction = 0.5, torque halved
+//        //   At     1650 RPM (100%)-> torque_fraction = 0.0, torque zeroed
+//
+//        extern int16_t mc_speed_rpm;
+//
+//        float max_rpm           = (float)dl->absolute_max_motor_rpm; // [RPM] hard speed ceiling
+//        float speed_limit_start = max_rpm * 0.95f;                   // [RPM] taper begins at 95% of max
+//        float speed_rpm         = (float)mc_speed_rpm;               // [RPM] current motor speed from CAN feedback
+//
+//        if (speed_rpm >= speed_limit_start) {
+//            // How far into the taper window are we?
+//            // speed_excess = 0 at taper start, = (max_rpm - speed_limit_start) at max_rpm
+//            // Dividing by the window size normalises this to 0.0 -> 1.0
+//            float torque_fraction = 1.0f - ((speed_rpm - speed_limit_start) / (max_rpm - speed_limit_start));
+//
+//            // Clamp to 0..1: prevents negative torque fraction if speed somehow
+//            // exceeds max_rpm (e.g. stale CAN feedback), and prevents boosting
+//            // torque above requested if speed is exactly at taper start
+//            torque_fraction = dl_clampf(torque_fraction, 0.0f, 1.0f);
+//
+//            // Scale torque by the fraction — at max_rpm this multiplies by 0,
+//            // smoothly zeroing the torque command
+//            T *= torque_fraction;
+//        }
+
+    // 3) Slew-rate limiting
     float rate = (T >= T_prev) ? dl->torque_rate_up_nm_per_s
-                               : dl->torque_rate_down_nm_per_s; // [Nm/s]
+                               : dl->torque_rate_down_nm_per_s;
+    T = dl_slewLimit(T, T_prev, rate, dt_s);
 
-    //Slew rate limiting. Should slew rate be depent on dmode? IDK
-    T = dl_slewLimit(T, T_prev, rate, dt_s); // [Nm]
-
-    return T; // [Nm]
+    return T;
 }
 
 //Converts between rpm and rad/s

@@ -17,6 +17,7 @@
 #include "uvfr_utils.h"
 
 extern uv_vehicle_settings* current_vehicle_settings;
+//extern driving_loop_args* driving_args;
 //extern QueueHandle_t CAN_Rx_Queue;
 
 // Redirect all mc_settings.x to actual config struct
@@ -56,7 +57,7 @@ motor_controller_settings mc_default_settings = {
 
     // Scaled values (normalized to 32767)
 	//TODO: make these values unscaled, in units
-    .max_speed              = 32767, //12357,   // (2457.5 RPM / 6500 RPM) * 32767
+    .max_speed              = 25, // 8317, //32767, //12357,   // (2457.5 RPM / 6500 RPM) * 32767
     .max_current            = 19516, //2600,   // 140 Nm --> I = T / kt = 140 / 0.94 = 148.9 A --> DIG CURRENT LIMIT (148.9 A / 250 A) * 32767 = 19516
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
     .cont_current           = 7864,    // (60 A / 250 A) * 32767
@@ -893,6 +894,16 @@ void MC_Startup(void* args)
     // 6. Set deceleration ramp
     MC_Set_Param(0xED, 0x03E8);
     vTaskDelay(pdMS_TO_TICKS(10));
+
+    //speed limit in % of speed maximally
+    MC_SetAndVerify_Param(N_lim, mc_settings->max_speed);
+    //set max speed limit aka N_LIM
+    // N-Lim scaled: (1650 / 6500) * 100 = 25.4% → write 25 (it's in % of N-100%)
+    // activates torque cruise control at 1650 RPM
+
+    //0x3c: speed when current derating starts
+    MC_Set_Param(MC_REG_IRED_N, 8317);  // begin current derating at 1650 RPM
+    //I-red-N = (1650 / 6500) * 32767 = 8317
 
     //pointer to mc init task
     uv_init_task_args* MC_init_args = (uv_init_task_args*)args;
