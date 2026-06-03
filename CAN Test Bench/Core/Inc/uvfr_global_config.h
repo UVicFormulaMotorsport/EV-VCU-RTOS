@@ -15,8 +15,8 @@
 #define STM32_F407 1
 #define STM32_H7xx 0
 
-#define FIRMWARE_MAJOR_RELEASE 0
-#define FIRMWARE_MINOR_RELEASE 1
+#define FIRMWARE_MAJOR_RELEASE 1
+#define FIRMWARE_MINOR_RELEASE 0
 #define FIRMWARE_PATCH_NUM 0
 
 #define UV_EN_ITM_LOG 1
@@ -32,12 +32,12 @@
 #endif
 
 #ifdef DEBUG
-#define IGNORE_BRAKE
+//#define IGNORE_BRAKE
 #define IGNORE_BMS
 /*spicy debug*/
 
 #endif
 
-#define VIBECHECK
+
 
 #endif /* INC_UVFR_GLOBAL_CONFIG_H_ */

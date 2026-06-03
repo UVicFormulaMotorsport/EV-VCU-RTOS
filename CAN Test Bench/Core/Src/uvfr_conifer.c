@@ -104,53 +104,58 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_10;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
 	n++;
-
-	//VCU - NOT PROBLEM
+////
+//	//VCU - NOT PROBLEM
 	__ch_list[n].ch = VCU_PWR;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_6;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
 	n++;
-
-	//BRAKE LIGHT
+//
+//	//BRAKE LIGHT
 	__ch_list[n].ch = BRAKE_LIGHT;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_12;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
-
-//	RTD BUZZER
+//
+////	RTD BUZZER
 	__ch_list[n].ch = HORN;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_9;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
-
-	//COOLANT PUMP
-	__ch_list[n].ch = COOLANT_PUMP1;
-	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_1;
-	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
-	n++;
-
-	//RAD FAN 1
+//
+//	//COOLANT PUMP
+//	__ch_list[n].ch = COOLANT_PUMP1;
+//	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_1;
+//	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
+//	n++;
+//
+//	//RAD FAN 1
 	__ch_list[n].ch = RAD_FANS1;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_2;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
 	n++;
-
-	//RAD FAN 2
+//
+//	//RAD FAN 2
 	__ch_list[n].ch = RAD_FANS2;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_3;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_ALLOW_LOAD_SHED;
 	n++;
-
-	//SDC BOARD
+//
+//	//SDC BOARD
 	__ch_list[n].ch = SDC_BOARD_PWR;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_14;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_EN_BIT|CONIFER_CH_IS_CRIT_BIT;
 	n++;
-
-	//SDC ORIGIN
+//
+//	//SDC ORIGIN
 	__ch_list[n].ch = HVIL_PWR;
 	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_5A_16;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
+	n++;
+
+	__ch_list[n].ch = RTML_PWR;
+	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_8;
+	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT | CONIFER_CH_EN_BIT;
 	n++;
 
 

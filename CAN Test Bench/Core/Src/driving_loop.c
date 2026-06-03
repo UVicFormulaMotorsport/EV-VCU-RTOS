@@ -132,8 +132,8 @@ driving_loop_args default_dl_settings =
     .apps2_abs_min_val = 0x0000, // [ADC counts]
     .apps2_abs_max_val = 0x1029, // [ADC counts]
 
-    .min_BPS_value = 0x00F0, // [ADC counts]
-    .max_BPS_value = 0x0B7E, // [ADC counts]
+    .min_BPS_value = 0x00120, // [ADC counts]
+    .max_BPS_value = 0x0490, // [ADC counts]
 
     /* APPS / BPS SCALING */
     .apps1_top    = 2000, //0x09F9, // [ADC counts] 100% throttle
@@ -240,7 +240,7 @@ driving_loop_args default_dl_settings =
                 	.dm_name = "THE CUBE",
                 	.control_map_fn = DL_MAP_CUBIC,
                     .kVal = 0.45f,
-                    .max_acc_pwr = 30000,      // [W] mode operating ceiling (active cap uses min(global, mode))
+                    .max_acc_pwr = 10000,      // [W] mode operating ceiling (active cap uses min(global, mode))
                     .max_motor_torque = 100,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
                     .adaptive_settings = {
                         .soften_gain = 0.35f,
@@ -263,7 +263,7 @@ driving_loop_args default_dl_settings =
                 	.control_map_fn = DL_MAP_CUBIC,
                     .kVal = 0.45f,
                     .max_acc_pwr = 30000,      // [W] mode operating ceiling (active cap uses min(global, mode))
-                    .max_motor_torque = 100,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
+                    .max_motor_torque = 150,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
                     .adaptive_settings = {
                         .soften_gain = 0.35f,
                         .soften_rpm  = 4200,
@@ -1150,14 +1150,18 @@ void StartDrivingLoop(void *argument)
 
     vTaskDelay(500);
 
+    coniferEnChannel(COOLANT_PUMP1);
+
     for (;;)
     {
         // Task control (kill/suspend)
         if (params->cmd_data == UV_KILL_CMD) {
+        	coniferDisChannel(COOLANT_PUMP1);
         	uvDeEnergizeTractiveSystem();
         	xSemaphoreGive(dmode_mutex);
             killSelf(params);
         } else if (params->cmd_data == UV_SUSPEND_CMD) {
+        	coniferDisChannel(COOLANT_PUMP1);
         	uvDeEnergizeTractiveSystem();
         	xSemaphoreGive(dmode_mutex);
             suspendSelf(params);

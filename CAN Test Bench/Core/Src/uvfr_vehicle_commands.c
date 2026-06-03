@@ -106,8 +106,8 @@ uv_status uvEnergizeTractiveSystem(){
 		//It is likely a result of something being unplugged, BMS faults should be noticeable, possibly the BSPD is the issue?
 		//IDRK what this might be a result of
 		//uvOpenSDC();
-		coniferDisChannel(HORN);
-		return UV_ERROR;
+		//coniferDisChannel(HORN);
+		//return UV_ERROR;
 	}
 
 
