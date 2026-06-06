@@ -37,6 +37,7 @@ typedef enum{
 	VEH_SPEED,
 		VEH_DRIVE_MODE, // 1, 2, 3 represents drive mode
 		MOTOR_RPM, /**< RPM as reported by motor controller */
+		MOTOR_TEMP, /**< Motor Temp as reported by motor controller */
 		MOTOR_TORQUE, /**< Torque requested from motor reported by motor controller */
 	MOTOR_CURRENT, /**< Motor Phase currents as reported by motor controller */
 	MC_VOLTAGE, /**< Pack voltage as measured by motor_controller*/
@@ -88,6 +89,12 @@ typedef enum{
 	WSS_F_AVG,
 	WSS_R_AVG,
 	WSS_SLIP,
+	// TMS (Thermal Management System) battery-pack temps, off CAN2. See tms.c
+	TMS_PACK_TEMP_LOW,     /**< Lowest battery-pack temp from TMS (int8 C) */
+	TMS_PACK_TEMP_HIGH,    /**< Highest battery-pack temp from TMS (int8 C) */
+	TMS_PACK_TEMP_AVG,     /**< Average battery-pack temp from TMS (int8 C) */
+	TMS_PACK_TEMP_HIGH_ID, /**< Pack index (0..5) reporting the high temp */
+	TMS_PACK_TEMP_LOW_ID,  /**< Pack index (0..5) reporting the low temp */
 	MAX_LOGGABLE_PARAMS /**< THIS MUST BE THE FINAL PARAM*/
 }loggable_params;
 

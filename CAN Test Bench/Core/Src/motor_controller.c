@@ -41,10 +41,10 @@ uint16_t mc_warning_mask = 0;
 
 //for daq.c and dash functions
 
-uint16_t mc_rpm = (uint16_t)mc_speed_rpm;
-uint16_t mc_torque_request = (uint16_t)mc_torque_cmd;
-uint16_t mc_temps = (uint16_t)mc_motor_temp;
-uint16_t mc_err = (uint16_t)mc_errors;
+uint16_t mc_rpm = 0;            // mirrors mc_speed_rpm, updated at runtime
+uint16_t mc_torque_request = 0; // mirrors mc_torque_cmd, updated at runtime
+uint16_t mc_temps = 0;          // mirrors mc_motor_temp, updated at runtime
+uint16_t mc_err = 0;            // mirrors mc_errors, updated at runtime
 
 
 /* Global default settings variable defined here.

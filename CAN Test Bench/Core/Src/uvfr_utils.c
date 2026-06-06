@@ -14,6 +14,7 @@
 
 
 void rtdTask(void* args);
+void TMS_Init(void* args); // tms.c -- VCU-side TMS temperature tap (display only)
 
 extern TaskHandle_t init_task_handle;
 extern uint8_t               TxData[8];
@@ -224,6 +225,21 @@ void uvInit(void * arguments){
 		ext_devices_status |= 0x01U << IMD;
 	}
 
+	/** @endcode
+	 * This thread sets up the VCU-side TMS tap (display-only -- listens for the
+	 * TMS pack-temp broadcast on CAN2 and stashes it for the dash/DAQ).
+	 * @code */
+	uv_init_task_args* TMS_init_args = uvMalloc(sizeof(uv_init_task_args));
+	TMS_init_args->init_info_queue = init_validation_queue;
+	TMS_init_args->specific_args = NULL; // TMS has no settings; it's a passive tap
+	retval = xTaskCreate(TMS_Init,"TMS_init",256,TMS_init_args,osPriorityAboveNormal,&(TMS_init_args->meta_task_handle));
+	if(retval != pdPASS){
+			//FUCK
+		error_msg = "bruh";
+	}else{
+		ext_devices_status |= 0x01U << TMS;
+	}
+
 //	uv_init_task_args* PDU_init_args = uvMalloc(sizeof(uv_init_task_args));
 //	PDU_init_args->init_info_queue = init_validation_queue;
 //	PDU_init_args->specific_args = &(current_vehicle_settings->imd_settings);
@@ -306,6 +322,9 @@ void uvInit(void * arguments){
 
 	vTaskDelete(IMD_init_args->meta_task_handle);
 	uvFree(IMD_init_args);
+
+	vTaskDelete(TMS_init_args->meta_task_handle);
+	uvFree(TMS_init_args);
 
 	//vTaskDelete(PDU_init_args->meta_task_handle);
 	//uvFree(PDU_init_args);
