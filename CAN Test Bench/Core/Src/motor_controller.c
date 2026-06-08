@@ -11,10 +11,16 @@
 //#include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+
 //#include "uvfr_settings.h"
 //#include "cmsis_os.h"      // For vTaskSuspend
 
 #include "uvfr_utils.h"
+
+#include "uvfr_settings.h"
+//#include "cmsis_os.h"      // For vTaskSuspend
+#include "daq.h" 		   // for dash
+
 
 extern uv_vehicle_settings* current_vehicle_settings;
 //extern QueueHandle_t CAN_Rx_Queue;
@@ -36,11 +42,19 @@ int16_t mc_current = 0;
 int16_t mc_torque_cmd = 0;
 int16_t mc_motor_temp = 0;
 int16_t mc_igbt_temp = 0;
+uint16_t mc_errors = 0;
+
 
 //Masks between errors and warnings
 uint16_t mc_error_mask = 0;
 uint16_t mc_warning_mask = 0;
 
+//for daq.c and dash functions
+
+uint16_t mc_rpm = 0;            // mirrors mc_speed_rpm, updated at runtime
+uint16_t mc_torque_request = 0; // mirrors mc_torque_cmd, updated at runtime
+uint16_t mc_temps = 0;          // mirrors mc_motor_temp, updated at runtime
+uint16_t mc_err = 0;            // mirrors mc_errors, updated at runtime
 
 
 /* Global default settings variable defined here.
@@ -854,10 +868,17 @@ void MC_Startup(void* args)
 	//toggle pin
     //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
 
+
 	MC_setErrorMask(mains_voltage_min_limit|
 			rotate_field_enable_not_present_run|
 			AC_current_offset_fault);
-	//MC_setErrorMask(0xFFFFFFFF);
+
+	associateDaqParamWithVar(MOTOR_RPM, &mc_rpm);
+	associateDaqParamWithVar(MOTOR_TEMP, &mc_temps);
+	associateDaqParamWithVar(MC_ERRORS, &mc_err);
+	associateDaqParamWithVar(MOTOR_TORQUE, &mc_torque_request);
+
+
 
     //Register CAN RX handler first and routes eveyrthing though processmotorcontrollerresponse
     //subsequently the motor controller error handler

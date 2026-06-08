@@ -122,6 +122,7 @@ uint16_t IMD_GetErrorFlagsRaw(void);
 
 uint8_t  IMD_GetSerial0Valid(void);
 uint32_t IMD_GetSerial0Word(void);
+uint16_t IMD_GetSafetyTouchCurrent(void);
 
 
 

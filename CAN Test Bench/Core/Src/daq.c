@@ -5,6 +5,7 @@
 
 #include "uvfr_utils.h"
 #include "daq.h"
+#include "tms.h"
 #include "stm32f4xx_hal_conf.h"
 #include "stm32f407xx.h"
 #include "stm32f4xx_hal.h"
@@ -48,35 +49,73 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 4,
+	.total_params_logged = 7, // = number of ACTIVE default_datapoints entries (0x543 motor telem stays last/inactive)
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = CAN_BUS_2,
 	.daq_child_priority = 1
 };
 
+// All messages here will be in CAN2, because dash has the ability to read direct from CAN1.
 daq_msg default_datapoints[] ={
+	// ADC Values for pedal position
 	{.can_id = 0x530,
 	.param = {APPS1_ADC_VAL,APPS2_ADC_VAL,BPS1_ADC_VAL,BPS2_ADC_VAL},
 	.period = 50,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
+	// Logged for telem purposes
+
 
 	{.can_id = 0x531,
-	.param = {MOTOR_RPM, THROTTLE_PCT, BRAKE_PCT, INV_DAQ_P},
+	.param = {MOTOR_RPM, APPS_PERCENT, BPS_PERCENT, INV_DAQ_P},
 	.period = 50,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,0}},
 
+
+	//ADC Values for suspension
+	{.can_id = 0x532,
+	.param = {SUS_DAMPER_FR, SUS_DAMPER_FL, SUS_DAMPER_RR, SUS_DAMPER_RL},
+	.period = 50,
+	.type = {UV_UINT16, UV_UINT16,0, 0}},
+
+
+	// Uptime, vehicle state (UV_ERROR, UV_PANIC, etc)
 	{.can_id = 0x540,
 	.param = {VCU_CURRENT_UPTIME,VCU_VEHICLE_STATE,INV_DAQ_P,INV_DAQ_P},
 	.period = 250,
-	.type = {UV_UINT32,UV_UINT16,0,0}},
+	.type = {UV_UINT32,UV_UINT16,0,0}}, // where to find each datatype again?
+	// Logged for syncing with VCU internal time
 
+	// Vehicle distance telem
 	{.can_id = 0x541,
+	.param = {VEH_DISTANCE_RUN, VEH_DISTANCE_TOTAL, VEH_SPEED, VEH_DRIVE_MODE},
+	.period = 250,
+	.type = {UV_UINT16,UV_UINT16,UV_UINT16,UV_UINT16}},
+	// How is vehicle speed defined and how is it different to motor speed?
+
+	// OS telemetry
+	{.can_id = 0x542,
 	.param = {OS_AVAILABLE_HEAP,OS_MIN_EVER_FREE_BYTES,INV_DAQ_P,INV_DAQ_P},
 	.period = 250,
 	.type = {UV_UINT32,UV_UINT32,0,0}},
 
+	// TMS battery-pack temps (off CAN2). Bytes: [0]=low_c [1]=high_c [2]=avg_c [3]=high_id
+	// Populated from g_tms_state by the TMS CAN handler (see tms.c).
+	{.can_id = 0x544,
+	.param = {TMS_PACK_TEMP_LOW, TMS_PACK_TEMP_HIGH, TMS_PACK_TEMP_AVG, TMS_PACK_TEMP_HIGH_ID},
+	.period = 250,
+	.type = {UV_INT8, UV_INT8, UV_INT8, UV_UINT8}},
 
+	// Motor/motor controller telems
+	// NOTE: this entry sits at index 7, beyond total_params_logged (7), so it is
+	// currently INACTIVE -- same as before the TMS change. Bump the count to 8 to enable it.
+	{.can_id = 0x543,
+	.param = {MOTOR_RPM,MOTOR_TEMP,MOTOR_TORQUE,INV_DAQ_P},
+	.period = 250,
+	.type = {UV_UINT16,UV_UINT16,UV_UINT16,0}},
+	// These used int16_t variables in motor_controller.c
+	// typecasted into unsigned 16 bits, then associated in Motor_startup
+	// Not sure if this is the right way to go about this
 
 
 };
@@ -272,8 +311,15 @@ uv_status initDaqTask(void * args){
 	datapoints = current_vehicle_settings->daq_param_list;
 	tmp_daq_msg.flags = curr_daq_settings->can_channel;
 
-	associateDaqParamWithVar(COOLANT_TEMP_ADC, (void*)&coolant_temp_adc); //HOOKING ADC VARS TO DAQ. 
-	associateDaqParamWithVar(MOTOR_TEMP_ADC, (void*)&motor_temp_adc); //HOOKING ADC VARS TO DAQ. 
+	associateDaqParamWithVar(COOLANT_TEMP_ADC, (void*)&coolant_temp_adc); //HOOKING ADC VARS TO DAQ.
+	associateDaqParamWithVar(MOTOR_TEMP_ADC, (void*)&motor_temp_adc); //HOOKING ADC VARS TO DAQ.
+
+	// HOOKING TMS PACK-TEMP VARS TO DAQ (populated by the TMS CAN handler, tms.c)
+	associateDaqParamWithVar(TMS_PACK_TEMP_LOW,     (void*)&g_tms_state.low_c);
+	associateDaqParamWithVar(TMS_PACK_TEMP_HIGH,    (void*)&g_tms_state.high_c);
+	associateDaqParamWithVar(TMS_PACK_TEMP_AVG,     (void*)&g_tms_state.avg_c);
+	associateDaqParamWithVar(TMS_PACK_TEMP_HIGH_ID, (void*)&g_tms_state.high_id);
+	associateDaqParamWithVar(TMS_PACK_TEMP_LOW_ID,  (void*)&g_tms_state.low_id);
 
 
 	if(configureDaqSubTasks() != UV_OK){

@@ -49,6 +49,10 @@
 #define IMD_ENABLE_SERIAL_CHECK 1
 #endif
 
+// global variables for dash to use
+
+// where do these get written into from??
+
 // Replace it with real serial chunk OR disable serial check.
 static const uint32_t IMD_EXPECTED_SERIAL0 = 0xB8DD9AF9U;
 
@@ -315,6 +319,18 @@ void initIMD(void* args) {
 
 	// small delay like the BMS does (optional)
 	//osDelay(200);
+
+	//pretty much all 16 bit integers
+	associateDaqParamWithVar(IMD_ERRORS, g_imd_state.error_flags_raw); //uint_16_t
+	associateDaqParamWithVar(IMD_STATUS, g_imd_state.online); //uint8_t
+	associateDaqParamWithVar(IMD_SAFETOUCH, g_imd_state.safety_touch_current); //uint16_t
+	associateDaqParamWithVar(IMD_VOLTAGE, g_imd_state.glv_raw);//uint16_t
+	associateDaqParamWithVar(IMD_ISO_STATE, g_imd_state.iso_state_raw); //uint16_t
+	associateDaqParamWithVar(IMD_RP_RAW, g_imd_state.rp_raw);
+	associateDaqParamWithVar(IMD_RN_RAW, g_imd_state.rn_raw);
+	associateDaqParamWithVar(IMD_CP_NF, g_imd_state.cp_nf);
+	associateDaqParamWithVar(IMD_CN_NF, g_imd_state.cn_nf);
+	associateDaqParamWithVar(IMD_TEMP_RAW, g_imd_state.temp_raw);
 
 	uv_init_task_response resp;
 	memset(&resp, 0, sizeof(resp));

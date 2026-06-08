@@ -22,7 +22,7 @@ typedef enum{
 	VCU_ERROR_BITFIELD2,
 	VCU_ERROR_BITFIELD3,
 	VCU_ERROR_BITFIELD4,
-	VCU_CURRENT_UPTIME,
+	VCU_CURRENT_UPTIME,/*used, but from where?*/
 	VCU_TOTAL_UPTIME,
 	OS_AVAILABLE_HEAP,
 	OS_LARGEST_FREE_BLOCK,
@@ -31,20 +31,24 @@ typedef enum{
 	OS_MIN_EVER_FREE_BYTES,
 	OS_NUM_SUCCESSFUL_ALLOCS,
 	OS_NUM_SUCCESSFUL_FREES,
-	VEH_DISTANCE_RUN,
-	VEH_DISTANCE_TOTAL,
+	VEH_DISTANCE_RUN, //Trip Odometer?
+	VEH_DISTANCE_TOTAL, // total odometer?
 	VEH_LAPNUM,
 	VEH_SPEED,
-	MOTOR_RPM, /**< RPM as reported by motor controller */
-	MOTOR_TEMP, /**< Motor Temp as reported by motor controller */
+		VEH_DRIVE_MODE, // 1, 2, 3 represents drive mode
+		MOTOR_RPM, /**< RPM as reported by motor controller */
+		MOTOR_TEMP, /**< Motor Temp as reported by motor controller */
+		MOTOR_TORQUE, /**< Torque requested from motor reported by motor controller */
 	MOTOR_CURRENT, /**< Motor Phase currents as reported by motor controller */
 	MC_VOLTAGE, /**< Pack voltage as measured by motor_controller*/
 	MC_CURRENT, /**< Pack current as measured by motor_controller*/
 	MC_TEMP, /**< Motor controller temperature*/
 	MC_ERRORS, /**< Motor controller errors bitfield*/
+	// BMS is on CAN1
 	BMS_CURRENT, /**< Pack current measured by BMS*/
 	BMS_VOLTAGE, /**< Pack voltage as measured by BMS*/
 	BMS_ERRORS, /**< Error codes in BMS*/
+	//
 	MAX_CELL_TEMP, /**< Max Temperature of a cell from BMS */
 	MIN_CELL_TEMP, /**< Min Temperature of a cell*/
 	AVG_CELL_TEMP,/**< Average Cell Temp*/
@@ -52,21 +56,28 @@ typedef enum{
 	ACCUM_SOH,/**< */
 	ACCUM_POWER, /**< */
 	ACCUM_POWER_LIMIT, /**< */
-	APPS1_ADC_VAL, /**< */
-	APPS2_ADC_VAL, /**< */
-	BPS1_ADC_VAL, /**< */
-	BPS2_ADC_VAL, /**< */
-	THROTTLE_PCT,
-	BRAKE_PCT,
-	COOLANT_TEMP_ADC,
-	MOTOR_TEMP_ADC,
+	APPS1_ADC_VAL, /**< USED IN DRIVING_LOOP.C*/
+	APPS2_ADC_VAL, /**< USED IN DRIVING_LOOP.C*/
+		APPS_PERCENT,
+	BPS1_ADC_VAL, /**< USED IN DRIVING_LOOP.C*/
+	BPS2_ADC_VAL,/**< USED IN DRIVING_LOOP.C*/
+		BPS_PERCENT,
+	COOLANT_TEMP_ADC,/**< USED IN DAQ.C*/
+	MOTOR_TEMP_ADC,/**< USED IN DAQ.C*/
 	ACCELERATOR_PEDAL_RATIO, /**< */
 	BRAKE_PRESSURE_PA, /**< */
 	POWER_DERATE_FACTOR, /**< */
 	CURRENT_DRIVING_MODE, /**< */
-	IMD_VOLTAGE, /**< Accumulator voltage as measured by IMD*/
-	IMD_STATUS,
-	IMD_ERRORS,
+		IMD_VOLTAGE, /**< Accumulator voltage as measured by IMD*/
+		IMD_STATUS, /*IMD STATUS*/
+		IMD_ERRORS,
+		IMD_SAFETOUCH,
+		IMD_ISO_STATE,
+		IMD_RP_RAW,
+		IMD_RN_RAW,
+		IMD_CP_NF,
+		IMD_CN_NF,
+		IMD_TEMP_RAW,
 	SUS_DAMPER_FL,
 	SUS_DAMPER_FR,
 	SUS_DAMPER_RL,
@@ -78,6 +89,12 @@ typedef enum{
 	WSS_F_AVG,
 	WSS_R_AVG,
 	WSS_SLIP,
+	// TMS (Thermal Management System) battery-pack temps, off CAN2. See tms.c
+	TMS_PACK_TEMP_LOW,     /**< Lowest battery-pack temp from TMS (int8 C) */
+	TMS_PACK_TEMP_HIGH,    /**< Highest battery-pack temp from TMS (int8 C) */
+	TMS_PACK_TEMP_AVG,     /**< Average battery-pack temp from TMS (int8 C) */
+	TMS_PACK_TEMP_HIGH_ID, /**< Pack index (0..5) reporting the high temp */
+	TMS_PACK_TEMP_LOW_ID,  /**< Pack index (0..5) reporting the low temp */
 	MAX_LOGGABLE_PARAMS /**< THIS MUST BE THE FINAL PARAM*/
 }loggable_params;
 

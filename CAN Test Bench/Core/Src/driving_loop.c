@@ -104,6 +104,12 @@ driving_loop_args default_dl_settings =
     .torque_rate_up_nm_per_s   = 1e9f,  // [Nm/s] (1e9 disables effectively)
     .torque_rate_down_nm_per_s = 1e9f,  // [Nm/s]
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
+uint16_t throttle_percent_i = 0;
+uint16_t brake_percent_i = 0;
+
+#define TORQUE_DECAY_STEP 2.5f //// Nm per loop step (adjust as needed)
+#define THROTTLE_ZERO_THRESHOLD 0.01f // // Below this % throttle, we consider "off"
+static bool sent_zero_torque = false; //// Track if we already dropped torque to 0
 
     /* HARD PHYSICAL LIMITS */
     .absolute_max_acc_pwr       = 75000,   // [W] placeholder bring-up

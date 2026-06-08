@@ -80,7 +80,7 @@ void BMS_CANRxHandler_msg1(uv_CAN_msg* msg){ // msg is raw CAN msg, gets process
 	g_bms_state.pack_current_dA = (msg->data[0]<<8 | msg->data[1]); // x 0.1A
 	g_bms_state.pack_voltage_dV = (msg->data[2]<<8 | msg->data[3]); // x 0.1V
 
-	g_bms_state.soc_pct = (msg->data[4])*2; // x2; this is an int
+	g_bms_state.soc_pct = (msg->data[4]) / 2; // was off by factor of 4, showed 200% when real was 50%
 
 	g_bms_state.relayState = (msg->data[5]<<8 | msg ->data[6]);
 	g_bms_state.msg1corrupt = (msg->data[7]);
@@ -230,6 +230,20 @@ void BMS_CANRxHandler_msg2(uv_CAN_msg* msg){
 
 }
 
+// adding registration with XDevMon for BMS
+// Need to go through datasheets to see if it is structured similarly in terms of can request mux
+static uv_status BMS_RegisterWithXDevMon(void){
+	TickType_t period_ms = 100; // poll every 100 ms
+
+	uint16_t flags = XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT;
+
+	if (uvRegisterExternalDevice(BMS, period_ms, flags, "BMS") != UV_OK) {
+			return UV_ERROR; // error when registering device
+		}
+	// here we dont need to ask the BMS to send us messages because if i remember correctly
+	// the bms is always transmitting messages
+	// here
+}
 
 
 void BMS_Init(void* args){
@@ -244,7 +258,7 @@ void BMS_Init(void* args){
 	insertCANMessageHandler(0x6B0, BMS_CANRxHandler_msg1, CAN_BUS_1);
 	insertCANMessageHandler(0x6B1, BMS_CANRxHandler_msg2, CAN_BUS_1);
 
-	if(uvRegisterExternalDevice(BMS, 100, XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT, "BMS")!=UV_OK){
+	if(BMS_RegisterWithXDevMon() !=UV_OK){
 		response.status = UV_ERROR;
 		response.errmsg = "Failed to register BMS with XDEVMON";
 	}
