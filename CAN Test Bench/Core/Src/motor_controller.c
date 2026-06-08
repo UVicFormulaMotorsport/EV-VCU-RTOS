@@ -57,9 +57,9 @@ motor_controller_settings mc_default_settings = {
     // Scaled values (normalized to 32767)
 	//TODO: make these values unscaled, in units
     .max_speed              = 32767, //12357,   // (2457.5 RPM / 6500 RPM) * 32767
-    .max_current            = 25000, //2600,   // 140 Nm --> I = T / kt = 140 / 0.94 = 148.9 A --> DIG CURRENT LIMIT (148.9 A / 250 A) * 32767 = 19516
+    .max_current            = 32767, //2600,   // 140 Nm --> I = T / kt = 140 / 0.94 = 148.9 A --> DIG CURRENT LIMIT (148.9 A / 250 A) * 32767 = 19516
 	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
-    .cont_current           = 10000,    // (60 A / 250 A) * 32767
+    .cont_current           = 32767,    // (60 A / 250 A) * 32767
     .max_torque             = 32767,   // Full scale = 230 Nm = 32767
     .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
 	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
@@ -668,8 +668,8 @@ void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
     };
 
     static int32_t raw_units[] = {
-         4700, 5200, 5700, 6200, 6700, 7200, 7500, 7800, 8400, 9000,
-         9600,10200,10800,11400,12000,12600,13200,13800,14400,15000
+         7414,8240,8802,9369,9939,10510,10795,11080,11646, 12207,
+         12762,13308,13846,14373,14890,15391,15852,16251,16569,16789
     };
 
         /*

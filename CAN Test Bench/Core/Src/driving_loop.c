@@ -76,8 +76,8 @@ extern volatile bms_state_t g_bms_state;
 // -----------------------------------------------------------------------------
 // Throttle/Brake pct values (global)
 // -----------------------------------------------------------------------------
-uint8_t g_throttle_percent = 0.0f;
-uint8_t g_brake_percent = 0.0f;
+uint16_t g_throttle_percent = 0;
+uint16_t g_brake_percent = 0;
 // -----------------------------------------------------------------------------
 // Driving loop settings
 // -----------------------------------------------------------------------------
@@ -218,7 +218,7 @@ driving_loop_args default_dl_settings =
                 	.dm_name = "Cooler then your EX",
                 .control_map_fn = DL_MAP_EXP,
                     .kVal = 0.60f,
-                    .max_acc_pwr = 55000,      // [W] mode operating ceiling (active cap uses min(global, mode))
+                    .max_acc_pwr = 40000,      // [W] mode operating ceiling (active cap uses min(global, mode))
                     .max_motor_torque = 160,   // [Nm] mode operating ceiling (active cap uses min(global, mode))
                     .adaptive_settings = {
                             .soften_gain = 0.20f,
@@ -232,7 +232,7 @@ driving_loop_args default_dl_settings =
                             .coast_p_high    = 0.015f,
                     },
                     .map_fn_params.exp = {
-                        .s = 1.20f, // exponent used by EXP map: f(x) = x^s
+                        .s = 1.0f, // exponent used by EXP map: f(x) = x^s
                     },
             },
 
@@ -310,7 +310,7 @@ float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter
 
 static bool torque_inhibit_active = false; PRIVILEGED_DATA // [bool] latched inhibit
 
-static uint8_t __current_dmode = 3; PRIVILEGED_DATA//[Unitless] Index of current driving mode
+static uint8_t __current_dmode = 1; PRIVILEGED_DATA//[Unitless] Index of current driving mode
 SemaphoreHandle_t dmode_mutex = NULL; PRIVILEGED_DATA
 
 //Macro to make the driving mode seem much simpler

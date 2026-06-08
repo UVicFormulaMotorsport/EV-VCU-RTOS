@@ -31,6 +31,24 @@ const uint8_t data_size[] = {1,1, //UV_UINT8 and UV_INT8
 //#define CAN_TRANSMIT_TEST_IN_INIT
 
 
+static uv_status uvSelfDiagnosticSequence(){
+
+	coniferEnChannel(COOLANT_PUMP1);
+	vTaskDelay(1000);
+	coniferDisChannel(COOLANT_PUMP1);
+	vTaskDelay(1000);
+	coniferEnChannel(RAD_FANS1);
+	vTaskDelay(1000);
+	coniferDisChannel(RAD_FANS1);
+	vTaskDelay(1000);
+		coniferEnChannel(RAD_FANS2);
+		vTaskDelay(1000);
+		coniferDisChannel(RAD_FANS2);
+
+		return UV_OK;
+}
+
+
 
 /** @brief: Function that initializes all of the car's stuff.
  *
@@ -189,6 +207,10 @@ void uvInit(void * arguments){
 	}
 
 	BeepBeepMotherFucker();
+
+	if(uvSelfDiagnosticSequence()!=UV_OK){
+		uvPanic("ELEC SYSTEM FAULT",0);
+	}
 
 	//coniferEnChannel(COOLANT_PUMP1);
 	//coniferEnChannel(BAMO_RUN);

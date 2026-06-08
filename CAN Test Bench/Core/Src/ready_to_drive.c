@@ -43,6 +43,8 @@ uv_status initRTDtask(void* args){
 		return UV_OK;
 }
 
+extern uint16_t g_brake_percent;
+
 void rtdTask(void* args){
 	uv_task_info* params = (uv_task_info*)args;
 
@@ -68,6 +70,7 @@ void rtdTask(void* args){
 		//Are they pushing the start button?
 
 		float brake_percent = calculateBrakePercentage(adc1_BPS1);
+		g_brake_percent = brake_percent;
 
 		if((brake_percent > 10) && (bl_on == 0)){
 			coniferEnChannel(BRAKE_LIGHT);

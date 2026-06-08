@@ -124,10 +124,10 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 	n++;
 //
 //	//COOLANT PUMP
-//	__ch_list[n].ch = COOLANT_PUMP1;
-//	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_1;
-//	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
-//	n++;
+	__ch_list[n].ch = COOLANT_PUMP1;
+	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_3;
+	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_IS_CRIT_BIT;
+	n++;
 //
 //	//RAD FAN 1
 	__ch_list[n].ch = RAD_FANS1;
@@ -137,7 +137,7 @@ __attribute__((constructor)) void coniferGenerateDefaults(){
 //
 //	//RAD FAN 2
 	__ch_list[n].ch = RAD_FANS2;
-	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_3;
+	__ch_list[n].ch_dat.hardware_mapping = CONIFER_CH_IN_USE|(UV19_PDU_CH<<8)|U19_PDU_20A_1;
 	__ch_list[n].ch_dat.status_control_reg = CONIFER_CH_ALLOW_LOAD_SHED;
 	n++;
 //

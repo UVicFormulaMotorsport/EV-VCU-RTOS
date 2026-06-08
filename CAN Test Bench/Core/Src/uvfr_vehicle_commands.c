@@ -4,6 +4,15 @@
 
 typedef struct output_channel_settings output_channel_settings;
 
+#define TS_OFF		1
+#define TS_ERROR	2
+#define TS_ACTIVE	3
+
+static uint8_t TS_status;
+static SemaphoreHandle_t TS_stat_mutex;
+
+static uint8_t sdc_rb_pwr = 0;
+
 #ifdef VIBECHECK
 //Special code here
 
@@ -57,6 +66,57 @@ void uvStopHornCallbackFunc(TimerHandle_t xTim){
 #define RTD_SOUND_PERIOD 2000
 
 static inline void abortEnergization(){
+
+}
+
+//static void uvSetTractiveStatus(uint8_t status){
+//	if(xSemaphoreTake(TS_stat_mutex,2) = pdTRUE){
+//		TS_status = status;
+//		xSemaphoreGive(TS_stat_mutex);
+//	}
+//}
+//
+//static uint8_t uvGetTractiveStatus(){
+//	uint8_t retval;
+//	if(xSemaphoreTake(TS_stat_mutex,2) = pdTRUE){
+//		retval = TS_status;
+//		xSemaphoreGive(TS_stat_mutex);
+//	}
+//
+//	return retval;
+//}
+
+
+
+uv_status uvEnableTraction(){
+	StaticTimer_t horn_tim_buf;
+	TimerHandle_t htim;
+
+
+	//BEEP BEEP MOTHERFUCKER LMAO
+	if(coniferEnChannel(HORN)!= UV_OK){
+		//This means that it would be rules compliant for us to start up the car
+		return UV_ERROR;
+	}
+
+	htim = xTimerCreateStatic("horn",RTD_SOUND_PERIOD,pdFALSE,NULL,uvStopHornCallbackFunc,&horn_tim_buf);
+	if(htim == NULL){
+		//Could not create software timer
+		coniferDisChannel(HORN);
+		return UV_ERROR;
+	}
+
+	if(xTimerStart(htim,2)!=pdTRUE){
+		coniferDisChannel(HORN);
+		return UV_ERROR;
+	}
+
+
+	return UV_OK;
+
+}
+
+uv_status uvDisableTraction(){
 
 }
 
