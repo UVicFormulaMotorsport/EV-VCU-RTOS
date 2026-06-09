@@ -759,7 +759,7 @@ void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
         .x = raw_units,
         .y = temp_c,
         //.n = (uint8_t)(sizeof(raw_units) / sizeof(raw_units[0])), - BUG - sizeof(raw_units is size of pointer)
-		.n = 20,
+		.n = 21,
         .flags = (LUT_LINTERP | LUT_CAP_AT_MAX_MIN)
     };
 

@@ -19,6 +19,7 @@ const uint64_t constant_zero = 0;
 
 volatile uint16_t coolant_temp_adc = 0;
 volatile uint16_t motor_temp_adc = 0;
+extern int16_t mc_motor_temp;
 
 //configuring ADCs
 //ADC_HandleTypeDef hadc1;
@@ -273,7 +274,8 @@ uv_status initDaqTask(void * args){
 	tmp_daq_msg.flags = curr_daq_settings->can_channel;
 
 	associateDaqParamWithVar(COOLANT_TEMP_ADC, (void*)&coolant_temp_adc); //HOOKING ADC VARS TO DAQ. 
-	associateDaqParamWithVar(MOTOR_TEMP_ADC, (void*)&motor_temp_adc); //HOOKING ADC VARS TO DAQ. 
+	associateDaqParamWithVar(MOTOR_TEMP_ADC, (void*)&motor_temp_adc); //HOOKING ADC VARS TO DAQ.
+	associateDaqParamWithVar(MOTOR_TEMP, (void*)&mc_motor_temp);  // MOTOR TEMP using LUT
 
 
 	if(configureDaqSubTasks() != UV_OK){
