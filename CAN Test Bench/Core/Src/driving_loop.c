@@ -132,7 +132,7 @@ driving_loop_args default_dl_settings =
     .apps2_abs_min_val = 0x0000, // [ADC counts]
     .apps2_abs_max_val = 0x1029, // [ADC counts]
 
-    .min_BPS_value = 0x00F0, // [ADC counts]
+    .min_BPS_value = 0x00F0, // [ADC counts] //530 on pcan
     .max_BPS_value = 0x0B7E, // [ADC counts]
 
     /* APPS / BPS SCALING */

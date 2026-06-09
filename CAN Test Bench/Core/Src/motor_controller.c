@@ -47,36 +47,68 @@ uint16_t mc_warning_mask = 0;
 /* Global default settings variable defined here.
  * This uses the motor_controller_settings definition from uvfr_settings.h.
  */
+//motor_controller_settings mc_default_settings = {
+//    .can_id_tx              = 0x201,
+//    .can_id_rx              = 0x181,
+//    .mc_CAN_timeout         = 2,
+////    .proportional_gain      = 10,   // uint8_t
+////    .integral_time_constant = 400,  // uint32_t
+////    .integral_memory_max    = 60,    // uint8_t (represents 60%)
+//
+//    // Scaled values (normalized to 32767)
+//	//TODO: make these values unscaled, in units
+//    .max_speed              = 25, // 8317, //32767, //12357,   // (2457.5 RPM / 6500 RPM) * 32767
+//    .max_current            = 19516, //2600,   // 140 Nm --> I = T / kt = 140 / 0.94 = 148.9 A --> DIG CURRENT LIMIT (148.9 A / 250 A) * 32767 = 19516
+//	.iq_fullscale_arms		= 150,	   // FULL ALLOWABLE CURENT [Arms]
+//    .cont_current           = 7864,    // (60 A / 250 A) * 32767
+//    .max_torque             = 32767,   // Full scale = 230 Nm = 32767
+////    .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
+////	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
+////	 * Converting °C to raw KTY81 register units using lookupMotorTemp() LUT:
+//	.warning_motor_temp = 8780,   // 0xA2 — start current derating at 80°C
+//	.max_motor_temp     = 9638,   // 0xA3 — emergency shutdown at 100°C
+//
+//	.mc_bus 				= CAN_BUS_1,
+//	// current control
+//	.cc_kp    				= 20,		//Kp (0..200) "Num" register 0x1C
+//	.cc_ti    				= 600,		//Ti (ms) 			register 0x1D
+//	.cc_tim   				= 100,		//TiM (%) 			register 0x2B
+//	.cc_xkp2  				= 0,		//xKP2 				register 0xC9
+//	.cc_kf    				= 0,		//Kf				register 0xCB
+//	.cc_ramp  				= 2000,		//Ramp (us) 		register 0x25
+//	// optional derating knobs
+//	.imax_pk  				= 100,		//I max pk (%) or scaled A  register 0xC4
+//	.icon_eff 				= 100,		//I con eff (Arms or %) 	register 0xC5
+//	.t_peak2  				= 5,		//Topeak2 (s) 				register 0xF0
+//};
+
 motor_controller_settings mc_default_settings = {
     .can_id_tx              = 0x201,
     .can_id_rx              = 0x181,
     .mc_CAN_timeout         = 2,
-//    .proportional_gain      = 10,   // uint8_t
-//    .integral_time_constant = 400,  // uint32_t
-//    .integral_memory_max    = 60,    // uint8_t (represents 60%)
-
     // Scaled values (normalized to 32767)
-	//TODO: make these values unscaled, in units
-    .max_speed              = 25, // 8317, //32767, //12357,   // (2457.5 RPM / 6500 RPM) * 32767
-    .max_current            = 19516, //2600,   // 140 Nm --> I = T / kt = 140 / 0.94 = 148.9 A --> DIG CURRENT LIMIT (148.9 A / 250 A) * 32767 = 19516
-	.iq_fullscale_arms		= 250,	   // FULL ALLOWABLE CURENT [Arms]
-    .cont_current           = 7864,    // (60 A / 250 A) * 32767
-    .max_torque             = 32767,   // Full scale = 230 Nm = 32767
-    .max_motor_temp         = 32767,   // 120 °C → full scale (as per 0xA3 field)
-	.warning_motor_temp		= 32767,	//120 °C → full scale (as per 0xA2 field)
+    .max_speed              = 32767,  // N-100% = 5500 RPM = 32767 counts — pure torque mode (N-Lim=100%)
+    .max_current            = 32538,  // 140 Nm limit: I_peak = 140/0.94 = 148.9 A
+                                      // (148.9 A / 150 A) * 32767 = 3253
+    .iq_fullscale_arms      = 150,    // I max pk in NDrive must be set to 150 A
+                                      // 32767 = 150 A per BAMOCAR manual normalisation
+    .cont_current           = 13107,  // 60 A continuous: (60 / 150) * 32767 = 13107
+    .max_torque             = 32767,  // full scale, torque limited by max_current above
+    .max_motor_temp         = 9638,   // 100°C emergency shutdown (from KTY81 LUT)
+    .warning_motor_temp     = 8780,   // 80°C start derating (from KTY81 LUT)
+    .mc_bus                 = CAN_BUS_1,
+    // current control — unchanged, these are PI tuning not scaling
+    .cc_kp                  = 20,
+    .cc_ti                  = 600,
+    .cc_tim                 = 100,
+    .cc_xkp2                = 0,
+    .cc_kf                  = 0,
+    .cc_ramp                = 2000,
 
-	.mc_bus 				= CAN_BUS_1,
-	// current control
-	.cc_kp    				= 20,		//Kp (0..200) "Num" register 0x1C
-	.cc_ti    				= 600,		//Ti (ms) 			register 0x1D
-	.cc_tim   				= 100,		//TiM (%) 			register 0x2B
-	.cc_xkp2  				= 0,		//xKP2 				register 0xC9
-	.cc_kf    				= 0,		//Kf				register 0xCB
-	.cc_ramp  				= 2000,		//Ramp (us) 		register 0x25
-	// optional derating knobs
-	.imax_pk  				= 100,		//I max pk (%) or scaled A  register 0xC4
-	.icon_eff 				= 100,		//I con eff (Arms or %) 	register 0xC5
-	.t_peak2  				= 5,		//Topeak2 (s) 				register 0xF0
+    // derating — 100% means firmware controls limits via max_current above
+    .imax_pk                = 100,
+    .icon_eff               = 100,
+    .t_peak2                = 5,
 };
 
 void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
@@ -663,14 +695,14 @@ void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
      * Keep both arrays in the same order and with matching indices.
      * Example: raw_units[i] corresponds to temp_c[i].
      */
+
     static float temp_c[] = {
         -30, -20, -10,   0,  10,  20,  25,  30,  40,  50,
-         60,  70,  80,  90, 100, 110, 120, 130, 140, 150
+         60,  70,  80,  90, 100, 110, 120, 130, 140, 150, 155
     };
-
     static int32_t raw_units[] = {
-         4700, 5200, 5700, 6200, 6700, 7200, 7500, 7800, 8400, 9000,
-         9600,10200,10800,11400,12000,12600,13200,13800,14400,15000
+         4355, 4713, 5084, 5467, 5859, 6260, 6464, 6669, 7083, 7503,
+         7926, 8352, 8780, 9209, 9638,10065,10483,10880,11236,11533,11652
     };
 
         /*
@@ -896,13 +928,13 @@ void MC_Startup(void* args)
     vTaskDelay(pdMS_TO_TICKS(10));
 
     //speed limit in % of speed maximally
-    MC_SetAndVerify_Param(N_lim, mc_settings->max_speed);
+//    MC_SetAndVerify_Param(N_lim, mc_settings->max_speed);
     //set max speed limit aka N_LIM
     // N-Lim scaled: (1650 / 6500) * 100 = 25.4% → write 25 (it's in % of N-100%)
     // activates torque cruise control at 1650 RPM
 
     //0x3c: speed when current derating starts
-    MC_Set_Param(MC_REG_IRED_N, 8317);  // begin current derating at 1650 RPM
+//    MC_Set_Param(MC_REG_IRED_N, 8317);  // begin current derating at 1650 RPM
     //I-red-N = (1650 / 6500) * 32767 = 8317
 
     //pointer to mc init task
