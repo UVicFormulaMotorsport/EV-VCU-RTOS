@@ -1,6 +1,5 @@
-// Code to make human readable CAN messages for the device
+// Code to make human readable CAN messages for the IMD
 
-// This file will define message data as human readable stuff
 #ifndef __IMD_H__
 #define __IMD_H__
 
@@ -8,131 +7,44 @@
 #include "uvfr_utils.h"
 #include <stdint.h>
 
-// CAN ID is currently extended
+/* Bender iso165C / iso165C-1 settings */
+typedef struct uv_imd_settings {
+	uint16_t min_isolation_resistances;        // kOhm threshold
+	uint16_t expected_isolation_capacitances;  // unused for Bender right now
+	uint16_t max_imd_temperature;              // unused for Bender right now
+} uv_imd_settings;
 
-// Needs to be changed to standard ID
-
-// Faults
-// The first byte returned from a status request message will have 8 status bits and the data as the rest
-enum imd_status_bits{
-	// I have just left this as plain binary. Could also be declared by bitshifting but I think this is easier
-	//	    					12345678
-	Isolation_status_bit0	= 0b00000001, // IS0
-	Isolation_status_bit1	= 0b00000010, // IS1
-	Low_Battery_Voltage		= 0b00000100, // LV 15V threshold (1 if below 15V)
-	High_Battery_Voltage	= 0b00001000, // HV (1 if higher than Max_battery_working_voltage)
-	Exc_off 				= 0b00010000, // EO (Excitation pulse 0 for operating)
-	High_Uncertainty 		= 0b00100000, // HU (1 for greater than 5%)
-	Touch_energy_fault 		= 0b01000000, // EF (1 for energy exceeds 0.2J)
-	Hardware_Error			= 0b10000000, // HE (1 for error)
+/* Temporary generic status masks until D_IMC_STATUS is fully mapped */
+enum imd_status_bits {
+	IMD_STATUS_BIT_0 = 0x0001,
+	IMD_STATUS_BIT_1 = 0x0002,
+	IMD_STATUS_BIT_2 = 0x0004,
+	IMD_STATUS_BIT_3 = 0x0008,
+	IMD_STATUS_BIT_4 = 0x0010,
+	IMD_STATUS_BIT_5 = 0x0020,
+	IMD_STATUS_BIT_6 = 0x0040,
+	IMD_STATUS_BIT_7 = 0x0080,
 };
 
-typedef struct uv_imd_settings{
-	uint16_t min_isolation_resistances;
-	uint16_t expected_isolation_capacitances;
-	uint16_t max_imd_temperature;
-
-}uv_imd_settings;
-
-
-// The MCU needs to send a message to the IMD requesting info
-// These are requests that will return status bits (defined above) & the value requested
-enum imd_status_requests{
-	// The electrical isolation is in bytes 2 & 3
-	uv_request_mux_isolation_state = 0xE0,
-
-	// Rp is the resistance from the positive of the battery to chassis
-	// Rn is the resistance from the negative of the battery to chassis
-	uv_request_mux_isolation_resistances = 0xE1,
-
-	// Cp is the capacitance from the positive of the battery to chassis
-	// Cn is the capacitance from the negative of the battery to chassis
-	// Bytes 2 & 3 are Cp, bytes 5 & 6 are Cn, in nF
-	uv_request_mux_isolation_capacitances = 0xE2,
-
-	// High voltage battery voltages to chassis
-	uv_request_mux_voltages_Vp_and_Vn = 0xE3,
-
-	// GLV battery voltage
-	uv_request_mux_battery_voltage = 0xE4,
-
-	// Error flags are a series of bits described below
-	uv_request_mux_Error_flags = 0xE5,
-
-	// The IMD monitors charge stored in the system
-	uv_request_mux_safety_touch_energy = 0xE6,
-
-	// Also monitors if it is safe to touch
-	uv_request_mux_safety_touch_current = 0xE7,
-
-	// This is just a parameter we can set
-	uv_request_mux_Max_battery_working_voltage = 0xF0,
-
-	// We can read the temperature of the board
-	uv_request_mux_Temperature = 0x80,
-};
-
-// If one of the error flags is set, then the harware error bit will go to 1
-enum imd_error_flags{
-	// Bits 0-6 are reserved
-	Err_temp = 0x0080, // HT high temperature (0 if temperature is below 105C)
-	Err_clock = 0x0100, // CE  (0 if clock is good)
-	Err_Watchdog = 0x0200, // WD Watchdog (0 if watchdog is good)
-	Err_Vpwr = 0x0400, // V_PWR power supply (0 if power supply voltage is good)
-	Err_Vexi = 0x0800, // V_EXI Excitation voltage (0 if excitation voltage is good)
-	Err_VxR = 0x1000, // VxR (0 if both Vx1 and Vx2 are good)
-	Err_CH = 0x2000, // CH chassis connections (0 if both chassis connections are good)
-	Err_Vx1 = 0x4000, // Vx1 connection (0 if SIM101 connection to Hv+ is good)
-	Err_Vx2 = 0x8000, // Vx2 connection (0 if SIM101 connection to Hv- is good)
-};
-
-// Probably not useful and won't be used for a bit but may be useful in the future
-enum imd_manufacturer_requests{
-	// The numbers get broken up over multiple bytes
-	Part_name_0 = 0x01,
-	Part_name_1 = 0x02,
-	Part_name_2 = 0x03,
-	Part_name_3 = 0x04,
-	Version_0 = 0x05,
-	Version_1 = 0x06,
-	Version_2 = 0x07,
-	Serial_number_0 = 0x08,
-	Serial_number_1 = 0x09,
-	Serial_number_2 = 0x0A,
-	Serial_number_3 = 0x0B,
-	Uptime_counter = 0x0C,
-};
-
-enum imd_high_resolution_measurements{
-	Vn_hi_res = 0x60,
-	Vp_hi_res = 0x61,
-	Vexc_hi_res = 0x62,
-	Vb_hi_res = 0x63,
-	Vpwr_hi_res = 0x65,
-};
-
-// ---------------------------------------------------------------
-// Function declarations
+/* Function declarations */
 uint8_t  IMD_IsOnline(void);
 uint8_t  IMD_GetStatusBits(void);
 
+/* Bender-specific getters */
+uint16_t IMD_GetRisoKohm(void);
+uint16_t IMD_GetIMCStatus(void);
+uint16_t IMD_GetVIFCStatus(void);
+
+/* Backwards-compatible getters for old code paths */
 uint16_t IMD_GetRpRaw(void);
 uint16_t IMD_GetRnRaw(void);
 uint16_t IMD_GetErrorFlagsRaw(void);
+uint16_t IMD_GetSafetyTouchCurrent(void);
 
 uint8_t  IMD_GetSerial0Valid(void);
 uint32_t IMD_GetSerial0Word(void);
 
-
-
-// High resolution measurements
-
-
-//Incoming can message reciever handler
 void IMD_CanRxHandler(uv_CAN_msg* msg);
-
 void initIMD(void* args);
-
-
 
 #endif

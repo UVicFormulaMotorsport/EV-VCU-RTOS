@@ -23,22 +23,26 @@
  * CAN IDs / bus
  * ========================================================= */
 
-// TODO: replace these CAN IDs using the IMD datasheet
-#ifndef IMD_CAN_ID_Tx
-#define IMD_CAN_ID_Tx  0x0A100101UL
-#endif
+// TODO: replace these CAN IDs using the IMD datasheet - Rachan done
 
-#ifndef IMD_CAN_ID_Rx
-#define IMD_CAN_ID_Rx  0x0A100100UL
-#endif
+#define IMD_CAN_ID_REQUEST   0x22U
+#define IMD_CAN_ID_RESPONSE  0x23U
+#define IMD_CAN_ID_INFO      0x37U
+
+#define IMD_CMD_DUMMY        0x00U
+#define IMD_CMD_GET_R_ISO    0x35U
+#define IMD_CMD_GET_STATUS   0x37U
+#define IMD_CMD_GET_HV1      0x36U
+#define IMD_CMD_GET_HV2      0x3AU
+#define IMD_CMD_SET_HV_RELAY 0xD2U
 
 // TODO: pick the real bus the IMD is wired to
 #ifndef IMD_CAN_BUS
 #define IMD_CAN_BUS CAN_BUS_2
 #endif
 
-// Requests are 1 byte: MUX only
-#define IMD_REQ_DLC 1
+// Requests are 5  bytes: CMD + DataWord1 + DataWord2
+#define IMD_REQ_DLC 5
 
 /* =========================================================
  * Optional: simple "ping" serial check
@@ -46,11 +50,11 @@
 
 // If you don't want the init to fail based on serial, set this to 0
 #ifndef IMD_ENABLE_SERIAL_CHECK
-#define IMD_ENABLE_SERIAL_CHECK 1
+#define IMD_ENABLE_SERIAL_CHECK 0
 #endif
 
-// Replace it with real serial chunk OR disable serial check.
-static const uint32_t IMD_EXPECTED_SERIAL0 = 0xB8DD9AF9U;
+// Replace it with real serial chunk OR disable serial check.- Rachan Disabled for now 
+// static const uint32_t IMD_EXPECTED_SERIAL0 = 0xB8DD9AF9U;
 
 // Default IMD settings stored in flash SBLOCK (used by uvfr_settings.c)
 const uv_imd_settings default_imd_settings = {
@@ -70,16 +74,13 @@ typedef struct {
 	// status bits byte from IMD replies
 	uint8_t status_bits;
 
-	// parsed raw values (exact units depend on datasheet)
-	uint16_t iso_state_raw;      // uv_request_mux_isolation_state (E0)
-	uint16_t rp_raw;             // uv_request_mux_isolation_resistances (E1) bytes 2..3
-	uint16_t rn_raw;             // uv_request_mux_isolation_resistances (E1) bytes 5..6
-	uint16_t cp_nf;              // uv_request_mux_isolation_capacitances (E2) bytes 2..3
-	uint16_t cn_nf;              // uv_request_mux_isolation_capacitances (E2) bytes 5..6
-	uint16_t glv_raw;            // uv_request_mux_battery_voltage (E4) bytes 2..3
-	uint16_t error_flags_raw;    // uv_request_mux_Error_flags (E5) bytes 2..3
-	uint16_t temp_raw;           // uv_request_mux_Temperature (0x80) bytes 2..3 (if used)
-	uint16_t safety_touch_current; //uv_request_mux_safety_touch_current( (0xE6??) bytes something something
+	// parsed raw values (exact units depend on datasheet) updated - Rachan
+	uint16_t r_iso_kohm;       // Bender D_IMC_R_ISO insulation resistance
+	uint16_t imc_status;       // Bender D_IMC_STATUS
+	uint16_t imc_status_ext;   // Bender D_IMC_STATUS_EXT
+	uint16_t vifc_status;      // Bender D_VIFC_STATUS
+	uint16_t hv1_voltage;      // Bender D_IMC_HV_1
+	uint16_t hv2_voltage;      // Bender D_IMC_HV_2
 									//i will fix this later -quazi from byrons computer
 
 	// ping / identity check
@@ -93,24 +94,29 @@ static volatile imd_state_t g_imd_state = {0};
 /* =========================================================
  * Helpers
  * ========================================================= */
-
+// if we are not using this can we remove?
 static inline uint16_t u16_be(const uint8_t *p) {
 	return (uint16_t)((p[0] << 8) | p[1]);
 }
 
-// Sending a one-byte request frame (MUX only)
-static void IMD_SendRequest(uint8_t mux_code) {
+
+// Sending a Bender IMD request frame: CMD + DataWord1 + DataWord2
+static void IMD_SendRequest(uint8_t cmd, uint16_t data_word1, uint16_t data_word2) {
 	uv_CAN_msg msg;
 	memset(&msg, 0, sizeof(msg));
 
-	msg.msg_id  = IMD_CAN_ID_Tx;
-	msg.dlc     = IMD_REQ_DLC;
-	msg.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	msg.data[0] = mux_code;
+	msg.msg_id = IMD_CAN_ID_REQUEST;
+	msg.dlc    = IMD_REQ_DLC;
+	msg.flags  = IMD_CAN_BUS;   // standard CAN ID
+
+	msg.data[0] = cmd;
+	msg.data[1] = (uint8_t)(data_word1 & 0xFF);
+	msg.data[2] = (uint8_t)((data_word1 >> 8) & 0xFF);
+	msg.data[3] = (uint8_t)(data_word2 & 0xFF);
+	msg.data[4] = (uint8_t)((data_word2 >> 8) & 0xFF);
 
 	uvSendCanMSG(&msg);
 }
-
 
 /* =========================================================
  * XDevMon integration
@@ -125,64 +131,22 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 		return UV_ERROR;
 	}
 
-	// Add poll messages (DLC MUST BE 1 in your system)
 	uv_CAN_msg poll;
-
-	// --- ping / serial chunk (optional but useful) ---
 	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = Serial_number_0;
-	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) return UV_ERROR;
 
-	// --- isolation resistance (your requested “certain value”) ---
-	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = uv_request_mux_isolation_resistances;
-	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) return UV_ERROR;
+	poll.msg_id  = IMD_CAN_ID_REQUEST;
+	poll.dlc     = IMD_REQ_DLC;
+	poll.flags   = IMD_CAN_BUS;   // standard CAN, not extended
 
-	// --- error flags (super useful to log) ---
-	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = uv_request_mux_Error_flags;
-	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) return UV_ERROR;
+	poll.data[0] = IMD_CMD_GET_R_ISO;
+	poll.data[1] = 0;
+	poll.data[2] = 0;
+	poll.data[3] = 0;
+	poll.data[4] = 0;
 
-	// Optional extra polls (enable as you want)
-	// isolation state
-	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = uv_request_mux_isolation_state;
-	(void)uvAddPollMsgToXdev(IMD, &poll);
-
-	// capacitances
-	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = uv_request_mux_isolation_capacitances;
-	(void)uvAddPollMsgToXdev(IMD, &poll);
-
-	// temperature
-	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = uv_request_mux_Temperature;
-	(void)uvAddPollMsgToXdev(IMD, &poll);
-
-	memset(&poll, 0, sizeof(poll));
-	poll.msg_id  = IMD_CAN_ID_Tx;
-	poll.dlc     = 1;
-	poll.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
-	poll.data[0] = uv_request_mux_safety_touch_current;
-	(void)uvAddPollMsgToXdev(IMD, &poll);
+	if (uvAddPollMsgToXdev(IMD, &poll) != UV_OK) {
+		return UV_ERROR;
+	}
 
 	return UV_OK;
 }
@@ -191,120 +155,57 @@ static uv_status IMD_RegisterWithXDevMon(void) {
 /* =========================================================
  * CAN RX handler (BMS style)
  * ========================================================= */
-
 void IMD_CanRxHandler(uv_CAN_msg* msg) {
 	if (!msg) return;
-	if (msg->msg_id != IMD_CAN_ID_Rx) return;
-	if (msg->dlc < 1) return;
 
-	// data[0] is always the returned MUX
-	uint8_t mux = msg->data[0];
+	if (msg->msg_id == IMD_CAN_ID_INFO) {
+		if (msg->dlc < 6) return;
 
-	// mark online every time we get something valid
-	g_imd_state.online = 1;
+		g_imd_state.online = 1;
 
-	switch (mux) {
+		g_imd_state.r_iso_kohm  = (uint16_t)(msg->data[0] | (msg->data[1] << 8));
+		g_imd_state.imc_status  = (uint16_t)(msg->data[2] | (msg->data[3] << 8));
+		g_imd_state.vifc_status = (uint16_t)(msg->data[4] | (msg->data[5] << 8));
 
-		// -------------------------------------------------
-		// Manufacturer serial chunk 0: bytes [1..4]
-		// -------------------------------------------------
-		case Serial_number_0: {
-			if (msg->dlc < 5) break;
+		g_imd_state.status_bits = (uint8_t)(g_imd_state.imc_status & 0xFF);
 
-			uint32_t word =
-				((uint32_t)msg->data[1] << 24) |
-				((uint32_t)msg->data[2] << 16) |
-				((uint32_t)msg->data[3] <<  8) |
-				((uint32_t)msg->data[4] <<  0);
-
-			g_imd_state.serial0_word  = word;
-			g_imd_state.serial0_valid = 1;
-			break;
-		}
-
-		// -------------------------------------------------
-		// Isolation state (E0): status bits at [1], value at [2..3]
-		// -------------------------------------------------
-		case uv_request_mux_isolation_state: {
-			if (msg->dlc < 4) break;
-			g_imd_state.status_bits  = msg->data[1];
-			g_imd_state.iso_state_raw = u16_be(&msg->data[2]);
-			break;
-		}
-
-		// -------------------------------------------------
-		// Isolation resistances (E1):
-		// Rp: bytes [2..3]
-		// Rn: bytes [5..6]
-		// -------------------------------------------------
-		case uv_request_mux_isolation_resistances: {
-			if (msg->dlc < 7) break;
-			g_imd_state.status_bits = msg->data[1];
-			g_imd_state.rp_raw      = u16_be(&msg->data[2]);
-			g_imd_state.rn_raw      = u16_be(&msg->data[5]);
-			break;
-		}
-
-		// -------------------------------------------------
-		// Isolation capacitances (E2):
-		// Cp: bytes [2..3]
-		// Cn: bytes [5..6]
-		// -------------------------------------------------
-		case uv_request_mux_isolation_capacitances: {
-			if (msg->dlc < 7) break;
-			g_imd_state.status_bits = msg->data[1];
-			g_imd_state.cp_nf       = u16_be(&msg->data[2]);
-			g_imd_state.cn_nf       = u16_be(&msg->data[5]);
-			break;
-		}
-
-		// -------------------------------------------------
-		// GLV battery voltage (E4): value at [2..3]
-		// -------------------------------------------------
-		case uv_request_mux_battery_voltage: {
-			if (msg->dlc < 4) break;
-			g_imd_state.status_bits = msg->data[1];
-			g_imd_state.glv_raw     = u16_be(&msg->data[2]);
-			break;
-		}
-
-		// -------------------------------------------------
-		// Error flags (E5): value at [2..3]
-		// -------------------------------------------------
-		case uv_request_mux_Error_flags: {
-			if (msg->dlc < 4) break;
-			g_imd_state.status_bits    = msg->data[1];
-			g_imd_state.error_flags_raw = u16_be(&msg->data[2]);
-			break;
-		}
-
-		// -------------------------------------------------
-		// Temperature (0x80): value at [2..3] (confirm in datasheet)
-		// -------------------------------------------------
-		case uv_request_mux_Temperature: {
-			if (msg->dlc < 4) break;
-			g_imd_state.status_bits = msg->data[1];
-			g_imd_state.temp_raw    = u16_be(&msg->data[2]);
-			break;
-		}
-
-		// Check safety touch -quazi from byrons computer
-		case uv_request_mux_safety_touch_current: {
-			if (msg->dlc < 4) break;
-			g_imd_state.safety_touch_current = msg->data[1];
-			g_imd_state.safety_touch_current = u16_be(&msg->data[2]);
-			break;
-		}
-
-		default:
-			// unhandled mux — ignore
-			break;
+		externalDeviceRxHandler(IMD);
+		return;
 	}
 
-	// CRITICAL: tells XDevMon / init waiters that IMD responded
-	externalDeviceRxHandler(IMD);
-}
+	if (msg->msg_id == IMD_CAN_ID_RESPONSE) {
+		if (msg->dlc < 5) return;
 
+		g_imd_state.online = 1;
+
+		uint8_t cmd = msg->data[0];
+
+		switch (cmd) {
+			case IMD_CMD_GET_R_ISO:
+				g_imd_state.r_iso_kohm = (uint16_t)(msg->data[1] | (msg->data[2] << 8));
+				break;
+
+			case IMD_CMD_GET_STATUS:
+				g_imd_state.imc_status     = (uint16_t)(msg->data[1] | (msg->data[2] << 8));
+				g_imd_state.imc_status_ext = (uint16_t)(msg->data[3] | (msg->data[4] << 8));
+				g_imd_state.status_bits    = (uint8_t)(g_imd_state.imc_status & 0xFF);
+				break;
+
+			case IMD_CMD_GET_HV1:
+				g_imd_state.hv1_voltage = (uint16_t)(msg->data[1] | (msg->data[2] << 8));
+				break;
+
+			case IMD_CMD_GET_HV2:
+				g_imd_state.hv2_voltage = (uint16_t)(msg->data[1] | (msg->data[2] << 8));
+				break;
+
+			default:
+				break;
+		}
+
+		externalDeviceRxHandler(IMD);
+	}
+}
 
 /* =========================================================
  * init task (like BMS_Init but with ping check)
@@ -331,7 +232,8 @@ void initIMD(void* args) {
 	memset((void*)&g_imd_state, 0, sizeof(g_imd_state));
 
 	// register rx handler first (so the “ping” can be received)
-	insertCANMessageHandler(IMD_CAN_ID_Rx, IMD_CanRxHandler, IMD_CAN_BUS);
+	insertCANMessageHandler(IMD_CAN_ID_RESPONSE, IMD_CanRxHandler, IMD_CAN_BUS);
+	insertCANMessageHandler(IMD_CAN_ID_INFO, IMD_CanRxHandler, IMD_CAN_BUS);
 
 	// register with xdevmon + add poll list
 	if (IMD_RegisterWithXDevMon() != UV_OK) {
@@ -341,10 +243,9 @@ void initIMD(void* args) {
 	}
 
 	// send one immediate ping (don’t wait for next poll tick)
-	IMD_SendRequest(Serial_number_0);
-
+	IMD_SendRequest(IMD_CMD_DUMMY, 0, 0);
 	// wait for response (externalDeviceRxHandler(IMD) will release semaphore)
-	if (uvWaitOnExternalDevice(IMD, pdMS_TO_TICKS(300)) != UV_OK) {
+	if (uvWaitOnExternalDevice(IMD, pdMS_TO_TICKS(300)) != UV_OK) { // change to 1000 if to slow this can cause issue testing if it slow to respond
 		resp.errmsg = "IMD no resp";
 		resp.nchar  = 11;
 		goto done;
@@ -394,19 +295,31 @@ uint8_t IMD_GetStatusBits(void) {
 	return g_imd_state.status_bits;
 }
 
-// “certain value”: isolation resistance (Rp/Rn)
+uint16_t IMD_GetRisoKohm(void) {
+	return g_imd_state.r_iso_kohm;
+}
+
+uint16_t IMD_GetIMCStatus(void) {
+	return g_imd_state.imc_status;
+}
+
+uint16_t IMD_GetVIFCStatus(void) {
+	return g_imd_state.vifc_status;
+}
+
+/* Backwards-compatible old getter names */
 uint16_t IMD_GetRpRaw(void) {
-	return g_imd_state.rp_raw;
+	return g_imd_state.r_iso_kohm;
 }
 
 uint16_t IMD_GetRnRaw(void) {
-	return g_imd_state.rn_raw;
+	return g_imd_state.r_iso_kohm;
 }
 
 uint16_t IMD_GetErrorFlagsRaw(void) {
-	return g_imd_state.error_flags_raw;
+	return g_imd_state.imc_status;
 }
 
-uint16_t IMD_GetSafetyTouchCurrent(void){
-	return g_imd_state.safety_touch_current;
+uint16_t IMD_GetSafetyTouchCurrent(void) {
+	return 0;
 }
