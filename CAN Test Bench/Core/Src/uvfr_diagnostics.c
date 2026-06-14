@@ -29,6 +29,15 @@ typedef struct{
 
 QueueHandle_t print_queue;
 
+//Internal diagnostic global vars
+uint8_t g_bms_fault;
+uint8_t g_imd_fault;
+uint8_t g_bspd_fault;
+
+uint8_t g_SDCR_tripped;
+
+uint16_t digi_in_stat;
+
 void dispWheelSpeeds();
 
 static uint32_t ITM_SendCharToReg (char ch,uint32_t port);
@@ -204,6 +213,35 @@ void dispVehicleStatusReport(){
 	return;
 }
 
+void uvGetSDCStat(){
+	//IMD - 0 on pin is bad
+	if(!HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_1)){
+		g_imd_fault = 1;
+	}else{
+		g_imd_fault = 0;
+	}
+
+	//BMS - Open drain -> 1 bad
+	if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2)){
+		g_bms_fault = 1;
+	}else{
+		g_bms_fault = 0;
+	}
+
+	//BSPD - Open drain -> 1 bad
+	if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_3)){
+		g_bspd_fault = 1;
+	}else{
+		g_bspd_fault = 0;
+	}
+
+	g_SDCR_tripped = g_bms_fault || g_bspd_fault || g_imd_fault;
+}
+
+uint16_t uvGetDigiInStat(){
+	return (uint16_t)GPIOD->IDR;
+}
+
 /** @brief Background task responsible for much of our live telemtry and fault detection capabilies
  *
  */
@@ -213,17 +251,22 @@ void uvBackgroundDiagnosticsDaemon(void* args){
 	UBaseType_t n_active_tasks = 0;
 
 	for(;;){
-		vTaskDelay(100);
+		vTaskDelay(10);
 
+		uvGetSDCStat();
+
+		digi_in_stat = uvGetDigiInStat();
 
 
 #ifdef DEBUG
-	if(k%10 == 0){
+	if(k%100 == 0){
 		//dispVehicleStatusReport();
 	}
 #endif
-
+	if(k%10 == 0){
 		vPortGetHeapStats(&xHeapStats);
+	}
+
 		//dispWheelSpeeds();
 		k = (k + 1)%100;
 		if(params->cmd_data == UV_KILL_CMD){
@@ -258,10 +301,17 @@ uv_status uvInitDiagnostics(){
 	diag_task->stack_size = 1024;
 	diag_task->task_priority = 1;
 
+	associateDaqParamWithVar(DIGI_IN_STAT,&digi_in_stat);
+
+	associateDaqParamWithVar(IMD_FAULT_HW,&g_bms_fault);
+	associateDaqParamWithVar(BMS_FAULT_HW,&g_imd_fault);
+	associateDaqParamWithVar(BSPD_FAULT_HW,&g_bspd_fault);
 
 
 
 
+
+#ifdef DEBUG
 	//TestPorts lol;
 	if(__debugWriteInternal("Testing Port 0\n \0",0)!=UV_OK){
 		uvPanic("ITM_FAIL",0);
@@ -278,7 +328,9 @@ uv_status uvInitDiagnostics(){
 	if(__debugWriteInternal("Testing Port 3\n \0",3)!=UV_OK){
 				uvPanic("ITM_FAIL",0);
 	}
+#endif
 	uvStartTask(&var,diag_task);
+
 
 	return UV_OK;
 }

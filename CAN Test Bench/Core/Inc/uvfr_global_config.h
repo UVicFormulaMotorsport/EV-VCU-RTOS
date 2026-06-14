@@ -38,6 +38,7 @@
 
 #endif
 
-
+//TECH INSPECTION MACROS
+#define RESETTABLE_ESTOP
 
 #endif /* INC_UVFR_GLOBAL_CONFIG_H_ */

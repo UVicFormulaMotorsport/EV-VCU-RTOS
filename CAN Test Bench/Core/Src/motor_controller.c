@@ -467,9 +467,17 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
     }
     if (errors & hardware_fault) {
         uvPanic("Hardware Fault", 0);
+
     }
     if (errors & rotate_field_enable_not_present_run) {
+#ifdef RESETTABLE_ESTOP
+    	changeVehicleState(UV_READY);
+#else
+
+
         uvPanic("Rotating Field Enable Not Present (Run Active)", 0);
+#endif
+
     }
     if (errors & CAN_timeout_error) {
         uvPanic("CAN Timeout Error", 0);
@@ -478,7 +486,11 @@ static void MotorControllerErrorHandler_16bitLE(uint8_t *data, uint8_t length)
         uvPanic("Feedback Signal Error", 0);
     }
     if (errors & mains_voltage_min_limit) {
+#ifdef RESETTABLE_ESTOP
+    	changeVehicleState(UV_READY);
+#else
         uvPanic("Mains Voltage Below Minimum Limit", 0);
+#endif
     }
     if (errors & motor_temp_max_limit) {
         uvPanic("Motor Temperature Exceeded Maximum Limit", 0);

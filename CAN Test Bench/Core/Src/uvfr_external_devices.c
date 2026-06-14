@@ -5,6 +5,8 @@
  *      Author: byo10
  */
 
+#define __UV_FILENAME__ "xdev"
+
 #include "uvfr_utils.h"
 
 static xdev_info xdev_registry[FINAL_XDEV];
@@ -227,6 +229,7 @@ void xDevMon(void* args){
 			if(k%per == 0){
 				if(pollXdev(i)==UV_ERROR){
 					//HANDLE ERROR HERE
+					uvPanic("xdevpollfail",0);
 				}
 			}
 

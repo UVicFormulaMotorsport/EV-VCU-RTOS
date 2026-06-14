@@ -85,6 +85,10 @@ typedef struct output_channel_settings{
 //Turn on the horn
 void uvActivateHorn();
 
+#define TS_OFF		0
+#define TS_ERROR	1
+#define TS_ACTIVE	2
+
 //Turn off the horn
 void uvSilenceHorn();
 
@@ -97,6 +101,11 @@ void uvSecureVehicle();
 uv_status uvEnergizeTractiveSystem();
 
 uv_status uvDeEnergizeTractiveSystem();
+
+uv_status uvEnableTraction();
+uv_status uvDisableTraction();
+
+uint8_t uvGetTractiveStatus();
 
 
 #endif /* INC_UVFR_VEHICLE_COMMANDS_H_ */

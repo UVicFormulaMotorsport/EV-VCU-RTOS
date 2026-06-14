@@ -104,12 +104,7 @@ driving_loop_args default_dl_settings =
     .torque_rate_up_nm_per_s   = 1e9f,  // [Nm/s] (1e9 disables effectively)
     .torque_rate_down_nm_per_s = 1e9f,  // [Nm/s]
     .derate_rate_nm_per_s      = 1e9f,  // [Nm/s]
-uint16_t throttle_percent_i = 0;
-uint16_t brake_percent_i = 0;
 
-#define TORQUE_DECAY_STEP 2.5f //// Nm per loop step (adjust as needed)
-#define THROTTLE_ZERO_THRESHOLD 0.01f // // Below this % throttle, we consider "off"
-static bool sent_zero_torque = false; //// Track if we already dropped torque to 0
 
     /* HARD PHYSICAL LIMITS */
     .absolute_max_acc_pwr       = 75000,   // [W] placeholder bring-up
@@ -314,6 +309,13 @@ bool  is_accelerating = false; // [bool]
 float T_PREV = 0.0f;           // [Nm] previous torque actually sent (post-limits)
 float T_REQ  = 0.0f;           // [Nm] torque request from pedal map (pre-filter/limits)
 
+//uint16_t throttle_percent_i = 0;
+//uint16_t brake_percent_i = 0;
+
+#define TORQUE_DECAY_STEP 2.5f //// Nm per loop step (adjust as needed)
+#define THROTTLE_ZERO_THRESHOLD 0.01f // // Below this % throttle, we consider "off"
+static bool sent_zero_torque = false; //// Track if we already dropped torque to 0
+
 static bool torque_inhibit_active = false; PRIVILEGED_DATA // [bool] latched inhibit
 
 static uint8_t __current_dmode = 1; PRIVILEGED_DATA//[Unitless] Index of current driving mode
@@ -384,8 +386,8 @@ enum uv_status_t initDrivingLoop(void *argument)
 
     associateDaqParamWithVar(MOTOR_RPM, &mc_speed_rpm);
 
-    associateDaqParamWithVar(THROTTLE_PCT, &g_throttle_percent);
-    associateDaqParamWithVar(BRAKE_PCT, &g_brake_percent);
+    associateDaqParamWithVar(APPS_PERCENT, &g_throttle_percent);
+    associateDaqParamWithVar(BPS_PERCENT, &g_brake_percent);
 
     uv_task_info* dl_task = uvCreateTask(); // [ptr]
     if (dl_task == NULL) {
@@ -419,7 +421,11 @@ uv_status cycleDmode(){
 	if(xSemaphoreTake(dmode_mutex,2) == pdTRUE){
 		__current_dmode = (__current_dmode + 1)%(current_vehicle_settings->driving_loop_settings->num_driving_modes);
 		xSemaphoreGive(dmode_mutex);
+	}else{
+		return UV_ABORTED;
 	}
+
+	return UV_OK;
 }
 
 // -----------------------------------------------------------------------------
@@ -1150,7 +1156,7 @@ void StartDrivingLoop(void *argument)
 
     bool safe = true;
 
-    if(uvEnergizeTractiveSystem()!= UV_OK){
+    if(uvEnableTraction()!= UV_OK){
     	//Hmmm interesting
     }
 
@@ -1163,12 +1169,12 @@ void StartDrivingLoop(void *argument)
         // Task control (kill/suspend)
         if (params->cmd_data == UV_KILL_CMD) {
         	coniferDisChannel(COOLANT_PUMP1);
-        	uvDeEnergizeTractiveSystem();
+        	uvDisableTraction();
         	xSemaphoreGive(dmode_mutex);
             killSelf(params);
         } else if (params->cmd_data == UV_SUSPEND_CMD) {
         	coniferDisChannel(COOLANT_PUMP1);
-        	uvDeEnergizeTractiveSystem();
+        	uvDisableTraction();
         	xSemaphoreGive(dmode_mutex);
             suspendSelf(params);
         }

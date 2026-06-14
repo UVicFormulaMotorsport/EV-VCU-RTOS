@@ -45,10 +45,29 @@ uv_status initRTDtask(void* args){
 
 extern uint16_t g_brake_percent;
 
+static TickType_t last_button_press_time;
+
+static uv_status toggleEnergization(){
+
+	uint8_t ts_stat = uvGetTractiveStatus();
+
+	return UV_OK;
+}
+
+
+/*
+ *
+ */
 void rtdTask(void* args){
 	uv_task_info* params = (uv_task_info*)args;
 
 	uint8_t bl_on = 0;
+
+	uint8_t button_state = 0;
+	uint8_t prev_button_state = 0;
+	uint8_t button_edge_detected = 0;
+
+	uvDeEnergizeTractiveSystem();
 
 	while(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
 		vTaskDelay(10);
@@ -80,19 +99,59 @@ void rtdTask(void* args){
 			bl_on = 0;
 		}
 
-		if((HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0))&&(brake_percent > 10.0)){
-			vTaskDelay(10);
+
+		if(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
+			button_state = 1;
+		}else{
+			button_state = 0;
+		}
+
+		if((button_state == 1) && (prev_button_state == 0)){
+			button_edge_detected = 1;
+		}else{
+			button_edge_detected = 0;
+		}
 
 
+//		if((HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0))&&(brake_percent > 10.0)){
+//			vTaskDelay(10);
+//
+//
+//
+//			if(vehicle_state != UV_DRIVING){
+//				changeVehicleState(UV_DRIVING);
+//			}
+//			vTaskDelay(100);
+//
+//		}
 
-			if(vehicle_state != UV_DRIVING){
-				changeVehicleState(UV_DRIVING);
+		if(button_edge_detected == 1){
+			button_edge_detected = 0; //Reset this
+
+			if(brake_percent > 10.0){
+				//BRAKE PEDAL is PRESSED
+				//Enter driving mode fr fr
+
+			}else{
+				//Toggle energization state
+
+
 			}
-			vTaskDelay(100);
+
+
+
+
+
+
+
+
+
 
 		}
 
 		//if both, change vehicle state to driving
+
+		prev_button_state = button_state;
 
 		//changeVehicleState(UV_DRIVING);
 

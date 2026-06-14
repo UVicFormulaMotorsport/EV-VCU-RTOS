@@ -49,7 +49,7 @@ typedef struct daq_child_task{
 daq_loop_args* curr_daq_settings = NULL;
 
 daq_loop_args default_daq_settings = {
-	.total_params_logged = 7, // = number of ACTIVE default_datapoints entries (0x543 motor telem stays last/inactive)
+	.total_params_logged = 9, // = number of ACTIVE default_datapoints entries (0x543 motor telem stays last/inactive)
 	.throttle_daq_to_preserve_performance = 1,
 	.minimum_daq_period = 10,
 	.can_channel = CAN_BUS_2,
@@ -106,16 +106,23 @@ daq_msg default_datapoints[] ={
 	.period = 250,
 	.type = {UV_INT8, UV_INT8, UV_INT8, UV_UINT8}},
 
+	{.can_id = 0x545,
+	.param = {DIGI_IN_STAT,IMD_FAULT_HW,BMS_FAULT_HW,BSPD_FAULT_HW},
+	.period = 100,
+	.type = {UV_UINT16,UV_UINT8,UV_UINT8,UV_UINT8}},
+
 	// Motor/motor controller telems
 	// NOTE: this entry sits at index 7, beyond total_params_logged (7), so it is
 	// currently INACTIVE -- same as before the TMS change. Bump the count to 8 to enable it.
 	{.can_id = 0x543,
 	.param = {MOTOR_RPM,MOTOR_TEMP,MOTOR_TORQUE,INV_DAQ_P},
-	.period = 250,
+	.period = 100,
 	.type = {UV_UINT16,UV_UINT16,UV_UINT16,0}},
 	// These used int16_t variables in motor_controller.c
 	// typecasted into unsigned 16 bits, then associated in Motor_startup
 	// Not sure if this is the right way to go about this
+
+
 
 
 };

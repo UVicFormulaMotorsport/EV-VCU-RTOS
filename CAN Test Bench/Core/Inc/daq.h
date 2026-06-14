@@ -31,6 +31,10 @@ typedef enum{
 	OS_MIN_EVER_FREE_BYTES,
 	OS_NUM_SUCCESSFUL_ALLOCS,
 	OS_NUM_SUCCESSFUL_FREES,
+
+	DIGI_IN_STAT,
+
+
 	VEH_DISTANCE_RUN, //Trip Odometer?
 	VEH_DISTANCE_TOTAL, // total odometer?
 	VEH_LAPNUM,
@@ -44,10 +48,14 @@ typedef enum{
 	MC_CURRENT, /**< Pack current as measured by motor_controller*/
 	MC_TEMP, /**< Motor controller temperature*/
 	MC_ERRORS, /**< Motor controller errors bitfield*/
+	//
+	DL_POWER_PERCENT,
+
 	// BMS is on CAN1
 	BMS_CURRENT, /**< Pack current measured by BMS*/
 	BMS_VOLTAGE, /**< Pack voltage as measured by BMS*/
 	BMS_ERRORS, /**< Error codes in BMS*/
+	BMS_FAULT_HW, /**< BMS SDC Tripped*/
 	//
 	MAX_CELL_TEMP, /**< Max Temperature of a cell from BMS */
 	MIN_CELL_TEMP, /**< Min Temperature of a cell*/
@@ -62,10 +70,12 @@ typedef enum{
 	BPS1_ADC_VAL, /**< USED IN DRIVING_LOOP.C*/
 	BPS2_ADC_VAL,/**< USED IN DRIVING_LOOP.C*/
 		BPS_PERCENT,
+	BSPD_FAULT_HW, /**< BSPD SDC Tripped*/
 	COOLANT_TEMP_ADC,/**< USED IN DAQ.C*/
 	MOTOR_TEMP_ADC,/**< USED IN DAQ.C*/
 	ACCELERATOR_PEDAL_RATIO, /**< */
-	BRAKE_PRESSURE_PA, /**< */
+	BRAKE_PRESSURE_PA_F, /**< */
+	BRAKE_PRESSURE_PA_R,
 	POWER_DERATE_FACTOR, /**< */
 	CURRENT_DRIVING_MODE, /**< */
 		IMD_VOLTAGE, /**< Accumulator voltage as measured by IMD*/
@@ -78,14 +88,15 @@ typedef enum{
 		IMD_CP_NF,
 		IMD_CN_NF,
 		IMD_TEMP_RAW,
+		IMD_FAULT_HW, /**< IMD SDC Tripped*/
 	SUS_DAMPER_FL,
 	SUS_DAMPER_FR,
 	SUS_DAMPER_RL,
 	SUS_DAMPER_RR,
-	WSS_FR,
-	WSS_FL,
-	WSS_RL,
-	WSS_RR,
+	WSS_FR_RPM,
+	WSS_FL_RPM,
+	WSS_RL_RPM,
+	WSS_RR_RPM,
 	WSS_F_AVG,
 	WSS_R_AVG,
 	WSS_SLIP,
