@@ -385,6 +385,7 @@ enum uv_status_t initDrivingLoop(void *argument)
     associateDaqParamWithVar(BPS2_ADC_VAL,  &adc1_BPS2);  // [ADC counts]
 
     associateDaqParamWithVar(MOTOR_RPM, &mc_speed_rpm);
+    associateDaqParamWithVar(MOTOR_TEMP, &mc_motor_temp);
 
     associateDaqParamWithVar(APPS_PERCENT, &g_throttle_percent);
     associateDaqParamWithVar(BPS_PERCENT, &g_brake_percent);

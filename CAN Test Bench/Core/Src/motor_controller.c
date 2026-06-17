@@ -886,7 +886,7 @@ void MC_Startup(void* args)
 			AC_current_offset_fault);
 
 	associateDaqParamWithVar(MOTOR_RPM, &mc_rpm);
-	associateDaqParamWithVar(MOTOR_TEMP, &mc_temps);
+	//associateDaqParamWithVar(MOTOR_TEMP, &mc_temps);
 	associateDaqParamWithVar(MC_ERRORS, &mc_err);
 	associateDaqParamWithVar(MOTOR_TORQUE, &mc_torque_request);
 
