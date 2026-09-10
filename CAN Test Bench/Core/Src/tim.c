@@ -24,6 +24,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "uvfr_utils.h"
+#include <stdio.h>
 
 #define NUM_WHEELS 4
 #define WHEEL_CIRCUMFERENCE_M 2.0f // just placeholder values here

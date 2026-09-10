@@ -341,7 +341,7 @@ uv_status setupDefaultSettings(){
 	current_vehicle_settings->imd_settings = &default_imd_settings;
 	current_vehicle_settings->bms_settings = &default_bms_settings;
 	current_vehicle_settings->daq_settings = &default_daq_settings;
-	current_vehicle_settings->daq_param_list = &default_datapoints;
+	current_vehicle_settings->daq_param_list = default_datapoints;
 	current_vehicle_settings->conifer_settings = &default_conifer_settings;
 
 
@@ -1264,7 +1264,7 @@ void uvSettingsProgrammerTask(void* args) PRIVILEGED_FUNCTION{
 #ifdef DEBUG_SETTINGS
 		printf("SYSTEM RESET\n");
 #endif
-		uvUtilsReset(0);
+		//uvUtilsReset(0);
 
 				break;
 			case DISCARD_NEW_SETTINGS:

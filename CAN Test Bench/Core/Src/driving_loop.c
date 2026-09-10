@@ -1169,12 +1169,12 @@ void StartDrivingLoop(void *argument)
         // Task control (kill/suspend)
         if (params->cmd_data == UV_KILL_CMD) {
         	coniferDisChannel(COOLANT_PUMP1);
-        	uvDisableTraction();
+        	uvDeEnergizeTractiveSystem();
         	xSemaphoreGive(dmode_mutex);
             killSelf(params);
         } else if (params->cmd_data == UV_SUSPEND_CMD) {
         	coniferDisChannel(COOLANT_PUMP1);
-        	uvDisableTraction();
+        	uvDeEnergizeTractiveSystem();
         	xSemaphoreGive(dmode_mutex);
             suspendSelf(params);
         }

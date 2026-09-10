@@ -246,6 +246,9 @@ uv_status uvEnergizeTractiveSystem(){
 		//IDRK what this might be a result of
 		//uvOpenSDC();
 		//coniferDisChannel(HORN);
+		//uvSetTractiveStatus(TS_ERROR);
+
+
 		//return UV_ERROR;
 	}
 
@@ -282,7 +285,7 @@ uv_status uvEnergizeTractiveSystem(){
 //	vTaskDelay(15);
 
 	//Re-enable motor controller OC/UC errors
-
+	uvSetTractiveStatus(TS_ACTIVE);
 
 	coniferDisChannel(HORN);
 	return UV_OK;

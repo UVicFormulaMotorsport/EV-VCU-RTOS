@@ -23,6 +23,9 @@
 
 
 extern uv_vehicle_settings* current_vehicle_settings;
+
+void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result);
+void lookupIgbtTemp(int16_t T_deg, int16_t* result);
 //extern QueueHandle_t CAN_Rx_Queue;
 
 // Redirect all mc_settings.x to actual config struct
@@ -90,6 +93,19 @@ motor_controller_settings mc_default_settings = {
 	.imax_pk  				= 100,		//I max pk (%) or scaled A  register 0xC4
 	.icon_eff 				= 100,		//I con eff (Arms or %) 	register 0xC5
 	.t_peak2  				= 5,		//Topeak2 (s) 				register 0xF0
+
+
+	.max_motor_temp_c = 50,
+	.max_igbt_temp_c = 85,
+
+	.pump_on_threshold_c = 30,
+	.pump_off_threshold_c = 25,
+
+	.fana_on_threshold_c = 38,
+	.fana_off_threshold_c = 35,
+
+	.fanb_on_threshold_c = 46,
+	.fanb_off_threshold_c = 42
 };
 
 void print_fixed_d(const char* label, int32_t value, int decimals, const char* unit);
@@ -760,10 +776,10 @@ void lookupMotorTemp(int16_t raw_motor_temp, int16_t* result)
      * Validate LUT once per call path to catch malformed table edits.
      * If validation fails, output a safe fallback value and return.
      */
-    if (validateLUT_if(&motor_temp_lut) != UV_OK) {
-        *result = 0;
-        return;
-    }
+//    if (validateLUT_if(&motor_temp_lut) != UV_OK) {
+//        *result = 0;
+//        return;
+//    }
 
     /*
      * xToY_if performs clamping + interpolation according to LUT flags.
@@ -885,8 +901,9 @@ void MC_Startup(void* args)
 			rotate_field_enable_not_present_run|
 			AC_current_offset_fault);
 
-	associateDaqParamWithVar(MOTOR_RPM, &mc_rpm);
-	associateDaqParamWithVar(MOTOR_TEMP, &mc_temps);
+	associateDaqParamWithVar(MOTOR_RPM, &mc_speed_rpm);
+	associateDaqParamWithVar(MOTOR_TEMP, &mc_motor_temp);
+	associateDaqParamWithVar(MC_TEMP, &mc_igbt_temp);
 	associateDaqParamWithVar(MC_ERRORS, &mc_err);
 	associateDaqParamWithVar(MOTOR_TORQUE, &mc_torque_request);
 

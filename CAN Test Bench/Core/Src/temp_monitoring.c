@@ -11,13 +11,17 @@
 #include "uvfr_utils.h"
 #include "gpio.h"
 
+#define USE_DEVICE_TEMP_FOR_FANS
+
+//Currently every 60s (ish)
+#define ROTATION_PERIOD 60000
+
 uint16_t adc_coolant_temp1 = 0;
 uint16_t adc_coolant_temp2 = 0;
 extern int16_t mc_motor_temp;
 extern int16_t mc_igbt_temp;
 
-#define MC_IGBT_T_MAX 60
-#define MOTOR_T_MAX 50
+
 
 uv_status initTempMonitor(void * arguments){
 	uv_task_info* tm_task = uvCreateTask();
@@ -117,6 +121,8 @@ void CAN_2_TEST_msg2(uv_CAN_msg* msg){
 void tempMonitorTask(void* args){
 	uv_task_info* params = (uv_task_info*) args; //Evil pointer typecast
 
+	motor_controller_settings* t_settings = current_vehicle_settings->mc_settings;
+
 	insertCANMessageHandler(0x86, testfunc, CAN_BUS_1);
 	insertCANMessageHandler(0x87, testfunc, CAN_BUS_1);
 	insertCANMessageHandler(0x64, testfunc3, CAN_BUS_1);
@@ -132,32 +138,48 @@ void tempMonitorTask(void* args){
 	//insertCANMessageHandler(0x6B1, BMS_msg2, CAN_BUS_2);
 
 
-	uv_CAN_msg temp1;
-	uv_CAN_msg temp2;
+//	uv_CAN_msg temp1;
+//	uv_CAN_msg temp2;
 
-	temp1.data[0] = 1;
-	temp1.data[1] = 2;
-	temp1.data[2] = 3;
-	temp1.dlc = 3;
-	temp1.msg_id = 0x85;
-	temp1.flags = CAN_BUS_1;
+//	temp1.data[0] = 1;
+//	temp1.data[1] = 2;
+//	temp1.data[2] = 3;
+//	temp1.dlc = 3;
+//	temp1.msg_id = 0x85;
+//	temp1.flags = CAN_BUS_1;
+//
+//	temp2.data[0] = 9;
+//	temp2.data[1] = 10;
+//	temp2.data[2] = 11;
+//	temp2.dlc = 3;
+//	temp2.msg_id = 0xF5;
+//	temp2.flags = 0x00;
 
-	temp2.data[0] = 9;
-	temp2.data[1] = 10;
-	temp2.data[2] = 11;
-	temp2.dlc = 3;
-	temp2.msg_id = 0xF5;
-	temp2.flags = 0x00;
 
-
-	uvSendCanMSG(&temp1);
-	uvSendCanMSG(&temp2);
+//	uvSendCanMSG(&temp1);
+//	uvSendCanMSG(&temp2);
 
 
 
 
 	TickType_t tick_period = pdMS_TO_TICKS(params->task_period); //Convert ms of period to the RTOS ticks
 	TickType_t last_time = 0;
+
+	uint8_t pump_on = 0;
+	uint8_t fana_on = 0;
+	uint8_t fanb_on = 0;
+
+	uint8_t fans_rotated = 0;
+
+	uint16_t k;
+
+	int16_t pump_src_temp = 0;
+	int16_t fan_src_temp = 0;
+
+	conifer_output_channel afans = RAD_FANS1;
+	conifer_output_channel bfans = RAD_FANS2;
+
+
 	/**@endcode */
 	for(;;){
 		/** This is an example of a task control point, which is the spot in the task where the task
@@ -186,7 +208,81 @@ void tempMonitorTask(void* args){
 			continue; // The idea here is to skip the delay
 		}
 
-//
+
+		//Periodically rotate fans to prevent wear on just one side. ROTATION_PERIOD is given in ms
+		if(k*params->task_period >= ROTATION_PERIOD){
+			fans_rotated = !fans_rotated;
+			k = 0;
+		}
+
+		//Actually do the rotation
+		if(fans_rotated){
+			afans = RAD_FANS2;
+			bfans = RAD_FANS1;
+		}else{
+			afans = RAD_FANS1;
+			bfans = RAD_FANS2;
+		}
+
+		pump_src_temp = (mc_igbt_temp > mc_motor_temp)? mc_igbt_temp : mc_motor_temp;
+
+#ifdef USE_DEVICE_TEMP_FOR_FANS
+		fan_src_temp = (mc_igbt_temp > mc_motor_temp)? mc_igbt_temp : mc_motor_temp;
+#else
+		//This is where we would use the coolant temp, however we dont actually have that setup for conversion atm, so will need to ponder
+#error "NEED TO POPULATE THIS CODE"
+#endif
+
+		//hysterisis for pump fans
+		if((pump_src_temp > t_settings->pump_on_threshold_c)&&(pump_on == 0)){
+			//activate pumps
+			pump_on = 1;
+			coniferEnChannel(COOLANT_PUMP1);
+		}else if((pump_src_temp < t_settings->pump_off_threshold_c )&&(pump_on == 1)){
+			//deactivate pumps
+			pump_on = 0;
+			coniferDisChannel(COOLANT_PUMP1);
+		}
+
+
+		//hysterisis for group a
+		if((fan_src_temp > t_settings->fana_on_threshold_c)&&(fana_on == 0)){
+			//activate pumps
+			fana_on = 1;
+			//confiferEnChannel(COOLANT_PUMP1);
+		}else if((fan_src_temp < t_settings->fana_off_threshold_c )&&(fana_on == 1)){
+					//deactivate pumps
+			fana_on = 0;
+
+		}
+
+		//hysterisis for group b fans
+		if((fan_src_temp > t_settings->fanb_on_threshold_c)&&(fanb_on == 0)){
+					//activate pumps
+			fanb_on = 1;
+				//confiferEnChannel(COOLANT_PUMP1);
+		}else if((fan_src_temp < t_settings->fanb_off_threshold_c )&&(fanb_on == 1)){
+							//deactivate pumps
+			fanb_on = 0;
+			//confiferDisChannel(COOLANT_PUMP1);
+		}
+
+		//Physically update fan power irl
+		if(fana_on == 1){
+			coniferEnChannel(afans);
+		}else{
+			coniferDisChannel(afans);
+		}
+
+		if(fanb_on == 1){
+			coniferEnChannel(bfans);
+		}else{
+			coniferDisChannel(bfans);
+		}
+
+
+
+		k++;
 
 		uvTaskDelayUntil(params, last_time, tick_period); //The delay that keeps task on period theoretically
 	}

@@ -205,6 +205,18 @@ typedef struct motor_controller_settings{
     uint16_t icon_eff; //continous current effective limit "Arms or %"
     uint16_t t_peak2; //Allowed peak overcurrent duration "sec"
 
+
+    int16_t max_motor_temp_c;
+	int16_t max_igbt_temp_c;
+
+	int16_t pump_on_threshold_c;
+	int16_t pump_off_threshold_c;
+
+	int16_t fana_on_threshold_c;
+	int16_t fana_off_threshold_c;
+
+	int16_t fanb_on_threshold_c;
+	int16_t fanb_off_threshold_c;
 }motor_controller_settings;
 
 

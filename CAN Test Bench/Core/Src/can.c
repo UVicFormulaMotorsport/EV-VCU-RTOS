@@ -50,6 +50,10 @@
 static QueueHandle_t Tx_msg_queue = NULL;
 static QueueHandle_t Rx_msg_queue = NULL;
 
+uv_CAN_driver driver = {0};
+
+
+
 
 #define table_size 128
 #define table_size_1 table_size //CHAANGE THIS TO HOW MANY CAN_MESSAGES YOU NEED TO HANDLE!!!!!!
@@ -1123,10 +1127,7 @@ void CANbusRxSvcDaemon(void* args){
 	BaseType_t retval;
 	uv_status func_status;
 
-	Rx_msg_queue = xQueueCreate(8,sizeof(uv_CAN_msg));
 
-	callback_table_1_mutex = xSemaphoreCreateMutex();
-	callback_table_2_mutex = xSemaphoreCreateMutex();
 
 
 	for(;;){
@@ -1153,6 +1154,40 @@ void CANbusRxSvcDaemon(void* args){
 	Rx_msg_queue = NULL;
 	vTaskDelete(params->task_handle);
 
+}
+
+uv_status uvCanDriverInit(){
+
+	Rx_msg_queue = xQueueCreate(8,sizeof(uv_CAN_msg));
+
+	callback_table_1_mutex = xSemaphoreCreateMutex();
+	callback_table_2_mutex = xSemaphoreCreateMutex();
+
+
+#ifdef DEBUG
+		printf("Initializing CAN Drivers\n");
+#endif
+
+	uv_task_info* canTxtask = uvCreateServiceTask();
+	canTxtask->task_function = CANbusTxSvcDaemon;
+	canTxtask->active_states = 0xFFFF;
+	canTxtask->task_name = CAN_TX_DAEMON_NAME;
+	canTxtask->stack_size = 256;
+
+	uv_task_info* canRxtask = uvCreateServiceTask();
+	canRxtask->task_function = CANbusRxSvcDaemon;
+	canRxtask->active_states = 0xFFFF;
+	canRxtask->task_name = CAN_RX_DAEMON_NAME;
+	canRxtask->stack_size = 256;
+	//super basic for now, just need something working
+
+#ifdef DEBUG
+		printf("Starting CAN Drivers\n");
+#endif
+
+	uint32_t var = 0; //dummy var
+	uvStartTask(&var,canTxtask);
+	uvStartTask(&var,canRxtask);
 }
 
 /* USER CODE END 1 */

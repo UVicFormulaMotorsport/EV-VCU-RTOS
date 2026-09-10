@@ -14,7 +14,6 @@
 
 
 //two IDs for bms can message
-// 0x6B0
 // 0x6B1
 
 

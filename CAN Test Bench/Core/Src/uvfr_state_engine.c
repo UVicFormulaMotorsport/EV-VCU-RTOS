@@ -1519,7 +1519,7 @@ void uvTaskPeriodEnd(uv_task_info* t){
 	//BaseType_t successful_delay;
 	bool is_late = 0;
 
-	TickType_t end_of_loop_time = xTaskGetTickCount;
+	TickType_t end_of_loop_time = xTaskGetTickCount();
 
 	if((end_of_loop_time - t->last_execution_time)>t->task_period){
 		is_late = 1;

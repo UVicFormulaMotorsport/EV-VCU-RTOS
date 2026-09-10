@@ -60,8 +60,11 @@
 //#include "stdlib.h"
 #include "stdint.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include "cmsis_os.h"
 #include "FreeRTOS.h"
+#include "queue.h"
+#include "semphr.h"
 #include "message_buffer.h"
 #include "task.h"
 
@@ -199,6 +202,15 @@ typedef enum  {
 
 }data_type;
 
+/** @brief Error codes for easier fault diagnosis
+ *
+ */
+typedef enum uv_ecode{
+	UV_GENERIC_ERR = 0x0000,
+	UV_VCU_SW_ERR = 0x00080
+
+}uv_ecode;
+
 
 //not really sure how I want this implemented yet. Variable number of driving modes?
 enum uv_driving_mode_t{
@@ -211,7 +223,7 @@ enum uv_driving_mode_t{
 /** @brief ID for external devices, which allows us to know what's good with them.
  *
  */
-enum uv_external_device{
+typedef enum uv_external_device{
 	MOTOR_CONTROLLER,
 	BMS,
 	IMD,
@@ -221,14 +233,15 @@ enum uv_external_device{
 	DCDC,
 	FINAL_XDEV //RESERVED
 
-};
+}xdev_id;
 
 typedef enum uv_xdev_status{
 	XDEV_OK, //External device OK
 	XDEV_WARNING, //The external device is reporting warnings
 	XDEV_ERROR, //The external device has reported an error
+	XDEV_VCU_ERROR, // The VCU cannot properly monitor device due to VCU side SW error
 	XDEV_TIMEOUT, //External devices has timed out
-	XDEV_NC
+	XDEV_NC //Not connected, doesnt need to be
 }xdev_status;
 
 typedef enum access_control_t{
@@ -344,7 +357,8 @@ typedef struct uv_task_msg_t{
 #define XDEV_DEVICE_EXPECTED 	(0x01U<<0) //Set as 1 to indicate that we expect this device to be connected
 #define XDEV_CHECK_TIMEOUT_BIT 	(0x01U<<1) //Set as 1 to have XDevMon check for timeout
 #define XDEV_POLLING_REQUIRED	(0x01U<<2) //Set as 1 to have XDevMon poll at the period
-#define XDEV_POLLED_LAST_CYCLE	(0x01U<<3) //Reserved for internal use
+#define XDEV_NO_PANIC_TIMEOUT	(0x01U<<3) //If this flag is 1, then the XDevMon throws fatal panic error on xdev timeout
+#define XDEV_POLLED_LAST_CYCLE	(0x01U<<4) //Reserved for internal use
 #define XDEV_UHH_UHH_DUHH
 
 

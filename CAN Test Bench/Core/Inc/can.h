@@ -29,6 +29,9 @@ extern "C" {
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+
+#include "FreeRTOS.h"
+#include "task.h"
 #include "constants.h"
 #include "uvfr_utils.h"
 /* USER CODE END Includes */
@@ -44,6 +47,13 @@ extern CAN_HandleTypeDef hcan2;
 
 typedef struct uv_CAN_msg uv_CAN_msg;
 typedef enum uv_status_t uv_status;
+
+typedef struct uv_CAN_driver{
+	TaskHandle_t tx_task;
+	TaskHandle_t rx_task;
+	uint32_t num_msg_tx;
+	uint32_t num_msg_rx;
+}uv_CAN_driver;
 
 /* USER CODE END Private defines */
 
@@ -63,7 +73,10 @@ void CANbusRxSvcDaemon(void* args);
 
 //int callFunctionFromCANid(uint32_t CAN_id, uint8_t* data, uint8_t length);
 void insertCANMessageHandler(uint32_t id, void* handlerfunc, int can_num);
-void nuke_hash_table(int can_num);
+
+uv_status uvCanDriverInit();
+uv_status uvCanDriverDeInit();
+//void nuke_hash_table(int can_num);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

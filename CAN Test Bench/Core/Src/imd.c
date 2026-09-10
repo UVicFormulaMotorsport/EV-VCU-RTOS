@@ -24,13 +24,12 @@
  * ========================================================= */
 
 // TODO: replace these CAN IDs using the IMD datasheet
-#ifndef IMD_CAN_ID_Tx
-#define IMD_CAN_ID_Tx  0x0A100101UL
-#endif
-
-#ifndef IMD_CAN_ID_Rx
-#define IMD_CAN_ID_Rx  0x0A100100UL
-#endif
+#define IMD_CAN_ID_REQUEST 0x22U
+#define IMD_CAN_ID_RESPONSE 0x23U
+#define IMD_CAN_ID_INFO_GENERAL 0x37U
+#define IMD_CAN_ID_INFO_ISO 0x38U
+#define IMD_CAN_ID_INFO_VOLTAGE 0x39U
+#define IMD_CAN_ID_INFO_IT 0x3AU
 
 // TODO: pick the real bus the IMD is wired to
 #ifndef IMD_CAN_BUS
@@ -107,9 +106,9 @@ static void IMD_SendRequest(uint8_t mux_code) {
 	uv_CAN_msg msg;
 	memset(&msg, 0, sizeof(msg));
 
-	msg.msg_id  = IMD_CAN_ID_Tx;
+	msg.msg_id  = IMD_CAN_ID_REQUEST;
 	msg.dlc     = IMD_REQ_DLC;
-	msg.flags   = UV_CAN_EXTENDED_ID | IMD_CAN_BUS;
+	msg.flags   = IMD_CAN_BUS;
 	msg.data[0] = mux_code;
 
 	uvSendCanMSG(&msg);
@@ -321,16 +320,16 @@ void initIMD(void* args) {
 	//osDelay(200);
 
 	//pretty much all 16 bit integers
-	associateDaqParamWithVar(IMD_ERRORS, g_imd_state.error_flags_raw); //uint_16_t
-	associateDaqParamWithVar(IMD_STATUS, g_imd_state.online); //uint8_t
-	associateDaqParamWithVar(IMD_SAFETOUCH, g_imd_state.safety_touch_current); //uint16_t
-	associateDaqParamWithVar(IMD_VOLTAGE, g_imd_state.glv_raw);//uint16_t
-	associateDaqParamWithVar(IMD_ISO_STATE, g_imd_state.iso_state_raw); //uint16_t
-	associateDaqParamWithVar(IMD_RP_RAW, g_imd_state.rp_raw);
-	associateDaqParamWithVar(IMD_RN_RAW, g_imd_state.rn_raw);
-	associateDaqParamWithVar(IMD_CP_NF, g_imd_state.cp_nf);
-	associateDaqParamWithVar(IMD_CN_NF, g_imd_state.cn_nf);
-	associateDaqParamWithVar(IMD_TEMP_RAW, g_imd_state.temp_raw);
+	associateDaqParamWithVar(IMD_ERRORS, &g_imd_state.error_flags_raw); //uint_16_t
+	associateDaqParamWithVar(IMD_STATUS, &g_imd_state.online); //uint8_t
+	associateDaqParamWithVar(IMD_SAFETOUCH, &g_imd_state.safety_touch_current); //uint16_t
+	associateDaqParamWithVar(IMD_VOLTAGE, &g_imd_state.glv_raw);//uint16_t
+	associateDaqParamWithVar(IMD_ISO_STATE, &g_imd_state.iso_state_raw); //uint16_t
+	associateDaqParamWithVar(IMD_RP_RAW, &g_imd_state.rp_raw);
+	associateDaqParamWithVar(IMD_RN_RAW, &g_imd_state.rn_raw);
+	associateDaqParamWithVar(IMD_CP_NF, &g_imd_state.cp_nf);
+	associateDaqParamWithVar(IMD_CN_NF, &g_imd_state.cn_nf);
+	associateDaqParamWithVar(IMD_TEMP_RAW, &g_imd_state.temp_raw);
 
 	uv_init_task_response resp;
 	memset(&resp, 0, sizeof(resp));
@@ -347,7 +346,8 @@ void initIMD(void* args) {
 	memset((void*)&g_imd_state, 0, sizeof(g_imd_state));
 
 	// register rx handler first (so the “ping” can be received)
-	insertCANMessageHandler(IMD_CAN_ID_Rx, IMD_CanRxHandler, IMD_CAN_BUS);
+	insertCANMessageHandler(IMD_CAN_ID_REQUEST, IMD_CanRxHandler, IMD_CAN_BUS);
+	insertCANMessageHandler(IMD_CAN_ID_INFO_GENERAL, IMD_CanRxHandler, IMD_CAN_BUS);
 
 	// register with xdevmon + add poll list
 	if (IMD_RegisterWithXDevMon() != UV_OK) {

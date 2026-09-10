@@ -6,10 +6,17 @@
  */
 
 #define __UV_FILENAME__ "xdev"
+#define XDEVMON_IMPLEMENTATION
 
 #include "uvfr_utils.h"
+#include "FreeRTOS.h"
+#include "queue.h"
+#include "semphr.h"
+#include "message_buffer.h"
+#include "task.h"
 
 static xdev_info xdev_registry[FINAL_XDEV];
+static QueueHandle_t xdev_rx_queue;
 
 typedef enum uv_status_t uv_status;
 
@@ -20,6 +27,11 @@ typedef struct xdev_poll_msg{
 	struct xdev_poll_msg* next;
 	uv_CAN_msg pmsg;
 }xdev_poll_msg;
+
+typedef struct xdev_rx_ack_data{
+	xdev_id device_id;
+	TickType_t timestamp;
+};
 
 /** @brief Initializes the XDEV registry to be in a normal state
  *
@@ -65,11 +77,16 @@ uv_status uvWaitOnExternalDevice(uint8_t device_id, TickType_t time_to_wait){
  */
 static inline uv_status createXdevMutex(uint8_t xdev){
 
-	xdev_registry[xdev].xdev_mutex = xSemaphoreCreateMutex();
+	xdev_registry[xdev].xdev_mutex = xSemaphoreCreateMutex(); //TODO WHY IS THIS NOT LEADING TO A MACRO, THIS IS GOOFED
 	if (xdev_registry[xdev].xdev_mutex == NULL){
 		return UV_ERROR;
 	}
 	return UV_OK;
+}
+
+static void destroyXdevMutex(uint8_t xdev){
+	//Check if anyone is holding the mutex, if they are, wait for them to not hold the mutex
+
 }
 
 /** @brief Creates a Semaphore for an xDev
@@ -84,18 +101,25 @@ static inline uv_status createXdevSemphr(uint8_t xdev){
 	return UV_OK;
 }
 
+static void destroyXdevSemphr(uint8_t xdev){
+	//Check if anyone is waiting for the sempahore, if not, uh oh
+
+}
+
 /** @brief Registers an external device with XDevMon, and allows the thing to actually work as expected
  *
  */
 uv_status uvRegisterExternalDevice(uint8_t device_id, TickType_t period, uint16_t xd_flags, char* name){
 	if(xdev_registry[device_id].xdev_mutex == NULL){
 		if(createXdevMutex(device_id) != UV_OK){
+			xdev_registry[device_id].peripheral_status = XDEV_VCU_ERROR;
 			return UV_ERROR;
 		}
 	}
 
 	if(xdev_registry[device_id].xdev_rx_smphr == NULL){
 		if(createXdevSemphr(device_id) != UV_OK){
+			xdev_registry[device_id].peripheral_status = XDEV_VCU_ERROR;
 			return UV_ERROR;
 		}
 	}
@@ -104,14 +128,25 @@ uv_status uvRegisterExternalDevice(uint8_t device_id, TickType_t period, uint16_
 
 	//Take Mutex
 
+	if(1){
+		//MUTEX TAKE SUCCESSFUL
 	//set attributes
-	memcpy(xdev_registry[device_id].name,name,8); //At most 7 chars of name, and a null terminator
+		memcpy(xdev_registry[device_id].name,name,7); //At most 7 chars of name, and a null terminator
+		xdev_registry[device_id].name[7] = '\0'; // Force final char null terminator
 
-	xdev_registry[device_id].period = period;
-	xdev_registry[device_id].flags = xd_flags;
-	xdev_registry[device_id].activation_time = 0xFFFFFFFF;//Idunno what to set this as
+		xdev_registry[device_id].period = period;
+		xdev_registry[device_id].flags = xd_flags;
+		xdev_registry[device_id].activation_time = 0xFFFFFFFF;//Idunno what to set this as
+
 
 	//Release Mutex
+
+	}else{
+		xdev_registry[device_id].peripheral_status = XDEV_VCU_ERROR;
+
+		//cleanup cleanup everybody cleanup
+		return UV_ERROR;
+	}
 
 	return UV_OK;
 }
@@ -129,6 +164,7 @@ static uv_status pollXdev(uint8_t xdev){
 
 	xdev_poll_msg* tmp = (xdev_poll_msg*) xdev_registry[xdev].xdev_poll_msgs;
 	if(tmp == NULL){
+		//Polling is required on an xdev however we do not have an available xdev to do so. Ruh Roh.
 		return UV_ERROR;
 	}
 
@@ -163,6 +199,34 @@ static uv_status pollAllXdevs(){
 	return retval;
 }
 
+static uv_status validateAllXDevStructs();
+
+
+#define BLANK_TIMOUT_EMSG_SIZE 14
+/** @brief handle external device timeout (pretty neat)
+ *
+ */
+static void xdevTimeoutHandler(uint8_t xdev){
+	static char xdevemsg[24] = "XDEV TIMEOUT: \0"; //HAS 14 chars initially
+	//No bounds checking on xDev because this is internal and should have happened upstream
+	uint16_t xdevflags_cache = 0;
+
+	if(xSemaphoreTake(xdev_registry[xdev].xdev_mutex,1) == pdTRUE){ //TODO check for if mutex should be recursive here
+		xdev_registry[xdev].peripheral_status = XDEV_TIMEOUT;
+		xdevflags_cache  = xdev_registry[xdev].flags;
+	}
+
+	if(xdev_registry[xdev].flags & XDEV_NO_PANIC_TIMEOUT){
+		//copy xdev name to emsg
+		for(int i = 0;i<8 ;i++){
+			xdevemsg[BLANK_TIMOUT_EMSG_SIZE + i] = xdev_registry[xdev].name[i];
+		}
+		xdevemsg[BLANK_TIMOUT_EMSG_SIZE + 8] = '\0'; //Force append null terminator
+		uvPanic(xdevemsg,0);
+	}
+
+}
+
 /** @brief Task responsible for monitoring external devices for timeouts, and ensuring that we can poll all the random ass devices n shi
  *
  */
@@ -172,7 +236,7 @@ void xDevMon(void* args){
 
 	//Initial poll of external devices
 
-	char estring[16];
+	char estring[32];
 
 	if(pollAllXdevs() != UV_OK){
 
@@ -199,17 +263,17 @@ void xDevMon(void* args){
 		last_time = xTaskGetTickCount();
 
 		//Check timeouts
-
 		for(int i = 0 ;i<FINAL_XDEV;i++){
 			if((xdev_registry[i].flags & (XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT))!=(XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT)){
 				continue; //Not checking timeout on these badboys
 			}
 
 			TickType_t t_since = xdev_registry[i].last_heard_from;
-			TickType_t tolerance = (xdev_registry[i].period * 6)/5; //20% margin allowed
+			TickType_t tolerance = (xdev_registry[i].period * 11)/10 + 1; //10% + 1ms margin allowed
 
 			if(t_since > tolerance){
 				//timeout
+				xdevTimeoutHandler(i);
 			}
 
 		}
@@ -222,7 +286,7 @@ void xDevMon(void* args){
 
 		//Poll tasks
 		for(int i = 0; i<FINAL_XDEV;i++){
-			uint32_t per = (xdev_registry[i].period)/10;
+			uint32_t per = (xdev_registry[i].period)/tick_period;
 			if(per == 0){
 				continue;
 			}
@@ -282,12 +346,23 @@ uv_status uvSetupXdevs(){
 	return UV_OK;
 }
 
+uv_status sendMsgRxAckQueueMSG(){
+
+}
+
+
 /** @brief Function called from the can message handler for an external device
  *
  * This function records the timestamp to allow for timeout computation, and gives the semaphore,
  * so that tasks waiting on this specific external device are able to resume execution normally
  */
 void externalDeviceRxHandler(uint8_t device_id){
+	if((xdev_registry[device_id].flags & XDEV_DEVICE_EXPECTED)){
+
+	}
+
+
+
 	if(xdev_registry[device_id].xdev_mutex == NULL){
 		return;
 	}
@@ -295,16 +370,19 @@ void externalDeviceRxHandler(uint8_t device_id){
 	if(xdev_registry[device_id].xdev_rx_smphr == NULL){
 		return;
 	}
-	xSemaphoreTake(xdev_registry[device_id].xdev_mutex, 0);
-	xdev_registry[device_id].last_heard_from = xTaskGetTickCount();
-	if(xSemaphoreGive(xdev_registry[device_id].xdev_mutex) != pdTRUE){
-		//UNABLE TO RELEASE MUTEX
+	if(xSemaphoreTake(xdev_registry[device_id].xdev_mutex, 0) == pdPASS){
+		//NOTE: POSSIBLE RACE CONDITION BETWEEN CANRXDAEMON AND XDEVMON HERE: PLS FIX ME!
+		//We wait 0 seconds because this is called from within a CanTxCallback
+		xdev_registry[device_id].last_heard_from = xTaskGetTickCount();
+		if(xSemaphoreGive(xdev_registry[device_id].xdev_mutex) != pdTRUE){
+			//UNABLE TO RELEASE MUTEX
 
-		//uvPanic()??
+			//uvPanic()??
+		}
 	}
 
 	if(xSemaphoreGive(xdev_registry[device_id].xdev_rx_smphr) != pdTRUE){
-			//UNABLE TO GIVE SEMAPHORE
+			//UNABLE TO GIVE SEMAPHORE - sure hope nobody was waiting on this
 	}
 }
 

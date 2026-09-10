@@ -51,6 +51,12 @@ static uv_status toggleEnergization(){
 
 	uint8_t ts_stat = uvGetTractiveStatus();
 
+	if(ts_stat == TS_OFF){
+		uvEnergizeTractiveSystem();
+	} else{
+		uvDeEnergizeTractiveSystem();
+	}
+
 	return UV_OK;
 }
 
@@ -67,7 +73,7 @@ void rtdTask(void* args){
 	uint8_t prev_button_state = 0;
 	uint8_t button_edge_detected = 0;
 
-	uvDeEnergizeTractiveSystem();
+	//uvDeEnergizeTractiveSystem();
 
 	while(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_0)){
 		vTaskDelay(10);
@@ -131,10 +137,11 @@ void rtdTask(void* args){
 			if(brake_percent > 10.0){
 				//BRAKE PEDAL is PRESSED
 				//Enter driving mode fr fr
+				changeVehicleState(UV_DRIVING);
 
 			}else{
 				//Toggle energization state
-
+				toggleEnergization();
 
 			}
 

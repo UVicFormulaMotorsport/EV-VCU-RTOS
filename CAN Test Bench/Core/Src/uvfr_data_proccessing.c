@@ -493,7 +493,7 @@ float xToY_ff(LUT_ff_t* lut,float x){
 	if(lut->x == NULL || lut->y == NULL){ //Your X and Y need to exist
 		return 0;
 	}
-	int32_t* X = lut->x;
+	float* X = lut->x;
 	float* Y = lut->y;
 
 	uint8_t n = lut->n;

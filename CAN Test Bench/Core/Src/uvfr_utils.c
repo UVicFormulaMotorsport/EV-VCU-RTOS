@@ -34,7 +34,9 @@ const uint8_t data_size[] = {1,1, //UV_UINT8 and UV_INT8
 
 static uv_status uvSelfDiagnosticSequence(){
 
-	coniferEnChannel(COOLANT_PUMP1);
+	if(coniferEnChannel(COOLANT_PUMP1) != UV_OK){
+
+	}
 	vTaskDelay(1000);
 	coniferDisChannel(COOLANT_PUMP1);
 	vTaskDelay(1000);
@@ -164,30 +166,10 @@ void uvInit(void * arguments){
 	 *
 	 */
 
-#ifdef DEBUG
-		printf("Initializing CAN Drivers\n");
-#endif
-
-	uv_task_info* canTxtask = uvCreateServiceTask();
-	canTxtask->task_function = CANbusTxSvcDaemon;
-	canTxtask->active_states = 0xFFFF;
-	canTxtask->task_name = CAN_TX_DAEMON_NAME;
-	canTxtask->stack_size = 256;
-
-	uv_task_info* canRxtask = uvCreateServiceTask();
-	canRxtask->task_function = CANbusRxSvcDaemon;
-	canRxtask->active_states = 0xFFFF;
-	canRxtask->task_name = CAN_RX_DAEMON_NAME;
-	canRxtask->stack_size = 256;
-	//super basic for now, just need something working
-
-#ifdef DEBUG
-		printf("Starting CAN Drivers\n");
-#endif
-
-	uint32_t var = 0; //dummy var
-	uvStartTask(&var,canTxtask);
-	uvStartTask(&var,canRxtask);
+	if(uvCanDriverInit()){
+		printf("CANbusInitFailed\n");
+		__uvInitPanic();
+	}
 
 
 	vTaskDelay(1);
@@ -207,7 +189,7 @@ void uvInit(void * arguments){
 		uvPanic("WTF",0);
 	}
 
-	BeepBeepMotherFucker();
+	//BeepBeepMotherFucker();
 
 	if(uvSelfDiagnosticSequence()!=UV_OK){
 		uvPanic("ELEC SYSTEM FAULT",0);
