@@ -209,14 +209,17 @@ static uv_status validateAllXDevStructs();
 static void xdevTimeoutHandler(uint8_t xdev){
 	static char xdevemsg[24] = "XDEV TIMEOUT: \0"; //HAS 14 chars initially
 	//No bounds checking on xDev because this is internal and should have happened upstream
+
+	//TODO in case of mutex fail what are we doing
 	uint16_t xdevflags_cache = 0;
 
 	if(xSemaphoreTake(xdev_registry[xdev].xdev_mutex,1) == pdTRUE){ //TODO check for if mutex should be recursive here
 		xdev_registry[xdev].peripheral_status = XDEV_TIMEOUT;
 		xdevflags_cache  = xdev_registry[xdev].flags;
+		xSemaphoreGive(xdev_registry[xdev].xdev_mutex);
 	}
 
-	if(xdev_registry[xdev].flags & XDEV_NO_PANIC_TIMEOUT){
+	if(xdevflags_cache & XDEV_NO_PANIC_TIMEOUT){
 		//copy xdev name to emsg
 		for(int i = 0;i<8 ;i++){
 			xdevemsg[BLANK_TIMOUT_EMSG_SIZE + i] = xdev_registry[xdev].name[i];
@@ -415,6 +418,11 @@ uv_status uvAddPollMsgToXdev(uint8_t xdev_id, uv_CAN_msg* msg){
 	}
 
 	xdev_poll_msg* pmsg = (xdev_poll_msg*) uvMalloc(sizeof(xdev_poll_msg));
+	if(pmsg == NULL){
+		return UV_ERROR;
+	}
+
+
 	pmsg->next = NULL;
 	pmsg->pmsg.dlc = msg->dlc;
 	pmsg->pmsg.flags = msg->flags;
@@ -424,9 +432,7 @@ uv_status uvAddPollMsgToXdev(uint8_t xdev_id, uv_CAN_msg* msg){
 	}
 
 
-	if(pmsg == NULL){
-		return UV_ERROR;
-	}
+
 
 	if(xdev_registry[xdev_id].xdev_poll_msgs == NULL){
 		xdev_registry[xdev_id].xdev_poll_msgs = (xdev_poll_msg*)pmsg;
