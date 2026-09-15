@@ -339,6 +339,15 @@ void uvInit(void * arguments){
 			//Set vehicle state to "idle"
 
 #ifdef DEBUG
+		printf("Starting XDevMon\n");
+#endif
+
+		if(uvSetupXdevs()!=UV_OK){
+
+		}
+
+
+#ifdef DEBUG
 		printf("Transitioning to READY state\n");
 #endif
 			if(changeVehicleState(UV_READY) != UV_ERROR){
@@ -380,13 +389,13 @@ void uvInit(void * arguments){
 	//vTaskDelete(PDU_init_args->meta_task_handle);
 	//uvFree(PDU_init_args);
 
-#ifdef DEBUG
-		printf("Starting XDevMon\n");
-#endif
+//#ifdef DEBUG
+//		printf("Starting XDevMon\n");
+//#endif
 
-	if(uvSetupXdevs()!=UV_OK){
-
-	}
+//	if(uvSetupXdevs()!=UV_OK){
+//
+//	}
 
 #ifdef DEBUG
 		printf("EN SDC RELAY BOARD\n");

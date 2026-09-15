@@ -361,7 +361,10 @@ typedef struct uv_task_msg_t{
 #define XDEV_POLLED_LAST_CYCLE	(0x01U<<4) //Reserved for internal use
 #define XDEV_UHH_UHH_DUHH
 
-
+typedef struct xdev_poll_msg{
+	struct xdev_poll_msg* next;
+	uv_CAN_msg pmsg;
+}xdev_poll_msg;
 
 /** Represents an external device, and all the info that is needed
  *
@@ -374,7 +377,7 @@ typedef struct xdev_info{
 	uint32_t ecode1;
 	uint32_t ecode2;
 
-	void* xdev_poll_msgs;
+	xdev_poll_msg* xdev_poll_msgs;
 
 	SemaphoreHandle_t xdev_mutex; //Mutex for editing the
 	SemaphoreHandle_t xdev_rx_smphr;

@@ -23,10 +23,10 @@ typedef enum uv_status_t uv_status;
 /** Linked list of CAN messages
  *
  */
-typedef struct xdev_poll_msg{
-	struct xdev_poll_msg* next;
-	uv_CAN_msg pmsg;
-}xdev_poll_msg;
+//typedef struct xdev_poll_msg{
+//	struct xdev_poll_msg* next;
+//	uv_CAN_msg pmsg;
+//}xdev_poll_msg;
 
 typedef struct xdev_rx_ack_data{
 	xdev_id device_id;
@@ -110,6 +110,15 @@ static void destroyXdevSemphr(uint8_t xdev){
  *
  */
 uv_status uvRegisterExternalDevice(uint8_t device_id, TickType_t period, uint16_t xd_flags, char* name){
+	if(device_id >= FINAL_XDEV){
+		return UV_ERROR;
+	}
+
+	if(!name){
+		return UV_ERROR;
+	}
+
+
 	if(xdev_registry[device_id].xdev_mutex == NULL){
 		if(createXdevMutex(device_id) != UV_OK){
 			xdev_registry[device_id].peripheral_status = XDEV_VCU_ERROR;
@@ -245,6 +254,12 @@ void xDevMon(void* args){
 
 	}
 
+	TickType_t tick = xTaskGetTickCount();
+
+	for(int i = 0;i<FINAL_XDEV;i++){
+		xdev_registry[i].last_heard_from = tick;
+	}
+
 	vTaskDelay(10);
 
 	int k = 0;
@@ -271,7 +286,7 @@ void xDevMon(void* args){
 				continue; //Not checking timeout on these badboys
 			}
 
-			TickType_t t_since = xdev_registry[i].last_heard_from;
+			TickType_t t_since = last_time - xdev_registry[i].last_heard_from;
 			TickType_t tolerance = (xdev_registry[i].period * 11)/10 + 1; //10% + 1ms margin allowed
 
 			if(t_since > tolerance){
@@ -296,6 +311,7 @@ void xDevMon(void* args){
 			if(k%per == 0){
 				if(pollXdev(i)==UV_ERROR){
 					//HANDLE ERROR HERE
+					xdev_registry[i].peripheral_status = XDEV_ERROR;
 					uvPanic("xdevpollfail",0);
 				}
 			}
@@ -318,7 +334,7 @@ void xDevMon(void* args){
  */
 uv_status uvSetupXdevs(){
 
-
+	uint32_t dumdum;
 
 
 
@@ -333,10 +349,10 @@ uv_status uvSetupXdevs(){
 			//DO NOT TOUCH ANY OF THE FIELDS WE HAVENT ALREADY MENTIONED HERE. FOR THE LOVE OF GOD.
 	xdt->task_name = "xDevMon";
 	xdt->task_function = xDevMon;
-	xdt->task_priority = osPriorityNormal;
+	xdt->task_priority = 1;
 
 
-	xdt->stack_size = 256;
+	xdt->stack_size = 512;
 
 	xdt->active_states = UV_READY | UV_DRIVING | UV_ERROR_STATE | PROGRAMMING | UV_LAUNCH_CONTROL ;
 	xdt->suspension_states = 0x00;
@@ -345,7 +361,7 @@ uv_status uvSetupXdevs(){
 	xdt->task_period = 10;
 
 	xdt->task_args = NULL; //TODO: Add actual settings dipshit
-
+//	uvStartTask(&dumdum,xdt);
 	return UV_OK;
 }
 
@@ -361,7 +377,10 @@ uv_status sendMsgRxAckQueueMSG(){
  */
 void externalDeviceRxHandler(uint8_t device_id){
 	if((xdev_registry[device_id].flags & XDEV_DEVICE_EXPECTED)){
-
+		if(xdev_registry[device_id].peripheral_status == XDEV_NC){
+			xdev_registry[device_id].peripheral_status = XDEV_OK; //If we expect device and device exists, device is ok
+			//Errors or warnings supercede OK however
+		}
 	}
 
 
@@ -416,6 +435,8 @@ uv_status uvAddPollMsgToXdev(uint8_t xdev_id, uv_CAN_msg* msg){
 	if(msg == NULL){
 		return UV_ERROR;
 	}
+
+
 
 	xdev_poll_msg* pmsg = (xdev_poll_msg*) uvMalloc(sizeof(xdev_poll_msg));
 	if(pmsg == NULL){
