@@ -20,7 +20,7 @@
 #include <stdint.h>
 
 /* =========================================================
- * CAN IDs / bus
+ * CAN IDs / bus    BIDHAN WILL CHANGE IT RN!!!!!
  * ========================================================= */
 
 // TODO: replace these CAN IDs using the IMD datasheet
