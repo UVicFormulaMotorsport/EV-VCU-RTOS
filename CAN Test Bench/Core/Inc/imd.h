@@ -8,107 +8,48 @@
 #include "uvfr_utils.h"
 #include <stdint.h>
 
-// CAN ID is currently extended
+// ---------------------------------------------------------------
+// Bender ISOMETER iso175 - Status: Warnings_and_Alarms
+// Source: iso175 operating manual, iso175_D00415_03_M_XXEN (07.2025)
+// The manual has NO single table for these bits. Each bit is mentioned in the
+// section listed next to it (page numbers = printed page numbers in the manual).
 
-// Needs to be changed to standard ID
-
-// Faults
-// The first byte returned from a status request message will have 8 status bits and the data as the rest
-enum imd_status_bits{
-	// I have just left this as plain binary. Could also be declared by bitshifting but I think this is easier
-	//	    					12345678
-	Isolation_status_bit0	= 0b00000001, // IS0
-	Isolation_status_bit1	= 0b00000010, // IS1
-	Low_Battery_Voltage		= 0b00000100, // LV 15V threshold (1 if below 15V)
-	High_Battery_Voltage	= 0b00001000, // HV (1 if higher than Max_battery_working_voltage)
-	Exc_off 				= 0b00010000, // EO (Excitation pulse 0 for operating)
-	High_Uncertainty 		= 0b00100000, // HU (1 for greater than 5%)
-	Touch_energy_fault 		= 0b01000000, // EF (1 for energy exceeds 0.2J)
-	Hardware_Error			= 0b10000000, // HE (1 for error)
-};
-
-typedef struct uv_imd_settings{
-	uint16_t min_isolation_resistances;
-	uint16_t expected_isolation_capacitances;
-	uint16_t max_imd_temperature;
-
-}uv_imd_settings;
+// Bender-Standard default IDs from iso175 manual chapter 4.11.2 (11-bit standard IDs)
+enum imd_can_ids{
+	IMD_CAN_ID_response        = 0x22, 
+	IMD_CAN_ID_request         = 0x23,
+	IMD_CAN_ID_Info_General    = 0x37, // broadcast every 100 ms by default
+	IMD_CAN_ID_Info_IsoDetaul  = 0x38, // off by default
+	IMD_CAN_ID_Info_Temperature = 0x39  // off by default
+	
 
 
-// The MCU needs to send a message to the IMD requesting info
-// These are requests that will return status bits (defined above) & the value requested
-enum imd_status_requests{
-	// The electrical isolation is in bytes 2 & 3
-	uv_request_mux_isolation_state = 0xE0,
+}
 
-	// Rp is the resistance from the positive of the battery to chassis
-	// Rn is the resistance from the negative of the battery to chassis
-	uv_request_mux_isolation_resistances = 0xE1,
 
-	// Cp is the capacitance from the positive of the battery to chassis
-	// Cn is the capacitance from the negative of the battery to chassis
-	// Bytes 2 & 3 are Cp, bytes 5 & 6 are Cn, in nF
-	uv_request_mux_isolation_capacitances = 0xE2,
-
-	// High voltage battery voltages to chassis
-	uv_request_mux_voltages_Vp_and_Vn = 0xE3,
-
-	// GLV battery voltage
-	uv_request_mux_battery_voltage = 0xE4,
-
-	// Error flags are a series of bits described below
-	uv_request_mux_Error_flags = 0xE5,
-
-	// The IMD monitors charge stored in the system
-	uv_request_mux_safety_touch_energy = 0xE6,
-
-	// Also monitors if it is safe to touch
-	uv_request_mux_safety_touch_current = 0xE7,
-
-	// This is just a parameter we can set
-	uv_request_mux_Max_battery_working_voltage = 0xF0,
-
-	// We can read the temperature of the board
-	uv_request_mux_Temperature = 0x80,
-};
-
-// If one of the error flags is set, then the harware error bit will go to 1
-enum imd_error_flags{
-	// Bits 0-6 are reserved
-	Err_temp = 0x0080, // HT high temperature (0 if temperature is below 105C)
-	Err_clock = 0x0100, // CE  (0 if clock is good)
-	Err_Watchdog = 0x0200, // WD Watchdog (0 if watchdog is good)
-	Err_Vpwr = 0x0400, // V_PWR power supply (0 if power supply voltage is good)
-	Err_Vexi = 0x0800, // V_EXI Excitation voltage (0 if excitation voltage is good)
-	Err_VxR = 0x1000, // VxR (0 if both Vx1 and Vx2 are good)
-	Err_CH = 0x2000, // CH chassis connections (0 if both chassis connections are good)
-	Err_Vx1 = 0x4000, // Vx1 connection (0 if SIM101 connection to Hv+ is good)
-	Err_Vx2 = 0x8000, // Vx2 connection (0 if SIM101 connection to Hv- is good)
-};
-
-// Probably not useful and won't be used for a bit but may be useful in the future
-enum imd_manufacturer_requests{
-	// The numbers get broken up over multiple bytes
-	Part_name_0 = 0x01,
-	Part_name_1 = 0x02,
-	Part_name_2 = 0x03,
-	Part_name_3 = 0x04,
-	Version_0 = 0x05,
-	Version_1 = 0x06,
-	Version_2 = 0x07,
-	Serial_number_0 = 0x08,
-	Serial_number_1 = 0x09,
-	Serial_number_2 = 0x0A,
-	Serial_number_3 = 0x0B,
-	Uptime_counter = 0x0C,
-};
-
-enum imd_high_resolution_measurements{
-	Vn_hi_res = 0x60,
-	Vp_hi_res = 0x61,
-	Vexc_hi_res = 0x62,
-	Vb_hi_res = 0x63,
-	Vpwr_hi_res = 0x65,
+//
+// NOT from the manual - assumptions to confirm with the Bender iso175 CAN spec / DBC:
+//  - Hex values are just "bit N" converted to (1 << N)
+//  - 16-bit width is assumed: the highest bit the manual mentions is bit 10
+//  - Bit 0 = least significant bit is assumed; byte position/endianness in the CAN frame is unknown
+//
+// Any bit set -> OKHS status output goes low (sec 4.10.3 "Status output OKHS", p.21)
+enum imd_warnings_alarms{
+	WA_Device_error     = 0x0001, // bit 0  - sec 4.10.1 "Device error", p.19
+	WA_HV_pos_conn_fail = 0x0002, // bit 1  - sec 4.4.2 "Offline self test", p.15 ("Bit 1: true = HV+ connection failure")
+	WA_HV_neg_conn_fail = 0x0004, // bit 2  - sec 4.4.2 "Offline self test", p.15 ("Bit 2: true = HV- connection failure")
+	WA_Earth_conn_fail  = 0x0008, // bit 3  - sec 4.4.1 "Online self test", p.14 + sec 4.10.2 "Chassis-ground connection faults", p.20
+	                              //          WARNING: sec 8.3, p.28 calls the chassis-ground fault "bit 4", which contradicts
+	                              //          sec 4.4.1 and sec 4.10.2. Verify on the bench (disconnect LV pin 3 from chassis)
+	WA_Iso_alarm        = 0x0010, // bit 4  - sec 4.10.2 "Insulation resistance fault (alarm)", p.20
+	                              //          R_iso < Threshold_Error (default 100 kOhm, sec 10.1 "Factory settings", p.32)
+	WA_Iso_warning      = 0x0020, // bit 5  - sec 4.10.2 "Insulation resistance warning (prewarning)", p.20
+	                              //          R_iso < Threshold_Warning (default 500 kOhm, sec 10.1 "Factory settings", p.32)
+	WA_Iso_outdated     = 0x0040, // bit 6  - sec 4.10.2 "Insulation resistance measured value no longer up to date", p.20
+	WA_Unbalance        = 0x0080, // bit 7  - sec 4.10.2 "HV voltage unbalance faults", p.21
+	WA_Undervoltage     = 0x0100, // bit 8  - sec 4.10.2 "Undervoltage error", p.21
+	WA_Unsafe_to_start  = 0x0200, // bit 9  - sec 4.3.4 "Fast start measurement", p.13 + sec 4.10.2 "System condition unstable", p.21
+	WA_Earthlift_open   = 0x0400, // bit 10 - sec 4.10.2 "'Earth' disconnector open", p.21
 };
 
 // ---------------------------------------------------------------
