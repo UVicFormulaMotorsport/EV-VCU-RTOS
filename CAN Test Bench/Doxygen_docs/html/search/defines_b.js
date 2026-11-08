@@ -13,5 +13,7 @@ var searchData=
   ['mc_5fsettings_10',['mc_settings',['../motor__controller_8c.html#a439694589c8c785c64cf6717387e8ed6',1,'motor_controller.c']]],
   ['motor_5faddr_11',['MOTOR_ADDR',['../uvfr__settings_8h.html#a64e82d251eccd0980c14764939968bef',1,'uvfr_settings.h']]],
   ['motor_5fmgroup_12',['MOTOR_MGROUP',['../uvfr__settings_8h.html#aad0db57c7f8c7937be54192d7b74bdcf',1,'uvfr_settings.h']]],
-  ['motor_5foffset_13',['MOTOR_OFFSET',['../uvfr__settings_8h.html#aa990a9c990001dc29a5ee5fdde3773e4',1,'uvfr_settings.h']]]
+  ['motor_5foffset_13',['MOTOR_OFFSET',['../uvfr__settings_8h.html#aa990a9c990001dc29a5ee5fdde3773e4',1,'uvfr_settings.h']]],
+  ['msg1corrupt_14',['msg1corrupt',['../driving__loop_8c.html#afbdf93548fb2c71b7fef00049fe1bf87',1,'driving_loop.c']]],
+  ['msg2corrupt_15',['msg2corrupt',['../driving__loop_8c.html#ab0cdb0db2c89cc16f05ebe4a03a885a7',1,'driving_loop.c']]]
 ];

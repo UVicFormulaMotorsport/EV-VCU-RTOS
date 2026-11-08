@@ -1,5 +1,8 @@
 var temp__monitoring_8c =
 [
+    [ "__UV_FILENAME__", "temp__monitoring_8c.html#a368892c5fb38bdcdfae7b7e2a22602b4", null ],
+    [ "ROTATION_PERIOD", "temp__monitoring_8c.html#a83405528312710cd5825f1c977174e70", null ],
+    [ "USE_DEVICE_TEMP_FOR_FANS", "temp__monitoring_8c.html#a8479b419cdae608dd7f5ac338563094f", null ],
     [ "CAN_1_TEST_msg", "temp__monitoring_8c.html#ac7d9684d79751bdc647dc20a0aaa892e", null ],
     [ "CAN_2_TEST_msg2", "temp__monitoring_8c.html#a7b9570b4457ef57344b11b3b937feb82", null ],
     [ "initTempMonitor", "temp__monitoring_8c.html#a979dc6ff14a3ef1f72e3cbea884871b0", null ],

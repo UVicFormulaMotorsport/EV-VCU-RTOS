@@ -47,6 +47,8 @@ void \mbox{\hyperlink{group__state__engine_ga0e6167ef18c2ec8b65fbe070d0ffb6c9}{u
 \item 
 Heap\+Stats\+\_\+t \mbox{\hyperlink{group__state__engine_gace30759073ddac097d29f042acc4142d}{x\+Heap\+Stats}}
 \item 
+volatile Tick\+Type\+\_\+t \mbox{\hyperlink{group__state__engine_gaaa88969a9b48aea401dbb1ff2b0ef4de}{x\+Tick\+Count}}
+\item 
 uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__state__engine_gaf622d52254e824f6da1204abc93b18db}{task\+\_\+tardiness}}
 \item 
 Task\+Handle\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__state__engine_gac204f3b14ce9bf370b2e5477dc87afea}{scd\+\_\+handle\+\_\+ptr}}
@@ -94,7 +96,7 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00011}{11}} o
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{uv\+Task\+Manager()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01266}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00333}{uv\+Create\+Task()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01151}{uv\+Task\+Manager()}}.
 
 
 
@@ -116,7 +118,7 @@ int compare\+Task\+By\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{str
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01412}{1412}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01461}{1461}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
@@ -134,15 +136,15 @@ The name should be pretty self explanatory.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00473}{473}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00521}{521}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00074}{\+\_\+\+BV\+\_\+32}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00519}{uv\+Delete\+Task()}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00079}{\+\_\+\+BV\+\_\+32}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00567}{uv\+Delete\+Task()}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00275}{uv\+De\+Init\+State\+Engine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00323}{uv\+De\+Init\+State\+Engine()}}.
 
 Here is the call graph for this function\+:
 % FIG 1
@@ -168,15 +170,15 @@ Now we deinitialize the svc\+Task\+Manager. This is done by doing the following\
 
 Lovely times for all
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01365}{1365}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01414}{1414}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{\+\_\+\+\_\+uv\+Init\+Panic()}}, and \mbox{\hyperlink{uvfr__state__engine_8h_source_l00162}{task\+\_\+management\+\_\+info\+::task\+\_\+handle}}.
+References \mbox{\hyperlink{uvfr__utils_8c_source_l00461}{\+\_\+\+\_\+uv\+Init\+Panic()}}, and \mbox{\hyperlink{uvfr__state__engine_8h_source_l00162}{task\+\_\+management\+\_\+info\+::task\+\_\+handle}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 Here is the call graph for this function\+:
 % FIG 2
@@ -200,15 +202,15 @@ The responsibilities of this task are as follows\+:
 
 This task is one of the most important ones in the system. Lovely times for all. Therefore it us of utmost importance that this one DOES NOT CRASH. EVER. 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{1102}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01151}{1151}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00256}{uv\+\_\+task\+\_\+info\+::last\+\_\+execution\+\_\+time}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00011}{MAX\+\_\+\+NUM\+\_\+\+MANAGED\+\_\+\+TASKS}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00046}{os\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00163}{task\+\_\+management\+\_\+info\+::parent\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00262}{uv\+\_\+task\+\_\+info\+::task\+\_\+flags}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00162}{task\+\_\+management\+\_\+info\+::task\+\_\+handle}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00246}{uv\+\_\+task\+\_\+info\+::task\+\_\+handle}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00191}{uv\+\_\+os\+\_\+settings\+::task\+\_\+overshoot\+\_\+margin\+\_\+crit}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00190}{uv\+\_\+os\+\_\+settings\+::task\+\_\+overshoot\+\_\+margin\+\_\+noncrit}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00243}{uv\+\_\+task\+\_\+info\+::task\+\_\+state}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00021}{task\+\_\+tardiness}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00254}{uv\+\_\+task\+\_\+info\+::tmi}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00241}{UV\+\_\+\+INVALID\+\_\+\+MSG}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00203}{UV\+\_\+\+TASK\+\_\+\+MANAGER\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00218}{UV\+\_\+\+TASK\+\_\+\+MISSION\+\_\+\+CRITICAL}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00134}{UV\+\_\+\+TASK\+\_\+\+RUNNING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00199}{UV\+\_\+\+TASK\+\_\+\+VEHICLE\+\_\+\+APPLICATION}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01068}{uv\+Late\+Task\+Handler()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01469}{uv\+Task\+Period\+End()}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00773}{kill\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00256}{uv\+\_\+task\+\_\+info\+::last\+\_\+execution\+\_\+time}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00011}{MAX\+\_\+\+NUM\+\_\+\+MANAGED\+\_\+\+TASKS}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00048}{os\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00163}{task\+\_\+management\+\_\+info\+::parent\+\_\+msg\+\_\+queue}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00814}{suspend\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00262}{uv\+\_\+task\+\_\+info\+::task\+\_\+flags}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00162}{task\+\_\+management\+\_\+info\+::task\+\_\+handle}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00246}{uv\+\_\+task\+\_\+info\+::task\+\_\+handle}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00191}{uv\+\_\+os\+\_\+settings\+::task\+\_\+overshoot\+\_\+margin\+\_\+crit}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00190}{uv\+\_\+os\+\_\+settings\+::task\+\_\+overshoot\+\_\+margin\+\_\+noncrit}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00243}{uv\+\_\+task\+\_\+info\+::task\+\_\+state}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00023}{task\+\_\+tardiness}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00254}{uv\+\_\+task\+\_\+info\+::tmi}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00270}{UV\+\_\+\+INVALID\+\_\+\+MSG}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00203}{UV\+\_\+\+TASK\+\_\+\+MANAGER\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00218}{UV\+\_\+\+TASK\+\_\+\+MISSION\+\_\+\+CRITICAL}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00134}{UV\+\_\+\+TASK\+\_\+\+RUNNING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00199}{UV\+\_\+\+TASK\+\_\+\+VEHICLE\+\_\+\+APPLICATION}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01117}{uv\+Late\+Task\+Handler()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01518}{uv\+Task\+Period\+End()}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 Here is the call graph for this function\+:
 % FIG 3
@@ -224,15 +226,15 @@ Function called at the end of the task period.
 
 @ 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01469}{1469}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01518}{1518}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00256}{uv\+\_\+task\+\_\+info\+::last\+\_\+execution\+\_\+time}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00228}{uv\+\_\+task\+\_\+info\+::task\+\_\+id}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00021}{task\+\_\+tardiness}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00286}{uv\+Task\+Reset\+Delay\+Bit}}, and \mbox{\hyperlink{uvfr__state__engine_8h_source_l00284}{uv\+Task\+Set\+Delay\+Bit}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00256}{uv\+\_\+task\+\_\+info\+::last\+\_\+execution\+\_\+time}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00228}{uv\+\_\+task\+\_\+info\+::task\+\_\+id}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00023}{task\+\_\+tardiness}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00286}{uv\+Task\+Reset\+Delay\+Bit}}, and \mbox{\hyperlink{uvfr__state__engine_8h_source_l00284}{uv\+Task\+Set\+Delay\+Bit}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{uv\+Task\+Manager()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01151}{uv\+Task\+Manager()}}.
 
 
 
@@ -258,11 +260,11 @@ Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{uv\+Task\+M
 \end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00048}{48}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00050}{50}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00325}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01373}{uv\+Reset\+Flash\+To\+Default()}}.
 
 \Hypertarget{group__state__engine_gad05ab0da0046c01c52191148bbd0c36d}\index{State Engine@{State Engine}!error\_bitfield@{error\_bitfield}}
 \index{error\_bitfield@{error\_bitfield}!State Engine@{State Engine}}
@@ -272,7 +274,7 @@ uint32\+\_\+t error\+\_\+bitfield\mbox{[}4\mbox{]}}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00036}{36}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{38}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 \Hypertarget{group__state__engine_ga026f8ea8b80f88c90cb35e3ec3588237}\index{State Engine@{State Engine}!os\_settings@{os\_settings}}
 \index{os\_settings@{os\_settings}!State Engine@{State Engine}}
@@ -282,11 +284,11 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00036}{36}} o
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00046}{46}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00048}{48}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{uv\+Task\+Manager()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01151}{uv\+Task\+Manager()}}.
 
 \Hypertarget{group__state__engine_ga2ce6eef16a78c095592954d2fe68af2e}\index{State Engine@{State Engine}!previous\_state@{previous\_state}}
 \index{previous\_state@{previous\_state}!State Engine@{State Engine}}
@@ -296,11 +298,11 @@ enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00039}{39}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00041}{41}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00094}{change\+Vehicle\+State()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 \Hypertarget{group__state__engine_gac204f3b14ce9bf370b2e5477dc87afea}\index{State Engine@{State Engine}!scd\_handle\_ptr@{scd\_handle\_ptr}}
 \index{scd\_handle\_ptr@{scd\_handle\_ptr}!State Engine@{State Engine}}
@@ -310,7 +312,7 @@ Task\+Handle\+\_\+t\texorpdfstring{$\ast$}{*} scd\+\_\+handle\+\_\+ptr}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00026}{26}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00028}{28}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 \Hypertarget{group__state__engine_ga42329069c59ef55a97a6b0bca0cafd32}\index{State Engine@{State Engine}!svc\_task\_manager@{svc\_task\_manager}}
 \index{svc\_task\_manager@{svc\_task\_manager}!State Engine@{State Engine}}
@@ -320,11 +322,11 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00026}{26}} o
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00042}{42}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00044}{44}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 \Hypertarget{group__state__engine_ga3de41676729241e58688c61c450e4a1e}\index{State Engine@{State Engine}!task\_manager@{task\_manager}}
 \index{task\_manager@{task\_manager}!State Engine@{State Engine}}
@@ -334,11 +336,11 @@ Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+S
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00041}{41}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00043}{43}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 \Hypertarget{group__state__engine_ga168524a5d658247db44217e643b6396f}\index{State Engine@{State Engine}!task\_name\_lut@{task\_name\_lut}}
 \index{task\_name\_lut@{task\_name\_lut}!State Engine@{State Engine}}
@@ -348,7 +350,7 @@ Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+S
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00034}{34}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00036}{36}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 \Hypertarget{group__state__engine_gaaed35d33599a21d98d0500c5f0a1385a}\index{State Engine@{State Engine}!task\_name\_tree@{task\_name\_tree}}
 \index{task\_name\_tree@{task\_name\_tree}!State Engine@{State Engine}}
@@ -358,7 +360,7 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00034}{34}} o
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00044}{44}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00046}{46}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 \Hypertarget{group__state__engine_gaf622d52254e824f6da1204abc93b18db}\index{State Engine@{State Engine}!task\_tardiness@{task\_tardiness}}
 \index{task\_tardiness@{task\_tardiness}!State Engine@{State Engine}}
@@ -368,11 +370,11 @@ uint8\+\_\+t\texorpdfstring{$\ast$}{*} task\+\_\+tardiness}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00021}{21}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00023}{23}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01068}{uv\+Late\+Task\+Handler()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01102}{uv\+Task\+Manager()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01469}{uv\+Task\+Period\+End()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l01117}{uv\+Late\+Task\+Handler()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01151}{uv\+Task\+Manager()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01518}{uv\+Task\+Period\+End()}}.
 
 \Hypertarget{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}\index{State Engine@{State Engine}!vehicle\_state@{vehicle\_state}}
 \index{vehicle\_state@{vehicle\_state}!State Engine@{State Engine}}
@@ -382,11 +384,11 @@ enum \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{38}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00040}{40}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00097}{log\+Vehicle\+Fault()}}, \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00047}{testfunc()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00930}{\+\_\+state\+Change\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00094}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00200}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00097}{log\+Vehicle\+Fault()}}, \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00058}{testfunc()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01557}{uv\+Get\+State\+String()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 \Hypertarget{group__state__engine_gace30759073ddac097d29f042acc4142d}\index{State Engine@{State Engine}!xHeapStats@{xHeapStats}}
 \index{xHeapStats@{xHeapStats}!State Engine@{State Engine}}
@@ -400,7 +402,17 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00013}{13}} o
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00248}{uv\+Background\+Diagnostics\+Daemon()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}.
+
+\Hypertarget{group__state__engine_gaaa88969a9b48aea401dbb1ff2b0ef4de}\index{State Engine@{State Engine}!xTickCount@{xTickCount}}
+\index{xTickCount@{xTickCount}!State Engine@{State Engine}}
+\doxysubsubsection{\texorpdfstring{xTickCount}{xTickCount}}
+{\footnotesize\ttfamily \label{group__state__engine_gaaa88969a9b48aea401dbb1ff2b0ef4de} 
+volatile Tick\+Type\+\_\+t x\+Tick\+Count\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}.
 
 \input{group__state__engine__api}
 \input{group__state__engine__backend}

@@ -1,32 +1,212 @@
 \doxysection{Core/\+Src/uvfr\+\_\+diagnostics.c File Reference}
 \hypertarget{uvfr__diagnostics_8c}{}\label{uvfr__diagnostics_8c}\index{Core/Src/uvfr\_diagnostics.c@{Core/Src/uvfr\_diagnostics.c}}
 {\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}bms.\+h"{}}\newline
+{\ttfamily \#include "{}imd.\+h"{}}\newline
 Include dependency graph for uvfr\+\_\+diagnostics.\+c\+:
 % FIG 0
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structuv__print__request}{uv\+\_\+print\+\_\+request}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{uvfr__diagnostics_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+}}~"{}uvfr\+\_\+diagnostics.\+c"{}
+\item 
+\#define \mbox{\hyperlink{uvfr__diagnostics_8c_acddb9dba4932eef5588df8dc2447ac8a}{DEBUG\+\_\+\+LOG\+\_\+\+TASK\+\_\+\+RUNTIME\+\_\+\+STATS}}
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a6573c897f7da39fd62ea8becc9580317}{disp\+Wheel\+Speeds}} ()
+\item 
+int32\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a9104caf19d0d3f6239592daed7cebbb7}{sprint\+\_\+fixed\+\_\+d}} (char \texorpdfstring{$\ast$}{*}buf, const char \texorpdfstring{$\ast$}{*}label, int32\+\_\+t value, int decimals, const char \texorpdfstring{$\ast$}{*}unit)
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a8077f10c4f50545bbd309f1e1fe6122f}{print\+\_\+fixed\+\_\+d}} (const char \texorpdfstring{$\ast$}{*}label, int32\+\_\+t value, int decimals, const char \texorpdfstring{$\ast$}{*}unit)
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a089663ae36d10c88291aefbe7376542f}{disp\+State\+Engine\+Status}} ()
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_aaa320c94b4b67f56acfb450d544240b4}{disp\+Ext\+Device\+Status}} ()
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_ae6f49734fe7f5fbcd3e9e734f4a4dd18}{disp\+Tractive\+System\+Status}} ()
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a61a3d749b05196082fa09d98d6f4508d}{disp\+Vehicle\+Status\+Report}} ()
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a5fc9e31e7b03d4d9a54d2f581cb8da87}{uv\+Get\+SDCStat}} ()
+\item 
+uint16\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a6a0def2ee39777c5c1d9df3ef2e1848e}{uv\+Get\+Digi\+In\+Stat}} ()
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a302351be7e0283cdaf7e74f28befee4b}{uv\+Background\+Diagnostics\+Daemon}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Background task responsible for much of our live telemtry and fault detection capabilies. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__diagnostics_8c_a1922faa9d814176f3c5aec2410d9eb10}{uv\+Enter\+Diagnostic\+Mode}} ()
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__diagnostics_8c_a2e21bd6dc99f8d0a62381a4010e2e257}{uv\+Exit\+Diagnostic\+Mode}} ()
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__diagnostics_8c_a7ad14988beab0a9306cabebf1525133f}{uv\+Init\+Diagnostics}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Initialize the diagnostics of the vehicle. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{uvfr__diagnostics_8c_ac227fb16a61fc925f514f8b28a854c3d}{handle\+Diagnostic\+Msg}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
 \item 
-void \mbox{\hyperlink{uvfr__diagnostics_8c_abf1701b70ec9b0030b205da2a1e20d17}{uv\+Event\+Log\+Daemon}} (void \texorpdfstring{$\ast$}{*}args)
-\item 
-void \mbox{\hyperlink{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}{uv\+Assert\+Failed}} (char \texorpdfstring{$\ast$}{*}file, uint16\+\_\+t line, Task\+Handle\+\_\+t task, char \texorpdfstring{$\ast$}{*}condition)
+int \mbox{\hyperlink{uvfr__diagnostics_8c_abc513dd972081ae765b6949a62872eb7}{\+\_\+\+\_\+io\+\_\+putchar}} (int ch)
 \item 
 void \mbox{\hyperlink{uvfr__diagnostics_8c_a54b14b665d04a631991869b21065bf90}{v\+Application\+Stack\+Overflow\+Hook}} (Task\+Handle\+\_\+t x\+Task, char \texorpdfstring{$\ast$}{*}pc\+Task\+Name)
 \item 
 void \mbox{\hyperlink{uvfr__diagnostics_8c_a73f6aa45470ada02a5d6f3a522d8f13c}{v\+Application\+Malloc\+Failed\+Hook}} ()
 \item 
 void \mbox{\hyperlink{uvfr__diagnostics_8c_a9ca051aa77e17583aa5a85d5de5c199a}{v\+Application\+Tick\+Hook}} (void)
+\item 
+void \mbox{\hyperlink{uvfr__diagnostics_8c_a179d6919fb5c2b4c4a661b4cd44a0a5e}{\+\_\+\+\_\+tic}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_ac9fe4d1d452b9db892bbd430e4aeb2e1}{\+\_\+\+\_\+toc}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Heap\+Stats\+\_\+t \mbox{\hyperlink{group__state__engine_gace30759073ddac097d29f042acc4142d}{x\+Heap\+Stats}}
+\item 
+Queue\+Handle\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a382e3d75b33025ed95999fdddfd6fa21}{print\+\_\+queue}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a070644ee820f64ab630858353841cf86}{g\+\_\+bms\+\_\+fault}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a00173fda32a1efb6830e940fd8e6ce10}{g\+\_\+imd\+\_\+fault}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a7fc8cba7be317c29ecd0b2946679bba6}{g\+\_\+bspd\+\_\+fault}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a511ab2530e985e898fc2fb417e86229d}{g\+\_\+\+SDCR\+\_\+tripped}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{uvfr__diagnostics_8c_a43a3cba08a8b1c9d79b2242e977e3894}{digi\+\_\+in\+\_\+stat}}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{uvfr__diagnostics_8c_a368892c5fb38bdcdfae7b7e2a22602b4}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}}
+\index{\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{\_\_UV\_FILENAME\_\_}{\_\_UV\_FILENAME\_\_}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a368892c5fb38bdcdfae7b7e2a22602b4} 
+\#define \+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+~"{}uvfr\+\_\+diagnostics.\+c"{}}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00007}{7}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+\Hypertarget{uvfr__diagnostics_8c_acddb9dba4932eef5588df8dc2447ac8a}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!DEBUG\_LOG\_TASK\_RUNTIME\_STATS@{DEBUG\_LOG\_TASK\_RUNTIME\_STATS}}
+\index{DEBUG\_LOG\_TASK\_RUNTIME\_STATS@{DEBUG\_LOG\_TASK\_RUNTIME\_STATS}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_LOG\_TASK\_RUNTIME\_STATS}{DEBUG\_LOG\_TASK\_RUNTIME\_STATS}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_acddb9dba4932eef5588df8dc2447ac8a} 
+\#define DEBUG\+\_\+\+LOG\+\_\+\+TASK\+\_\+\+RUNTIME\+\_\+\+STATS}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00023}{23}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
 \doxysubsection{Function Documentation}
+\Hypertarget{uvfr__diagnostics_8c_abc513dd972081ae765b6949a62872eb7}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!\_\_io\_putchar@{\_\_io\_putchar}}
+\index{\_\_io\_putchar@{\_\_io\_putchar}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{\_\_io\_putchar()}{\_\_io\_putchar()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_abc513dd972081ae765b6949a62872eb7} 
+int \+\_\+\+\_\+io\+\_\+putchar (\begin{DoxyParamCaption}\item[{int}]{ch}{}\end{DoxyParamCaption})}
+
+overrides the weak function prototype of \+\_\+\+\_\+io\+\_\+putchar so that we can use the ITM registers to send diagnostic data back to a debugger 
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00372}{372}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a179d6919fb5c2b4c4a661b4cd44a0a5e}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!\_\_tic@{\_\_tic}}
+\index{\_\_tic@{\_\_tic}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{\_\_tic()}{\_\_tic()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a179d6919fb5c2b4c4a661b4cd44a0a5e} 
+void \+\_\+\+\_\+tic (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00463}{463}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00043}{htim5}}.
+
+\Hypertarget{uvfr__diagnostics_8c_ac9fe4d1d452b9db892bbd430e4aeb2e1}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!\_\_toc@{\_\_toc}}
+\index{\_\_toc@{\_\_toc}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{\_\_toc()}{\_\_toc()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_ac9fe4d1d452b9db892bbd430e4aeb2e1} 
+uint32\+\_\+t \+\_\+\+\_\+toc (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00467}{467}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00043}{htim5}}.
+
+\Hypertarget{uvfr__diagnostics_8c_aaa320c94b4b67f56acfb450d544240b4}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!dispExtDeviceStatus@{dispExtDeviceStatus}}
+\index{dispExtDeviceStatus@{dispExtDeviceStatus}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{dispExtDeviceStatus()}{dispExtDeviceStatus()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_aaa320c94b4b67f56acfb450d544240b4} 
+void disp\+Ext\+Device\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00162}{162}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00197}{disp\+Vehicle\+Status\+Report()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a089663ae36d10c88291aefbe7376542f}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!dispStateEngineStatus@{dispStateEngineStatus}}
+\index{dispStateEngineStatus@{dispStateEngineStatus}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{dispStateEngineStatus()}{dispStateEngineStatus()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a089663ae36d10c88291aefbe7376542f} 
+void disp\+State\+Engine\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00157}{157}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+\Hypertarget{uvfr__diagnostics_8c_ae6f49734fe7f5fbcd3e9e734f4a4dd18}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!dispTractiveSystemStatus@{dispTractiveSystemStatus}}
+\index{dispTractiveSystemStatus@{dispTractiveSystemStatus}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{dispTractiveSystemStatus()}{dispTractiveSystemStatus()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_ae6f49734fe7f5fbcd3e9e734f4a4dd18} 
+void disp\+Tractive\+System\+Status (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00180}{180}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a61a3d749b05196082fa09d98d6f4508d}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!dispVehicleStatusReport@{dispVehicleStatusReport}}
+\index{dispVehicleStatusReport@{dispVehicleStatusReport}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{dispVehicleStatusReport()}{dispVehicleStatusReport()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a61a3d749b05196082fa09d98d6f4508d} 
+void disp\+Vehicle\+Status\+Report (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00197}{197}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00162}{disp\+Ext\+Device\+Status()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01557}{uv\+Get\+State\+String()}}.
+
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{uvfr__diagnostics_8c_a6573c897f7da39fd62ea8becc9580317}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!dispWheelSpeeds@{dispWheelSpeeds}}
+\index{dispWheelSpeeds@{dispWheelSpeeds}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{dispWheelSpeeds()}{dispWheelSpeeds()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a6573c897f7da39fd62ea8becc9580317} 
+void disp\+Wheel\+Speeds (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00292}{292}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00038}{frequency}}, \mbox{\hyperlink{tim_8c_source_l00035}{period}}, and \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+Here is the call graph for this function\+:
+% FIG 2
 \Hypertarget{uvfr__diagnostics_8c_ac227fb16a61fc925f514f8b28a854c3d}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!handleDiagnosticMsg@{handleDiagnosticMsg}}
 \index{handleDiagnosticMsg@{handleDiagnosticMsg}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
 \doxysubsubsection{\texorpdfstring{handleDiagnosticMsg()}{handleDiagnosticMsg()}}
@@ -35,24 +215,62 @@ void handle\+Diagnostic\+Msg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{st
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00024}{24}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00340}{340}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00036}{d\+CLEAR\+\_\+\+FAULTS}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00032}{ENTER\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00033}{EXIT\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00035}{FORCE\+\_\+\+STATE\+\_\+\+CHANGE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00034}{REQUEST\+\_\+\+STATE\+\_\+\+CHANGE}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{uvfr__state__engine_8c_source_l00094}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00048}{d\+CLEAR\+\_\+\+FAULTS}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00044}{ENTER\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00045}{EXIT\+\_\+\+DIAGNOSTICS\+\_\+\+MODE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00047}{FORCE\+\_\+\+STATE\+\_\+\+CHANGE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00046}{REQUEST\+\_\+\+STATE\+\_\+\+CHANGE}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
 
 Here is the call graph for this function\+:
-% FIG 1
-\Hypertarget{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvAssertFailed@{uvAssertFailed}}
-\index{uvAssertFailed@{uvAssertFailed}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
-\doxysubsubsection{\texorpdfstring{uvAssertFailed()}{uvAssertFailed()}}
-{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_afc0f4627210550225b0725b98850b03a} 
-void uv\+Assert\+Failed (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file}{, }\item[{uint16\+\_\+t}]{line}{, }\item[{Task\+Handle\+\_\+t}]{task}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{condition}{}\end{DoxyParamCaption})}
+% FIG 3
+\Hypertarget{uvfr__diagnostics_8c_a8077f10c4f50545bbd309f1e1fe6122f}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!print\_fixed\_d@{print\_fixed\_d}}
+\index{print\_fixed\_d@{print\_fixed\_d}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{print\_fixed\_d()}{print\_fixed\_d()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a8077f10c4f50545bbd309f1e1fe6122f} 
+void print\+\_\+fixed\+\_\+d (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{int32\+\_\+t}]{value}{, }\item[{int}]{decimals}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{unit}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00061}{61}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00088}{88}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
+\Hypertarget{uvfr__diagnostics_8c_a9104caf19d0d3f6239592daed7cebbb7}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!sprint\_fixed\_d@{sprint\_fixed\_d}}
+\index{sprint\_fixed\_d@{sprint\_fixed\_d}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{sprint\_fixed\_d()}{sprint\_fixed\_d()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a9104caf19d0d3f6239592daed7cebbb7} 
+int32\+\_\+t sprint\+\_\+fixed\+\_\+d (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buf}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{int32\+\_\+t}]{value}{, }\item[{int}]{decimals}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{unit}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00046}{46}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00240}{send\+Torque\+To\+Motor\+Controller()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a302351be7e0283cdaf7e74f28befee4b}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvBackgroundDiagnosticsDaemon@{uvBackgroundDiagnosticsDaemon}}
+\index{uvBackgroundDiagnosticsDaemon@{uvBackgroundDiagnosticsDaemon}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{uvBackgroundDiagnosticsDaemon()}{uvBackgroundDiagnosticsDaemon()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a302351be7e0283cdaf7e74f28befee4b} 
+void uv\+Background\+Diagnostics\+Daemon (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Background task responsible for much of our live telemtry and fault detection capabilies. 
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00248}{248}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00039}{digi\+\_\+in\+\_\+stat}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00773}{kill\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00814}{suspend\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00241}{uv\+Get\+Digi\+In\+Stat()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00216}{uv\+Get\+SDCStat()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00013}{x\+Heap\+Stats}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{uv\+Init\+Diagnostics()}}.
+
+Here is the call graph for this function\+:
+% FIG 4
 \Hypertarget{uvfr__diagnostics_8c_a1922faa9d814176f3c5aec2410d9eb10}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvEnterDiagnosticMode@{uvEnterDiagnosticMode}}
 \index{uvEnterDiagnosticMode@{uvEnterDiagnosticMode}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
 \doxysubsubsection{\texorpdfstring{uvEnterDiagnosticMode()}{uvEnterDiagnosticMode()}}
@@ -61,21 +279,11 @@ Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00061}{61}} of 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00010}{10}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00281}{281}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
-
-\Hypertarget{uvfr__diagnostics_8c_abf1701b70ec9b0030b205da2a1e20d17}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvEventLogDaemon@{uvEventLogDaemon}}
-\index{uvEventLogDaemon@{uvEventLogDaemon}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
-\doxysubsubsection{\texorpdfstring{uvEventLogDaemon()}{uvEventLogDaemon()}}
-{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_abf1701b70ec9b0030b205da2a1e20d17} 
-void uv\+Event\+Log\+Daemon (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00054}{54}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
 
 \Hypertarget{uvfr__diagnostics_8c_a2e21bd6dc99f8d0a62381a4010e2e257}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvExitDiagnosticMode@{uvExitDiagnosticMode}}
 \index{uvExitDiagnosticMode@{uvExitDiagnosticMode}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
@@ -85,11 +293,43 @@ Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00054}{54}} of 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00014}{14}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00285}{285}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a6a0def2ee39777c5c1d9df3ef2e1848e}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvGetDigiInStat@{uvGetDigiInStat}}
+\index{uvGetDigiInStat@{uvGetDigiInStat}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{uvGetDigiInStat()}{uvGetDigiInStat()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a6a0def2ee39777c5c1d9df3ef2e1848e} 
+uint16\+\_\+t uv\+Get\+Digi\+In\+Stat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00241}{241}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00248}{uv\+Background\+Diagnostics\+Daemon()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a5fc9e31e7b03d4d9a54d2f581cb8da87}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvGetSDCStat@{uvGetSDCStat}}
+\index{uvGetSDCStat@{uvGetSDCStat}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{uvGetSDCStat()}{uvGetSDCStat()}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a5fc9e31e7b03d4d9a54d2f581cb8da87} 
+void uv\+Get\+SDCStat (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00216}{216}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00033}{g\+\_\+bms\+\_\+fault}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00035}{g\+\_\+bspd\+\_\+fault}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00034}{g\+\_\+imd\+\_\+fault}}, and \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00037}{g\+\_\+\+SDCR\+\_\+tripped}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00248}{uv\+Background\+Diagnostics\+Daemon()}}.
 
 \Hypertarget{uvfr__diagnostics_8c_a7ad14988beab0a9306cabebf1525133f}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!uvInitDiagnostics@{uvInitDiagnostics}}
 \index{uvInitDiagnostics@{uvInitDiagnostics}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
@@ -99,16 +339,22 @@ References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{18}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Initialize the diagnostics of the vehicle. 
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{292}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{daq_8c_source_l00143}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00058}{BMS\+\_\+\+FAULT\+\_\+\+HW}}, \mbox{\hyperlink{daq_8h_source_l00073}{BSPD\+\_\+\+FAULT\+\_\+\+HW}}, \mbox{\hyperlink{daq_8h_source_l00035}{DIGI\+\_\+\+IN\+\_\+\+STAT}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00039}{digi\+\_\+in\+\_\+stat}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00033}{g\+\_\+bms\+\_\+fault}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00035}{g\+\_\+bspd\+\_\+fault}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00034}{g\+\_\+imd\+\_\+fault}}, \mbox{\hyperlink{daq_8h_source_l00091}{IMD\+\_\+\+FAULT\+\_\+\+HW}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00248}{uv\+Background\+Diagnostics\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01266}{uv\+Create\+Service\+Task()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00449}{uv\+Start\+Task()}}.
 
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
+
+Here is the call graph for this function\+:
+% FIG 5
 \Hypertarget{uvfr__diagnostics_8c_a73f6aa45470ada02a5d6f3a522d8f13c}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!vApplicationMallocFailedHook@{vApplicationMallocFailedHook}}
 \index{vApplicationMallocFailedHook@{vApplicationMallocFailedHook}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
 \doxysubsubsection{\texorpdfstring{vApplicationMallocFailedHook()}{vApplicationMallocFailedHook()}}
@@ -117,7 +363,7 @@ void v\+Application\+Malloc\+Failed\+Hook (\begin{DoxyParamCaption}{}{}\end{Doxy
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00085}{85}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00440}{440}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 \Hypertarget{uvfr__diagnostics_8c_a54b14b665d04a631991869b21065bf90}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!vApplicationStackOverflowHook@{vApplicationStackOverflowHook}}
 \index{vApplicationStackOverflowHook@{vApplicationStackOverflowHook}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
@@ -127,7 +373,7 @@ void v\+Application\+Stack\+Overflow\+Hook (\begin{DoxyParamCaption}\item[{Task\
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00065}{65}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00420}{420}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 \Hypertarget{uvfr__diagnostics_8c_a9ca051aa77e17583aa5a85d5de5c199a}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!vApplicationTickHook@{vApplicationTickHook}}
 \index{vApplicationTickHook@{vApplicationTickHook}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
@@ -137,5 +383,88 @@ void v\+Application\+Tick\+Hook (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00098}{98}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00457}{457}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{uvfr__diagnostics_8c_a43a3cba08a8b1c9d79b2242e977e3894}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!digi\_in\_stat@{digi\_in\_stat}}
+\index{digi\_in\_stat@{digi\_in\_stat}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{digi\_in\_stat}{digi\_in\_stat}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a43a3cba08a8b1c9d79b2242e977e3894} 
+uint16\+\_\+t digi\+\_\+in\+\_\+stat}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00039}{39}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00248}{uv\+Background\+Diagnostics\+Daemon()}}, and \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{uv\+Init\+Diagnostics()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a070644ee820f64ab630858353841cf86}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!g\_bms\_fault@{g\_bms\_fault}}
+\index{g\_bms\_fault@{g\_bms\_fault}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{g\_bms\_fault}{g\_bms\_fault}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a070644ee820f64ab630858353841cf86} 
+uint8\+\_\+t g\+\_\+bms\+\_\+fault}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00033}{33}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00216}{uv\+Get\+SDCStat()}}, and \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{uv\+Init\+Diagnostics()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a7fc8cba7be317c29ecd0b2946679bba6}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!g\_bspd\_fault@{g\_bspd\_fault}}
+\index{g\_bspd\_fault@{g\_bspd\_fault}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{g\_bspd\_fault}{g\_bspd\_fault}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a7fc8cba7be317c29ecd0b2946679bba6} 
+uint8\+\_\+t g\+\_\+bspd\+\_\+fault}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00035}{35}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00216}{uv\+Get\+SDCStat()}}, and \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{uv\+Init\+Diagnostics()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a00173fda32a1efb6830e940fd8e6ce10}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!g\_imd\_fault@{g\_imd\_fault}}
+\index{g\_imd\_fault@{g\_imd\_fault}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{g\_imd\_fault}{g\_imd\_fault}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a00173fda32a1efb6830e940fd8e6ce10} 
+uint8\+\_\+t g\+\_\+imd\+\_\+fault}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00034}{34}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00216}{uv\+Get\+SDCStat()}}, and \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{uv\+Init\+Diagnostics()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a511ab2530e985e898fc2fb417e86229d}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!g\_SDCR\_tripped@{g\_SDCR\_tripped}}
+\index{g\_SDCR\_tripped@{g\_SDCR\_tripped}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{g\_SDCR\_tripped}{g\_SDCR\_tripped}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a511ab2530e985e898fc2fb417e86229d} 
+uint8\+\_\+t g\+\_\+\+SDCR\+\_\+tripped}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00037}{37}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00216}{uv\+Get\+SDCStat()}}.
+
+\Hypertarget{uvfr__diagnostics_8c_a382e3d75b33025ed95999fdddfd6fa21}\index{uvfr\_diagnostics.c@{uvfr\_diagnostics.c}!print\_queue@{print\_queue}}
+\index{print\_queue@{print\_queue}!uvfr\_diagnostics.c@{uvfr\_diagnostics.c}}
+\doxysubsubsection{\texorpdfstring{print\_queue}{print\_queue}}
+{\footnotesize\ttfamily \label{uvfr__diagnostics_8c_a382e3d75b33025ed95999fdddfd6fa21} 
+Queue\+Handle\+\_\+t print\+\_\+queue}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00030}{30}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 

@@ -3,149 +3,277 @@
 \mbox{\hyperlink{bms_8c}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00001}00001\ \textcolor{comment}{//\ This\ where\ the\ code\ to\ handle\ BMS\ errors\ and\ such\ will\ go}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00002}00002\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bms_8h}{bms.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{constants_8h}{constants.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pdu_8h}{pdu.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{can_8h}{can.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tim_8h}{tim.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dash_8h}{dash.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00011}00011\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00012}\mbox{\hyperlink{bms_8c_a79f5e585e6fa5d54c855cf1a3b16ff88}{00012}}\ \textcolor{preprocessor}{\#define\ bms\_settings\ current\_vehicle\_settings-\/>bms\_settings}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00002}00002\ \textcolor{comment}{//Quazi\ Heider}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{bms_8h}{bms.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{constants_8h}{constants.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{pdu_8h}{pdu.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{can_8h}{can.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tim_8h}{tim.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{dash_8h}{dash.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00013}00013\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00014}\mbox{\hyperlink{bms_8c_a28e4314b233b9140e73e4fd0bab7e354}{00014}}\ \mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}\ \mbox{\hyperlink{bms_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\_bms\_settings}}\ =\ \{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00015}00015\ .BMS\_CAN\_timeout\ =\ 200,\ \textcolor{comment}{//ms}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00016}00016\ .max\_cell\_temp\ =\ 500,}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00017}00017\ .min\_cell\_temp\ =\ -\/200,}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00018}00018\ .min\_soc\ =\ 10,}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00019}00019\ .min\_cell\_voltage\ =\ 2.5,}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00020}00020\ .max\_cell\_voltage\ =\ 4.2,}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00021}00021\ .max\_pack\_voltage\ =\ 5000,}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00022}00022\ .max\_variance\_between\_cells\ =\ 1}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00023}00023\ \};}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00024}00024\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00026}00026\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00027}00027\ \textcolor{comment}{//two\ IDs\ for\ bms\ can\ message}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00028}00028\ \textcolor{comment}{//\ 0x6B0}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00029}00029\ \textcolor{comment}{//\ 0x6B1}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00031}\mbox{\hyperlink{bms_8c_a4081f615c3b206c0996bb9a22516f115}{00031}}\ TickType\_t\ \mbox{\hyperlink{bms_8c_a4081f615c3b206c0996bb9a22516f115}{bms\_last\_msg\_time}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00032}\mbox{\hyperlink{bms_8c_ab9364948a7d6cbb869d63a78be56501d}{00032}}\ uint8\_t\ \mbox{\hyperlink{bms_8c_ab9364948a7d6cbb869d63a78be56501d}{is\_bms\_connected}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00033}00033\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00034}\mbox{\hyperlink{bms_8c_a2ef021ab39a98f64902d656ac099f8a9}{00034}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a2ef021ab39a98f64902d656ac099f8a9}{packCurrent}}\ =\ 0;\ \textcolor{comment}{//\ logged}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00035}\mbox{\hyperlink{bms_8c_a178a2c12bb1a2c720fcde0ef2cd6f1f1}{00035}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a178a2c12bb1a2c720fcde0ef2cd6f1f1}{packVoltage}}\ =\ 0;\ \textcolor{comment}{//\ logged}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00036}\mbox{\hyperlink{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}{00036}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}{stateOfCharge}}\ =\ 0;\ \textcolor{comment}{//\ used\ for\ toggling\ regen\ braking\ /\ low\ charge\ warning}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00037}\mbox{\hyperlink{bms_8c_a2bd3e52b9f7bb249a6c7a1108efb1995}{00037}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a2bd3e52b9f7bb249a6c7a1108efb1995}{relayState}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00038}\mbox{\hyperlink{bms_8c_a3db3406866b37db013bd594d7588ed00}{00038}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a3db3406866b37db013bd594d7588ed00}{msg1corrupt}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00016}00016\ \textcolor{comment}{//two\ IDs\ for\ bms\ can\ message}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00017}00017\ \textcolor{comment}{//\ 0x6B1}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00021}00021\ \textcolor{preprocessor}{\#ifdef\ IGNORE\_BMS}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00022}00022\ \ \ \ \ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{structbms__state__t}{bms\_state\_t}}\ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ .pack\_current\_dA\ =\ 0,\ \textcolor{comment}{//\ 0.1\ A\ units}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ .pack\_voltage\_dV\ =\ 4790,\ \textcolor{comment}{//\ 0.1\ V\ units}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ .soc\_pct\ =\ 60,\ \textcolor{comment}{//\ 0-\/100\%}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ .relayState\ =\ 1,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ .msg1corrupt\ =\ 0,\ \textcolor{comment}{//checksum}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ .dcl\_dA\ =\ 110,\textcolor{comment}{//\ 0.1\ A\ max\ discharge\ current\ limit}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ .min\_cell\_temp\ =\ 22,\ \textcolor{comment}{//\ celsius}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ .max\_cell\_temp\ =\ 26,\ \textcolor{comment}{//\ celsius}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ .msg2corrupt\ =\ 0,\textcolor{comment}{//\ checksum}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00033}00033\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00034}00034\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00035}\mbox{\hyperlink{bms_8h_acd394543f05f280e0ffead84f5380215}{00035}}\ \ \ \ \ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{structbms__state__t}{bms\_state\_t}}\ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00036}00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00038}\mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{00038}}\ \textcolor{preprocessor}{\#define\ curr\_bms\_settings\ (*(current\_vehicle\_settings-\/>bms\_settings))}}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00039}00039\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00040}\mbox{\hyperlink{bms_8c_a5b12ba8d86d6649ab8b4a0967484f3ec}{00040}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a5b12ba8d86d6649ab8b4a0967484f3ec}{packDCL}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00041}\mbox{\hyperlink{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}{00041}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}{lowTemp}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00042}\mbox{\hyperlink{bms_8c_a30221826d03df3708444924f408282c6}{00042}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a30221826d03df3708444924f408282c6}{highTemp}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00043}\mbox{\hyperlink{bms_8c_a8fa7b800b072c0c1449c7be149c703ba}{00043}}\ uint16\_t\ \mbox{\hyperlink{bms_8c_a8fa7b800b072c0c1449c7be149c703ba}{msg2corrupt}}\ =\ 0;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00044}00044\ \textcolor{comment}{//\ extern\ uint16\_t\ (var\ name)\ to\ call\ outside\ this\ file}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00040}\mbox{\hyperlink{bms_8c_a28e4314b233b9140e73e4fd0bab7e354}{00040}}\ \mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}\ \mbox{\hyperlink{bms_8c_a28e4314b233b9140e73e4fd0bab7e354}{default\_bms\_settings}}\ =\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ .BMS\_CAN\_timeout\ =\ 100,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Temp\ ranges}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00044}00044\ \ \ \ \ \ \ \ \ .discharge\_cold\_fault\_c\ =\ -\/20,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ .discharge\_cold\_warn\_c\ \ =\ -\/10,}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00046}00046\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00047}\mbox{\hyperlink{bms_8c_a7a70ee75f60730eaf8489c863fceea7d}{00047}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8c_a7a70ee75f60730eaf8489c863fceea7d}{BMS\_msg1}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{\ \textcolor{comment}{//\ msg\ is\ raw\ CAN\ msg,\ gets\ processed\ in\ voltageCANdata}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ msg1\ can\ handle\ current,\ voltage,\ charge,\ relay,\ checksum\ (corruption)}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{bms_8c_a2ef021ab39a98f64902d656ac099f8a9}{packCurrent}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]<<8\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//\ x\ 0.1A}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{bms_8c_a178a2c12bb1a2c720fcde0ef2cd6f1f1}{packVoltage}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]<<8\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]);\ \textcolor{comment}{//\ x\ 0.1V}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00051}00051\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}{stateOfCharge}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4])/2;\ \textcolor{comment}{//\ x2;\ this\ is\ an\ int}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ .charge\_cold\_fault\_c\ \ \ \ =\ 0,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00048}00048\ \ \ \ \ \ \ \ \ .charge\_hot\_fault\_c\ \ \ \ \ =\ 45,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ .discharge\_hot\_warn\_c\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 50,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ .discharge\_hot\_derate\_c\ \ \ \ \ \ \ \ \ \ \ =\ 55,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ .discharge\_hot\_fault\_c\ \ \ \ \ \ \ \ \ \ \ \ =\ 60,}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00053}00053\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00054}00054\ \ \ \ \ \mbox{\hyperlink{bms_8c_a2bd3e52b9f7bb249a6c7a1108efb1995}{relayState}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5]<<8\ |\ msg\ -\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[6]);}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{bms_8c_a3db3406866b37db013bd594d7588ed00}{msg1corrupt}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[7]);}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00056}00056\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{bms_8c_a4081f615c3b206c0996bb9a22516f115}{bms\_last\_msg\_time}}\ =\ xTaskGetTickCount();}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00058}00058\ \ \ \ \ \mbox{\hyperlink{bms_8c_ab9364948a7d6cbb869d63a78be56501d}{is\_bms\_connected}}\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00059}00059\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}{stateOfCharge}}\ <\ 20)\ \{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ flash\ low\ battery\ warning\ to\ screen}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00062}00062\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00063}00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_a4fe005c273fb4a65d7f0ae7fb04b850e}{stateOfCharge}}\ >=\ 95)\ \{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ disable\ regenerative\ breaking}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00065}00065\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00066}00066\ \ \ \ \ \textcolor{comment}{//\ in\ all\ other\ cases\ battery\ should\ be\ functioning\ as\ normal}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00067}00067\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00068}00068\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00069}00069\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00070}00070\ \ \ \ \ \textcolor{comment}{//\ would\ make\ sense\ for\ voltageCANdata\ to\ turn\ into\ float}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00071}00071\ \ \ \ \ \textcolor{comment}{//log\ voltage\ data\ to\ where,\ maybe\ setting\ global\ variable}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00072}00072\ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00054}00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ temp\ sensor\ plausibility\ checks}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ .temp\_plaus\_min\_c\ \ \ \ \ \ \ =\ -\/40,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ .temp\_plaus\_max\_c\ \ \ \ \ \ \ =\ 100,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ SOC\ threshoolds}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00059}00059\ \ \ \ \ \ \ \ \ .soc\_low\_warn\_pct\ \ \ \ \ \ \ =\ 20,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00060}00060\ \ \ \ \ \ \ \ \ .soc\_regen\_disable\_pct\ \ =\ 95,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//derate\ start\ point}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ .derate\_start\_c\ \ \ \ \ \ \ \ \ =\ 55,}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Plausibility\ ranges}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ These\ values\ may\ need\ to\ be\ changed}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ .current\_plaus\_min\_dA\ \ \ \ =\ -\/20000,\ \ \ \textcolor{comment}{//\ -\/2000\ A}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ .current\_plaus\_max\_dA\ \ \ \ =\ \ 20000,\ \ \ \textcolor{comment}{//\ +2000\ A}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ .voltage\_plaus\_min\_dV\ \ \ \ =\ 0,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 0\ V}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00071}00071\ \ \ \ \ \ \ \ \ .voltage\_plaus\_max\_dV\ \ \ \ =\ 8000,\ \ \ \ \ \textcolor{comment}{//\ 800\ V\ (adjust\ to\ your\ pack)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Temps\ (need\ to\ be\ tuned\ to\ cell\ datasheet\ and\ comp-\/specific\ rules)}}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00074}00074\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00075}\mbox{\hyperlink{bms_8c_a554435738960054c897ed84e3f5b1edf}{00075}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8c_a554435738960054c897ed84e3f5b1edf}{BMS\_msg2}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00076}00076\ \ \ \ \ \textcolor{comment}{//\ msg2\ can\ handle\ DCL\ (Max\ current\ output),\ tempurature,\ checksum}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00077}00077\ \ \ \ \ \mbox{\hyperlink{bms_8c_a5b12ba8d86d6649ab8b4a0967484f3ec}{packDCL}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]<<8\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]);}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00078}00078\ \ \ \ \ \mbox{\hyperlink{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}{lowTemp}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4]);\ \textcolor{comment}{//\ celsius}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00079}00079\ \ \ \ \ \mbox{\hyperlink{bms_8c_a30221826d03df3708444924f408282c6}{highTemp}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5]);\ \textcolor{comment}{//\ celsius}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{bms_8c_a8fa7b800b072c0c1449c7be149c703ba}{msg2corrupt}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[7]);}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00076}00076\ \};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00077}\mbox{\hyperlink{bms_8h_a6f635739f7b278e5898f59e0e370c183}{00077}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8c_a6f635739f7b278e5898f59e0e370c183}{BMS\_CANRxHandler\_msg1}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{\ \textcolor{comment}{//\ msg\ is\ raw\ CAN\ msg,\ gets\ processed\ in\ voltageCANdata}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00078}00078\ \ \ \ \ \textcolor{comment}{//\ msg1\ can\ handle\ current,\ voltage,\ charge,\ relay,\ checksum\ (corruption)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00079}00079\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a5f562e3713009e636aa71f076b9854a6}{pack\_current\_dA}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]<<8\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);\ \textcolor{comment}{//\ x\ 0.1A}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00080}00080\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a56a00f8fc18b0ea4f2818e6f02b94775}{pack\_voltage\_dV}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]<<8\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]);\ \textcolor{comment}{//\ x\ 0.1V}}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00081}00081\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{bms_8c_a4081f615c3b206c0996bb9a22516f115}{bms\_last\_msg\_time}}\ =\ xTaskGetTickCount();}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00083}00083\ \ \ \ \ \mbox{\hyperlink{bms_8c_ab9364948a7d6cbb869d63a78be56501d}{is\_bms\_connected}}\ =\ 1;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00084}00084\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00085}00085\ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}{lowTemp}}\ <=\ -\/5\ )\ \{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ warning\ -\/\ temp\ is\ too\ low}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stop\ operability?}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00088}00088\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00089}00089\ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00090}00090\ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_a09f4da3365fb5890a0fd8c5f5871d25e}{lowTemp}}\ >\ -\/5\ \&\&\ \mbox{\hyperlink{bms_8c_a30221826d03df3708444924f408282c6}{highTemp}}\ <\ 55)\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00091}00091\ \textcolor{comment}{//\ \ \ \ \ \ \ normal\ operating\ tempurature\ range}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00092}00092\ \textcolor{comment}{//\ \ \ \ \ \ \ drive\ as\ normal}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_a30221826d03df3708444924f408282c6}{highTemp}}\ >=\ 55.0)\ \{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00094}00094\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ flash\ warning\ -\/\ approaching\ max\ temp}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00095}00095\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ maybe\ enable\ cooling\ fan/devices\ here}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00097}00097\ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00098}00098\ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00099}00099\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00100}\mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{00100}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8c_aa9af83736568f74c94d41f3f16adf513}{BMS\_Init}}(\textcolor{keywordtype}{void}*\ args)\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00101}00101\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ params\ =\ (\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*)\ args;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00102}00102\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00103}00103\ \ \ \ \ osDelay(200);}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00104}00104\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00105}00105\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__response}{uv\_init\_task\_response}}\ response\ =\ \{\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}},\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}},0,NULL\};}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00106}00106\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00107}00107\ \ \ \ \ TickType\_t\ bms\_init\_time\ =\ xTaskGetTickCount();}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00108}00108\ \ \ \ \ TickType\_t\ init\_deadline\ =\ bms\_init\_time\ +\ \mbox{\hyperlink{bms_8c_a79f5e585e6fa5d54c855cf1a3b16ff88}{bms\_settings}}-\/>BMS\_CAN\_timeout;}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00109}00109\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00110}00110\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00111}00111\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x6B0,\ \mbox{\hyperlink{bms_8c_a7a70ee75f60730eaf8489c863fceea7d}{BMS\_msg1}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00112}00112\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x6B1,\ \mbox{\hyperlink{bms_8c_a554435738960054c897ed84e3f5b1edf}{BMS\_msg2}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00082}00082\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_ae14b31f9d6a2b3b66340b25dd0ba66d1}{soc\_pct}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4])\ /\ 2;\ \textcolor{comment}{//\ was\ off\ by\ factor\ of\ 4,\ showed\ 200\%\ when\ real\ was\ 50\%}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00084}00084\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aafa9d07dac634207a9a61a1ee0f40bd1}{relayState}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5]<<8\ |\ msg\ -\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[6]);}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00085}00085\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a448230d0f8f6d17144c3c3cc74dfd68d}{msg1corrupt}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[7]);}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00088}00088\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00089}00089\ \textcolor{comment}{\ \ \ \ \ *\ Chatgpt\ suggested\ code\ for\ handling\ corrupt\ byte}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00090}00090\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ //\ CRC\ /\ corruption\ (example\ XOR;\ replace\ with\ real\ CRC\ if\ you\ have\ one)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00091}00091\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ rx\_crc\ =\ msg-\/>data[7];}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00092}00092\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ calc\ \ \ =\ crc8\_simple(msg-\/>data,\ 7);}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00093}00093\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00094}00094\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00096}00096\ \ \ \ \ \textcolor{comment}{//current\ and\ voltage\ plausibility\ checks}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00098}00098\ \ \ \ \ \textcolor{comment}{//corrupt\ message}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a448230d0f8f6d17144c3c3cc74dfd68d}{msg1corrupt}})\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvPanic?\ corrupt\ bms\ message}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//return;\ //\ kill\ process\ as\ bad\ msg}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00102}00102\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00104}00104\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ PLAUSIBILITY\ CHECKS\ -\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00105}00105\ \ \ \ \ \textcolor{comment}{//\ Current\ plausibility\ -\/\ verify\ we\ are\ getting\ clean\ values\ before\ they\ get\ used}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00106}00106\ \ \ \ \ \textcolor{comment}{//\ values\ like\ amp,\ voltage\ to\ compute\ power\ will\ be\ needed\ when\ creating\ torque\ reduction\ system\ for\ TCS}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00107}00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a5f562e3713009e636aa71f076b9854a6}{pack\_current\_dA}}\ <\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.current\_plaus\_min\_dA\ ||}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00108}00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a5f562e3713009e636aa71f076b9854a6}{pack\_current\_dA}}\ >\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.current\_plaus\_max\_dA)\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00109}00109\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ raise\ fault\ for\ sensor\ range}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00110}00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ log\ warning\ for\ implausible\ amp\ range}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00112}00112\ \ \ \ \ \}}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00113}00113\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00114}00114\ \ \ \ \ \textcolor{keywordflow}{for}(;;)\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(init\_deadline\ <\ xTaskGetTickCount())\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//BMS\ not\ connected\ lol}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvPanic("{}BMS\ Not\ Detected"{},\ 0);}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00118}00118\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TODO\ re-\/enable\ this\ if\ for\ whatever\ reason\ we\ have\ this\ thing\ again}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00120}00120\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//response.status\ =\ UV\_ERROR;}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00124}00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{bms_8c_ab9364948a7d6cbb869d63a78be56501d}{is\_bms\_connected}}\ ==\ 1)\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00127}00127\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00128}00128\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00129}00129\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00130}00130\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00131}00131\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Kill\ yourself}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00133}00133\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00134}00134\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{if}(xQueueSendToBack(params-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}},\&response,100)\ !=\ pdPASS)\{}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//OOPS}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00137}00137\ \ \ \ \ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00138}00138\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00139}00139\ \ \ \ \ vTaskSuspend(params-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}});}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00140}00140\ \}}
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00141}00141\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00142}00142\ }
-\DoxyCodeLine{\Hypertarget{bms_8c_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00114}00114\ \ \ \ \ \textcolor{comment}{//\ Voltage\ plausibility}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00115}00115\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a56a00f8fc18b0ea4f2818e6f02b94775}{pack\_voltage\_dV}}\ <\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.voltage\_plaus\_min\_dV\ ||}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00116}00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a56a00f8fc18b0ea4f2818e6f02b94775}{pack\_voltage\_dV}}\ >\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.voltage\_plaus\_max\_dV)\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ raise\ fault\ for\ sensor\ range}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ log\ warning\ for\ implausible\ voltage\ value}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00120}00120\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00121}00121\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00122}00122\ \ \ \ \ \textcolor{comment}{//\ SOC\ checks}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ Optional:\ SOC\ plausibility\ (0–100\%)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_ae14b31f9d6a2b3b66340b25dd0ba66d1}{soc\_pct}}\ >\ 100)\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00125}00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ raise\ fault\ for\ sensor\ range}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ log\ warning\ for\ implausible\ SOC}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ \textcolor{comment}{//chatgpt\ says\ we\ should\ clamp\ this\ value\ but\ i\ dont\ think\ we\ should\ because\ the\ battery\ should\ never\ reach\ over\ 100\%\ anyway}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ it\ does\ reach\ over\ 100\ this\ condition\ will\ hit\ and\ we\ will\ just\ reset\ the\ pct\ value,\ does\ not\ make\ sense\ to\ me}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00129}00129\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ its\ over\ 100\ its\ bad}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00130}00130\ \ \ \ \ \ \ \ \ \textcolor{comment}{//g\_bms\_state.soc\_pct\ =\ 100;\ clamp\ it\ instead\ of\ using\ invalid\ value}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00131}00131\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00132}00132\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_ae14b31f9d6a2b3b66340b25dd0ba66d1}{soc\_pct}}\ <\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.soc\_low\_warn\_pct)\ \{\ \textcolor{comment}{//\ if\ battery\ pct\ is\ lower\ than\ settings\ warning\ threshold}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00133}00133\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ flash\ low\ battery\ warning\ to\ screen}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00134}00134\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_ae14b31f9d6a2b3b66340b25dd0ba66d1}{soc\_pct}}\ >=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.soc\_regen\_disable\_pct)\ \{\ \textcolor{comment}{//\ if\ battery\ pct\ is\ higher\ than\ regen\ warning\ thresholh}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00137}00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ disable\ regenerative\ breaking}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00138}00138\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00139}00139\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00140}00140\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00141}00141\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ regenerative\ braking\ should\ be\ on\ as\ battery\ within\ conditionsw}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00143}00143\ \ \ \ \ \textcolor{comment}{//\ in\ all\ other\ cases\ battery\ should\ be\ functioning\ as\ normal}}
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00144}00144\ }
 \DoxyCodeLine{\Hypertarget{bms_8c_source_l00145}00145\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00146}00146\ \ \ \ \ \mbox{\hyperlink{uvfr__external__devices_8h_abeba1577d0e5f860f687d6dfaa57c877}{externalDeviceRxHandler}}(\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}});}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00147}00147\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00148}00148\ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00149}00149\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00150}\mbox{\hyperlink{bms_8h_a7cbdb3a6f5bd9870c175fc6d88131465}{00150}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8c_a7cbdb3a6f5bd9870c175fc6d88131465}{BMS\_CANRxHandler\_msg2}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00151}00151\ \ \ \ \ \textcolor{comment}{//\ msg2\ can\ handle\ DCL\ (Max\ current\ output),\ tempurature,\ checksum}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00152}00152\ \ \ \ \ \textcolor{comment}{//g\_bms\_state.dcl\_dA\ =\ (msg-\/>data[0]<<8\ |\ msg-\/>data[3]);}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00153}00153\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a506a41501c632fb90fecd0ffa61321d9}{dcl\_dA}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]<<8\ |\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]);}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00154}00154\ \ \ \ \ \textcolor{comment}{//\ this\ is\ the\ derate\ current\ limit\ -\/\ how\ much\ power\ is\ the\ motor\ allowed\ to\ send\ out\ at\ this\ given\ moment}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00155}00155\ \ \ \ \ \textcolor{comment}{//\ determined\ within\ the\ incoming\ msg??\ i\ actually\ dont\ understand\ why,\ shouldnt\ we\ be\ the\ one\ telling\ the\ battery\ how\ much\ it\ can\ ouput}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00156}00156\ \ \ \ \ \textcolor{comment}{//\ this\ value\ would\ be\ useful\ in\ creating\ limp\ mode,\ can\ be\ static}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00157}00157\ \ \ \ \ \textcolor{comment}{//\ could\ also\ be\ useful\ in\ creating\ TCS\ but\ would\ have\ to\ be\ dynamic\ (gradually\ allow\ more\ power\ respective\ to\ tire\ slip)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00158}00158\ \ \ \ \ \textcolor{comment}{//\ might\ need\ to\ extern\ this\ to\ use\ in\ msg1}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00159}00159\ \ \ \ \ \textcolor{comment}{//\ however\ right\ now\ i\ have\ no\ clue\ what\ to\ do\ with\ this\ lol}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00161}00161\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{min\_cell\_temp}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4]);\ \textcolor{comment}{//\ celsius}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00162}00162\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5]);\ \textcolor{comment}{//\ celsius}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00163}00163\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00164}00164\ \ \ \ \ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a929e6bb5b650f4c0fa6a8442bf76c90a}{msg2corrupt}}\ =\ (msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[7]);}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00166}00166\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00167}00167\ \textcolor{comment}{\ \ \ \ \ *\ Chatgpt\ suggested\ code\ for\ handling\ corrupt\ byte}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00168}00168\ \textcolor{comment}{\ \ \ \ \ *\ \ \ \ \ //\ CRC\ /\ corruption\ (example\ XOR;\ replace\ with\ real\ CRC\ if\ you\ have\ one)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00169}00169\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ rx\_crc\ =\ msg-\/>data[7];}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00170}00170\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ calc\ \ \ =\ crc8\_simple(msg-\/>data,\ 7);}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00171}00171\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00172}00172\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00173}00173\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00175}00175\ \ \ \ \ \textcolor{comment}{//\ incoming\ can\ msg\ plausibility}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00176}00176\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_a929e6bb5b650f4c0fa6a8442bf76c90a}{msg2corrupt}})\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{comment}{//uvPanic?}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00178}00178\ \ \ \ \ \ \ \ \ \textcolor{comment}{//return;\ -\/\ commented\ out\ because\ unsure\ how\ checksom\ works}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00179}00179\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00180}00180\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00181}00181\ \ \ \ \ \textcolor{comment}{//tempurature\ value\ plausibilty\ checks}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00182}00182\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{min\_cell\_temp}}\ <\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.temp\_plaus\_min\_c\ ||\ \mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}}\ >\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.temp\_plaus\_max\_c)\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00183}00183\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00184}00184\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ checking\ validity\ of\ sensor\ values}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00185}00185\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ if\ out\ of\ range\ then\ raise\ error\ (sensor/comms\ fault)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00186}00186\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00187}00187\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00188}00188\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00189}00189\ \ \ \ \ \textcolor{comment}{//charger\ sanity\ checks\ (only\ need\ to\ run\ when\ charger\ is\ connected}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00190}00190\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}}\ >=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.charge\_hot\_fault\_c)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00191}00191\ \ \ \ \ \ \ \ \ \textcolor{comment}{//STOP\ charging\ -\/\ battery\ is\ too\ hot\ to\ accept\ charge}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00192}00192\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{min\_cell\_temp}}\ <=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.charge\_cold\_fault\_c)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00193}00193\ \ \ \ \ \ \ \ \ \textcolor{comment}{//STOP\ charging\ -\/\ battery\ is\ too\ cold\ to\ accept\ charge}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00194}00194\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00195}00195\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00196}00196\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00197}00197\ \ \ \ \ \textcolor{comment}{//\ HOT\ SIDE}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00198}00198\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}}\ >=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.discharge\_hot\_fault\_c)\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//hot\ temp\ hard\ fault}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00200}00200\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00201}00201\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}}\ >=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.discharge\_hot\_derate\_c)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ approaching\ hot\ temps,\ derate\ motor\ or\ do\ something\ here}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ okay\ to\ keep\ running}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00204}00204\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ derate\ limit\ amps\ /\ power\ output\ (like\ a\ limp\ mode\ in\ a\ real\ car)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00205}00205\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00206}00206\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}}\ >=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.discharge\_hot\_warn\_c)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dont\ need\ to\ do\ anything\ crazy\ here\ just\ flash\ dash\ warning\ that\ pack\ is\ hot}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00208}00208\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00209}00209\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00210}00210\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ any\ warnings}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00211}00211\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ normal\ operability}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00212}00212\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ reset\ any\ invoked\ conditions\ (eg\ limp\ mode\ -\/\ make\ sure\ car\ does\ not\ stay\ in\ limp\ mode\ after\ throwing\ it\ and\ recovering)}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00213}00213\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00214}00214\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00215}00215\ \ \ \ \ \textcolor{comment}{//\ COLD\ SIDE}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00216}00216\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{min\_cell\_temp}}\ <=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.discharge\_cold\_fault\_c)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00217}00217\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cold\ temp\ hard\ fault}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00218}00218\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{bms_8c_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}}.\mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{min\_cell\_temp}}\ <=\ \mbox{\hyperlink{bms_8c_ae935abd17f88e90a92b656e66e2f6395}{curr\_bms\_settings}}.discharge\_cold\_warn\_c)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//cold\ temp\ warning}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ need\ to\ derate\ battery\ here\ too\ as\ overpowering\ the\ battery\ at\ too\ low\ temps\ is\ harmful}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00221}00221\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00222}00222\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00223}00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ any\ warnings}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00224}00224\ \ \ \ \ \ \ \ \ \textcolor{comment}{//normal\ operation}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00225}00225\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00226}00226\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00228}00228\ \ \ \ \ \mbox{\hyperlink{uvfr__external__devices_8h_abeba1577d0e5f860f687d6dfaa57c877}{externalDeviceRxHandler}}(\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}});}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00229}00229\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00230}00230\ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00232}00232\ \textcolor{comment}{//\ adding\ registration\ with\ XDevMon\ for\ BMS}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00233}00233\ \textcolor{comment}{//\ Need\ to\ go\ through\ datasheets\ to\ see\ if\ it\ is\ structured\ similarly\ in\ terms\ of\ can\ request\ mux}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00234}00234\ \textcolor{keyword}{static}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ BMS\_RegisterWithXDevMon(\textcolor{keywordtype}{void})\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00235}00235\ \ \ \ \ TickType\_t\ period\_ms\ =\ 100;\ \textcolor{comment}{//\ poll\ every\ 100\ ms}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00236}00236\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00237}00237\ \ \ \ \ uint16\_t\ flags\ =\ \mbox{\hyperlink{uvfr__utils_8h_a53250f7129ac531af318ca80b2369b35}{XDEV\_DEVICE\_EXPECTED}}\ |\ \mbox{\hyperlink{uvfr__utils_8h_a8271d45830bcd3a81c516ec8a0d306f8}{XDEV\_CHECK\_TIMEOUT\_BIT}};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00238}00238\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00239}00239\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{uvfr__external__devices_8h_a2490d2062300642b604d6b04e3aef26e}{uvRegisterExternalDevice}}(\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}},\ period\_ms,\ flags,\ \textcolor{stringliteral}{"{}BMS"{}})\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\ \{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};\ \textcolor{comment}{//\ error\ when\ registering\ device}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00241}00241\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00242}00242\ \ \ \ \ \textcolor{comment}{//\ here\ we\ dont\ need\ to\ ask\ the\ BMS\ to\ send\ us\ messages\ because\ if\ i\ remember\ correctly}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00243}00243\ \ \ \ \ \textcolor{comment}{//\ the\ bms\ is\ always\ transmitting\ messages}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00244}00244\ \ \ \ \ \textcolor{comment}{//\ here}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00245}00245\ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00246}00246\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00247}00247\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00248}\mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{00248}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8c_aa9af83736568f74c94d41f3f16adf513}{BMS\_Init}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00249}00249\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ params\ =\ (\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*)\ args;}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00251}00251\ \ \ \ \ vTaskDelay(20);}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00253}00253\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__response}{uv\_init\_task\_response}}\ response\ =\ \{\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}},\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}},0,NULL\};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00254}00254\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00255}00255\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00256}00256\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00257}00257\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x6B0,\ \mbox{\hyperlink{bms_8c_a6f635739f7b278e5898f59e0e370c183}{BMS\_CANRxHandler\_msg1}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00258}00258\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(0x6B1,\ \mbox{\hyperlink{bms_8c_a7cbdb3a6f5bd9870c175fc6d88131465}{BMS\_CANRxHandler\_msg2}},\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}});}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00259}00259\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00260}00260\ \ \ \ \ \textcolor{keywordflow}{if}(BMS\_RegisterWithXDevMon()\ !=\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00261}00261\ \ \ \ \ \ \ \ \ response.\mbox{\hyperlink{structuv__init__task__response_a56b3df74c10cdc59e8e1b9d4c1f36af7}{status}}\ =\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0}{UV\_ERROR}};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00262}00262\ \ \ \ \ \ \ \ \ response.\mbox{\hyperlink{structuv__init__task__response_af29fdddeaddc456d2028cc1ad471bae1}{errmsg}}\ =\ \textcolor{stringliteral}{"{}Failed\ to\ register\ BMS\ with\ XDEVMON"{}};}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00263}00263\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00264}00264\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00265}00265\ \ \ \ \ \textcolor{keywordflow}{if}(xQueueSendToBack(params-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}},\&response,100)\ !=\ pdPASS)\{}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00266}00266\ \ \ \ \ \ \ \ \ \textcolor{comment}{//OOPS}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00267}00267\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00268}00268\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00269}00269\ \ \ \ \ \ \ \ \ \textcolor{comment}{//Kill\ yourself}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00270}00270\ \ \ \ \ vTaskSuspend(params-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}});}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00271}00271\ \}}
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00272}00272\ }
+\DoxyCodeLine{\Hypertarget{bms_8c_source_l00273}00273\ }
 
 \end{DoxyCode}

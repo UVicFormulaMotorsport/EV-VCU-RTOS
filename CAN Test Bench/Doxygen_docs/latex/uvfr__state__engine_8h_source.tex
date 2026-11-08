@@ -228,36 +228,38 @@
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00351}00351\ }
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00352}00352\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{changeVehicleState}}(uint16\_t\ state);}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00353}00353\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00354}00354\ \textcolor{comment}{//void\ uvPanic(char*\ msg,\ uint8\_t\ msg\_len);\ //ruh\ roh\ scoobs,\ something\ has\ gone\ a\ little\ bit\ fucky\ wucky}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00355}\mbox{\hyperlink{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}{00355}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}{\_\_uvPanic}}(\textcolor{keywordtype}{char}*\ msg,\ uint8\_t\ msg\_len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ func);}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00356}00356\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00357}00357\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00358}00358\ \textcolor{preprocessor}{\#ifndef\ uvPanic}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00365}00365\ \textcolor{preprocessor}{\#define\ uvPanic(msg,\ errnum)\ \_\_uvPanic(msg,\ errnum,\ \_\_FILE\_\_,\_\_LINE\_\_,\_\_FUNCTION\_\_)}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00366}00366\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00367}00367\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00368}00368\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}\ *\ t);}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00354}00354\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{uvfr__state__engine_8h_a0ef324c9c88a50704c0604cd13da2717}{uvGetStateString}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00355}00355\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00356}00356\ \textcolor{comment}{//void\ uvPanic(char*\ msg,\ uint8\_t\ msg\_len);\ //ruh\ roh\ scoobs,\ something\ has\ gone\ a\ little\ bit\ fucky\ wucky}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00357}\mbox{\hyperlink{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}{00357}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}{\_\_uvPanic}}(\textcolor{keywordtype}{char}*\ msg,\ uint8\_t\ msg\_len,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ file,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ line,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ func);}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00358}00358\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00359}00359\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00360}00360\ \textcolor{preprocessor}{\#ifndef\ uvPanic}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00367}00367\ \textcolor{preprocessor}{\#define\ uvPanic(msg,\ errnum)\ \_\_uvPanic(msg,\ errnum,\ \_\_UV\_FILENAME\_\_,\_\_LINE\_\_,\_\_FUNCTION\_\_)}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00368}00368\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00369}00369\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00370}00370\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspendSelf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}\ *\ t);}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00370}00370\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{killSelf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}\ *\ t);}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00371}00371\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00372}00372\ \textcolor{preprocessor}{\#ifndef\ UVFR\_STATE\_MACHINE\_IMPLIMENTATION}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00372}00372\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine__backend_gad6117850b55ad52be51d93915bcc313c}{suspendSelf}}(\textcolor{keyword}{struct}\ \mbox{\hyperlink{structuv__task__info}{uv\_task\_info}}\ *\ t);}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00373}00373\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00374}00374\ \textcolor{comment}{//EXTERNAL\ VARIABLES}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00375}00375\ \textcolor{keyword}{extern}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478e4}{uv\_vehicle\_state\_t}}\ \mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}};\ \textcolor{comment}{//This\ is\ the\ one\ that\ ya'll\ are\ permitted\ to\ know}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00376}00376\ \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00377}00377\ \textcolor{comment}{//These\ shuold\ only\ be\ visible\ in\ the\ implimentation\ file}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00378}00378\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00379}00379\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine__backend_ga8519c96858b096f2fccb96d3334df93a}{\_stateChangeDaemon}}(\textcolor{keywordtype}{void}\ *\ args);}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00374}00374\ \textcolor{preprocessor}{\#ifndef\ UVFR\_STATE\_MACHINE\_IMPLIMENTATION}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00375}00375\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00376}00376\ \textcolor{comment}{//EXTERNAL\ VARIABLES}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00377}00377\ \textcolor{keyword}{extern}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{group__state__engine__api_ga259abff5a03eaf908dc8f03d99f478e4}{uv\_vehicle\_state\_t}}\ \mbox{\hyperlink{group__state__engine_ga2f58cf65b3566bc390600f877f8bed35}{vehicle\_state}};\ \textcolor{comment}{//This\ is\ the\ one\ that\ ya'll\ are\ permitted\ to\ know}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00378}00378\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00379}00379\ \textcolor{comment}{//These\ shuold\ only\ be\ visible\ in\ the\ implimentation\ file}}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00380}00380\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00381}00381\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine_gaff684308203d45e9e16ad3d115c54279}{uvSVCTaskManager}}(\textcolor{keywordtype}{void}*\ args);}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00381}00381\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine__backend_ga8519c96858b096f2fccb96d3334df93a}{\_stateChangeDaemon}}(\textcolor{keywordtype}{void}\ *\ args);}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00382}00382\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00383}00383\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00383}00383\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__state__engine_gaff684308203d45e9e16ad3d115c54279}{uvSVCTaskManager}}(\textcolor{keywordtype}{void}*\ args);}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00384}00384\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00385}00385\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00385}00385\ \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00386}00386\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00387}\mbox{\hyperlink{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}{00387}}\ \mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\_task\_id}}\ \mbox{\hyperlink{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}{getSVCTaskID}}(\textcolor{keywordtype}{char}*\ tsk\_name);}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00388}00388\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_UVFR\_STATE\_ENGINE\_H\_\ */}\textcolor{preprocessor}{}}
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00389}00389\ }
-\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00390}00390\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00387}00387\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00389}\mbox{\hyperlink{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}{00389}}\ \mbox{\hyperlink{uvfr__state__engine_8h_aa6ffd72eb4909ddb38c37a1369e13f09}{uv\_task\_id}}\ \mbox{\hyperlink{uvfr__state__engine_8h_a502ae7695a8539242b8b18c2eb61c1c7}{getSVCTaskID}}(\textcolor{keywordtype}{char}*\ tsk\_name);}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00390}00390\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_UVFR\_STATE\_ENGINE\_H\_\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00391}00391\ }
+\DoxyCodeLine{\Hypertarget{uvfr__state__engine_8h_source_l00392}00392\ }
 
 \end{DoxyCode}

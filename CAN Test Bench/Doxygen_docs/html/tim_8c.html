@@ -97,6 +97,7 @@ $(function(){initNavTree('tim_8c.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle"><div class="title">tim.c File Reference</div></div>
@@ -106,6 +107,8 @@ $(function(){initNavTree('tim_8c.html',''); initResizable(true); });
 <p>This file provides code for the configuration of the TIM instances.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="tim_8h_source.html">tim.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="uvfr__utils_8h_source.html">uvfr_utils.h</a>&quot;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for tim.c:</div>
 <div class="dyncontent">
@@ -114,21 +117,56 @@ Include dependency graph for tim.c:</div>
 </div>
 <p><a href="tim_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a95b9f8ef12889fc30235876f5099017d" id="r_a95b9f8ef12889fc30235876f5099017d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a95b9f8ef12889fc30235876f5099017d">TIM_IMPLEMENTATION</a></td></tr>
+<tr class="separator:a95b9f8ef12889fc30235876f5099017d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43ab7cfe56f2be7a7dd7b44a34ab600" id="r_ac43ab7cfe56f2be7a7dd7b44a34ab600"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac43ab7cfe56f2be7a7dd7b44a34ab600">NUM_WHEELS</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:ac43ab7cfe56f2be7a7dd7b44a34ab600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabf755bae5a6489c4a3fad9521a98b7" id="r_afabf755bae5a6489c4a3fad9521a98b7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afabf755bae5a6489c4a3fad9521a98b7">WHEEL_CIRCUMFERENCE_M</a>&#160;&#160;&#160;2.0f</td></tr>
+<tr class="separator:afabf755bae5a6489c4a3fad9521a98b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7562b7800a14c0fa1281838a7a1e0e00" id="r_a7562b7800a14c0fa1281838a7a1e0e00"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7562b7800a14c0fa1281838a7a1e0e00">TIMER_TICK_US</a>&#160;&#160;&#160;1.0f</td></tr>
+<tr class="separator:a7562b7800a14c0fa1281838a7a1e0e00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81cb888b0d6dad1edd6d5ff043925938" id="r_a81cb888b0d6dad1edd6d5ff043925938"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a81cb888b0d6dad1edd6d5ff043925938">PULSES_PER_REV</a>&#160;&#160;&#160;20</td></tr>
+<tr class="separator:a81cb888b0d6dad1edd6d5ff043925938"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7912f2916786a2c33cb6fb8259ade58c" id="r_a7912f2916786a2c33cb6fb8259ade58c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7912f2916786a2c33cb6fb8259ade58c">MX_TIM3_Init</a> (void)</td></tr>
 <tr class="separator:a7912f2916786a2c33cb6fb8259ade58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee937d52485d5cda27896e3842a7ca1" id="r_a5ee937d52485d5cda27896e3842a7ca1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ee937d52485d5cda27896e3842a7ca1">MX_TIM5_Init</a> (void)</td></tr>
+<tr class="separator:a5ee937d52485d5cda27896e3842a7ca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b1802cec6c627135b6c10a1ab67f7f3" id="r_a0b1802cec6c627135b6c10a1ab67f7f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b1802cec6c627135b6c10a1ab67f7f3">MX_TIM11_Init</a> (void)</td></tr>
 <tr class="separator:a0b1802cec6c627135b6c10a1ab67f7f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59716af159bfbbb6023b31354fb23af8" id="r_a59716af159bfbbb6023b31354fb23af8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a59716af159bfbbb6023b31354fb23af8">HAL_TIM_Base_MspInit</a> (TIM_HandleTypeDef *tim_baseHandle)</td></tr>
 <tr class="separator:a59716af159bfbbb6023b31354fb23af8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adee8ed7d3ebb3a217c27ac10af86ce2f" id="r_adee8ed7d3ebb3a217c27ac10af86ce2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adee8ed7d3ebb3a217c27ac10af86ce2f">HAL_TIM_Base_MspDeInit</a> (TIM_HandleTypeDef *tim_baseHandle)</td></tr>
 <tr class="separator:adee8ed7d3ebb3a217c27ac10af86ce2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d31a8f81dd9cbec0d926fe94fba5a7f" id="r_a1d31a8f81dd9cbec0d926fe94fba5a7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d31a8f81dd9cbec0d926fe94fba5a7f">handle_wheel_interrupt</a> (uint32_t wheel_index)</td></tr>
+<tr class="separator:a1d31a8f81dd9cbec0d926fe94fba5a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cd91fd3a9608559c2a87a8ba6cba55f" id="r_a0cd91fd3a9608559c2a87a8ba6cba55f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cd91fd3a9608559c2a87a8ba6cba55f">HAL_GPIO_EXTI_Callback</a> (uint16_t GPIO_Pin)</td></tr>
+<tr class="separator:a0cd91fd3a9608559c2a87a8ba6cba55f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad350ec7e74fb12defe78017939b133bc" id="r_ad350ec7e74fb12defe78017939b133bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad350ec7e74fb12defe78017939b133bc">WheelSpeed_UpdateAll</a> (void)</td></tr>
+<tr class="separator:ad350ec7e74fb12defe78017939b133bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6573c897f7da39fd62ea8becc9580317" id="r_a6573c897f7da39fd62ea8becc9580317"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6573c897f7da39fd62ea8becc9580317">dispWheelSpeeds</a> ()</td></tr>
+<tr class="separator:a6573c897f7da39fd62ea8becc9580317"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a8d6e3468e3c97c9363fe9f59f6883760" id="r_a8d6e3468e3c97c9363fe9f59f6883760"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d6e3468e3c97c9363fe9f59f6883760">last_timestamp</a> [] = {0,0,0,0}</td></tr>
+<tr class="separator:a8d6e3468e3c97c9363fe9f59f6883760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26bca55ea0ea566ad05ac73b3b987140" id="r_a26bca55ea0ea566ad05ac73b3b987140"><td class="memItemLeft" align="right" valign="top">volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a26bca55ea0ea566ad05ac73b3b987140">period</a> [] = {0,0,0,0}</td></tr>
+<tr class="separator:a26bca55ea0ea566ad05ac73b3b987140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e515f9f35f6c4ce658395fc4b643d59" id="r_a2e515f9f35f6c4ce658395fc4b643d59"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e515f9f35f6c4ce658395fc4b643d59">wheel_speed</a> [] = {0,0,0,0}</td></tr>
+<tr class="separator:a2e515f9f35f6c4ce658395fc4b643d59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ddc1d70b77dd3ccb1a9bcec7f61ccd2" id="r_a7ddc1d70b77dd3ccb1a9bcec7f61ccd2"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ddc1d70b77dd3ccb1a9bcec7f61ccd2">wheel_rpm</a> [] = {0,0,0,0}</td></tr>
+<tr class="separator:a7ddc1d70b77dd3ccb1a9bcec7f61ccd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8bc832bd68ef5b82f0467018308d90e6" id="r_a8bc832bd68ef5b82f0467018308d90e6"><td class="memItemLeft" align="right" valign="top">volatile float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8bc832bd68ef5b82f0467018308d90e6">frequency</a> [] = {0,0,0,0}</td></tr>
+<tr class="separator:a8bc832bd68ef5b82f0467018308d90e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac3d2c59ee0e3bbae1b99529a154eb62" id="r_aac3d2c59ee0e3bbae1b99529a154eb62"><td class="memItemLeft" align="right" valign="top">TIM_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aac3d2c59ee0e3bbae1b99529a154eb62">htim3</a></td></tr>
 <tr class="separator:aac3d2c59ee0e3bbae1b99529a154eb62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acefaeaaa3856ddddae7083b2d220fe4b" id="r_acefaeaaa3856ddddae7083b2d220fe4b"><td class="memItemLeft" align="right" valign="top">TIM_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acefaeaaa3856ddddae7083b2d220fe4b">htim5</a></td></tr>
+<tr class="separator:acefaeaaa3856ddddae7083b2d220fe4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f22f985c4f33318fdcd4cc996623bf4" id="r_a2f22f985c4f33318fdcd4cc996623bf4"><td class="memItemLeft" align="right" valign="top">TIM_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f22f985c4f33318fdcd4cc996623bf4">htim11</a></td></tr>
 <tr class="separator:a2f22f985c4f33318fdcd4cc996623bf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -139,7 +177,148 @@ Variables</h2></td></tr>
 <p>This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component. If no LICENSE file comes with this software, it is provided AS-IS. </p>
 
 <p class="definition">Definition in file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
-</div><h2 class="groupheader">Function Documentation</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ac43ab7cfe56f2be7a7dd7b44a34ab600" name="ac43ab7cfe56f2be7a7dd7b44a34ab600"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac43ab7cfe56f2be7a7dd7b44a34ab600">&#9670;&#160;</a></span>NUM_WHEELS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define NUM_WHEELS&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00029">29</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="a81cb888b0d6dad1edd6d5ff043925938" name="a81cb888b0d6dad1edd6d5ff043925938"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81cb888b0d6dad1edd6d5ff043925938">&#9670;&#160;</a></span>PULSES_PER_REV</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PULSES_PER_REV&#160;&#160;&#160;20</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00032">32</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="a95b9f8ef12889fc30235876f5099017d" name="a95b9f8ef12889fc30235876f5099017d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95b9f8ef12889fc30235876f5099017d">&#9670;&#160;</a></span>TIM_IMPLEMENTATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIM_IMPLEMENTATION</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00019">19</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+</div>
+</div>
+<a id="a7562b7800a14c0fa1281838a7a1e0e00" name="a7562b7800a14c0fa1281838a7a1e0e00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7562b7800a14c0fa1281838a7a1e0e00">&#9670;&#160;</a></span>TIMER_TICK_US</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TIMER_TICK_US&#160;&#160;&#160;1.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00031">31</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="afabf755bae5a6489c4a3fad9521a98b7" name="afabf755bae5a6489c4a3fad9521a98b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afabf755bae5a6489c4a3fad9521a98b7">&#9670;&#160;</a></span>WHEEL_CIRCUMFERENCE_M</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WHEEL_CIRCUMFERENCE_M&#160;&#160;&#160;2.0f</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00030">30</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a6573c897f7da39fd62ea8becc9580317" name="a6573c897f7da39fd62ea8becc9580317"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6573c897f7da39fd62ea8becc9580317">&#9670;&#160;</a></span>dispWheelSpeeds()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void dispWheelSpeeds </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00292">292</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">References <a class="el" href="tim_8c_source.html#l00038">frequency</a>, <a class="el" href="tim_8c_source.html#l00035">period</a>, and <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tim_8c_a6573c897f7da39fd62ea8becc9580317_cgraph.png" border="0" usemap="#atim_8c_a6573c897f7da39fd62ea8becc9580317_cgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="a0cd91fd3a9608559c2a87a8ba6cba55f" name="a0cd91fd3a9608559c2a87a8ba6cba55f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd91fd3a9608559c2a87a8ba6cba55f">&#9670;&#160;</a></span>HAL_GPIO_EXTI_Callback()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void HAL_GPIO_EXTI_Callback </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>GPIO_Pin</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00249">249</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">References <a class="el" href="tim_8c_source.html#l00235">handle_wheel_interrupt()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tim_8c_a0cd91fd3a9608559c2a87a8ba6cba55f_cgraph.png" border="0" usemap="#atim_8c_a0cd91fd3a9608559c2a87a8ba6cba55f_cgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
 <a id="adee8ed7d3ebb3a217c27ac10af86ce2f" name="adee8ed7d3ebb3a217c27ac10af86ce2f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adee8ed7d3ebb3a217c27ac10af86ce2f">&#9670;&#160;</a></span>HAL_TIM_Base_MspDeInit()</h2>
 
@@ -155,7 +334,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00124">124</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00193">193</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
 
 </div>
 </div>
@@ -174,7 +353,30 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00097">97</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00155">155</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+</div>
+</div>
+<a id="a1d31a8f81dd9cbec0d926fe94fba5a7f" name="a1d31a8f81dd9cbec0d926fe94fba5a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d31a8f81dd9cbec0d926fe94fba5a7f">&#9670;&#160;</a></span>handle_wheel_interrupt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void handle_wheel_interrupt </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t</td>          <td class="paramname"><span class="paramname"><em>wheel_index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00235">235</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">References <a class="el" href="tim_8c_source.html#l00043">htim5</a>, <a class="el" href="tim_8c_source.html#l00034">last_timestamp</a>, and <a class="el" href="tim_8c_source.html#l00035">period</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00249">HAL_GPIO_EXTI_Callback()</a>.</p>
 
 </div>
 </div>
@@ -193,11 +395,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00071">71</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00129">129</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
 
-<p class="reference">References <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, and <a class="el" href="tim_8c_source.html#l00028">htim11</a>.</p>
+<p class="reference">References <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, and <a class="el" href="tim_8c_source.html#l00044">htim11</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00111">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00112">main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -221,11 +423,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00031">31</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00047">47</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
 
-<p class="reference">References <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, and <a class="el" href="tim_8c_source.html#l00027">htim3</a>.</p>
+<p class="reference">References <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, and <a class="el" href="tim_8c_source.html#l00042">htim3</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00111">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00112">main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -234,7 +436,76 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a5ee937d52485d5cda27896e3842a7ca1" name="a5ee937d52485d5cda27896e3842a7ca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee937d52485d5cda27896e3842a7ca1">&#9670;&#160;</a></span>MX_TIM5_Init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MX_TIM5_Init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00088">88</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">References <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, and <a class="el" href="tim_8c_source.html#l00043">htim5</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00112">main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="tim_8c_a5ee937d52485d5cda27896e3842a7ca1_cgraph.png" border="0" usemap="#atim_8c_a5ee937d52485d5cda27896e3842a7ca1_cgraph" alt=""/></div>
+</div>
+
+</div>
+</div>
+<a id="ad350ec7e74fb12defe78017939b133bc" name="ad350ec7e74fb12defe78017939b133bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad350ec7e74fb12defe78017939b133bc">&#9670;&#160;</a></span>WheelSpeed_UpdateAll()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WheelSpeed_UpdateAll </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00263">263</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">References <a class="el" href="tim_8c_source.html#l00038">frequency</a>, <a class="el" href="tim_8c_source.html#l00043">htim5</a>, <a class="el" href="tim_8c_source.html#l00034">last_timestamp</a>, <a class="el" href="tim_8c_source.html#l00029">NUM_WHEELS</a>, <a class="el" href="tim_8c_source.html#l00035">period</a>, <a class="el" href="tim_8c_source.html#l00032">PULSES_PER_REV</a>, <a class="el" href="tim_8c_source.html#l00031">TIMER_TICK_US</a>, <a class="el" href="tim_8c_source.html#l00030">WHEEL_CIRCUMFERENCE_M</a>, <a class="el" href="tim_8c_source.html#l00037">wheel_rpm</a>, and <a class="el" href="tim_8c_source.html#l00036">wheel_speed</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00292">dispWheelSpeeds()</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Variable Documentation</h2>
+<a id="a8bc832bd68ef5b82f0467018308d90e6" name="a8bc832bd68ef5b82f0467018308d90e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8bc832bd68ef5b82f0467018308d90e6">&#9670;&#160;</a></span>frequency</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float frequency[] = {0,0,0,0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00038">38</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00292">dispWheelSpeeds()</a>, and <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
 <a id="a2f22f985c4f33318fdcd4cc996623bf4" name="a2f22f985c4f33318fdcd4cc996623bf4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2f22f985c4f33318fdcd4cc996623bf4">&#9670;&#160;</a></span>htim11</h2>
 
@@ -247,9 +518,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00028">28</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00044">44</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00071">MX_TIM11_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00129">MX_TIM11_Init()</a>.</p>
 
 </div>
 </div>
@@ -265,9 +536,99 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00027">27</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00042">42</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00341">HAL_TIM_PeriodElapsedCallback()</a>, and <a class="el" href="tim_8c_source.html#l00031">MX_TIM3_Init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00321">HAL_TIM_PeriodElapsedCallback()</a>, and <a class="el" href="tim_8c_source.html#l00047">MX_TIM3_Init()</a>.</p>
+
+</div>
+</div>
+<a id="acefaeaaa3856ddddae7083b2d220fe4b" name="acefaeaaa3856ddddae7083b2d220fe4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acefaeaaa3856ddddae7083b2d220fe4b">&#9670;&#160;</a></span>htim5</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">TIM_HandleTypeDef htim5</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00043">43</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="uvfr__diagnostics_8c_source.html#l00463">__tic()</a>, <a class="el" href="uvfr__diagnostics_8c_source.html#l00467">__toc()</a>, <a class="el" href="tim_8c_source.html#l00235">handle_wheel_interrupt()</a>, <a class="el" href="tim_8c_source.html#l00088">MX_TIM5_Init()</a>, and <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="a8d6e3468e3c97c9363fe9f59f6883760" name="a8d6e3468e3c97c9363fe9f59f6883760"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d6e3468e3c97c9363fe9f59f6883760">&#9670;&#160;</a></span>last_timestamp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t last_timestamp[] = {0,0,0,0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00034">34</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00235">handle_wheel_interrupt()</a>, and <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="a26bca55ea0ea566ad05ac73b3b987140" name="a26bca55ea0ea566ad05ac73b3b987140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26bca55ea0ea566ad05ac73b3b987140">&#9670;&#160;</a></span>period</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile uint32_t period[] = {0,0,0,0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00035">35</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00292">dispWheelSpeeds()</a>, <a class="el" href="tim_8c_source.html#l00235">handle_wheel_interrupt()</a>, <a class="el" href="uvfr__external__devices_8c_source.html#l00112">uvRegisterExternalDevice()</a>, and <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="a7ddc1d70b77dd3ccb1a9bcec7f61ccd2" name="a7ddc1d70b77dd3ccb1a9bcec7f61ccd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ddc1d70b77dd3ccb1a9bcec7f61ccd2">&#9670;&#160;</a></span>wheel_rpm</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float wheel_rpm[] = {0,0,0,0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00037">37</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
+
+</div>
+</div>
+<a id="a2e515f9f35f6c4ce658395fc4b643d59" name="a2e515f9f35f6c4ce658395fc4b643d59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e515f9f35f6c4ce658395fc4b643d59">&#9670;&#160;</a></span>wheel_speed</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile float wheel_speed[] = {0,0,0,0}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="tim_8c_source.html#l00036">36</a> of file <a class="el" href="tim_8c_source.html">tim.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tim_8c_source.html#l00263">WheelSpeed_UpdateAll()</a>.</p>
 
 </div>
 </div>

@@ -18,6 +18,7 @@ var syscalls_8c =
     [ "_times", "syscalls_8c.html#aaf727ebf57cd64d6c58b23e6ee4a4a69", null ],
     [ "_unlink", "syscalls_8c.html#a70b2f211d665cded5637065aa2bb89dc", null ],
     [ "_wait", "syscalls_8c.html#aeef0c3372d04caa1bcc99fed2ab6ec72", null ],
+    [ "_write", "syscalls_8c.html#aa025a12d45f60c7d0eae249e61f0c7f9", null ],
     [ "initialise_monitor_handles", "syscalls_8c.html#a25c7f100d498300fff65568c2fcfe639", null ],
     [ "environ", "syscalls_8c.html#aa006daaf11f1e2e45a6ababaf463212b", null ]
 ];

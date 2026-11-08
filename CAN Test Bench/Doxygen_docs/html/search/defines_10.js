@@ -9,8 +9,9 @@ var searchData=
   ['sizeof_5fuser_5fflash_6',['SIZEOF_USER_FLASH',['../uvfr__settings_8h.html#a16f48a5f6f80f73072abfa3c5887fa43',1,'uvfr_settings.h']]],
   ['src_5fuvfr_5fsettings_5fc_5f_7',['SRC_UVFR_SETTINGS_C_',['../uvfr__settings_8c.html#a7350f4a84cab7a08d99c9e88b248a180',1,'uvfr_settings.c']]],
   ['start_5fof_5fuser_5fflash_8',['START_OF_USER_FLASH',['../uvfr__settings_8h.html#a3e4cc3b6b2019eb461b9cd99ff70f1e7',1,'uvfr_settings.h']]],
-  ['stm32_5ff407_9',['STM32_F407',['../uvfr__global__config_8h.html#ad2ffeade407a690d34c80397981a9326',1,'uvfr_global_config.h']]],
-  ['stm32_5fh7xx_10',['STM32_H7xx',['../uvfr__global__config_8h.html#a6d9ab034d353afd623acde9fc618176c',1,'uvfr_global_config.h']]],
-  ['svc_5ftask_5fmax_5fcheckin_5fperiod_11',['SVC_TASK_MAX_CHECKIN_PERIOD',['../uvfr__state__engine_8h.html#afa84e50f417bfe6026bd922b546e4daa',1,'uvfr_state_engine.h']]],
-  ['sys_5fdata_5foffset_12',['SYS_DATA_OFFSET',['../uvfr__settings_8h.html#a41cab1c170a91737c8209c8231be894a',1,'uvfr_settings.h']]]
+  ['stateofcharge_9',['stateOfCharge',['../driving__loop_8c.html#acc6109474cdb583f66bc4b7339a9b303',1,'driving_loop.c']]],
+  ['stm32_5ff407_10',['STM32_F407',['../uvfr__global__config_8h.html#ad2ffeade407a690d34c80397981a9326',1,'uvfr_global_config.h']]],
+  ['stm32_5fh7xx_11',['STM32_H7xx',['../uvfr__global__config_8h.html#a6d9ab034d353afd623acde9fc618176c',1,'uvfr_global_config.h']]],
+  ['svc_5ftask_5fmax_5fcheckin_5fperiod_12',['SVC_TASK_MAX_CHECKIN_PERIOD',['../uvfr__state__engine_8h.html#afa84e50f417bfe6026bd922b546e4daa',1,'uvfr_state_engine.h']]],
+  ['sys_5fdata_5foffset_13',['SYS_DATA_OFFSET',['../uvfr__settings_8h.html#a41cab1c170a91737c8209c8231be894a',1,'uvfr_settings.h']]]
 ];

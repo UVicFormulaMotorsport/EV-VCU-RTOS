@@ -7,11 +7,13 @@
 {\ttfamily \#include "{}dma.\+h"{}}\newline
 {\ttfamily \#include "{}tim.\+h"{}}\newline
 {\ttfamily \#include "{}gpio.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+data\+\_\+proccessing.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+settings.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+state\+\_\+engine.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+diagnostics.\+h"{}}\newline
 {\ttfamily \#include "{}rb\+\_\+tree.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+vehicle\+\_\+commands.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+external\+\_\+devices.\+h"{}}\newline
 {\ttfamily \#include "{}bms.\+h"{}}\newline
 {\ttfamily \#include "{}motor\+\_\+controller.\+h"{}}\newline
 {\ttfamily \#include "{}dash.\+h"{}}\newline
@@ -26,8 +28,11 @@
 {\ttfamily \#include "{}Free\+RTOSConfig.\+h"{}}\newline
 {\ttfamily \#include "{}stdint.\+h"{}}\newline
 {\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include "{}cmsis\+\_\+os.\+h"{}}\newline
 {\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}queue.\+h"{}}\newline
+{\ttfamily \#include "{}semphr.\+h"{}}\newline
 {\ttfamily \#include "{}message\+\_\+buffer.\+h"{}}\newline
 {\ttfamily \#include "{}task.\+h"{}}\newline
 Include dependency graph for uvfr\+\_\+utils.\+h\+:
@@ -51,7 +56,9 @@ struct \mbox{\hyperlink{structuv__init__struct}{uv\+\_\+init\+\_\+struct}}
 \item 
 struct \mbox{\hyperlink{structuv__task__msg__t}{uv\+\_\+task\+\_\+msg\+\_\+t}}
 \begin{DoxyCompactList}\small\item\em Struct containing a message between two tasks. \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structp__status}{p\+\_\+status}}
+struct \mbox{\hyperlink{structxdev__poll__msg}{xdev\+\_\+poll\+\_\+msg}}
+\item 
+struct \mbox{\hyperlink{structxdev__info}{xdev\+\_\+info}}
 \item 
 struct \mbox{\hyperlink{structuv__init__task__args}{uv\+\_\+init\+\_\+task\+\_\+args}}
 \begin{DoxyCompactList}\small\item\em Struct designed to act like the {\ttfamily \doxylink{structuv__task__info}{uv\+\_\+task\+\_\+info}} struct, but for the initialisation tasks. As a result it takes fewer arguments. \end{DoxyCompactList}\item 
@@ -98,8 +105,10 @@ struct \mbox{\hyperlink{structuv__init__task__response}{uv\+\_\+init\+\_\+task\+
 \begin{DoxyCompactList}\small\item\em macro to set bits of an int without touching the ones we dont want to edit \end{DoxyCompactList}\item 
 \#define \mbox{\hyperlink{group__utility__macros_gade3043fb92536f8e1a616ba8aaef4ab9}{is\+Power\+Of\+Two}}(x)
 \begin{DoxyCompactList}\small\item\em Returns a truthy value if "{}x"{} is a power of two. \end{DoxyCompactList}\item 
-\#define \mbox{\hyperlink{group__utility__macros_gaac2f65c6267d74d5d5136f82bf217efa}{safe\+Ptr\+Read}}(x)
+\#define \mbox{\hyperlink{group__utility__macros_ga567d932a836c0e17b2ffaa5cf7f9e0ee}{safe\+Ptr\+Read\+Strict}}(x)
 \begin{DoxyCompactList}\small\item\em lil treat to help us avoid the dreaded null pointer dereference \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utility__macros_gaac2f65c6267d74d5d5136f82bf217efa}{safe\+Ptr\+Read}}(x)
+\item 
 \#define \mbox{\hyperlink{group__utility__macros_gaf506fac19ab4ad3f5b7ddd00643e0b46}{safe\+Ptr\+Write}}(p,  x)
 \item 
 \#define \mbox{\hyperlink{group__utility__macros_ga65e9886d74aaee76545e83dd09011727}{false}}~0
@@ -120,6 +129,8 @@ struct \mbox{\hyperlink{structuv__init__task__response}{uv\+\_\+init\+\_\+task\+
 \item 
 \#define \mbox{\hyperlink{uvfr__utils_8h_aa55012016c572366a0747ff7298c7fec}{UV\+\_\+\+CAN\+\_\+\+EXTENDED\+\_\+\+ID}}~0b00000001
 \item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_a90892b469893e2a5514916e359c7c31f}{UV\+\_\+\+IDE\+\_\+\+BIT}}~\mbox{\hyperlink{uvfr__utils_8h_aa55012016c572366a0747ff7298c7fec}{UV\+\_\+\+CAN\+\_\+\+EXTENDED\+\_\+\+ID}}
+\item 
 \#define \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\+\_\+\+BUS\+\_\+1}}~0b00000010
 \item 
 \#define \mbox{\hyperlink{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}{CAN\+\_\+\+BUS\+\_\+2}}~0b00000100
@@ -127,14 +138,30 @@ struct \mbox{\hyperlink{structuv__init__task__response}{uv\+\_\+init\+\_\+task\+
 \#define \mbox{\hyperlink{uvfr__utils_8h_a3c2758e5f0e3f8d8e1470616418f60c8}{UV\+\_\+\+CAN\+\_\+\+CHANNEL\+\_\+\+MASK}}~0b00000110
 \item 
 \#define \mbox{\hyperlink{uvfr__utils_8h_aa6688039909b8ed4eca05ab7a36fa8bd}{UV\+\_\+\+CAN\+\_\+\+DYNAMIC\+\_\+\+MEM}}~0b00001000
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_ac590a020ad2536a45523159c2a0b2ec3}{UV\+\_\+\+CAN\+\_\+\+CRIT\+\_\+\+MSG\+\_\+\+BIT}}~0b10000000
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_a53250f7129ac531af318ca80b2369b35}{XDEV\+\_\+\+DEVICE\+\_\+\+EXPECTED}}~(0x01U$<$$<$0)
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_a8271d45830bcd3a81c516ec8a0d306f8}{XDEV\+\_\+\+CHECK\+\_\+\+TIMEOUT\+\_\+\+BIT}}~(0x01U$<$$<$1)
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_ab5fd3260b5d96c52e32b7956090db6b3}{XDEV\+\_\+\+POLLING\+\_\+\+REQUIRED}}~(0x01U$<$$<$2)
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_a63b77ac4096c81d5243fd00d5fd69f15}{XDEV\+\_\+\+NO\+\_\+\+PANIC\+\_\+\+TIMEOUT}}~(0x01U$<$$<$3)
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_a819809feda3eb4b28960b42b4ce59e18}{XDEV\+\_\+\+POLLED\+\_\+\+LAST\+\_\+\+CYCLE}}~(0x01U$<$$<$4)
+\item 
+\#define \mbox{\hyperlink{uvfr__utils_8h_ab02afdf3bf6c137c551e9398ff1522b4}{XDEV\+\_\+\+UHH\+\_\+\+UHH\+\_\+\+DUHH}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
-typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}}
-\item 
 typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8h_a96651e94773864de5bcf9028ab64ad19}{uv\+\_\+ext\+\_\+device\+\_\+id}}
 \item 
+typedef enum \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61}{uv\+\_\+ecode}} \mbox{\hyperlink{uvfr__utils_8h_ac978a59e81f7ec0f72dd80aa2b5b3cbd}{uv\+\_\+ecode}}
+\begin{DoxyCompactList}\small\item\em Error codes for easier fault diagnosis. \end{DoxyCompactList}\item 
+typedef enum \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0}{uv\+\_\+external\+\_\+device}} \mbox{\hyperlink{uvfr__utils_8h_a31a6e863b4ff66aa77b33f46482d344b}{xdev\+\_\+id}}
+\begin{DoxyCompactList}\small\item\em ID for external devices, which allows us to know what\textquotesingle{}s good with them. \end{DoxyCompactList}\item 
 typedef enum \mbox{\hyperlink{uvfr__utils_8h_ac4bac060238ca2be3b3b3ca25c77cc8c}{access\+\_\+control\+\_\+t}} \mbox{\hyperlink{uvfr__utils_8h_a25c322a5b050bc1ab514e6d3e47c56a5}{access\+\_\+control\+\_\+type}}
 \item 
 typedef enum \mbox{\hyperlink{uvfr__utils_8h_ab1a7ab8d68287c5f3027a59e355d32e0}{uv\+\_\+msg\+\_\+type\+\_\+t}} \mbox{\hyperlink{uvfr__utils_8h_ae0e8ee9ac0315ecdd228d9358e395c3d}{uv\+\_\+msg\+\_\+type}}
@@ -145,7 +172,11 @@ typedef struct uv\+\_\+init\+\_\+struct \mbox{\hyperlink{uvfr__utils_8h_a43d8765
 \item 
 typedef struct \mbox{\hyperlink{structuv__task__msg__t}{uv\+\_\+task\+\_\+msg\+\_\+t}} \mbox{\hyperlink{uvfr__utils_8h_af54e76be0a4de86596cdf342473361e3}{uv\+\_\+task\+\_\+msg}}
 \begin{DoxyCompactList}\small\item\em Struct containing a message between two tasks. \end{DoxyCompactList}\item 
-typedef struct p\+\_\+status \mbox{\hyperlink{uvfr__utils_8h_a861993718f780fec899b00c842bae43b}{p\+\_\+status}}
+typedef struct xdev\+\_\+poll\+\_\+msg \mbox{\hyperlink{uvfr__utils_8h_a093b46f3f7624fe0f361a27096c08f4c}{xdev\+\_\+poll\+\_\+msg}}
+\item 
+typedef struct xdev\+\_\+info \mbox{\hyperlink{uvfr__utils_8h_a407a67bfb773b045f6f52d16ce316803}{xdev\+\_\+info}}
+\item 
+typedef \mbox{\hyperlink{structxdev__info}{xdev\+\_\+info}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__utils_8h_aa725aa58161b6b07033c2e9b9a9a2797}{xdev\+\_\+handle}}
 \item 
 typedef struct uv\+\_\+init\+\_\+task\+\_\+args \mbox{\hyperlink{uvfr__utils_8h_a22371cac9dbfb95de19acc59e359d3df}{uv\+\_\+init\+\_\+task\+\_\+args}}
 \begin{DoxyCompactList}\small\item\em Struct designed to act like the {\ttfamily \doxylink{structuv__task__info}{uv\+\_\+task\+\_\+info}} struct, but for the initialisation tasks. As a result it takes fewer arguments. \end{DoxyCompactList}\item 
@@ -178,18 +209,38 @@ enum \mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14}{data\+\_
 , \mbox{\hyperlink{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14a17e48aeaa85be166241ccf35b5c195de}{UV\+\_\+\+STRING}} = 10
  \}
 \begin{DoxyCompactList}\small\item\em Represents the data type of some variable. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61}{uv\+\_\+ecode}} \{ \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61ac4a93693a1a6357b80da8a6cf7ef2ea5}{UV\+\_\+\+GENERIC\+\_\+\+ERR}} = 0x0000
+, \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61a78eb326a7d1f584ecc4e26d8573492d6}{UV\+\_\+\+VCU\+\_\+\+SW\+\_\+\+ERR}} = 0x00080
+ \}
+\begin{DoxyCompactList}\small\item\em Error codes for easier fault diagnosis. \end{DoxyCompactList}\item 
 enum \mbox{\hyperlink{uvfr__utils_8h_acd907d24ac9b557d684429bb0cd1ddb1}{uv\+\_\+driving\+\_\+mode\+\_\+t}} \{ \mbox{\hyperlink{uvfr__utils_8h_acd907d24ac9b557d684429bb0cd1ddb1aebc81705969b8c5ae986b0b2ec08d1d5}{normal}}
 , \mbox{\hyperlink{uvfr__utils_8h_acd907d24ac9b557d684429bb0cd1ddb1ac67554de85b7a3c2ac961da6faf22e1e}{accel}}
 , \mbox{\hyperlink{uvfr__utils_8h_acd907d24ac9b557d684429bb0cd1ddb1a6e980d942af313712cd3ac6e66c002a5}{econ}}
 , \mbox{\hyperlink{uvfr__utils_8h_acd907d24ac9b557d684429bb0cd1ddb1af5d257c586a4a993f56fac4a77d35531}{limp}}
  \}
 \item 
-enum \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0}{uv\+\_\+external\+\_\+device}} \{ \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a9c632ecb370b78547a390d1b5cf59671}{MOTOR\+\_\+\+CONTROLLER}} = 0
-, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}} = 1
-, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8c41c05a63a15c5d188d02f6f4db4303}{IMD}} = 2
-, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a5c9bd57c4115223d6c0954b9c2438262}{PDU}} = 3
+enum \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0}{uv\+\_\+external\+\_\+device}} \{ \newline
+\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a9c632ecb370b78547a390d1b5cf59671}{MOTOR\+\_\+\+CONTROLLER}}
+, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e}{BMS}}
+, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8c41c05a63a15c5d188d02f6f4db4303}{IMD}}
+, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a5c9bd57c4115223d6c0954b9c2438262}{PDU}}
+, \newline
+\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a0a3531bb853b2c1fb97286d742391c5f}{STEERING\+\_\+\+WHEEL}}
+, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161}{TMS}}
+, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0ab070bcb8a351c40c831a02a8ef48e29e}{DCDC}}
+, \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a158a2b7ccff2a495995ef42873b4b786}{FINAL\+\_\+\+XDEV}}
  \}
 \begin{DoxyCompactList}\small\item\em ID for external devices, which allows us to know what\textquotesingle{}s good with them. \end{DoxyCompactList}\item 
+enum \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43}{uv\+\_\+xdev\+\_\+status}} \{ \newline
+\mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43a22cbfe561cbaea8cb7e9031251fe313c}{XDEV\+\_\+\+OK}}
+, \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43adfd3f190523f5f6f61c4f6ee1d8d02ab}{XDEV\+\_\+\+WARNING}}
+, \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43a536b537c779bea9d98f23f8fc75f5dac}{XDEV\+\_\+\+ERROR}}
+, \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43ae5465c64160cbacf99d396ff1a6d0c14}{XDEV\+\_\+\+VCU\+\_\+\+ERROR}}
+, \newline
+\mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43a5c0d8edf82f0e99b05a14aaa8925cc02}{XDEV\+\_\+\+TIMEOUT}}
+, \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43aa673787feb285434560fb395179f9b3a}{XDEV\+\_\+\+NC}}
+ \}
+\item 
 enum \mbox{\hyperlink{uvfr__utils_8h_ac4bac060238ca2be3b3b3ca25c77cc8c}{access\+\_\+control\+\_\+t}} \{ \newline
 \mbox{\hyperlink{uvfr__utils_8h_ac4bac060238ca2be3b3b3ca25c77cc8cafa7de31bfd82966f6473ed632aaf4358}{UV\+\_\+\+NONE}}
 , \mbox{\hyperlink{uvfr__utils_8h_ac4bac060238ca2be3b3b3ca25c77cc8ca2b6a5d6871e45de18fab3b20d5eb415b}{UV\+\_\+\+DUMB\+\_\+\+FLAG}}
@@ -255,11 +306,11 @@ Definition in file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{271}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00301}{301}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00773}{nuke\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00070}{testfunc3()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
+Referenced by \mbox{\hyperlink{can_8c_source_l00863}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section\+From\+ISR()}}, \mbox{\hyperlink{bms_8c_source_l00248}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00997}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00463}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00519}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00659}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00780}{nuke\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00123}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00081}{testfunc3()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}.
 
 \Hypertarget{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}\index{uvfr\_utils.h@{uvfr\_utils.h}!CAN\_BUS\_2@{CAN\_BUS\_2}}
 \index{CAN\_BUS\_2@{CAN\_BUS\_2}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -269,11 +320,11 @@ Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00272}{272}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00302}{302}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00773}{nuke\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
+Referenced by \mbox{\hyperlink{can_8c_source_l00463}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00519}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00780}{nuke\+\_\+hash\+\_\+table()}}, \mbox{\hyperlink{stm32f4xx__it_8c_source_l00056}{safely\+Disable\+Vehicle\+From\+ISR()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00123}{temp\+Monitor\+Task()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}.
 
 \Hypertarget{uvfr__utils_8h_a4808a3bb38a3243b37a3690b9a02eba7}\index{uvfr\_utils.h@{uvfr\_utils.h}!INIT\_CHECK\_PERIOD@{INIT\_CHECK\_PERIOD}}
 \index{INIT\_CHECK\_PERIOD@{INIT\_CHECK\_PERIOD}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -283,11 +334,11 @@ Referenced by \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+F
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00153}{153}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00159}{159}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 
 \Hypertarget{uvfr__utils_8h_a40d625666ff5a3c5918ec7591f0628ed}\index{uvfr\_utils.h@{uvfr\_utils.h}!MAX\_INIT\_TIME@{MAX\_INIT\_TIME}}
 \index{MAX\_INIT\_TIME@{MAX\_INIT\_TIME}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -297,11 +348,11 @@ Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00152}{152}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00158}{158}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 
 \Hypertarget{uvfr__utils_8h_a16b23f220af0f78310f4fe6cfeb6ab0d}\index{uvfr\_utils.h@{uvfr\_utils.h}!USE\_OLED\_DEBUG@{USE\_OLED\_DEBUG}}
 \index{USE\_OLED\_DEBUG@{USE\_OLED\_DEBUG}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -311,7 +362,7 @@ Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00164}{164}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00170}{170}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_abdad0cac69564db7eec85ef103281130}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_CAN1@{UV\_CAN1}}
 \index{UV\_CAN1@{UV\_CAN1}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -321,7 +372,7 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00164}{164}} of file 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00160}{160}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00166}{166}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_a0b946cc6e8a3f7995d65c1921cfe989d}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_CAN2@{UV\_CAN2}}
 \index{UV\_CAN2@{UV\_CAN2}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -331,7 +382,7 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00160}{160}} of file 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00161}{161}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00167}{167}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_a3c2758e5f0e3f8d8e1470616418f60c8}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_CAN\_CHANNEL\_MASK@{UV\_CAN\_CHANNEL\_MASK}}
 \index{UV\_CAN\_CHANNEL\_MASK@{UV\_CAN\_CHANNEL\_MASK}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -341,7 +392,21 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00161}{161}} of file 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00275}{275}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00305}{305}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_ac590a020ad2536a45523159c2a0b2ec3}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_CAN\_CRIT\_MSG\_BIT@{UV\_CAN\_CRIT\_MSG\_BIT}}
+\index{UV\_CAN\_CRIT\_MSG\_BIT@{UV\_CAN\_CRIT\_MSG\_BIT}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{UV\_CAN\_CRIT\_MSG\_BIT}{UV\_CAN\_CRIT\_MSG\_BIT}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_ac590a020ad2536a45523159c2a0b2ec3} 
+\#define UV\+\_\+\+CAN\+\_\+\+CRIT\+\_\+\+MSG\+\_\+\+BIT~0b10000000}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00309}{309}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{can_8c_source_l00920}{uv\+Send\+Can\+MSG()}}.
 
 \Hypertarget{uvfr__utils_8h_aa6688039909b8ed4eca05ab7a36fa8bd}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_CAN\_DYNAMIC\_MEM@{UV\_CAN\_DYNAMIC\_MEM}}
 \index{UV\_CAN\_DYNAMIC\_MEM@{UV\_CAN\_DYNAMIC\_MEM}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -351,7 +416,7 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00275}{275}} of file 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00276}{276}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00306}{306}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_aa55012016c572366a0747ff7298c7fec}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_CAN\_EXTENDED\_ID@{UV\_CAN\_EXTENDED\_ID}}
 \index{UV\_CAN\_EXTENDED\_ID@{UV\_CAN\_EXTENDED\_ID}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -361,11 +426,89 @@ Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00276}{276}} of file 
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00269}{269}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00298}{298}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
-Referenced by \mbox{\hyperlink{can_8c_source_l00826}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, and \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}.
+Referenced by \mbox{\hyperlink{can_8c_source_l00833}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section()}}, \mbox{\hyperlink{can_8c_source_l00863}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section\+From\+ISR()}}, \mbox{\hyperlink{can_8c_source_l00997}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00463}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, and \mbox{\hyperlink{can_8c_source_l00519}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}.
+
+\Hypertarget{uvfr__utils_8h_a90892b469893e2a5514916e359c7c31f}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_IDE\_BIT@{UV\_IDE\_BIT}}
+\index{UV\_IDE\_BIT@{UV\_IDE\_BIT}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{UV\_IDE\_BIT}{UV\_IDE\_BIT}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a90892b469893e2a5514916e359c7c31f} 
+\#define UV\+\_\+\+IDE\+\_\+\+BIT~\mbox{\hyperlink{uvfr__utils_8h_aa55012016c572366a0747ff7298c7fec}{UV\+\_\+\+CAN\+\_\+\+EXTENDED\+\_\+\+ID}}}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00299}{299}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_a8271d45830bcd3a81c516ec8a0d306f8}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_CHECK\_TIMEOUT\_BIT@{XDEV\_CHECK\_TIMEOUT\_BIT}}
+\index{XDEV\_CHECK\_TIMEOUT\_BIT@{XDEV\_CHECK\_TIMEOUT\_BIT}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{XDEV\_CHECK\_TIMEOUT\_BIT}{XDEV\_CHECK\_TIMEOUT\_BIT}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a8271d45830bcd3a81c516ec8a0d306f8} 
+\#define XDEV\+\_\+\+CHECK\+\_\+\+TIMEOUT\+\_\+\+BIT~(0x01U$<$$<$1)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00358}{358}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}, and \mbox{\hyperlink{uvfr__external__devices_8c_source_l00248}{x\+Dev\+Mon()}}.
+
+\Hypertarget{uvfr__utils_8h_a53250f7129ac531af318ca80b2369b35}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_DEVICE\_EXPECTED@{XDEV\_DEVICE\_EXPECTED}}
+\index{XDEV\_DEVICE\_EXPECTED@{XDEV\_DEVICE\_EXPECTED}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{XDEV\_DEVICE\_EXPECTED}{XDEV\_DEVICE\_EXPECTED}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a53250f7129ac531af318ca80b2369b35} 
+\#define XDEV\+\_\+\+DEVICE\+\_\+\+EXPECTED~(0x01U$<$$<$0)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00357}{357}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{external\+Device\+Rx\+Handler()}}, \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, and \mbox{\hyperlink{uvfr__external__devices_8c_source_l00248}{x\+Dev\+Mon()}}.
+
+\Hypertarget{uvfr__utils_8h_a63b77ac4096c81d5243fd00d5fd69f15}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_NO\_PANIC\_TIMEOUT@{XDEV\_NO\_PANIC\_TIMEOUT}}
+\index{XDEV\_NO\_PANIC\_TIMEOUT@{XDEV\_NO\_PANIC\_TIMEOUT}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{XDEV\_NO\_PANIC\_TIMEOUT}{XDEV\_NO\_PANIC\_TIMEOUT}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a63b77ac4096c81d5243fd00d5fd69f15} 
+\#define XDEV\+\_\+\+NO\+\_\+\+PANIC\+\_\+\+TIMEOUT~(0x01U$<$$<$3)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00360}{360}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_a819809feda3eb4b28960b42b4ce59e18}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_POLLED\_LAST\_CYCLE@{XDEV\_POLLED\_LAST\_CYCLE}}
+\index{XDEV\_POLLED\_LAST\_CYCLE@{XDEV\_POLLED\_LAST\_CYCLE}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{XDEV\_POLLED\_LAST\_CYCLE}{XDEV\_POLLED\_LAST\_CYCLE}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a819809feda3eb4b28960b42b4ce59e18} 
+\#define XDEV\+\_\+\+POLLED\+\_\+\+LAST\+\_\+\+CYCLE~(0x01U$<$$<$4)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00361}{361}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_ab5fd3260b5d96c52e32b7956090db6b3}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_POLLING\_REQUIRED@{XDEV\_POLLING\_REQUIRED}}
+\index{XDEV\_POLLING\_REQUIRED@{XDEV\_POLLING\_REQUIRED}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{XDEV\_POLLING\_REQUIRED}{XDEV\_POLLING\_REQUIRED}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_ab5fd3260b5d96c52e32b7956090db6b3} 
+\#define XDEV\+\_\+\+POLLING\+\_\+\+REQUIRED~(0x01U$<$$<$2)}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00359}{359}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_ab02afdf3bf6c137c551e9398ff1522b4}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_UHH\_UHH\_DUHH@{XDEV\_UHH\_UHH\_DUHH}}
+\index{XDEV\_UHH\_UHH\_DUHH@{XDEV\_UHH\_UHH\_DUHH}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{XDEV\_UHH\_UHH\_DUHH}{XDEV\_UHH\_UHH\_DUHH}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_ab02afdf3bf6c137c551e9398ff1522b4} 
+\#define XDEV\+\_\+\+UHH\+\_\+\+UHH\+\_\+\+DUHH}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00362}{362}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
@@ -382,21 +525,15 @@ typedef union access\+\_\+control\+\_\+info access\+\_\+control\+\_\+info}
 {\footnotesize\ttfamily \label{uvfr__utils_8h_a25c322a5b050bc1ab514e6d3e47c56a5} 
 typedef enum \mbox{\hyperlink{uvfr__utils_8h_ac4bac060238ca2be3b3b3ca25c77cc8c}{access\+\_\+control\+\_\+t}} \mbox{\hyperlink{uvfr__utils_8h_a25c322a5b050bc1ab514e6d3e47c56a5}{access\+\_\+control\+\_\+type}}}
 
-\Hypertarget{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}\index{uvfr\_utils.h@{uvfr\_utils.h}!bool@{bool}}
-\index{bool@{bool}!uvfr\_utils.h@{uvfr\_utils.h}}
-\doxysubsubsection{\texorpdfstring{bool}{bool}}
-{\footnotesize\ttfamily \label{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06} 
-typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}}}
+\Hypertarget{uvfr__utils_8h_ac978a59e81f7ec0f72dd80aa2b5b3cbd}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_ecode@{uv\_ecode}}
+\index{uv\_ecode@{uv\_ecode}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{uv\_ecode}{uv\_ecode}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_ac978a59e81f7ec0f72dd80aa2b5b3cbd} 
+typedef enum \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61}{uv\+\_\+ecode}} \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61}{uv\+\_\+ecode}}}
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00139}{139}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
-
-\Hypertarget{uvfr__utils_8h_a861993718f780fec899b00c842bae43b}\index{uvfr\_utils.h@{uvfr\_utils.h}!p\_status@{p\_status}}
-\index{p\_status@{p\_status}!uvfr\_utils.h@{uvfr\_utils.h}}
-\doxysubsubsection{\texorpdfstring{p\_status}{p\_status}}
-{\footnotesize\ttfamily \label{uvfr__utils_8h_a861993718f780fec899b00c842bae43b} 
-typedef struct p\+\_\+status p\+\_\+status}
+Error codes for easier fault diagnosis. 
 
 \Hypertarget{uvfr__utils_8h_a96651e94773864de5bcf9028ab64ad19}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_ext\_device\_id@{uv\_ext\_device\_id}}
 \index{uv\_ext\_device\_id@{uv\_ext\_device\_id}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -406,7 +543,7 @@ typedef uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8h_a96651e94773864de5bcf9028ab
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00143}{143}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00149}{149}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_a43d8765a7826292bdbd7d5d9f6b865fd}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_init\_struct@{uv\_init\_struct}}
 \index{uv\_init\_struct@{uv\_init\_struct}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -464,7 +601,39 @@ typedef struct \mbox{\hyperlink{structuv__task__msg__t}{uv\+\_\+task\+\_\+msg\+\
 
 Struct containing a message between two tasks. 
 
-This is a generic type that is best used in situations where the message could mean a variety of different things. For niche applications or where efficiency is paramount, we recommend creating a bespoke protocol. 
+This is a generic type that is best used in situations where the message could mean a variety of different things. For niche applications or where efficiency is paramount, we recommend creating a bespoke protocol. \Hypertarget{uvfr__utils_8h_aa725aa58161b6b07033c2e9b9a9a2797}\index{uvfr\_utils.h@{uvfr\_utils.h}!xdev\_handle@{xdev\_handle}}
+\index{xdev\_handle@{xdev\_handle}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{xdev\_handle}{xdev\_handle}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_aa725aa58161b6b07033c2e9b9a9a2797} 
+typedef \mbox{\hyperlink{structxdev__info}{xdev\+\_\+info}}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__utils_8h_aa725aa58161b6b07033c2e9b9a9a2797}{xdev\+\_\+handle}}}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00391}{391}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_a31a6e863b4ff66aa77b33f46482d344b}\index{uvfr\_utils.h@{uvfr\_utils.h}!xdev\_id@{xdev\_id}}
+\index{xdev\_id@{xdev\_id}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{xdev\_id}{xdev\_id}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a31a6e863b4ff66aa77b33f46482d344b} 
+typedef enum \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0}{uv\+\_\+external\+\_\+device}} \mbox{\hyperlink{uvfr__utils_8h_a31a6e863b4ff66aa77b33f46482d344b}{xdev\+\_\+id}}}
+
+
+
+ID for external devices, which allows us to know what\textquotesingle{}s good with them. 
+
+\Hypertarget{uvfr__utils_8h_a407a67bfb773b045f6f52d16ce316803}\index{uvfr\_utils.h@{uvfr\_utils.h}!xdev\_info@{xdev\_info}}
+\index{xdev\_info@{xdev\_info}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{xdev\_info}{xdev\_info}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a407a67bfb773b045f6f52d16ce316803} 
+typedef struct xdev\+\_\+info xdev\+\_\+info}
+
+Represents an external device, and all the info that is needed \Hypertarget{uvfr__utils_8h_a093b46f3f7624fe0f361a27096c08f4c}\index{uvfr\_utils.h@{uvfr\_utils.h}!xdev\_poll\_msg@{xdev\_poll\_msg}}
+\index{xdev\_poll\_msg@{xdev\_poll\_msg}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{xdev\_poll\_msg}{xdev\_poll\_msg}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a093b46f3f7624fe0f361a27096c08f4c} 
+typedef struct xdev\+\_\+poll\+\_\+msg xdev\+\_\+poll\+\_\+msg}
+
+
 
 \doxysubsection{Enumeration Type Documentation}
 \Hypertarget{uvfr__utils_8h_ac4bac060238ca2be3b3b3ca25c77cc8c}\index{uvfr\_utils.h@{uvfr\_utils.h}!access\_control\_t@{access\_control\_t}}
@@ -497,7 +666,7 @@ UV\+\_\+\+SEMAPHORE&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00218}{218}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00247}{247}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_ac2ad7f431e3446fddcd9b6b9f93c4c14}\index{uvfr\_utils.h@{uvfr\_utils.h}!data\_type@{data\_type}}
 \index{data\_type@{data\_type}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -557,7 +726,7 @@ UV\+\_\+\+STRING&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00184}{184}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00190}{190}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_acd907d24ac9b557d684429bb0cd1ddb1}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_driving\_mode\_t@{uv\_driving\_mode\_t}}
 \index{uv\_driving\_mode\_t@{uv\_driving\_mode\_t}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -585,7 +754,31 @@ limp&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00201}{201}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00216}{216}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_ecode@{uv\_ecode}}
+\index{uv\_ecode@{uv\_ecode}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{uv\_ecode}{uv\_ecode}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61} 
+enum \mbox{\hyperlink{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61}{uv\+\_\+ecode}}}
+
+
+
+Error codes for easier fault diagnosis. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UV\_GENERIC\_ERR@{UV\_GENERIC\_ERR}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_GENERIC\_ERR@{UV\_GENERIC\_ERR}}}\Hypertarget{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61ac4a93693a1a6357b80da8a6cf7ef2ea5}\label{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61} 
+UV\+\_\+\+GENERIC\+\_\+\+ERR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UV\_VCU\_SW\_ERR@{UV\_VCU\_SW\_ERR}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!UV\_VCU\_SW\_ERR@{UV\_VCU\_SW\_ERR}}}\Hypertarget{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61a78eb326a7d1f584ecc4e26d8573492d6}\label{uvfr__utils_8h_aee50bd719ce69c2638de571a36510d61} 
+UV\+\_\+\+VCU\+\_\+\+SW\+\_\+\+ERR&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00208}{208}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_external\_device@{uv\_external\_device}}
 \index{uv\_external\_device@{uv\_external\_device}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -614,10 +807,26 @@ IMD&\\
 PDU&\\
 \hline
 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STEERING\_WHEEL@{STEERING\_WHEEL}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!STEERING\_WHEEL@{STEERING\_WHEEL}}}\Hypertarget{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a0a3531bb853b2c1fb97286d742391c5f}\label{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0} 
+STEERING\+\_\+\+WHEEL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TMS@{TMS}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!TMS@{TMS}}}\Hypertarget{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161}\label{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0} 
+TMS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DCDC@{DCDC}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!DCDC@{DCDC}}}\Hypertarget{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0ab070bcb8a351c40c831a02a8ef48e29e}\label{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0} 
+DCDC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FINAL\_XDEV@{FINAL\_XDEV}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!FINAL\_XDEV@{FINAL\_XDEV}}}\Hypertarget{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a158a2b7ccff2a495995ef42873b4b786}\label{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0} 
+FINAL\+\_\+\+XDEV&\\
+\hline
+
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00211}{211}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00226}{226}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_ab1a7ab8d68287c5f3027a59e355d32e0}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_msg\_type\_t@{uv\_msg\_type\_t}}
 \index{uv\_msg\_type\_t@{uv\_msg\_type\_t}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -685,7 +894,7 @@ UV\+\_\+\+ASSIGN\+\_\+\+TASK&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00229}{229}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00258}{258}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 \Hypertarget{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_status\_t@{uv\_status\_t}}
 \index{uv\_status\_t@{uv\_status\_t}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -717,7 +926,43 @@ UV\+\_\+\+ABORTED&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00173}{173}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00179}{179}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
+
+\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43}\index{uvfr\_utils.h@{uvfr\_utils.h}!uv\_xdev\_status@{uv\_xdev\_status}}
+\index{uv\_xdev\_status@{uv\_xdev\_status}!uvfr\_utils.h@{uvfr\_utils.h}}
+\doxysubsubsection{\texorpdfstring{uv\_xdev\_status}{uv\_xdev\_status}}
+{\footnotesize\ttfamily \label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+enum \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43}{uv\+\_\+xdev\+\_\+status}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XDEV\_OK@{XDEV\_OK}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_OK@{XDEV\_OK}}}\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43a22cbfe561cbaea8cb7e9031251fe313c}\label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+XDEV\+\_\+\+OK&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XDEV\_WARNING@{XDEV\_WARNING}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_WARNING@{XDEV\_WARNING}}}\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43adfd3f190523f5f6f61c4f6ee1d8d02ab}\label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+XDEV\+\_\+\+WARNING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XDEV\_ERROR@{XDEV\_ERROR}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_ERROR@{XDEV\_ERROR}}}\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43a536b537c779bea9d98f23f8fc75f5dac}\label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+XDEV\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XDEV\_VCU\_ERROR@{XDEV\_VCU\_ERROR}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_VCU\_ERROR@{XDEV\_VCU\_ERROR}}}\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43ae5465c64160cbacf99d396ff1a6d0c14}\label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+XDEV\+\_\+\+VCU\+\_\+\+ERROR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XDEV\_TIMEOUT@{XDEV\_TIMEOUT}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_TIMEOUT@{XDEV\_TIMEOUT}}}\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43a5c0d8edf82f0e99b05a14aaa8925cc02}\label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+XDEV\+\_\+\+TIMEOUT&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{XDEV\_NC@{XDEV\_NC}!uvfr\_utils.h@{uvfr\_utils.h}}\index{uvfr\_utils.h@{uvfr\_utils.h}!XDEV\_NC@{XDEV\_NC}}}\Hypertarget{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43aa673787feb285434560fb395179f9b3a}\label{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43} 
+XDEV\+\_\+\+NC&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{uvfr__utils_8h_source_l00238}{238}} of file \mbox{\hyperlink{uvfr__utils_8h_source}{uvfr\+\_\+utils.\+h}}.
 
 
 
@@ -737,11 +982,11 @@ Calling \+\_\+uv\+Init\+Panic() is irreversable and will cause the vehicle to ha
 \end{DoxyAttention}
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{357}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00461}{461}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01365}{uv\+SVCTask\+Manager()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l01414}{uv\+SVCTask\+Manager()}}.
 
 \Hypertarget{uvfr__utils_8h_a6d40598f9d8daa89ca159a2e87f4fd01}\index{uvfr\_utils.h@{uvfr\_utils.h}!uvInit@{uvInit}}
 \index{uvInit@{uvInit}!uvfr\_utils.h@{uvfr\_utils.h}}
@@ -771,13 +1016,13 @@ If it is unable to return even to factory default settings, then we are in HUGE 
 
 Once the settings are initialized, we will initialize the system diagnostics. This is done early, so that future errors will result in events being properly tracked and logged
 
-The second thing initialized is internal diagnostics and telemetry.
-
 Next up we will attempt to initialize the state engine. If this fails, then we are in another case where we are genuinely unsafe to drive. This will create the prototypes for a bajillion tasks that will be started and stopped. Which tasks are currently running, depends on the whims of the state engine. Since the state engine is critical to our ability to handle errors and implausibilitys, we cannot proceed without a fully operational state engine.
 
 Once the state machine is initialized we get to actually start the thing.
 
 Once the state machine is initialized we get to actually start the thing.
+
+The second thing initialized is internal diagnostics and telemetry.
 
 Once we have initialized the state engine, what we want to do is create the prototypes of all the tasks that will be running.
 
@@ -835,17 +1080,33 @@ Now we are going to create a bunch of tasks that will initialize our car\textquo
 \end{DoxyCode}
  This variable is a tracker that tracks which devices have successfully initialized 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\ */}
+\DoxyCodeLine{*/}
 \DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ IMD\_init\_args\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
-\DoxyCodeLine{\ \ \ \ IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}}\ =\ init\_validation\_queue;}
-\DoxyCodeLine{\ \ \ \ IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}}\ =\ \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}});}
-\DoxyCodeLine{\ \ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{initIMD}},\textcolor{stringliteral}{"{}IMD\_init"{}},128,IMD\_init\_args,osPriorityAboveNormal,\&(IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
+\DoxyCodeLine{\ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ IMD\_init\_args\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
+\DoxyCodeLine{\ \ \ IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}}\ =\ init\_validation\_queue;}
+\DoxyCodeLine{\ \ \ IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}}\ =\ \&(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_af8dbf93ac51eb9fdc8911644d096486d}{imd\_settings}});}
+\DoxyCodeLine{\ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{initIMD}},\textcolor{stringliteral}{"{}IMD\_init"{}},128,IMD\_init\_args,osPriorityAboveNormal,\&(IMD\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
+\DoxyCodeLine{\ \ \ \textcolor{keywordflow}{if}(retval\ !=\ pdPASS)\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//FUCK}}
+\DoxyCodeLine{\ \ \ \ \ \ \ error\_msg\ =\ \textcolor{stringliteral}{"{}bruh"{}};}
+\DoxyCodeLine{\ \ \ \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ ext\_devices\_status\ |=\ 0x01U\ <<\ \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8c41c05a63a15c5d188d02f6f4db4303}{IMD}};}
+\DoxyCodeLine{\ \ \ \}}
+\DoxyCodeLine{}
+
+\end{DoxyCode}
+ This thread sets up the VCU-\/side TMS tap (display-\/only -- listens for the TMS pack-\/temp broadcast on CAN2 and stashes it for the dash/\+DAQ). 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ */}
+\DoxyCodeLine{\ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ TMS\_init\_args\ =\ uvMalloc(\textcolor{keyword}{sizeof}(\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}));}
+\DoxyCodeLine{\ \ \ \ TMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}}\ =\ init\_validation\_queue;}
+\DoxyCodeLine{\ \ \ \ TMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a61a9b579a1e65a3875a4edf3201a39f3}{specific\_args}}\ =\ NULL;\ \textcolor{comment}{//\ TMS\ has\ no\ settings;\ it's\ a\ passive\ tap}}
+\DoxyCodeLine{\ \ \ \ retval\ =\ xTaskCreate(\mbox{\hyperlink{tms_8h_adcffe6d6f50f8c5d2e87e9474007072b}{TMS\_Init}},\textcolor{stringliteral}{"{}TMS\_init"{}},256,TMS\_init\_args,osPriorityAboveNormal,\&(TMS\_init\_args-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}}));}
 \DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}(retval\ !=\ pdPASS)\{}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//FUCK}}
 \DoxyCodeLine{\ \ \ \ \ \ \ \ error\_msg\ =\ \textcolor{stringliteral}{"{}bruh"{}};}
 \DoxyCodeLine{\ \ \ \ \}\textcolor{keywordflow}{else}\{}
-\DoxyCodeLine{\ \ \ \ \ \ \ \ ext\_devices\_status\ |=\ 0x01U\ <<\ \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8c41c05a63a15c5d188d02f6f4db4303}{IMD}};}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ext\_devices\_status\ |=\ 0x01U\ <<\ \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161}{TMS}};}
 \DoxyCodeLine{\ \ \ \ \}}
 \DoxyCodeLine{}
 \DoxyCodeLine{\textcolor{comment}{//\ \ uv\_init\_task\_args*\ PDU\_init\_args\ =\ uvMalloc(sizeof(uv\_init\_task\_args));}}
@@ -870,15 +1131,15 @@ We allocate space for a response from the initialization.
 
 Clean up, clean up, everybody clean up, clean up, clean up, everybody do your share! The following code cleans up all the threads that were running, and free up used memory
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{50}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{73}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8c_source_l00357}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00047}{BAMO\+\_\+\+RFE}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00048}{BAMO\+\_\+\+RUN}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00005}{Beep\+Beep\+Mother\+Fucker()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{can_8h_source_l00043}{CAN\+\_\+\+RX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8h_source_l00042}{CAN\+\_\+\+TX\+\_\+\+DAEMON\+\_\+\+NAME}}, \mbox{\hyperlink{can_8c_source_l01045}{CANbus\+Rx\+Svc\+Daemon()}}, \mbox{\hyperlink{can_8c_source_l00920}{CANbus\+Tx\+Svc\+Daemon()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00092}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00285}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00173}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00369}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00371}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00051}{HVIL\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00214}{IMD}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00160}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00153}{INIT\+\_\+\+CHECK\+\_\+\+PERIOD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{imd_8c_source_l00559}{init\+IMD()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00152}{MAX\+\_\+\+INIT\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00156}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00212}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00370}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00050}{SDC\+\_\+\+BOARD\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00342}{uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00368}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00018}{uv\+Init\+Diagnostics()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00213}{uv\+Start\+State\+Machine()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00401}{uv\+Start\+Task()}}.
+References \mbox{\hyperlink{uvfr__utils_8c_source_l00461}{\+\_\+\+\_\+uv\+Init\+Panic()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00228}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00248}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00162}{uv\+\_\+vehicle\+\_\+settings\+::bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00094}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00347}{conifer\+Dis\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00332}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00207}{conifer\+Init()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00032}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00427}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00429}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00051}{HVIL\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00229}{IMD}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00161}{uv\+\_\+vehicle\+\_\+settings\+::imd\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00159}{INIT\+\_\+\+CHECK\+\_\+\+PERIOD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00401}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{main_8c_source_l00086}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00706}{init\+ADCTask()}}, \mbox{\hyperlink{imd_8c_source_l00316}{init\+IMD()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00158}{MAX\+\_\+\+INIT\+\_\+\+TIME}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00157}{uv\+\_\+vehicle\+\_\+settings\+::mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00402}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00227}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00428}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00050}{SDC\+\_\+\+BOARD\+\_\+\+PWR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00400}{uv\+\_\+init\+\_\+task\+\_\+args\+::specific\+\_\+args}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00426}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00232}{TMS}}, \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{can_8c_source_l01159}{uv\+Can\+Driver\+Init()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00292}{uv\+Init\+Diagnostics()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00338}{uv\+Setup\+Xdevs()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00258}{uv\+Start\+State\+Machine()}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}.
 
 Here is the call graph for this function\+:
 % FIG 2
@@ -896,15 +1157,15 @@ The primary motivation for this is to avoid trying to dereference a pointer that
 
 Exiting gracefully can be pretty neat sometimes. 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00487}{487}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00591}{591}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00175}{UV\+\_\+\+WARNING}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00181}{UV\+\_\+\+WARNING}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00414}{\+\_\+\+\_\+uv\+Free\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00465}{\+\_\+\+\_\+uv\+Free\+OS()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00439}{\+\_\+\+\_\+uv\+Malloc\+OS()}}, \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00799}{uv\+Create\+Tmp\+Settings\+Copy()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00518}{\+\_\+\+\_\+uv\+Free\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00569}{\+\_\+\+\_\+uv\+Free\+OS()}}, \mbox{\hyperlink{uvfr__utils_8c_source_l00543}{\+\_\+\+\_\+uv\+Malloc\+OS()}}, \mbox{\hyperlink{daq_8c_source_l00143}{associate\+Daq\+Param\+With\+Var()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00961}{uv\+Create\+Tmp\+Settings\+Copy()}}.
 
 
 
@@ -917,11 +1178,11 @@ const uint8\+\_\+t data\+\_\+size\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [e
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00021}{21}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__utils_8c_source_l00024}{24}} of file \mbox{\hyperlink{uvfr__utils_8c_source}{uvfr\+\_\+utils.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{daq_8c_source_l00124}{insert\+Param\+To\+Register()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+Referenced by \mbox{\hyperlink{daq_8c_source_l00180}{insert\+Param\+To\+Register()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01101}{uv\+Settings\+Programmer\+Task()}}.
 
 \Hypertarget{uvfr__utils_8h_a660f31748ce0b90d471a4f5441ee3cb1}\index{uvfr\_utils.h@{uvfr\_utils.h}!global\_context@{global\_context}}
 \index{global\_context@{global\_context}!uvfr\_utils.h@{uvfr\_utils.h}}

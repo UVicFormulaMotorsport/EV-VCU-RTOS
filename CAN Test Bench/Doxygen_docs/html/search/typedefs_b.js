@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['s_5fcurve_5ftorque_5fmap_5fargs_0',['s_curve_torque_map_args',['../driving__loop_8h.html#a32f012927e4624d674120b51cb6ee8c0',1,'driving_loop.h']]],
-  ['setting_5fhelper_5ftask_1',['setting_helper_task',['../uvfr__settings_8c.html#aff5e0078d7c880f42cc79e084141a6bd',1,'uvfr_settings.c']]],
-  ['state_5fchange_5fdaemon_5fargs_2',['state_change_daemon_args',['../group__state__engine.html#gac9bd88d7c454ec151183930fce544c9c',1,'uvfr_state_engine.c']]]
+  ['task_5fmanagement_5finfo_0',['task_management_info',['../group__state__engine__api.html#gae41267a13309a303a826aa55c4873a31',1,'uvfr_state_engine.h']]],
+  ['task_5fpriority_1',['task_priority',['../group__state__engine__api.html#ga0faa8cc05082e150c515bbddea144d90',1,'uvfr_state_engine.h']]],
+  ['task_5fstatus_5fblock_2',['task_status_block',['../group__state__engine__api.html#ga0d368f40115996d74f2e3833ff1a5396',1,'uvfr_state_engine.h']]],
+  ['tx_5fall_5fsettings_5fargs_3',['tx_all_settings_args',['../uvfr__settings_8c.html#a0641c122dc09626011ee339625d1ea63',1,'uvfr_settings.c']]],
+  ['tx_5fjournal_5fargs_4',['tx_journal_args',['../uvfr__settings_8c.html#a9a7490c87797ddce618071ea477c8009',1,'uvfr_settings.c']]]
 ];

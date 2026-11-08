@@ -102,6 +102,7 @@ var uvfr__state__engine_8h =
     [ "uvCreateTask", "group__state__engine__api.html#gac977eb33c99a9ac0a5f51a7db20e24d6", null ],
     [ "uvDeInitStateEngine", "group__state__engine__api.html#ga5cb739823b10b90a139315356aa6b22f", null ],
     [ "uvDeleteTask", "group__state__engine__backend.html#ga6291142ec714ce1450099943b1b8d00a", null ],
+    [ "uvGetStateString", "uvfr__state__engine_8h.html#a0ef324c9c88a50704c0604cd13da2717", null ],
     [ "uvGetTaskById", "uvfr__state__engine_8h.html#a87c777875dcd381972a25159659dc153", null ],
     [ "uvInitStateEngine", "group__state__engine__api.html#ga5c608f3832c45eac6e2da198d4ef1ba0", null ],
     [ "uvRegisterTask", "uvfr__state__engine_8h.html#a0547a08e521248754efe91c5de5ec182", null ],

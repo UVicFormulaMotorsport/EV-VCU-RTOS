@@ -53,14 +53,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "adc_8c.html",
-"dir_b596f468b52957496e4f78b80e029268.html",
-"group__state__engine.html#gad05ab0da0046c01c52191148bbd0c36d",
-"imd_8h.html#acf7b0534a43397021a0e474a499218beafdb68e8ed34ae72c318cbd4a4d6fc250",
-"rb__tree_8c.html#a0eb9842e366817eb18eac0e319fb04db",
-"structconifer__settings.html#abd4c3d194c252cc87d700584ccba430c",
-"syscalls_8c.html#a5aab5e2acfd600e3667dc915a2bbc7cb",
-"uvfr__settings_8c.html#a632dfb21b35fd170c003515ef4bdc291",
-"uvfr__vehicle__logger_8c.html#a0740a0b8e0f90b9d10e5c6d833f354a1"
+"daq_8h.html#a56ca1193de01115c27ceb3768994017f",
+"globals_type.html",
+"imd_8h.html#a4456d255c2ceb447ad52b68087531b61",
+"motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645afe594d99cc90d2fff45e0107f9e52f0f",
+"stm32f4xx__it_8c.html#acd9221f1aa19aebfe0b744947f2daf49",
+"structmotor__controller__settings.html#a7a8524e3f2bfdfa3dfb71f8e500c176a",
+"syscalls_8c_source.html",
+"uvfr__data__proccessing_8h.html#a6a75db9c127b9e780fa291aff51b877a",
+"uvfr__settings_8h.html#ae5fe9f0cb3fad913bd688758c9b24d79"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

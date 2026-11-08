@@ -1,13 +1,23 @@
 var searchData=
 [
   ['imd_5faddr_0',['IMD_ADDR',['../uvfr__settings_8h.html#ae99330d4904337e9a603ad2df6758b95',1,'uvfr_settings.h']]],
-  ['imd_5fmgroup_1',['IMD_MGROUP',['../uvfr__settings_8h.html#ae5fe9f0cb3fad913bd688758c9b24d79',1,'uvfr_settings.h']]],
-  ['imd_5foffset_2',['IMD_OFFSET',['../uvfr__settings_8h.html#a790b81866b0c7880d2d8fcb39880885a',1,'uvfr_settings.h']]],
-  ['init_5fcheck_5fperiod_3',['INIT_CHECK_PERIOD',['../uvfr__utils_8h.html#a4808a3bb38a3243b37a3690b9a02eba7',1,'uvfr_utils.h']]],
-  ['input_5ftimeout_5fms_4',['INPUT_TIMEOUT_MS',['../driving__loop_8c.html#aeac6e5795cef1c6971bde245d54de5d5',1,'driving_loop.c']]],
-  ['instruction_5fcache_5fenable_5',['INSTRUCTION_CACHE_ENABLE',['../stm32f4xx__hal__conf_8h.html#a3379989d46599c7e19a43f42e9145a4a',1,'stm32f4xx_hal_conf.h']]],
-  ['inv_5fdaq_5fp_6',['INV_DAQ_P',['../daq_8c.html#aba239cbf28dfdbe0359593717f8705d5',1,'daq.c']]],
-  ['invalid_5fsblock_7',['INVALID_SBLOCK',['../uvfr__settings_8c.html#a0acc0e528de17ca0616ca14d82e92ba5',1,'INVALID_SBLOCK:&#160;uvfr_settings.c'],['../uvfr__settings_8c.html#a0acc0e528de17ca0616ca14d82e92ba5',1,'INVALID_SBLOCK:&#160;uvfr_settings.c']]],
-  ['is_5fconifer_5fch_5fused_8',['IS_CONIFER_CH_USED',['../uvfr__conifer_8h.html#ada2d5fd5f2f424853c596389058ce4f1',1,'uvfr_conifer.h']]],
-  ['isptrtoflash_9',['isPtrToFlash',['../uvfr__settings_8h.html#a2cec12819b880d2916b1eb46d049c28c',1,'uvfr_settings.h']]]
+  ['imd_5fcan_5fbus_1',['IMD_CAN_BUS',['../imd_8c.html#a532dd23b7d5b1d34cf45968b18cbb262',1,'imd.c']]],
+  ['imd_5fcan_5fid_5finfo_5fgeneral_2',['IMD_CAN_ID_INFO_GENERAL',['../imd_8c.html#addd89bce6c2933505d7f40d0f573c23d',1,'imd.c']]],
+  ['imd_5fcan_5fid_5finfo_5fiso_3',['IMD_CAN_ID_INFO_ISO',['../imd_8c.html#a17891604592fde080fc1b0802fe1ee90',1,'imd.c']]],
+  ['imd_5fcan_5fid_5finfo_5fit_4',['IMD_CAN_ID_INFO_IT',['../imd_8c.html#a61d7d6a719dd63180d80ed5d241a50d3',1,'imd.c']]],
+  ['imd_5fcan_5fid_5finfo_5fvoltage_5',['IMD_CAN_ID_INFO_VOLTAGE',['../imd_8c.html#afac9e476e2c5044b45d55649e41a138e',1,'imd.c']]],
+  ['imd_5fcan_5fid_5frequest_6',['IMD_CAN_ID_REQUEST',['../imd_8c.html#a4ce3dc5a460339116beb3c301a9c3180',1,'imd.c']]],
+  ['imd_5fcan_5fid_5fresponse_7',['IMD_CAN_ID_RESPONSE',['../imd_8c.html#a18ecaf4187518efeffb7c5c7c76567e0',1,'imd.c']]],
+  ['imd_5fenable_5fserial_5fcheck_8',['IMD_ENABLE_SERIAL_CHECK',['../imd_8c.html#ac85035613e226f6d474d44cd17f84089',1,'imd.c']]],
+  ['imd_5fmgroup_9',['IMD_MGROUP',['../uvfr__settings_8h.html#ae5fe9f0cb3fad913bd688758c9b24d79',1,'uvfr_settings.h']]],
+  ['imd_5foffset_10',['IMD_OFFSET',['../uvfr__settings_8h.html#a790b81866b0c7880d2d8fcb39880885a',1,'uvfr_settings.h']]],
+  ['imd_5freq_5fdlc_11',['IMD_REQ_DLC',['../imd_8c.html#ab3c37913f95cb535f8620dfbaa12000e',1,'imd.c']]],
+  ['init_5fcheck_5fperiod_12',['INIT_CHECK_PERIOD',['../uvfr__utils_8h.html#a4808a3bb38a3243b37a3690b9a02eba7',1,'uvfr_utils.h']]],
+  ['input_5ftimeout_5fms_13',['INPUT_TIMEOUT_MS',['../driving__loop_8c.html#aeac6e5795cef1c6971bde245d54de5d5',1,'driving_loop.c']]],
+  ['instruction_5fcache_5fenable_14',['INSTRUCTION_CACHE_ENABLE',['../stm32f4xx__hal__conf_8h.html#a3379989d46599c7e19a43f42e9145a4a',1,'stm32f4xx_hal_conf.h']]],
+  ['inv_5fdaq_5fp_15',['INV_DAQ_P',['../daq_8c.html#aba239cbf28dfdbe0359593717f8705d5',1,'daq.c']]],
+  ['invalid_5fsblock_16',['INVALID_SBLOCK',['../uvfr__settings_8c.html#a0acc0e528de17ca0616ca14d82e92ba5',1,'INVALID_SBLOCK:&#160;uvfr_settings.c'],['../uvfr__settings_8c.html#a0acc0e528de17ca0616ca14d82e92ba5',1,'INVALID_SBLOCK:&#160;uvfr_settings.c']]],
+  ['is_5fbms_5fconnected_17',['is_bms_connected',['../driving__loop_8c.html#ad7ce5d61b102acf5305afd1b2008ed2b',1,'driving_loop.c']]],
+  ['is_5fconifer_5fch_5fused_18',['IS_CONIFER_CH_USED',['../uvfr__conifer_8h.html#ada2d5fd5f2f424853c596389058ce4f1',1,'uvfr_conifer.h']]],
+  ['isptrtoflash_19',['isPtrToFlash',['../uvfr__settings_8h.html#a2cec12819b880d2916b1eb46d049c28c',1,'uvfr_settings.h']]]
 ];

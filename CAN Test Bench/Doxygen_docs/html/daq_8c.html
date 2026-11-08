@@ -107,6 +107,7 @@ $(function(){initNavTree('daq_8c.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="uvfr__utils_8h_source.html">uvfr_utils.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="daq_8h_source.html">daq.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="tms_8h_source.html">tms.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="stm32f4xx__hal__conf_8h_source.html">stm32f4xx_hal_conf.h</a>&quot;</code><br />
 <code>#include &quot;stm32f407xx.h&quot;</code><br />
 <code>#include &quot;stm32f4xx_hal.h&quot;</code><br />
@@ -129,6 +130,8 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a368892c5fb38bdcdfae7b7e2a22602b4" id="r_a368892c5fb38bdcdfae7b7e2a22602b4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a368892c5fb38bdcdfae7b7e2a22602b4">__UV_FILENAME__</a>&#160;&#160;&#160;&quot;daq.c&quot;</td></tr>
+<tr class="separator:a368892c5fb38bdcdfae7b7e2a22602b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a6490a76926af0287e58c4b1af260bd" id="r_a5a6490a76926af0287e58c4b1af260bd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a6490a76926af0287e58c4b1af260bd">_SRC_UVFR_DAQ</a></td></tr>
 <tr class="separator:a5a6490a76926af0287e58c4b1af260bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba239cbf28dfdbe0359593717f8705d5" id="r_aba239cbf28dfdbe0359593717f8705d5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba239cbf28dfdbe0359593717f8705d5">INV_DAQ_P</a>&#160;&#160;&#160;0xFFFF</td></tr>
@@ -168,14 +171,12 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a08de9f1889def4ee8d79962e6044bb0f" id="r_a08de9f1889def4ee8d79962e6044bb0f"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08de9f1889def4ee8d79962e6044bb0f">constant_zero</a> = 0</td></tr>
-<tr class="separator:a08de9f1889def4ee8d79962e6044bb0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60a6b00299371412ec83fc5269adaefe" id="r_a60a6b00299371412ec83fc5269adaefe"><td class="memItemLeft" align="right" valign="top">const uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60a6b00299371412ec83fc5269adaefe">constant_zero</a> = 0</td></tr>
+<tr class="separator:a60a6b00299371412ec83fc5269adaefe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2273a53b295e470100af298a0be7d8d7" id="r_a2273a53b295e470100af298a0be7d8d7"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2273a53b295e470100af298a0be7d8d7">coolant_temp_adc</a> = 0</td></tr>
 <tr class="separator:a2273a53b295e470100af298a0be7d8d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0611933f2919b8900cd5e667043747fe" id="r_a0611933f2919b8900cd5e667043747fe"><td class="memItemLeft" align="right" valign="top">volatile uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0611933f2919b8900cd5e667043747fe">motor_temp_adc</a> = 0</td></tr>
 <tr class="separator:a0611933f2919b8900cd5e667043747fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22b804736f5648d52f639b2647d4ed13" id="r_a22b804736f5648d52f639b2647d4ed13"><td class="memItemLeft" align="right" valign="top">ADC_HandleTypeDef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22b804736f5648d52f639b2647d4ed13">hadc1</a></td></tr>
-<tr class="separator:a22b804736f5648d52f639b2647d4ed13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a9a97f4494923c066b5c4faaaaf8f88" id="r_a5a9a97f4494923c066b5c4faaaaf8f88"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdaq__loop__args.html">daq_loop_args</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a9a97f4494923c066b5c4faaaaf8f88">curr_daq_settings</a> = NULL</td></tr>
 <tr class="separator:a5a9a97f4494923c066b5c4faaaaf8f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22b4a1eccdbbbf445f1847cc3a49c3e0" id="r_a22b4a1eccdbbbf445f1847cc3a49c3e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structdaq__loop__args.html">daq_loop_args</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a22b4a1eccdbbbf445f1847cc3a49c3e0">default_daq_settings</a></td></tr>
@@ -186,6 +187,22 @@ Variables</h2></td></tr>
 <tr class="separator:a46330ae75c3716f15677e104e8cced32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a368892c5fb38bdcdfae7b7e2a22602b4" name="a368892c5fb38bdcdfae7b7e2a22602b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a368892c5fb38bdcdfae7b7e2a22602b4">&#9670;&#160;</a></span>__UV_FILENAME__</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define __UV_FILENAME__&#160;&#160;&#160;&quot;daq.c&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00001">1</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+
+</div>
+</div>
 <a id="a5a6490a76926af0287e58c4b1af260bd" name="a5a6490a76926af0287e58c4b1af260bd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5a6490a76926af0287e58c4b1af260bd">&#9670;&#160;</a></span>_SRC_UVFR_DAQ</h2>
 
@@ -198,7 +215,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00001">1</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00003">3</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
 </div>
 </div>
@@ -214,7 +231,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00012">12</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00015">15</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
 </div>
 </div>
@@ -267,11 +284,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00087">87</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00143">143</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8h_source.html#l00079">MAX_LOGGABLE_PARAMS</a>, <a class="el" href="uvfr__utils_8h_source.html#l00176">UV_ERROR</a>, <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>, and <a class="el" href="uvfr__utils_8c_source.html#l00487">uvIsPTRValid()</a>.</p>
+<p class="reference">References <a class="el" href="daq_8h_source.html#l00109">MAX_LOGGABLE_PARAMS</a>, <a class="el" href="uvfr__utils_8h_source.html#l00182">UV_ERROR</a>, <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>, and <a class="el" href="uvfr__utils_8c_source.html#l00591">uvIsPTRValid()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>, <a class="el" href="driving__loop_8c_source.html#l00108">initDrivingLoop()</a>, and <a class="el" href="uvfr__state__engine_8c_source.html#l00168">uvInitStateEngine()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>, <a class="el" href="driving__loop_8c_source.html#l00374">initDrivingLoop()</a>, <a class="el" href="imd_8c_source.html#l00316">initIMD()</a>, <a class="el" href="motor__controller_8c_source.html#l00894">MC_Startup()</a>, <a class="el" href="uvfr__diagnostics_8c_source.html#l00292">uvInitDiagnostics()</a>, and <a class="el" href="uvfr__state__engine_8c_source.html#l00171">uvInitStateEngine()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -297,11 +314,11 @@ Here is the call graph for this function:</div>
 
 <p>This pre-allocates parameters to one of the daq subtasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00183">183</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00239">239</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00046">curr_daq_settings</a>, <a class="el" href="uvfr__settings_8c_source.html#l00025">current_vehicle_settings</a>, <a class="el" href="uvfr__settings_8h_source.html#l00165">uv_vehicle_settings::daq_param_list</a>, <a class="el" href="daq_8c_source.html#l00124">insertParamToRegister()</a>, <a class="el" href="daq_8h_source.html#l00098">daq_loop_args::total_params_logged</a>, <a class="el" href="uvfr__utils_8h_source.html#l00176">UV_ERROR</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>.</p>
+<p class="reference">References <a class="el" href="daq_8c_source.html#l00049">curr_daq_settings</a>, <a class="el" href="uvfr__settings_8c_source.html#l00032">current_vehicle_settings</a>, <a class="el" href="uvfr__settings_8h_source.html#l00166">uv_vehicle_settings::daq_param_list</a>, <a class="el" href="daq_8c_source.html#l00180">insertParamToRegister()</a>, <a class="el" href="daq_8h_source.html#l00128">daq_loop_args::total_params_logged</a>, <a class="el" href="uvfr__utils_8h_source.html#l00182">UV_ERROR</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -331,11 +348,11 @@ Here is the call graph for this function:</div>
 <div class="line"><span class="comment">//TickType_t tick_period = pdMS_TO_TICKS(params-&gt;task_period); //Convert ms of period to the RTOS ticks</span></div>
 <div class="line"><span class="comment">//TickType_t last_time = xTaskGetTickCount();       /**</span></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00305">305</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00369">369</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00248">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00724">killSelf()</a>, <a class="el" href="daq_8c_source.html#l00210">startDaqSubTasks()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00231">uv_task_info::task_period</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00105">UV_KILL_CMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00106">UV_SUSPEND_CMD</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00295">uvTaskDelay</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00248">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00773">killSelf()</a>, <a class="el" href="daq_8c_source.html#l00266">startDaqSubTasks()</a>, <a class="el" href="daq_8c_source.html#l00287">stopDaqSubTasks()</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00814">suspendSelf()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00231">uv_task_info::task_period</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00105">UV_KILL_CMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00106">UV_SUSPEND_CMD</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00295">uvTaskDelay</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -362,11 +379,11 @@ Here is the call graph for this function:</div>
 <p>Child Task responsible for sending DAQ messages at a set period. </p>
 <p>One task per period </p>
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00441">441</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00494">494</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00041">daq_child_task::param_list</a>, and <a class="el" href="daq_8c_source.html#l00040">daq_child_task::period</a>.</p>
+<p class="reference">References <a class="el" href="daq_8c_source.html#l00044">daq_child_task::param_list</a>, and <a class="el" href="daq_8c_source.html#l00043">daq_child_task::period</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00210">startDaqSubTasks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00266">startDaqSubTasks()</a>.</p>
 
 </div>
 </div>
@@ -393,11 +410,11 @@ Here is the call graph for this function:</div>
 <p>Step 4: Generate Subtask Metadata</p>
 <p>Step 5: Assign params to subtasks </p>
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00257">257</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00313">313</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00258">uv_task_info::active_states</a>, <a class="el" href="daq_8c_source.html#l00087">associateDaqParamWithVar()</a>, <a class="el" href="daq_8h_source.html#l00101">daq_loop_args::can_channel</a>, <a class="el" href="daq_8c_source.html#l00183">configureDaqSubTasks()</a>, <a class="el" href="daq_8h_source.html#l00059">COOLANT_TEMP_ADC</a>, <a class="el" href="daq_8c_source.html#l00018">coolant_temp_adc</a>, <a class="el" href="daq_8c_source.html#l00046">curr_daq_settings</a>, <a class="el" href="uvfr__settings_8c_source.html#l00025">current_vehicle_settings</a>, <a class="el" href="daq_8h_source.html#l00102">daq_loop_args::daq_child_priority</a>, <a class="el" href="uvfr__settings_8h_source.html#l00165">uv_vehicle_settings::daq_param_list</a>, <a class="el" href="uvfr__settings_8h_source.html#l00163">uv_vehicle_settings::daq_settings</a>, <a class="el" href="daq_8c_source.html#l00305">daqMasterTask()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00259">uv_task_info::deletion_states</a>, <a class="el" href="uvfr__utils_8h_source.html#l00283">uv_CAN_msg::flags</a>, <a class="el" href="daq_8h_source.html#l00060">MOTOR_TEMP_ADC</a>, <a class="el" href="daq_8c_source.html#l00019">motor_temp_adc</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00091">PROGRAMMING</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00238">uv_task_info::stack_size</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00260">uv_task_info::suspension_states</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00250">uv_task_info::task_args</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00234">uv_task_info::task_function</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00229">uv_task_info::task_name</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00231">uv_task_info::task_period</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00235">uv_task_info::task_priority</a>, <a class="el" href="daq_8c_source.html#l00240">tmp_daq_msg</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00092">UV_DRIVING</a>, <a class="el" href="uvfr__utils_8h_source.html#l00176">UV_ERROR</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00095">UV_ERROR_STATE</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00094">UV_LAUNCH_CONTROL</a>, <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00090">UV_READY</a>, and <a class="el" href="uvfr__state__engine_8c_source.html#l00285">uvCreateTask()</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00258">uv_task_info::active_states</a>, <a class="el" href="daq_8c_source.html#l00143">associateDaqParamWithVar()</a>, <a class="el" href="tms_8h_source.html#l00046">tms_state_t::avg_c</a>, <a class="el" href="daq_8h_source.html#l00131">daq_loop_args::can_channel</a>, <a class="el" href="daq_8c_source.html#l00239">configureDaqSubTasks()</a>, <a class="el" href="daq_8h_source.html#l00074">COOLANT_TEMP_ADC</a>, <a class="el" href="daq_8c_source.html#l00021">coolant_temp_adc</a>, <a class="el" href="daq_8c_source.html#l00049">curr_daq_settings</a>, <a class="el" href="uvfr__settings_8c_source.html#l00032">current_vehicle_settings</a>, <a class="el" href="daq_8h_source.html#l00132">daq_loop_args::daq_child_priority</a>, <a class="el" href="uvfr__settings_8h_source.html#l00166">uv_vehicle_settings::daq_param_list</a>, <a class="el" href="uvfr__settings_8h_source.html#l00164">uv_vehicle_settings::daq_settings</a>, <a class="el" href="daq_8c_source.html#l00369">daqMasterTask()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00259">uv_task_info::deletion_states</a>, <a class="el" href="uvfr__utils_8h_source.html#l00316">uv_CAN_msg::flags</a>, <a class="el" href="tms_8c_source.html#l00022">g_tms_state</a>, <a class="el" href="tms_8h_source.html#l00045">tms_state_t::high_c</a>, <a class="el" href="tms_8h_source.html#l00048">tms_state_t::high_id</a>, <a class="el" href="tms_8h_source.html#l00044">tms_state_t::low_c</a>, <a class="el" href="tms_8h_source.html#l00049">tms_state_t::low_id</a>, <a class="el" href="daq_8h_source.html#l00075">MOTOR_TEMP_ADC</a>, <a class="el" href="daq_8c_source.html#l00022">motor_temp_adc</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00091">PROGRAMMING</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00238">uv_task_info::stack_size</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00260">uv_task_info::suspension_states</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00250">uv_task_info::task_args</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00234">uv_task_info::task_function</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00229">uv_task_info::task_name</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00231">uv_task_info::task_period</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00235">uv_task_info::task_priority</a>, <a class="el" href="daq_8c_source.html#l00296">tmp_daq_msg</a>, <a class="el" href="daq_8h_source.html#l00106">TMS_PACK_TEMP_AVG</a>, <a class="el" href="daq_8h_source.html#l00105">TMS_PACK_TEMP_HIGH</a>, <a class="el" href="daq_8h_source.html#l00107">TMS_PACK_TEMP_HIGH_ID</a>, <a class="el" href="daq_8h_source.html#l00104">TMS_PACK_TEMP_LOW</a>, <a class="el" href="daq_8h_source.html#l00108">TMS_PACK_TEMP_LOW_ID</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00092">UV_DRIVING</a>, <a class="el" href="uvfr__utils_8h_source.html#l00182">UV_ERROR</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00095">UV_ERROR_STATE</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00094">UV_LAUNCH_CONTROL</a>, <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00090">UV_READY</a>, and <a class="el" href="uvfr__state__engine_8c_source.html#l00333">uvCreateTask()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__state__engine_8c_source.html#l00168">uvInitStateEngine()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uvfr__state__engine_8c_source.html#l00171">uvInitStateEngine()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -425,11 +442,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00124">124</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00180">180</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8h_source.html#l00084">daq_msg::can_id</a>, <a class="el" href="daq_8c_source.html#l00031">daq_param_list_node::can_id</a>, <a class="el" href="uvfr__utils_8c_source.html#l00021">data_size</a>, <a class="el" href="daq_8c_source.html#l00029">daq_param_list_node::next</a>, <a class="el" href="daq_8c_source.html#l00038">daq_child_task::next_task</a>, <a class="el" href="daq_8h_source.html#l00085">daq_msg::param</a>, <a class="el" href="daq_8c_source.html#l00032">daq_param_list_node::param</a>, <a class="el" href="daq_8c_source.html#l00041">daq_child_task::param_list</a>, <a class="el" href="daq_8c_source.html#l00040">daq_child_task::period</a>, <a class="el" href="daq_8h_source.html#l00087">daq_msg::period</a>, <a class="el" href="daq_8c_source.html#l00034">daq_param_list_node::size</a>, <a class="el" href="daq_8h_source.html#l00086">daq_msg::type</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>.</p>
+<p class="reference">References <a class="el" href="daq_8h_source.html#l00114">daq_msg::can_id</a>, <a class="el" href="daq_8c_source.html#l00034">daq_param_list_node::can_id</a>, <a class="el" href="uvfr__utils_8c_source.html#l00024">data_size</a>, <a class="el" href="daq_8c_source.html#l00032">daq_param_list_node::next</a>, <a class="el" href="daq_8c_source.html#l00041">daq_child_task::next_task</a>, <a class="el" href="daq_8h_source.html#l00115">daq_msg::param</a>, <a class="el" href="daq_8c_source.html#l00035">daq_param_list_node::param</a>, <a class="el" href="daq_8c_source.html#l00044">daq_child_task::param_list</a>, <a class="el" href="daq_8c_source.html#l00043">daq_child_task::period</a>, <a class="el" href="daq_8h_source.html#l00117">daq_msg::period</a>, <a class="el" href="daq_8c_source.html#l00037">daq_param_list_node::size</a>, <a class="el" href="daq_8h_source.html#l00116">daq_msg::type</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00183">configureDaqSubTasks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00239">configureDaqSubTasks()</a>.</p>
 
 </div>
 </div>
@@ -450,11 +467,11 @@ Here is the call graph for this function:</div>
 
 <p>Function that starts up all the subtasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00210">210</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00266">266</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00046">curr_daq_settings</a>, <a class="el" href="daq_8h_source.html#l00102">daq_loop_args::daq_child_priority</a>, <a class="el" href="daq_8c_source.html#l00441">daqSubTask()</a>, <a class="el" href="daq_8c_source.html#l00039">daq_child_task::meta_task_handle</a>, <a class="el" href="daq_8c_source.html#l00038">daq_child_task::next_task</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>.</p>
+<p class="reference">References <a class="el" href="daq_8c_source.html#l00049">curr_daq_settings</a>, <a class="el" href="daq_8h_source.html#l00132">daq_loop_args::daq_child_priority</a>, <a class="el" href="daq_8c_source.html#l00494">daqSubTask()</a>, <a class="el" href="daq_8c_source.html#l00042">daq_child_task::meta_task_handle</a>, <a class="el" href="daq_8c_source.html#l00041">daq_child_task::next_task</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00305">daqMasterTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00369">daqMasterTask()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -480,26 +497,28 @@ Here is the call graph for this function:</div>
 
 <p>Function that shuts down the subtasks. </p>
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00231">231</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00287">287</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">References <a class="el" href="daq_8c_source.html#l00039">daq_child_task::meta_task_handle</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00176">UV_ERROR</a>.</p>
+<p class="reference">References <a class="el" href="daq_8c_source.html#l00042">daq_child_task::meta_task_handle</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00182">UV_ERROR</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00369">daqMasterTask()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a08de9f1889def4ee8d79962e6044bb0f" name="a08de9f1889def4ee8d79962e6044bb0f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08de9f1889def4ee8d79962e6044bb0f">&#9670;&#160;</a></span>constant_zero</h2>
+<a id="a60a6b00299371412ec83fc5269adaefe" name="a60a6b00299371412ec83fc5269adaefe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60a6b00299371412ec83fc5269adaefe">&#9670;&#160;</a></span>constant_zero</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uint64_t constant_zero = 0</td>
+          <td class="memname">const uint64_t constant_zero = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00016">16</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00019">19</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
 </div>
 </div>
@@ -515,9 +534,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00018">18</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00021">21</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>.</p>
 
 </div>
 </div>
@@ -533,9 +552,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00046">46</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00049">49</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00183">configureDaqSubTasks()</a>, <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>, and <a class="el" href="daq_8c_source.html#l00210">startDaqSubTasks()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00239">configureDaqSubTasks()</a>, <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>, and <a class="el" href="daq_8c_source.html#l00266">startDaqSubTasks()</a>.</p>
 
 </div>
 </div>
@@ -551,17 +570,17 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= {</div>
-<div class="line">    .total_params_logged = 8,</div>
+<div class="line">    .total_params_logged = 9, </div>
 <div class="line">    .throttle_daq_to_preserve_performance = 1,</div>
 <div class="line">    .minimum_daq_period = 10,</div>
-<div class="line">    .can_channel = <a class="code hl_define" href="uvfr__utils_8h.html#a68cc2bdb140f7959b6090b771f3358a9">CAN_BUS_1</a>,</div>
+<div class="line">    .can_channel = <a class="code hl_define" href="uvfr__utils_8h.html#a047afdfa657d338c07ee38629d3c9b0a">CAN_BUS_2</a>,</div>
 <div class="line">    .daq_child_priority = 1</div>
 <div class="line">}</div>
-<div class="ttc" id="auvfr__utils_8h_html_a68cc2bdb140f7959b6090b771f3358a9"><div class="ttname"><a href="uvfr__utils_8h.html#a68cc2bdb140f7959b6090b771f3358a9">CAN_BUS_1</a></div><div class="ttdeci">#define CAN_BUS_1</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00271">uvfr_utils.h:271</a></div></div>
+<div class="ttc" id="auvfr__utils_8h_html_a047afdfa657d338c07ee38629d3c9b0a"><div class="ttname"><a href="uvfr__utils_8h.html#a047afdfa657d338c07ee38629d3c9b0a">CAN_BUS_2</a></div><div class="ttdeci">#define CAN_BUS_2</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00302">uvfr_utils.h:302</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00048">48</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00051">51</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__settings_8c_source.html#l00250">setupDefaultSettings()</a>, and <a class="el" href="uvfr__settings_8c_source.html#l01155">uvResetFlashToDefault()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uvfr__settings_8c_source.html#l00325">setupDefaultSettings()</a>, and <a class="el" href="uvfr__settings_8c_source.html#l01373">uvResetFlashToDefault()</a>.</p>
 
 </div>
 </div>
@@ -576,52 +595,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">={</div>
-<div class="line">    {.can_id = 0x530,</div>
-<div class="line">    .param = {<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331">APPS1_ADC_VAL</a>,<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c">APPS2_ADC_VAL</a>,<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929">BPS1_ADC_VAL</a>,<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7">BPS2_ADC_VAL</a>},</div>
-<div class="line">    .period = 50,</div>
-<div class="line">    .type = {<a class="code hl_enumvalue" href="uvfr__utils_8h.html#ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0">UV_UINT16</a>,<a class="code hl_enumvalue" href="uvfr__utils_8h.html#ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0">UV_UINT16</a>,<a class="code hl_enumvalue" href="uvfr__utils_8h.html#ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0">UV_UINT16</a>,<a class="code hl_enumvalue" href="uvfr__utils_8h.html#ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0">UV_UINT16</a>}},</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line">    {.can_id = 0x540,</div>
-<div class="line">    .param = {<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382">VCU_VEHICLE_STATE</a>,<a class="code hl_define" href="#aba239cbf28dfdbe0359593717f8705d5">INV_DAQ_P</a>,<a class="code hl_define" href="#aba239cbf28dfdbe0359593717f8705d5">INV_DAQ_P</a>,<a class="code hl_define" href="#aba239cbf28dfdbe0359593717f8705d5">INV_DAQ_P</a>},</div>
-<div class="line">    .period = 100,</div>
-<div class="line">    .type = {<a class="code hl_enumvalue" href="uvfr__utils_8h.html#ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0">UV_UINT16</a>,0,0,0}},</div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line"> </div>
-<div class="line">}</div>
-<div class="ttc" id="adaq_8c_html_aba239cbf28dfdbe0359593717f8705d5"><div class="ttname"><a href="#aba239cbf28dfdbe0359593717f8705d5">INV_DAQ_P</a></div><div class="ttdeci">#define INV_DAQ_P</div><div class="ttdef"><b>Definition</b> <a href="daq_8c_source.html#l00012">daq.c:12</a></div></div>
-<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a217d6550cdad0d3eaff0189d269d8929">BPS1_ADC_VAL</a></div><div class="ttdeci">@ BPS1_ADC_VAL</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00057">daq.h:57</a></div></div>
-<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331">APPS1_ADC_VAL</a></div><div class="ttdeci">@ APPS1_ADC_VAL</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00055">daq.h:55</a></div></div>
-<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c">APPS2_ADC_VAL</a></div><div class="ttdeci">@ APPS2_ADC_VAL</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00056">daq.h:56</a></div></div>
-<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a7370a4980da3b06231cacd01246e6382">VCU_VEHICLE_STATE</a></div><div class="ttdeci">@ VCU_VEHICLE_STATE</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00020">daq.h:20</a></div></div>
-<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a75e438f4c4f3e2113352eb85475f8fa7">BPS2_ADC_VAL</a></div><div class="ttdeci">@ BPS2_ADC_VAL</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00058">daq.h:58</a></div></div>
-<div class="ttc" id="auvfr__utils_8h_html_ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0"><div class="ttname"><a href="uvfr__utils_8h.html#ac2ad7f431e3446fddcd9b6b9f93c4c14a536b610b4345a500e7eac0aa798d8fe0">UV_UINT16</a></div><div class="ttdeci">@ UV_UINT16</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00187">uvfr_utils.h:187</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00056">56</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__settings_8c_source.html#l00250">setupDefaultSettings()</a>, and <a class="el" href="uvfr__settings_8c_source.html#l01155">uvResetFlashToDefault()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00060">60</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-</div>
-</div>
-<a id="a22b804736f5648d52f639b2647d4ed13" name="a22b804736f5648d52f639b2647d4ed13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22b804736f5648d52f639b2647d4ed13">&#9670;&#160;</a></span>hadc1</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ADC_HandleTypeDef hadc1</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00022">22</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="stm32f4xx__it_8c_source.html#l00213">ADC_IRQHandler()</a>, <a class="el" href="main_8c_source.html#l00295">HAL_ADC_ConvCpltCallback()</a>, and <a class="el" href="main_8c_source.html#l00317">HAL_ADC_LevelOutOfWindowCallback()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uvfr__settings_8c_source.html#l00325">setupDefaultSettings()</a>, and <a class="el" href="uvfr__settings_8c_source.html#l01373">uvResetFlashToDefault()</a>.</p>
 
 </div>
 </div>
@@ -637,9 +614,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00019">19</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00022">22</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>.</p>
 
 </div>
 </div>
@@ -655,9 +632,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00240">240</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="daq_8c_source.html#l00296">296</a> of file <a class="el" href="daq_8c_source.html">daq.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00257">initDaqTask()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="daq_8c_source.html#l00313">initDaqTask()</a>.</p>
 
 </div>
 </div>

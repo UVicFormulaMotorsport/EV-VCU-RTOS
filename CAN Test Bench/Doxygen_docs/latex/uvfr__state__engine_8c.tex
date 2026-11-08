@@ -13,6 +13,8 @@ struct \mbox{\hyperlink{structstate__change__daemon__args}{state\+\_\+change\+\_
 \item 
 \#define \mbox{\hyperlink{uvfr__state__engine_8c_a6cd439d1fb18334cd13cf3539aebca5c}{UVFR\+\_\+\+STATE\+\_\+\+MACHINE\+\_\+\+IMPLIMENTATION}}
 \item 
+\#define \mbox{\hyperlink{uvfr__state__engine_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+}}~"{}uvfr\+\_\+state\+\_\+engine.\+c"{}
+\item 
 \#define \mbox{\hyperlink{group__state__engine_ga8a80fe70c2d06583bbcd00c5162860c5}{MAX\+\_\+\+NUM\+\_\+\+MANAGED\+\_\+\+TASKS}}~16
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
@@ -93,6 +95,8 @@ void \mbox{\hyperlink{group__state__engine__backend_ga7dff9a1c0653941c1559398025
 \begin{DoxyCompactList}\small\item\em Returns the pointer to the task info structure. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{group__state__engine_ga0e6167ef18c2ec8b65fbe070d0ffb6c9}{uv\+Task\+Period\+End}} (\mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
 \begin{DoxyCompactList}\small\item\em Function called at the end of the task period. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__state__engine_8c_a0ef324c9c88a50704c0604cd13da2717}{uv\+Get\+State\+String}} ()
+\item 
 \+\_\+\+\_\+weak void \mbox{\hyperlink{uvfr__state__engine_8c_aed09350c45d767229fd9e382244de3f1}{v\+Application\+Idle\+Hook}} (void)
 \begin{DoxyCompactList}\small\item\em Function that will be called if the enable idle task hook is called. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{uvfr__state__engine_8c_a1988aa923b19fa6f31c93afa7773f793}{v\+Application\+Get\+Idle\+Task\+Memory}} (Static\+Task\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ppx\+Idle\+Task\+TCBBuffer, Stack\+Type\+\_\+t \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}ppx\+Idle\+Task\+Stack\+Buffer, uint32\+\_\+t \texorpdfstring{$\ast$}{*}pul\+Idle\+Task\+Stack\+Size)
@@ -103,6 +107,8 @@ void \mbox{\hyperlink{uvfr__state__engine_8c_a1e80ecbd3fc2d04f18d6409ffa893a86}{
 \begin{DoxyCompactItemize}
 \item 
 Heap\+Stats\+\_\+t \mbox{\hyperlink{group__state__engine_gace30759073ddac097d29f042acc4142d}{x\+Heap\+Stats}}
+\item 
+volatile Tick\+Type\+\_\+t \mbox{\hyperlink{group__state__engine_gaaa88969a9b48aea401dbb1ff2b0ef4de}{x\+Tick\+Count}}
 \item 
 uint8\+\_\+t \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{group__state__engine_gaf622d52254e824f6da1204abc93b18db}{task\+\_\+tardiness}}
 \item 
@@ -131,6 +137,16 @@ uint8\+\_\+t \mbox{\hyperlink{group__state__engine__backend_ga321624ab262c6eeb56
 
 
 \doxysubsection{Macro Definition Documentation}
+\Hypertarget{uvfr__state__engine_8c_a368892c5fb38bdcdfae7b7e2a22602b4}\index{uvfr\_state\_engine.c@{uvfr\_state\_engine.c}!\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}}
+\index{\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}!uvfr\_state\_engine.c@{uvfr\_state\_engine.c}}
+\doxysubsubsection{\texorpdfstring{\_\_UV\_FILENAME\_\_}{\_\_UV\_FILENAME\_\_}}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8c_a368892c5fb38bdcdfae7b7e2a22602b4} 
+\#define \+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+~"{}uvfr\+\_\+state\+\_\+engine.\+c"{}}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00002}{2}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+
 \Hypertarget{uvfr__state__engine_8c_a6cd439d1fb18334cd13cf3539aebca5c}\index{uvfr\_state\_engine.c@{uvfr\_state\_engine.c}!UVFR\_STATE\_MACHINE\_IMPLIMENTATION@{UVFR\_STATE\_MACHINE\_IMPLIMENTATION}}
 \index{UVFR\_STATE\_MACHINE\_IMPLIMENTATION@{UVFR\_STATE\_MACHINE\_IMPLIMENTATION}!uvfr\_state\_engine.c@{uvfr\_state\_engine.c}}
 \doxysubsubsection{\texorpdfstring{UVFR\_STATE\_MACHINE\_IMPLIMENTATION}{UVFR\_STATE\_MACHINE\_IMPLIMENTATION}}
@@ -144,6 +160,24 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l00001}{1}} of
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{uvfr__state__engine_8c_a0ef324c9c88a50704c0604cd13da2717}\index{uvfr\_state\_engine.c@{uvfr\_state\_engine.c}!uvGetStateString@{uvGetStateString}}
+\index{uvGetStateString@{uvGetStateString}!uvfr\_state\_engine.c@{uvfr\_state\_engine.c}}
+\doxysubsubsection{\texorpdfstring{uvGetStateString()}{uvGetStateString()}}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8c_a0ef324c9c88a50704c0604cd13da2717} 
+char \texorpdfstring{$\ast$}{*} uv\+Get\+State\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01557}{1557}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00089}{UV\+\_\+\+INIT}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00040}{vehicle\+\_\+state}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00197}{disp\+Vehicle\+Status\+Report()}}.
+
 \Hypertarget{uvfr__state__engine_8c_a1988aa923b19fa6f31c93afa7773f793}\index{uvfr\_state\_engine.c@{uvfr\_state\_engine.c}!vApplicationGetIdleTaskMemory@{vApplicationGetIdleTaskMemory}}
 \index{vApplicationGetIdleTaskMemory@{vApplicationGetIdleTaskMemory}!uvfr\_state\_engine.c@{uvfr\_state\_engine.c}}
 \doxysubsubsection{\texorpdfstring{vApplicationGetIdleTaskMemory()}{vApplicationGetIdleTaskMemory()}}
@@ -152,7 +186,7 @@ void v\+Application\+Get\+Idle\+Task\+Memory (\begin{DoxyParamCaption}\item[{Sta
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01520}{1520}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01593}{1593}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 \Hypertarget{uvfr__state__engine_8c_a1e80ecbd3fc2d04f18d6409ffa893a86}\index{uvfr\_state\_engine.c@{uvfr\_state\_engine.c}!vApplicationGetTimerTaskMemory@{vApplicationGetTimerTaskMemory}}
 \index{vApplicationGetTimerTaskMemory@{vApplicationGetTimerTaskMemory}!uvfr\_state\_engine.c@{uvfr\_state\_engine.c}}
@@ -162,7 +196,7 @@ void v\+Application\+Get\+Timer\+Task\+Memory (\begin{DoxyParamCaption}\item[{St
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01531}{1531}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01604}{1604}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 
 \Hypertarget{uvfr__state__engine_8c_aed09350c45d767229fd9e382244de3f1}\index{uvfr\_state\_engine.c@{uvfr\_state\_engine.c}!vApplicationIdleHook@{vApplicationIdleHook}}
 \index{vApplicationIdleHook@{vApplicationIdleHook}!uvfr\_state\_engine.c@{uvfr\_state\_engine.c}}
@@ -176,5 +210,5 @@ Function that will be called if the enable idle task hook is called.
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01512}{1512}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01585}{1585}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
 

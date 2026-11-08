@@ -1,7 +1,9 @@
 var can_8h =
 [
+    [ "uv_CAN_driver", "structuv___c_a_n__driver.html", "structuv___c_a_n__driver" ],
     [ "CAN_RX_DAEMON_NAME", "can_8h.html#a3cb7727094f40357f18ece08758738cc", null ],
     [ "CAN_TX_DAEMON_NAME", "can_8h.html#a8258cafd2b5e0bfb1e4228e7a45750bf", null ],
+    [ "uv_CAN_driver", "can_8h.html#aec39fe0f62c8ca81d1cff23e82a47b77", null ],
     [ "uv_CAN_msg", "can_8h.html#ad857192b5d0529e73642f1293d6bed75", null ],
     [ "uv_status", "can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9", null ],
     [ "CANbusRxSvcDaemon", "can_8h.html#a2b32305988f51945b7c220ca60ab68e8", null ],
@@ -11,7 +13,8 @@ var can_8h =
     [ "insertCANMessageHandler", "group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6", null ],
     [ "MX_CAN1_Init", "can_8h.html#a030a62a0956ab83394eb8354a0e97902", null ],
     [ "MX_CAN2_Init", "can_8h.html#a1ee5cd592134235b6c07f676784d47c3", null ],
-    [ "nuke_hash_table", "can_8h.html#af6b10418988114bc5b82f13501b99bdd", null ],
+    [ "uvCanDriverDeInit", "can_8h.html#a1369407ea9efacfb19ce5a919feaac57", null ],
+    [ "uvCanDriverInit", "can_8h.html#ada0e781042e59a78cf629006f050e4b6", null ],
     [ "uvSendCanMSG", "group__uvfr__can__api.html#ga62414944c3b631f57fdd08e467bcf5a4", null ],
     [ "hcan1", "can_8h.html#a1618d731d18d69e906e8a357b7cd3c8d", null ],
     [ "hcan2", "can_8h.html#ab77168d14df04ccca5d48612ee21ced8", null ]

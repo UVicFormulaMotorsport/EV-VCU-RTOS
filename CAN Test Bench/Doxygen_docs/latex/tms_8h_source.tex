@@ -1,0 +1,68 @@
+\doxysection{tms.\+h}
+\hypertarget{tms_8h_source}{}\label{tms_8h_source}\index{Core/Inc/tms.h@{Core/Inc/tms.h}}
+\mbox{\hyperlink{tms_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00002}00002\ \textcolor{comment}{\ *\ tms.h}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00004}00004\ \textcolor{comment}{\ *\ VCU-\/side\ handler\ for\ the\ Thermal\ Management\ System\ (TMS).}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00005}00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00006}00006\ \textcolor{comment}{\ *\ The\ TMS\ impersonates\ an\ Orion\ external\ thermistor\ expansion\ module\ and\ talks}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00007}00007\ \textcolor{comment}{\ *\ to\ the\ BMS\ over\ J1939\ entirely\ on\ its\ own\ -\/-\/\ the\ BMS\ ingests\ those\ frames}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00008}00008\ \textcolor{comment}{\ *\ directly,\ so\ the\ VCU\ is\ NOT\ part\ of\ that\ thermal\ safety\ loop\ and\ does\ not\ need}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00009}00009\ \textcolor{comment}{\ *\ to\ handle\ the\ TMS-\/>BMS\ path.\ The\ TMS\ happens\ to\ publish\ the\ same\ frames\ on}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00010}00010\ \textcolor{comment}{\ *\ both\ CAN\ buses,\ so\ VCU-\/side\ we\ simply\ listen\ in\ on\ the\ dash\ bus\ (CAN2)\ and}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00011}00011\ \textcolor{comment}{\ *\ stash\ the\ pack\ temperatures\ in\ g\_tms\_state.\ This\ is\ a\ display/telemetry\ tap}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00012}00012\ \textcolor{comment}{\ *\ only\ -\/-\/\ it\ exists\ so\ the\ temps\ can\ be\ shown\ on\ the\ dash\ and\ logged\ via\ DAQ.}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00013}00013\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00014}00014\ \textcolor{comment}{\ *\ Frame\ we\ care\ about\ (see\ EV26-\/TMS-\/NEW/TMS\_MAIN/Core/Src/can\_tms.c):}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00015}00015\ \textcolor{comment}{\ *\ \ \ 0x1839F380\ \ Thermistor\ module\ -\/>\ BMS\ \ @\ \string~100\ ms\ \ (extended\ ID,\ DLC=8)}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00016}00016\ \textcolor{comment}{\ *\ \ \ \ \ byte0\ =\ module\#\ \ \ \ \ \ \ \ byte4\ =\ therm\_count\ (always\ 6)}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00017}00017\ \textcolor{comment}{\ *\ \ \ \ \ byte1\ =\ low\_c\ \ (int8)\ \ byte5\ =\ high\_id\ (pack\ 0..5)}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00018}00018\ \textcolor{comment}{\ *\ \ \ \ \ byte2\ =\ high\_c\ (int8)\ \ byte6\ =\ low\_id\ \ (pack\ 0..5)}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00019}00019\ \textcolor{comment}{\ *\ \ \ \ \ byte3\ =\ avg\_c\ \ (int8)\ \ byte7\ =\ checksum}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00020}00020\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00021}00021\ \textcolor{comment}{\ *\ Temperatures\ are\ int8\ degrees\ C\ (1\ C\ /\ LSB,\ signed).\ Each\ pack\ value\ is\ itself}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00022}00022\ \textcolor{comment}{\ *\ a\ hottest-\/cell\ reading,\ so\ low\_c/avg\_c\ run\ warm\ by\ design.}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00023}00023\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00025}00025\ \textcolor{preprocessor}{\#ifndef\ INC\_TMS\_H\_}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00026}00026\ \textcolor{preprocessor}{\#define\ INC\_TMS\_H\_}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00028}00028\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00030}00030\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00032}00032\ \textcolor{comment}{/*\ CAN\ ID\ of\ the\ thermistor-\/data\ frame\ the\ TMS\ broadcasts\ (extended\ ID).\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00033}\mbox{\hyperlink{tms_8h_a7e8d6e291d86213a2644794d06153c8d}{00033}}\ \textcolor{preprocessor}{\#define\ TMS\_THERM\_DATA\_CAN\_ID\ \ \ 0x1839F380u}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00035}00035\ \textcolor{comment}{/*\ Bus\ the\ VCU\ listens\ for\ the\ TMS\ on.\ The\ dash\ +\ DAQ\ live\ on\ CAN2,\ and\ the\ TMS}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00036}00036\ \textcolor{comment}{\ *\ mirrors\ its\ frames\ onto\ both\ buses,\ so\ we\ tap\ it\ here.\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00037}\mbox{\hyperlink{tms_8h_a0b7d7d27b5b6d10189924220ed27aca9}{00037}}\ \textcolor{preprocessor}{\#define\ TMS\_CAN\_BUS\ \ \ \ \ \ \ \ \ \ \ \ \ CAN\_BUS\_2}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00039}00039\ \textcolor{comment}{/*\ Number\ of\ packs\ the\ TMS\ reports\ (its\ 6\ "{}thermistors"{}).\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00040}\mbox{\hyperlink{tms_8h_a02c0f5c62bdb7be910a8c48264c16fa1}{00040}}\ \textcolor{preprocessor}{\#define\ TMS\_NUM\_PACKS\ \ \ \ \ \ \ \ \ \ \ 6u}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00042}00042\ \textcolor{comment}{/*\ Runtime\ state\ (telemetry).\ Mirrors\ can\_tms\_module\_data\_t\ on\ the\ TMS\ side.\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00043}\mbox{\hyperlink{structtms__state__t}{00043}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00044}\mbox{\hyperlink{structtms__state__t_a157e7196dbcdb312cc8b59178cc503ca}{00044}}\ \ \ \ \ int8\_t\ \ \mbox{\hyperlink{structtms__state__t_a157e7196dbcdb312cc8b59178cc503ca}{low\_c}};\ \ \ \ \ \ \ \ \textcolor{comment}{//\ lowest\ pack\ reading,\ signed\ degrees\ C}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00045}\mbox{\hyperlink{structtms__state__t_ac8512b48efcf8d30a54da4dd20ccd263}{00045}}\ \ \ \ \ int8\_t\ \ \mbox{\hyperlink{structtms__state__t_ac8512b48efcf8d30a54da4dd20ccd263}{high\_c}};\ \ \ \ \ \ \ \textcolor{comment}{//\ highest\ pack\ reading,\ signed\ degrees\ C}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00046}\mbox{\hyperlink{structtms__state__t_af993436cf0c53db50fc804d716166c7b}{00046}}\ \ \ \ \ int8\_t\ \ \mbox{\hyperlink{structtms__state__t_af993436cf0c53db50fc804d716166c7b}{avg\_c}};\ \ \ \ \ \ \ \ \textcolor{comment}{//\ mean\ of\ the\ pack\ readings,\ signed\ degrees\ C}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00047}\mbox{\hyperlink{structtms__state__t_a6a65381aec2e3101004d541f7ca9dd86}{00047}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structtms__state__t_a6a65381aec2e3101004d541f7ca9dd86}{therm\_count}};\ \ \textcolor{comment}{//\ number\ of\ packs\ reported\ (expected\ 6)}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00048}\mbox{\hyperlink{structtms__state__t_aa268b03cbaeebe513b1b3ab09dfc9529}{00048}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structtms__state__t_aa268b03cbaeebe513b1b3ab09dfc9529}{high\_id}};\ \ \ \ \ \ \textcolor{comment}{//\ pack\ index\ (0..5)\ reporting\ high\_c}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00049}\mbox{\hyperlink{structtms__state__t_a4a4bf4a7a956739b708dc4c155196e5c}{00049}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structtms__state__t_a4a4bf4a7a956739b708dc4c155196e5c}{low\_id}};\ \ \ \ \ \ \ \textcolor{comment}{//\ pack\ index\ (0..5)\ reporting\ low\_c}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00050}\mbox{\hyperlink{structtms__state__t_a2ef9af568b7b663852bbac33422f4649}{00050}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structtms__state__t_a2ef9af568b7b663852bbac33422f4649}{msg\_corrupt}};\ \ \textcolor{comment}{//\ 1\ if\ the\ last\ frame\ failed\ its\ checksum}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00051}00051\ \}\ \mbox{\hyperlink{structtms__state__t}{tms\_state\_t}};}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00053}00053\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{structtms__state__t}{tms\_state\_t}}\ \mbox{\hyperlink{tms_8h_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}};\ \textcolor{comment}{//\ volatile:\ updated\ from\ the\ CAN\ RX\ path}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00055}00055\ \textcolor{comment}{/*\ Registers\ the\ CAN\ RX\ handler\ +\ the\ (optional)\ xdev\ monitor\ entry.\ Mirrors}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00056}00056\ \textcolor{comment}{\ *\ BMS\_Init.\ Spawned\ as\ an\ init\ task\ from\ uvfr\_utils.c.\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00057}00057\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tms_8h_adcffe6d6f50f8c5d2e87e9474007072b}{TMS\_Init}}(\textcolor{keywordtype}{void}*\ args);}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00059}00059\ \textcolor{comment}{/*\ CAN\ RX\ callback\ for\ TMS\_THERM\_DATA\_CAN\_ID.\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00060}00060\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tms_8h_af9c90cf037b8c47099adae4f37c26dd9}{TMS\_CANRxHandler}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg);}
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{tms_8h_source_l00062}00062\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_TMS\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

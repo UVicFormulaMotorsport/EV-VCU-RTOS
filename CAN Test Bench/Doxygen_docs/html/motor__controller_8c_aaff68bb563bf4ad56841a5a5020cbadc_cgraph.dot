@@ -1,0 +1,17 @@
+digraph "ProcessMotorControllerResponse"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="ProcessMotorControllerResponse",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Processes a CAN response from the motor controller."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="externalDeviceRxHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$uvfr__external__devices_8c.html#abeba1577d0e5f860f687d6dfaa57c877",tooltip="Function called from the can message handler for an external device."];
+  Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="lookupIgbtTemp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$motor__controller_8c.html#acb36db240cda93e275420a88ac0165be",tooltip="Non-linear lookup for IGBT Temp Citation: \"Bamocar D3 Manual\", Section 6.2 Power Stages."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="lookupMotorTemp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$motor__controller_8c.html#acb64b1ded1f551ad90fb5a1d3f63e9d1",tooltip="Approximate KTY81 motor temperature lookup from Bamocar raw value."];
+  Node4 -> Node5 [id="edge4_Node000004_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="xToY_if",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$uvfr__data__proccessing_8c.html#ae0dd44600368d9d4fc8fa0dee3879d7e",tooltip=" "];
+}

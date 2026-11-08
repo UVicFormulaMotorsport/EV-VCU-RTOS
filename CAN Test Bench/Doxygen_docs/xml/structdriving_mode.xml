@@ -13,11 +13,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Name of mode, 15 chars + /0 </para>
+<para>Name of mode, 15 chars + &apos;\0&apos; </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="86" column="6" bodyfile="Core/Inc/driving_loop.h" bodystart="86" bodyend="-1"/>
+        <location file="Core/Inc/driving_loop.h" line="114" column="10" bodyfile="Core/Inc/driving_loop.h" bodystart="114" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdriving_mode_1a6ef9f1d0875e8b329738830343254708" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -28,10 +28,11 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>mode power cap [W] (0 = disabled) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="87" column="10" bodyfile="Core/Inc/driving_loop.h" bodystart="87" bodyend="-1"/>
+        <location file="Core/Inc/driving_loop.h" line="117" column="14" bodyfile="Core/Inc/driving_loop.h" bodystart="117" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdriving_mode_1a4523c0c6d5187fcd80cda47913d541c1" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -42,24 +43,26 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>mode torque cap [Nm] (0 = disabled) </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="88" column="10" bodyfile="Core/Inc/driving_loop.h" bodystart="88" bodyend="-1"/>
+        <location file="Core/Inc/driving_loop.h" line="118" column="14" bodyfile="Core/Inc/driving_loop.h" bodystart="118" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structdriving_mode_1a45d9f3871594d9504c5a2fe61a001c17" prot="public" static="no" mutable="no">
-        <type>uint32_t</type>
-        <definition>uint32_t drivingMode::max_current</definition>
+      <memberdef kind="variable" id="structdriving_mode_1af37f45f83cce72248391b801c8310cbf" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float drivingMode::kVal</definition>
         <argsstring></argsstring>
-        <name>max_current</name>
-        <qualifiedname>drivingMode::max_current</qualifiedname>
+        <name>kVal</name>
+        <qualifiedname>drivingMode::kVal</qualifiedname>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>mode K value for filtering </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="89" column="10" bodyfile="Core/Inc/driving_loop.h" bodystart="89" bodyend="-1"/>
+        <location file="Core/Inc/driving_loop.h" line="121" column="11" bodyfile="Core/Inc/driving_loop.h" bodystart="121" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdriving_mode_1aa1bd42a95b3d00fc3ace7c78df51d2ef" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -73,7 +76,50 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="92" column="10" bodyfile="Core/Inc/driving_loop.h" bodystart="92" bodyend="-1"/>
+        <location file="Core/Inc/driving_loop.h" line="124" column="14" bodyfile="Core/Inc/driving_loop.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdriving_mode_1adc83af33d3016dc27e48cc6fb2a4c04d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t drivingMode::reserved16b</definition>
+        <argsstring></argsstring>
+        <name>reserved16b</name>
+        <qualifiedname>drivingMode::reserved16b</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/driving_loop.h" line="125" column="14" bodyfile="Core/Inc/driving_loop.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdriving_mode_1a25c791399fbb97b03178ba08e3e20e01" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t drivingMode::control_map_fn</definition>
+        <argsstring></argsstring>
+        <name>control_map_fn</name>
+        <qualifiedname>drivingMode::control_map_fn</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>which mapping mode to use </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/driving_loop.h" line="128" column="14" bodyfile="Core/Inc/driving_loop.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structdriving_mode_1aabccde211a6b92fe45e4ec33f7fe6fcb" prot="public" static="no" mutable="no">
+        <type><ref refid="structadaptive__torque__map__args" kindref="compound">adaptive_torque_map_args</ref></type>
+        <definition>adaptive_torque_map_args drivingMode::adaptive_settings</definition>
+        <argsstring></argsstring>
+        <name>adaptive_settings</name>
+        <qualifiedname>drivingMode::adaptive_settings</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/driving_loop.h" line="130" column="30" bodyfile="Core/Inc/driving_loop.h" bodystart="130" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structdriving_mode_1af6beb6da5ca338294c86b89f1b6fa4d1" prot="public" static="no" mutable="no">
         <type><ref refid="uniondriving_mode_params" kindref="compound">drivingModeParams</ref></type>
@@ -84,53 +130,69 @@
         <briefdescription>
         </briefdescription>
         <detaileddescription>
+<para>parameters for the selected map </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="94" column="19" bodyfile="Core/Inc/driving_loop.h" bodystart="94" bodyend="-1"/>
-      </memberdef>
-      <memberdef kind="variable" id="structdriving_mode_1ab4201b3227dd0ff7239f8c6060d30ed8" prot="public" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t drivingMode::control_map_fn</definition>
-        <argsstring></argsstring>
-        <name>control_map_fn</name>
-        <qualifiedname>drivingMode::control_map_fn</qualifiedname>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Inc/driving_loop.h" line="95" column="9" bodyfile="Core/Inc/driving_loop.h" bodystart="95" bodyend="-1"/>
+        <location file="Core/Inc/driving_loop.h" line="134" column="23" bodyfile="Core/Inc/driving_loop.h" bodystart="134" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para>This is where the driving mode and the <ref refid="uniondriving_mode_params" kindref="compound">drivingModeParams</ref> are at. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>adaptive_torque_map_args</label>
+        <link refid="structadaptive__torque__map__args"/>
+      </node>
       <node id="1">
         <label>drivingMode</label>
         <link refid="structdriving_mode"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>adaptive_settings</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>map_fn_params</edgelabel>
         </childnode>
       </node>
-      <node id="2">
+      <node id="3">
         <label>drivingModeParams</label>
         <link refid="uniondriving_mode_params"/>
+        <childnode refid="4" relation="usage">
+          <edgelabel>linear</edgelabel>
+        </childnode>
+        <childnode refid="5" relation="usage">
+          <edgelabel>exp</edgelabel>
+        </childnode>
+        <childnode refid="6" relation="usage">
+          <edgelabel>scurve</edgelabel>
+        </childnode>
+      </node>
+      <node id="5">
+        <label>exponential_map_args</label>
+        <link refid="structexponential__map__args"/>
+      </node>
+      <node id="4">
+        <label>linear_torque_map_args</label>
+        <link refid="structlinear__torque__map__args"/>
+      </node>
+      <node id="6">
+        <label>scurve_map_args</label>
+        <link refid="structscurve__map__args"/>
       </node>
     </collaborationgraph>
-    <location file="Core/Inc/driving_loop.h" line="85" column="1" bodyfile="Core/Inc/driving_loop.h" bodystart="85" bodyend="96"/>
+    <location file="Core/Inc/driving_loop.h" line="112" column="1" bodyfile="Core/Inc/driving_loop.h" bodystart="113" bodyend="136"/>
     <listofallmembers>
-      <member refid="structdriving_mode_1ab4201b3227dd0ff7239f8c6060d30ed8" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>control_map_fn</name></member>
+      <member refid="structdriving_mode_1aabccde211a6b92fe45e4ec33f7fe6fcb" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>adaptive_settings</name></member>
+      <member refid="structdriving_mode_1a25c791399fbb97b03178ba08e3e20e01" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>control_map_fn</name></member>
       <member refid="structdriving_mode_1afe09b8e23f97ae6d60c225a7ac8a7d9a" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>dm_name</name></member>
       <member refid="structdriving_mode_1aa1bd42a95b3d00fc3ace7c78df51d2ef" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>flags</name></member>
+      <member refid="structdriving_mode_1af37f45f83cce72248391b801c8310cbf" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>kVal</name></member>
       <member refid="structdriving_mode_1af6beb6da5ca338294c86b89f1b6fa4d1" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>map_fn_params</name></member>
       <member refid="structdriving_mode_1a6ef9f1d0875e8b329738830343254708" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>max_acc_pwr</name></member>
-      <member refid="structdriving_mode_1a45d9f3871594d9504c5a2fe61a001c17" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>max_current</name></member>
       <member refid="structdriving_mode_1a4523c0c6d5187fcd80cda47913d541c1" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>max_motor_torque</name></member>
+      <member refid="structdriving_mode_1adc83af33d3016dc27e48cc6fb2a4c04d" prot="public" virt="non-virtual"><scope>drivingMode</scope><name>reserved16b</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

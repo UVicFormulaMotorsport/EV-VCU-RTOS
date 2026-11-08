@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['map_5fmode_0',['map_mode',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800',1,'driving_loop.h']]],
+  ['motor_5fcontroller_5fcurrent_5fctrl_5fregs_0',['motor_controller_current_ctrl_regs',['../motor__controller_8h.html#adc3f2cd272f5e84167138e04d3abed2b',1,'motor_controller.h']]],
   ['motor_5fcontroller_5fcurrent_5fparameters_1',['motor_controller_current_parameters',['../motor__controller_8h.html#aefe525453e2d5fb5ff19de9f98247c7c',1,'motor_controller.h']]],
   ['motor_5fcontroller_5fio_2',['motor_controller_io',['../motor__controller_8h.html#a1592f0c8dbd9d1c5d8304671b518a863',1,'motor_controller.h']]],
   ['motor_5fcontroller_5flimp_5fmode_3',['motor_controller_limp_mode',['../motor__controller_8h.html#a0d9dfc4722aad3781f3bfda8afb41554',1,'motor_controller.h']]],

@@ -1,32 +1,41 @@
 \doxysection{Core/\+Src/motor\+\_\+controller.c File Reference}
 \hypertarget{motor__controller_8c}{}\label{motor__controller_8c}\index{Core/Src/motor\_controller.c@{Core/Src/motor\_controller.c}}
-{\ttfamily \#include "{}motor\+\_\+controller.\+h"{}}\newline
-{\ttfamily \#include "{}can.\+h"{}}\newline
-{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
-{\ttfamily \#include $<$stdlib.\+h$>$}\newline
 {\ttfamily \#include $<$string.\+h$>$}\newline
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+settings.\+h"{}}\newline
-{\ttfamily \#include "{}cmsis\+\_\+os.\+h"{}}\newline
+{\ttfamily \#include "{}daq.\+h"{}}\newline
 Include dependency graph for motor\+\_\+controller.\+c\+:
 % FIG 0
 \doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{motor__controller_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+}}~"{}motor\+\_\+controller.\+c"{}
 \item 
 \#define \mbox{\hyperlink{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}{mc\+\_\+settings}}~(\mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\+\_\+vehicle\+\_\+settings}}-\/$>$mc\+\_\+settings)
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \mbox{\hyperlink{motor__controller_8c_acb64b1ded1f551ad90fb5a1d3f63e9d1}{lookup\+Motor\+Temp}} (int16\+\_\+t raw\+\_\+motor\+\_\+temp, int16\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\begin{DoxyCompactList}\small\item\em Approximate KTY81 motor temperature lookup from Bamocar raw value. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__controller_8c_acb36db240cda93e275420a88ac0165be}{lookup\+Igbt\+Temp}} (int16\+\_\+t T\+\_\+deg, int16\+\_\+t \texorpdfstring{$\ast$}{*}result)
+\begin{DoxyCompactList}\small\item\em Non-\/linear lookup for IGBT Temp Citation\+: "{}\+Bamocar D3 Manual"{}, Section 6.\+2 Power Stages. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{motor__controller_8c_a8077f10c4f50545bbd309f1e1fe6122f}{print\+\_\+fixed\+\_\+d}} (const char \texorpdfstring{$\ast$}{*}label, int32\+\_\+t value, int decimals, const char \texorpdfstring{$\ast$}{*}unit)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{motor__controller_8c_a39a58bfeb1be8a415905bdb2c4dc3ead}{MC\+\_\+\+Set\+Current\+Control\+Params}} (uint16\+\_\+t kp, uint16\+\_\+t ti, uint16\+\_\+t tim, uint16\+\_\+t xkp2, uint16\+\_\+t kf, uint16\+\_\+t ramp)
+\begin{DoxyCompactList}\small\item\em Configure the Bamocar current controller (PI + feedforward + ramp). \end{DoxyCompactList}\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{motor__controller_8c_acdaf84450220e4bc8014a808554d7532}{MC\+\_\+\+Set\+Derating\+Params}} (uint16\+\_\+t imax\+\_\+pk, uint16\+\_\+t icon\+\_\+eff, uint16\+\_\+t tpeak2, uint16\+\_\+t ilim\+\_\+dig, uint16\+\_\+t ired\+\_\+n, uint16\+\_\+t ired\+\_\+td, uint16\+\_\+t ired\+\_\+te, uint16\+\_\+t ired\+\_\+tm)
+\begin{DoxyCompactList}\small\item\em Configure current limits and thermal derating behavior. \end{DoxyCompactList}\item 
 uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_ae71f2a8631fd64b7d7ce321470d4fab0}{send\+Torque\+To\+Motor\+Controller}} (float T\+\_\+filtered)
-\begin{DoxyCompactList}\small\item\em Sends a filtered torque command to the motor controller over CAN. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Send torque request to Bamocar using M\+\_\+set (Iq) current control. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}{MC\+\_\+\+Request\+\_\+\+Data}} (uint8\+\_\+t Reg\+ID)
 \begin{DoxyCompactList}\small\item\em Sends a CAN request to retrieve a specific register from the motor controller. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\+\_\+\+Set\+\_\+\+Param}} (uint8\+\_\+t Reg\+ID, uint16\+\_\+t d)
-\begin{DoxyCompactList}\small\item\em Sends a parameter write command to the motor controller. \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Awaits a specific parameter from the motor controller. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{motor__controller_8c_af42bb7e058463e8db7e230378f98741c}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param}} (uint8\+\_\+t reg\+\_\+id, uint16\+\_\+t set\+\_\+val)
 \begin{DoxyCompactList}\small\item\em Writes a value to a motor controller register and verifies the write. \end{DoxyCompactList}\item 
-void \mbox{\hyperlink{motor__controller_8c_a98ef1edcc51198faf53767e8d92ce4c9}{Parse\+\_\+\+Bamocar\+\_\+\+Response}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+void \mbox{\hyperlink{motor__controller_8c_a38056b13ca28a1fb5386ca43773d53d8}{MC\+\_\+set\+Error\+Mask}} (uint16\+\_\+t new\+\_\+mask)
 \begin{DoxyCompactList}\small\item\em Parses a 32-\/bit value from a CAN message in little-\/endian format. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{motor__controller_8c_aaff68bb563bf4ad56841a5a5020cbadc}{Process\+Motor\+Controller\+Response}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
 \begin{DoxyCompactList}\small\item\em Processes a CAN response from the motor controller. \end{DoxyCompactList}\item 
@@ -41,11 +50,7 @@ void \mbox{\hyperlink{motor__controller_8c_ad5f29647a349035990d49fe100bb740b}{MC
 \item 
 \mbox{\hyperlink{structuv__vehicle__settings}{uv\+\_\+vehicle\+\_\+settings}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{motor__controller_8c_a03566822d1b8893362970a459bd67daf}{current\+\_\+vehicle\+\_\+settings}}
 \item 
-Queue\+Handle\+\_\+t \mbox{\hyperlink{motor__controller_8c_aeb37f26e053d2887099e01f7fcfb62d5}{CAN\+\_\+\+Rx\+\_\+\+Queue}}
-\item 
 \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \mbox{\hyperlink{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}{last\+\_\+mc\+\_\+response}}
-\item 
-Tick\+Type\+\_\+t \mbox{\hyperlink{motor__controller_8c_a01068b62ae077af823a3ff2339589a5a}{last\+\_\+driver\+\_\+input\+\_\+time}} = 0
 \item 
 int16\+\_\+t \mbox{\hyperlink{motor__controller_8c_ab2f9a165135f6377e587c0a1e196c18e}{mc\+\_\+speed\+\_\+rpm}} = 0
 \item 
@@ -57,11 +62,35 @@ int16\+\_\+t \mbox{\hyperlink{motor__controller_8c_addd0636fe19f64a68688fb4c64eb
 \item 
 int16\+\_\+t \mbox{\hyperlink{motor__controller_8c_a1edd8dace1c45eaa85bb105f903248de}{mc\+\_\+igbt\+\_\+temp}} = 0
 \item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_ad1e06b500c68db2e04f557ff009ef627}{mc\+\_\+errors}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_a8353a2b8a8a2c85ca7c1523bd48abd91}{mc\+\_\+error\+\_\+mask}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_a176693ad5a590b0394af6c5d1bf05f6d}{mc\+\_\+warning\+\_\+mask}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_a8dceda6e37b13dbf8cb2f3bb98d6bf74}{mc\+\_\+rpm}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_ab8cd40e10ec520a95addf8b86f7b8c11}{mc\+\_\+torque\+\_\+request}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_afc704dec23dbb8b349217945d7f65c10}{mc\+\_\+temps}} = 0
+\item 
+uint16\+\_\+t \mbox{\hyperlink{motor__controller_8c_ac8fee87fbbcba282e1a2dbe3baca543e}{mc\+\_\+err}} = 0
+\item 
 \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} \mbox{\hyperlink{motor__controller_8c_afb41a96439ba6d63dcc64f257c43a1d2}{mc\+\_\+default\+\_\+settings}}
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
+\Hypertarget{motor__controller_8c_a368892c5fb38bdcdfae7b7e2a22602b4}\index{motor\_controller.c@{motor\_controller.c}!\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}}
+\index{\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{\_\_UV\_FILENAME\_\_}{\_\_UV\_FILENAME\_\_}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a368892c5fb38bdcdfae7b7e2a22602b4} 
+\#define \+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+~"{}motor\+\_\+controller.\+c"{}}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00003}{3}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
 \Hypertarget{motor__controller_8c_a439694589c8c785c64cf6717387e8ed6}\index{motor\_controller.c@{motor\_controller.c}!mc\_settings@{mc\_settings}}
 \index{mc\_settings@{mc\_settings}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{mc\_settings}{mc\_settings}}
@@ -70,15 +99,66 @@ int16\+\_\+t \mbox{\hyperlink{motor__controller_8c_a1edd8dace1c45eaa85bb105f9032
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00016}{16}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00032}{32}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00407}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00110}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00141}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00069}{send\+Torque\+To\+Motor\+Controller()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00832}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00319}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00240}{send\+Torque\+To\+Motor\+Controller()}}.
 
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{motor__controller_8c_acb36db240cda93e275420a88ac0165be}\index{motor\_controller.c@{motor\_controller.c}!lookupIgbtTemp@{lookupIgbtTemp}}
+\index{lookupIgbtTemp@{lookupIgbtTemp}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{lookupIgbtTemp()}{lookupIgbtTemp()}}
+{\footnotesize\ttfamily \label{motor__controller_8c_acb36db240cda93e275420a88ac0165be} 
+void lookup\+Igbt\+Temp (\begin{DoxyParamCaption}\item[{int16\+\_\+t}]{T\+\_\+deg}{, }\item[{int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+
+
+Non-\/linear lookup for IGBT Temp Citation\+: "{}\+Bamocar D3 Manual"{}, Section 6.\+2 Power Stages. 
+
+IGBT (POWER STAGE) TEMPERATURE -\/ VOID VERSION 
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00795}{795}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}.
+
+\Hypertarget{motor__controller_8c_acb64b1ded1f551ad90fb5a1d3f63e9d1}\index{motor\_controller.c@{motor\_controller.c}!lookupMotorTemp@{lookupMotorTemp}}
+\index{lookupMotorTemp@{lookupMotorTemp}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{lookupMotorTemp()}{lookupMotorTemp()}}
+{\footnotesize\ttfamily \label{motor__controller_8c_acb64b1ded1f551ad90fb5a1d3f63e9d1} 
+void lookup\+Motor\+Temp (\begin{DoxyParamCaption}\item[{int16\+\_\+t}]{raw\+\_\+motor\+\_\+temp}{, }\item[{int16\+\_\+t \texorpdfstring{$\ast$}{*}}]{result}{}\end{DoxyParamCaption})}
+
+
+
+Approximate KTY81 motor temperature lookup from Bamocar raw value. 
+
+Converts the raw Bamocar motor temperature register value into an approximate human-\/readable temperature in °C using a lookup table derived from the KTY81 graph.
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw\+\_\+motor\+\_\+temp} & Raw motor temperature register value from Bamocar. \\
+\hline
+{\em result} & Pointer to output temperature in °C. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00696}{696}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00029}{LUT\+\_\+\+CAP\+\_\+\+AT\+\_\+\+MAX\+\_\+\+MIN}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00033}{LUT\+\_\+\+LINTERP}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}.
+
+Here is the call graph for this function\+:
+% FIG 1
 \Hypertarget{motor__controller_8c_aeaf0ac96c53381d0e43d5d7944923d86}\index{motor\_controller.c@{motor\_controller.c}!MC\_EnableCyclicSpeedTransmission@{MC\_EnableCyclicSpeedTransmission}}
 \index{MC\_EnableCyclicSpeedTransmission@{MC\_EnableCyclicSpeedTransmission}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{MC\_EnableCyclicSpeedTransmission()}{MC\_EnableCyclicSpeedTransmission()}}
@@ -100,18 +180,18 @@ The message format is\+: \mbox{[}0x3D, Reg\+ID, interval\+\_\+ms\mbox{]} Where i
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00407}{407}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00832}{832}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{motor__controller_8h_source_l00046}{CURRENT\+\_\+\+ACTUAL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8h_source_l00074}{igbt\+\_\+temperature}}, \mbox{\hyperlink{motor__controller_8h_source_l00038}{LOGIMAP\+\_\+\+ERRORS}}, \mbox{\hyperlink{motor__controller_8h_source_l00033}{M\+\_\+out}}, \mbox{\hyperlink{motor__controller_8h_source_l00076}{max\+\_\+motor\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00016}{mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8h_source_l00078}{motor\+\_\+temperature}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{motor__controller_8h_source_l00027}{N\+\_\+actual}}, \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}, and \mbox{\hyperlink{motor__controller_8h_source_l00077}{warning\+\_\+motor\+\_\+temp}}.
+References \mbox{\hyperlink{motor__controller_8h_source_l00071}{CURRENT\+\_\+\+ACTUAL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00316}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8h_source_l00099}{igbt\+\_\+temperature}}, \mbox{\hyperlink{motor__controller_8h_source_l00057}{M\+\_\+out}}, \mbox{\hyperlink{motor__controller_8h_source_l00101}{max\+\_\+motor\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00032}{mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8h_source_l00120}{motor\+\_\+controller\+\_\+errors\+\_\+warnings}}, \mbox{\hyperlink{motor__controller_8h_source_l00103}{motor\+\_\+temperature}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00321}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{motor__controller_8h_source_l00052}{N\+\_\+actual}}, \mbox{\hyperlink{can_8c_source_l00920}{uv\+Send\+Can\+MSG()}}, and \mbox{\hyperlink{motor__controller_8h_source_l00102}{warning\+\_\+motor\+\_\+temp}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00548}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00998}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}.
 
 Here is the call graph for this function\+:
-% FIG 1
+% FIG 2
 \Hypertarget{motor__controller_8c_af6b3a4911f1bdac54d84b4dcc7b7ec4a}\index{motor\_controller.c@{motor\_controller.c}!MC\_Request\_Data@{MC\_Request\_Data}}
 \index{MC\_Request\_Data@{MC\_Request\_Data}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{MC\_Request\_Data()}{MC\_Request\_Data()}}
@@ -124,18 +204,18 @@ Sends a CAN request to retrieve a specific register from the motor controller.
 
 The request message is formatted as\+: \mbox{[}0x3D, Reg\+ID, 0\mbox{]}, which should trigger an immediate reply. 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00110}{110}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00319}{319}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8c_source_l00016}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00316}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8c_source_l00032}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00321}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00920}{uv\+Send\+Can\+MSG()}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00175}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00548}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00395}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00998}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}.
 
 Here is the call graph for this function\+:
-% FIG 2
+% FIG 3
 \Hypertarget{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}\index{motor\_controller.c@{motor\_controller.c}!MC\_Set\_Param@{MC\_Set\_Param}}
 \index{MC\_Set\_Param@{MC\_Set\_Param}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{MC\_Set\_Param()}{MC\_Set\_Param()}}
@@ -144,7 +224,11 @@ Here is the call graph for this function\+:
 
 
 
-Sends a parameter write command to the motor controller. 
+Awaits a specific parameter from the motor controller. 
+
+Returns UV\+\_\+\+OK if it receives one, returns UV\+\_\+\+ABORTED if timeout, returns UV\+\_\+\+ERROR if something goes catastrophically wrong.
+
+Sends a parameter write command to the motor controller.
 
 Constructs a 3-\/byte CAN message to set the value of a specific register on the motor controller. The message format is\+: \mbox{[}Reg\+ID, LSB(data), MSB(data), 0x00\mbox{]}
 
@@ -162,18 +246,18 @@ UV\+\_\+\+OK on success, UV\+\_\+\+ERROR if the CAN transmission fails.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00141}{141}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00360}{360}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8c_source_l00016}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00316}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8c_source_l00032}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00321}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00920}{uv\+Send\+Can\+MSG()}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00175}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00548}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00395}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00150}{MC\+\_\+\+Set\+Current\+Control\+Params()}}, \mbox{\hyperlink{motor__controller_8c_source_l00202}{MC\+\_\+\+Set\+Derating\+Params()}}, \mbox{\hyperlink{motor__controller_8c_source_l00998}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}.
 
 Here is the call graph for this function\+:
-% FIG 3
+% FIG 4
 \Hypertarget{motor__controller_8c_af42bb7e058463e8db7e230378f98741c}\index{motor\_controller.c@{motor\_controller.c}!MC\_SetAndVerify\_Param@{MC\_SetAndVerify\_Param}}
 \index{MC\_SetAndVerify\_Param@{MC\_SetAndVerify\_Param}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{MC\_SetAndVerify\_Param()}{MC\_SetAndVerify\_Param()}}
@@ -200,14 +284,131 @@ UV\+\_\+\+OK if the write and verification succeeded, otherwise UV\+\_\+\+ERROR.
 \end{DoxyReturn}
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00175}{175}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00395}{395}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{motor__controller_8c_source_l00022}{last\+\_\+mc\+\_\+response}}, \mbox{\hyperlink{motor__controller_8c_source_l00110}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00141}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{motor__controller_8c_source_l00038}{last\+\_\+mc\+\_\+response}}, \mbox{\hyperlink{motor__controller_8c_source_l00319}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
 
 Here is the call graph for this function\+:
-% FIG 4
+% FIG 5
+\Hypertarget{motor__controller_8c_a39a58bfeb1be8a415905bdb2c4dc3ead}\index{motor\_controller.c@{motor\_controller.c}!MC\_SetCurrentControlParams@{MC\_SetCurrentControlParams}}
+\index{MC\_SetCurrentControlParams@{MC\_SetCurrentControlParams}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{MC\_SetCurrentControlParams()}{MC\_SetCurrentControlParams()}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a39a58bfeb1be8a415905bdb2c4dc3ead} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} MC\+\_\+\+Set\+Current\+Control\+Params (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{kp}{, }\item[{uint16\+\_\+t}]{ti}{, }\item[{uint16\+\_\+t}]{tim}{, }\item[{uint16\+\_\+t}]{xkp2}{, }\item[{uint16\+\_\+t}]{kf}{, }\item[{uint16\+\_\+t}]{ramp}{}\end{DoxyParamCaption})}
+
+
+
+Configure the Bamocar current controller (PI + feedforward + ramp). 
+
+This function sets all primary current control tuning parameters used by the Bamocar inverter. These parameters define the closed-\/loop behavior of the motor current controller and directly affect torque response, stability, and transient behavior.
+
+Intended use\+:
+\begin{DoxyItemize}
+\item Called during initialization with conservative defaults, OR
+\item Called at runtime from a desktop tuning application over CAN
+\end{DoxyItemize}
+
+Parameters (see Unitek documentation – Current Control)\+:
+\begin{DoxyItemize}
+\item kp \+: Proportional gain (MC\+\_\+\+REG\+\_\+\+KP)
+\item ti \+: Integral time constant \mbox{[}ms\mbox{]} (MC\+\_\+\+REG\+\_\+\+TI)
+\item tim \+: Max integral memory \mbox{[}\%\mbox{]} (MC\+\_\+\+REG\+\_\+\+TIM)
+\item xkp2 \+: Gain multiplier at high current \mbox{[}\%\mbox{]} (MC\+\_\+\+REG\+\_\+\+XKP2)
+\item kf \+: Current feedforward gain (MC\+\_\+\+REG\+\_\+\+KF)
+\item ramp \+: Current ramp rate \mbox{[}µs\mbox{]} (MC\+\_\+\+REG\+\_\+\+RAMP)
+\end{DoxyItemize}
+
+All values are written directly to the inverter registers using \doxylink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\+\_\+\+Set\+\_\+\+Param()}. No scaling is performed here — the caller is responsible for providing values in the exact units and ranges expected by the Bamocar.
+
+\begin{DoxyReturn}{Returns}
+UV\+\_\+\+OK if all parameters are written successfully, UV\+\_\+\+ERROR if any register write fails.
+\end{DoxyReturn}
+Safety note\+: This function does NOT enable the motor or apply torque. It only updates controller parameters and is safe to call while the motor is disabled. 
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00150}{150}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+References \mbox{\hyperlink{motor__controller_8h_source_l00034}{MC\+\_\+\+REG\+\_\+\+KF}}, \mbox{\hyperlink{motor__controller_8h_source_l00029}{MC\+\_\+\+REG\+\_\+\+KP}}, \mbox{\hyperlink{motor__controller_8h_source_l00035}{MC\+\_\+\+REG\+\_\+\+RAMP}}, \mbox{\hyperlink{motor__controller_8h_source_l00030}{MC\+\_\+\+REG\+\_\+\+TI}}, \mbox{\hyperlink{motor__controller_8h_source_l00031}{MC\+\_\+\+REG\+\_\+\+TIM}}, \mbox{\hyperlink{motor__controller_8h_source_l00033}{MC\+\_\+\+REG\+\_\+\+XKP2}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
+
+Here is the call graph for this function\+:
+% FIG 6
+\Hypertarget{motor__controller_8c_acdaf84450220e4bc8014a808554d7532}\index{motor\_controller.c@{motor\_controller.c}!MC\_SetDeratingParams@{MC\_SetDeratingParams}}
+\index{MC\_SetDeratingParams@{MC\_SetDeratingParams}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{MC\_SetDeratingParams()}{MC\_SetDeratingParams()}}
+{\footnotesize\ttfamily \label{motor__controller_8c_acdaf84450220e4bc8014a808554d7532} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} MC\+\_\+\+Set\+Derating\+Params (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{imax\+\_\+pk}{, }\item[{uint16\+\_\+t}]{icon\+\_\+eff}{, }\item[{uint16\+\_\+t}]{tpeak2}{, }\item[{uint16\+\_\+t}]{ilim\+\_\+dig}{, }\item[{uint16\+\_\+t}]{ired\+\_\+n}{, }\item[{uint16\+\_\+t}]{ired\+\_\+td}{, }\item[{uint16\+\_\+t}]{ired\+\_\+te}{, }\item[{uint16\+\_\+t}]{ired\+\_\+tm}{}\end{DoxyParamCaption})}
+
+
+
+Configure current limits and thermal derating behavior. 
+
+This function sets all current limit and derating parameters that protect the motor, inverter, and wiring from overcurrent and overheating.
+
+These parameters define\+:
+\begin{DoxyItemize}
+\item Peak vs continuous current limits
+\item Allowed duration of overcurrent events
+\item Automatic current reduction based on speed, motor temperature, and inverter temperature
+\end{DoxyItemize}
+
+Intended use\+:
+\begin{DoxyItemize}
+\item Set once during startup based on hardware limits, OR
+\item Tuned via a desktop application during validation and testing
+\end{DoxyItemize}
+
+Parameters (see Unitek documentation – Current Derating)\+:
+\begin{DoxyItemize}
+\item imax\+\_\+pk \+: Peak current limit \mbox{[}\% of device max\mbox{]} (MC\+\_\+\+REG\+\_\+\+IMAX\+\_\+\+PK)
+\item icon\+\_\+eff \+: Continuous current limit \mbox{[}\% of device max\mbox{]} (MC\+\_\+\+REG\+\_\+\+ICON\+\_\+\+EFF)
+\item tpeak2 \+: Max duration of peak current \mbox{[}s\mbox{]} (MC\+\_\+\+REG\+\_\+\+TPEAK2)
+\item ilim\+\_\+dig \+: Digital input-\/based current reduction \mbox{[}\%\mbox{]} (MC\+\_\+\+REG\+\_\+\+ILIM\+\_\+\+DIG)
+\item ired\+\_\+n \+: Speed-\/based current reduction \mbox{[}\%\mbox{]} (MC\+\_\+\+REG\+\_\+\+IRED\+\_\+N)
+\item ired\+\_\+td \+: Start of inverter temperature derating (MC\+\_\+\+REG\+\_\+\+IRED\+\_\+\+TD)
+\item ired\+\_\+te \+: End of inverter temperature derating (MC\+\_\+\+REG\+\_\+\+IRED\+\_\+\+TE)
+\item ired\+\_\+tm \+: Start of motor temperature derating (MC\+\_\+\+REG\+\_\+\+IRED\+\_\+\+TM)
+\end{DoxyItemize}
+
+All values are written directly to the inverter registers using \doxylink{motor__controller_8c_a37f4a694fab82b650c96c13fe4894143}{MC\+\_\+\+Set\+\_\+\+Param()}. No scaling or validation is performed here — the caller must ensure values are within safe and documented limits.
+
+\begin{DoxyReturn}{Returns}
+UV\+\_\+\+OK if all parameters are written successfully, UV\+\_\+\+ERROR if any register write fails.
+\end{DoxyReturn}
+Safety note\+: These limits are enforced internally by the inverter and act as a final layer of protection even if higher-\/level software misbehaves. 
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00202}{202}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+References \mbox{\hyperlink{motor__controller_8h_source_l00038}{MC\+\_\+\+REG\+\_\+\+ICON\+\_\+\+EFF}}, \mbox{\hyperlink{motor__controller_8h_source_l00041}{MC\+\_\+\+REG\+\_\+\+ILIM\+\_\+\+DIG}}, \mbox{\hyperlink{motor__controller_8h_source_l00037}{MC\+\_\+\+REG\+\_\+\+IMAX\+\_\+\+PK}}, \mbox{\hyperlink{motor__controller_8h_source_l00042}{MC\+\_\+\+REG\+\_\+\+IRED\+\_\+N}}, \mbox{\hyperlink{motor__controller_8h_source_l00044}{MC\+\_\+\+REG\+\_\+\+IRED\+\_\+\+TD}}, \mbox{\hyperlink{motor__controller_8h_source_l00045}{MC\+\_\+\+REG\+\_\+\+IRED\+\_\+\+TE}}, \mbox{\hyperlink{motor__controller_8h_source_l00046}{MC\+\_\+\+REG\+\_\+\+IRED\+\_\+\+TM}}, \mbox{\hyperlink{motor__controller_8h_source_l00039}{MC\+\_\+\+REG\+\_\+\+TPEAK2}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
+
+Here is the call graph for this function\+:
+% FIG 7
+\Hypertarget{motor__controller_8c_a38056b13ca28a1fb5386ca43773d53d8}\index{motor\_controller.c@{motor\_controller.c}!MC\_setErrorMask@{MC\_setErrorMask}}
+\index{MC\_setErrorMask@{MC\_setErrorMask}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{MC\_setErrorMask()}{MC\_setErrorMask()}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a38056b13ca28a1fb5386ca43773d53d8} 
+void MC\+\_\+set\+Error\+Mask (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{new\+\_\+mask}{}\end{DoxyParamCaption})}
+
+
+
+Parses a 32-\/bit value from a CAN message in little-\/endian format. 
+
+This example assumes that the data bytes are stored as\+: data\mbox{[}0\mbox{]} = LSB, data\mbox{[}3\mbox{]} = MSB. 
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00454}{454}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+References \mbox{\hyperlink{motor__controller_8c_source_l00052}{mc\+\_\+error\+\_\+mask}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00299}{uv\+De\+Energize\+Tractive\+System()}}, and \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00120}{uv\+Enable\+Traction()}}.
+
 \Hypertarget{motor__controller_8c_ad5f29647a349035990d49fe100bb740b}\index{motor\_controller.c@{motor\_controller.c}!MC\_Shutdown@{MC\_Shutdown}}
 \index{MC\_Shutdown@{MC\_Shutdown}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{MC\_Shutdown()}{MC\_Shutdown()}}
@@ -222,18 +423,18 @@ This function stops all periodic CAN feedback, zeroes the torque or speed comman
 
 It ensures the controller is left in a known, safe state after driving stops. Use this before powering down or transitioning to an inactive state. 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00548}{548}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00998}{998}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{motor__controller_8c_source_l00407}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00110}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00141}{MC\+\_\+\+Set\+\_\+\+Param()}}, and \mbox{\hyperlink{motor__controller_8h_source_l00095}{motor\+\_\+controller\+\_\+errors\+\_\+warnings}}.
+References \mbox{\hyperlink{motor__controller_8c_source_l00832}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00319}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8h_source_l00120}{motor\+\_\+controller\+\_\+errors\+\_\+warnings}}, and \mbox{\hyperlink{motor__controller_8c_source_l00240}{send\+Torque\+To\+Motor\+Controller()}}.
 
 
 
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00432}{perform\+Safety\+Checks()}}, and \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00023}{uv\+Secure\+Vehicle()}}.
+Referenced by \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00053}{uv\+Secure\+Vehicle()}}.
 
 Here is the call graph for this function\+:
-% FIG 5
+% FIG 8
 \Hypertarget{motor__controller_8c_aed1407e1e0fd59dc7c5e5d6db671f0ab}\index{motor\_controller.c@{motor\_controller.c}!MC\_Startup@{MC\_Startup}}
 \index{MC\_Startup@{MC\_Startup}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{MC\_Startup()}{MC\_Startup()}}
@@ -265,35 +466,27 @@ The routine performs the following actions\+:
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00458}{458}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00894}{894}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00369}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{motor__controller_8h_source_l00177}{FIRMWARE\+\_\+\+VERSION\+\_\+\+REGISTER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{motor__controller_8c_source_l00407}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00110}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00141}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00016}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00212}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}, \mbox{\hyperlink{motor__controller_8h_source_l00176}{SERIAL\+\_\+\+NUMBER\+\_\+\+REGISTER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00368}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{motor__controller_8h_source_l00139}{AC\+\_\+current\+\_\+offset\+\_\+fault}}, \mbox{\hyperlink{daq_8c_source_l00143}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00427}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{motor__controller_8h_source_l00251}{FIRMWARE\+\_\+\+VERSION\+\_\+\+REGISTER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00401}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00659}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{motor__controller_8h_source_l00129}{mains\+\_\+voltage\+\_\+min\+\_\+limit}}, \mbox{\hyperlink{motor__controller_8c_source_l00832}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00060}{mc\+\_\+err}}, \mbox{\hyperlink{daq_8h_source_l00050}{MC\+\_\+\+ERRORS}}, \mbox{\hyperlink{motor__controller_8c_source_l00047}{mc\+\_\+igbt\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00046}{mc\+\_\+motor\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00319}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00454}{MC\+\_\+set\+Error\+Mask()}}, \mbox{\hyperlink{motor__controller_8c_source_l00032}{mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00043}{mc\+\_\+speed\+\_\+rpm}}, \mbox{\hyperlink{daq_8h_source_l00049}{MC\+\_\+\+TEMP}}, \mbox{\hyperlink{motor__controller_8c_source_l00058}{mc\+\_\+torque\+\_\+request}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00227}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{daq_8h_source_l00043}{MOTOR\+\_\+\+RPM}}, \mbox{\hyperlink{daq_8h_source_l00044}{MOTOR\+\_\+\+TEMP}}, \mbox{\hyperlink{daq_8h_source_l00045}{MOTOR\+\_\+\+TORQUE}}, \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}, \mbox{\hyperlink{motor__controller_8h_source_l00126}{rotate\+\_\+field\+\_\+enable\+\_\+not\+\_\+present\+\_\+run}}, \mbox{\hyperlink{motor__controller_8h_source_l00250}{SERIAL\+\_\+\+NUMBER\+\_\+\+REGISTER}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00426}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00112}{uv\+Register\+External\+Device()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00358}{XDEV\+\_\+\+CHECK\+\_\+\+TIMEOUT\+\_\+\+BIT}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00357}{XDEV\+\_\+\+DEVICE\+\_\+\+EXPECTED}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 
 Here is the call graph for this function\+:
-% FIG 6
-\Hypertarget{motor__controller_8c_a98ef1edcc51198faf53767e8d92ce4c9}\index{motor\_controller.c@{motor\_controller.c}!Parse\_Bamocar\_Response@{Parse\_Bamocar\_Response}}
-\index{Parse\_Bamocar\_Response@{Parse\_Bamocar\_Response}!motor\_controller.c@{motor\_controller.c}}
-\doxysubsubsection{\texorpdfstring{Parse\_Bamocar\_Response()}{Parse\_Bamocar\_Response()}}
-{\footnotesize\ttfamily \label{motor__controller_8c_a98ef1edcc51198faf53767e8d92ce4c9} 
-void Parse\+\_\+\+Bamocar\+\_\+\+Response (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+% FIG 9
+\Hypertarget{motor__controller_8c_a8077f10c4f50545bbd309f1e1fe6122f}\index{motor\_controller.c@{motor\_controller.c}!print\_fixed\_d@{print\_fixed\_d}}
+\index{print\_fixed\_d@{print\_fixed\_d}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{print\_fixed\_d()}{print\_fixed\_d()}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a8077f10c4f50545bbd309f1e1fe6122f} 
+void print\+\_\+fixed\+\_\+d (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{label}{, }\item[{int32\+\_\+t}]{value}{, }\item[{int}]{decimals}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{unit}{}\end{DoxyParamCaption})}
 
 
 
-Parses a 32-\/bit value from a CAN message in little-\/endian format. 
-
-This example assumes that the data bytes are stored as\+: data\mbox{[}0\mbox{]} = LSB, data\mbox{[}3\mbox{]} = MSB. 
-
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00221}{221}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
-
-
-
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}.
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00088}{88}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
 
 \Hypertarget{motor__controller_8c_aaff68bb563bf4ad56841a5a5020cbadc}\index{motor\_controller.c@{motor\_controller.c}!ProcessMotorControllerResponse@{ProcessMotorControllerResponse}}
 \index{ProcessMotorControllerResponse@{ProcessMotorControllerResponse}!motor\_controller.c@{motor\_controller.c}}
@@ -318,16 +511,18 @@ The full message is also stored in a global buffer (last\+\_\+mc\+\_\+response) 
 \end{DoxyParams}
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00324}{324}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00562}{562}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-References \mbox{\hyperlink{motor__controller_8h_source_l00046}{CURRENT\+\_\+\+ACTUAL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{motor__controller_8h_source_l00074}{igbt\+\_\+temperature}}, \mbox{\hyperlink{motor__controller_8c_source_l00022}{last\+\_\+mc\+\_\+response}}, \mbox{\hyperlink{motor__controller_8h_source_l00038}{LOGIMAP\+\_\+\+ERRORS}}, \mbox{\hyperlink{motor__controller_8h_source_l00039}{LOGIMAP\+\_\+\+IO}}, \mbox{\hyperlink{motor__controller_8h_source_l00033}{M\+\_\+out}}, \mbox{\hyperlink{motor__controller_8c_source_l00028}{mc\+\_\+current}}, \mbox{\hyperlink{motor__controller_8c_source_l00031}{mc\+\_\+igbt\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00030}{mc\+\_\+motor\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00027}{mc\+\_\+speed\+\_\+rpm}}, \mbox{\hyperlink{motor__controller_8c_source_l00029}{mc\+\_\+torque\+\_\+cmd}}, \mbox{\hyperlink{motor__controller_8h_source_l00095}{motor\+\_\+controller\+\_\+errors\+\_\+warnings}}, \mbox{\hyperlink{motor__controller_8h_source_l00078}{motor\+\_\+temperature}}, \mbox{\hyperlink{motor__controller_8h_source_l00027}{N\+\_\+actual}}, and \mbox{\hyperlink{motor__controller_8h_source_l00040}{POS\+\_\+\+ACTUAL}}.
+References \mbox{\hyperlink{motor__controller_8h_source_l00071}{CURRENT\+\_\+\+ACTUAL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{external\+Device\+Rx\+Handler()}}, \mbox{\hyperlink{motor__controller_8h_source_l00099}{igbt\+\_\+temperature}}, \mbox{\hyperlink{motor__controller_8c_source_l00038}{last\+\_\+mc\+\_\+response}}, \mbox{\hyperlink{motor__controller_8h_source_l00064}{LOGIMAP\+\_\+\+IO}}, \mbox{\hyperlink{motor__controller_8c_source_l00795}{lookup\+Igbt\+Temp()}}, \mbox{\hyperlink{motor__controller_8c_source_l00696}{lookup\+Motor\+Temp()}}, \mbox{\hyperlink{motor__controller_8h_source_l00057}{M\+\_\+out}}, \mbox{\hyperlink{motor__controller_8c_source_l00044}{mc\+\_\+current}}, \mbox{\hyperlink{motor__controller_8c_source_l00047}{mc\+\_\+igbt\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00046}{mc\+\_\+motor\+\_\+temp}}, \mbox{\hyperlink{motor__controller_8c_source_l00032}{mc\+\_\+settings}}, \mbox{\hyperlink{motor__controller_8c_source_l00043}{mc\+\_\+speed\+\_\+rpm}}, \mbox{\hyperlink{motor__controller_8c_source_l00045}{mc\+\_\+torque\+\_\+cmd}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00227}{MOTOR\+\_\+\+CONTROLLER}}, \mbox{\hyperlink{motor__controller_8h_source_l00120}{motor\+\_\+controller\+\_\+errors\+\_\+warnings}}, \mbox{\hyperlink{motor__controller_8h_source_l00103}{motor\+\_\+temperature}}, \mbox{\hyperlink{motor__controller_8h_source_l00052}{N\+\_\+actual}}, and \mbox{\hyperlink{motor__controller_8h_source_l00065}{POS\+\_\+\+ACTUAL}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}.
 
+Here is the call graph for this function\+:
+% FIG 10
 \Hypertarget{motor__controller_8c_ae71f2a8631fd64b7d7ce321470d4fab0}\index{motor\_controller.c@{motor\_controller.c}!sendTorqueToMotorController@{sendTorqueToMotorController}}
 \index{sendTorqueToMotorController@{sendTorqueToMotorController}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{sendTorqueToMotorController()}{sendTorqueToMotorController()}}
@@ -336,41 +531,35 @@ uint16\+\_\+t send\+Torque\+To\+Motor\+Controller (\begin{DoxyParamCaption}\item
 
 
 
-Sends a filtered torque command to the motor controller over CAN. 
+Send torque request to Bamocar using M\+\_\+set (Iq) current control. 
 
-This function scales the input torque (in Nm) to the Bamocar\textquotesingle{}s expected format, clamps it within the valid operating range, and transmits it as a direct torque command using the N\+\_\+set register. The final 16-\/bit value is sent via CAN using the configured transmit ID.
+Input\+: T\+\_\+cmd\+\_\+nm \+: requested motor torque \mbox{[}Nm\mbox{]}
 
+Output on CAN\+: M\+\_\+set (dig) \+: digital setpoint for active current Iq Normalization\+: 32767 == I\+\_\+fullscale\+\_\+pk\+\_\+A (or “\+Imax pk” per manual)
 
-\begin{DoxyParams}{Parameters}
-{\em T\+\_\+filtered} & The final torque value in Nm after filtering (typically 0–230 Nm). \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 if successful, 1 if transmission failed. 
-\end{DoxyReturn}
+Assumptions / required settings\+: mc\+\_\+settings-\/\texorpdfstring{$>$}{>}motor\+\_\+kt\+\_\+nm\+\_\+per\+\_\+a = motor torque constant Kt \mbox{[}Nm/A\mbox{]} mc\+\_\+settings-\/\texorpdfstring{$>$}{>}i\+\_\+fullscale\+\_\+a = full-\/scale Iq current that equals 32767 \mbox{[}A\mbox{]} mc\+\_\+settings-\/\texorpdfstring{$>$}{>}max\+\_\+current = current limit in {\itshape digital} units (0..32767)
 
+Notes\+:
+\begin{DoxyItemize}
+\item This implements\+: Iq\+\_\+cmd\mbox{[}A\mbox{]} = T\+\_\+cmd\mbox{[}Nm\mbox{]} / Kt\mbox{[}Nm/A\mbox{]}
+\item Then converts\+: M\+\_\+set\mbox{[}dig\mbox{]} = (Iq\+\_\+cmd\mbox{[}A\mbox{]} / I\+\_\+fullscale\mbox{[}A\mbox{]}) \texorpdfstring{$\ast$}{*} 32767 
+\end{DoxyItemize}
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00069}{69}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
-
-
-
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00289}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00287}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00283}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8c_source_l00016}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00288}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{motor__controller_8h_source_l00028}{N\+\_\+set}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00864}{uv\+Send\+Can\+MSG()}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00240}{240}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00316}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{motor__controller_8h_source_l00054}{M\+\_\+\+Set}}, \mbox{\hyperlink{motor__controller_8c_source_l00032}{mc\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00321}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00046}{sprint\+\_\+fixed\+\_\+d()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{can_8c_source_l00920}{uv\+Send\+Can\+MSG()}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00998}{MC\+\_\+\+Shutdown()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
 
 Here is the call graph for this function\+:
-% FIG 7
+% FIG 11
 
 
 \doxysubsection{Variable Documentation}
-\Hypertarget{motor__controller_8c_aeb37f26e053d2887099e01f7fcfb62d5}\index{motor\_controller.c@{motor\_controller.c}!CAN\_Rx\_Queue@{CAN\_Rx\_Queue}}
-\index{CAN\_Rx\_Queue@{CAN\_Rx\_Queue}!motor\_controller.c@{motor\_controller.c}}
-\doxysubsubsection{\texorpdfstring{CAN\_Rx\_Queue}{CAN\_Rx\_Queue}}
-{\footnotesize\ttfamily \label{motor__controller_8c_aeb37f26e053d2887099e01f7fcfb62d5} 
-Queue\+Handle\+\_\+t CAN\+\_\+\+Rx\+\_\+\+Queue\hspace{0.3cm}{\ttfamily [extern]}}
-
 \Hypertarget{motor__controller_8c_a03566822d1b8893362970a459bd67daf}\index{motor\_controller.c@{motor\_controller.c}!current\_vehicle\_settings@{current\_vehicle\_settings}}
 \index{current\_vehicle\_settings@{current\_vehicle\_settings}!motor\_controller.c@{motor\_controller.c}}
 \doxysubsubsection{\texorpdfstring{current\_vehicle\_settings}{current\_vehicle\_settings}}
@@ -379,25 +568,11 @@ Queue\+Handle\+\_\+t CAN\+\_\+\+Rx\+\_\+\+Queue\hspace{0.3cm}{\ttfamily [extern]
 
 
 
-Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{25}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
+Definition at line \mbox{\hyperlink{uvfr__settings_8c_source_l00032}{32}} of file \mbox{\hyperlink{uvfr__settings_8c_source}{uvfr\+\_\+settings.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00294}{uv\+Load\+Settings\+From\+Flash()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
-
-\Hypertarget{motor__controller_8c_a01068b62ae077af823a3ff2339589a5a}\index{motor\_controller.c@{motor\_controller.c}!last\_driver\_input\_time@{last\_driver\_input\_time}}
-\index{last\_driver\_input\_time@{last\_driver\_input\_time}!motor\_controller.c@{motor\_controller.c}}
-\doxysubsubsection{\texorpdfstring{last\_driver\_input\_time}{last\_driver\_input\_time}}
-{\footnotesize\ttfamily \label{motor__controller_8c_a01068b62ae077af823a3ff2339589a5a} 
-Tick\+Type\+\_\+t last\+\_\+driver\+\_\+input\+\_\+time = 0}
-
-
-
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00024}{24}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00325}{setup\+Default\+Settings()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00369}{uv\+Load\+Settings\+From\+Flash()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}.
 
 \Hypertarget{motor__controller_8c_a51ae01990816c3ee2c679d67fa511f3a}\index{motor\_controller.c@{motor\_controller.c}!last\_mc\_response@{last\_mc\_response}}
 \index{last\_mc\_response@{last\_mc\_response}!motor\_controller.c@{motor\_controller.c}}
@@ -407,11 +582,11 @@ Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+L
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00022}{22}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00038}{38}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00175}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00395}{MC\+\_\+\+Set\+And\+Verify\+\_\+\+Param()}}, and \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}.
 
 \Hypertarget{motor__controller_8c_a399e00d21730a80f94ac96c6b3d9d729}\index{motor\_controller.c@{motor\_controller.c}!mc\_current@{mc\_current}}
 \index{mc\_current@{mc\_current}!motor\_controller.c@{motor\_controller.c}}
@@ -421,11 +596,11 @@ int16\+\_\+t mc\+\_\+current = 0}
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00028}{28}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00044}{44}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}.
 
 \Hypertarget{motor__controller_8c_afb41a96439ba6d63dcc64f257c43a1d2}\index{motor\_controller.c@{motor\_controller.c}!mc\_default\_settings@{mc\_default\_settings}}
 \index{mc\_default\_settings@{mc\_default\_settings}!motor\_controller.c@{motor\_controller.c}}
@@ -433,35 +608,51 @@ Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Moto
 {\footnotesize\ttfamily \label{motor__controller_8c_afb41a96439ba6d63dcc64f257c43a1d2} 
 \mbox{\hyperlink{structmotor__controller__settings}{motor\+\_\+controller\+\_\+settings}} mc\+\_\+default\+\_\+settings}
 
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{=\ \{}
-\DoxyCodeLine{\ \ \ \ .can\_id\_tx\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x201,}
-\DoxyCodeLine{\ \ \ \ .can\_id\_rx\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x181,}
-\DoxyCodeLine{\ \ \ \ .mc\_CAN\_timeout\ \ \ \ \ \ \ \ \ =\ 2,}
-\DoxyCodeLine{\ \ \ \ .proportional\_gain\ \ \ \ \ \ =\ 10,\ \ \ }
-\DoxyCodeLine{\ \ \ \ .integral\_time\_constant\ =\ 400,\ \ }
-\DoxyCodeLine{\ \ \ \ .integral\_memory\_max\ \ \ \ =\ 60,\ \ \ \ }
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ }
-\DoxyCodeLine{\ \ \ \ .max\_speed\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 12357,\ \ \ }
-\DoxyCodeLine{\ \ \ \ .max\_current\ \ \ \ \ \ \ \ \ \ \ \ =\ 13107,\ \ \ }
-\DoxyCodeLine{\ \ \ \ .cont\_current\ \ \ \ \ \ \ \ \ \ \ =\ 7864,\ \ \ \ }
-\DoxyCodeLine{\ \ \ \ .max\_torque\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 32767,\ \ \ }
-\DoxyCodeLine{\ \ \ \ .max\_motor\_temp\ \ \ \ \ \ \ \ \ =\ 32767,\ \ \ }
-\DoxyCodeLine{\ \ \ \ .warning\_motor\_temp\ \ \ \ \ =\ 32767,\ \ \ \ }
-\DoxyCodeLine{}
-\DoxyCodeLine{\ \ \ \ .mc\_bus\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{uvfr__utils_8h_a68cc2bdb140f7959b6090b771f3358a9}{CAN\_BUS\_1}}}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00038}{38}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00066}{66}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00250}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01155}{uv\+Reset\+Flash\+To\+Default()}}.
+Referenced by \mbox{\hyperlink{uvfr__settings_8c_source_l00325}{setup\+Default\+Settings()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01373}{uv\+Reset\+Flash\+To\+Default()}}.
+
+\Hypertarget{motor__controller_8c_ac8fee87fbbcba282e1a2dbe3baca543e}\index{motor\_controller.c@{motor\_controller.c}!mc\_err@{mc\_err}}
+\index{mc\_err@{mc\_err}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_err}{mc\_err}}
+{\footnotesize\ttfamily \label{motor__controller_8c_ac8fee87fbbcba282e1a2dbe3baca543e} 
+uint16\+\_\+t mc\+\_\+err = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00060}{60}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}.
+
+\Hypertarget{motor__controller_8c_a8353a2b8a8a2c85ca7c1523bd48abd91}\index{motor\_controller.c@{motor\_controller.c}!mc\_error\_mask@{mc\_error\_mask}}
+\index{mc\_error\_mask@{mc\_error\_mask}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_error\_mask}{mc\_error\_mask}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a8353a2b8a8a2c85ca7c1523bd48abd91} 
+uint16\+\_\+t mc\+\_\+error\+\_\+mask = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00052}{52}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00454}{MC\+\_\+set\+Error\+Mask()}}.
+
+\Hypertarget{motor__controller_8c_ad1e06b500c68db2e04f557ff009ef627}\index{motor\_controller.c@{motor\_controller.c}!mc\_errors@{mc\_errors}}
+\index{mc\_errors@{mc\_errors}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_errors}{mc\_errors}}
+{\footnotesize\ttfamily \label{motor__controller_8c_ad1e06b500c68db2e04f557ff009ef627} 
+uint16\+\_\+t mc\+\_\+errors = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00048}{48}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 \Hypertarget{motor__controller_8c_a1edd8dace1c45eaa85bb105f903248de}\index{motor\_controller.c@{motor\_controller.c}!mc\_igbt\_temp@{mc\_igbt\_temp}}
 \index{mc\_igbt\_temp@{mc\_igbt\_temp}!motor\_controller.c@{motor\_controller.c}}
@@ -471,11 +662,11 @@ int16\+\_\+t mc\+\_\+igbt\+\_\+temp = 0}
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00031}{31}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00047}{47}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}, and \mbox{\hyperlink{temp__monitoring_8c_source_l00123}{temp\+Monitor\+Task()}}.
 
 \Hypertarget{motor__controller_8c_addd0636fe19f64a68688fb4c64eb8d9a}\index{motor\_controller.c@{motor\_controller.c}!mc\_motor\_temp@{mc\_motor\_temp}}
 \index{mc\_motor\_temp@{mc\_motor\_temp}!motor\_controller.c@{motor\_controller.c}}
@@ -485,11 +676,21 @@ int16\+\_\+t mc\+\_\+motor\+\_\+temp = 0}
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00030}{30}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00046}{46}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}, and \mbox{\hyperlink{temp__monitoring_8c_source_l00123}{temp\+Monitor\+Task()}}.
+
+\Hypertarget{motor__controller_8c_a8dceda6e37b13dbf8cb2f3bb98d6bf74}\index{motor\_controller.c@{motor\_controller.c}!mc\_rpm@{mc\_rpm}}
+\index{mc\_rpm@{mc\_rpm}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_rpm}{mc\_rpm}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a8dceda6e37b13dbf8cb2f3bb98d6bf74} 
+uint16\+\_\+t mc\+\_\+rpm = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00057}{57}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 \Hypertarget{motor__controller_8c_ab2f9a165135f6377e587c0a1e196c18e}\index{motor\_controller.c@{motor\_controller.c}!mc\_speed\_rpm@{mc\_speed\_rpm}}
 \index{mc\_speed\_rpm@{mc\_speed\_rpm}!motor\_controller.c@{motor\_controller.c}}
@@ -499,11 +700,21 @@ int16\+\_\+t mc\+\_\+speed\+\_\+rpm = 0}
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00027}{27}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00043}{43}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}.
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00374}{init\+Driving\+Loop()}}, \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
+
+\Hypertarget{motor__controller_8c_afc704dec23dbb8b349217945d7f65c10}\index{motor\_controller.c@{motor\_controller.c}!mc\_temps@{mc\_temps}}
+\index{mc\_temps@{mc\_temps}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_temps}{mc\_temps}}
+{\footnotesize\ttfamily \label{motor__controller_8c_afc704dec23dbb8b349217945d7f65c10} 
+uint16\+\_\+t mc\+\_\+temps = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00059}{59}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 \Hypertarget{motor__controller_8c_adfaaabb45aef6c2b8bf7fb35a5d3d37a}\index{motor\_controller.c@{motor\_controller.c}!mc\_torque\_cmd@{mc\_torque\_cmd}}
 \index{mc\_torque\_cmd@{mc\_torque\_cmd}!motor\_controller.c@{motor\_controller.c}}
@@ -513,9 +724,33 @@ int16\+\_\+t mc\+\_\+torque\+\_\+cmd = 0}
 
 
 
-Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00029}{29}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00045}{45}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00324}{Process\+Motor\+Controller\+Response()}}.
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}.
+
+\Hypertarget{motor__controller_8c_ab8cd40e10ec520a95addf8b86f7b8c11}\index{motor\_controller.c@{motor\_controller.c}!mc\_torque\_request@{mc\_torque\_request}}
+\index{mc\_torque\_request@{mc\_torque\_request}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_torque\_request}{mc\_torque\_request}}
+{\footnotesize\ttfamily \label{motor__controller_8c_ab8cd40e10ec520a95addf8b86f7b8c11} 
+uint16\+\_\+t mc\+\_\+torque\+\_\+request = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00058}{58}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}.
+
+\Hypertarget{motor__controller_8c_a176693ad5a590b0394af6c5d1bf05f6d}\index{motor\_controller.c@{motor\_controller.c}!mc\_warning\_mask@{mc\_warning\_mask}}
+\index{mc\_warning\_mask@{mc\_warning\_mask}!motor\_controller.c@{motor\_controller.c}}
+\doxysubsubsection{\texorpdfstring{mc\_warning\_mask}{mc\_warning\_mask}}
+{\footnotesize\ttfamily \label{motor__controller_8c_a176693ad5a590b0394af6c5d1bf05f6d} 
+uint16\+\_\+t mc\+\_\+warning\+\_\+mask = 0}
+
+
+
+Definition at line \mbox{\hyperlink{motor__controller_8c_source_l00053}{53}} of file \mbox{\hyperlink{motor__controller_8c_source}{motor\+\_\+controller.\+c}}.
 

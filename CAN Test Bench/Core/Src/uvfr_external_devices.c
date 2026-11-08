@@ -31,7 +31,7 @@ typedef enum uv_status_t uv_status;
 typedef struct xdev_rx_ack_data{
 	xdev_id device_id;
 	TickType_t timestamp;
-};
+}xdev_rx_ack_data;
 
 /** @brief Initializes the XDEV registry to be in a normal state
  *
@@ -228,7 +228,7 @@ static void xdevTimeoutHandler(uint8_t xdev){
 		xSemaphoreGive(xdev_registry[xdev].xdev_mutex);
 	}
 
-	if(xdevflags_cache & XDEV_NO_PANIC_TIMEOUT){
+	if((xdevflags_cache & XDEV_NO_PANIC_TIMEOUT) == 0){ //ignore cases where it states to ignore timeout explicitely
 		//copy xdev name to emsg
 		for(int i = 0;i<8 ;i++){
 			xdevemsg[BLANK_TIMOUT_EMSG_SIZE + i] = xdev_registry[xdev].name[i];
@@ -240,7 +240,10 @@ static void xdevTimeoutHandler(uint8_t xdev){
 }
 
 /** @brief Task responsible for monitoring external devices for timeouts, and ensuring that we can poll all the random ass devices n shi
+ * @attention DO NOT UNDER ANY CIRCUMSTANCES PLACE BREAKPOINTS INSIDE THIS FUNCTION.
+ * IT. WILL. CRASH. YOUR. IDE.
  *
+ * This message is written in blood.
  */
 void xDevMon(void* args){
 	//Initialization stuff

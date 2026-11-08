@@ -18,6 +18,7 @@ var searchData=
   ['air_5ftemperature_15',['air_temperature',['../motor__controller_8h.html#af56dfdd222f09bea78ac88fdf4ecf645a5f67975cf91f5959212f095df271d9e5',1,'motor_controller.h']]],
   ['apps1_5fadc_5fval_16',['APPS1_ADC_VAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a4aa469f8ff609f64a67cb8f94bbae331',1,'daq.h']]],
   ['apps2_5fadc_5fval_17',['APPS2_ADC_VAL',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a649cfa800751dbfadfee50fbb49f8a0c',1,'daq.h']]],
-  ['auxiliary_5fvoltage_5fmin_5flimit_18',['auxiliary_voltage_min_limit',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa03e3fe1a981eecdeb19cd0589bdcc6f8',1,'motor_controller.h']]],
-  ['avg_5fcell_5ftemp_19',['AVG_CELL_TEMP',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d',1,'daq.h']]]
+  ['apps_5fpercent_18',['APPS_PERCENT',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a4062b94d8a13c384e03a3d91d51df978',1,'daq.h']]],
+  ['auxiliary_5fvoltage_5fmin_5flimit_19',['auxiliary_voltage_min_limit',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa03e3fe1a981eecdeb19cd0589bdcc6f8',1,'motor_controller.h']]],
+  ['avg_5fcell_5ftemp_20',['AVG_CELL_TEMP',['../daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ae7f3b5d1940d153a2bd99515a410059d',1,'daq.h']]]
 ];

@@ -1,5 +1,6 @@
 var uvfr__state__engine_8c =
 [
+    [ "__UV_FILENAME__", "uvfr__state__engine_8c.html#a368892c5fb38bdcdfae7b7e2a22602b4", null ],
     [ "MAX_NUM_MANAGED_TASKS", "group__state__engine.html#ga8a80fe70c2d06583bbcd00c5162860c5", null ],
     [ "UVFR_STATE_MACHINE_IMPLIMENTATION", "uvfr__state__engine_8c.html#a6cd439d1fb18334cd13cf3539aebca5c", null ],
     [ "state_change_daemon_args", "group__state__engine.html#gac9bd88d7c454ec151183930fce544c9c", null ],
@@ -20,6 +21,7 @@ var uvfr__state__engine_8c =
     [ "uvDeInitStateEngine", "group__state__engine__api.html#ga5cb739823b10b90a139315356aa6b22f", null ],
     [ "uvDeleteSVCTask", "group__state__engine__backend.html#ga02ceb2f70d4474d4734de6494aca8978", null ],
     [ "uvDeleteTask", "group__state__engine__backend.html#ga6291142ec714ce1450099943b1b8d00a", null ],
+    [ "uvGetStateString", "uvfr__state__engine_8c.html#a0ef324c9c88a50704c0604cd13da2717", null ],
     [ "uvGetTaskFromName", "group__state__engine__backend.html#ga6edf594e7dcaaa6397384eadfbe0e984", null ],
     [ "uvGetTaskFromRTOSHandle", "group__state__engine__backend.html#ga35ebd76bbdf6f6d800a0ee2f5c5b1253", null ],
     [ "uvInitStateEngine", "group__state__engine__api.html#ga5c608f3832c45eac6e2da198d4ef1ba0", null ],
@@ -53,5 +55,6 @@ var uvfr__state__engine_8c =
     [ "task_name_tree", "group__state__engine.html#gaaed35d33599a21d98d0500c5f0a1385a", null ],
     [ "task_tardiness", "group__state__engine.html#gaf622d52254e824f6da1204abc93b18db", null ],
     [ "vehicle_state", "group__state__engine.html#ga2f58cf65b3566bc390600f877f8bed35", null ],
-    [ "xHeapStats", "group__state__engine.html#gace30759073ddac097d29f042acc4142d", null ]
+    [ "xHeapStats", "group__state__engine.html#gace30759073ddac097d29f042acc4142d", null ],
+    [ "xTickCount", "group__state__engine.html#gaaa88969a9b48aea401dbb1ff2b0ef4de", null ]
 ];

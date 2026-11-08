@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['exp_5ftorque_5fmap_5fargs_0',['exp_torque_map_args',['../driving__loop_8h.html#aa86f54df15fe3c127ae83c1fecbb5d24',1,'driving_loop.h']]]
+  ['exponential_5fmap_5fargs_0',['exponential_map_args',['../driving__loop_8h.html#a10a2d2a666d6d4e4200b0bca551ee08a',1,'driving_loop.h']]]
 ];

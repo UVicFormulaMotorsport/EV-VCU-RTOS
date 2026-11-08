@@ -6,23 +6,60 @@ This file provides code for the configuration of the TIM instances.
 
 
 {\ttfamily \#include "{}tim.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
 Include dependency graph for tim.\+c\+:
 % FIG 0
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tim_8c_a95b9f8ef12889fc30235876f5099017d}{TIM\+\_\+\+IMPLEMENTATION}}
+\item 
+\#define \mbox{\hyperlink{tim_8c_ac43ab7cfe56f2be7a7dd7b44a34ab600}{NUM\+\_\+\+WHEELS}}~4
+\item 
+\#define \mbox{\hyperlink{tim_8c_afabf755bae5a6489c4a3fad9521a98b7}{WHEEL\+\_\+\+CIRCUMFERENCE\+\_\+M}}~2.\+0f
+\item 
+\#define \mbox{\hyperlink{tim_8c_a7562b7800a14c0fa1281838a7a1e0e00}{TIMER\+\_\+\+TICK\+\_\+\+US}}~1.\+0f
+\item 
+\#define \mbox{\hyperlink{tim_8c_a81cb888b0d6dad1edd6d5ff043925938}{PULSES\+\_\+\+PER\+\_\+\+REV}}~20
+\end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{tim_8c_a7912f2916786a2c33cb6fb8259ade58c}{MX\+\_\+\+TIM3\+\_\+\+Init}} (void)
+\item 
+void \mbox{\hyperlink{tim_8c_a5ee937d52485d5cda27896e3842a7ca1}{MX\+\_\+\+TIM5\+\_\+\+Init}} (void)
 \item 
 void \mbox{\hyperlink{tim_8c_a0b1802cec6c627135b6c10a1ab67f7f3}{MX\+\_\+\+TIM11\+\_\+\+Init}} (void)
 \item 
 void \mbox{\hyperlink{tim_8c_a59716af159bfbbb6023b31354fb23af8}{HAL\+\_\+\+TIM\+\_\+\+Base\+\_\+\+Msp\+Init}} (TIM\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}tim\+\_\+base\+Handle)
 \item 
 void \mbox{\hyperlink{tim_8c_adee8ed7d3ebb3a217c27ac10af86ce2f}{HAL\+\_\+\+TIM\+\_\+\+Base\+\_\+\+Msp\+De\+Init}} (TIM\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}tim\+\_\+base\+Handle)
+\item 
+void \mbox{\hyperlink{tim_8c_a1d31a8f81dd9cbec0d926fe94fba5a7f}{handle\+\_\+wheel\+\_\+interrupt}} (uint32\+\_\+t wheel\+\_\+index)
+\item 
+void \mbox{\hyperlink{tim_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}{HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback}} (uint16\+\_\+t GPIO\+\_\+\+Pin)
+\item 
+void \mbox{\hyperlink{tim_8c_ad350ec7e74fb12defe78017939b133bc}{Wheel\+Speed\+\_\+\+Update\+All}} (void)
+\item 
+void \mbox{\hyperlink{tim_8c_a6573c897f7da39fd62ea8becc9580317}{disp\+Wheel\+Speeds}} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
+volatile uint32\+\_\+t \mbox{\hyperlink{tim_8c_a8d6e3468e3c97c9363fe9f59f6883760}{last\+\_\+timestamp}} \mbox{[}$\,$\mbox{]} = \{0,0,0,0\}
+\item 
+volatile uint32\+\_\+t \mbox{\hyperlink{tim_8c_a26bca55ea0ea566ad05ac73b3b987140}{period}} \mbox{[}$\,$\mbox{]} = \{0,0,0,0\}
+\item 
+volatile float \mbox{\hyperlink{tim_8c_a2e515f9f35f6c4ce658395fc4b643d59}{wheel\+\_\+speed}} \mbox{[}$\,$\mbox{]} = \{0,0,0,0\}
+\item 
+volatile float \mbox{\hyperlink{tim_8c_a7ddc1d70b77dd3ccb1a9bcec7f61ccd2}{wheel\+\_\+rpm}} \mbox{[}$\,$\mbox{]} = \{0,0,0,0\}
+\item 
+volatile float \mbox{\hyperlink{tim_8c_a8bc832bd68ef5b82f0467018308d90e6}{frequency}} \mbox{[}$\,$\mbox{]} = \{0,0,0,0\}
+\item 
 TIM\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{tim_8c_aac3d2c59ee0e3bbae1b99529a154eb62}{htim3}}
+\item 
+TIM\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{tim_8c_acefaeaaa3856ddddae7083b2d220fe4b}{htim5}}
 \item 
 TIM\+\_\+\+Handle\+Type\+Def \mbox{\hyperlink{tim_8c_a2f22f985c4f33318fdcd4cc996623bf4}{htim11}}
 \end{DoxyCompactItemize}
@@ -42,7 +79,108 @@ Definition in file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
 
 
 
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tim_8c_ac43ab7cfe56f2be7a7dd7b44a34ab600}\index{tim.c@{tim.c}!NUM\_WHEELS@{NUM\_WHEELS}}
+\index{NUM\_WHEELS@{NUM\_WHEELS}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{NUM\_WHEELS}{NUM\_WHEELS}}
+{\footnotesize\ttfamily \label{tim_8c_ac43ab7cfe56f2be7a7dd7b44a34ab600} 
+\#define NUM\+\_\+\+WHEELS~4}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00029}{29}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_a81cb888b0d6dad1edd6d5ff043925938}\index{tim.c@{tim.c}!PULSES\_PER\_REV@{PULSES\_PER\_REV}}
+\index{PULSES\_PER\_REV@{PULSES\_PER\_REV}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{PULSES\_PER\_REV}{PULSES\_PER\_REV}}
+{\footnotesize\ttfamily \label{tim_8c_a81cb888b0d6dad1edd6d5ff043925938} 
+\#define PULSES\+\_\+\+PER\+\_\+\+REV~20}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00032}{32}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_a95b9f8ef12889fc30235876f5099017d}\index{tim.c@{tim.c}!TIM\_IMPLEMENTATION@{TIM\_IMPLEMENTATION}}
+\index{TIM\_IMPLEMENTATION@{TIM\_IMPLEMENTATION}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{TIM\_IMPLEMENTATION}{TIM\_IMPLEMENTATION}}
+{\footnotesize\ttfamily \label{tim_8c_a95b9f8ef12889fc30235876f5099017d} 
+\#define TIM\+\_\+\+IMPLEMENTATION}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00019}{19}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+\Hypertarget{tim_8c_a7562b7800a14c0fa1281838a7a1e0e00}\index{tim.c@{tim.c}!TIMER\_TICK\_US@{TIMER\_TICK\_US}}
+\index{TIMER\_TICK\_US@{TIMER\_TICK\_US}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{TIMER\_TICK\_US}{TIMER\_TICK\_US}}
+{\footnotesize\ttfamily \label{tim_8c_a7562b7800a14c0fa1281838a7a1e0e00} 
+\#define TIMER\+\_\+\+TICK\+\_\+\+US~1.\+0f}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00031}{31}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_afabf755bae5a6489c4a3fad9521a98b7}\index{tim.c@{tim.c}!WHEEL\_CIRCUMFERENCE\_M@{WHEEL\_CIRCUMFERENCE\_M}}
+\index{WHEEL\_CIRCUMFERENCE\_M@{WHEEL\_CIRCUMFERENCE\_M}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{WHEEL\_CIRCUMFERENCE\_M}{WHEEL\_CIRCUMFERENCE\_M}}
+{\footnotesize\ttfamily \label{tim_8c_afabf755bae5a6489c4a3fad9521a98b7} 
+\#define WHEEL\+\_\+\+CIRCUMFERENCE\+\_\+M~2.\+0f}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00030}{30}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+
+
 \doxysubsection{Function Documentation}
+\Hypertarget{tim_8c_a6573c897f7da39fd62ea8becc9580317}\index{tim.c@{tim.c}!dispWheelSpeeds@{dispWheelSpeeds}}
+\index{dispWheelSpeeds@{dispWheelSpeeds}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{dispWheelSpeeds()}{dispWheelSpeeds()}}
+{\footnotesize\ttfamily \label{tim_8c_a6573c897f7da39fd62ea8becc9580317} 
+void disp\+Wheel\+Speeds (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00292}{292}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00038}{frequency}}, \mbox{\hyperlink{tim_8c_source_l00035}{period}}, and \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{tim_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}\index{tim.c@{tim.c}!HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}}
+\index{HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{HAL\_GPIO\_EXTI\_Callback()}{HAL\_GPIO\_EXTI\_Callback()}}
+{\footnotesize\ttfamily \label{tim_8c_a0cd91fd3a9608559c2a87a8ba6cba55f} 
+void HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{GPIO\+\_\+\+Pin}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00249}{249}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00235}{handle\+\_\+wheel\+\_\+interrupt()}}.
+
+Here is the call graph for this function\+:
+% FIG 2
 \Hypertarget{tim_8c_adee8ed7d3ebb3a217c27ac10af86ce2f}\index{tim.c@{tim.c}!HAL\_TIM\_Base\_MspDeInit@{HAL\_TIM\_Base\_MspDeInit}}
 \index{HAL\_TIM\_Base\_MspDeInit@{HAL\_TIM\_Base\_MspDeInit}!tim.c@{tim.c}}
 \doxysubsubsection{\texorpdfstring{HAL\_TIM\_Base\_MspDeInit()}{HAL\_TIM\_Base\_MspDeInit()}}
@@ -51,7 +189,7 @@ void HAL\+\_\+\+TIM\+\_\+\+Base\+\_\+\+Msp\+De\+Init (\begin{DoxyParamCaption}\i
 
 
 
-Definition at line \mbox{\hyperlink{tim_8c_source_l00124}{124}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+Definition at line \mbox{\hyperlink{tim_8c_source_l00193}{193}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
 
 \Hypertarget{tim_8c_a59716af159bfbbb6023b31354fb23af8}\index{tim.c@{tim.c}!HAL\_TIM\_Base\_MspInit@{HAL\_TIM\_Base\_MspInit}}
 \index{HAL\_TIM\_Base\_MspInit@{HAL\_TIM\_Base\_MspInit}!tim.c@{tim.c}}
@@ -61,7 +199,25 @@ void HAL\+\_\+\+TIM\+\_\+\+Base\+\_\+\+Msp\+Init (\begin{DoxyParamCaption}\item[
 
 
 
-Definition at line \mbox{\hyperlink{tim_8c_source_l00097}{97}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+Definition at line \mbox{\hyperlink{tim_8c_source_l00155}{155}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+\Hypertarget{tim_8c_a1d31a8f81dd9cbec0d926fe94fba5a7f}\index{tim.c@{tim.c}!handle\_wheel\_interrupt@{handle\_wheel\_interrupt}}
+\index{handle\_wheel\_interrupt@{handle\_wheel\_interrupt}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{handle\_wheel\_interrupt()}{handle\_wheel\_interrupt()}}
+{\footnotesize\ttfamily \label{tim_8c_a1d31a8f81dd9cbec0d926fe94fba5a7f} 
+void handle\+\_\+wheel\+\_\+interrupt (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{wheel\+\_\+index}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00235}{235}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00043}{htim5}}, \mbox{\hyperlink{tim_8c_source_l00034}{last\+\_\+timestamp}}, and \mbox{\hyperlink{tim_8c_source_l00035}{period}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00249}{HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback()}}.
 
 \Hypertarget{tim_8c_a0b1802cec6c627135b6c10a1ab67f7f3}\index{tim.c@{tim.c}!MX\_TIM11\_Init@{MX\_TIM11\_Init}}
 \index{MX\_TIM11\_Init@{MX\_TIM11\_Init}!tim.c@{tim.c}}
@@ -71,18 +227,18 @@ void MX\+\_\+\+TIM11\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 
 
-Definition at line \mbox{\hyperlink{tim_8c_source_l00071}{71}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+Definition at line \mbox{\hyperlink{tim_8c_source_l00129}{129}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00365}{Error\+\_\+\+Handler()}}, and \mbox{\hyperlink{tim_8c_source_l00028}{htim11}}.
+References \mbox{\hyperlink{main_8c_source_l00345}{Error\+\_\+\+Handler()}}, and \mbox{\hyperlink{tim_8c_source_l00044}{htim11}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}.
 
 Here is the call graph for this function\+:
-% FIG 1
+% FIG 3
 \Hypertarget{tim_8c_a7912f2916786a2c33cb6fb8259ade58c}\index{tim.c@{tim.c}!MX\_TIM3\_Init@{MX\_TIM3\_Init}}
 \index{MX\_TIM3\_Init@{MX\_TIM3\_Init}!tim.c@{tim.c}}
 \doxysubsubsection{\texorpdfstring{MX\_TIM3\_Init()}{MX\_TIM3\_Init()}}
@@ -91,21 +247,73 @@ void MX\+\_\+\+TIM3\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{D
 
 
 
-Definition at line \mbox{\hyperlink{tim_8c_source_l00031}{31}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+Definition at line \mbox{\hyperlink{tim_8c_source_l00047}{47}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00365}{Error\+\_\+\+Handler()}}, and \mbox{\hyperlink{tim_8c_source_l00027}{htim3}}.
+References \mbox{\hyperlink{main_8c_source_l00345}{Error\+\_\+\+Handler()}}, and \mbox{\hyperlink{tim_8c_source_l00042}{htim3}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}.
 
 Here is the call graph for this function\+:
-% FIG 2
+% FIG 4
+\Hypertarget{tim_8c_a5ee937d52485d5cda27896e3842a7ca1}\index{tim.c@{tim.c}!MX\_TIM5\_Init@{MX\_TIM5\_Init}}
+\index{MX\_TIM5\_Init@{MX\_TIM5\_Init}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{MX\_TIM5\_Init()}{MX\_TIM5\_Init()}}
+{\footnotesize\ttfamily \label{tim_8c_a5ee937d52485d5cda27896e3842a7ca1} 
+void MX\+\_\+\+TIM5\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00088}{88}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+References \mbox{\hyperlink{main_8c_source_l00345}{Error\+\_\+\+Handler()}}, and \mbox{\hyperlink{tim_8c_source_l00043}{htim5}}.
+
+
+
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}.
+
+Here is the call graph for this function\+:
+% FIG 5
+\Hypertarget{tim_8c_ad350ec7e74fb12defe78017939b133bc}\index{tim.c@{tim.c}!WheelSpeed\_UpdateAll@{WheelSpeed\_UpdateAll}}
+\index{WheelSpeed\_UpdateAll@{WheelSpeed\_UpdateAll}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{WheelSpeed\_UpdateAll()}{WheelSpeed\_UpdateAll()}}
+{\footnotesize\ttfamily \label{tim_8c_ad350ec7e74fb12defe78017939b133bc} 
+void Wheel\+Speed\+\_\+\+Update\+All (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00263}{263}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+References \mbox{\hyperlink{tim_8c_source_l00038}{frequency}}, \mbox{\hyperlink{tim_8c_source_l00043}{htim5}}, \mbox{\hyperlink{tim_8c_source_l00034}{last\+\_\+timestamp}}, \mbox{\hyperlink{tim_8c_source_l00029}{NUM\+\_\+\+WHEELS}}, \mbox{\hyperlink{tim_8c_source_l00035}{period}}, \mbox{\hyperlink{tim_8c_source_l00032}{PULSES\+\_\+\+PER\+\_\+\+REV}}, \mbox{\hyperlink{tim_8c_source_l00031}{TIMER\+\_\+\+TICK\+\_\+\+US}}, \mbox{\hyperlink{tim_8c_source_l00030}{WHEEL\+\_\+\+CIRCUMFERENCE\+\_\+M}}, \mbox{\hyperlink{tim_8c_source_l00037}{wheel\+\_\+rpm}}, and \mbox{\hyperlink{tim_8c_source_l00036}{wheel\+\_\+speed}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00292}{disp\+Wheel\+Speeds()}}.
+
 
 
 \doxysubsection{Variable Documentation}
+\Hypertarget{tim_8c_a8bc832bd68ef5b82f0467018308d90e6}\index{tim.c@{tim.c}!frequency@{frequency}}
+\index{frequency@{frequency}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{frequency}{frequency}}
+{\footnotesize\ttfamily \label{tim_8c_a8bc832bd68ef5b82f0467018308d90e6} 
+volatile float frequency\mbox{[}$\,$\mbox{]} = \{0,0,0,0\}}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00038}{38}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00292}{disp\+Wheel\+Speeds()}}, and \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
 \Hypertarget{tim_8c_a2f22f985c4f33318fdcd4cc996623bf4}\index{tim.c@{tim.c}!htim11@{htim11}}
 \index{htim11@{htim11}!tim.c@{tim.c}}
 \doxysubsubsection{\texorpdfstring{htim11}{htim11}}
@@ -114,11 +322,11 @@ TIM\+\_\+\+Handle\+Type\+Def htim11}
 
 
 
-Definition at line \mbox{\hyperlink{tim_8c_source_l00028}{28}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+Definition at line \mbox{\hyperlink{tim_8c_source_l00044}{44}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{tim_8c_source_l00071}{MX\+\_\+\+TIM11\+\_\+\+Init()}}.
+Referenced by \mbox{\hyperlink{tim_8c_source_l00129}{MX\+\_\+\+TIM11\+\_\+\+Init()}}.
 
 \Hypertarget{tim_8c_aac3d2c59ee0e3bbae1b99529a154eb62}\index{tim.c@{tim.c}!htim3@{htim3}}
 \index{htim3@{htim3}!tim.c@{tim.c}}
@@ -128,9 +336,79 @@ TIM\+\_\+\+Handle\+Type\+Def htim3}
 
 
 
-Definition at line \mbox{\hyperlink{tim_8c_source_l00027}{27}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+Definition at line \mbox{\hyperlink{tim_8c_source_l00042}{42}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00341}{HAL\+\_\+\+TIM\+\_\+\+Period\+Elapsed\+Callback()}}, and \mbox{\hyperlink{tim_8c_source_l00031}{MX\+\_\+\+TIM3\+\_\+\+Init()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00321}{HAL\+\_\+\+TIM\+\_\+\+Period\+Elapsed\+Callback()}}, and \mbox{\hyperlink{tim_8c_source_l00047}{MX\+\_\+\+TIM3\+\_\+\+Init()}}.
+
+\Hypertarget{tim_8c_acefaeaaa3856ddddae7083b2d220fe4b}\index{tim.c@{tim.c}!htim5@{htim5}}
+\index{htim5@{htim5}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{htim5}{htim5}}
+{\footnotesize\ttfamily \label{tim_8c_acefaeaaa3856ddddae7083b2d220fe4b} 
+TIM\+\_\+\+Handle\+Type\+Def htim5}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00043}{43}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00463}{\+\_\+\+\_\+tic()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00467}{\+\_\+\+\_\+toc()}}, \mbox{\hyperlink{tim_8c_source_l00235}{handle\+\_\+wheel\+\_\+interrupt()}}, \mbox{\hyperlink{tim_8c_source_l00088}{MX\+\_\+\+TIM5\+\_\+\+Init()}}, and \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_a8d6e3468e3c97c9363fe9f59f6883760}\index{tim.c@{tim.c}!last\_timestamp@{last\_timestamp}}
+\index{last\_timestamp@{last\_timestamp}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{last\_timestamp}{last\_timestamp}}
+{\footnotesize\ttfamily \label{tim_8c_a8d6e3468e3c97c9363fe9f59f6883760} 
+volatile uint32\+\_\+t last\+\_\+timestamp\mbox{[}$\,$\mbox{]} = \{0,0,0,0\}}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00034}{34}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00235}{handle\+\_\+wheel\+\_\+interrupt()}}, and \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_a26bca55ea0ea566ad05ac73b3b987140}\index{tim.c@{tim.c}!period@{period}}
+\index{period@{period}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{period}{period}}
+{\footnotesize\ttfamily \label{tim_8c_a26bca55ea0ea566ad05ac73b3b987140} 
+volatile uint32\+\_\+t period\mbox{[}$\,$\mbox{]} = \{0,0,0,0\}}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00035}{35}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00292}{disp\+Wheel\+Speeds()}}, \mbox{\hyperlink{tim_8c_source_l00235}{handle\+\_\+wheel\+\_\+interrupt()}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00112}{uv\+Register\+External\+Device()}}, and \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_a7ddc1d70b77dd3ccb1a9bcec7f61ccd2}\index{tim.c@{tim.c}!wheel\_rpm@{wheel\_rpm}}
+\index{wheel\_rpm@{wheel\_rpm}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{wheel\_rpm}{wheel\_rpm}}
+{\footnotesize\ttfamily \label{tim_8c_a7ddc1d70b77dd3ccb1a9bcec7f61ccd2} 
+volatile float wheel\+\_\+rpm\mbox{[}$\,$\mbox{]} = \{0,0,0,0\}}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00037}{37}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
+
+\Hypertarget{tim_8c_a2e515f9f35f6c4ce658395fc4b643d59}\index{tim.c@{tim.c}!wheel\_speed@{wheel\_speed}}
+\index{wheel\_speed@{wheel\_speed}!tim.c@{tim.c}}
+\doxysubsubsection{\texorpdfstring{wheel\_speed}{wheel\_speed}}
+{\footnotesize\ttfamily \label{tim_8c_a2e515f9f35f6c4ce658395fc4b643d59} 
+volatile float wheel\+\_\+speed\mbox{[}$\,$\mbox{]} = \{0,0,0,0\}}
+
+
+
+Definition at line \mbox{\hyperlink{tim_8c_source_l00036}{36}} of file \mbox{\hyperlink{tim_8c_source}{tim.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{tim_8c_source_l00263}{Wheel\+Speed\+\_\+\+Update\+All()}}.
 

@@ -1,0 +1,140 @@
+\doxysection{Core/\+Inc/tms.h File Reference}
+\hypertarget{tms_8h}{}\label{tms_8h}\index{Core/Inc/tms.h@{Core/Inc/tms.h}}
+{\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for tms.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structtms__state__t}{tms\+\_\+state\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tms_8h_a7e8d6e291d86213a2644794d06153c8d}{TMS\+\_\+\+THERM\+\_\+\+DATA\+\_\+\+CAN\+\_\+\+ID}}~0x1839\+F380u
+\item 
+\#define \mbox{\hyperlink{tms_8h_a0b7d7d27b5b6d10189924220ed27aca9}{TMS\+\_\+\+CAN\+\_\+\+BUS}}~\mbox{\hyperlink{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}{CAN\+\_\+\+BUS\+\_\+2}}
+\item 
+\#define \mbox{\hyperlink{tms_8h_a02c0f5c62bdb7be910a8c48264c16fa1}{TMS\+\_\+\+NUM\+\_\+\+PACKS}}~6u
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tms_8h_adcffe6d6f50f8c5d2e87e9474007072b}{TMS\+\_\+\+Init}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Init task\+: installs the RX handler and registers the TMS with XDEVMON. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{tms_8h_af9c90cf037b8c47099adae4f37c26dd9}{TMS\+\_\+\+CANRx\+Handler}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\begin{DoxyCompactList}\small\item\em CAN RX callback for the TMS thermistor-\/data frame (0x1839\+F380). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile \mbox{\hyperlink{structtms__state__t}{tms\+\_\+state\+\_\+t}} \mbox{\hyperlink{tms_8h_a7f12bf1bf90abd5b4d59a773b75ac548}{g\+\_\+tms\+\_\+state}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{tms_8h_a0b7d7d27b5b6d10189924220ed27aca9}\index{tms.h@{tms.h}!TMS\_CAN\_BUS@{TMS\_CAN\_BUS}}
+\index{TMS\_CAN\_BUS@{TMS\_CAN\_BUS}!tms.h@{tms.h}}
+\doxysubsubsection{\texorpdfstring{TMS\_CAN\_BUS}{TMS\_CAN\_BUS}}
+{\footnotesize\ttfamily \label{tms_8h_a0b7d7d27b5b6d10189924220ed27aca9} 
+\#define TMS\+\_\+\+CAN\+\_\+\+BUS~\mbox{\hyperlink{uvfr__utils_8h_a047afdfa657d338c07ee38629d3c9b0a}{CAN\+\_\+\+BUS\+\_\+2}}}
+
+
+
+Definition at line \mbox{\hyperlink{tms_8h_source_l00037}{37}} of file \mbox{\hyperlink{tms_8h_source}{tms.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}.
+
+\Hypertarget{tms_8h_a02c0f5c62bdb7be910a8c48264c16fa1}\index{tms.h@{tms.h}!TMS\_NUM\_PACKS@{TMS\_NUM\_PACKS}}
+\index{TMS\_NUM\_PACKS@{TMS\_NUM\_PACKS}!tms.h@{tms.h}}
+\doxysubsubsection{\texorpdfstring{TMS\_NUM\_PACKS}{TMS\_NUM\_PACKS}}
+{\footnotesize\ttfamily \label{tms_8h_a02c0f5c62bdb7be910a8c48264c16fa1} 
+\#define TMS\+\_\+\+NUM\+\_\+\+PACKS~6u}
+
+
+
+Definition at line \mbox{\hyperlink{tms_8h_source_l00040}{40}} of file \mbox{\hyperlink{tms_8h_source}{tms.\+h}}.
+
+\Hypertarget{tms_8h_a7e8d6e291d86213a2644794d06153c8d}\index{tms.h@{tms.h}!TMS\_THERM\_DATA\_CAN\_ID@{TMS\_THERM\_DATA\_CAN\_ID}}
+\index{TMS\_THERM\_DATA\_CAN\_ID@{TMS\_THERM\_DATA\_CAN\_ID}!tms.h@{tms.h}}
+\doxysubsubsection{\texorpdfstring{TMS\_THERM\_DATA\_CAN\_ID}{TMS\_THERM\_DATA\_CAN\_ID}}
+{\footnotesize\ttfamily \label{tms_8h_a7e8d6e291d86213a2644794d06153c8d} 
+\#define TMS\+\_\+\+THERM\+\_\+\+DATA\+\_\+\+CAN\+\_\+\+ID~0x1839\+F380u}
+
+
+
+Definition at line \mbox{\hyperlink{tms_8h_source_l00033}{33}} of file \mbox{\hyperlink{tms_8h_source}{tms.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{tms_8h_af9c90cf037b8c47099adae4f37c26dd9}\index{tms.h@{tms.h}!TMS\_CANRxHandler@{TMS\_CANRxHandler}}
+\index{TMS\_CANRxHandler@{TMS\_CANRxHandler}!tms.h@{tms.h}}
+\doxysubsubsection{\texorpdfstring{TMS\_CANRxHandler()}{TMS\_CANRxHandler()}}
+{\footnotesize\ttfamily \label{tms_8h_af9c90cf037b8c47099adae4f37c26dd9} 
+void TMS\+\_\+\+CANRx\+Handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+CAN RX callback for the TMS thermistor-\/data frame (0x1839\+F380). 
+
+Validates the checksum, then copies the pack temperatures into g\+\_\+tms\+\_\+state. A corrupt frame is flagged and dropped so the dash keeps showing the last good reading instead of garbage. 
+
+Definition at line \mbox{\hyperlink{tms_8c_source_l00030}{30}} of file \mbox{\hyperlink{tms_8c_source}{tms.\+c}}.
+
+
+
+References \mbox{\hyperlink{tms_8h_source_l00046}{tms\+\_\+state\+\_\+t\+::avg\+\_\+c}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{external\+Device\+Rx\+Handler()}}, \mbox{\hyperlink{tms_8c_source_l00022}{g\+\_\+tms\+\_\+state}}, \mbox{\hyperlink{tms_8h_source_l00045}{tms\+\_\+state\+\_\+t\+::high\+\_\+c}}, \mbox{\hyperlink{tms_8h_source_l00048}{tms\+\_\+state\+\_\+t\+::high\+\_\+id}}, \mbox{\hyperlink{tms_8h_source_l00044}{tms\+\_\+state\+\_\+t\+::low\+\_\+c}}, \mbox{\hyperlink{tms_8h_source_l00049}{tms\+\_\+state\+\_\+t\+::low\+\_\+id}}, \mbox{\hyperlink{tms_8h_source_l00050}{tms\+\_\+state\+\_\+t\+::msg\+\_\+corrupt}}, \mbox{\hyperlink{tms_8h_source_l00047}{tms\+\_\+state\+\_\+t\+::therm\+\_\+count}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00232}{TMS}}.
+
+
+
+Referenced by \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{tms_8h_adcffe6d6f50f8c5d2e87e9474007072b}\index{tms.h@{tms.h}!TMS\_Init@{TMS\_Init}}
+\index{TMS\_Init@{TMS\_Init}!tms.h@{tms.h}}
+\doxysubsubsection{\texorpdfstring{TMS\_Init()}{TMS\_Init()}}
+{\footnotesize\ttfamily \label{tms_8h_adcffe6d6f50f8c5d2e87e9474007072b} 
+void TMS\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Init task\+: installs the RX handler and registers the TMS with XDEVMON. 
+
+Mirrors BMS\+\_\+\+Init. The TMS is a display-\/only tap, so it is registered WITHOUT XDEV\+\_\+\+DEVICE\+\_\+\+EXPECTED -- a missing TMS must never fault the vehicle or block boot. Likewise, a failed xdev registration is non-\/fatal here. 
+
+Definition at line \mbox{\hyperlink{tms_8c_source_l00064}{64}} of file \mbox{\hyperlink{tms_8c_source}{tms.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00401}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00659}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00402}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00232}{TMS}}, \mbox{\hyperlink{tms_8h_source_l00037}{TMS\+\_\+\+CAN\+\_\+\+BUS}}, \mbox{\hyperlink{tms_8c_source_l00030}{TMS\+\_\+\+CANRx\+Handler()}}, \mbox{\hyperlink{tms_8h_source_l00033}{TMS\+\_\+\+THERM\+\_\+\+DATA\+\_\+\+CAN\+\_\+\+ID}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00112}{uv\+Register\+External\+Device()}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00358}{XDEV\+\_\+\+CHECK\+\_\+\+TIMEOUT\+\_\+\+BIT}}.
+
+Here is the call graph for this function\+:
+% FIG 3
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{tms_8h_a7f12bf1bf90abd5b4d59a773b75ac548}\index{tms.h@{tms.h}!g\_tms\_state@{g\_tms\_state}}
+\index{g\_tms\_state@{g\_tms\_state}!tms.h@{tms.h}}
+\doxysubsubsection{\texorpdfstring{g\_tms\_state}{g\_tms\_state}}
+{\footnotesize\ttfamily \label{tms_8h_a7f12bf1bf90abd5b4d59a773b75ac548} 
+volatile \mbox{\hyperlink{structtms__state__t}{tms\+\_\+state\+\_\+t}} g\+\_\+tms\+\_\+state\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{tms_8c_source_l00022}{22}} of file \mbox{\hyperlink{tms_8c_source}{tms.\+c}}.
+
+
+
+Referenced by \mbox{\hyperlink{daq_8c_source_l00313}{init\+Daq\+Task()}}, and \mbox{\hyperlink{tms_8c_source_l00030}{TMS\+\_\+\+CANRx\+Handler()}}.
+

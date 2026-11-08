@@ -3,13 +3,87 @@
   <compounddef id="uniondriving_mode_params" kind="union" language="C++" prot="public">
     <compoundname>drivingModeParams</compoundname>
     <includes refid="driving__loop_8h" local="no">driving_loop.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="uniondriving_mode_params_1ac3e5f7e0e7c9c65319d0f8f672414afd" prot="public" static="no" mutable="no">
+        <type><ref refid="structlinear__torque__map__args" kindref="compound">linear_torque_map_args</ref></type>
+        <definition>linear_torque_map_args drivingModeParams::linear</definition>
+        <argsstring></argsstring>
+        <name>linear</name>
+        <qualifiedname>drivingModeParams::linear</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/driving_loop.h" line="96" column="30" bodyfile="Core/Inc/driving_loop.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniondriving_mode_params_1a43d1f5e4199fa83516d259a6bbb2def8" prot="public" static="no" mutable="no">
+        <type><ref refid="structexponential__map__args" kindref="compound">exponential_map_args</ref></type>
+        <definition>exponential_map_args drivingModeParams::exp</definition>
+        <argsstring></argsstring>
+        <name>exp</name>
+        <qualifiedname>drivingModeParams::exp</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/driving_loop.h" line="97" column="26" bodyfile="Core/Inc/driving_loop.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="uniondriving_mode_params_1ac975876a0c9f6bf7931ab042b656bb02" prot="public" static="no" mutable="no">
+        <type><ref refid="structscurve__map__args" kindref="compound">scurve_map_args</ref></type>
+        <definition>scurve_map_args drivingModeParams::scurve</definition>
+        <argsstring></argsstring>
+        <name>scurve</name>
+        <qualifiedname>drivingModeParams::scurve</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/driving_loop.h" line="98" column="21" bodyfile="Core/Inc/driving_loop.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
     <briefdescription>
-<para>this struct is designed to hold information about each drivingmode&apos;s map params </para>
+<para>Union holding whichever map params are active for a driving mode. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="Core/Inc/driving_loop.h" line="75" column="1" bodyfile="Core/Inc/driving_loop.h" bodystart="75" bodyend="79"/>
+    <collaborationgraph>
+      <node id="1">
+        <label>drivingModeParams</label>
+        <link refid="uniondriving_mode_params"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>linear</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
+          <edgelabel>exp</edgelabel>
+        </childnode>
+        <childnode refid="4" relation="usage">
+          <edgelabel>scurve</edgelabel>
+        </childnode>
+      </node>
+      <node id="3">
+        <label>exponential_map_args</label>
+        <link refid="structexponential__map__args"/>
+      </node>
+      <node id="2">
+        <label>linear_torque_map_args</label>
+        <link refid="structlinear__torque__map__args"/>
+      </node>
+      <node id="4">
+        <label>scurve_map_args</label>
+        <link refid="structscurve__map__args"/>
+      </node>
+    </collaborationgraph>
+    <location file="Core/Inc/driving_loop.h" line="94" column="1" bodyfile="Core/Inc/driving_loop.h" bodystart="95" bodyend="99"/>
     <listofallmembers>
+      <member refid="uniondriving_mode_params_1a43d1f5e4199fa83516d259a6bbb2def8" prot="public" virt="non-virtual"><scope>drivingModeParams</scope><name>exp</name></member>
+      <member refid="uniondriving_mode_params_1ac3e5f7e0e7c9c65319d0f8f672414afd" prot="public" virt="non-virtual"><scope>drivingModeParams</scope><name>linear</name></member>
+      <member refid="uniondriving_mode_params_1ac975876a0c9f6bf7931ab042b656bb02" prot="public" virt="non-virtual"><scope>drivingModeParams</scope><name>scurve</name></member>
     </listofallmembers>
   </compounddef>
 </doxygen>

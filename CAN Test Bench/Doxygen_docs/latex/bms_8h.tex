@@ -2,12 +2,15 @@
 \hypertarget{bms_8h}{}\label{bms_8h}\index{Core/Inc/bms.h@{Core/Inc/bms.h}}
 {\ttfamily \#include "{}main.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
 Include dependency graph for bms.\+h\+:
 % FIG 0
 This graph shows which files directly or indirectly include this file\+:
 % FIG 1
 \doxysubsubsection*{Data Structures}
 \begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structbms__state__t}{bms\+\_\+state\+\_\+t}}
 \item 
 struct \mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}}
 \end{DoxyCompactItemize}
@@ -19,12 +22,23 @@ struct \mbox{\hyperlink{structbms__settings__t}{bms\+\_\+settings\+\_\+t}}
 \doxysubsubsection*{Typedefs}
 \begin{DoxyCompactItemize}
 \item 
+typedef uint8\+\_\+t \mbox{\hyperlink{bms_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}}
+\begin{DoxyCompactList}\small\item\em Code to make human readable CAN messages for the device. \end{DoxyCompactList}\item 
 typedef struct bms\+\_\+settings\+\_\+t \mbox{\hyperlink{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d}{bms\+\_\+settings\+\_\+t}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{BMS\+\_\+\+Init}} (void \texorpdfstring{$\ast$}{*}args)
+\item 
+void \mbox{\hyperlink{bms_8h_a6f635739f7b278e5898f59e0e370c183}{BMS\+\_\+\+CANRx\+Handler\+\_\+msg1}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\item 
+void \mbox{\hyperlink{bms_8h_a7cbdb3a6f5bd9870c175fc6d88131465}{BMS\+\_\+\+CANRx\+Handler\+\_\+msg2}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile \mbox{\hyperlink{structbms__state__t}{bms\+\_\+state\+\_\+t}} \mbox{\hyperlink{bms_8h_acd394543f05f280e0ffead84f5380215}{g\+\_\+bms\+\_\+state}}
 \end{DoxyCompactItemize}
 
 
@@ -37,7 +51,7 @@ void \mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{BMS\+\_\+\+Init}
 
 
 
-Definition at line \mbox{\hyperlink{bms_8h_source_l00011}{11}} of file \mbox{\hyperlink{bms_8h_source}{bms.\+h}}.
+Definition at line \mbox{\hyperlink{bms_8h_source_l00014}{14}} of file \mbox{\hyperlink{bms_8h_source}{bms.\+h}}.
 
 
 
@@ -48,9 +62,63 @@ Definition at line \mbox{\hyperlink{bms_8h_source_l00011}{11}} of file \mbox{\hy
 {\footnotesize\ttfamily \label{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d} 
 typedef struct bms\+\_\+settings\+\_\+t bms\+\_\+settings\+\_\+t}
 
+\Hypertarget{bms_8h_a0ecf26b576b9a54eca656b9be7ba6a06}\index{bms.h@{bms.h}!bool@{bool}}
+\index{bool@{bool}!bms.h@{bms.h}}
+\doxysubsubsection{\texorpdfstring{bool}{bool}}
+{\footnotesize\ttfamily \label{bms_8h_a0ecf26b576b9a54eca656b9be7ba6a06} 
+typedef uint8\+\_\+t \mbox{\hyperlink{bms_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}}}
+
+
+
+Code to make human readable CAN messages for the device. 
+
+
+
+Definition at line \mbox{\hyperlink{bms_8h_source_l00013}{13}} of file \mbox{\hyperlink{bms_8h_source}{bms.\+h}}.
+
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{bms_8h_a6f635739f7b278e5898f59e0e370c183}\index{bms.h@{bms.h}!BMS\_CANRxHandler\_msg1@{BMS\_CANRxHandler\_msg1}}
+\index{BMS\_CANRxHandler\_msg1@{BMS\_CANRxHandler\_msg1}!bms.h@{bms.h}}
+\doxysubsubsection{\texorpdfstring{BMS\_CANRxHandler\_msg1()}{BMS\_CANRxHandler\_msg1()}}
+{\footnotesize\ttfamily \label{bms_8h_a6f635739f7b278e5898f59e0e370c183} 
+void BMS\+\_\+\+CANRx\+Handler\+\_\+msg1 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00077}{77}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00228}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00038}{curr\+\_\+bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{external\+Device\+Rx\+Handler()}}, \mbox{\hyperlink{bms_8c_source_l00035}{g\+\_\+bms\+\_\+state}}, \mbox{\hyperlink{bms_8h_source_l00024}{bms\+\_\+state\+\_\+t\+::msg1corrupt}}, \mbox{\hyperlink{bms_8h_source_l00020}{bms\+\_\+state\+\_\+t\+::pack\+\_\+current\+\_\+dA}}, \mbox{\hyperlink{bms_8h_source_l00021}{bms\+\_\+state\+\_\+t\+::pack\+\_\+voltage\+\_\+dV}}, \mbox{\hyperlink{bms_8h_source_l00023}{bms\+\_\+state\+\_\+t\+::relay\+State}}, and \mbox{\hyperlink{bms_8h_source_l00022}{bms\+\_\+state\+\_\+t\+::soc\+\_\+pct}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00248}{BMS\+\_\+\+Init()}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{bms_8h_a7cbdb3a6f5bd9870c175fc6d88131465}\index{bms.h@{bms.h}!BMS\_CANRxHandler\_msg2@{BMS\_CANRxHandler\_msg2}}
+\index{BMS\_CANRxHandler\_msg2@{BMS\_CANRxHandler\_msg2}!bms.h@{bms.h}}
+\doxysubsubsection{\texorpdfstring{BMS\_CANRxHandler\_msg2()}{BMS\_CANRxHandler\_msg2()}}
+{\footnotesize\ttfamily \label{bms_8h_a7cbdb3a6f5bd9870c175fc6d88131465} 
+void BMS\+\_\+\+CANRx\+Handler\+\_\+msg2 (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00150}{150}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00228}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00038}{curr\+\_\+bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{bms_8h_source_l00026}{bms\+\_\+state\+\_\+t\+::dcl\+\_\+dA}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{external\+Device\+Rx\+Handler()}}, \mbox{\hyperlink{bms_8c_source_l00035}{g\+\_\+bms\+\_\+state}}, \mbox{\hyperlink{bms_8h_source_l00028}{bms\+\_\+state\+\_\+t\+::max\+\_\+cell\+\_\+temp}}, \mbox{\hyperlink{bms_8h_source_l00027}{bms\+\_\+state\+\_\+t\+::min\+\_\+cell\+\_\+temp}}, and \mbox{\hyperlink{bms_8h_source_l00029}{bms\+\_\+state\+\_\+t\+::msg2corrupt}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00248}{BMS\+\_\+\+Init()}}.
+
+Here is the call graph for this function\+:
+% FIG 3
 \Hypertarget{bms_8h_aa9af83736568f74c94d41f3f16adf513}\index{bms.h@{bms.h}!BMS\_Init@{BMS\_Init}}
 \index{BMS\_Init@{BMS\_Init}!bms.h@{bms.h}}
 \doxysubsubsection{\texorpdfstring{BMS\_Init()}{BMS\_Init()}}
@@ -59,15 +127,28 @@ void BMS\+\_\+\+Init (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$
 
 
 
-Definition at line \mbox{\hyperlink{bms_8c_source_l00100}{100}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+Definition at line \mbox{\hyperlink{bms_8c_source_l00248}{248}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00213}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00047}{BMS\+\_\+msg1()}}, \mbox{\hyperlink{bms_8c_source_l00075}{BMS\+\_\+msg2()}}, \mbox{\hyperlink{bms_8c_source_l00012}{bms\+\_\+settings}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00652}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{bms_8c_source_l00032}{is\+\_\+bms\+\_\+connected}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00228}{BMS}}, \mbox{\hyperlink{bms_8c_source_l00077}{BMS\+\_\+\+CANRx\+Handler\+\_\+msg1()}}, \mbox{\hyperlink{bms_8c_source_l00150}{BMS\+\_\+\+CANRx\+Handler\+\_\+msg2()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00301}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00429}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00401}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00659}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00402}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00426}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 
 Here is the call graph for this function\+:
-% FIG 2
+% FIG 4
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{bms_8h_acd394543f05f280e0ffead84f5380215}\index{bms.h@{bms.h}!g\_bms\_state@{g\_bms\_state}}
+\index{g\_bms\_state@{g\_bms\_state}!bms.h@{bms.h}}
+\doxysubsubsection{\texorpdfstring{g\_bms\_state}{g\_bms\_state}}
+{\footnotesize\ttfamily \label{bms_8h_acd394543f05f280e0ffead84f5380215} 
+volatile \mbox{\hyperlink{structbms__state__t}{bms\+\_\+state\+\_\+t}} g\+\_\+bms\+\_\+state\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{bms_8c_source_l00035}{35}} of file \mbox{\hyperlink{bms_8c_source}{bms.\+c}}.
+

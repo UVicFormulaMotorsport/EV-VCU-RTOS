@@ -18,6 +18,7 @@
 {\ttfamily \#include "{}motor\+\_\+controller.\+h"{}}\newline
 {\ttfamily \#include "{}pdu.\+h"{}}\newline
 {\ttfamily \#include "{}../\+Free\+RTOS/\+Source/\+CMSIS\+\_\+\+RTOS/cmsis\+\_\+os.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
 Include dependency graph for main.\+c\+:
 % FIG 0
 \doxysubsubsection*{Macros}
@@ -37,8 +38,6 @@ void \mbox{\hyperlink{main_8c_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+
 int \mbox{\hyperlink{main_8c_a840291bc02cba5474a4cb46a9b9566fe}{main}} (void)
 \begin{DoxyCompactList}\small\item\em The application entry point. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{main_8c_af20a88180db1113be1e89266917d148b}{HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}hadc)
-\item 
-void \mbox{\hyperlink{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}{HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback}} (uint16\+\_\+t GPIO\+\_\+\+Pin)
 \item 
 void \mbox{\hyperlink{main_8c_a8cf5c59c6355fe7cf3c10816c761b9c2}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback}} (ADC\+\_\+\+Handle\+Type\+Def \texorpdfstring{$\ast$}{*}hadc)
 \item 
@@ -120,7 +119,7 @@ Definition at line \mbox{\hyperlink{main_8c_source_l00019}{19}} of file \mbox{\h
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00054}{54}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00055}{55}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 \Hypertarget{main_8c_a243a02d5ffdb9b84887eaef667137588}\index{main.c@{main.c}!MAIN\_C@{MAIN\_C}}
 \index{MAIN\_C@{MAIN\_C}!main.c@{main.c}}
@@ -152,11 +151,11 @@ This function is executed in case of error occurrence.
 \end{DoxyRetVals}
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00365}{365}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00345}{345}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00356}{HAL\+\_\+\+ADC\+\_\+\+Msp\+Init()}}, \mbox{\hyperlink{can_8c_source_l00456}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00512}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}, \mbox{\hyperlink{imd_8c_source_l00185}{IMD\+\_\+\+Request\+\_\+\+Status()}}, \mbox{\hyperlink{adc_8c_source_l00687}{init\+ADCTask()}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00181}{MX\+\_\+\+ADC2\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00282}{MX\+\_\+\+ADC3\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00156}{MX\+\_\+\+CAN1\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00232}{MX\+\_\+\+CAN2\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00071}{MX\+\_\+\+TIM11\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00031}{MX\+\_\+\+TIM3\+\_\+\+Init()}}, \mbox{\hyperlink{main_8c_source_l00236}{System\+Clock\+\_\+\+Config()}}, \mbox{\hyperlink{dash_8c_source_l00029}{Update\+\_\+\+Batt\+\_\+\+Temp()}}, \mbox{\hyperlink{dash_8c_source_l00009}{Update\+\_\+\+RPM()}}, and \mbox{\hyperlink{dash_8c_source_l00048}{Update\+\_\+\+State\+\_\+\+Of\+\_\+\+Charge()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00356}{HAL\+\_\+\+ADC\+\_\+\+Msp\+Init()}}, \mbox{\hyperlink{can_8c_source_l00463}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo0\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{can_8c_source_l00519}{HAL\+\_\+\+CAN\+\_\+\+Rx\+Fifo1\+Msg\+Pending\+Callback()}}, \mbox{\hyperlink{adc_8c_source_l00706}{init\+ADCTask()}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00181}{MX\+\_\+\+ADC2\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00282}{MX\+\_\+\+ADC3\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00163}{MX\+\_\+\+CAN1\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00239}{MX\+\_\+\+CAN2\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00129}{MX\+\_\+\+TIM11\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00047}{MX\+\_\+\+TIM3\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00088}{MX\+\_\+\+TIM5\+\_\+\+Init()}}, \mbox{\hyperlink{main_8c_source_l00224}{System\+Clock\+\_\+\+Config()}}, \mbox{\hyperlink{dash_8c_source_l00029}{Update\+\_\+\+Batt\+\_\+\+Temp()}}, \mbox{\hyperlink{dash_8c_source_l00009}{Update\+\_\+\+RPM()}}, and \mbox{\hyperlink{dash_8c_source_l00048}{Update\+\_\+\+State\+\_\+\+Of\+\_\+\+Charge()}}.
 
 \Hypertarget{main_8c_af20a88180db1113be1e89266917d148b}\index{main.c@{main.c}!HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}}
 \index{HAL\_ADC\_ConvCpltCallback@{HAL\_ADC\_ConvCpltCallback}!main.c@{main.c}}
@@ -166,11 +165,11 @@ void HAL\+\_\+\+ADC\+\_\+\+Conv\+Cplt\+Callback (\begin{DoxyParamCaption}\item[{
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00295}{295}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00282}{282}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References \mbox{\hyperlink{adc_8c_source_l00049}{hadc1}}, \mbox{\hyperlink{adc_8c_source_l00050}{hadc2}}, \mbox{\hyperlink{adc_8c_source_l00051}{hadc3}}, and \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+References \mbox{\hyperlink{adc_8c_source_l00049}{hadc1}}, \mbox{\hyperlink{adc_8c_source_l00050}{hadc2}}, \mbox{\hyperlink{adc_8c_source_l00051}{hadc3}}, and \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 Here is the call graph for this function\+:
 % FIG 1
@@ -182,21 +181,11 @@ void HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback (\begin{DoxyParamCap
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00317}{317}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00297}{297}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, and \mbox{\hyperlink{adc_8c_source_l00049}{hadc1}}.
-
-\Hypertarget{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f}\index{main.c@{main.c}!HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}}
-\index{HAL\_GPIO\_EXTI\_Callback@{HAL\_GPIO\_EXTI\_Callback}!main.c@{main.c}}
-\doxysubsubsection{\texorpdfstring{HAL\_GPIO\_EXTI\_Callback()}{HAL\_GPIO\_EXTI\_Callback()}}
-{\footnotesize\ttfamily \label{main_8c_a0cd91fd3a9608559c2a87a8ba6cba55f} 
-void HAL\+\_\+\+GPIO\+\_\+\+EXTI\+\_\+\+Callback (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{GPIO\+\_\+\+Pin}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{main_8c_source_l00308}{308}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+References \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+APPS2}}, and \mbox{\hyperlink{adc_8c_source_l00049}{hadc1}}.
 
 \Hypertarget{main_8c_a8a3b0ad512a6e6c6157440b68d395eac}\index{main.c@{main.c}!HAL\_TIM\_PeriodElapsedCallback@{HAL\_TIM\_PeriodElapsedCallback}}
 \index{HAL\_TIM\_PeriodElapsedCallback@{HAL\_TIM\_PeriodElapsedCallback}!main.c@{main.c}}
@@ -223,11 +212,11 @@ This function is called when TIM1 interrupt took place, inside HAL\+\_\+\+TIM\+\
 \end{DoxyRetVals}
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00341}{341}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00321}{321}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References \mbox{\hyperlink{tim_8c_source_l00027}{htim3}}.
+References \mbox{\hyperlink{tim_8c_source_l00042}{htim3}}.
 
 \Hypertarget{main_8c_a840291bc02cba5474a4cb46a9b9566fe}\index{main.c@{main.c}!main@{main}}
 \index{main@{main}!main.c@{main.c}}
@@ -246,11 +235,11 @@ The application entry point.
 \end{DoxyRetVals}
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00111}{111}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00112}{112}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{can_8c_source_l00076}{handle\+CANbus\+Error()}}, \mbox{\hyperlink{can_8c_source_l00153}{hcan2}}, \mbox{\hyperlink{main_8c_source_l00086}{init\+\_\+settings}}, \mbox{\hyperlink{main_8c_source_l00085}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00181}{MX\+\_\+\+ADC2\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00282}{MX\+\_\+\+ADC3\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00156}{MX\+\_\+\+CAN1\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00232}{MX\+\_\+\+CAN2\+\_\+\+Init()}}, \mbox{\hyperlink{dma_8c_source_l00039}{MX\+\_\+\+DMA\+\_\+\+Init()}}, \mbox{\hyperlink{gpio_8c_source_l00042}{MX\+\_\+\+GPIO\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00071}{MX\+\_\+\+TIM11\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00031}{MX\+\_\+\+TIM3\+\_\+\+Init()}}, \mbox{\hyperlink{main_8c_source_l00236}{System\+Clock\+\_\+\+Config()}}, \mbox{\hyperlink{system__stm32f4xx_8c_source_l00137}{System\+Core\+Clock}}, \mbox{\hyperlink{constants_8c_source_l00010}{Tx\+Data}}, \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}, \mbox{\hyperlink{constants_8c_source_l00011}{Tx\+Mailbox}}, \mbox{\hyperlink{dash_8c_source_l00009}{Update\+\_\+\+RPM()}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00024}{uv\+Assert}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+References \mbox{\hyperlink{can_8c_source_l00083}{handle\+CANbus\+Error()}}, \mbox{\hyperlink{can_8c_source_l00160}{hcan2}}, \mbox{\hyperlink{main_8c_source_l00087}{init\+\_\+settings}}, \mbox{\hyperlink{main_8c_source_l00086}{init\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{adc_8c_source_l00057}{MX\+\_\+\+ADC1\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00181}{MX\+\_\+\+ADC2\+\_\+\+Init()}}, \mbox{\hyperlink{adc_8c_source_l00282}{MX\+\_\+\+ADC3\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00163}{MX\+\_\+\+CAN1\+\_\+\+Init()}}, \mbox{\hyperlink{can_8c_source_l00239}{MX\+\_\+\+CAN2\+\_\+\+Init()}}, \mbox{\hyperlink{dma_8c_source_l00039}{MX\+\_\+\+DMA\+\_\+\+Init()}}, \mbox{\hyperlink{gpio_8c_source_l00042}{MX\+\_\+\+GPIO\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00129}{MX\+\_\+\+TIM11\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00047}{MX\+\_\+\+TIM3\+\_\+\+Init()}}, \mbox{\hyperlink{tim_8c_source_l00088}{MX\+\_\+\+TIM5\+\_\+\+Init()}}, \mbox{\hyperlink{main_8c_source_l00224}{System\+Clock\+\_\+\+Config()}}, \mbox{\hyperlink{system__stm32f4xx_8c_source_l00137}{System\+Core\+Clock}}, \mbox{\hyperlink{constants_8c_source_l00010}{Tx\+Data}}, \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}, \mbox{\hyperlink{constants_8c_source_l00011}{Tx\+Mailbox}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00024}{uv\+Assert}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 
 Here is the call graph for this function\+:
 % FIG 2
@@ -264,21 +253,26 @@ void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{}{}\end{
 
 System Clock Configuration. 
 
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
 Configure the main internal regulator output voltage
 
 Initializes the RCC Oscillators according to the specified parameters in the RCC\+\_\+\+Osc\+Init\+Type\+Def structure.
 
 Initializes the CPU, AHB and APB buses clocks
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00236}{236}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00224}{224}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00365}{Error\+\_\+\+Handler()}}.
+References \mbox{\hyperlink{main_8c_source_l00345}{Error\+\_\+\+Handler()}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}.
 
 Here is the call graph for this function\+:
 % FIG 3
@@ -293,11 +287,11 @@ uint16\+\_\+t adc1\+\_\+\+APPS1}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00067}{67}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00068}{68}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00317}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{main_8c_source_l00111}{main()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00297}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}, \mbox{\hyperlink{driving__loop_8c_source_l00374}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
 
 \Hypertarget{main_8c_a8567d6e2f5ad8bd53f71ecc2b2b0ae30}\index{main.c@{main.c}!adc1\_APPS2@{adc1\_APPS2}}
 \index{adc1\_APPS2@{adc1\_APPS2}!main.c@{main.c}}
@@ -307,11 +301,11 @@ uint16\+\_\+t adc1\+\_\+\+APPS2}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00068}{68}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00069}{69}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00317}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}, \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{main_8c_source_l00111}{main()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00297}{HAL\+\_\+\+ADC\+\_\+\+Level\+Out\+Of\+Window\+Callback()}}, \mbox{\hyperlink{driving__loop_8c_source_l00374}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
 
 \Hypertarget{main_8c_ad36d3aa4037203058df6816d56f4c186}\index{main.c@{main.c}!adc1\_BPS1@{adc1\_BPS1}}
 \index{adc1\_BPS1@{adc1\_BPS1}!main.c@{main.c}}
@@ -321,11 +315,11 @@ uint16\+\_\+t adc1\+\_\+\+BPS1}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00069}{69}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00070}{70}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00374}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, \mbox{\hyperlink{ready__to__drive_8c_source_l00067}{rtd\+Task()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
 
 \Hypertarget{main_8c_a277f7921a7a1e0fb8a6f953943dc06dc}\index{main.c@{main.c}!adc1\_BPS2@{adc1\_BPS2}}
 \index{adc1\_BPS2@{adc1\_BPS2}!main.c@{main.c}}
@@ -335,11 +329,11 @@ uint16\+\_\+t adc1\+\_\+\+BPS2}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00070}{70}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00071}{71}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}.
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00374}{init\+Driving\+Loop()}}, \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
 
 \Hypertarget{main_8c_abf17ebb52454739180f1dc73b3ecbeb4}\index{main.c@{main.c}!adc1\_pack\_curr@{adc1\_pack\_curr}}
 \index{adc1\_pack\_curr@{adc1\_pack\_curr}!main.c@{main.c}}
@@ -349,11 +343,11 @@ uint16\+\_\+t adc1\+\_\+pack\+\_\+curr}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00071}{71}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00072}{72}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_a9211365d419c877b3b4f8074ef19cb33}\index{main.c@{main.c}!adc2\_CoolantFlow@{adc2\_CoolantFlow}}
 \index{adc2\_CoolantFlow@{adc2\_CoolantFlow}!main.c@{main.c}}
@@ -363,11 +357,11 @@ uint16\+\_\+t adc2\+\_\+\+Coolant\+Flow}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00076}{76}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00077}{77}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_a5cec22e756a9564ed41db01f5cc7b7ee}\index{main.c@{main.c}!adc2\_CoolantTemp1@{adc2\_CoolantTemp1}}
 \index{adc2\_CoolantTemp1@{adc2\_CoolantTemp1}!main.c@{main.c}}
@@ -377,11 +371,11 @@ uint16\+\_\+t adc2\+\_\+\+Coolant\+Temp1}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00074}{74}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00075}{75}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_a74d7b9bf7d093dc8ac52d098e27dc4ad}\index{main.c@{main.c}!adc2\_CoolantTemp2@{adc2\_CoolantTemp2}}
 \index{adc2\_CoolantTemp2@{adc2\_CoolantTemp2}!main.c@{main.c}}
@@ -391,11 +385,11 @@ uint16\+\_\+t adc2\+\_\+\+Coolant\+Temp2}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00075}{75}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00076}{76}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_ae4e62f12be2bae57a3b44486718bbd8f}\index{main.c@{main.c}!adc2\_steering\_pos@{adc2\_steering\_pos}}
 \index{adc2\_steering\_pos@{adc2\_steering\_pos}!main.c@{main.c}}
@@ -405,11 +399,11 @@ uint16\+\_\+t adc2\+\_\+steering\+\_\+pos}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00077}{77}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00078}{78}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_ac54f887b9c45abc7af151b9daf4a99d2}\index{main.c@{main.c}!adc3\_damper\_FL@{adc3\_damper\_FL}}
 \index{adc3\_damper\_FL@{adc3\_damper\_FL}!main.c@{main.c}}
@@ -419,11 +413,11 @@ uint16\+\_\+t adc3\+\_\+damper\+\_\+\+FL}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00080}{80}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00081}{81}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_a7e91d48b1ba127b12810cab41dc74015}\index{main.c@{main.c}!adc3\_damper\_FR@{adc3\_damper\_FR}}
 \index{adc3\_damper\_FR@{adc3\_damper\_FR}!main.c@{main.c}}
@@ -433,11 +427,11 @@ uint16\+\_\+t adc3\+\_\+damper\+\_\+\+FR}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00081}{81}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00082}{82}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_a2e4a1dd465581f14d83bce70270bcbb4}\index{main.c@{main.c}!adc3\_damper\_RL@{adc3\_damper\_RL}}
 \index{adc3\_damper\_RL@{adc3\_damper\_RL}!main.c@{main.c}}
@@ -447,11 +441,11 @@ uint16\+\_\+t adc3\+\_\+damper\+\_\+\+RL}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00082}{82}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00083}{83}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_ac69ffb1724eb930386724aa5d7ce4593}\index{main.c@{main.c}!adc3\_damper\_RR@{adc3\_damper\_RR}}
 \index{adc3\_damper\_RR@{adc3\_damper\_RR}!main.c@{main.c}}
@@ -461,11 +455,11 @@ uint16\+\_\+t adc3\+\_\+damper\+\_\+\+RR}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00083}{83}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00084}{84}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}.
 
 \Hypertarget{main_8c_a817e5dcaacef6179442cda2a57010a73}\index{main.c@{main.c}!adc\_buf1@{adc\_buf1}}
 \index{adc\_buf1@{adc\_buf1}!main.c@{main.c}}
@@ -475,11 +469,11 @@ volatile uint32\+\_\+t adc\+\_\+buf1\mbox{[}5\mbox{]}}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00065}{65}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00066}{66}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
 
 \Hypertarget{main_8c_a3d4329dfd539cc7ef6393d06e8843c8b}\index{main.c@{main.c}!adc\_buf2@{adc\_buf2}}
 \index{adc\_buf2@{adc\_buf2}!main.c@{main.c}}
@@ -489,11 +483,11 @@ volatile uint32\+\_\+t adc\+\_\+buf2\mbox{[}7\mbox{]}}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00073}{73}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00074}{74}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
 
 \Hypertarget{main_8c_a00aefe44ac90f84a2fb521ad082788ab}\index{main.c@{main.c}!adc\_buf3@{adc\_buf3}}
 \index{adc\_buf3@{adc\_buf3}!main.c@{main.c}}
@@ -503,11 +497,11 @@ volatile uint32\+\_\+t adc\+\_\+buf3\mbox{[}4\mbox{]}}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00079}{79}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00080}{80}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
+Referenced by \mbox{\hyperlink{adc_8c_source_l00655}{process\+ADCBuffer()}}, and \mbox{\hyperlink{adc_8c_source_l00632}{Start\+ADCTask()}}.
 
 \Hypertarget{main_8c_a3afad2adffd2b662e26b56ede2b1ccc5}\index{main.c@{main.c}!init\_settings@{init\_settings}}
 \index{init\_settings@{init\_settings}!main.c@{main.c}}
@@ -517,11 +511,11 @@ Referenced by \mbox{\hyperlink{adc_8c_source_l00654}{process\+ADCBuffer()}}, and
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00086}{86}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00087}{87}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}.
 
 \Hypertarget{main_8c_a142da7a698285a444ffffb0d1d791023}\index{main.c@{main.c}!init\_task\_handle@{init\_task\_handle}}
 \index{init\_task\_handle@{init\_task\_handle}!main.c@{main.c}}
@@ -531,9 +525,9 @@ Task\+Handle\+\_\+t init\+\_\+task\+\_\+handle}
 
 
 
-Definition at line \mbox{\hyperlink{main_8c_source_l00085}{85}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
+Definition at line \mbox{\hyperlink{main_8c_source_l00086}{86}} of file \mbox{\hyperlink{main_8c_source}{main.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{main_8c_source_l00111}{main()}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+Referenced by \mbox{\hyperlink{main_8c_source_l00112}{main()}}, and \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 

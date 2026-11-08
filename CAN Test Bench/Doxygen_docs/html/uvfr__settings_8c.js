@@ -4,6 +4,7 @@ var uvfr__settings_8c =
     [ "tx_journal_args", "structtx__journal__args.html", "structtx__journal__args" ],
     [ "helper_task_args", "unionhelper__task__args.html", "unionhelper__task__args" ],
     [ "setting_helper_task", "structsetting__helper__task.html", "structsetting__helper__task" ],
+    [ "__UV_FILENAME__", "uvfr__settings_8c.html#a368892c5fb38bdcdfae7b7e2a22602b4", null ],
     [ "DATA_MISMATCH", "uvfr__settings_8c.html#ae9b3336d2f9087deea03d9adac5d06fd", null ],
     [ "DATA_MISMATCH", "uvfr__settings_8c.html#ae9b3336d2f9087deea03d9adac5d06fd", null ],
     [ "DID_NOT_FINISH_PROGRAMMING", "uvfr__settings_8c.html#a0202712190ca1bce6a198dd196f48c4b", null ],
@@ -60,11 +61,11 @@ var uvfr__settings_8c =
     [ "default_daq_settings", "uvfr__settings_8c.html#ad795c6981571499e4a90ef72698b6ea1", null ],
     [ "default_datapoints", "uvfr__settings_8c.html#af2240542724a20552b90fafa9642884d", null ],
     [ "default_dl_settings", "uvfr__settings_8c.html#a44daa1a9c68be860616e7bc627d9b8f4", null ],
-    [ "default_imd_settings", "uvfr__settings_8c.html#a1071bc1cceac3198de98d9c0753044d6", null ],
+    [ "default_imd_settings", "uvfr__settings_8c.html#a67d2a9717f7116800095f4ce2df9873c", null ],
     [ "default_os_settings", "group__state__engine.html#gad9e02be6d2d0bc1ab5cd9fd8cae34230", null ],
     [ "default_vehicle", "uvfr__settings_8c.html#a550e75d7673e407aad1a5240ff83db23", null ],
     [ "last_contact_with_laptop", "uvfr__settings_8c.html#a4a1aa886008fc488d72c502d5af2aa52", null ],
     [ "mc_default_settings", "uvfr__settings_8c.html#a1c7fecf890841f27a4ca39fc66e8cc1b", null ],
-    [ "vcu_ack_failed_msg", "uvfr__settings_8c.html#af7c7d49fd92c65119717ab40db8725f5", null ],
-    [ "vcu_ack_msg", "uvfr__settings_8c.html#af3e753b2f0a1841e5e54714979b93491", null ]
+    [ "vcu_ack_failed_msg", "uvfr__settings_8c.html#ad01df7b5648d4a621c0c8f155d80fdf7", null ],
+    [ "vcu_ack_msg", "uvfr__settings_8c.html#a95d9eff6a219409a0d9bf834a87812f8", null ]
 ];

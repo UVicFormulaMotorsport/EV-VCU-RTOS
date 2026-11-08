@@ -1,0 +1,306 @@
+\doxysection{Core/\+Src/uvfr\+\_\+external\+\_\+devices.c File Reference}
+\hypertarget{uvfr__external__devices_8c}{}\label{uvfr__external__devices_8c}\index{Core/Src/uvfr\_external\_devices.c@{Core/Src/uvfr\_external\_devices.c}}
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include "{}Free\+RTOS.\+h"{}}\newline
+{\ttfamily \#include "{}queue.\+h"{}}\newline
+{\ttfamily \#include "{}semphr.\+h"{}}\newline
+{\ttfamily \#include "{}message\+\_\+buffer.\+h"{}}\newline
+{\ttfamily \#include "{}task.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+external\+\_\+devices.\+c\+:
+% FIG 0
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structxdev__rx__ack__data}{xdev\+\_\+rx\+\_\+ack\+\_\+data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{uvfr__external__devices_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{\+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+}}~"{}xdev"{}
+\item 
+\#define \mbox{\hyperlink{uvfr__external__devices_8c_aafc2637c055e7794d594c21eb5780cca}{XDEVMON\+\_\+\+IMPLEMENTATION}}
+\item 
+\#define \mbox{\hyperlink{uvfr__external__devices_8c_ac246e7aed900adf936008c95521fabaa}{BLANK\+\_\+\+TIMOUT\+\_\+\+EMSG\+\_\+\+SIZE}}~14
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct xdev\+\_\+rx\+\_\+ack\+\_\+data \mbox{\hyperlink{uvfr__external__devices_8c_ad04985266f2147fac4f7a2c335d8a839}{xdev\+\_\+rx\+\_\+ack\+\_\+data}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{uvfr__external__devices_8c_a083b2e840cc4afee2f08f66c46f4d64d}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((constructor))
+\begin{DoxyCompactList}\small\item\em Initializes the XDEV registry to be in a normal state. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__external__devices_8c_a73738bf1359c357b1f7103225524f2a0}{uv\+Wait\+On\+External\+Device}} (uint8\+\_\+t device\+\_\+id, Tick\+Type\+\_\+t time\+\_\+to\+\_\+wait)
+\begin{DoxyCompactList}\small\item\em Function called to wait on an external device. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__external__devices_8c_a2490d2062300642b604d6b04e3aef26e}{uv\+Register\+External\+Device}} (uint8\+\_\+t device\+\_\+id, Tick\+Type\+\_\+t \mbox{\hyperlink{tim_8c_a26bca55ea0ea566ad05ac73b3b987140}{period}}, uint16\+\_\+t xd\+\_\+flags, char \texorpdfstring{$\ast$}{*}name)
+\begin{DoxyCompactList}\small\item\em Registers an external device with XDev\+Mon, and allows the thing to actually work as expected. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{uvfr__external__devices_8c_a2eb6437b2086686f5a86eebb3ccd782a}{x\+Dev\+Mon}} (void \texorpdfstring{$\ast$}{*}args)
+\begin{DoxyCompactList}\small\item\em Task responsible for monitoring external devices for timeouts, and ensuring that we can poll all the random ass devices n shi. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__external__devices_8c_ad76dc48464c07e0678ab735d4f686b08}{uv\+Setup\+Xdevs}} ()
+\begin{DoxyCompactList}\small\item\em Function to setup all external devices. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__external__devices_8c_a569ecb1f111f57e8427caa56b6861225}{send\+Msg\+Rx\+Ack\+Queue\+MSG}} ()
+\item 
+void \mbox{\hyperlink{uvfr__external__devices_8c_abeba1577d0e5f860f687d6dfaa57c877}{external\+Device\+Rx\+Handler}} (uint8\+\_\+t device\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Function called from the can message handler for an external device. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{uvfr__external__devices_8c_a85e346899a46f193b34a98405f3d59a2}{external\+Device\+Stat\+Update}} (uint8\+\_\+t device\+\_\+id)
+\item 
+\mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\+\_\+status}} \mbox{\hyperlink{uvfr__external__devices_8c_af66220d43234514f6cfdf03dbc3c7aff}{get\+Xdev\+Status}} (uint8\+\_\+t device\+\_\+id)
+\item 
+void \mbox{\hyperlink{uvfr__external__devices_8c_a347e6cac3dc4a6883b1aaa814693f6d2}{get\+All\+Xdev\+Status}} (\mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\+\_\+status}} \texorpdfstring{$\ast$}{*}arr)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__external__devices_8c_a7bccaccb055fdc17c761d042b8e37233}{uv\+Add\+Poll\+Msg\+To\+Xdev}} (uint8\+\_\+t \mbox{\hyperlink{uvfr__utils_8h_a31a6e863b4ff66aa77b33f46482d344b}{xdev\+\_\+id}}, \mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
+\begin{DoxyCompactList}\small\item\em adds a CAN message to the polling of the task \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{uvfr__external__devices_8c_a368892c5fb38bdcdfae7b7e2a22602b4}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}}
+\index{\_\_UV\_FILENAME\_\_@{\_\_UV\_FILENAME\_\_}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{\_\_UV\_FILENAME\_\_}{\_\_UV\_FILENAME\_\_}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a368892c5fb38bdcdfae7b7e2a22602b4} 
+\#define \+\_\+\+\_\+\+UV\+\_\+\+FILENAME\+\_\+\+\_\+~"{}xdev"{}}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00008}{8}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+\Hypertarget{uvfr__external__devices_8c_ac246e7aed900adf936008c95521fabaa}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!BLANK\_TIMOUT\_EMSG\_SIZE@{BLANK\_TIMOUT\_EMSG\_SIZE}}
+\index{BLANK\_TIMOUT\_EMSG\_SIZE@{BLANK\_TIMOUT\_EMSG\_SIZE}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{BLANK\_TIMOUT\_EMSG\_SIZE}{BLANK\_TIMOUT\_EMSG\_SIZE}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_ac246e7aed900adf936008c95521fabaa} 
+\#define BLANK\+\_\+\+TIMOUT\+\_\+\+EMSG\+\_\+\+SIZE~14}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00214}{214}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+\Hypertarget{uvfr__external__devices_8c_aafc2637c055e7794d594c21eb5780cca}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!XDEVMON\_IMPLEMENTATION@{XDEVMON\_IMPLEMENTATION}}
+\index{XDEVMON\_IMPLEMENTATION@{XDEVMON\_IMPLEMENTATION}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{XDEVMON\_IMPLEMENTATION}{XDEVMON\_IMPLEMENTATION}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_aafc2637c055e7794d594c21eb5780cca} 
+\#define XDEVMON\+\_\+\+IMPLEMENTATION}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00009}{9}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{uvfr__external__devices_8c_ad04985266f2147fac4f7a2c335d8a839}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!xdev\_rx\_ack\_data@{xdev\_rx\_ack\_data}}
+\index{xdev\_rx\_ack\_data@{xdev\_rx\_ack\_data}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{xdev\_rx\_ack\_data}{xdev\_rx\_ack\_data}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_ad04985266f2147fac4f7a2c335d8a839} 
+typedef struct xdev\+\_\+rx\+\_\+ack\+\_\+data xdev\+\_\+rx\+\_\+ack\+\_\+data}
+
+Linked list of CAN messages 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{uvfr__external__devices_8c_a083b2e840cc4afee2f08f66c46f4d64d}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a083b2e840cc4afee2f08f66c46f4d64d} 
+\+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(constructor)}]{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the XDEV registry to be in a normal state. 
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00039}{39}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00374}{xdev\+\_\+info\+::activation\+\_\+time}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00377}{xdev\+\_\+info\+::ecode1}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00378}{xdev\+\_\+info\+::ecode2}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00234}{FINAL\+\_\+\+XDEV}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00385}{xdev\+\_\+info\+::flags}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00376}{xdev\+\_\+info\+::period}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00387}{xdev\+\_\+info\+::peripheral\+\_\+status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00382}{xdev\+\_\+info\+::xdev\+\_\+mutex}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00244}{XDEV\+\_\+\+NC}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00380}{xdev\+\_\+info\+::xdev\+\_\+poll\+\_\+msgs}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00383}{xdev\+\_\+info\+::xdev\+\_\+rx\+\_\+smphr}}.
+
+\Hypertarget{uvfr__external__devices_8c_abeba1577d0e5f860f687d6dfaa57c877}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!externalDeviceRxHandler@{externalDeviceRxHandler}}
+\index{externalDeviceRxHandler@{externalDeviceRxHandler}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{externalDeviceRxHandler()}{externalDeviceRxHandler()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_abeba1577d0e5f860f687d6dfaa57c877} 
+void external\+Device\+Rx\+Handler (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{device\+\_\+id}{}\end{DoxyParamCaption})}
+
+
+
+Function called from the can message handler for an external device. 
+
+This function records the timestamp to allow for timeout computation, and gives the semaphore, so that tasks waiting on this specific external device are able to resume execution normally 
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{381}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00375}{xdev\+\_\+info\+::last\+\_\+heard\+\_\+from}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00387}{xdev\+\_\+info\+::peripheral\+\_\+status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00357}{XDEV\+\_\+\+DEVICE\+\_\+\+EXPECTED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00244}{XDEV\+\_\+\+NC}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00239}{XDEV\+\_\+\+OK}}.
+
+
+
+Referenced by \mbox{\hyperlink{bms_8c_source_l00077}{BMS\+\_\+\+CANRx\+Handler\+\_\+msg1()}}, \mbox{\hyperlink{bms_8c_source_l00150}{BMS\+\_\+\+CANRx\+Handler\+\_\+msg2()}}, \mbox{\hyperlink{imd_8c_source_l00198}{IMD\+\_\+\+Can\+Rx\+Handler()}}, \mbox{\hyperlink{motor__controller_8c_source_l00562}{Process\+Motor\+Controller\+Response()}}, and \mbox{\hyperlink{tms_8c_source_l00030}{TMS\+\_\+\+CANRx\+Handler()}}.
+
+\Hypertarget{uvfr__external__devices_8c_a85e346899a46f193b34a98405f3d59a2}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!externalDeviceStatUpdate@{externalDeviceStatUpdate}}
+\index{externalDeviceStatUpdate@{externalDeviceStatUpdate}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{externalDeviceStatUpdate()}{externalDeviceStatUpdate()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a85e346899a46f193b34a98405f3d59a2} 
+void external\+Device\+Stat\+Update (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{device\+\_\+id}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00416}{416}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+\Hypertarget{uvfr__external__devices_8c_a347e6cac3dc4a6883b1aaa814693f6d2}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!getAllXdevStatus@{getAllXdevStatus}}
+\index{getAllXdevStatus@{getAllXdevStatus}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{getAllXdevStatus()}{getAllXdevStatus()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a347e6cac3dc4a6883b1aaa814693f6d2} 
+void get\+All\+Xdev\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\+\_\+status}} \texorpdfstring{$\ast$}{*}}]{arr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00424}{424}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00234}{FINAL\+\_\+\+XDEV}}, and \mbox{\hyperlink{uvfr__external__devices_8c_source_l00420}{get\+Xdev\+Status()}}.
+
+Here is the call graph for this function\+:
+% FIG 1
+\Hypertarget{uvfr__external__devices_8c_af66220d43234514f6cfdf03dbc3c7aff}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!getXdevStatus@{getXdevStatus}}
+\index{getXdevStatus@{getXdevStatus}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{getXdevStatus()}{getXdevStatus()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_af66220d43234514f6cfdf03dbc3c7aff} 
+\mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\+\_\+status}} get\+Xdev\+Status (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{device\+\_\+id}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00420}{420}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00387}{xdev\+\_\+info\+::peripheral\+\_\+status}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__external__devices_8c_source_l00424}{get\+All\+Xdev\+Status()}}.
+
+\Hypertarget{uvfr__external__devices_8c_a569ecb1f111f57e8427caa56b6861225}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!sendMsgRxAckQueueMSG@{sendMsgRxAckQueueMSG}}
+\index{sendMsgRxAckQueueMSG@{sendMsgRxAckQueueMSG}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{sendMsgRxAckQueueMSG()}{sendMsgRxAckQueueMSG()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a569ecb1f111f57e8427caa56b6861225} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} send\+Msg\+Rx\+Ack\+Queue\+MSG (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00371}{371}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+\Hypertarget{uvfr__external__devices_8c_a7bccaccb055fdc17c761d042b8e37233}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!uvAddPollMsgToXdev@{uvAddPollMsgToXdev}}
+\index{uvAddPollMsgToXdev@{uvAddPollMsgToXdev}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{uvAddPollMsgToXdev()}{uvAddPollMsgToXdev()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a7bccaccb055fdc17c761d042b8e37233} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Add\+Poll\+Msg\+To\+Xdev (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{xdev\+\_\+id}{, }\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
+
+
+
+adds a CAN message to the polling of the task 
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00434}{434}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00234}{FINAL\+\_\+\+XDEV}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00316}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00321}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00365}{xdev\+\_\+poll\+\_\+msg\+::next}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00366}{xdev\+\_\+poll\+\_\+msg\+::pmsg}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00380}{xdev\+\_\+info\+::xdev\+\_\+poll\+\_\+msgs}}.
+
+\Hypertarget{uvfr__external__devices_8c_a2490d2062300642b604d6b04e3aef26e}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!uvRegisterExternalDevice@{uvRegisterExternalDevice}}
+\index{uvRegisterExternalDevice@{uvRegisterExternalDevice}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{uvRegisterExternalDevice()}{uvRegisterExternalDevice()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a2490d2062300642b604d6b04e3aef26e} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Register\+External\+Device (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{device\+\_\+id}{, }\item[{Tick\+Type\+\_\+t}]{period}{, }\item[{uint16\+\_\+t}]{xd\+\_\+flags}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{name}{}\end{DoxyParamCaption})}
+
+
+
+Registers an external device with XDev\+Mon, and allows the thing to actually work as expected. 
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00112}{112}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00374}{xdev\+\_\+info\+::activation\+\_\+time}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00234}{FINAL\+\_\+\+XDEV}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00385}{xdev\+\_\+info\+::flags}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00373}{xdev\+\_\+info\+::name}}, \mbox{\hyperlink{tim_8c_source_l00035}{period}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00376}{xdev\+\_\+info\+::period}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00387}{xdev\+\_\+info\+::peripheral\+\_\+status}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00242}{XDEV\+\_\+\+VCU\+\_\+\+ERROR}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, and \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}.
+
+\Hypertarget{uvfr__external__devices_8c_ad76dc48464c07e0678ab735d4f686b08}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!uvSetupXdevs@{uvSetupXdevs}}
+\index{uvSetupXdevs@{uvSetupXdevs}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{uvSetupXdevs()}{uvSetupXdevs()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_ad76dc48464c07e0678ab735d4f686b08} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Setup\+Xdevs (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Function to setup all external devices. 
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00338}{338}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00333}{uv\+Create\+Task()}}, and \mbox{\hyperlink{uvfr__external__devices_8c_source_l00248}{x\+Dev\+Mon()}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
+
+Here is the call graph for this function\+:
+% FIG 2
+\Hypertarget{uvfr__external__devices_8c_a73738bf1359c357b1f7103225524f2a0}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!uvWaitOnExternalDevice@{uvWaitOnExternalDevice}}
+\index{uvWaitOnExternalDevice@{uvWaitOnExternalDevice}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{uvWaitOnExternalDevice()}{uvWaitOnExternalDevice()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a73738bf1359c357b1f7103225524f2a0} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} uv\+Wait\+On\+External\+Device (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{device\+\_\+id}{, }\item[{Tick\+Type\+\_\+t}]{time\+\_\+to\+\_\+wait}{}\end{DoxyParamCaption})}
+
+
+
+Function called to wait on an external device. 
+
+Accepts an ID and a maximum wait time. Returns UV\+\_\+\+OK if it returned within the specified time. Returns UV\+\_\+\+ERROR if the device times out. 
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00060}{60}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__utils_8h_source_l00234}{FINAL\+\_\+\+XDEV}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00183}{UV\+\_\+\+ABORTED}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
+
+
+
+Referenced by \mbox{\hyperlink{imd_8c_source_l00316}{init\+IMD()}}.
+
+\Hypertarget{uvfr__external__devices_8c_a2eb6437b2086686f5a86eebb3ccd782a}\index{uvfr\_external\_devices.c@{uvfr\_external\_devices.c}!xDevMon@{xDevMon}}
+\index{xDevMon@{xDevMon}!uvfr\_external\_devices.c@{uvfr\_external\_devices.c}}
+\doxysubsubsection{\texorpdfstring{xDevMon()}{xDevMon()}}
+{\footnotesize\ttfamily \label{uvfr__external__devices_8c_a2eb6437b2086686f5a86eebb3ccd782a} 
+void x\+Dev\+Mon (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{args}{}\end{DoxyParamCaption})}
+
+
+
+Task responsible for monitoring external devices for timeouts, and ensuring that we can poll all the random ass devices n shi. 
+
+\begin{DoxyAttention}{Attention}
+DO NOT UNDER ANY CIRCUMSTANCES PLACE BREAKPOINTS INSIDE THIS FUNCTION. IT. WILL. CRASH. YOUR. IDE.
+\end{DoxyAttention}
+This message is written in blood. 
+
+Definition at line \mbox{\hyperlink{uvfr__external__devices_8c_source_l00248}{248}} of file \mbox{\hyperlink{uvfr__external__devices_8c_source}{uvfr\+\_\+external\+\_\+devices.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00234}{FINAL\+\_\+\+XDEV}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00773}{kill\+Self()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00375}{xdev\+\_\+info\+::last\+\_\+heard\+\_\+from}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00376}{xdev\+\_\+info\+::period}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00387}{xdev\+\_\+info\+::peripheral\+\_\+status}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00814}{suspend\+Self()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00316}{uv\+Task\+Delay\+Until}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00358}{XDEV\+\_\+\+CHECK\+\_\+\+TIMEOUT\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00357}{XDEV\+\_\+\+DEVICE\+\_\+\+EXPECTED}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00241}{XDEV\+\_\+\+ERROR}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__external__devices_8c_source_l00338}{uv\+Setup\+Xdevs()}}.
+
+Here is the call graph for this function\+:
+% FIG 3

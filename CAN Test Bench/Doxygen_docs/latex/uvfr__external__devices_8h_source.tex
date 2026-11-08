@@ -1,0 +1,39 @@
+\doxysection{uvfr\+\_\+external\+\_\+devices.\+h}
+\hypertarget{uvfr__external__devices_8h_source}{}\label{uvfr__external__devices_8h_source}\index{Core/Inc/uvfr\_external\_devices.h@{Core/Inc/uvfr\_external\_devices.h}}
+\mbox{\hyperlink{uvfr__external__devices_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00002}00002\ \textcolor{comment}{\ *\ uvfr\_external\_devices.h}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00004}00004\ \textcolor{comment}{\ *\ \ Created\ on:\ Dec\ 6,\ 2025}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00005}00005\ \textcolor{comment}{\ *\ \ \ \ \ \ Author:\ byo10}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00006}00006\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifndef\ INC\_UVFR\_EXTERNAL\_DEVICES\_H\_}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00009}00009\ \textcolor{preprocessor}{\#define\ INC\_UVFR\_EXTERNAL\_DEVICES\_H\_}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00011}\mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{00011}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{uvfr__utils_8h_a03579d31f8c403a3efb1b96fa13eac43}{uv\_xdev\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\_status}};}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00013}00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00015}00015\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_ad76dc48464c07e0678ab735d4f686b08}{uvSetupXdevs}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00017}00017\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_a7bccaccb055fdc17c761d042b8e37233}{uvAddPollMsgToXdev}}(uint8\_t\ \mbox{\hyperlink{uvfr__utils_8h_a31a6e863b4ff66aa77b33f46482d344b}{xdev\_id}},\ \mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00019}\mbox{\hyperlink{uvfr__external__devices_8h_a9059599b9728f1e235ac35eec800610f}{00019}}\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_a9059599b9728f1e235ac35eec800610f}{uvStartExDevMonitoring}}();}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00021}00021\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_a2490d2062300642b604d6b04e3aef26e}{uvRegisterExternalDevice}}(uint8\_t\ device\_id,\ TickType\_t\ \mbox{\hyperlink{tim_8c_a26bca55ea0ea566ad05ac73b3b987140}{period}},\ uint16\_t\ xd\_flags,\ \textcolor{keywordtype}{char}*\ name);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00023}00023\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__external__devices_8h_abeba1577d0e5f860f687d6dfaa57c877}{externalDeviceRxHandler}}(uint8\_t\ device\_id);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00025}00025\ \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_a73738bf1359c357b1f7103225524f2a0}{uvWaitOnExternalDevice}}(uint8\_t\ device\_id,\ TickType\_t\ time\_to\_wait);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00027}00027\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__external__devices_8h_a85e346899a46f193b34a98405f3d59a2}{externalDeviceStatUpdate}}(uint8\_t\ device\_id);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00029}00029\ \mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\_status}}\ \mbox{\hyperlink{uvfr__external__devices_8h_af66220d43234514f6cfdf03dbc3c7aff}{getXdevStatus}}(uint8\_t\ device\_id);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00031}00031\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{uvfr__external__devices_8h_a347e6cac3dc4a6883b1aaa814693f6d2}{getAllXdevStatus}}(\mbox{\hyperlink{uvfr__external__devices_8h_a020dd8b6190bb717ee7db7df6a9467a8}{xdev\_status}}*\ arr);}
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{uvfr__external__devices_8h_source_l00033}00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ INC\_UVFR\_EXTERNAL\_DEVICES\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -32,15 +32,15 @@ Function to insert an id and function into the lookup table of callback function
 
 Checks if specific hash id already exists in the hash table If not, insert the message If it already exists, check to see if the actual CAN id matches. If yes, then previous entries are overwritten If it does not exist, then each node in the hash table functions as it\textquotesingle{}s own linked list 
 
-Definition at line \mbox{\hyperlink{can_8c_source_l00652}{652}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
+Definition at line \mbox{\hyperlink{can_8c_source_l00659}{659}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-References \mbox{\hyperlink{can_8c_source_l00070}{callback\+\_\+table\+\_\+1\+\_\+mutex}}, \mbox{\hyperlink{can_8c_source_l00071}{callback\+\_\+table\+\_\+2\+\_\+mutex}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00271}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00066}{CAN\+\_\+callback\+\_\+table\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00068}{CAN\+\_\+callback\+\_\+table\+\_\+2}}, \mbox{\hyperlink{can_8c_source_l00056}{CAN\+\_\+\+Callback\+::\+CAN\+\_\+id}}, \mbox{\hyperlink{can_8c_source_l00057}{CAN\+\_\+\+Callback\+::function}}, \mbox{\hyperlink{can_8c_source_l00577}{generate\+Hash()}}, \mbox{\hyperlink{can_8c_source_l00058}{CAN\+\_\+\+Callback\+::next}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}.
+References \mbox{\hyperlink{can_8c_source_l00077}{callback\+\_\+table\+\_\+1\+\_\+mutex}}, \mbox{\hyperlink{can_8c_source_l00078}{callback\+\_\+table\+\_\+2\+\_\+mutex}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00301}{CAN\+\_\+\+BUS\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00073}{CAN\+\_\+callback\+\_\+table\+\_\+1}}, \mbox{\hyperlink{can_8c_source_l00075}{CAN\+\_\+callback\+\_\+table\+\_\+2}}, \mbox{\hyperlink{can_8c_source_l00063}{CAN\+\_\+\+Callback\+::\+CAN\+\_\+id}}, \mbox{\hyperlink{can_8c_source_l00064}{CAN\+\_\+\+Callback\+::function}}, \mbox{\hyperlink{can_8c_source_l00584}{generate\+Hash()}}, and \mbox{\hyperlink{can_8c_source_l00065}{CAN\+\_\+\+Callback\+::next}}.
 
 
 
-Referenced by \mbox{\hyperlink{bms_8c_source_l00100}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{motor__controller_8c_source_l00458}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}.
+Referenced by \mbox{\hyperlink{bms_8c_source_l00248}{BMS\+\_\+\+Init()}}, \mbox{\hyperlink{imd_8c_source_l00316}{init\+IMD()}}, \mbox{\hyperlink{motor__controller_8c_source_l00894}{MC\+\_\+\+Startup()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00123}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{tms_8c_source_l00064}{TMS\+\_\+\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}.
 
 Here is the call graph for this function\+:
 % FIG 0
@@ -56,15 +56,15 @@ Function to send CAN message.
 
 This function is the canonical team method of sending a CAN message. It invokes the can\+Tx\+Daemon, to avoid any conflicts due to a context switch mid transmission Is it a little bit convoluted? Yes. Is that worth it? Still yes. 
 
-Definition at line \mbox{\hyperlink{can_8c_source_l00864}{864}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
+Definition at line \mbox{\hyperlink{can_8c_source_l00920}{920}} of file \mbox{\hyperlink{can_8c_source}{can.\+c}}.
 
 
 
-References \mbox{\hyperlink{can_8c_source_l00826}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section()}}, \mbox{\hyperlink{can_8c_source_l00074}{is\+\_\+can\+\_\+ok}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{can_8c_source_l00833}{\+\_\+\+\_\+uv\+CANtx\+Crit\+Section()}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00316}{uv\+\_\+\+CAN\+\_\+msg\+::flags}}, \mbox{\hyperlink{can_8c_source_l00081}{is\+\_\+can\+\_\+ok}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00309}{UV\+\_\+\+CAN\+\_\+\+CRIT\+\_\+\+MSG\+\_\+\+BIT}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{flush\+Logs\+To\+CAN()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00160}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{motor__controller_8c_source_l00407}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00110}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00141}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00069}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00112}{temp\+Monitor\+Task()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00057}{testfunc2()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00070}{testfunc3()}}, \mbox{\hyperlink{pdu_8c_source_l00037}{u19update\+Pdu\+Channel()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00840}{uv\+Send\+Specific\+Param()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00359}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l00926}{uv\+Settings\+Programmer\+Task()}}.
+Referenced by \mbox{\hyperlink{uvfr__vehicle__logger_8c_source_l00155}{flush\+Logs\+To\+CAN()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00200}{handle\+Incoming\+Laptop\+Msg()}}, \mbox{\hyperlink{motor__controller_8c_source_l00832}{MC\+\_\+\+Enable\+Cyclic\+Speed\+Transmission()}}, \mbox{\hyperlink{motor__controller_8c_source_l00319}{MC\+\_\+\+Request\+\_\+\+Data()}}, \mbox{\hyperlink{motor__controller_8c_source_l00360}{MC\+\_\+\+Set\+\_\+\+Param()}}, \mbox{\hyperlink{motor__controller_8c_source_l00240}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00068}{testfunc2()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00081}{testfunc3()}}, \mbox{\hyperlink{pdu_8c_source_l00039}{u19update\+Pdu\+Channel()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l01002}{uv\+Send\+Specific\+Param()}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00434}{uv\+Settings\+Init()}}, and \mbox{\hyperlink{uvfr__settings_8c_source_l01101}{uv\+Settings\+Programmer\+Task()}}.
 
 Here is the call graph for this function\+:
 % FIG 1

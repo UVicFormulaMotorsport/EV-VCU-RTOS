@@ -7,11 +7,14 @@ digraph "BMS_Init"
   rankdir="LR";
   Node1 [id="Node000001",label="BMS_Init",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="BMS_msg1",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$bms_8c.html#a7a70ee75f60730eaf8489c863fceea7d",tooltip=" "];
-  Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="BMS_msg2",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$bms_8c.html#a554435738960054c897ed84e3f5b1edf",tooltip=" "];
+  Node2 [id="Node000002",label="BMS_CANRxHandler_msg1",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$bms_8c.html#a6f635739f7b278e5898f59e0e370c183",tooltip=" "];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="externalDeviceRxHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$uvfr__external__devices_8c.html#abeba1577d0e5f860f687d6dfaa57c877",tooltip="Function called from the can message handler for an external device."];
   Node1 -> Node4 [id="edge3_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
-  Node4 [id="Node000004",label="insertCANMessageHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6",tooltip="Function to insert an id and function into the lookup table of callback functions."];
-  Node4 -> Node5 [id="edge4_Node000004_Node000005",color="steelblue1",style="solid",tooltip=" "];
-  Node5 [id="Node000005",label="generateHash",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$can_8c.html#affa7bfe9532060be4358706525e4f36e",tooltip=" "];
+  Node4 [id="Node000004",label="BMS_CANRxHandler_msg2",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$bms_8c.html#a7cbdb3a6f5bd9870c175fc6d88131465",tooltip=" "];
+  Node4 -> Node3 [id="edge4_Node000004_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node5 [id="edge5_Node000001_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="insertCANMessageHandler",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6",tooltip="Function to insert an id and function into the lookup table of callback functions."];
+  Node5 -> Node6 [id="edge6_Node000005_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="generateHash",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$can_8c.html#affa7bfe9532060be4358706525e4f36e",tooltip=" "];
 }

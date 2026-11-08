@@ -2,7 +2,7 @@
 \hypertarget{bms_8h_source}{}\label{bms_8h_source}\index{Core/Inc/bms.h@{Core/Inc/bms.h}}
 \mbox{\hyperlink{bms_8h}{Go to the documentation of this file.}}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00001}00001\ \textcolor{comment}{//\ Code\ to\ make\ human\ readable\ CAN\ messages\ for\ the\ device}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00001}00001\ }
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00002}00002\ }
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00003}00003\ }
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00004}00004\ }
@@ -11,27 +11,77 @@
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00007}00007\ }
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00010}00010\ }
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00011}\mbox{\hyperlink{bms_8h_a0c88019b9a80e0a2b9820fb387e9e084}{00011}}\ \textcolor{preprocessor}{\#define\ DEFAULT\_BMS\_CAN\_TIMEOUT\ ((uv\_timespan\_ms)200)}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00011}00011\ }
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00012}00012\ }
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00013}\mbox{\hyperlink{structbms__settings__t}{00013}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}\{\ \textcolor{comment}{//TODO\ Needs\ populating}}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00014}\mbox{\hyperlink{structbms__settings__t_ab83f63e1fb9e2c070731fd16ff553b26}{00014}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structbms__settings__t_ab83f63e1fb9e2c070731fd16ff553b26}{BMS\_CAN\_timeout}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00015}\mbox{\hyperlink{structbms__settings__t_aababcac8e39ea1abe22a81c56a206a5a}{00015}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_aababcac8e39ea1abe22a81c56a206a5a}{max\_cell\_temp}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00016}\mbox{\hyperlink{structbms__settings__t_a741e9f479f5d94ec114fdc97b0590ee0}{00016}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a741e9f479f5d94ec114fdc97b0590ee0}{min\_cell\_temp}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00017}\mbox{\hyperlink{structbms__settings__t_aa639964052d08fce1b1274099a8077d6}{00017}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_aa639964052d08fce1b1274099a8077d6}{min\_soc}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00018}\mbox{\hyperlink{structbms__settings__t_a742a6f4c8724f13047eb557375d791b9}{00018}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a742a6f4c8724f13047eb557375d791b9}{min\_cell\_voltage}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00019}\mbox{\hyperlink{structbms__settings__t_a22f64b06cf534382a5559f57b717049e}{00019}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a22f64b06cf534382a5559f57b717049e}{max\_cell\_voltage}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00020}\mbox{\hyperlink{structbms__settings__t_a59ea42a579acb2a2823a29b9f26c418f}{00020}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a59ea42a579acb2a2823a29b9f26c418f}{max\_pack\_voltage}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00021}\mbox{\hyperlink{structbms__settings__t_ac798c369c20a3f4af7aa4497d8505274}{00021}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_ac798c369c20a3f4af7aa4497d8505274}{min\_pack\_voltage}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00022}\mbox{\hyperlink{structbms__settings__t_a6063ee81210b579e8c90b72724532ef8}{00022}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a6063ee81210b579e8c90b72724532ef8}{max\_variance\_between\_cells}};}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00023}00023\ }
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00024}\mbox{\hyperlink{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d}{00024}}\ \}\mbox{\hyperlink{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d}{bms\_settings\_t}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00013}\mbox{\hyperlink{bms_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{00013}}\ \textcolor{keyword}{typedef}\ uint8\_t\ \mbox{\hyperlink{bms_8h_a0ecf26b576b9a54eca656b9be7ba6a06}{bool}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00014}\mbox{\hyperlink{bms_8h_a0c88019b9a80e0a2b9820fb387e9e084}{00014}}\ \textcolor{preprocessor}{\#define\ DEFAULT\_BMS\_CAN\_TIMEOUT\ ((uv\_timespan\_ms)200)}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00017}00017\ \textcolor{comment}{//\ Runtime\ state\ (telemetry)}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00018}\mbox{\hyperlink{structbms__state__t}{00018}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00020}\mbox{\hyperlink{structbms__state__t_a5f562e3713009e636aa71f076b9854a6}{00020}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_a5f562e3713009e636aa71f076b9854a6}{pack\_current\_dA}};\ \textcolor{comment}{//\ 0.1\ A\ units}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00021}\mbox{\hyperlink{structbms__state__t_a56a00f8fc18b0ea4f2818e6f02b94775}{00021}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_a56a00f8fc18b0ea4f2818e6f02b94775}{pack\_voltage\_dV}};\ \textcolor{comment}{//\ 0.1\ V\ units}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00022}\mbox{\hyperlink{structbms__state__t_ae14b31f9d6a2b3b66340b25dd0ba66d1}{00022}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_ae14b31f9d6a2b3b66340b25dd0ba66d1}{soc\_pct}};\ \textcolor{comment}{//\ 0-\/100\%}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00023}\mbox{\hyperlink{structbms__state__t_aafa9d07dac634207a9a61a1ee0f40bd1}{00023}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_aafa9d07dac634207a9a61a1ee0f40bd1}{relayState}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00024}\mbox{\hyperlink{structbms__state__t_a448230d0f8f6d17144c3c3cc74dfd68d}{00024}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structbms__state__t_a448230d0f8f6d17144c3c3cc74dfd68d}{msg1corrupt}};\ \textcolor{comment}{//checksum}}
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00025}00025\ }
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00026}00026\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{BMS\_Init}}(\textcolor{keywordtype}{void}*\ args);}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00027}00027\ }
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00028}00028\ \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00029}00029\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00026}\mbox{\hyperlink{structbms__state__t_a506a41501c632fb90fecd0ffa61321d9}{00026}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_a506a41501c632fb90fecd0ffa61321d9}{dcl\_dA}};\ \textcolor{comment}{//\ 0.1\ A\ max\ discharge\ current\ limit}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00027}\mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{00027}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_adbf4c6c6a62d90353abff928ed9dfcbf}{min\_cell\_temp}};\ \textcolor{comment}{//\ celsius}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00028}\mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{00028}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__state__t_aa67cb7fac22f36f2a9876b3462b1a88a}{max\_cell\_temp}};\ \textcolor{comment}{//\ celsius}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00029}\mbox{\hyperlink{structbms__state__t_a929e6bb5b650f4c0fa6a8442bf76c90a}{00029}}\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structbms__state__t_a929e6bb5b650f4c0fa6a8442bf76c90a}{msg2corrupt}};\ \textcolor{comment}{//\ checksum}}
 \DoxyCodeLine{\Hypertarget{bms_8h_source_l00030}00030\ }
-\DoxyCodeLine{\Hypertarget{bms_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00031}00031\ \}\ \mbox{\hyperlink{structbms__state__t}{bms\_state\_t}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00033}00033\ \textcolor{keyword}{extern}\ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{structbms__state__t}{bms\_state\_t}}\ \mbox{\hyperlink{bms_8h_acd394543f05f280e0ffead84f5380215}{g\_bms\_state}};\ \textcolor{comment}{//\ volatile\ as\ these\ values\ may\ update\ as\ the\ car\ runs}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00034}00034\ \textcolor{comment}{//\ config\ /\ bounds}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00036}\mbox{\hyperlink{structbms__settings__t}{00036}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbms__settings__t}{bms\_settings\_t}}\ \{\ \textcolor{comment}{//TODO\ Needs\ populating\ (\ I\ added\ "{}bms\_settings\_t"{}\ in\ this\ line,\ can\ remove\ if\ causes\ errors}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00037}\mbox{\hyperlink{structbms__settings__t_ab83f63e1fb9e2c070731fd16ff553b26}{00037}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structbms__settings__t_ab83f63e1fb9e2c070731fd16ff553b26}{BMS\_CAN\_timeout}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00038}\mbox{\hyperlink{structbms__settings__t_acf9bb6195e13b8c3511633b0bb1f59c9}{00038}}\ \ \ \ \ uint32\_t\ \mbox{\hyperlink{structbms__settings__t_acf9bb6195e13b8c3511633b0bb1f59c9}{max\_temp}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00039}00039\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00042}00042\ \ \ \ \ \textcolor{comment}{/*\ "{}\_c"{}\ for\ temperature\ in\ C}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00043}00043\ \textcolor{comment}{\ \ \ \ \ "{}\_pct"{}\ for\ percentage\ value\ */}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00044}\mbox{\hyperlink{structbms__settings__t_a3cdaf515a7fb3c463a3cf9576fa30ac1}{00044}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_a3cdaf515a7fb3c463a3cf9576fa30ac1}{discharge\_cold\_fault\_c}};\ \textcolor{comment}{//\ -\/20}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00045}\mbox{\hyperlink{structbms__settings__t_a7c51f31027037953df240e6f42af3820}{00045}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_a7c51f31027037953df240e6f42af3820}{discharge\_cold\_warn\_c}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00047}\mbox{\hyperlink{structbms__settings__t_a52de2f21ad46c40ebda8ffb0dbd0d339}{00047}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_a52de2f21ad46c40ebda8ffb0dbd0d339}{charge\_cold\_fault\_c}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00048}\mbox{\hyperlink{structbms__settings__t_a2a7453e270bb9727a3233b09151116b1}{00048}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_a2a7453e270bb9727a3233b09151116b1}{charge\_hot\_fault\_c}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00050}\mbox{\hyperlink{structbms__settings__t_ad0ee82400c28a394fa7412ed163816b4}{00050}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_ad0ee82400c28a394fa7412ed163816b4}{discharge\_hot\_warn\_c}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00051}\mbox{\hyperlink{structbms__settings__t_a5cefa6a2445f0eba88fcb96cbd60b61d}{00051}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_a5cefa6a2445f0eba88fcb96cbd60b61d}{discharge\_hot\_derate\_c}};\ \textcolor{comment}{//\ safety\ check\ for\ when\ pack\ running\ too\ hot\ (limit\ power\ rate)}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00052}\mbox{\hyperlink{structbms__settings__t_a11fd270c576d861904659438af4408c7}{00052}}\ \ \ \ \ int16\_t\ \mbox{\hyperlink{structbms__settings__t_a11fd270c576d861904659438af4408c7}{discharge\_hot\_fault\_c}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ need\ to\ add\ settings\ definitions\ for\ DCL}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00056}\mbox{\hyperlink{structbms__settings__t_a52180f9b855e6da10877b18095ea4d4f}{00056}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structbms__settings__t_a52180f9b855e6da10877b18095ea4d4f}{soc\_low\_warn\_pct}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00057}\mbox{\hyperlink{structbms__settings__t_a0a552b4250790d3b30ecde603c6858f6}{00057}}\ \ \ \ \ uint8\_t\ \mbox{\hyperlink{structbms__settings__t_a0a552b4250790d3b30ecde603c6858f6}{soc\_regen\_disable\_pct}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00059}\mbox{\hyperlink{structbms__settings__t_a6233f31d4d7c554013c7d81e748b33ed}{00059}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a6233f31d4d7c554013c7d81e748b33ed}{derate\_start\_c}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/\ NEW:\ Plausibility\ ranges\ (°C,\ V,\ A)\ -\/-\/-\/}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00062}\mbox{\hyperlink{structbms__settings__t_a9644a217eddbd1f8907b1208a410aa16}{00062}}\ \ \ \ \ int16\_t\ \ \mbox{\hyperlink{structbms__settings__t_a9644a217eddbd1f8907b1208a410aa16}{temp\_plaus\_min\_c}};\ \ \ \ \ \textcolor{comment}{//\ e.g.\ -\/40}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00063}\mbox{\hyperlink{structbms__settings__t_abdeac113b7a42d98db699df9559e5fb0}{00063}}\ \ \ \ \ int16\_t\ \ \mbox{\hyperlink{structbms__settings__t_abdeac113b7a42d98db699df9559e5fb0}{temp\_plaus\_max\_c}};\ \ \ \ \ \textcolor{comment}{//\ e.g.\ 100}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00064}\mbox{\hyperlink{structbms__settings__t_a91ff4e459432c18f921f2ba0ebc6be98}{00064}}\ \ \ \ \ int16\_t\ \ \mbox{\hyperlink{structbms__settings__t_a91ff4e459432c18f921f2ba0ebc6be98}{current\_plaus\_min\_dA}};\ \textcolor{comment}{//\ e.g.\ -\/20000\ \ →\ -\/2000\ A}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00065}\mbox{\hyperlink{structbms__settings__t_a0743aa7b76f19e7c4c015752d76be124}{00065}}\ \ \ \ \ int16\_t\ \ \mbox{\hyperlink{structbms__settings__t_a0743aa7b76f19e7c4c015752d76be124}{current\_plaus\_max\_dA}};\ \textcolor{comment}{//\ e.g.\ \ 20000\ \ →\ \ 2000\ A}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00066}\mbox{\hyperlink{structbms__settings__t_a088cae2a7da9d352aacb2534875282a4}{00066}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a088cae2a7da9d352aacb2534875282a4}{voltage\_plaus\_min\_dV}};\ \textcolor{comment}{//\ e.g.\ \ 0\ \ \ \ \ \ \ →\ \ 0\ V}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00067}\mbox{\hyperlink{structbms__settings__t_a92a4ba585f71b3169fe0ba91c6a35fb2}{00067}}\ \ \ \ \ uint16\_t\ \mbox{\hyperlink{structbms__settings__t_a92a4ba585f71b3169fe0ba91c6a35fb2}{voltage\_plaus\_max\_dV}};\ \textcolor{comment}{//\ e.g.\ \ 8000\ \ \ \ →\ 800\ V}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00069}00069\ \ \ \ \ \textcolor{comment}{//\ extern\ uint16\_t\ (var\ name)\ to\ call\ outside\ this\ file}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00070}\mbox{\hyperlink{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d}{00070}}\ \}\ \mbox{\hyperlink{bms_8h_ac82cefe2ce193c00fc1e6af97476c54d}{bms\_settings\_t}};}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00072}00072\ \textcolor{comment}{//extern\ bms\_settings\_t\ g\_bms\_settings;}}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00075}00075\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8h_aa9af83736568f74c94d41f3f16adf513}{BMS\_Init}}(\textcolor{keywordtype}{void}*\ args);}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00078}00078\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8h_a6f635739f7b278e5898f59e0e370c183}{BMS\_CANRxHandler\_msg1}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg);}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00079}00079\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{bms_8h_a7cbdb3a6f5bd9870c175fc6d88131465}{BMS\_CANRxHandler\_msg2}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg);}
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{bms_8h_source_l00081}00081\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

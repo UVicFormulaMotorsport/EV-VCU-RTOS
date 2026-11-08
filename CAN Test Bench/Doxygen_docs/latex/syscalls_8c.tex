@@ -13,6 +13,7 @@ STM32\+Cube\+IDE Minimal System calls file.
 {\ttfamily \#include $<$time.\+h$>$}\newline
 {\ttfamily \#include $<$sys/time.\+h$>$}\newline
 {\ttfamily \#include $<$sys/times.\+h$>$}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
 Include dependency graph for syscalls.\+c\+:
 % FIG 0
 \doxysubsubsection*{Functions}
@@ -31,6 +32,8 @@ int \mbox{\hyperlink{syscalls_8c_a062a5101199c3128edd5170f2575bb10}{\+\_\+kill}}
 void \mbox{\hyperlink{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}{\+\_\+exit}} (int status)
 \item 
 \mbox{\hyperlink{syscalls_8c_af9aace1b44b73111e15aa39f06f43456}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((weak))
+\item 
+int \mbox{\hyperlink{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}{\+\_\+write}} (int file, char \texorpdfstring{$\ast$}{*}ptr, int len)
 \item 
 int \mbox{\hyperlink{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}{\+\_\+close}} (int file)
 \item 
@@ -121,6 +124,10 @@ Referenced by \mbox{\hyperlink{syscalls_8c_source_l00067}{\+\_\+\+\_\+attribute\
 {\footnotesize\ttfamily \label{syscalls_8c_aa53ed4b191897a1bfc205aa1da005d24} 
 int \+\_\+\+\_\+io\+\_\+putchar (\begin{DoxyParamCaption}\item[{int}]{ch}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
 
+overrides the weak function prototype of \+\_\+\+\_\+io\+\_\+putchar so that we can use the ITM registers to send diagnostic data back to a debugger 
+
+Definition at line \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00372}{372}} of file \mbox{\hyperlink{uvfr__diagnostics_8c_source}{uvfr\+\_\+diagnostics.\+c}}.
+
 \Hypertarget{syscalls_8c_a5aab5e2acfd600e3667dc915a2bbc7cb}\index{syscalls.c@{syscalls.c}!\_close@{\_close}}
 \index{\_close@{\_close}!syscalls.c@{syscalls.c}}
 \doxysubsubsection{\texorpdfstring{\_close()}{\_close()}}
@@ -129,7 +136,7 @@ int \+\_\+close (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCapti
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00092}{92}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00107}{107}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_ad2a07db8fdf26151eb98ba5711fad8c5}\index{syscalls.c@{syscalls.c}!\_execve@{\_execve}}
 \index{\_execve@{\_execve}!syscalls.c@{syscalls.c}}
@@ -139,7 +146,7 @@ int \+\_\+execve (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00169}{169}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00184}{184}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_abc96bd69b58b2deaddb484478d911c1b}\index{syscalls.c@{syscalls.c}!\_exit@{\_exit}}
 \index{\_exit@{\_exit}!syscalls.c@{syscalls.c}}
@@ -165,7 +172,7 @@ int \+\_\+fork (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00163}{163}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00178}{178}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a41eef54307912a82d20e71c3d47315aa}\index{syscalls.c@{syscalls.c}!\_fstat@{\_fstat}}
 \index{\_fstat@{\_fstat}!syscalls.c@{syscalls.c}}
@@ -175,7 +182,7 @@ int \+\_\+fstat (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{struct sta
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00099}{99}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00114}{114}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a945e539df8e0f66d3c73c533fe1968ee}\index{syscalls.c@{syscalls.c}!\_getpid@{\_getpid}}
 \index{\_getpid@{\_getpid}!syscalls.c@{syscalls.c}}
@@ -195,7 +202,7 @@ int \+\_\+isatty (\begin{DoxyParamCaption}\item[{int}]{file}{}\end{DoxyParamCapt
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00106}{106}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00121}{121}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a062a5101199c3128edd5170f2575bb10}\index{syscalls.c@{syscalls.c}!\_kill@{\_kill}}
 \index{\_kill@{\_kill}!syscalls.c@{syscalls.c}}
@@ -219,7 +226,7 @@ int \+\_\+link (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00155}{155}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00170}{170}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a7a61311bdf1cb025fc07dc2bdae22ce4}\index{syscalls.c@{syscalls.c}!\_lseek@{\_lseek}}
 \index{\_lseek@{\_lseek}!syscalls.c@{syscalls.c}}
@@ -229,7 +236,7 @@ int \+\_\+lseek (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{int}]{ptr}
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00112}{112}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00127}{127}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a270c9113047edd8d64186710ad76062b}\index{syscalls.c@{syscalls.c}!\_open@{\_open}}
 \index{\_open@{\_open}!syscalls.c@{syscalls.c}}
@@ -239,7 +246,7 @@ int \+\_\+open (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00120}{120}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00135}{135}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a4711e961db985ed2c850a8be6597af50}\index{syscalls.c@{syscalls.c}!\_stat@{\_stat}}
 \index{\_stat@{\_stat}!syscalls.c@{syscalls.c}}
@@ -249,7 +256,7 @@ int \+\_\+stat (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00148}{148}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00163}{163}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_aaf727ebf57cd64d6c58b23e6ee4a4a69}\index{syscalls.c@{syscalls.c}!\_times@{\_times}}
 \index{\_times@{\_times}!syscalls.c@{syscalls.c}}
@@ -259,7 +266,7 @@ int \+\_\+times (\begin{DoxyParamCaption}\item[{struct tms \texorpdfstring{$\ast
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00142}{142}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00157}{157}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a70b2f211d665cded5637065aa2bb89dc}\index{syscalls.c@{syscalls.c}!\_unlink@{\_unlink}}
 \index{\_unlink@{\_unlink}!syscalls.c@{syscalls.c}}
@@ -269,7 +276,7 @@ int \+\_\+unlink (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00135}{135}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00150}{150}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_aeef0c3372d04caa1bcc99fed2ab6ec72}\index{syscalls.c@{syscalls.c}!\_wait@{\_wait}}
 \index{\_wait@{\_wait}!syscalls.c@{syscalls.c}}
@@ -279,7 +286,17 @@ int \+\_\+wait (\begin{DoxyParamCaption}\item[{int \texorpdfstring{$\ast$}{*}}]{
 
 
 
-Definition at line \mbox{\hyperlink{syscalls_8c_source_l00128}{128}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00143}{143}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
+
+\Hypertarget{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9}\index{syscalls.c@{syscalls.c}!\_write@{\_write}}
+\index{\_write@{\_write}!syscalls.c@{syscalls.c}}
+\doxysubsubsection{\texorpdfstring{\_write()}{\_write()}}
+{\footnotesize\ttfamily \label{syscalls_8c_aa025a12d45f60c7d0eae249e61f0c7f9} 
+int \+\_\+write (\begin{DoxyParamCaption}\item[{int}]{file}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{ptr}{, }\item[{int}]{len}{}\end{DoxyParamCaption})}
+
+This is a cool function that overrides the weak \+\_\+write function in \doxylink{syscalls_8c}{syscalls.\+c} 
+
+Definition at line \mbox{\hyperlink{syscalls_8c_source_l00096}{96}} of file \mbox{\hyperlink{syscalls_8c_source}{syscalls.\+c}}.
 
 \Hypertarget{syscalls_8c_a25c7f100d498300fff65568c2fcfe639}\index{syscalls.c@{syscalls.c}!initialise\_monitor\_handles@{initialise\_monitor\_handles}}
 \index{initialise\_monitor\_handles@{initialise\_monitor\_handles}!syscalls.c@{syscalls.c}}

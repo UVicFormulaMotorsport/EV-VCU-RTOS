@@ -97,6 +97,7 @@ $(function(){initNavTree('can_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Data Structures</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a> &#124;
@@ -108,6 +109,8 @@ $(function(){initNavTree('can_8h.html',''); initResizable(true); });
 <p>This file contains all the function prototypes for the <a class="el" href="can_8c.html" title="This file provides code for the configuration of the CAN instances.">can.c</a> file.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;FreeRTOS.h&quot;</code><br />
+<code>#include &quot;task.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="constants_8h_source.html">constants.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="uvfr__utils_8h_source.html">uvfr_utils.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -123,6 +126,11 @@ This graph shows which files directly or indirectly include this file:</div>
 </div>
 <p><a href="can_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structuv___c_a_n__driver.html">uv_CAN_driver</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a8258cafd2b5e0bfb1e4228e7a45750bf" id="r_a8258cafd2b5e0bfb1e4228e7a45750bf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8258cafd2b5e0bfb1e4228e7a45750bf">CAN_TX_DAEMON_NAME</a>&#160;&#160;&#160;&quot;CanTxDaemon&quot;</td></tr>
@@ -138,6 +146,8 @@ Typedefs</h2></td></tr>
 <tr class="memitem:aef3770e45bbacbf527fd93dd80eea9b9" id="r_aef3770e45bbacbf527fd93dd80eea9b9"><td class="memItemLeft" align="right" valign="top">typedef enum <a class="el" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9e">uv_status_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a></td></tr>
 <tr class="memdesc:aef3770e45bbacbf527fd93dd80eea9b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is meant to be a return type from functions that indicates what is actually going on.  <br /></td></tr>
 <tr class="separator:aef3770e45bbacbf527fd93dd80eea9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec39fe0f62c8ca81d1cff23e82a47b77" id="r_aec39fe0f62c8ca81d1cff23e82a47b77"><td class="memItemLeft" align="right" valign="top">typedef struct uv_CAN_driver&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aec39fe0f62c8ca81d1cff23e82a47b77">uv_CAN_driver</a></td></tr>
+<tr class="separator:aec39fe0f62c8ca81d1cff23e82a47b77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
@@ -161,8 +171,10 @@ Functions</h2></td></tr>
 <tr class="memitem:gafadde3418edf4017889c4c6ec160a2f6" id="r_gafadde3418edf4017889c4c6ec160a2f6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uvfr__can__api.html#gafadde3418edf4017889c4c6ec160a2f6">insertCANMessageHandler</a> (uint32_t id, void *handlerfunc, int can_num)</td></tr>
 <tr class="memdesc:gafadde3418edf4017889c4c6ec160a2f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to insert an id and function into the lookup table of callback functions.  <br /></td></tr>
 <tr class="separator:gafadde3418edf4017889c4c6ec160a2f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6b10418988114bc5b82f13501b99bdd" id="r_af6b10418988114bc5b82f13501b99bdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6b10418988114bc5b82f13501b99bdd">nuke_hash_table</a> (int can_num)</td></tr>
-<tr class="separator:af6b10418988114bc5b82f13501b99bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada0e781042e59a78cf629006f050e4b6" id="r_ada0e781042e59a78cf629006f050e4b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada0e781042e59a78cf629006f050e4b6">uvCanDriverInit</a> ()</td></tr>
+<tr class="separator:ada0e781042e59a78cf629006f050e4b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1369407ea9efacfb19ce5a919feaac57" id="r_a1369407ea9efacfb19ce5a919feaac57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1369407ea9efacfb19ce5a919feaac57">uvCanDriverDeInit</a> ()</td></tr>
+<tr class="separator:a1369407ea9efacfb19ce5a919feaac57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -191,9 +203,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00043">43</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00046">46</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00050">uvInit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l01159">uvCanDriverInit()</a>.</p>
 
 </div>
 </div>
@@ -209,13 +221,27 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00042">42</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00045">45</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00050">uvInit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l01159">uvCanDriverInit()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Typedef Documentation</h2>
+<a id="aec39fe0f62c8ca81d1cff23e82a47b77" name="aec39fe0f62c8ca81d1cff23e82a47b77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec39fe0f62c8ca81d1cff23e82a47b77">&#9670;&#160;</a></span>uv_CAN_driver</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct uv_CAN_driver uv_CAN_driver</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ad857192b5d0529e73642f1293d6bed75" name="ad857192b5d0529e73642f1293d6bed75"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad857192b5d0529e73642f1293d6bed75">&#9670;&#160;</a></span>uv_CAN_msg</h2>
 
@@ -230,7 +256,7 @@ Variables</h2></td></tr>
 
 <p>Representative of a CAN message. </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00045">45</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00048">48</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
 
 </div>
 </div>
@@ -249,7 +275,7 @@ Variables</h2></td></tr>
 <p>This is meant to be a return type from functions that indicates what is actually going on. </p>
 <p>Use this as a return value for functions you want to know the success of. In general, any function you write must return something, as well as account for any possible errors that may have occurred. </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00046">46</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8h_source.html#l00049">49</a> of file <a class="el" href="can_8h_source.html">can.h</a>.</p>
 
 </div>
 </div>
@@ -272,11 +298,11 @@ Variables</h2></td></tr>
 <p>Background task that executes the CAN message callback functions. </p>
 <p>dequeue can message to call function </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l01045">1045</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l01122">1122</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="can_8c_source.html#l00070">callback_table_1_mutex</a>, <a class="el" href="can_8c_source.html#l00071">callback_table_2_mutex</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00248">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00724">killSelf()</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00765">suspendSelf()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00246">uv_task_info::task_handle</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00105">UV_KILL_CMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00106">UV_SUSPEND_CMD</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00248">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00773">killSelf()</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00814">suspendSelf()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00246">uv_task_info::task_handle</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00105">UV_KILL_CMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00106">UV_SUSPEND_CMD</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00050">uvInit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l01159">uvCanDriverInit()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -304,11 +330,11 @@ Here is the call graph for this function:</div>
 <p>This task sits idle, until the time is right (it receives a notification from the uvSendCanMSG function) Once this condition has been met, it will actually call the <code>HAL_CAN_AddTxMessage</code> function. This is a very high priority task, meaning that it will pause whatever other code is going in order to run</p>
 <p>dequeue can message to put into can bus </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00920">920</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00997">997</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00271">CAN_BUS_1</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00248">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00289">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00287">uv_CAN_msg::dlc</a>, <a class="el" href="uvfr__utils_8h_source.html#l00283">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00152">hcan1</a>, <a class="el" href="can_8c_source.html#l00153">hcan2</a>, <a class="el" href="can_8c_source.html#l00074">is_can_ok</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00724">killSelf()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00288">uv_CAN_msg::msg_id</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00765">suspendSelf()</a>, <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>, <a class="el" href="constants_8c_source.html#l00005">TxHeader2</a>, <a class="el" href="constants_8c_source.html#l00011">TxMailbox</a>, <a class="el" href="uvfr__utils_8h_source.html#l00269">UV_CAN_EXTENDED_ID</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00105">UV_KILL_CMD</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00106">UV_SUSPEND_CMD</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00301">CAN_BUS_1</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00248">uv_task_info::cmd_data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00322">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00320">uv_CAN_msg::dlc</a>, <a class="el" href="uvfr__utils_8h_source.html#l00316">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00159">hcan1</a>, <a class="el" href="can_8c_source.html#l00160">hcan2</a>, <a class="el" href="can_8c_source.html#l00081">is_can_ok</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00773">killSelf()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00321">uv_CAN_msg::msg_id</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l00814">suspendSelf()</a>, <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>, <a class="el" href="constants_8c_source.html#l00005">TxHeader2</a>, <a class="el" href="constants_8c_source.html#l00011">TxMailbox</a>, <a class="el" href="uvfr__utils_8h_source.html#l00298">UV_CAN_EXTENDED_ID</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00105">UV_KILL_CMD</a>, and <a class="el" href="uvfr__state__engine_8h_source.html#l00106">UV_SUSPEND_CMD</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00050">uvInit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="can_8c_source.html#l01159">uvCanDriverInit()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -332,9 +358,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00456">456</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00463">463</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00271">CAN_BUS_1</a>, <a class="el" href="uvfr__utils_8h_source.html#l00272">CAN_BUS_2</a>, <a class="el" href="uvfr__utils_8h_source.html#l00289">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00287">uv_CAN_msg::dlc</a>, <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00283">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00152">hcan1</a>, <a class="el" href="can_8c_source.html#l00074">is_can_ok</a>, <a class="el" href="uvfr__utils_8h_source.html#l00288">uv_CAN_msg::msg_id</a>, <a class="el" href="constants_8c_source.html#l00006">RxHeader</a>, <a class="el" href="constants_8c_source.html#l00007">RxHeader2</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00269">UV_CAN_EXTENDED_ID</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00301">CAN_BUS_1</a>, <a class="el" href="uvfr__utils_8h_source.html#l00302">CAN_BUS_2</a>, <a class="el" href="uvfr__utils_8h_source.html#l00322">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00320">uv_CAN_msg::dlc</a>, <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00316">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00159">hcan1</a>, <a class="el" href="can_8c_source.html#l00081">is_can_ok</a>, <a class="el" href="uvfr__utils_8h_source.html#l00321">uv_CAN_msg::msg_id</a>, <a class="el" href="constants_8c_source.html#l00006">RxHeader</a>, <a class="el" href="constants_8c_source.html#l00007">RxHeader2</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00298">UV_CAN_EXTENDED_ID</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -358,9 +384,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00512">512</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00519">519</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00271">CAN_BUS_1</a>, <a class="el" href="uvfr__utils_8h_source.html#l00272">CAN_BUS_2</a>, <a class="el" href="uvfr__utils_8h_source.html#l00289">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00287">uv_CAN_msg::dlc</a>, <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00283">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00152">hcan1</a>, <a class="el" href="can_8c_source.html#l00074">is_can_ok</a>, <a class="el" href="uvfr__utils_8h_source.html#l00288">uv_CAN_msg::msg_id</a>, <a class="el" href="constants_8c_source.html#l00006">RxHeader</a>, <a class="el" href="constants_8c_source.html#l00007">RxHeader2</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00269">UV_CAN_EXTENDED_ID</a>.</p>
+<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00301">CAN_BUS_1</a>, <a class="el" href="uvfr__utils_8h_source.html#l00302">CAN_BUS_2</a>, <a class="el" href="uvfr__utils_8h_source.html#l00322">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00320">uv_CAN_msg::dlc</a>, <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, <a class="el" href="uvfr__utils_8h_source.html#l00316">uv_CAN_msg::flags</a>, <a class="el" href="can_8c_source.html#l00159">hcan1</a>, <a class="el" href="can_8c_source.html#l00081">is_can_ok</a>, <a class="el" href="uvfr__utils_8h_source.html#l00321">uv_CAN_msg::msg_id</a>, <a class="el" href="constants_8c_source.html#l00006">RxHeader</a>, <a class="el" href="constants_8c_source.html#l00007">RxHeader2</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00298">UV_CAN_EXTENDED_ID</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -384,11 +410,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00156">156</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00163">163</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00152">hcan1</a>, and <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>.</p>
+<p class="reference">References <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00159">hcan1</a>, and <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00111">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00112">main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -412,11 +438,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00232">232</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00239">239</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">References <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00153">hcan2</a>, and <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>.</p>
+<p class="reference">References <a class="el" href="main_8c_source.html#l00345">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00160">hcan2</a>, and <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00111">main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00112">main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -425,25 +451,48 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="af6b10418988114bc5b82f13501b99bdd" name="af6b10418988114bc5b82f13501b99bdd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6b10418988114bc5b82f13501b99bdd">&#9670;&#160;</a></span>nuke_hash_table()</h2>
+<a id="a1369407ea9efacfb19ce5a919feaac57" name="a1369407ea9efacfb19ce5a919feaac57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1369407ea9efacfb19ce5a919feaac57">&#9670;&#160;</a></span>uvCanDriverDeInit()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void nuke_hash_table </td>
+          <td class="memname"><a class="el" href="#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> uvCanDriverDeInit </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>can_num</em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Function to free all malloced memory Index through the hash table and free all the malloced memory at each index </p>
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00773">773</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+</div>
+</div>
+<a id="ada0e781042e59a78cf629006f050e4b6" name="ada0e781042e59a78cf629006f050e4b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada0e781042e59a78cf629006f050e4b6">&#9670;&#160;</a></span>uvCanDriverInit()</h2>
 
-<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00271">CAN_BUS_1</a>, <a class="el" href="uvfr__utils_8h_source.html#l00272">CAN_BUS_2</a>, <a class="el" href="can_8c_source.html#l00066">CAN_callback_table_1</a>, <a class="el" href="can_8c_source.html#l00068">CAN_callback_table_2</a>, <a class="el" href="can_8c_source.html#l00058">CAN_Callback::next</a>, and <a class="el" href="can_8c_source.html#l00051">table_size</a>.</p>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> uvCanDriverInit </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l01159">1159</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+
+<p class="reference">References <a class="el" href="uvfr__state__engine_8h_source.html#l00258">uv_task_info::active_states</a>, <a class="el" href="can_8c_source.html#l00077">callback_table_1_mutex</a>, <a class="el" href="can_8c_source.html#l00078">callback_table_2_mutex</a>, <a class="el" href="can_8h_source.html#l00046">CAN_RX_DAEMON_NAME</a>, <a class="el" href="can_8h_source.html#l00045">CAN_TX_DAEMON_NAME</a>, <a class="el" href="can_8c_source.html#l01122">CANbusRxSvcDaemon()</a>, <a class="el" href="can_8c_source.html#l00997">CANbusTxSvcDaemon()</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00238">uv_task_info::stack_size</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00234">uv_task_info::task_function</a>, <a class="el" href="uvfr__state__engine_8h_source.html#l00229">uv_task_info::task_name</a>, <a class="el" href="uvfr__state__engine_8c_source.html#l01266">uvCreateServiceTask()</a>, and <a class="el" href="uvfr__state__engine_8c_source.html#l00449">uvStartTask()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00073">uvInit()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="can_8h_ada0e781042e59a78cf629006f050e4b6_cgraph.png" border="0" usemap="#acan_8h_ada0e781042e59a78cf629006f050e4b6_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>
@@ -468,7 +517,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00152">152</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00159">159</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
 </div>
 </div>
@@ -492,9 +541,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00153">153</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="can_8c_source.html#l00160">160</a> of file <a class="el" href="can_8c_source.html">can.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00185">IMD_Request_Status()</a>, <a class="el" href="main_8c_source.html#l00111">main()</a>, <a class="el" href="dash_8c_source.html#l00029">Update_Batt_Temp()</a>, <a class="el" href="dash_8c_source.html#l00009">Update_RPM()</a>, and <a class="el" href="dash_8c_source.html#l00048">Update_State_Of_Charge()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="main_8c_source.html#l00112">main()</a>, <a class="el" href="dash_8c_source.html#l00029">Update_Batt_Temp()</a>, <a class="el" href="dash_8c_source.html#l00009">Update_RPM()</a>, and <a class="el" href="dash_8c_source.html#l00048">Update_State_Of_Charge()</a>.</p>
 
 </div>
 </div>

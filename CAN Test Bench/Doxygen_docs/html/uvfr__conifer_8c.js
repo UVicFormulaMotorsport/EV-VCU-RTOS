@@ -2,7 +2,10 @@ var uvfr__conifer_8c =
 [
     [ "__ch_list", "uvfr__conifer_8c.html#abb9099bb5f07f6c726d11166c48f2338", null ],
     [ "__dcs", "uvfr__conifer_8c.html#ad547454272c1bf1f4e633a1005eeca2c", null ],
+    [ "__UV_FILENAME__", "uvfr__conifer_8c.html#a368892c5fb38bdcdfae7b7e2a22602b4", null ],
     [ "__attribute__", "uvfr__conifer_8c.html#a083b2e840cc4afee2f08f66c46f4d64d", null ],
+    [ "__manually_get_ch_info", "uvfr__conifer_8c.html#a9bb736556d4ab4ff80895b07b18eb88f", null ],
+    [ "coniferBlankCurrentGetter", "uvfr__conifer_8c.html#a0c4bb593fdd607bb172942264dd28169", null ],
     [ "coniferDeInit", "uvfr__conifer_8c.html#abd58786ab480f925351564f049e4008f", null ],
     [ "coniferDisChannel", "uvfr__conifer_8c.html#ad79a0176a2fa65ec8bfd500844aeec59", null ],
     [ "coniferDisLoadShedding", "uvfr__conifer_8c.html#a7b722107967fa84381a798301dd0b57a", null ],
@@ -17,9 +20,9 @@ var uvfr__conifer_8c =
     [ "coniferSetDutyCycle", "uvfr__conifer_8c.html#ac38837d66ac0cec4b361b468c132663e", null ],
     [ "coniferSetDutyCycleAndDirection", "uvfr__conifer_8c.html#ab598961c57873287afab07e8e6598d0e", null ],
     [ "coniferToggleChannel", "uvfr__conifer_8c.html#a4962a2f4670cdb0d2666a75cf5b34ee0", null ],
-    [ "theScrimDonguloder", "uvfr__conifer_8c.html#a2e01f51a929e3237a7fac511eac4f288", null ],
     [ "ch_updaters", "uvfr__conifer_8c.html#a0d4576b3201affa2e0120a637bc47cec", null ],
     [ "cstate", "uvfr__conifer_8c.html#a18cdcc1e2d7aa04c7bbf948689063288", null ],
     [ "current_getters", "uvfr__conifer_8c.html#a47839973a8a94e0775184cb6f01638ed", null ],
-    [ "default_conifer_settings", "uvfr__conifer_8c.html#af1159e0fffb524777de5dcf9d869a738", null ]
+    [ "default_conifer_settings", "uvfr__conifer_8c.html#af1159e0fffb524777de5dcf9d869a738", null ],
+    [ "fbck_getters", "uvfr__conifer_8c.html#a040eaf0af13463b371d4636fc78c4cf2", null ]
 ];

@@ -210,6 +210,8 @@ struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdf
 \item 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{group__state__engine__api_gaa3ad3e8df75177c00265881c16563212}{change\+Vehicle\+State}} (uint16\+\_\+t state)
 \begin{DoxyCompactList}\small\item\em Function for changing the state of the vehicle, as well as the list of active + inactive tasks. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__state__engine_8h_a0ef324c9c88a50704c0604cd13da2717}{uv\+Get\+State\+String}} ()
+\item 
 void \mbox{\hyperlink{uvfr__state__engine_8h_ab2449f66698295ebfaff451c2f63607f}{\+\_\+\+\_\+uv\+Panic}} (char \texorpdfstring{$\ast$}{*}msg, uint8\+\_\+t msg\+\_\+len, const char \texorpdfstring{$\ast$}{*}file, const int line, const char \texorpdfstring{$\ast$}{*}func)
 \item 
 void \mbox{\hyperlink{group__state__engine__backend_ga5f35b34432afed7f18f91fb8607f096f}{kill\+Self}} (struct \mbox{\hyperlink{structuv__task__info}{uv\+\_\+task\+\_\+info}} \texorpdfstring{$\ast$}{*}t)
@@ -238,7 +240,7 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00070}{70}} o
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00930}{\+\_\+state\+Change\+Daemon()}}.
 
 \Hypertarget{uvfr__state__engine_8h_a092c530d4a0cd880a59598dc0fca95d4}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_SC\_DAEMON\_PERIOD@{\_SC\_DAEMON\_PERIOD}}
 \index{\_SC\_DAEMON\_PERIOD@{\_SC\_DAEMON\_PERIOD}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
@@ -252,7 +254,7 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00071}{71}} o
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00881}{\+\_\+state\+Change\+Daemon()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00930}{\+\_\+state\+Change\+Daemon()}}.
 
 \Hypertarget{uvfr__state__engine_8h_a20115c3c236542d702abb10565f381f2}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_DEFAULT\_TASK\_INSTANCES@{\_UV\_DEFAULT\_TASK\_INSTANCES}}
 \index{\_UV\_DEFAULT\_TASK\_INSTANCES@{\_UV\_DEFAULT\_TASK\_INSTANCES}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
@@ -286,7 +288,7 @@ Definition at line \mbox{\hyperlink{uvfr__state__engine_8h_source_l00065}{65}} o
 
 
 
-Referenced by \mbox{\hyperlink{odometer_8c_source_l00011}{init\+Odometer()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00017}{init\+Temp\+Monitor()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01217}{uv\+Create\+Service\+Task()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
+Referenced by \mbox{\hyperlink{odometer_8c_source_l00013}{init\+Odometer()}}, \mbox{\hyperlink{temp__monitoring_8c_source_l00028}{init\+Temp\+Monitor()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l01266}{uv\+Create\+Service\+Task()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00333}{uv\+Create\+Task()}}.
 
 \Hypertarget{uvfr__state__engine_8h_a7aab8d4b97eeacffeb153a91f70b5e6b}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!\_UV\_MIN\_TASK\_PERIOD@{\_UV\_MIN\_TASK\_PERIOD}}
 \index{\_UV\_MIN\_TASK\_PERIOD@{\_UV\_MIN\_TASK\_PERIOD}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
@@ -351,6 +353,24 @@ void \+\_\+\+\_\+uv\+Panic (\begin{DoxyParamCaption}\item[{char \texorpdfstring{
 \doxysubsubsection{\texorpdfstring{updateRunningTasks()}{updateRunningTasks()}}
 {\footnotesize\ttfamily \label{uvfr__state__engine_8h_a7493b2515639f60db83cd6ed77b50432} 
 \mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} update\+Running\+Tasks (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__state__engine_8h_a0ef324c9c88a50704c0604cd13da2717}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uvGetStateString@{uvGetStateString}}
+\index{uvGetStateString@{uvGetStateString}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}
+\doxysubsubsection{\texorpdfstring{uvGetStateString()}{uvGetStateString()}}
+{\footnotesize\ttfamily \label{uvfr__state__engine_8h_a0ef324c9c88a50704c0604cd13da2717} 
+char \texorpdfstring{$\ast$}{*} uv\+Get\+State\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__state__engine_8c_source_l01557}{1557}} of file \mbox{\hyperlink{uvfr__state__engine_8c_source}{uvfr\+\_\+state\+\_\+engine.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00089}{UV\+\_\+\+INIT}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00040}{vehicle\+\_\+state}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00197}{disp\+Vehicle\+Status\+Report()}}.
 
 \Hypertarget{uvfr__state__engine_8h_a87c777875dcd381972a25159659dc153}\index{uvfr\_state\_engine.h@{uvfr\_state\_engine.h}!uvGetTaskById@{uvGetTaskById}}
 \index{uvGetTaskById@{uvGetTaskById}!uvfr\_state\_engine.h@{uvfr\_state\_engine.h}}

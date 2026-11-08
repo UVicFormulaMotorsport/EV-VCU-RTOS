@@ -1,9 +1,25 @@
 var tim_8c =
 [
+    [ "NUM_WHEELS", "tim_8c.html#ac43ab7cfe56f2be7a7dd7b44a34ab600", null ],
+    [ "PULSES_PER_REV", "tim_8c.html#a81cb888b0d6dad1edd6d5ff043925938", null ],
+    [ "TIM_IMPLEMENTATION", "tim_8c.html#a95b9f8ef12889fc30235876f5099017d", null ],
+    [ "TIMER_TICK_US", "tim_8c.html#a7562b7800a14c0fa1281838a7a1e0e00", null ],
+    [ "WHEEL_CIRCUMFERENCE_M", "tim_8c.html#afabf755bae5a6489c4a3fad9521a98b7", null ],
+    [ "dispWheelSpeeds", "tim_8c.html#a6573c897f7da39fd62ea8becc9580317", null ],
+    [ "HAL_GPIO_EXTI_Callback", "tim_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f", null ],
     [ "HAL_TIM_Base_MspDeInit", "tim_8c.html#adee8ed7d3ebb3a217c27ac10af86ce2f", null ],
     [ "HAL_TIM_Base_MspInit", "tim_8c.html#a59716af159bfbbb6023b31354fb23af8", null ],
+    [ "handle_wheel_interrupt", "tim_8c.html#a1d31a8f81dd9cbec0d926fe94fba5a7f", null ],
     [ "MX_TIM11_Init", "tim_8c.html#a0b1802cec6c627135b6c10a1ab67f7f3", null ],
     [ "MX_TIM3_Init", "tim_8c.html#a7912f2916786a2c33cb6fb8259ade58c", null ],
+    [ "MX_TIM5_Init", "tim_8c.html#a5ee937d52485d5cda27896e3842a7ca1", null ],
+    [ "WheelSpeed_UpdateAll", "tim_8c.html#ad350ec7e74fb12defe78017939b133bc", null ],
+    [ "frequency", "tim_8c.html#a8bc832bd68ef5b82f0467018308d90e6", null ],
     [ "htim11", "tim_8c.html#a2f22f985c4f33318fdcd4cc996623bf4", null ],
-    [ "htim3", "tim_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62", null ]
+    [ "htim3", "tim_8c.html#aac3d2c59ee0e3bbae1b99529a154eb62", null ],
+    [ "htim5", "tim_8c.html#acefaeaaa3856ddddae7083b2d220fe4b", null ],
+    [ "last_timestamp", "tim_8c.html#a8d6e3468e3c97c9363fe9f59f6883760", null ],
+    [ "period", "tim_8c.html#a26bca55ea0ea566ad05ac73b3b987140", null ],
+    [ "wheel_rpm", "tim_8c.html#a7ddc1d70b77dd3ccb1a9bcec7f61ccd2", null ],
+    [ "wheel_speed", "tim_8c.html#a2e515f9f35f6c4ce658395fc4b643d59", null ]
 ];

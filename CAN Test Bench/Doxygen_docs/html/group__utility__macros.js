@@ -15,6 +15,7 @@ var group__utility__macros =
     [ "false", "group__utility__macros.html#ga65e9886d74aaee76545e83dd09011727", null ],
     [ "isPowerOfTwo", "group__utility__macros.html#gade3043fb92536f8e1a616ba8aaef4ab9", null ],
     [ "safePtrRead", "group__utility__macros.html#gaac2f65c6267d74d5d5136f82bf217efa", null ],
+    [ "safePtrReadStrict", "group__utility__macros.html#ga567d932a836c0e17b2ffaa5cf7f9e0ee", null ],
     [ "safePtrWrite", "group__utility__macros.html#gaf506fac19ab4ad3f5b7ddd00643e0b46", null ],
     [ "serializeBigE16", "group__utility__macros.html#ga505ca43923e2bb2162e218c3b8484357", null ],
     [ "serializeBigE32", "group__utility__macros.html#ga053aa19e84e50fd8c74f8d4bb0d7820f", null ],

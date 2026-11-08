@@ -1,5 +1,6 @@
 \doxysection{Core/\+Inc/driving\+\_\+loop.h File Reference}
 \hypertarget{driving__loop_8h}{}\label{driving__loop_8h}\index{Core/Inc/driving\_loop.h@{Core/Inc/driving\_loop.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
 {\ttfamily \#include "{}motor\+\_\+controller.\+h"{}}\newline
 {\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
 Include dependency graph for driving\+\_\+loop.\+h\+:
@@ -10,15 +11,17 @@ This graph shows which files directly or indirectly include this file\+:
 \begin{DoxyCompactItemize}
 \item 
 struct \mbox{\hyperlink{structlinear__torque__map__args}{linear\+\_\+torque\+\_\+map\+\_\+args}}
+\begin{DoxyCompactList}\small\item\em Parameters for a linear torque map\+: y = m x + b. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structadaptive__torque__map__args}{adaptive\+\_\+torque\+\_\+map\+\_\+args}}
+\begin{DoxyCompactList}\small\item\em Adaptive map parameters. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structscurve__map__args}{scurve\+\_\+map\+\_\+args}}
 \item 
-struct \mbox{\hyperlink{structexp__torque__map__args}{exp\+\_\+torque\+\_\+map\+\_\+args}}
-\begin{DoxyCompactList}\small\item\em struct to hold parameters used in an exponential torque map \end{DoxyCompactList}\item 
-struct \mbox{\hyperlink{structs__curve__torque__map__args}{s\+\_\+curve\+\_\+torque\+\_\+map\+\_\+args}}
-\begin{DoxyCompactList}\small\item\em struct for s-\/curve parameters for torque \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structexponential__map__args}{exponential\+\_\+map\+\_\+args}}
+\item 
 union \mbox{\hyperlink{uniondriving_mode_params}{driving\+Mode\+Params}}
-\begin{DoxyCompactList}\small\item\em this struct is designed to hold information about each drivingmode\textquotesingle{}s map params \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Union holding whichever map params are active for a driving mode. \end{DoxyCompactList}\item 
 struct \mbox{\hyperlink{structdriving_mode}{driving\+Mode}}
-\begin{DoxyCompactList}\small\item\em This is where the driving mode and the \doxylink{uniondriving_mode_params}{driving\+Mode\+Params} are at. \end{DoxyCompactList}\item 
+\item 
 struct \mbox{\hyperlink{structdriving__loop__args}{driving\+\_\+loop\+\_\+args}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Typedefs}
@@ -31,33 +34,48 @@ typedef uint16\+\_\+t \mbox{\hyperlink{driving__loop_8h_abd1701d9bbc137696fe99b6
 typedef uint16\+\_\+t \mbox{\hyperlink{driving__loop_8h_a93f3b2b453b1ad01d8555f12e529dfed}{MC\+\_\+\+POWER}}
 \item 
 typedef struct linear\+\_\+torque\+\_\+map\+\_\+args \mbox{\hyperlink{driving__loop_8h_a21e30cbee7e12df40656ce0e97c8c1ea}{linear\+\_\+torque\+\_\+map\+\_\+args}}
+\begin{DoxyCompactList}\small\item\em Parameters for a linear torque map\+: y = m x + b. \end{DoxyCompactList}\item 
+typedef struct adaptive\+\_\+torque\+\_\+map\+\_\+args \mbox{\hyperlink{driving__loop_8h_aba6fef869146f9ef0b17bc219f9d7dcd}{adaptive\+\_\+torque\+\_\+map\+\_\+args}}
+\begin{DoxyCompactList}\small\item\em Adaptive map parameters. \end{DoxyCompactList}\item 
+typedef struct scurve\+\_\+map\+\_\+args \mbox{\hyperlink{driving__loop_8h_a5675e4bbe3b105f25ccb24171e7305ca}{scurve\+\_\+map\+\_\+args}}
 \item 
-typedef struct exp\+\_\+torque\+\_\+map\+\_\+args \mbox{\hyperlink{driving__loop_8h_aa86f54df15fe3c127ae83c1fecbb5d24}{exp\+\_\+torque\+\_\+map\+\_\+args}}
-\begin{DoxyCompactList}\small\item\em struct to hold parameters used in an exponential torque map \end{DoxyCompactList}\item 
-typedef struct s\+\_\+curve\+\_\+torque\+\_\+map\+\_\+args \mbox{\hyperlink{driving__loop_8h_a32f012927e4624d674120b51cb6ee8c0}{s\+\_\+curve\+\_\+torque\+\_\+map\+\_\+args}}
-\begin{DoxyCompactList}\small\item\em struct for s-\/curve parameters for torque \end{DoxyCompactList}\item 
+typedef struct exponential\+\_\+map\+\_\+args \mbox{\hyperlink{driving__loop_8h_a10a2d2a666d6d4e4200b0bca551ee08a}{exponential\+\_\+map\+\_\+args}}
+\item 
 typedef union driving\+Mode\+Params \mbox{\hyperlink{driving__loop_8h_af90b0e528bd940abca8f5e2cf4bce18c}{driving\+Mode\+Params}}
-\begin{DoxyCompactList}\small\item\em this struct is designed to hold information about each drivingmode\textquotesingle{}s map params \end{DoxyCompactList}\item 
+\begin{DoxyCompactList}\small\item\em Union holding whichever map params are active for a driving mode. \end{DoxyCompactList}\item 
+typedef enum \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5}{driving\+Mode\+Flags}} \mbox{\hyperlink{driving__loop_8h_a844920e55bf005c98ad910e976b532ce}{driving\+Mode\+Flags}}
+\item 
 typedef struct driving\+Mode \mbox{\hyperlink{driving__loop_8h_a29e04283e579e9092d205b1937c785c6}{driving\+Mode}}
-\begin{DoxyCompactList}\small\item\em This is where the driving mode and the \doxylink{uniondriving_mode_params}{driving\+Mode\+Params} are at. \end{DoxyCompactList}\item 
+\item 
+typedef enum \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4}{dmode\+\_\+flags}} \mbox{\hyperlink{driving__loop_8h_abc13c4510148951565104381d0c832e9}{dmode\+\_\+flags}}
+\item 
 typedef struct driving\+\_\+loop\+\_\+args \mbox{\hyperlink{driving__loop_8h_aa421e50f529a1770ef0b2a00a44a0601}{driving\+\_\+loop\+\_\+args}}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800}{map\+\_\+mode}} \{ \newline
-\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a24491cb716ed427ea52ef6cdbf415b52}{linear\+\_\+speed\+\_\+map}}
-, \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a20916d6e654ff6402aa120d8710a81a0}{s\+\_\+curve\+\_\+speed\+\_\+map}}
-, \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a260f2e914699db0b53b3cb852559b40f}{exp\+\_\+speed\+\_\+map}}
-, \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a02e428d0c5cf187b04a2e9825079d26a}{linear\+\_\+torque\+\_\+map}}
-, \newline
-\mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a97cb36a9ac4fbbe2e7b481a2677993f9}{s\+\_\+curve\+\_\+torque\+\_\+map}}
-, \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a22ffbb99cbb49917aac9c53aba81df32}{exp\+\_\+torque\+\_\+map}}
+enum \mbox{\hyperlink{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b}{dl\+\_\+map\+\_\+mode\+\_\+t}} \{ \mbox{\hyperlink{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49ba71ff71573e6dd4626daf24679ce448ce}{DL\+\_\+\+MAP\+\_\+\+LINEAR}} = 0
+, \mbox{\hyperlink{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49ba42887443ebe908be62641249a630f953}{DL\+\_\+\+MAP\+\_\+\+CUBIC}} = 1
+, \mbox{\hyperlink{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49ba7d65b8f497a893e8c2e53832ae345679}{DL\+\_\+\+MAP\+\_\+\+EXP}} = 2
  \}
-\begin{DoxyCompactList}\small\item\em DL\+\_\+\+PERIOD is meant to represent how often the driving loop executes, in ms. \end{DoxyCompactList}\item 
-enum \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\+\_\+internal\+\_\+state}} \{ \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a51000915ad3f7b4a5874322723d879ca}{Plausible}} = 0x01
-, \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a6425b90f597e6400cfb9422ec518334f}{Implausible}} = 0x02
-, \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7abb3086179f14a3715ce589bd10c3ec98}{Erroneous}} = 0x04
+\item 
+enum \mbox{\hyperlink{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa}{DL\+\_\+internal\+\_\+state\+\_\+t}} \{ \mbox{\hyperlink{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695faa51000915ad3f7b4a5874322723d879ca}{Plausible}} = 0x01
+, \mbox{\hyperlink{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695faa6425b90f597e6400cfb9422ec518334f}{Implausible}} = 0x02
+, \mbox{\hyperlink{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695faabb3086179f14a3715ce589bd10c3ec98}{Erroneous}} = 0x04
+ \}
+\item 
+enum \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5}{driving\+Mode\+Flags}} \{ \newline
+\mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5a5f72d9df2210422fed493c7220a38c8c}{DM\+\_\+\+EN\+\_\+\+REGEN}} = (0x01U\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}0)
+, \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5a27c83bbfa6daa05d7ec60c5e33a4313f}{DM\+\_\+\+EN\+\_\+\+TIPIN\+\_\+\+CONTROL}} = (0x01U\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}1)
+, \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5a606bb41d7fd0ba363a00c859602fc47f}{DM\+\_\+\+EN\+\_\+\+HS\+\_\+\+SOFTENING}} = (0x01U\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}2)
+, \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5acc409dd44d99545d205f1ee7516e938e}{DM\+\_\+\+EN\+\_\+\+TC}} = (0x01U\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}3)
+, \newline
+\mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5ac586514c67e602f8e00e856ffed4ae02}{DM\+\_\+\+LUDICROUS\+\_\+\+MODE}} = (0x01U\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}4)
+ \}
+\item 
+enum \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4}{dmode\+\_\+flags}} \{ \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4ab2a3fc8f89cb5eb005e385a00f77a3b3}{DMODE\+\_\+\+REGEN\+\_\+\+EN}}
+, \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4a000160cc9d0329877cd08857dca2f57e}{DMODE\+\_\+\+TC\+\_\+\+EN}}
+, \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4a6e2995e12702b620ecffefb5987021b1}{DMODE\+\_\+\+FILT\+\_\+\+EN}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Functions}
@@ -66,10 +84,28 @@ enum \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\+\_
 enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+status\+\_\+t}} \mbox{\hyperlink{driving__loop_8h_af580185fb5bb1cfba30ee1709d90628c}{init\+Driving\+Loop}} (void \texorpdfstring{$\ast$}{*}argument)
 \item 
 void \mbox{\hyperlink{driving__loop_8h_a80cc48f06202edc29bcad26a956bcc98}{Start\+Driving\+Loop}} (void \texorpdfstring{$\ast$}{*}argument)
-\begin{DoxyCompactList}\small\item\em Sends the filtered torque value to the motor controller. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{driving__loop_8h_a4f65fe44f806e3c040579c36f6134349}{calculate\+Brake\+Percentage}} (uint16\+\_\+t bps1)
+\end{DoxyCompactItemize}
 
 
 \doxysubsection{Typedef Documentation}
+\Hypertarget{driving__loop_8h_aba6fef869146f9ef0b17bc219f9d7dcd}\index{driving\_loop.h@{driving\_loop.h}!adaptive\_torque\_map\_args@{adaptive\_torque\_map\_args}}
+\index{adaptive\_torque\_map\_args@{adaptive\_torque\_map\_args}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{adaptive\_torque\_map\_args}{adaptive\_torque\_map\_args}}
+{\footnotesize\ttfamily \label{driving__loop_8h_aba6fef869146f9ef0b17bc219f9d7dcd} 
+typedef struct adaptive\+\_\+torque\+\_\+map\+\_\+args adaptive\+\_\+torque\+\_\+map\+\_\+args}
+
+
+
+Adaptive map parameters. 
+
+Simple adaptive drive map knobs (minimal map explosion). \Hypertarget{driving__loop_8h_abc13c4510148951565104381d0c832e9}\index{driving\_loop.h@{driving\_loop.h}!dmode\_flags@{dmode\_flags}}
+\index{dmode\_flags@{dmode\_flags}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{dmode\_flags}{dmode\_flags}}
+{\footnotesize\ttfamily \label{driving__loop_8h_abc13c4510148951565104381d0c832e9} 
+typedef enum \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4}{dmode\+\_\+flags}} \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4}{dmode\+\_\+flags}}}
+
 \Hypertarget{driving__loop_8h_aa421e50f529a1770ef0b2a00a44a0601}\index{driving\_loop.h@{driving\_loop.h}!driving\_loop\_args@{driving\_loop\_args}}
 \index{driving\_loop\_args@{driving\_loop\_args}!driving\_loop.h@{driving\_loop.h}}
 \doxysubsubsection{\texorpdfstring{driving\_loop\_args}{driving\_loop\_args}}
@@ -82,9 +118,11 @@ typedef struct driving\+\_\+loop\+\_\+args driving\+\_\+loop\+\_\+args}
 {\footnotesize\ttfamily \label{driving__loop_8h_a29e04283e579e9092d205b1937c785c6} 
 typedef struct driving\+Mode driving\+Mode}
 
-
-
-This is where the driving mode and the \doxylink{uniondriving_mode_params}{driving\+Mode\+Params} are at. 
+\Hypertarget{driving__loop_8h_a844920e55bf005c98ad910e976b532ce}\index{driving\_loop.h@{driving\_loop.h}!drivingModeFlags@{drivingModeFlags}}
+\index{drivingModeFlags@{drivingModeFlags}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{drivingModeFlags}{drivingModeFlags}}
+{\footnotesize\ttfamily \label{driving__loop_8h_a844920e55bf005c98ad910e976b532ce} 
+typedef enum \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5}{driving\+Mode\+Flags}} \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5}{driving\+Mode\+Flags}}}
 
 \Hypertarget{driving__loop_8h_af90b0e528bd940abca8f5e2cf4bce18c}\index{driving\_loop.h@{driving\_loop.h}!drivingModeParams@{drivingModeParams}}
 \index{drivingModeParams@{drivingModeParams}!driving\_loop.h@{driving\_loop.h}}
@@ -94,23 +132,23 @@ typedef union driving\+Mode\+Params driving\+Mode\+Params}
 
 
 
-this struct is designed to hold information about each drivingmode\textquotesingle{}s map params 
+Union holding whichever map params are active for a driving mode. 
 
-\Hypertarget{driving__loop_8h_aa86f54df15fe3c127ae83c1fecbb5d24}\index{driving\_loop.h@{driving\_loop.h}!exp\_torque\_map\_args@{exp\_torque\_map\_args}}
-\index{exp\_torque\_map\_args@{exp\_torque\_map\_args}!driving\_loop.h@{driving\_loop.h}}
-\doxysubsubsection{\texorpdfstring{exp\_torque\_map\_args}{exp\_torque\_map\_args}}
-{\footnotesize\ttfamily \label{driving__loop_8h_aa86f54df15fe3c127ae83c1fecbb5d24} 
-typedef struct exp\+\_\+torque\+\_\+map\+\_\+args exp\+\_\+torque\+\_\+map\+\_\+args}
-
-
-
-struct to hold parameters used in an exponential torque map 
+\Hypertarget{driving__loop_8h_a10a2d2a666d6d4e4200b0bca551ee08a}\index{driving\_loop.h@{driving\_loop.h}!exponential\_map\_args@{exponential\_map\_args}}
+\index{exponential\_map\_args@{exponential\_map\_args}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{exponential\_map\_args}{exponential\_map\_args}}
+{\footnotesize\ttfamily \label{driving__loop_8h_a10a2d2a666d6d4e4200b0bca551ee08a} 
+typedef struct exponential\+\_\+map\+\_\+args exponential\+\_\+map\+\_\+args}
 
 \Hypertarget{driving__loop_8h_a21e30cbee7e12df40656ce0e97c8c1ea}\index{driving\_loop.h@{driving\_loop.h}!linear\_torque\_map\_args@{linear\_torque\_map\_args}}
 \index{linear\_torque\_map\_args@{linear\_torque\_map\_args}!driving\_loop.h@{driving\_loop.h}}
 \doxysubsubsection{\texorpdfstring{linear\_torque\_map\_args}{linear\_torque\_map\_args}}
 {\footnotesize\ttfamily \label{driving__loop_8h_a21e30cbee7e12df40656ce0e97c8c1ea} 
 typedef struct linear\+\_\+torque\+\_\+map\+\_\+args linear\+\_\+torque\+\_\+map\+\_\+args}
+
+
+
+Parameters for a linear torque map\+: y = m x + b. 
 
 \Hypertarget{driving__loop_8h_a93f3b2b453b1ad01d8555f12e529dfed}\index{driving\_loop.h@{driving\_loop.h}!MC\_POWER@{MC\_POWER}}
 \index{MC\_POWER@{MC\_POWER}!driving\_loop.h@{driving\_loop.h}}
@@ -120,7 +158,7 @@ typedef uint16\+\_\+t \mbox{\hyperlink{driving__loop_8h_a93f3b2b453b1ad01d8555f1
 
 
 
-Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00016}{16}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00020}{20}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
 
 \Hypertarget{driving__loop_8h_abd1701d9bbc137696fe99b6df6eb7d3e}\index{driving\_loop.h@{driving\_loop.h}!MC\_RPM@{MC\_RPM}}
 \index{MC\_RPM@{MC\_RPM}!driving\_loop.h@{driving\_loop.h}}
@@ -130,7 +168,7 @@ typedef uint16\+\_\+t \mbox{\hyperlink{driving__loop_8h_abd1701d9bbc137696fe99b6
 
 
 
-Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00015}{15}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00019}{19}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
 
 \Hypertarget{driving__loop_8h_a5ec2330fa2301c68498a6ff0825998c9}\index{driving\_loop.h@{driving\_loop.h}!MC\_Torque@{MC\_Torque}}
 \index{MC\_Torque@{MC\_Torque}!driving\_loop.h@{driving\_loop.h}}
@@ -140,94 +178,142 @@ typedef uint16\+\_\+t \mbox{\hyperlink{driving__loop_8h_a5ec2330fa2301c68498a6ff
 
 
 
-Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00014}{14}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00018}{18}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
 
-\Hypertarget{driving__loop_8h_a32f012927e4624d674120b51cb6ee8c0}\index{driving\_loop.h@{driving\_loop.h}!s\_curve\_torque\_map\_args@{s\_curve\_torque\_map\_args}}
-\index{s\_curve\_torque\_map\_args@{s\_curve\_torque\_map\_args}!driving\_loop.h@{driving\_loop.h}}
-\doxysubsubsection{\texorpdfstring{s\_curve\_torque\_map\_args}{s\_curve\_torque\_map\_args}}
-{\footnotesize\ttfamily \label{driving__loop_8h_a32f012927e4624d674120b51cb6ee8c0} 
-typedef struct s\+\_\+curve\+\_\+torque\+\_\+map\+\_\+args s\+\_\+curve\+\_\+torque\+\_\+map\+\_\+args}
-
-
-
-struct for s-\/curve parameters for torque 
+\Hypertarget{driving__loop_8h_a5675e4bbe3b105f25ccb24171e7305ca}\index{driving\_loop.h@{driving\_loop.h}!scurve\_map\_args@{scurve\_map\_args}}
+\index{scurve\_map\_args@{scurve\_map\_args}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{scurve\_map\_args}{scurve\_map\_args}}
+{\footnotesize\ttfamily \label{driving__loop_8h_a5675e4bbe3b105f25ccb24171e7305ca} 
+typedef struct scurve\+\_\+map\+\_\+args scurve\+\_\+map\+\_\+args}
 
 
 
 \doxysubsection{Enumeration Type Documentation}
-\Hypertarget{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}\index{driving\_loop.h@{driving\_loop.h}!DL\_internal\_state@{DL\_internal\_state}}
-\index{DL\_internal\_state@{DL\_internal\_state}!driving\_loop.h@{driving\_loop.h}}
-\doxysubsubsection{\texorpdfstring{DL\_internal\_state}{DL\_internal\_state}}
-{\footnotesize\ttfamily \label{driving__loop_8h_adef4571b048b5b1f2b712713741296c7} 
-enum \mbox{\hyperlink{driving__loop_8h_adef4571b048b5b1f2b712713741296c7}{DL\+\_\+internal\+\_\+state}}}
+\Hypertarget{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa}\index{driving\_loop.h@{driving\_loop.h}!DL\_internal\_state\_t@{DL\_internal\_state\_t}}
+\index{DL\_internal\_state\_t@{DL\_internal\_state\_t}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{DL\_internal\_state\_t}{DL\_internal\_state\_t}}
+{\footnotesize\ttfamily \label{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa} 
+enum \mbox{\hyperlink{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa}{DL\+\_\+internal\+\_\+state\+\_\+t}}}
 
 \begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Plausible@{Plausible}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!Plausible@{Plausible}}}\Hypertarget{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a51000915ad3f7b4a5874322723d879ca}\label{driving__loop_8h_adef4571b048b5b1f2b712713741296c7} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Plausible@{Plausible}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!Plausible@{Plausible}}}\Hypertarget{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695faa51000915ad3f7b4a5874322723d879ca}\label{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa} 
 Plausible&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Implausible@{Implausible}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!Implausible@{Implausible}}}\Hypertarget{driving__loop_8h_adef4571b048b5b1f2b712713741296c7a6425b90f597e6400cfb9422ec518334f}\label{driving__loop_8h_adef4571b048b5b1f2b712713741296c7} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Implausible@{Implausible}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!Implausible@{Implausible}}}\Hypertarget{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695faa6425b90f597e6400cfb9422ec518334f}\label{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa} 
 Implausible&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Erroneous@{Erroneous}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!Erroneous@{Erroneous}}}\Hypertarget{driving__loop_8h_adef4571b048b5b1f2b712713741296c7abb3086179f14a3715ce589bd10c3ec98}\label{driving__loop_8h_adef4571b048b5b1f2b712713741296c7} 
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Erroneous@{Erroneous}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!Erroneous@{Erroneous}}}\Hypertarget{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695faabb3086179f14a3715ce589bd10c3ec98}\label{driving__loop_8h_aa02e34d3fd76cf32fb21aef41ba695fa} 
 Erroneous&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00042}{42}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00035}{35}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
 
-\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800}\index{driving\_loop.h@{driving\_loop.h}!map\_mode@{map\_mode}}
-\index{map\_mode@{map\_mode}!driving\_loop.h@{driving\_loop.h}}
-\doxysubsubsection{\texorpdfstring{map\_mode}{map\_mode}}
-{\footnotesize\ttfamily \label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-enum \mbox{\hyperlink{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800}{map\+\_\+mode}}}
+\Hypertarget{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b}\index{driving\_loop.h@{driving\_loop.h}!dl\_map\_mode\_t@{dl\_map\_mode\_t}}
+\index{dl\_map\_mode\_t@{dl\_map\_mode\_t}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{dl\_map\_mode\_t}{dl\_map\_mode\_t}}
+{\footnotesize\ttfamily \label{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b} 
+enum \mbox{\hyperlink{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b}{dl\+\_\+map\+\_\+mode\+\_\+t}}}
 
-
-
-DL\+\_\+\+PERIOD is meant to represent how often the driving loop executes, in ms. 
-
-This is a define since I would eventually like this to be configurable via a global variable, or possible be dynamic in the future.
-
-Just replace the number with the name of the variable, and you\textquotesingle{}re all set.
-
-enum meant to represent the different types of pedal map
-
-This enum is meant to represent different functions that map the torque to speed. \begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{linear\_speed\_map@{linear\_speed\_map}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!linear\_speed\_map@{linear\_speed\_map}}}\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a24491cb716ed427ea52ef6cdbf415b52}\label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-linear\+\_\+speed\+\_\+map&\\
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DL\_MAP\_LINEAR@{DL\_MAP\_LINEAR}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DL\_MAP\_LINEAR@{DL\_MAP\_LINEAR}}}\Hypertarget{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49ba71ff71573e6dd4626daf24679ce448ce}\label{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b} 
+DL\+\_\+\+MAP\+\_\+\+LINEAR&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{s\_curve\_speed\_map@{s\_curve\_speed\_map}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!s\_curve\_speed\_map@{s\_curve\_speed\_map}}}\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a20916d6e654ff6402aa120d8710a81a0}\label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-s\+\_\+curve\+\_\+speed\+\_\+map&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DL\_MAP\_CUBIC@{DL\_MAP\_CUBIC}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DL\_MAP\_CUBIC@{DL\_MAP\_CUBIC}}}\Hypertarget{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49ba42887443ebe908be62641249a630f953}\label{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b} 
+DL\+\_\+\+MAP\+\_\+\+CUBIC&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{exp\_speed\_map@{exp\_speed\_map}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!exp\_speed\_map@{exp\_speed\_map}}}\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a260f2e914699db0b53b3cb852559b40f}\label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-exp\+\_\+speed\+\_\+map&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{linear\_torque\_map@{linear\_torque\_map}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!linear\_torque\_map@{linear\_torque\_map}}}\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a02e428d0c5cf187b04a2e9825079d26a}\label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-linear\+\_\+torque\+\_\+map&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{s\_curve\_torque\_map@{s\_curve\_torque\_map}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!s\_curve\_torque\_map@{s\_curve\_torque\_map}}}\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a97cb36a9ac4fbbe2e7b481a2677993f9}\label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-s\+\_\+curve\+\_\+torque\+\_\+map&\\
-\hline
-
-\raisebox{\heightof{T}}[0pt][0pt]{\index{exp\_torque\_map@{exp\_torque\_map}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!exp\_torque\_map@{exp\_torque\_map}}}\Hypertarget{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800a22ffbb99cbb49917aac9c53aba81df32}\label{driving__loop_8h_a9d8fd287924cbb6baa4afd1c585da800} 
-exp\+\_\+torque\+\_\+map&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DL\_MAP\_EXP@{DL\_MAP\_EXP}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DL\_MAP\_EXP@{DL\_MAP\_EXP}}}\Hypertarget{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49ba7d65b8f497a893e8c2e53832ae345679}\label{driving__loop_8h_acb09040ca3fcfdac95f2e17f51f6a49b} 
+DL\+\_\+\+MAP\+\_\+\+EXP&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00033}{33}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00027}{27}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+
+\Hypertarget{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4}\index{driving\_loop.h@{driving\_loop.h}!dmode\_flags@{dmode\_flags}}
+\index{dmode\_flags@{dmode\_flags}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{dmode\_flags}{dmode\_flags}}
+{\footnotesize\ttfamily \label{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4} 
+enum \mbox{\hyperlink{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4}{dmode\+\_\+flags}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DMODE\_REGEN\_EN@{DMODE\_REGEN\_EN}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DMODE\_REGEN\_EN@{DMODE\_REGEN\_EN}}}\Hypertarget{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4ab2a3fc8f89cb5eb005e385a00f77a3b3}\label{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4} 
+DMODE\+\_\+\+REGEN\+\_\+\+EN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DMODE\_TC\_EN@{DMODE\_TC\_EN}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DMODE\_TC\_EN@{DMODE\_TC\_EN}}}\Hypertarget{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4a000160cc9d0329877cd08857dca2f57e}\label{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4} 
+DMODE\+\_\+\+TC\+\_\+\+EN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DMODE\_FILT\_EN@{DMODE\_FILT\_EN}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DMODE\_FILT\_EN@{DMODE\_FILT\_EN}}}\Hypertarget{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4a6e2995e12702b620ecffefb5987021b1}\label{driving__loop_8h_aa45a1aa569e07b25cc6fc529c130e4e4} 
+DMODE\+\_\+\+FILT\+\_\+\+EN&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00138}{138}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
+
+\Hypertarget{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5}\index{driving\_loop.h@{driving\_loop.h}!drivingModeFlags@{drivingModeFlags}}
+\index{drivingModeFlags@{drivingModeFlags}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{drivingModeFlags}{drivingModeFlags}}
+{\footnotesize\ttfamily \label{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5} 
+enum \mbox{\hyperlink{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5}{driving\+Mode\+Flags}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DM\_EN\_REGEN@{DM\_EN\_REGEN}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DM\_EN\_REGEN@{DM\_EN\_REGEN}}}\Hypertarget{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5a5f72d9df2210422fed493c7220a38c8c}\label{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5} 
+DM\+\_\+\+EN\+\_\+\+REGEN&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DM\_EN\_TIPIN\_CONTROL@{DM\_EN\_TIPIN\_CONTROL}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DM\_EN\_TIPIN\_CONTROL@{DM\_EN\_TIPIN\_CONTROL}}}\Hypertarget{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5a27c83bbfa6daa05d7ec60c5e33a4313f}\label{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5} 
+DM\+\_\+\+EN\+\_\+\+TIPIN\+\_\+\+CONTROL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DM\_EN\_HS\_SOFTENING@{DM\_EN\_HS\_SOFTENING}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DM\_EN\_HS\_SOFTENING@{DM\_EN\_HS\_SOFTENING}}}\Hypertarget{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5a606bb41d7fd0ba363a00c859602fc47f}\label{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5} 
+DM\+\_\+\+EN\+\_\+\+HS\+\_\+\+SOFTENING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DM\_EN\_TC@{DM\_EN\_TC}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DM\_EN\_TC@{DM\_EN\_TC}}}\Hypertarget{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5acc409dd44d99545d205f1ee7516e938e}\label{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5} 
+DM\+\_\+\+EN\+\_\+\+TC&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DM\_LUDICROUS\_MODE@{DM\_LUDICROUS\_MODE}!driving\_loop.h@{driving\_loop.h}}\index{driving\_loop.h@{driving\_loop.h}!DM\_LUDICROUS\_MODE@{DM\_LUDICROUS\_MODE}}}\Hypertarget{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5ac586514c67e602f8e00e856ffed4ae02}\label{driving__loop_8h_ac4f1d8e62e859964d9ea97f116cf27d5} 
+DM\+\_\+\+LUDICROUS\+\_\+\+MODE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{driving__loop_8h_source_l00101}{101}} of file \mbox{\hyperlink{driving__loop_8h_source}{driving\+\_\+loop.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
+\Hypertarget{driving__loop_8h_a4f65fe44f806e3c040579c36f6134349}\index{driving\_loop.h@{driving\_loop.h}!calculateBrakePercentage@{calculateBrakePercentage}}
+\index{calculateBrakePercentage@{calculateBrakePercentage}!driving\_loop.h@{driving\_loop.h}}
+\doxysubsubsection{\texorpdfstring{calculateBrakePercentage()}{calculateBrakePercentage()}}
+{\footnotesize\ttfamily \label{driving__loop_8h_a4f65fe44f806e3c040579c36f6134349} 
+float calculate\+Brake\+Percentage (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{bps1}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00847}{847}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
+
+
+
+References \mbox{\hyperlink{driving__loop_8c_source_l00084}{driving\+\_\+args}}, \mbox{\hyperlink{driving__loop_8h_source_l00204}{driving\+\_\+loop\+\_\+args\+::max\+\_\+\+BPS\+\_\+value}}, and \mbox{\hyperlink{driving__loop_8h_source_l00203}{driving\+\_\+loop\+\_\+args\+::min\+\_\+\+BPS\+\_\+value}}.
+
+
+
+Referenced by \mbox{\hyperlink{ready__to__drive_8c_source_l00067}{rtd\+Task()}}, and \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}.
+
 \Hypertarget{driving__loop_8h_af580185fb5bb1cfba30ee1709d90628c}\index{driving\_loop.h@{driving\_loop.h}!initDrivingLoop@{initDrivingLoop}}
 \index{initDrivingLoop@{initDrivingLoop}!driving\_loop.h@{driving\_loop.h}}
 \doxysubsubsection{\texorpdfstring{initDrivingLoop()}{initDrivingLoop()}}
@@ -236,15 +322,15 @@ enum \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9e}{uv\+\_\+
 
 
 
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00108}{108}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
+Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00374}{374}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{daq_8h_source_l00055}{APPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00056}{APPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8c_source_l00087}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00057}{BPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00058}{BPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{driving__loop_8c_source_l00031}{driving\+\_\+args}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{driving__loop_8c_source_l00254}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00176}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00089}{UV\+\_\+\+INIT}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00093}{UV\+\_\+\+SUSPENDED}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00285}{uv\+Create\+Task()}}.
+References \mbox{\hyperlink{uvfr__state__engine_8h_source_l00258}{uv\+\_\+task\+\_\+info\+::active\+\_\+states}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00071}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{daq_8h_source_l00067}{APPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00068}{APPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00069}{APPS\+\_\+\+PERCENT}}, \mbox{\hyperlink{daq_8c_source_l00143}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{daq_8h_source_l00070}{BPS1\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00071}{BPS2\+\_\+\+ADC\+\_\+\+VAL}}, \mbox{\hyperlink{daq_8h_source_l00072}{BPS\+\_\+\+PERCENT}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00032}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00259}{uv\+\_\+task\+\_\+info\+::deletion\+\_\+states}}, \mbox{\hyperlink{driving__loop_8c_source_l00322}{dmode\+\_\+mutex}}, \mbox{\hyperlink{driving__loop_8c_source_l00084}{driving\+\_\+args}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00159}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{driving__loop_8c_source_l00080}{g\+\_\+brake\+\_\+percent}}, \mbox{\hyperlink{driving__loop_8c_source_l00079}{g\+\_\+throttle\+\_\+percent}}, \mbox{\hyperlink{motor__controller_8c_source_l00043}{mc\+\_\+speed\+\_\+rpm}}, \mbox{\hyperlink{daq_8h_source_l00043}{MOTOR\+\_\+\+RPM}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00091}{PROGRAMMING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00238}{uv\+\_\+task\+\_\+info\+::stack\+\_\+size}}, \mbox{\hyperlink{driving__loop_8c_source_l01131}{Start\+Driving\+Loop()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00260}{uv\+\_\+task\+\_\+info\+::suspension\+\_\+states}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00250}{uv\+\_\+task\+\_\+info\+::task\+\_\+args}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00234}{uv\+\_\+task\+\_\+info\+::task\+\_\+function}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00229}{uv\+\_\+task\+\_\+info\+::task\+\_\+name}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00235}{uv\+\_\+task\+\_\+info\+::task\+\_\+priority}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00095}{UV\+\_\+\+ERROR\+\_\+\+STATE}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00089}{UV\+\_\+\+INIT}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00094}{UV\+\_\+\+LAUNCH\+\_\+\+CONTROL}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00093}{UV\+\_\+\+SUSPENDED}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00333}{uv\+Create\+Task()}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00168}{uv\+Init\+State\+Engine()}}.
+Referenced by \mbox{\hyperlink{uvfr__state__engine_8c_source_l00171}{uv\+Init\+State\+Engine()}}.
 
 Here is the call graph for this function\+:
 % FIG 2
@@ -256,44 +342,15 @@ void Start\+Driving\+Loop (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$
 
 
 
-Sends the filtered torque value to the motor controller. 
-
-Rachan 
-
-
-\begin{DoxyParams}{Parameters}
-{\em T\+\_\+filtered} & Final torque value after filtering. \\
-\hline
-\end{DoxyParams}
-This line extracts the specific driving loop parameters as specified in the vehicle settings 
-\begin{DoxyCode}{0}
-\DoxyCodeLine{\ */}
-\DoxyCodeLine{\mbox{\hyperlink{structdriving__loop__args}{driving\_loop\_args}}*\ dl\_params\ =\ \mbox{\hyperlink{uvfr__settings_8h_a03566822d1b8893362970a459bd67daf}{current\_vehicle\_settings}}-\/>\mbox{\hyperlink{structuv__vehicle__settings_a7a5207ef389290242764f49c6c48a5ad}{driving\_loop\_settings}};}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{//Timeout\ values}}
-\DoxyCodeLine{\textcolor{comment}{//static\ TickType\_t\ last\_input\_change\_time\ =\ 0;}}
-\DoxyCodeLine{\textcolor{comment}{//static\ float\ last\_throttle\_percent\ =\ 0.0f;}}
-\DoxyCodeLine{\textcolor{comment}{//static\ float\ last\_brake\_percent\ =\ 0.0f;}}
-\DoxyCodeLine{}
-\DoxyCodeLine{TickType\_t\ tick\_period\ =\ pdMS\_TO\_TICKS(params-\/>task\_period);\ \textcolor{comment}{//Convert\ ms\ of\ period\ to\ the\ RTOS\ ticks}}
-\DoxyCodeLine{TickType\_t\ last\_time\ =\ xTaskGetTickCount();}
-\DoxyCodeLine{last\_input\_change\_time\ =\ last\_time;}
-\DoxyCodeLine{}
-\DoxyCodeLine{}
-\DoxyCodeLine{\textcolor{comment}{/**}}
-
-\end{DoxyCode}
-
-
-Definition at line \mbox{\hyperlink{driving__loop_8c_source_l00254}{254}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
+Definition at line \mbox{\hyperlink{driving__loop_8c_source_l01131}{1131}} of file \mbox{\hyperlink{driving__loop_8c_source}{driving\+\_\+loop.\+c}}.
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00067}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{driving__loop_8c_source_l00045}{BRAKE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{driving__loop_8c_source_l00203}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{driving__loop_8c_source_l00174}{calculate\+Throttle\+Percentage()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00025}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00158}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{driving__loop_8c_source_l00043}{INPUT\+\_\+\+TIMEOUT\+\_\+\+MS}}, \mbox{\hyperlink{driving__loop_8c_source_l00033}{is\+\_\+accelerating}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00724}{kill\+Self()}}, \mbox{\hyperlink{motor__controller_8c_source_l00024}{last\+\_\+driver\+\_\+input\+\_\+time}}, \mbox{\hyperlink{driving__loop_8c_source_l00432}{perform\+Safety\+Checks()}}, \mbox{\hyperlink{driving__loop_8h_source_l00043}{Plausible}}, \mbox{\hyperlink{motor__controller_8c_source_l00069}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00765}{suspend\+Self()}}, \mbox{\hyperlink{driving__loop_8c_source_l00034}{T\+\_\+\+PREV}}, \mbox{\hyperlink{driving__loop_8c_source_l00035}{T\+\_\+\+REQ}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{driving__loop_8c_source_l00044}{THROTTLE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00038}{vehicle\+\_\+state}}.
+References \mbox{\hyperlink{main_8c_source_l00068}{adc1\+\_\+\+APPS1}}, \mbox{\hyperlink{main_8c_source_l00069}{adc1\+\_\+\+APPS2}}, \mbox{\hyperlink{main_8c_source_l00070}{adc1\+\_\+\+BPS1}}, \mbox{\hyperlink{main_8c_source_l00071}{adc1\+\_\+\+BPS2}}, \mbox{\hyperlink{driving__loop_8c_source_l00332}{BRAKE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00061}{BRAKE\+\_\+\+LIGHT}}, \mbox{\hyperlink{driving__loop_8c_source_l00847}{calculate\+Brake\+Percentage()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00094}{change\+Vehicle\+State()}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00248}{uv\+\_\+task\+\_\+info\+::cmd\+\_\+data}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00347}{conifer\+Dis\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8c_source_l00332}{conifer\+En\+Channel()}}, \mbox{\hyperlink{uvfr__conifer_8h_source_l00053}{COOLANT\+\_\+\+PUMP1}}, \mbox{\hyperlink{uvfr__settings_8c_source_l00032}{current\+\_\+vehicle\+\_\+settings}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00035}{DEBUG\+\_\+\+PORT\+\_\+\+TRACTIVE}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00088}{debug\+Write}}, \mbox{\hyperlink{driving__loop_8c_source_l00322}{dmode\+\_\+mutex}}, \mbox{\hyperlink{uvfr__settings_8h_source_l00159}{uv\+\_\+vehicle\+\_\+settings\+::driving\+\_\+loop\+\_\+settings}}, \mbox{\hyperlink{driving__loop_8c_source_l00325}{driving\+\_\+mode}}, \mbox{\hyperlink{driving__loop_8c_source_l00080}{g\+\_\+brake\+\_\+percent}}, \mbox{\hyperlink{driving__loop_8c_source_l00079}{g\+\_\+throttle\+\_\+percent}}, \mbox{\hyperlink{driving__loop_8c_source_l00308}{is\+\_\+accelerating}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00773}{kill\+Self()}}, \mbox{\hyperlink{driving__loop_8c_source_l00334}{last\+\_\+driver\+\_\+input\+\_\+time}}, \mbox{\hyperlink{motor__controller_8c_source_l00043}{mc\+\_\+speed\+\_\+rpm}}, \mbox{\hyperlink{driving__loop_8h_source_l00037}{Plausible}}, \mbox{\hyperlink{motor__controller_8c_source_l00240}{send\+Torque\+To\+Motor\+Controller()}}, \mbox{\hyperlink{uvfr__diagnostics_8c_source_l00046}{sprint\+\_\+fixed\+\_\+d()}}, \mbox{\hyperlink{uvfr__state__engine_8c_source_l00814}{suspend\+Self()}}, \mbox{\hyperlink{driving__loop_8c_source_l00309}{T\+\_\+\+PREV}}, \mbox{\hyperlink{driving__loop_8c_source_l00310}{T\+\_\+\+REQ}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00231}{uv\+\_\+task\+\_\+info\+::task\+\_\+period}}, \mbox{\hyperlink{driving__loop_8c_source_l00331}{THROTTLE\+\_\+\+CHANGE\+\_\+\+THRESHOLD}}, \mbox{\hyperlink{uvfr__diagnostics_8h_source_l00085}{tic}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00092}{UV\+\_\+\+DRIVING}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00105}{UV\+\_\+\+KILL\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00090}{UV\+\_\+\+READY}}, \mbox{\hyperlink{uvfr__state__engine_8h_source_l00106}{UV\+\_\+\+SUSPEND\+\_\+\+CMD}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00299}{uv\+De\+Energize\+Tractive\+System()}}, \mbox{\hyperlink{uvfr__vehicle__commands_8c_source_l00120}{uv\+Enable\+Traction()}}, and \mbox{\hyperlink{uvfr__state__engine_8c_source_l00040}{vehicle\+\_\+state}}.
 
 
 
-Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00108}{init\+Driving\+Loop()}}.
+Referenced by \mbox{\hyperlink{driving__loop_8c_source_l00374}{init\+Driving\+Loop()}}.
 
 Here is the call graph for this function\+:
 % FIG 3

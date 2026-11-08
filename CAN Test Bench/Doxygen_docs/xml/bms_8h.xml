@@ -4,11 +4,13 @@
     <compoundname>bms.h</compoundname>
     <includes refid="main_8h" local="yes">main.h</includes>
     <includes refid="uvfr__utils_8h" local="yes">uvfr_utils.h</includes>
+    <includes local="no">stdint.h</includes>
     <includedby refid="uvfr__settings_8h" local="yes">Core/Inc/uvfr_settings.h</includedby>
     <includedby refid="uvfr__utils_8h" local="yes">Core/Inc/uvfr_utils.h</includedby>
     <includedby refid="bms_8c" local="yes">Core/Src/bms.c</includedby>
     <includedby refid="can_8c" local="yes">Core/Src/can.c</includedby>
     <includedby refid="main_8c" local="yes">Core/Src/main.c</includedby>
+    <includedby refid="uvfr__diagnostics_8c" local="yes">Core/Src/uvfr_diagnostics.c</includedby>
     <incdepgraph>
       <node id="7">
         <label>adc.h</label>
@@ -23,6 +25,8 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
       <node id="8">
         <label>can.h</label>
@@ -31,51 +35,61 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="11">
         <label>constants.h</label>
         <link refid="constants_8h"/>
       </node>
-      <node id="17">
+      <node id="20">
         <label>daq.h</label>
         <link refid="daq_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>dash.h</label>
         <link refid="dash_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="12">
         <label>dma.h</label>
         <link refid="dma_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="18">
         <label>driving_loop.h</label>
         <link refid="driving__loop_8h"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="14">
         <label>gpio.h</label>
         <link refid="gpio_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="32">
         <label>imd.h</label>
         <link refid="imd_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -88,27 +102,27 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="17">
         <label>motor_controller.h</label>
         <link refid="motor__controller_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="38">
         <label>odometer.h</label>
         <link refid="odometer_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="33">
         <label>pdu.h</label>
         <link refid="pdu_8h"/>
         <childnode refid="2" relation="include">
@@ -116,72 +130,84 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="21">
         <label>rb_tree.h</label>
         <link refid="rb__tree_8h"/>
       </node>
-      <node id="36">
+      <node id="37">
         <label>temp_monitoring.h</label>
         <link refid="temp__monitoring_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>tim.h</label>
         <link refid="tim_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="34">
         <label>uvfr_conifer.h</label>
         <link refid="uvfr__conifer_8h"/>
-        <childnode refid="33" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="15">
+        <label>uvfr_data_proccessing.h</label>
+        <link refid="uvfr__data__proccessing_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="27">
         <label>uvfr_diagnostics.h</label>
         <link refid="uvfr__diagnostics_8h"/>
-        <childnode refid="27" relation="include">
+        <childnode refid="28" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>uvfr_external_devices.h</label>
+        <link refid="uvfr__external__devices_8h"/>
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>uvfr_global_config.h</label>
         <link refid="uvfr__global__config_8h"/>
       </node>
-      <node id="13">
+      <node id="16">
         <label>uvfr_settings.h</label>
         <link refid="uvfr__settings_8h"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="22">
         <label>uvfr_state_engine.h</label>
         <link refid="uvfr__state__engine_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -195,60 +221,70 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="26" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="1" relation="include">
-        </childnode>
         <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
         <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="29">
         <label>uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
         <childnode refid="6" relation="include">
@@ -256,63 +292,63 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="36">
         <label>uvfr_vehicle_logger.h</label>
         <link refid="uvfr__vehicle__logger_8h"/>
-        <childnode refid="34" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="9">
         <label>FreeRTOS.h</label>
       </node>
-      <node id="38">
+      <node id="39">
         <label>FreeRTOSConfig.h</label>
       </node>
-      <node id="24">
+      <node id="25">
         <label>cmsis_os.h</label>
       </node>
-      <node id="15">
-        <label>freeRTOS.h</label>
-      </node>
-      <node id="25">
+      <node id="26">
         <label>message_buffer.h</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>queue.h</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>semphr.h</label>
       </node>
       <node id="4">
         <label>stdarg.h</label>
       </node>
-      <node id="34">
+      <node id="19">
         <label>stdint.h</label>
       </node>
-      <node id="33">
+      <node id="40">
+        <label>stdio.h</label>
+      </node>
+      <node id="35">
         <label>stdlib.h</label>
       </node>
       <node id="3">
         <label>stm32f4xx_hal.h</label>
       </node>
-      <node id="27">
+      <node id="28">
         <label>string.h</label>
       </node>
-      <node id="21">
+      <node id="10">
         <label>task.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="20">
+      <node id="23">
         <label>Core/Inc/adc.h</label>
         <link refid="adc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -329,6 +365,8 @@
         <childnode refid="8" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
       <node id="6">
@@ -368,8 +406,10 @@
         </childnode>
         <childnode refid="18" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="22">
+      <node id="25">
         <label>Core/Inc/dash.h</label>
         <link refid="dash_8h"/>
         <childnode refid="5" relation="include">
@@ -383,12 +423,12 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="23">
+      <node id="26">
         <label>Core/Inc/dma.h</label>
         <link refid="dma_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
@@ -403,19 +443,19 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="28">
         <label>Core/Inc/gpio.h</label>
         <link refid="gpio_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="26" relation="include">
+        <childnode refid="29" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="20">
         <label>Core/Inc/imd.h</label>
         <link refid="imd_8h"/>
         <childnode refid="5" relation="include">
@@ -426,29 +466,33 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
       </node>
-      <node id="19">
+      <node id="22">
         <label>Core/Inc/main.h</label>
         <link refid="main_8h"/>
-        <childnode refid="20" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="3" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
@@ -458,7 +502,7 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="31" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -468,13 +512,15 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="35" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
         </childnode>
       </node>
       <node id="3">
@@ -492,16 +538,14 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
       </node>
-      <node id="35">
+      <node id="38">
         <label>Core/Inc/odometer.h</label>
         <link refid="odometer_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="30">
         <label>Core/Inc/pdu.h</label>
         <link refid="pdu_8h"/>
         <childnode refid="5" relation="include">
@@ -510,20 +554,18 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="39">
         <label>Core/Inc/temp_monitoring.h</label>
         <link refid="temp__monitoring_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>Core/Inc/tim.h</label>
         <link refid="tim_8h"/>
         <childnode refid="5" relation="include">
@@ -532,7 +574,31 @@
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="32" relation="include">
+        </childnode>
+      </node>
+      <node id="33">
+        <label>Core/Inc/tms.h</label>
+        <link refid="tms_8h"/>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>Core/Inc/uvfr_data_proccessing.h</label>
+        <link refid="uvfr__data__proccessing_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="41">
+        <label>Core/Inc/uvfr_external_devices.h</label>
+        <link refid="uvfr__external__devices_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -542,15 +608,17 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="37">
+      <node id="42">
         <label>Core/Inc/uvfr_state_engine.h</label>
         <link refid="uvfr__state__engine_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
@@ -566,27 +634,33 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
-        </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="2" relation="include">
-        </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="41" relation="include">
+        </childnode>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="44" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
@@ -596,50 +670,60 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
-        </childnode>
-        <childnode refid="40" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="41" relation="include">
-        </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
-        <childnode refid="44" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="39">
+      <node id="44">
         <label>Core/Inc/uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="43">
         <label>Core/Inc/uvfr_vehicle_logger.h</label>
         <link refid="uvfr__vehicle__logger_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
         <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="24">
         <label>Core/Src/adc.c</label>
         <link refid="adc_8c"/>
       </node>
@@ -651,7 +735,7 @@
         <label>Core/Src/can.c</label>
         <link refid="can_8c"/>
       </node>
-      <node id="31">
+      <node id="34">
         <label>Core/Src/constants.c</label>
         <link refid="constants_8c"/>
       </node>
@@ -663,7 +747,7 @@
         <label>Core/Src/dash.c</label>
         <link refid="dash_8c"/>
       </node>
-      <node id="24">
+      <node id="27">
         <label>Core/Src/dma.c</label>
         <link refid="dma_8c"/>
       </node>
@@ -671,7 +755,7 @@
         <label>Core/Src/driving_loop.c</label>
         <link refid="driving__loop_8c"/>
       </node>
-      <node id="26">
+      <node id="29">
         <label>Core/Src/gpio.c</label>
         <link refid="gpio_8c"/>
       </node>
@@ -683,63 +767,79 @@
         <label>Core/Src/main.c</label>
         <link refid="main_8c"/>
       </node>
-      <node id="13">
+      <node id="19">
         <label>Core/Src/motor_controller.c</label>
         <link refid="motor__controller_8c"/>
       </node>
-      <node id="40">
+      <node id="45">
         <label>Core/Src/odometer.c</label>
         <link refid="odometer_8c"/>
       </node>
-      <node id="14">
+      <node id="13">
         <label>Core/Src/pdu.c</label>
         <link refid="pdu_8c"/>
       </node>
-      <node id="41">
+      <node id="46">
         <label>Core/Src/rb_tree.c</label>
         <link refid="rb__tree_8c"/>
       </node>
-      <node id="42">
+      <node id="47">
         <label>Core/Src/ready_to_drive.c</label>
         <link refid="ready__to__drive_8c"/>
       </node>
-      <node id="32">
+      <node id="35">
         <label>Core/Src/stm32f4xx_hal_msp.c</label>
         <link refid="stm32f4xx__hal__msp_8c"/>
       </node>
-      <node id="33">
+      <node id="36">
         <label>Core/Src/stm32f4xx_it.c</label>
         <link refid="stm32f4xx__it_8c"/>
       </node>
-      <node id="15">
+      <node id="48">
+        <label>Core/Src/syscalls.c</label>
+        <link refid="syscalls_8c"/>
+      </node>
+      <node id="14">
         <label>Core/Src/temp_monitoring.c</label>
         <link refid="temp__monitoring_8c"/>
       </node>
-      <node id="30">
+      <node id="32">
         <label>Core/Src/tim.c</label>
         <link refid="tim_8c"/>
       </node>
-      <node id="43">
+      <node id="15">
+        <label>Core/Src/tms.c</label>
+        <link refid="tms_8c"/>
+      </node>
+      <node id="49">
         <label>Core/Src/uvfr_conifer.c</label>
         <link refid="uvfr__conifer_8c"/>
       </node>
-      <node id="44">
+      <node id="50">
+        <label>Core/Src/uvfr_data_proccessing.c</label>
+        <link refid="uvfr__data__proccessing_8c"/>
+      </node>
+      <node id="21">
         <label>Core/Src/uvfr_diagnostics.c</label>
         <link refid="uvfr__diagnostics_8c"/>
       </node>
-      <node id="34">
+      <node id="51">
+        <label>Core/Src/uvfr_external_devices.c</label>
+        <link refid="uvfr__external__devices_8c"/>
+      </node>
+      <node id="37">
         <label>Core/Src/uvfr_settings.c</label>
         <link refid="uvfr__settings_8c"/>
       </node>
-      <node id="45">
+      <node id="52">
         <label>Core/Src/uvfr_state_engine.c</label>
         <link refid="uvfr__state__engine_8c"/>
       </node>
-      <node id="46">
+      <node id="53">
         <label>Core/Src/uvfr_utils.c</label>
         <link refid="uvfr__utils_8c"/>
       </node>
-      <node id="47">
+      <node id="54">
         <label>Core/Src/uvfr_vehicle_commands.c</label>
         <link refid="uvfr__vehicle__commands_8c"/>
       </node>
@@ -748,6 +848,7 @@
         <link refid="uvfr__vehicle__logger_8c"/>
       </node>
     </invincdepgraph>
+    <innerclass refid="structbms__state__t" prot="public">bms_state_t</innerclass>
     <innerclass refid="structbms__settings__t" prot="public">bms_settings_t</innerclass>
     <sectiondef kind="define">
       <memberdef kind="define" id="bms_8h_1a0c88019b9a80e0a2b9820fb387e9e084" prot="public" static="no">
@@ -759,10 +860,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/bms.h" line="11" column="9" bodyfile="Core/Inc/bms.h" bodystart="11" bodyend="-1"/>
+        <location file="Core/Inc/bms.h" line="14" column="9" bodyfile="Core/Inc/bms.h" bodystart="14" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="bms_8h_1a0ecf26b576b9a54eca656b9be7ba6a06" prot="public" static="no">
+        <type>uint8_t</type>
+        <definition>typedef uint8_t bool</definition>
+        <argsstring></argsstring>
+        <name>bool</name>
+        <briefdescription>
+<para>Code to make human readable CAN messages for the device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/bms.h" line="13" column="17" bodyfile="Core/Inc/bms.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
       <memberdef kind="typedef" id="bms_8h_1ac82cefe2ce193c00fc1e6af97476c54d" prot="public" static="no">
         <type>struct bms_settings_t</type>
         <definition>typedef struct bms_settings_t bms_settings_t</definition>
@@ -774,7 +889,22 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/bms.h" line="24" column="15"/>
+        <location file="Core/Inc/bms.h" line="70" column="16"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="bms_8h_1acd394543f05f280e0ffead84f5380215" prot="public" static="no" extern="yes" mutable="no">
+        <type>volatile <ref refid="structbms__state__t" kindref="compound">bms_state_t</ref></type>
+        <definition>volatile bms_state_t g_bms_state</definition>
+        <argsstring></argsstring>
+        <name>g_bms_state</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/bms.h" line="33" column="29" bodyfile="Core/Src/bms.c" bodystart="35" bodyend="35" declfile="Core/Inc/bms.h" declline="33" declcolumn="29"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
@@ -793,18 +923,74 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/bms.h" line="26" column="6" bodyfile="Core/Src/bms.c" bodystart="100" bodyend="140" declfile="Core/Inc/bms.h" declline="26" declcolumn="6"/>
-        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="213">BMS</references>
-        <references refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</references>
-        <references refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</references>
-        <references refid="bms_8c_1a79f5e585e6fa5d54c855cf1a3b16ff88" compoundref="bms_8c" startline="12">bms_settings</references>
-        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="271">CAN_BUS_1</references>
-        <references refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" compoundref="uvfr__utils_8h" startline="343">uv_init_task_args::init_info_queue</references>
-        <references refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" compoundref="can_8c" startline="652" endline="767">insertCANMessageHandler</references>
-        <references refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" compoundref="bms_8c" startline="32">is_bms_connected</references>
-        <references refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" compoundref="uvfr__utils_8h" startline="344">uv_init_task_args::meta_task_handle</references>
-        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="174">UV_OK</references>
-        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="50" endline="311">uvInit</referencedby>
+        <location file="Core/Inc/bms.h" line="75" column="6" bodyfile="Core/Src/bms.c" bodystart="248" bodyend="271" declfile="Core/Inc/bms.h" declline="75" declcolumn="6"/>
+        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="228">BMS</references>
+        <references refid="bms_8c_1a6f635739f7b278e5898f59e0e370c183" compoundref="bms_8c" startline="77" endline="148">BMS_CANRxHandler_msg1</references>
+        <references refid="bms_8c_1a7cbdb3a6f5bd9870c175fc6d88131465" compoundref="bms_8c" startline="150" endline="230">BMS_CANRxHandler_msg2</references>
+        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="301">CAN_BUS_1</references>
+        <references refid="structuv__init__task__response_1af29fdddeaddc456d2028cc1ad471bae1" compoundref="uvfr__utils_8h" startline="429">uv_init_task_response::errmsg</references>
+        <references refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" compoundref="uvfr__utils_8h" startline="401">uv_init_task_args::init_info_queue</references>
+        <references refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" compoundref="can_8c" startline="659" endline="774">insertCANMessageHandler</references>
+        <references refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" compoundref="uvfr__utils_8h" startline="402">uv_init_task_args::meta_task_handle</references>
+        <references refid="structuv__init__task__response_1a56b3df74c10cdc59e8e1b9d4c1f36af7" compoundref="uvfr__utils_8h" startline="426">uv_init_task_response::status</references>
+        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="182">UV_ERROR</references>
+        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="180">UV_OK</references>
+        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="73" endline="418">uvInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bms_8h_1a6f635739f7b278e5898f59e0e370c183" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void BMS_CANRxHandler_msg1</definition>
+        <argsstring>(uv_CAN_msg *msg)</argsstring>
+        <name>BMS_CANRxHandler_msg1</name>
+        <param>
+          <type><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/bms.h" line="78" column="6" bodyfile="Core/Src/bms.c" bodystart="77" bodyend="148" declfile="Core/Inc/bms.h" declline="78" declcolumn="6"/>
+        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="228">BMS</references>
+        <references refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" compoundref="bms_8c" startline="38">curr_bms_settings</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="uvfr__external__devices_8h_1abeba1577d0e5f860f687d6dfaa57c877" compoundref="uvfr__external__devices_8c" startline="381" endline="412">externalDeviceRxHandler</references>
+        <references refid="bms_8c_1acd394543f05f280e0ffead84f5380215" compoundref="bms_8c" startline="35" endline="35">g_bms_state</references>
+        <references refid="structbms__state__t_1a448230d0f8f6d17144c3c3cc74dfd68d" compoundref="bms_8h" startline="24">bms_state_t::msg1corrupt</references>
+        <references refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" compoundref="bms_8h" startline="20">bms_state_t::pack_current_dA</references>
+        <references refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" compoundref="bms_8h" startline="21">bms_state_t::pack_voltage_dV</references>
+        <references refid="structbms__state__t_1aafa9d07dac634207a9a61a1ee0f40bd1" compoundref="bms_8h" startline="23">bms_state_t::relayState</references>
+        <references refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" compoundref="bms_8h" startline="22">bms_state_t::soc_pct</references>
+        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="248" endline="271">BMS_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bms_8h_1a7cbdb3a6f5bd9870c175fc6d88131465" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void BMS_CANRxHandler_msg2</definition>
+        <argsstring>(uv_CAN_msg *msg)</argsstring>
+        <name>BMS_CANRxHandler_msg2</name>
+        <param>
+          <type><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref> *</type>
+          <declname>msg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/bms.h" line="79" column="6" bodyfile="Core/Src/bms.c" bodystart="150" bodyend="230" declfile="Core/Inc/bms.h" declline="79" declcolumn="6"/>
+        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="228">BMS</references>
+        <references refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" compoundref="bms_8c" startline="38">curr_bms_settings</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="structbms__state__t_1a506a41501c632fb90fecd0ffa61321d9" compoundref="bms_8h" startline="26">bms_state_t::dcl_dA</references>
+        <references refid="uvfr__external__devices_8h_1abeba1577d0e5f860f687d6dfaa57c877" compoundref="uvfr__external__devices_8c" startline="381" endline="412">externalDeviceRxHandler</references>
+        <references refid="bms_8c_1acd394543f05f280e0ffead84f5380215" compoundref="bms_8c" startline="35" endline="35">g_bms_state</references>
+        <references refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" compoundref="bms_8h" startline="28">bms_state_t::max_cell_temp</references>
+        <references refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" compoundref="bms_8h" startline="27">bms_state_t::min_cell_temp</references>
+        <references refid="structbms__state__t_1a929e6bb5b650f4c0fa6a8442bf76c90a" compoundref="bms_8h" startline="29">bms_state_t::msg2corrupt</references>
+        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="248" endline="271">BMS_Init</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -812,7 +998,7 @@
     <detaileddescription>
     </detaileddescription>
     <programlisting>
-<codeline lineno="1"><highlight class="comment">//<sp/>Code<sp/>to<sp/>make<sp/>human<sp/>readable<sp/>CAN<sp/>messages<sp/>for<sp/>the<sp/>device</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
 <codeline lineno="2"><highlight class="normal"></highlight></codeline>
 <codeline lineno="3"><highlight class="normal"></highlight></codeline>
 <codeline lineno="4"><highlight class="normal"></highlight></codeline>
@@ -821,28 +1007,78 @@
 <codeline lineno="7"><highlight class="normal"></highlight></codeline>
 <codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="main_8h" kindref="compound">main.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="uvfr__utils_8h" kindref="compound">uvfr_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight></codeline>
-<codeline lineno="11" refid="bms_8h_1a0c88019b9a80e0a2b9820fb387e9e084" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_BMS_CAN_TIMEOUT<sp/>((uv_timespan_ms)200)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
 <codeline lineno="12"><highlight class="normal"></highlight></codeline>
-<codeline lineno="13" refid="structbms__settings__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbms__settings__t" kindref="compound">bms_settings_t</ref>{<sp/></highlight><highlight class="comment">//TODO<sp/>Needs<sp/>populating</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="14" refid="structbms__settings__t_1ab83f63e1fb9e2c070731fd16ff553b26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbms__settings__t_1ab83f63e1fb9e2c070731fd16ff553b26" kindref="member">BMS_CAN_timeout</ref>;</highlight></codeline>
-<codeline lineno="15" refid="structbms__settings__t_1aababcac8e39ea1abe22a81c56a206a5a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1aababcac8e39ea1abe22a81c56a206a5a" kindref="member">max_cell_temp</ref>;</highlight></codeline>
-<codeline lineno="16" refid="structbms__settings__t_1a741e9f479f5d94ec114fdc97b0590ee0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a741e9f479f5d94ec114fdc97b0590ee0" kindref="member">min_cell_temp</ref>;</highlight></codeline>
-<codeline lineno="17" refid="structbms__settings__t_1aa639964052d08fce1b1274099a8077d6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1aa639964052d08fce1b1274099a8077d6" kindref="member">min_soc</ref>;</highlight></codeline>
-<codeline lineno="18" refid="structbms__settings__t_1a742a6f4c8724f13047eb557375d791b9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a742a6f4c8724f13047eb557375d791b9" kindref="member">min_cell_voltage</ref>;</highlight></codeline>
-<codeline lineno="19" refid="structbms__settings__t_1a22f64b06cf534382a5559f57b717049e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a22f64b06cf534382a5559f57b717049e" kindref="member">max_cell_voltage</ref>;</highlight></codeline>
-<codeline lineno="20" refid="structbms__settings__t_1a59ea42a579acb2a2823a29b9f26c418f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a59ea42a579acb2a2823a29b9f26c418f" kindref="member">max_pack_voltage</ref>;</highlight></codeline>
-<codeline lineno="21" refid="structbms__settings__t_1ac798c369c20a3f4af7aa4497d8505274" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1ac798c369c20a3f4af7aa4497d8505274" kindref="member">min_pack_voltage</ref>;</highlight></codeline>
-<codeline lineno="22" refid="structbms__settings__t_1a6063ee81210b579e8c90b72724532ef8" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a6063ee81210b579e8c90b72724532ef8" kindref="member">max_variance_between_cells</ref>;</highlight></codeline>
-<codeline lineno="23"><highlight class="normal"></highlight></codeline>
-<codeline lineno="24" refid="bms_8h_1ac82cefe2ce193c00fc1e6af97476c54d" refkind="member"><highlight class="normal">}<ref refid="bms_8h_1ac82cefe2ce193c00fc1e6af97476c54d" kindref="member">bms_settings_t</ref>;</highlight></codeline>
+<codeline lineno="13" refid="bms_8h_1a0ecf26b576b9a54eca656b9be7ba6a06" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>uint8_t<sp/><ref refid="bms_8h_1a0ecf26b576b9a54eca656b9be7ba6a06" kindref="member">bool</ref>;</highlight></codeline>
+<codeline lineno="14" refid="bms_8h_1a0c88019b9a80e0a2b9820fb387e9e084" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DEFAULT_BMS_CAN_TIMEOUT<sp/>((uv_timespan_ms)200)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Runtime<sp/>state<sp/>(telemetry)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="structbms__state__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" kindref="member">pack_current_dA</ref>;<sp/></highlight><highlight class="comment">//<sp/>0.1<sp/>A<sp/>units</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" kindref="member">pack_voltage_dV</ref>;<sp/></highlight><highlight class="comment">//<sp/>0.1<sp/>V<sp/>units</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" kindref="member">soc_pct</ref>;<sp/></highlight><highlight class="comment">//<sp/>0-100%</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="structbms__state__t_1aafa9d07dac634207a9a61a1ee0f40bd1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1aafa9d07dac634207a9a61a1ee0f40bd1" kindref="member">relayState</ref>;</highlight></codeline>
+<codeline lineno="24" refid="structbms__state__t_1a448230d0f8f6d17144c3c3cc74dfd68d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structbms__state__t_1a448230d0f8f6d17144c3c3cc74dfd68d" kindref="member">msg1corrupt</ref>;<sp/></highlight><highlight class="comment">//checksum</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" kindref="member">BMS_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args);</highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="structbms__state__t_1a506a41501c632fb90fecd0ffa61321d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1a506a41501c632fb90fecd0ffa61321d9" kindref="member">dcl_dA</ref>;<sp/></highlight><highlight class="comment">//<sp/>0.1<sp/>A<sp/>max<sp/>discharge<sp/>current<sp/>limit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" kindref="member">min_cell_temp</ref>;<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref>;<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="structbms__state__t_1a929e6bb5b650f4c0fa6a8442bf76c90a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structbms__state__t_1a929e6bb5b650f4c0fa6a8442bf76c90a" kindref="member">msg2corrupt</ref>;<sp/></highlight><highlight class="comment">//<sp/>checksum</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal">}<sp/><ref refid="structbms__state__t" kindref="compound">bms_state_t</ref>;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="structbms__state__t" kindref="compound">bms_state_t</ref><sp/><ref refid="bms_8h_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>;<sp/></highlight><highlight class="comment">//<sp/>volatile<sp/>as<sp/>these<sp/>values<sp/>may<sp/>update<sp/>as<sp/>the<sp/>car<sp/>runs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>config<sp/>/<sp/>bounds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="structbms__settings__t" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbms__settings__t" kindref="compound">bms_settings_t</ref><sp/>{<sp/></highlight><highlight class="comment">//TODO<sp/>Needs<sp/>populating<sp/>(<sp/>I<sp/>added<sp/>&quot;bms_settings_t&quot;<sp/>in<sp/>this<sp/>line,<sp/>can<sp/>remove<sp/>if<sp/>causes<sp/>errors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="structbms__settings__t_1ab83f63e1fb9e2c070731fd16ff553b26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbms__settings__t_1ab83f63e1fb9e2c070731fd16ff553b26" kindref="member">BMS_CAN_timeout</ref>;</highlight></codeline>
+<codeline lineno="38" refid="structbms__settings__t_1acf9bb6195e13b8c3511633b0bb1f59c9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbms__settings__t_1acf9bb6195e13b8c3511633b0bb1f59c9" kindref="member">max_temp</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>&quot;_c&quot;<sp/>for<sp/>temperature<sp/>in<sp/>C</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>&quot;_pct&quot;<sp/>for<sp/>percentage<sp/>value<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="structbms__settings__t_1a3cdaf515a7fb3c463a3cf9576fa30ac1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1a3cdaf515a7fb3c463a3cf9576fa30ac1" kindref="member">discharge_cold_fault_c</ref>;<sp/></highlight><highlight class="comment">//<sp/>-20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="structbms__settings__t_1a7c51f31027037953df240e6f42af3820" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1a7c51f31027037953df240e6f42af3820" kindref="member">discharge_cold_warn_c</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="structbms__settings__t_1a52de2f21ad46c40ebda8ffb0dbd0d339" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1a52de2f21ad46c40ebda8ffb0dbd0d339" kindref="member">charge_cold_fault_c</ref>;</highlight></codeline>
+<codeline lineno="48" refid="structbms__settings__t_1a2a7453e270bb9727a3233b09151116b1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1a2a7453e270bb9727a3233b09151116b1" kindref="member">charge_hot_fault_c</ref>;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="structbms__settings__t_1ad0ee82400c28a394fa7412ed163816b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1ad0ee82400c28a394fa7412ed163816b4" kindref="member">discharge_hot_warn_c</ref>;</highlight></codeline>
+<codeline lineno="51" refid="structbms__settings__t_1a5cefa6a2445f0eba88fcb96cbd60b61d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1a5cefa6a2445f0eba88fcb96cbd60b61d" kindref="member">discharge_hot_derate_c</ref>;<sp/></highlight><highlight class="comment">//<sp/>safety<sp/>check<sp/>for<sp/>when<sp/>pack<sp/>running<sp/>too<sp/>hot<sp/>(limit<sp/>power<sp/>rate)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52" refid="structbms__settings__t_1a11fd270c576d861904659438af4408c7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbms__settings__t_1a11fd270c576d861904659438af4408c7" kindref="member">discharge_hot_fault_c</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>need<sp/>to<sp/>add<sp/>settings<sp/>definitions<sp/>for<sp/>DCL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="structbms__settings__t_1a52180f9b855e6da10877b18095ea4d4f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbms__settings__t_1a52180f9b855e6da10877b18095ea4d4f" kindref="member">soc_low_warn_pct</ref>;</highlight></codeline>
+<codeline lineno="57" refid="structbms__settings__t_1a0a552b4250790d3b30ecde603c6858f6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbms__settings__t_1a0a552b4250790d3b30ecde603c6858f6" kindref="member">soc_regen_disable_pct</ref>;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="structbms__settings__t_1a6233f31d4d7c554013c7d81e748b33ed" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a6233f31d4d7c554013c7d81e748b33ed" kindref="member">derate_start_c</ref>;</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>NEW:<sp/>Plausibility<sp/>ranges<sp/>(°C,<sp/>V,<sp/>A)<sp/>---</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="structbms__settings__t_1a9644a217eddbd1f8907b1208a410aa16" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><ref refid="structbms__settings__t_1a9644a217eddbd1f8907b1208a410aa16" kindref="member">temp_plaus_min_c</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/>-40</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="structbms__settings__t_1abdeac113b7a42d98db699df9559e5fb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><ref refid="structbms__settings__t_1abdeac113b7a42d98db699df9559e5fb0" kindref="member">temp_plaus_max_c</ref>;<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/>100</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="structbms__settings__t_1a91ff4e459432c18f921f2ba0ebc6be98" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><ref refid="structbms__settings__t_1a91ff4e459432c18f921f2ba0ebc6be98" kindref="member">current_plaus_min_dA</ref>;<sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/>-20000<sp/><sp/>→<sp/>-2000<sp/>A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65" refid="structbms__settings__t_1a0743aa7b76f19e7c4c015752d76be124" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><sp/><ref refid="structbms__settings__t_1a0743aa7b76f19e7c4c015752d76be124" kindref="member">current_plaus_max_dA</ref>;<sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/><sp/>20000<sp/><sp/>→<sp/><sp/>2000<sp/>A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="structbms__settings__t_1a088cae2a7da9d352aacb2534875282a4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a088cae2a7da9d352aacb2534875282a4" kindref="member">voltage_plaus_min_dV</ref>;<sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/><sp/>0<sp/><sp/><sp/><sp/><sp/><sp/><sp/>→<sp/><sp/>0<sp/>V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="structbms__settings__t_1a92a4ba585f71b3169fe0ba91c6a35fb2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbms__settings__t_1a92a4ba585f71b3169fe0ba91c6a35fb2" kindref="member">voltage_plaus_max_dV</ref>;<sp/></highlight><highlight class="comment">//<sp/>e.g.<sp/><sp/>8000<sp/><sp/><sp/><sp/>→<sp/>800<sp/>V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>extern<sp/>uint16_t<sp/>(var<sp/>name)<sp/>to<sp/>call<sp/>outside<sp/>this<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="bms_8h_1ac82cefe2ce193c00fc1e6af97476c54d" refkind="member"><highlight class="normal">}<sp/><ref refid="bms_8h_1ac82cefe2ce193c00fc1e6af97476c54d" kindref="member">bms_settings_t</ref>;</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//extern<sp/>bms_settings_t<sp/>g_bms_settings;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" kindref="member">BMS_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8h_1a6f635739f7b278e5898f59e0e370c183" kindref="member">BMS_CANRxHandler_msg1</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>msg);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8h_1a7cbdb3a6f5bd9870c175fc6d88131465" kindref="member">BMS_CANRxHandler_msg2</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>msg);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
     </programlisting>
     <location file="Core/Inc/bms.h"/>
   </compounddef>

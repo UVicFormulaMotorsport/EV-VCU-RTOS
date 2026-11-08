@@ -21,8 +21,10 @@ var searchData=
   ['reserved_5fch_5fpos2_18',['RESERVED_CH_POS2',['../uvfr__conifer_8h.html#ad680594c0a6a302d6b54680198a166a6a22a4ed6460f12d835433553dcca950db',1,'uvfr_conifer.h']]],
   ['reserved_5fch_5fpos3_19',['RESERVED_CH_POS3',['../uvfr__conifer_8h.html#ad680594c0a6a302d6b54680198a166a6a9b507935fd1ea3fdbb2d8f853b92c353',1,'uvfr_conifer.h']]],
   ['reserved_5fch_5fpos4_20',['RESERVED_CH_POS4',['../uvfr__conifer_8h.html#ad680594c0a6a302d6b54680198a166a6a7471191c3d6b7844ee026b6cf0d45513',1,'uvfr_conifer.h']]],
-  ['rotate_5ffield_5fenable_5fnot_5fpresent_5fnorun_21',['rotate_field_enable_not_present_norun',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3689755161fb5aa5fae86b270bfbf5fc',1,'motor_controller.h']]],
-  ['rotate_5ffield_5fenable_5fnot_5fpresent_5frun_22',['rotate_field_enable_not_present_run',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffadae8b5f4fb6cd6712202d055529499ef',1,'motor_controller.h']]],
-  ['rotor_5fresistance_23',['rotor_resistance',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741ac3c230853d874dbfd67c8eb9217562c0',1,'motor_controller.h']]],
-  ['rtml_5fpwr_24',['RTML_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ab6d37d305ce54563b7a04d81c0490a47',1,'uvfr_conifer.h']]]
+  ['reversable_5fascending_21',['REVERSABLE_ASCENDING',['../uvfr__data__proccessing_8h.html#a0b97f346114686d5f215cd1cd0fdc305a134f9d3c3f151816f87f2acd219aa90c',1,'uvfr_data_proccessing.h']]],
+  ['reversable_5fdescending_22',['REVERSABLE_DESCENDING',['../uvfr__data__proccessing_8h.html#a0b97f346114686d5f215cd1cd0fdc305af715b9c64db000f54e643e60add4936a',1,'uvfr_data_proccessing.h']]],
+  ['rotate_5ffield_5fenable_5fnot_5fpresent_5fnorun_23',['rotate_field_enable_not_present_norun',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa3689755161fb5aa5fae86b270bfbf5fc',1,'motor_controller.h']]],
+  ['rotate_5ffield_5fenable_5fnot_5fpresent_5frun_24',['rotate_field_enable_not_present_run',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffadae8b5f4fb6cd6712202d055529499ef',1,'motor_controller.h']]],
+  ['rotor_5fresistance_25',['rotor_resistance',['../motor__controller_8h.html#ae5ebd6cc9310757a5488b935d21bc741ac3c230853d874dbfd67c8eb9217562c0',1,'motor_controller.h']]],
+  ['rtml_5fpwr_26',['RTML_PWR',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82ab6d37d305ce54563b7a04d81c0490a47',1,'uvfr_conifer.h']]]
 ];

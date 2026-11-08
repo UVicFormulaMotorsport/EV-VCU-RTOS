@@ -6,8 +6,18 @@ var searchData=
   ['textify_3',['TEXTIFY',['../uvfr__diagnostics_8h.html#a94253da7c896b6bad6f37138776820b4',1,'uvfr_diagnostics.h']]],
   ['throttle_5fchange_5fthreshold_4',['THROTTLE_CHANGE_THRESHOLD',['../driving__loop_8c.html#ade8c2b92f80dab9f21a39ad68f8d6e0a',1,'driving_loop.c']]],
   ['throttle_5fzero_5fthreshold_5',['THROTTLE_ZERO_THRESHOLD',['../driving__loop_8c.html#a633cd4f78d82907f7cc81cd051b6bf4c',1,'driving_loop.c']]],
-  ['tick_5fint_5fpriority_6',['TICK_INT_PRIORITY',['../stm32f4xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e',1,'stm32f4xx_hal_conf.h']]],
-  ['top_5fof_5fflash_5fsblock_7',['TOP_OF_FLASH_SBLOCK',['../uvfr__settings_8h.html#aa81180ef8eb37ec6e7d99d706610680d',1,'uvfr_settings.h']]],
-  ['top_5fof_5fuser_5fflash_8',['TOP_OF_USER_FLASH',['../uvfr__settings_8h.html#a51c4eefdfb7ebd6d19fd6d35a3f6a34f',1,'uvfr_settings.h']]],
-  ['torque_5fdecay_5fstep_9',['TORQUE_DECAY_STEP',['../driving__loop_8c.html#abdb111971b9caeabf750f90e1ae5756c',1,'driving_loop.c']]]
+  ['tic_6',['tic',['../uvfr__diagnostics_8h.html#add29229f85a32e4c930b122d7c7f00ab',1,'uvfr_diagnostics.h']]],
+  ['tick_5fint_5fpriority_7',['TICK_INT_PRIORITY',['../stm32f4xx__hal__conf_8h.html#ae27809d4959b9fd5b5d974e3e1c77d2e',1,'stm32f4xx_hal_conf.h']]],
+  ['tim_5fimplementation_8',['TIM_IMPLEMENTATION',['../tim_8c.html#a95b9f8ef12889fc30235876f5099017d',1,'tim.c']]],
+  ['timer_5ftick_5fus_9',['TIMER_TICK_US',['../tim_8c.html#a7562b7800a14c0fa1281838a7a1e0e00',1,'tim.c']]],
+  ['tms_5fcan_5fbus_10',['TMS_CAN_BUS',['../tms_8h.html#a0b7d7d27b5b6d10189924220ed27aca9',1,'tms.h']]],
+  ['tms_5fnum_5fpacks_11',['TMS_NUM_PACKS',['../tms_8h.html#a02c0f5c62bdb7be910a8c48264c16fa1',1,'tms.h']]],
+  ['tms_5ftherm_5fdata_5fcan_5fid_12',['TMS_THERM_DATA_CAN_ID',['../tms_8h.html#a7e8d6e291d86213a2644794d06153c8d',1,'tms.h']]],
+  ['toc_13',['toc',['../uvfr__diagnostics_8h.html#a88dd4385a42545b972eeedcb6e68502b',1,'uvfr_diagnostics.h']]],
+  ['top_5fof_5fflash_5fsblock_14',['TOP_OF_FLASH_SBLOCK',['../uvfr__settings_8h.html#aa81180ef8eb37ec6e7d99d706610680d',1,'uvfr_settings.h']]],
+  ['top_5fof_5fuser_5fflash_15',['TOP_OF_USER_FLASH',['../uvfr__settings_8h.html#a51c4eefdfb7ebd6d19fd6d35a3f6a34f',1,'uvfr_settings.h']]],
+  ['torque_5fdecay_5fstep_16',['TORQUE_DECAY_STEP',['../driving__loop_8c.html#abdb111971b9caeabf750f90e1ae5756c',1,'driving_loop.c']]],
+  ['ts_5factive_17',['TS_ACTIVE',['../uvfr__vehicle__commands_8h.html#a45704fe8a7f8761020ef98a33f300351',1,'uvfr_vehicle_commands.h']]],
+  ['ts_5ferror_18',['TS_ERROR',['../uvfr__vehicle__commands_8h.html#a059f411d873b15accce9f92553c9f8b2',1,'uvfr_vehicle_commands.h']]],
+  ['ts_5foff_19',['TS_OFF',['../uvfr__vehicle__commands_8h.html#ab713361cc599d35d0ee338086229552a',1,'uvfr_vehicle_commands.h']]]
 ];

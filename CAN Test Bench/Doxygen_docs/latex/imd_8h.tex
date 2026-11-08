@@ -1,6 +1,8 @@
 \doxysection{Core/\+Inc/imd.h File Reference}
 \hypertarget{imd_8h}{}\label{imd_8h}\index{Core/Inc/imd.h@{Core/Inc/imd.h}}
 {\ttfamily \#include "{}main.\+h"{}}\newline
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
 Include dependency graph for imd.\+h\+:
 % FIG 0
 This graph shows which files directly or indirectly include this file\+:
@@ -31,18 +33,18 @@ enum \mbox{\hyperlink{imd_8h_acf7b0534a43397021a0e474a499218be}{imd\+\_\+status\
  \}
 \item 
 enum \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26a}{imd\+\_\+status\+\_\+requests}} \{ \newline
-\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38}{isolation\+\_\+state}} = 0x\+E0
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae}{isolation\+\_\+resistances}} = 0x\+E1
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c}{isolation\+\_\+capacitances}} = 0x\+E2
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1}{voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn}} = 0x\+E3
+\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa9517b37939a8fd289b63d850cd89a5ad}{uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+state}} = 0x\+E0
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa5fd5e6ed9f4d226348e9fbe3a5103d21}{uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+resistances}} = 0x\+E1
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aacaf65c50e1ce279624f83a99588c3480}{uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+capacitances}} = 0x\+E2
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aabae2b538110354e16930797738fcaf9d}{uv\+\_\+request\+\_\+mux\+\_\+voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn}} = 0x\+E3
 , \newline
-\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680}{battery\+\_\+voltage}} = 0x\+E4
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf}{Error\+\_\+flags}} = 0x\+E5
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504}{safety\+\_\+touch\+\_\+energy}} = 0x\+E6
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f}{safety\+\_\+touch\+\_\+current}} = 0x\+E7
+\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa3adaf68c3a328875cd4e13ce4f27208d}{uv\+\_\+request\+\_\+mux\+\_\+battery\+\_\+voltage}} = 0x\+E4
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aaab89862464a2cd9470818cc416779da0}{uv\+\_\+request\+\_\+mux\+\_\+\+Error\+\_\+flags}} = 0x\+E5
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa3c1bb9c2d0002ab46493be9778f47aac}{uv\+\_\+request\+\_\+mux\+\_\+safety\+\_\+touch\+\_\+energy}} = 0x\+E6
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aae774ec2da42a97a37f62c6ed1ff19694}{uv\+\_\+request\+\_\+mux\+\_\+safety\+\_\+touch\+\_\+current}} = 0x\+E7
 , \newline
-\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed}{Max\+\_\+battery\+\_\+working\+\_\+voltage}} = 0x\+F0
-, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f}{Temperature}} = 0x80
+\mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa23e1ec06b6102cc8857163b6f538bd2c}{uv\+\_\+request\+\_\+mux\+\_\+\+Max\+\_\+battery\+\_\+working\+\_\+voltage}} = 0x\+F0
+, \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa7fd2c8a3e62f4e0122747078b29afed3}{uv\+\_\+request\+\_\+mux\+\_\+\+Temperature}} = 0x80
  \}
 \item 
 enum \mbox{\hyperlink{imd_8h_a4456d255c2ceb447ad52b68087531b61}{imd\+\_\+error\+\_\+flags}} \{ \newline
@@ -88,41 +90,23 @@ enum \mbox{\hyperlink{imd_8h_af8e85b806bce9c9cad944c261ff0aa0c}{imd\+\_\+high\+\
 \doxysubsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{imd_8h_a1f6181c5ab49d963007eb9a212672bbd}{IMD\+\_\+\+Parse\+\_\+\+Message}} (int DLC, uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint8\+\_\+t \mbox{\hyperlink{imd_8h_a51b87d333c6d2e4f65d69fc2469b8a84}{IMD\+\_\+\+Is\+Online}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_ab4e8b5af19cc6d0b08ace9185a542b01}{IMD\+\_\+\+Check\+\_\+\+Status\+\_\+\+Bits}} (uint8\+\_\+t Data)
+uint8\+\_\+t \mbox{\hyperlink{imd_8h_a399cfd70be8568850d2b394628e87d00}{IMD\+\_\+\+Get\+Status\+Bits}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_a0cfe9b1a6472c4a5d0ca154a4e9e7bb0}{IMD\+\_\+\+Check\+\_\+\+Error\+\_\+\+Flags}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint16\+\_\+t \mbox{\hyperlink{imd_8h_a48eee67a59558632f01c8db100b376eb}{IMD\+\_\+\+Get\+Rp\+Raw}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_af81ff089b3fabafdfa49c3b816ded80e}{IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+State}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint16\+\_\+t \mbox{\hyperlink{imd_8h_a02e240beafca24a8549285c997caff60}{IMD\+\_\+\+Get\+Rn\+Raw}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_adb4d085b7b1f3e5a860c45aa5a404294}{IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+Resistances}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint16\+\_\+t \mbox{\hyperlink{imd_8h_a89de0e5f75445980baf98050bd35be09}{IMD\+\_\+\+Get\+Error\+Flags\+Raw}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_a686301a85070c84e89af3e1cc0a159ae}{IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+Capacitances}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint8\+\_\+t \mbox{\hyperlink{imd_8h_adb492bbf450d62cc9056d75237f6d86e}{IMD\+\_\+\+Get\+Serial0\+Valid}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_a0fc857559d80dd701aec763dd6911383}{IMD\+\_\+\+Check\+\_\+\+Voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint32\+\_\+t \mbox{\hyperlink{imd_8h_a3810783b323bf7272662dc7d6ca3c2fb}{IMD\+\_\+\+Get\+Serial0\+Word}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_ac94e0b660190e6ce0d376d407627057e}{IMD\+\_\+\+Check\+\_\+\+Battery\+\_\+\+Voltage}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
+uint16\+\_\+t \mbox{\hyperlink{imd_8h_ae8858bdc2ca9ea141f65c868f347ac8d}{IMD\+\_\+\+Get\+Safety\+Touch\+Current}} (void)
 \item 
-void \mbox{\hyperlink{imd_8h_abc49be24256f1a93674e290546384348}{IMD\+\_\+\+Check\+\_\+\+Safety\+\_\+\+Touch\+\_\+\+Energy}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_a00c843b8f3e8cf4569ea9008cd7db9d2}{IMD\+\_\+\+Check\+\_\+\+Safety\+\_\+\+Touch\+\_\+\+Current}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_a1a18f8d11173ee691822b5a712cf1617}{IMD\+\_\+\+Check\+\_\+\+Temperature}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_a6f6abcfa57cc41a7b1249c0157702a1c}{IMD\+\_\+\+Check\+\_\+\+Max\+\_\+\+Battery\+\_\+\+Working\+\_\+\+Voltage}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_a72a595e6320ceeb17de4f7ce2ec66d30}{IMD\+\_\+\+Check\+\_\+\+Part\+\_\+\+Name}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_a4a16ede06a18addd7ef3e67be2aaaf3d}{IMD\+\_\+\+Check\+\_\+\+Version}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_a6f1e850c527bdf0e1a7cfbc557b8501b}{IMD\+\_\+\+Check\+\_\+\+Serial\+\_\+\+Number}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_ae0177fe52ae013a36014be506fd1fa93}{IMD\+\_\+\+Check\+\_\+\+Uptime}} (uint8\+\_\+t Data\mbox{[}$\,$\mbox{]})
-\item 
-void \mbox{\hyperlink{imd_8h_aeb7c937639c5385f5d2b4e3a4e60250f}{IMD\+\_\+\+Request\+\_\+\+Status}} (uint8\+\_\+t Status)
-\item 
-void \mbox{\hyperlink{imd_8h_a80b26177d8aa0c0e803fac210eb456ac}{IMD\+\_\+\+Startup}} ()
+void \mbox{\hyperlink{imd_8h_a9885969a0404b7553faf52aff3e54d3a}{IMD\+\_\+\+Can\+Rx\+Handler}} (\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}msg)
 \item 
 void \mbox{\hyperlink{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}{init\+IMD}} (void \texorpdfstring{$\ast$}{*}args)
 \end{DoxyCompactItemize}
@@ -184,7 +168,7 @@ Err\+\_\+\+Vx2&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{imd_8h_source_l00075}{75}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
+Definition at line \mbox{\hyperlink{imd_8h_source_l00076}{76}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
 
 \Hypertarget{imd_8h_af8e85b806bce9c9cad944c261ff0aa0c}\index{imd.h@{imd.h}!imd\_high\_resolution\_measurements@{imd\_high\_resolution\_measurements}}
 \index{imd\_high\_resolution\_measurements@{imd\_high\_resolution\_measurements}!imd.h@{imd.h}}
@@ -216,7 +200,7 @@ Vpwr\+\_\+hi\+\_\+res&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{imd_8h_source_l00105}{105}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
+Definition at line \mbox{\hyperlink{imd_8h_source_l00106}{106}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
 
 \Hypertarget{imd_8h_a975959819df682c9adec7c667028674e}\index{imd.h@{imd.h}!imd\_manufacturer\_requests@{imd\_manufacturer\_requests}}
 \index{imd\_manufacturer\_requests@{imd\_manufacturer\_requests}!imd.h@{imd.h}}
@@ -276,7 +260,7 @@ Uptime\+\_\+counter&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{imd_8h_source_l00089}{89}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
+Definition at line \mbox{\hyperlink{imd_8h_source_l00090}{90}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
 
 \Hypertarget{imd_8h_acf7b0534a43397021a0e474a499218be}\index{imd.h@{imd.h}!imd\_status\_bits@{imd\_status\_bits}}
 \index{imd\_status\_bits@{imd\_status\_bits}!imd.h@{imd.h}}
@@ -320,7 +304,7 @@ Hardware\+\_\+\+Error&\\
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{imd_8h_source_l00016}{16}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
+Definition at line \mbox{\hyperlink{imd_8h_source_l00017}{17}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
 
 \Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26a}\index{imd.h@{imd.h}!imd\_status\_requests@{imd\_status\_requests}}
 \index{imd\_status\_requests@{imd\_status\_requests}!imd.h@{imd.h}}
@@ -329,346 +313,186 @@ Definition at line \mbox{\hyperlink{imd_8h_source_l00016}{16}} of file \mbox{\hy
 enum \mbox{\hyperlink{imd_8h_a0710286ee4b87e83845bd90c76e5c26a}{imd\+\_\+status\+\_\+requests}}}
 
 \begin{DoxyEnumFields}[2]{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{isolation\_state@{isolation\_state}!imd.h@{imd.h}}\index{imd.h@{imd.h}!isolation\_state@{isolation\_state}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-isolation\+\_\+state&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_isolation\_state@{uv\_request\_mux\_isolation\_state}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_isolation\_state@{uv\_request\_mux\_isolation\_state}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa9517b37939a8fd289b63d850cd89a5ad}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+state&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{isolation\_resistances@{isolation\_resistances}!imd.h@{imd.h}}\index{imd.h@{imd.h}!isolation\_resistances@{isolation\_resistances}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-isolation\+\_\+resistances&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_isolation\_resistances@{uv\_request\_mux\_isolation\_resistances}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_isolation\_resistances@{uv\_request\_mux\_isolation\_resistances}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa5fd5e6ed9f4d226348e9fbe3a5103d21}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+resistances&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{isolation\_capacitances@{isolation\_capacitances}!imd.h@{imd.h}}\index{imd.h@{imd.h}!isolation\_capacitances@{isolation\_capacitances}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-isolation\+\_\+capacitances&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_isolation\_capacitances@{uv\_request\_mux\_isolation\_capacitances}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_isolation\_capacitances@{uv\_request\_mux\_isolation\_capacitances}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aacaf65c50e1ce279624f83a99588c3480}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+capacitances&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{voltages\_Vp\_and\_Vn@{voltages\_Vp\_and\_Vn}!imd.h@{imd.h}}\index{imd.h@{imd.h}!voltages\_Vp\_and\_Vn@{voltages\_Vp\_and\_Vn}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_voltages\_Vp\_and\_Vn@{uv\_request\_mux\_voltages\_Vp\_and\_Vn}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_voltages\_Vp\_and\_Vn@{uv\_request\_mux\_voltages\_Vp\_and\_Vn}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aabae2b538110354e16930797738fcaf9d}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{battery\_voltage@{battery\_voltage}!imd.h@{imd.h}}\index{imd.h@{imd.h}!battery\_voltage@{battery\_voltage}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-battery\+\_\+voltage&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_battery\_voltage@{uv\_request\_mux\_battery\_voltage}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_battery\_voltage@{uv\_request\_mux\_battery\_voltage}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa3adaf68c3a328875cd4e13ce4f27208d}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+battery\+\_\+voltage&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Error\_flags@{Error\_flags}!imd.h@{imd.h}}\index{imd.h@{imd.h}!Error\_flags@{Error\_flags}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-Error\+\_\+flags&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_Error\_flags@{uv\_request\_mux\_Error\_flags}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_Error\_flags@{uv\_request\_mux\_Error\_flags}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aaab89862464a2cd9470818cc416779da0}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+\+Error\+\_\+flags&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{safety\_touch\_energy@{safety\_touch\_energy}!imd.h@{imd.h}}\index{imd.h@{imd.h}!safety\_touch\_energy@{safety\_touch\_energy}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-safety\+\_\+touch\+\_\+energy&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_safety\_touch\_energy@{uv\_request\_mux\_safety\_touch\_energy}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_safety\_touch\_energy@{uv\_request\_mux\_safety\_touch\_energy}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa3c1bb9c2d0002ab46493be9778f47aac}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+safety\+\_\+touch\+\_\+energy&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{safety\_touch\_current@{safety\_touch\_current}!imd.h@{imd.h}}\index{imd.h@{imd.h}!safety\_touch\_current@{safety\_touch\_current}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-safety\+\_\+touch\+\_\+current&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_safety\_touch\_current@{uv\_request\_mux\_safety\_touch\_current}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_safety\_touch\_current@{uv\_request\_mux\_safety\_touch\_current}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aae774ec2da42a97a37f62c6ed1ff19694}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+safety\+\_\+touch\+\_\+current&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Max\_battery\_working\_voltage@{Max\_battery\_working\_voltage}!imd.h@{imd.h}}\index{imd.h@{imd.h}!Max\_battery\_working\_voltage@{Max\_battery\_working\_voltage}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-Max\+\_\+battery\+\_\+working\+\_\+voltage&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_Max\_battery\_working\_voltage@{uv\_request\_mux\_Max\_battery\_working\_voltage}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_Max\_battery\_working\_voltage@{uv\_request\_mux\_Max\_battery\_working\_voltage}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa23e1ec06b6102cc8857163b6f538bd2c}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+\+Max\+\_\+battery\+\_\+working\+\_\+voltage&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{Temperature@{Temperature}!imd.h@{imd.h}}\index{imd.h@{imd.h}!Temperature@{Temperature}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
-Temperature&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{uv\_request\_mux\_Temperature@{uv\_request\_mux\_Temperature}!imd.h@{imd.h}}\index{imd.h@{imd.h}!uv\_request\_mux\_Temperature@{uv\_request\_mux\_Temperature}}}\Hypertarget{imd_8h_a0710286ee4b87e83845bd90c76e5c26aa7fd2c8a3e62f4e0122747078b29afed3}\label{imd_8h_a0710286ee4b87e83845bd90c76e5c26a} 
+uv\+\_\+request\+\_\+mux\+\_\+\+Temperature&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line \mbox{\hyperlink{imd_8h_source_l00039}{39}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
+Definition at line \mbox{\hyperlink{imd_8h_source_l00040}{40}} of file \mbox{\hyperlink{imd_8h_source}{imd.\+h}}.
 
 
 
 \doxysubsection{Function Documentation}
-\Hypertarget{imd_8h_ac94e0b660190e6ce0d376d407627057e}\index{imd.h@{imd.h}!IMD\_Check\_Battery\_Voltage@{IMD\_Check\_Battery\_Voltage}}
-\index{IMD\_Check\_Battery\_Voltage@{IMD\_Check\_Battery\_Voltage}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Battery\_Voltage()}{IMD\_Check\_Battery\_Voltage()}}
-{\footnotesize\ttfamily \label{imd_8h_ac94e0b660190e6ce0d376d407627057e} 
-void IMD\+\_\+\+Check\+\_\+\+Battery\+\_\+\+Voltage (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+\Hypertarget{imd_8h_a9885969a0404b7553faf52aff3e54d3a}\index{imd.h@{imd.h}!IMD\_CanRxHandler@{IMD\_CanRxHandler}}
+\index{IMD\_CanRxHandler@{IMD\_CanRxHandler}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_CanRxHandler()}{IMD\_CanRxHandler()}}
+{\footnotesize\ttfamily \label{imd_8h_a9885969a0404b7553faf52aff3e54d3a} 
+void IMD\+\_\+\+Can\+Rx\+Handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structuv___c_a_n__msg}{uv\+\_\+\+CAN\+\_\+msg}} \texorpdfstring{$\ast$}{*}}]{msg}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00356}{356}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00198}{198}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
+References \mbox{\hyperlink{imd_8c_source_l00081}{imd\+\_\+state\+\_\+t\+::cn\+\_\+nf}}, \mbox{\hyperlink{imd_8c_source_l00080}{imd\+\_\+state\+\_\+t\+::cp\+\_\+nf}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00322}{uv\+\_\+\+CAN\+\_\+msg\+::data}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00320}{uv\+\_\+\+CAN\+\_\+msg\+::dlc}}, \mbox{\hyperlink{imd_8c_source_l00083}{imd\+\_\+state\+\_\+t\+::error\+\_\+flags\+\_\+raw}}, \mbox{\hyperlink{uvfr__external__devices_8c_source_l00381}{external\+Device\+Rx\+Handler()}}, \mbox{\hyperlink{imd_8c_source_l00082}{imd\+\_\+state\+\_\+t\+::glv\+\_\+raw}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00229}{IMD}}, \mbox{\hyperlink{constants_8h_source_l00020}{IMD\+\_\+\+CAN\+\_\+\+ID\+\_\+\+Rx}}, \mbox{\hyperlink{imd_8c_source_l00077}{imd\+\_\+state\+\_\+t\+::iso\+\_\+state\+\_\+raw}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00321}{uv\+\_\+\+CAN\+\_\+msg\+::msg\+\_\+id}}, \mbox{\hyperlink{imd_8c_source_l00071}{imd\+\_\+state\+\_\+t\+::online}}, \mbox{\hyperlink{imd_8c_source_l00079}{imd\+\_\+state\+\_\+t\+::rn\+\_\+raw}}, \mbox{\hyperlink{imd_8c_source_l00078}{imd\+\_\+state\+\_\+t\+::rp\+\_\+raw}}, \mbox{\hyperlink{imd_8c_source_l00085}{imd\+\_\+state\+\_\+t\+::safety\+\_\+touch\+\_\+current}}, \mbox{\hyperlink{imd_8c_source_l00089}{imd\+\_\+state\+\_\+t\+::serial0\+\_\+valid}}, \mbox{\hyperlink{imd_8c_source_l00090}{imd\+\_\+state\+\_\+t\+::serial0\+\_\+word}}, \mbox{\hyperlink{imd_8h_source_l00099}{Serial\+\_\+number\+\_\+0}}, \mbox{\hyperlink{imd_8c_source_l00074}{imd\+\_\+state\+\_\+t\+::status\+\_\+bits}}, \mbox{\hyperlink{imd_8c_source_l00084}{imd\+\_\+state\+\_\+t\+::temp\+\_\+raw}}, \mbox{\hyperlink{imd_8h_source_l00057}{uv\+\_\+request\+\_\+mux\+\_\+battery\+\_\+voltage}}, \mbox{\hyperlink{imd_8h_source_l00060}{uv\+\_\+request\+\_\+mux\+\_\+\+Error\+\_\+flags}}, \mbox{\hyperlink{imd_8h_source_l00051}{uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+capacitances}}, \mbox{\hyperlink{imd_8h_source_l00046}{uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+resistances}}, \mbox{\hyperlink{imd_8h_source_l00042}{uv\+\_\+request\+\_\+mux\+\_\+isolation\+\_\+state}}, \mbox{\hyperlink{imd_8h_source_l00066}{uv\+\_\+request\+\_\+mux\+\_\+safety\+\_\+touch\+\_\+current}}, and \mbox{\hyperlink{imd_8h_source_l00072}{uv\+\_\+request\+\_\+mux\+\_\+\+Temperature}}.
 
-\Hypertarget{imd_8h_a0cfe9b1a6472c4a5d0ca154a4e9e7bb0}\index{imd.h@{imd.h}!IMD\_Check\_Error\_Flags@{IMD\_Check\_Error\_Flags}}
-\index{IMD\_Check\_Error\_Flags@{IMD\_Check\_Error\_Flags}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Error\_Flags()}{IMD\_Check\_Error\_Flags()}}
-{\footnotesize\ttfamily \label{imd_8h_a0cfe9b1a6472c4a5d0ca154a4e9e7bb0} 
-void IMD\+\_\+\+Check\+\_\+\+Error\+\_\+\+Flags (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
 
 
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00262}{262}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-References \mbox{\hyperlink{imd_8h_source_l00083}{Err\+\_\+\+CH}}, \mbox{\hyperlink{imd_8h_source_l00078}{Err\+\_\+clock}}, \mbox{\hyperlink{imd_8h_source_l00077}{Err\+\_\+temp}}, \mbox{\hyperlink{imd_8h_source_l00081}{Err\+\_\+\+Vexi}}, \mbox{\hyperlink{imd_8h_source_l00080}{Err\+\_\+\+Vpwr}}, \mbox{\hyperlink{imd_8h_source_l00084}{Err\+\_\+\+Vx1}}, \mbox{\hyperlink{imd_8h_source_l00085}{Err\+\_\+\+Vx2}}, \mbox{\hyperlink{imd_8h_source_l00082}{Err\+\_\+\+VxR}}, and \mbox{\hyperlink{imd_8h_source_l00079}{Err\+\_\+\+Watchdog}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_a686301a85070c84e89af3e1cc0a159ae}\index{imd.h@{imd.h}!IMD\_Check\_Isolation\_Capacitances@{IMD\_Check\_Isolation\_Capacitances}}
-\index{IMD\_Check\_Isolation\_Capacitances@{IMD\_Check\_Isolation\_Capacitances}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Isolation\_Capacitances()}{IMD\_Check\_Isolation\_Capacitances()}}
-{\footnotesize\ttfamily \label{imd_8h_a686301a85070c84e89af3e1cc0a159ae} 
-void IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+Capacitances (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00342}{342}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_adb4d085b7b1f3e5a860c45aa5a404294}\index{imd.h@{imd.h}!IMD\_Check\_Isolation\_Resistances@{IMD\_Check\_Isolation\_Resistances}}
-\index{IMD\_Check\_Isolation\_Resistances@{IMD\_Check\_Isolation\_Resistances}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Isolation\_Resistances()}{IMD\_Check\_Isolation\_Resistances()}}
-{\footnotesize\ttfamily \label{imd_8h_adb4d085b7b1f3e5a860c45aa5a404294} 
-void IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+Resistances (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00317}{317}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-References \mbox{\hyperlink{imd_8c_source_l00020}{IMD\+\_\+\+High\+\_\+\+Uncertainty}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_af81ff089b3fabafdfa49c3b816ded80e}\index{imd.h@{imd.h}!IMD\_Check\_Isolation\_State@{IMD\_Check\_Isolation\_State}}
-\index{IMD\_Check\_Isolation\_State@{IMD\_Check\_Isolation\_State}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Isolation\_State()}{IMD\_Check\_Isolation\_State()}}
-{\footnotesize\ttfamily \label{imd_8h_af81ff089b3fabafdfa49c3b816ded80e} 
-void IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+State (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00301}{301}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-References \mbox{\hyperlink{imd_8c_source_l00020}{IMD\+\_\+\+High\+\_\+\+Uncertainty}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_a6f6abcfa57cc41a7b1249c0157702a1c}\index{imd.h@{imd.h}!IMD\_Check\_Max\_Battery\_Working\_Voltage@{IMD\_Check\_Max\_Battery\_Working\_Voltage}}
-\index{IMD\_Check\_Max\_Battery\_Working\_Voltage@{IMD\_Check\_Max\_Battery\_Working\_Voltage}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Max\_Battery\_Working\_Voltage()}{IMD\_Check\_Max\_Battery\_Working\_Voltage()}}
-{\footnotesize\ttfamily \label{imd_8h_a6f6abcfa57cc41a7b1249c0157702a1c} 
-void IMD\+\_\+\+Check\+\_\+\+Max\+\_\+\+Battery\+\_\+\+Working\+\_\+\+Voltage (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00393}{393}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_a72a595e6320ceeb17de4f7ce2ec66d30}\index{imd.h@{imd.h}!IMD\_Check\_Part\_Name@{IMD\_Check\_Part\_Name}}
-\index{IMD\_Check\_Part\_Name@{IMD\_Check\_Part\_Name}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Part\_Name()}{IMD\_Check\_Part\_Name()}}
-{\footnotesize\ttfamily \label{imd_8h_a72a595e6320ceeb17de4f7ce2ec66d30} 
-void IMD\+\_\+\+Check\+\_\+\+Part\+\_\+\+Name (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00406}{406}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-References \mbox{\hyperlink{imd_8c_source_l00026}{IMD\+\_\+\+Expected\+\_\+\+Part\+\_\+\+Name}}, \mbox{\hyperlink{imd_8c_source_l00028}{IMD\+\_\+\+Part\+\_\+\+Name\+\_\+0\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00029}{IMD\+\_\+\+Part\+\_\+\+Name\+\_\+1\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00030}{IMD\+\_\+\+Part\+\_\+\+Name\+\_\+2\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00031}{IMD\+\_\+\+Part\+\_\+\+Name\+\_\+3\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00032}{IMD\+\_\+\+Part\+\_\+\+Name\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00025}{IMD\+\_\+\+Read\+\_\+\+Part\+\_\+\+Name}}, \mbox{\hyperlink{imd_8h_source_l00091}{Part\+\_\+name\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00092}{Part\+\_\+name\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00093}{Part\+\_\+name\+\_\+2}}, and \mbox{\hyperlink{imd_8h_source_l00094}{Part\+\_\+name\+\_\+3}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_a00c843b8f3e8cf4569ea9008cd7db9d2}\index{imd.h@{imd.h}!IMD\_Check\_Safety\_Touch\_Current@{IMD\_Check\_Safety\_Touch\_Current}}
-\index{IMD\_Check\_Safety\_Touch\_Current@{IMD\_Check\_Safety\_Touch\_Current}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Safety\_Touch\_Current()}{IMD\_Check\_Safety\_Touch\_Current()}}
-{\footnotesize\ttfamily \label{imd_8h_a00c843b8f3e8cf4569ea9008cd7db9d2} 
-void IMD\+\_\+\+Check\+\_\+\+Safety\+\_\+\+Touch\+\_\+\+Current (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00381}{381}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_abc49be24256f1a93674e290546384348}\index{imd.h@{imd.h}!IMD\_Check\_Safety\_Touch\_Energy@{IMD\_Check\_Safety\_Touch\_Energy}}
-\index{IMD\_Check\_Safety\_Touch\_Energy@{IMD\_Check\_Safety\_Touch\_Energy}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Safety\_Touch\_Energy()}{IMD\_Check\_Safety\_Touch\_Energy()}}
-{\footnotesize\ttfamily \label{imd_8h_abc49be24256f1a93674e290546384348} 
-void IMD\+\_\+\+Check\+\_\+\+Safety\+\_\+\+Touch\+\_\+\+Energy (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00374}{374}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_a6f1e850c527bdf0e1a7cfbc557b8501b}\index{imd.h@{imd.h}!IMD\_Check\_Serial\_Number@{IMD\_Check\_Serial\_Number}}
-\index{IMD\_Check\_Serial\_Number@{IMD\_Check\_Serial\_Number}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Serial\_Number()}{IMD\_Check\_Serial\_Number()}}
-{\footnotesize\ttfamily \label{imd_8h_a6f1e850c527bdf0e1a7cfbc557b8501b} 
-void IMD\+\_\+\+Check\+\_\+\+Serial\+\_\+\+Number (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00488}{488}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-References \mbox{\hyperlink{imd_8c_source_l00046}{IMD\+\_\+\+Expected\+\_\+\+Serial\+\_\+\+Number}}, \mbox{\hyperlink{imd_8c_source_l00045}{IMD\+\_\+\+Read\+\_\+\+Serial\+\_\+\+Number}}, \mbox{\hyperlink{imd_8c_source_l00050}{IMD\+\_\+\+Serial\+\_\+\+Number\+\_\+0\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00051}{IMD\+\_\+\+Serial\+\_\+\+Number\+\_\+1\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00052}{IMD\+\_\+\+Serial\+\_\+\+Number\+\_\+2\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00053}{IMD\+\_\+\+Serial\+\_\+\+Number\+\_\+3\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00054}{IMD\+\_\+\+Serial\+\_\+\+Number\+\_\+\+Set}}, \mbox{\hyperlink{imd_8h_source_l00098}{Serial\+\_\+number\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00099}{Serial\+\_\+number\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00100}{Serial\+\_\+number\+\_\+2}}, and \mbox{\hyperlink{imd_8h_source_l00101}{Serial\+\_\+number\+\_\+3}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_ab4e8b5af19cc6d0b08ace9185a542b01}\index{imd.h@{imd.h}!IMD\_Check\_Status\_Bits@{IMD\_Check\_Status\_Bits}}
-\index{IMD\_Check\_Status\_Bits@{IMD\_Check\_Status\_Bits}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Status\_Bits()}{IMD\_Check\_Status\_Bits()}}
-{\footnotesize\ttfamily \label{imd_8h_ab4e8b5af19cc6d0b08ace9185a542b01} 
-void IMD\+\_\+\+Check\+\_\+\+Status\+\_\+\+Bits (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00218}{218}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
-
-
-
-References \mbox{\hyperlink{imd_8h_source_l00059}{Error\+\_\+flags}}, \mbox{\hyperlink{imd_8h_source_l00026}{Hardware\+\_\+\+Error}}, \mbox{\hyperlink{imd_8h_source_l00022}{High\+\_\+\+Battery\+\_\+\+Voltage}}, \mbox{\hyperlink{imd_8h_source_l00024}{High\+\_\+\+Uncertainty}}, \mbox{\hyperlink{imd_8c_source_l00062}{IMD\+\_\+error\+\_\+flags\+\_\+requested}}, \mbox{\hyperlink{imd_8c_source_l00020}{IMD\+\_\+\+High\+\_\+\+Uncertainty}}, \mbox{\hyperlink{imd_8c_source_l00185}{IMD\+\_\+\+Request\+\_\+\+Status()}}, \mbox{\hyperlink{imd_8h_source_l00019}{Isolation\+\_\+status\+\_\+bit0}}, \mbox{\hyperlink{imd_8h_source_l00020}{Isolation\+\_\+status\+\_\+bit1}}, and \mbox{\hyperlink{imd_8h_source_l00021}{Low\+\_\+\+Battery\+\_\+\+Voltage}}.
-
-
-
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
+Referenced by \mbox{\hyperlink{imd_8c_source_l00316}{init\+IMD()}}.
 
 Here is the call graph for this function\+:
 % FIG 2
-\Hypertarget{imd_8h_a1a18f8d11173ee691822b5a712cf1617}\index{imd.h@{imd.h}!IMD\_Check\_Temperature@{IMD\_Check\_Temperature}}
-\index{IMD\_Check\_Temperature@{IMD\_Check\_Temperature}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Temperature()}{IMD\_Check\_Temperature()}}
-{\footnotesize\ttfamily \label{imd_8h_a1a18f8d11173ee691822b5a712cf1617} 
-void IMD\+\_\+\+Check\+\_\+\+Temperature (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+\Hypertarget{imd_8h_a89de0e5f75445980baf98050bd35be09}\index{imd.h@{imd.h}!IMD\_GetErrorFlagsRaw@{IMD\_GetErrorFlagsRaw}}
+\index{IMD\_GetErrorFlagsRaw@{IMD\_GetErrorFlagsRaw}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetErrorFlagsRaw()}{IMD\_GetErrorFlagsRaw()}}
+{\footnotesize\ttfamily \label{imd_8h_a89de0e5f75445980baf98050bd35be09} 
+uint16\+\_\+t IMD\+\_\+\+Get\+Error\+Flags\+Raw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00363}{363}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00422}{422}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-References \mbox{\hyperlink{imd_8c_source_l00057}{IMD\+\_\+\+Temperature}}.
+References \mbox{\hyperlink{imd_8c_source_l00083}{imd\+\_\+state\+\_\+t\+::error\+\_\+flags\+\_\+raw}}.
+
+\Hypertarget{imd_8h_a02e240beafca24a8549285c997caff60}\index{imd.h@{imd.h}!IMD\_GetRnRaw@{IMD\_GetRnRaw}}
+\index{IMD\_GetRnRaw@{IMD\_GetRnRaw}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetRnRaw()}{IMD\_GetRnRaw()}}
+{\footnotesize\ttfamily \label{imd_8h_a02e240beafca24a8549285c997caff60} 
+uint16\+\_\+t IMD\+\_\+\+Get\+Rn\+Raw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_ae0177fe52ae013a36014be506fd1fa93}\index{imd.h@{imd.h}!IMD\_Check\_Uptime@{IMD\_Check\_Uptime}}
-\index{IMD\_Check\_Uptime@{IMD\_Check\_Uptime}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Uptime()}{IMD\_Check\_Uptime()}}
-{\footnotesize\ttfamily \label{imd_8h_ae0177fe52ae013a36014be506fd1fa93} 
-void IMD\+\_\+\+Check\+\_\+\+Uptime (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+Definition at line \mbox{\hyperlink{imd_8c_source_l00418}{418}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00529}{529}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+References \mbox{\hyperlink{imd_8c_source_l00079}{imd\+\_\+state\+\_\+t\+::rn\+\_\+raw}}.
 
-\Hypertarget{imd_8h_a4a16ede06a18addd7ef3e67be2aaaf3d}\index{imd.h@{imd.h}!IMD\_Check\_Version@{IMD\_Check\_Version}}
-\index{IMD\_Check\_Version@{IMD\_Check\_Version}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Version()}{IMD\_Check\_Version()}}
-{\footnotesize\ttfamily \label{imd_8h_a4a16ede06a18addd7ef3e67be2aaaf3d} 
-void IMD\+\_\+\+Check\+\_\+\+Version (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00448}{448}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+\Hypertarget{imd_8h_a48eee67a59558632f01c8db100b376eb}\index{imd.h@{imd.h}!IMD\_GetRpRaw@{IMD\_GetRpRaw}}
+\index{IMD\_GetRpRaw@{IMD\_GetRpRaw}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetRpRaw()}{IMD\_GetRpRaw()}}
+{\footnotesize\ttfamily \label{imd_8h_a48eee67a59558632f01c8db100b376eb} 
+uint16\+\_\+t IMD\+\_\+\+Get\+Rp\+Raw (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-References \mbox{\hyperlink{imd_8c_source_l00036}{IMD\+\_\+\+Expected\+\_\+\+Version}}, \mbox{\hyperlink{imd_8c_source_l00035}{IMD\+\_\+\+Read\+\_\+\+Version}}, \mbox{\hyperlink{imd_8c_source_l00038}{IMD\+\_\+\+Version\+\_\+0\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00039}{IMD\+\_\+\+Version\+\_\+1\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00040}{IMD\+\_\+\+Version\+\_\+2\+\_\+\+Set}}, \mbox{\hyperlink{imd_8c_source_l00041}{IMD\+\_\+\+Version\+\_\+\+Set}}, \mbox{\hyperlink{imd_8h_source_l00095}{Version\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00096}{Version\+\_\+1}}, and \mbox{\hyperlink{imd_8h_source_l00097}{Version\+\_\+2}}.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00414}{414}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
+References \mbox{\hyperlink{imd_8c_source_l00078}{imd\+\_\+state\+\_\+t\+::rp\+\_\+raw}}.
 
-\Hypertarget{imd_8h_a0fc857559d80dd701aec763dd6911383}\index{imd.h@{imd.h}!IMD\_Check\_Voltages\_Vp\_and\_Vn@{IMD\_Check\_Voltages\_Vp\_and\_Vn}}
-\index{IMD\_Check\_Voltages\_Vp\_and\_Vn@{IMD\_Check\_Voltages\_Vp\_and\_Vn}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Check\_Voltages\_Vp\_and\_Vn()}{IMD\_Check\_Voltages\_Vp\_and\_Vn()}}
-{\footnotesize\ttfamily \label{imd_8h_a0fc857559d80dd701aec763dd6911383} 
-void IMD\+\_\+\+Check\+\_\+\+Voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
-
-
-
-Definition at line \mbox{\hyperlink{imd_8c_source_l00349}{349}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+\Hypertarget{imd_8h_ae8858bdc2ca9ea141f65c868f347ac8d}\index{imd.h@{imd.h}!IMD\_GetSafetyTouchCurrent@{IMD\_GetSafetyTouchCurrent}}
+\index{IMD\_GetSafetyTouchCurrent@{IMD\_GetSafetyTouchCurrent}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetSafetyTouchCurrent()}{IMD\_GetSafetyTouchCurrent()}}
+{\footnotesize\ttfamily \label{imd_8h_ae8858bdc2ca9ea141f65c868f347ac8d} 
+uint16\+\_\+t IMD\+\_\+\+Get\+Safety\+Touch\+Current (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Referenced by \mbox{\hyperlink{imd_8c_source_l00073}{IMD\+\_\+\+Parse\+\_\+\+Message()}}.
-
-\Hypertarget{imd_8h_a1f6181c5ab49d963007eb9a212672bbd}\index{imd.h@{imd.h}!IMD\_Parse\_Message@{IMD\_Parse\_Message}}
-\index{IMD\_Parse\_Message@{IMD\_Parse\_Message}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Parse\_Message()}{IMD\_Parse\_Message()}}
-{\footnotesize\ttfamily \label{imd_8h_a1f6181c5ab49d963007eb9a212672bbd} 
-void IMD\+\_\+\+Parse\+\_\+\+Message (\begin{DoxyParamCaption}\item[{int}]{DLC}{, }\item[{uint8\+\_\+t}]{Data}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+Definition at line \mbox{\hyperlink{imd_8c_source_l00426}{426}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00073}{73}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+References \mbox{\hyperlink{imd_8c_source_l00085}{imd\+\_\+state\+\_\+t\+::safety\+\_\+touch\+\_\+current}}.
+
+\Hypertarget{imd_8h_adb492bbf450d62cc9056d75237f6d86e}\index{imd.h@{imd.h}!IMD\_GetSerial0Valid@{IMD\_GetSerial0Valid}}
+\index{IMD\_GetSerial0Valid@{IMD\_GetSerial0Valid}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetSerial0Valid()}{IMD\_GetSerial0Valid()}}
+{\footnotesize\ttfamily \label{imd_8h_adb492bbf450d62cc9056d75237f6d86e} 
+uint8\+\_\+t IMD\+\_\+\+Get\+Serial0\+Valid (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-References \mbox{\hyperlink{imd_8h_source_l00056}{battery\+\_\+voltage}}, \mbox{\hyperlink{imd_8h_source_l00059}{Error\+\_\+flags}}, \mbox{\hyperlink{main_8c_source_l00365}{Error\+\_\+\+Handler()}}, \mbox{\hyperlink{imd_8c_source_l00356}{IMD\+\_\+\+Check\+\_\+\+Battery\+\_\+\+Voltage()}}, \mbox{\hyperlink{imd_8c_source_l00262}{IMD\+\_\+\+Check\+\_\+\+Error\+\_\+\+Flags()}}, \mbox{\hyperlink{imd_8c_source_l00342}{IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+Capacitances()}}, \mbox{\hyperlink{imd_8c_source_l00317}{IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+Resistances()}}, \mbox{\hyperlink{imd_8c_source_l00301}{IMD\+\_\+\+Check\+\_\+\+Isolation\+\_\+\+State()}}, \mbox{\hyperlink{imd_8c_source_l00393}{IMD\+\_\+\+Check\+\_\+\+Max\+\_\+\+Battery\+\_\+\+Working\+\_\+\+Voltage()}}, \mbox{\hyperlink{imd_8c_source_l00406}{IMD\+\_\+\+Check\+\_\+\+Part\+\_\+\+Name()}}, \mbox{\hyperlink{imd_8c_source_l00381}{IMD\+\_\+\+Check\+\_\+\+Safety\+\_\+\+Touch\+\_\+\+Current()}}, \mbox{\hyperlink{imd_8c_source_l00374}{IMD\+\_\+\+Check\+\_\+\+Safety\+\_\+\+Touch\+\_\+\+Energy()}}, \mbox{\hyperlink{imd_8c_source_l00488}{IMD\+\_\+\+Check\+\_\+\+Serial\+\_\+\+Number()}}, \mbox{\hyperlink{imd_8c_source_l00218}{IMD\+\_\+\+Check\+\_\+\+Status\+\_\+\+Bits()}}, \mbox{\hyperlink{imd_8c_source_l00363}{IMD\+\_\+\+Check\+\_\+\+Temperature()}}, \mbox{\hyperlink{imd_8c_source_l00448}{IMD\+\_\+\+Check\+\_\+\+Version()}}, \mbox{\hyperlink{imd_8c_source_l00349}{IMD\+\_\+\+Check\+\_\+\+Voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn()}}, \mbox{\hyperlink{imd_8h_source_l00050}{isolation\+\_\+capacitances}}, \mbox{\hyperlink{imd_8h_source_l00045}{isolation\+\_\+resistances}}, \mbox{\hyperlink{imd_8h_source_l00041}{isolation\+\_\+state}}, \mbox{\hyperlink{imd_8h_source_l00068}{Max\+\_\+battery\+\_\+working\+\_\+voltage}}, \mbox{\hyperlink{imd_8h_source_l00091}{Part\+\_\+name\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00092}{Part\+\_\+name\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00093}{Part\+\_\+name\+\_\+2}}, \mbox{\hyperlink{imd_8h_source_l00094}{Part\+\_\+name\+\_\+3}}, \mbox{\hyperlink{imd_8h_source_l00065}{safety\+\_\+touch\+\_\+current}}, \mbox{\hyperlink{imd_8h_source_l00062}{safety\+\_\+touch\+\_\+energy}}, \mbox{\hyperlink{imd_8h_source_l00098}{Serial\+\_\+number\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00099}{Serial\+\_\+number\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00100}{Serial\+\_\+number\+\_\+2}}, \mbox{\hyperlink{imd_8h_source_l00101}{Serial\+\_\+number\+\_\+3}}, \mbox{\hyperlink{imd_8h_source_l00071}{Temperature}}, \mbox{\hyperlink{imd_8h_source_l00102}{Uptime\+\_\+counter}}, \mbox{\hyperlink{imd_8h_source_l00109}{Vb\+\_\+hi\+\_\+res}}, \mbox{\hyperlink{imd_8h_source_l00095}{Version\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00096}{Version\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00097}{Version\+\_\+2}}, \mbox{\hyperlink{imd_8h_source_l00108}{Vexc\+\_\+hi\+\_\+res}}, \mbox{\hyperlink{imd_8h_source_l00106}{Vn\+\_\+hi\+\_\+res}}, \mbox{\hyperlink{imd_8h_source_l00053}{voltages\+\_\+\+Vp\+\_\+and\+\_\+\+Vn}}, \mbox{\hyperlink{imd_8h_source_l00107}{Vp\+\_\+hi\+\_\+res}}, and \mbox{\hyperlink{imd_8h_source_l00110}{Vpwr\+\_\+hi\+\_\+res}}.
-
-Here is the call graph for this function\+:
-% FIG 3
-\Hypertarget{imd_8h_aeb7c937639c5385f5d2b4e3a4e60250f}\index{imd.h@{imd.h}!IMD\_Request\_Status@{IMD\_Request\_Status}}
-\index{IMD\_Request\_Status@{IMD\_Request\_Status}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Request\_Status()}{IMD\_Request\_Status()}}
-{\footnotesize\ttfamily \label{imd_8h_aeb7c937639c5385f5d2b4e3a4e60250f} 
-void IMD\+\_\+\+Request\+\_\+\+Status (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{Status}{}\end{DoxyParamCaption})}
+Definition at line \mbox{\hyperlink{imd_8c_source_l00401}{401}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00185}{185}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+References \mbox{\hyperlink{imd_8c_source_l00089}{imd\+\_\+state\+\_\+t\+::serial0\+\_\+valid}}.
+
+\Hypertarget{imd_8h_a3810783b323bf7272662dc7d6ca3c2fb}\index{imd.h@{imd.h}!IMD\_GetSerial0Word@{IMD\_GetSerial0Word}}
+\index{IMD\_GetSerial0Word@{IMD\_GetSerial0Word}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetSerial0Word()}{IMD\_GetSerial0Word()}}
+{\footnotesize\ttfamily \label{imd_8h_a3810783b323bf7272662dc7d6ca3c2fb} 
+uint32\+\_\+t IMD\+\_\+\+Get\+Serial0\+Word (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-References \mbox{\hyperlink{main_8c_source_l00365}{Error\+\_\+\+Handler()}}, \mbox{\hyperlink{can_8c_source_l00153}{hcan2}}, \mbox{\hyperlink{constants_8h_source_l00019}{IMD\+\_\+\+CAN\+\_\+\+ID\+\_\+\+Tx}}, \mbox{\hyperlink{constants_8c_source_l00010}{Tx\+Data}}, \mbox{\hyperlink{constants_8c_source_l00004}{Tx\+Header}}, and \mbox{\hyperlink{constants_8c_source_l00011}{Tx\+Mailbox}}.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00405}{405}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-Referenced by \mbox{\hyperlink{imd_8c_source_l00218}{IMD\+\_\+\+Check\+\_\+\+Status\+\_\+\+Bits()}}, and \mbox{\hyperlink{imd_8c_source_l00533}{IMD\+\_\+\+Startup()}}.
+References \mbox{\hyperlink{imd_8c_source_l00090}{imd\+\_\+state\+\_\+t\+::serial0\+\_\+word}}.
 
-Here is the call graph for this function\+:
-% FIG 4
-\Hypertarget{imd_8h_a80b26177d8aa0c0e803fac210eb456ac}\index{imd.h@{imd.h}!IMD\_Startup@{IMD\_Startup}}
-\index{IMD\_Startup@{IMD\_Startup}!imd.h@{imd.h}}
-\doxysubsubsection{\texorpdfstring{IMD\_Startup()}{IMD\_Startup()}}
-{\footnotesize\ttfamily \label{imd_8h_a80b26177d8aa0c0e803fac210eb456ac} 
-void IMD\+\_\+\+Startup (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+\Hypertarget{imd_8h_a399cfd70be8568850d2b394628e87d00}\index{imd.h@{imd.h}!IMD\_GetStatusBits@{IMD\_GetStatusBits}}
+\index{IMD\_GetStatusBits@{IMD\_GetStatusBits}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_GetStatusBits()}{IMD\_GetStatusBits()}}
+{\footnotesize\ttfamily \label{imd_8h_a399cfd70be8568850d2b394628e87d00} 
+uint8\+\_\+t IMD\+\_\+\+Get\+Status\+Bits (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00533}{533}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00409}{409}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-References \mbox{\hyperlink{imd_8c_source_l00185}{IMD\+\_\+\+Request\+\_\+\+Status()}}, \mbox{\hyperlink{imd_8h_source_l00041}{isolation\+\_\+state}}, \mbox{\hyperlink{imd_8h_source_l00068}{Max\+\_\+battery\+\_\+working\+\_\+voltage}}, \mbox{\hyperlink{imd_8h_source_l00091}{Part\+\_\+name\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00092}{Part\+\_\+name\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00093}{Part\+\_\+name\+\_\+2}}, \mbox{\hyperlink{imd_8h_source_l00094}{Part\+\_\+name\+\_\+3}}, \mbox{\hyperlink{imd_8h_source_l00098}{Serial\+\_\+number\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00099}{Serial\+\_\+number\+\_\+1}}, \mbox{\hyperlink{imd_8h_source_l00100}{Serial\+\_\+number\+\_\+2}}, \mbox{\hyperlink{imd_8h_source_l00101}{Serial\+\_\+number\+\_\+3}}, \mbox{\hyperlink{imd_8h_source_l00095}{Version\+\_\+0}}, \mbox{\hyperlink{imd_8h_source_l00096}{Version\+\_\+1}}, and \mbox{\hyperlink{imd_8h_source_l00097}{Version\+\_\+2}}.
+References \mbox{\hyperlink{imd_8c_source_l00074}{imd\+\_\+state\+\_\+t\+::status\+\_\+bits}}.
 
-Here is the call graph for this function\+:
-% FIG 5
+\Hypertarget{imd_8h_a51b87d333c6d2e4f65d69fc2469b8a84}\index{imd.h@{imd.h}!IMD\_IsOnline@{IMD\_IsOnline}}
+\index{IMD\_IsOnline@{IMD\_IsOnline}!imd.h@{imd.h}}
+\doxysubsubsection{\texorpdfstring{IMD\_IsOnline()}{IMD\_IsOnline()}}
+{\footnotesize\ttfamily \label{imd_8h_a51b87d333c6d2e4f65d69fc2469b8a84} 
+uint8\+\_\+t IMD\+\_\+\+Is\+Online (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{imd_8c_source_l00397}{397}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+
+
+
+References \mbox{\hyperlink{imd_8c_source_l00071}{imd\+\_\+state\+\_\+t\+::online}}.
+
 \Hypertarget{imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3}\index{imd.h@{imd.h}!initIMD@{initIMD}}
 \index{initIMD@{initIMD}!imd.h@{imd.h}}
 \doxysubsubsection{\texorpdfstring{initIMD()}{initIMD()}}
@@ -677,13 +501,15 @@ void init\+IMD (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]
 
 
 
-Definition at line \mbox{\hyperlink{imd_8c_source_l00559}{559}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
+Definition at line \mbox{\hyperlink{imd_8c_source_l00316}{316}} of file \mbox{\hyperlink{imd_8c_source}{imd.\+c}}.
 
 
 
-References \mbox{\hyperlink{uvfr__utils_8h_source_l00214}{IMD}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00343}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00344}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, and \mbox{\hyperlink{uvfr__utils_8h_source_l00174}{UV\+\_\+\+OK}}.
+References \mbox{\hyperlink{daq_8c_source_l00143}{associate\+Daq\+Param\+With\+Var()}}, \mbox{\hyperlink{imd_8c_source_l00081}{imd\+\_\+state\+\_\+t\+::cn\+\_\+nf}}, \mbox{\hyperlink{imd_8c_source_l00080}{imd\+\_\+state\+\_\+t\+::cp\+\_\+nf}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00427}{uv\+\_\+init\+\_\+task\+\_\+response\+::device}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00429}{uv\+\_\+init\+\_\+task\+\_\+response\+::errmsg}}, \mbox{\hyperlink{imd_8c_source_l00083}{imd\+\_\+state\+\_\+t\+::error\+\_\+flags\+\_\+raw}}, \mbox{\hyperlink{imd_8c_source_l00082}{imd\+\_\+state\+\_\+t\+::glv\+\_\+raw}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00229}{IMD}}, \mbox{\hyperlink{imd_8c_source_l00036}{IMD\+\_\+\+CAN\+\_\+\+BUS}}, \mbox{\hyperlink{imd_8c_source_l00029}{IMD\+\_\+\+CAN\+\_\+\+ID\+\_\+\+INFO\+\_\+\+GENERAL}}, \mbox{\hyperlink{imd_8c_source_l00027}{IMD\+\_\+\+CAN\+\_\+\+ID\+\_\+\+REQUEST}}, \mbox{\hyperlink{imd_8c_source_l00198}{IMD\+\_\+\+Can\+Rx\+Handler()}}, \mbox{\hyperlink{daq_8h_source_l00089}{IMD\+\_\+\+CN\+\_\+\+NF}}, \mbox{\hyperlink{daq_8h_source_l00088}{IMD\+\_\+\+CP\+\_\+\+NF}}, \mbox{\hyperlink{daq_8h_source_l00083}{IMD\+\_\+\+ERRORS}}, \mbox{\hyperlink{daq_8h_source_l00085}{IMD\+\_\+\+ISO\+\_\+\+STATE}}, \mbox{\hyperlink{daq_8h_source_l00087}{IMD\+\_\+\+RN\+\_\+\+RAW}}, \mbox{\hyperlink{daq_8h_source_l00086}{IMD\+\_\+\+RP\+\_\+\+RAW}}, \mbox{\hyperlink{daq_8h_source_l00084}{IMD\+\_\+\+SAFETOUCH}}, \mbox{\hyperlink{daq_8h_source_l00082}{IMD\+\_\+\+STATUS}}, \mbox{\hyperlink{daq_8h_source_l00090}{IMD\+\_\+\+TEMP\+\_\+\+RAW}}, \mbox{\hyperlink{daq_8h_source_l00081}{IMD\+\_\+\+VOLTAGE}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00401}{uv\+\_\+init\+\_\+task\+\_\+args\+::init\+\_\+info\+\_\+queue}}, \mbox{\hyperlink{can_8c_source_l00659}{insert\+CANMessage\+Handler()}}, \mbox{\hyperlink{imd_8c_source_l00077}{imd\+\_\+state\+\_\+t\+::iso\+\_\+state\+\_\+raw}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00402}{uv\+\_\+init\+\_\+task\+\_\+args\+::meta\+\_\+task\+\_\+handle}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00428}{uv\+\_\+init\+\_\+task\+\_\+response\+::nchar}}, \mbox{\hyperlink{imd_8c_source_l00071}{imd\+\_\+state\+\_\+t\+::online}}, \mbox{\hyperlink{imd_8c_source_l00079}{imd\+\_\+state\+\_\+t\+::rn\+\_\+raw}}, \mbox{\hyperlink{imd_8c_source_l00078}{imd\+\_\+state\+\_\+t\+::rp\+\_\+raw}}, \mbox{\hyperlink{imd_8c_source_l00085}{imd\+\_\+state\+\_\+t\+::safety\+\_\+touch\+\_\+current}}, \mbox{\hyperlink{imd_8c_source_l00089}{imd\+\_\+state\+\_\+t\+::serial0\+\_\+valid}}, \mbox{\hyperlink{imd_8c_source_l00090}{imd\+\_\+state\+\_\+t\+::serial0\+\_\+word}}, \mbox{\hyperlink{imd_8h_source_l00099}{Serial\+\_\+number\+\_\+0}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00426}{uv\+\_\+init\+\_\+task\+\_\+response\+::status}}, \mbox{\hyperlink{imd_8c_source_l00084}{imd\+\_\+state\+\_\+t\+::temp\+\_\+raw}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00182}{UV\+\_\+\+ERROR}}, \mbox{\hyperlink{uvfr__utils_8h_source_l00180}{UV\+\_\+\+OK}}, and \mbox{\hyperlink{uvfr__external__devices_8c_source_l00060}{uv\+Wait\+On\+External\+Device()}}.
 
 
 
-Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00050}{uv\+Init()}}.
+Referenced by \mbox{\hyperlink{uvfr__utils_8c_source_l00073}{uv\+Init()}}.
 
+Here is the call graph for this function\+:
+% FIG 3

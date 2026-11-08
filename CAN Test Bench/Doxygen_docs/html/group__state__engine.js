@@ -23,5 +23,6 @@ var group__state__engine =
     [ "task_name_tree", "group__state__engine.html#gaaed35d33599a21d98d0500c5f0a1385a", null ],
     [ "task_tardiness", "group__state__engine.html#gaf622d52254e824f6da1204abc93b18db", null ],
     [ "vehicle_state", "group__state__engine.html#ga2f58cf65b3566bc390600f877f8bed35", null ],
-    [ "xHeapStats", "group__state__engine.html#gace30759073ddac097d29f042acc4142d", null ]
+    [ "xHeapStats", "group__state__engine.html#gace30759073ddac097d29f042acc4142d", null ],
+    [ "xTickCount", "group__state__engine.html#gaaa88969a9b48aea401dbb1ff2b0ef4de", null ]
 ];

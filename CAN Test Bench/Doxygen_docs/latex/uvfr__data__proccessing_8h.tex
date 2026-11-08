@@ -1,0 +1,447 @@
+\doxysection{Core/\+Inc/uvfr\+\_\+data\+\_\+proccessing.h File Reference}
+\hypertarget{uvfr__data__proccessing_8h}{}\label{uvfr__data__proccessing_8h}\index{Core/Inc/uvfr\_data\_proccessing.h@{Core/Inc/uvfr\_data\_proccessing.h}}
+{\ttfamily \#include "{}uvfr\+\_\+utils.\+h"{}}\newline
+Include dependency graph for uvfr\+\_\+data\+\_\+proccessing.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Integer to integer lookup table. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Integer to float lookup table. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}}
+\item 
+struct \mbox{\hyperlink{structringbuf__ui}{ringbuf\+\_\+ui}}
+\begin{DoxyCompactList}\small\item\em Ring buffer. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}}
+\item 
+struct \mbox{\hyperlink{structringbuf__f}{ringbuf\+\_\+f}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{uvfr__data__proccessing_8h_aeda66f1a0f9809d9a26c1869052c60a1}{LUT\+\_\+\+EXTRAPOLATION\+\_\+\+MASK}}~0x0003
+\item 
+\#define \mbox{\hyperlink{uvfr__data__proccessing_8h_a6fa75c6083e0a6c62e25ff76c412992f}{LUT\+\_\+\+CAP\+\_\+\+AT\+\_\+\+MAX\+\_\+\+MIN}}~0x0000
+\item 
+\#define \mbox{\hyperlink{uvfr__data__proccessing_8h_afca95edc8ab08d8624a2d5026088535a}{LUT\+\_\+\+EXTRAPOLATE\+\_\+\+LINEAR}}~0x0001
+\item 
+\#define \mbox{\hyperlink{uvfr__data__proccessing_8h_a9dd1ab8d2633ea067c0aa88ffa7652dc}{LUT\+\_\+\+INTERP\+\_\+\+MASK}}~0b11100
+\item 
+\#define \mbox{\hyperlink{uvfr__data__proccessing_8h_a2faad2732287f9b78cf71492699a9765}{LUT\+\_\+\+LINTERP}}~0b00000
+\item 
+\#define \mbox{\hyperlink{uvfr__data__proccessing_8h_a3d033ba06712eefb37dabcace8375541}{LUT\+\_\+\+SPLINE}}~0b00100
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305}{lut\+\_\+reversability}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a9ce4c3930786318d3ffe6cb0a7ce9ee5}{lut\+\_\+reversability}}
+\item 
+typedef struct LUT\+\_\+ii\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_a558148723d43406b64a019b07983c950}{LUT\+\_\+ii\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Integer to integer lookup table. \end{DoxyCompactList}\item 
+typedef struct LUT\+\_\+if\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_a1508edea4b1c019f784ca1e22cc998ec}{LUT\+\_\+if\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Integer to float lookup table. \end{DoxyCompactList}\item 
+typedef struct LUT\+\_\+ff\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_a6a75db9c127b9e780fa291aff51b877a}{LUT\+\_\+ff\+\_\+t}}
+\item 
+typedef struct ringbuf\+\_\+ui \mbox{\hyperlink{uvfr__data__proccessing_8h_a2d7e8018cb26ea55ae863b2015061e36}{ringbuf\+\_\+ui}}
+\begin{DoxyCompactList}\small\item\em Ring buffer. \end{DoxyCompactList}\item 
+typedef struct ringbuf\+\_\+i \mbox{\hyperlink{uvfr__data__proccessing_8h_aa62e395da52f91bbe39a384f7b7362c7}{ringbuf\+\_\+i}}
+\item 
+typedef struct ringbuf\+\_\+f \mbox{\hyperlink{uvfr__data__proccessing_8h_a4bfc998141fa4c9c2913090742310c71}{ringbuf\+\_\+f}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305}{lut\+\_\+reversability}} \{ \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305ab93e7559f9ee8bb804d1b1da18844a59}{NON\+\_\+\+REVERSABLE}}
+, \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305a134f9d3c3f151816f87f2acd219aa90c}{REVERSABLE\+\_\+\+ASCENDING}}
+, \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305af715b9c64db000f54e643e60add4936a}{REVERSABLE\+\_\+\+DESCENDING}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int32\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_aeeff70be1fdcea90bfea4ad2378eec13}{x\+To\+Y\+\_\+ii}} (\mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}} \texorpdfstring{$\ast$}{*}lut, int32\+\_\+t x)
+\item 
+float \mbox{\hyperlink{uvfr__data__proccessing_8h_ae0dd44600368d9d4fc8fa0dee3879d7e}{x\+To\+Y\+\_\+if}} (\mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}} \texorpdfstring{$\ast$}{*}lut, int32\+\_\+t x)
+\item 
+float \mbox{\hyperlink{uvfr__data__proccessing_8h_ab614156a277020fc48946a14cd398973}{x\+To\+Y\+\_\+ff}} (\mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}} \texorpdfstring{$\ast$}{*}lut, float x)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_ad4e6fcf2c46876fd13e5dc48226d7bcc}{y\+To\+X\+\_\+ii}} (\mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}} \texorpdfstring{$\ast$}{*}lut, int32\+\_\+t x, int32\+\_\+t \texorpdfstring{$\ast$}{*}retval)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a1e964aa376166966d8ebdb62decad6e4}{y\+To\+X\+\_\+if}} (\mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}} \texorpdfstring{$\ast$}{*}lut, float x, int32\+\_\+t \texorpdfstring{$\ast$}{*}retval)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a46b4fd34cd01160d91e4f9109137556c}{y\+To\+X\+\_\+ff}} (\mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}} \texorpdfstring{$\ast$}{*}lut, float x, float \texorpdfstring{$\ast$}{*}retval)
+\item 
+\mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__data__proccessing_8h_a8630d8752ed5324ded70a5ae7f2ce989}{create\+LUT\+\_\+ii}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}x, int32\+\_\+t \texorpdfstring{$\ast$}{*}y, uint8\+\_\+t n, uint16\+\_\+t flags)
+\item 
+\mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__data__proccessing_8h_a7cd2520e9c2456d082f32e6c3872b2f9}{create\+LUT\+\_\+if}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}x, float \texorpdfstring{$\ast$}{*}y, uint8\+\_\+t n, uint16\+\_\+t flags)
+\item 
+\mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{uvfr__data__proccessing_8h_a4e7834f1508701477083c25bcd1822bc}{create\+LUT\+\_\+ff}} (float \texorpdfstring{$\ast$}{*}x, float \texorpdfstring{$\ast$}{*}y, uint8\+\_\+t n, uint16\+\_\+t flags)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a2feabc2b5c6b5726a8c6f2aa0ab0db6f}{LUTupdate\+XY\+\_\+ii}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}x, int32\+\_\+t \texorpdfstring{$\ast$}{*}y, uint8\+\_\+t n, uint16\+\_\+t flags)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a56b79483521fbb250662399de17dfc4c}{LUTupdate\+XY\+\_\+if}} (int32\+\_\+t \texorpdfstring{$\ast$}{*}x, float \texorpdfstring{$\ast$}{*}y, uint8\+\_\+t n, uint16\+\_\+t flags)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_ae16cc201dc57e9bdd2baac9216a41117}{LUTupdate\+XY\+\_\+ff}} (float \texorpdfstring{$\ast$}{*}x, float \texorpdfstring{$\ast$}{*}y, uint8\+\_\+t n, uint16\+\_\+t flags)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_ad66e2c193a98a52af22f2886e17d8d2e}{add\+To\+Ring\+Buf\+\_\+ui}} (\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}rb, uint32\+\_\+t val)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a03c1e04d876d9a21c017c6dcd20dc854}{add\+To\+Ring\+Buf\+\_\+i}} (\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}rb, int32\+\_\+t val)
+\item 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} \mbox{\hyperlink{uvfr__data__proccessing_8h_af05b9715d94dc3086bc3a4b999d4cefc}{add\+To\+Ring\+Buf\+\_\+f}} (\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}rb, int32\+\_\+t val)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_a937c4aecf04780432788e4246e608aba}{get\+Ring\+Buf\+Latest\+\_\+ui}} (\mbox{\hyperlink{structringbuf__ui}{ringbuf\+\_\+ui}} \texorpdfstring{$\ast$}{*}rb)
+\item 
+int32\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_a3250513d3eed22cda2cdb86ad21f6d33}{get\+Ring\+Buf\+Latest\+\_\+i}} (\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}rb)
+\item 
+float \mbox{\hyperlink{uvfr__data__proccessing_8h_acaa922daf8157ab68f6ad6b22ffc9a25}{get\+Ring\+Buf\+Latest\+\_\+f}} (\mbox{\hyperlink{structringbuf__f}{ringbuf\+\_\+f}} \texorpdfstring{$\ast$}{*}rb)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_ac51a34b9ed380e440459546d394f1372}{get\+Ring\+Buf\+Avg\+\_\+ui}} (\mbox{\hyperlink{structringbuf__ui}{ringbuf\+\_\+ui}} \texorpdfstring{$\ast$}{*}rb)
+\item 
+int32\+\_\+t \mbox{\hyperlink{uvfr__data__proccessing_8h_a68e2c5885bcf78051579e7633ead8877}{get\+Ring\+Buf\+Avg\+\_\+i}} (\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}rb)
+\item 
+float \mbox{\hyperlink{uvfr__data__proccessing_8h_a7f87a670ccbdb671bcbda6604527d8df}{get\+Ring\+Buf\+Avg\+\_\+f}} (\mbox{\hyperlink{structringbuf__f}{ringbuf\+\_\+f}} \texorpdfstring{$\ast$}{*}rb)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{uvfr__data__proccessing_8h_a6fa75c6083e0a6c62e25ff76c412992f}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_CAP\_AT\_MAX\_MIN@{LUT\_CAP\_AT\_MAX\_MIN}}
+\index{LUT\_CAP\_AT\_MAX\_MIN@{LUT\_CAP\_AT\_MAX\_MIN}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_CAP\_AT\_MAX\_MIN}{LUT\_CAP\_AT\_MAX\_MIN}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a6fa75c6083e0a6c62e25ff76c412992f} 
+\#define LUT\+\_\+\+CAP\+\_\+\+AT\+\_\+\+MAX\+\_\+\+MIN~0x0000}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00029}{29}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00696}{lookup\+Motor\+Temp()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{x\+To\+Y\+\_\+ff()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{x\+To\+Y\+\_\+ii()}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_afca95edc8ab08d8624a2d5026088535a}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_EXTRAPOLATE\_LINEAR@{LUT\_EXTRAPOLATE\_LINEAR}}
+\index{LUT\_EXTRAPOLATE\_LINEAR@{LUT\_EXTRAPOLATE\_LINEAR}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_EXTRAPOLATE\_LINEAR}{LUT\_EXTRAPOLATE\_LINEAR}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_afca95edc8ab08d8624a2d5026088535a} 
+\#define LUT\+\_\+\+EXTRAPOLATE\+\_\+\+LINEAR~0x0001}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00030}{30}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{x\+To\+Y\+\_\+ff()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{x\+To\+Y\+\_\+ii()}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_aeda66f1a0f9809d9a26c1869052c60a1}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_EXTRAPOLATION\_MASK@{LUT\_EXTRAPOLATION\_MASK}}
+\index{LUT\_EXTRAPOLATION\_MASK@{LUT\_EXTRAPOLATION\_MASK}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_EXTRAPOLATION\_MASK}{LUT\_EXTRAPOLATION\_MASK}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_aeda66f1a0f9809d9a26c1869052c60a1} 
+\#define LUT\+\_\+\+EXTRAPOLATION\+\_\+\+MASK~0x0003}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00028}{28}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{x\+To\+Y\+\_\+ff()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{x\+To\+Y\+\_\+ii()}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a9dd1ab8d2633ea067c0aa88ffa7652dc}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_INTERP\_MASK@{LUT\_INTERP\_MASK}}
+\index{LUT\_INTERP\_MASK@{LUT\_INTERP\_MASK}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_INTERP\_MASK}{LUT\_INTERP\_MASK}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a9dd1ab8d2633ea067c0aa88ffa7652dc} 
+\#define LUT\+\_\+\+INTERP\+\_\+\+MASK~0b11100}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00032}{32}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{x\+To\+Y\+\_\+ff()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{x\+To\+Y\+\_\+ii()}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a2faad2732287f9b78cf71492699a9765}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_LINTERP@{LUT\_LINTERP}}
+\index{LUT\_LINTERP@{LUT\_LINTERP}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_LINTERP}{LUT\_LINTERP}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a2faad2732287f9b78cf71492699a9765} 
+\#define LUT\+\_\+\+LINTERP~0b00000}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00033}{33}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00696}{lookup\+Motor\+Temp()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{x\+To\+Y\+\_\+ff()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{x\+To\+Y\+\_\+ii()}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a3d033ba06712eefb37dabcace8375541}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_SPLINE@{LUT\_SPLINE}}
+\index{LUT\_SPLINE@{LUT\_SPLINE}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_SPLINE}{LUT\_SPLINE}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a3d033ba06712eefb37dabcace8375541} 
+\#define LUT\+\_\+\+SPLINE~0b00100}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00034}{34}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+Referenced by \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{x\+To\+Y\+\_\+ff()}}, \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{x\+To\+Y\+\_\+if()}}, and \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{x\+To\+Y\+\_\+ii()}}.
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{uvfr__data__proccessing_8h_a6a75db9c127b9e780fa291aff51b877a}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_ff\_t@{LUT\_ff\_t}}
+\index{LUT\_ff\_t@{LUT\_ff\_t}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_ff\_t}{LUT\_ff\_t}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a6a75db9c127b9e780fa291aff51b877a} 
+typedef struct LUT\+\_\+ff\+\_\+t LUT\+\_\+ff\+\_\+t}
+
+\Hypertarget{uvfr__data__proccessing_8h_a1508edea4b1c019f784ca1e22cc998ec}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_if\_t@{LUT\_if\_t}}
+\index{LUT\_if\_t@{LUT\_if\_t}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_if\_t}{LUT\_if\_t}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a1508edea4b1c019f784ca1e22cc998ec} 
+typedef struct LUT\+\_\+if\+\_\+t LUT\+\_\+if\+\_\+t}
+
+
+
+Integer to float lookup table. 
+
+\Hypertarget{uvfr__data__proccessing_8h_a558148723d43406b64a019b07983c950}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUT\_ii\_t@{LUT\_ii\_t}}
+\index{LUT\_ii\_t@{LUT\_ii\_t}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUT\_ii\_t}{LUT\_ii\_t}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a558148723d43406b64a019b07983c950} 
+typedef struct LUT\+\_\+ii\+\_\+t LUT\+\_\+ii\+\_\+t}
+
+
+
+Integer to integer lookup table. 
+
+\Hypertarget{uvfr__data__proccessing_8h_a9ce4c3930786318d3ffe6cb0a7ce9ee5}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!lut\_reversability@{lut\_reversability}}
+\index{lut\_reversability@{lut\_reversability}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{lut\_reversability}{lut\_reversability}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a9ce4c3930786318d3ffe6cb0a7ce9ee5} 
+typedef enum \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305}{lut\+\_\+reversability}} \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305}{lut\+\_\+reversability}}}
+
+\Hypertarget{uvfr__data__proccessing_8h_a4bfc998141fa4c9c2913090742310c71}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!ringbuf\_f@{ringbuf\_f}}
+\index{ringbuf\_f@{ringbuf\_f}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{ringbuf\_f}{ringbuf\_f}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a4bfc998141fa4c9c2913090742310c71} 
+typedef struct ringbuf\+\_\+f ringbuf\+\_\+f}
+
+\Hypertarget{uvfr__data__proccessing_8h_aa62e395da52f91bbe39a384f7b7362c7}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!ringbuf\_i@{ringbuf\_i}}
+\index{ringbuf\_i@{ringbuf\_i}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{ringbuf\_i}{ringbuf\_i}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_aa62e395da52f91bbe39a384f7b7362c7} 
+typedef struct ringbuf\+\_\+i ringbuf\+\_\+i}
+
+\Hypertarget{uvfr__data__proccessing_8h_a2d7e8018cb26ea55ae863b2015061e36}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!ringbuf\_ui@{ringbuf\_ui}}
+\index{ringbuf\_ui@{ringbuf\_ui}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{ringbuf\_ui}{ringbuf\_ui}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a2d7e8018cb26ea55ae863b2015061e36} 
+typedef struct ringbuf\+\_\+ui ringbuf\+\_\+ui}
+
+
+
+Ring buffer. 
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!lut\_reversability@{lut\_reversability}}
+\index{lut\_reversability@{lut\_reversability}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{lut\_reversability}{lut\_reversability}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305} 
+enum \mbox{\hyperlink{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305}{lut\+\_\+reversability}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NON\_REVERSABLE@{NON\_REVERSABLE}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!NON\_REVERSABLE@{NON\_REVERSABLE}}}\Hypertarget{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305ab93e7559f9ee8bb804d1b1da18844a59}\label{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305} 
+NON\+\_\+\+REVERSABLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REVERSABLE\_ASCENDING@{REVERSABLE\_ASCENDING}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!REVERSABLE\_ASCENDING@{REVERSABLE\_ASCENDING}}}\Hypertarget{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305a134f9d3c3f151816f87f2acd219aa90c}\label{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305} 
+REVERSABLE\+\_\+\+ASCENDING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{REVERSABLE\_DESCENDING@{REVERSABLE\_DESCENDING}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!REVERSABLE\_DESCENDING@{REVERSABLE\_DESCENDING}}}\Hypertarget{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305af715b9c64db000f54e643e60add4936a}\label{uvfr__data__proccessing_8h_a0b97f346114686d5f215cd1cd0fdc305} 
+REVERSABLE\+\_\+\+DESCENDING&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00021}{21}} of file \mbox{\hyperlink{uvfr__data__proccessing_8h_source}{uvfr\+\_\+data\+\_\+proccessing.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{uvfr__data__proccessing_8h_af05b9715d94dc3086bc3a4b999d4cefc}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!addToRingBuf\_f@{addToRingBuf\_f}}
+\index{addToRingBuf\_f@{addToRingBuf\_f}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{addToRingBuf\_f()}{addToRingBuf\_f()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_af05b9715d94dc3086bc3a4b999d4cefc} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} add\+To\+Ring\+Buf\+\_\+f (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}}]{rb}{, }\item[{int32\+\_\+t}]{val}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a03c1e04d876d9a21c017c6dcd20dc854}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!addToRingBuf\_i@{addToRingBuf\_i}}
+\index{addToRingBuf\_i@{addToRingBuf\_i}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{addToRingBuf\_i()}{addToRingBuf\_i()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a03c1e04d876d9a21c017c6dcd20dc854} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} add\+To\+Ring\+Buf\+\_\+i (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}}]{rb}{, }\item[{int32\+\_\+t}]{val}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_ad66e2c193a98a52af22f2886e17d8d2e}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!addToRingBuf\_ui@{addToRingBuf\_ui}}
+\index{addToRingBuf\_ui@{addToRingBuf\_ui}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{addToRingBuf\_ui()}{addToRingBuf\_ui()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_ad66e2c193a98a52af22f2886e17d8d2e} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} add\+To\+Ring\+Buf\+\_\+ui (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}}]{rb}{, }\item[{uint32\+\_\+t}]{val}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a4e7834f1508701477083c25bcd1822bc}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!createLUT\_ff@{createLUT\_ff}}
+\index{createLUT\_ff@{createLUT\_ff}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{createLUT\_ff()}{createLUT\_ff()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a4e7834f1508701477083c25bcd1822bc} 
+\mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}} \texorpdfstring{$\ast$}{*} create\+LUT\+\_\+ff (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{uint8\+\_\+t}]{n}{, }\item[{uint16\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00566}{566}} of file \mbox{\hyperlink{uvfr__data__proccessing_8c_source}{uvfr\+\_\+data\+\_\+proccessing.\+c}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a7cd2520e9c2456d082f32e6c3872b2f9}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!createLUT\_if@{createLUT\_if}}
+\index{createLUT\_if@{createLUT\_if}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{createLUT\_if()}{createLUT\_if()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a7cd2520e9c2456d082f32e6c3872b2f9} 
+\mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}} \texorpdfstring{$\ast$}{*} create\+LUT\+\_\+if (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{uint8\+\_\+t}]{n}{, }\item[{uint16\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00562}{562}} of file \mbox{\hyperlink{uvfr__data__proccessing_8c_source}{uvfr\+\_\+data\+\_\+proccessing.\+c}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a8630d8752ed5324ded70a5ae7f2ce989}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!createLUT\_ii@{createLUT\_ii}}
+\index{createLUT\_ii@{createLUT\_ii}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{createLUT\_ii()}{createLUT\_ii()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a8630d8752ed5324ded70a5ae7f2ce989} 
+\mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}} \texorpdfstring{$\ast$}{*} create\+LUT\+\_\+ii (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{uint8\+\_\+t}]{n}{, }\item[{uint16\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00558}{558}} of file \mbox{\hyperlink{uvfr__data__proccessing_8c_source}{uvfr\+\_\+data\+\_\+proccessing.\+c}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a7f87a670ccbdb671bcbda6604527d8df}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!getRingBufAvg\_f@{getRingBufAvg\_f}}
+\index{getRingBufAvg\_f@{getRingBufAvg\_f}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{getRingBufAvg\_f()}{getRingBufAvg\_f()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a7f87a670ccbdb671bcbda6604527d8df} 
+float get\+Ring\+Buf\+Avg\+\_\+f (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__f}{ringbuf\+\_\+f}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a68e2c5885bcf78051579e7633ead8877}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!getRingBufAvg\_i@{getRingBufAvg\_i}}
+\index{getRingBufAvg\_i@{getRingBufAvg\_i}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{getRingBufAvg\_i()}{getRingBufAvg\_i()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a68e2c5885bcf78051579e7633ead8877} 
+int32\+\_\+t get\+Ring\+Buf\+Avg\+\_\+i (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_ac51a34b9ed380e440459546d394f1372}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!getRingBufAvg\_ui@{getRingBufAvg\_ui}}
+\index{getRingBufAvg\_ui@{getRingBufAvg\_ui}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{getRingBufAvg\_ui()}{getRingBufAvg\_ui()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_ac51a34b9ed380e440459546d394f1372} 
+uint32\+\_\+t get\+Ring\+Buf\+Avg\+\_\+ui (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__ui}{ringbuf\+\_\+ui}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_acaa922daf8157ab68f6ad6b22ffc9a25}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!getRingBufLatest\_f@{getRingBufLatest\_f}}
+\index{getRingBufLatest\_f@{getRingBufLatest\_f}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{getRingBufLatest\_f()}{getRingBufLatest\_f()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_acaa922daf8157ab68f6ad6b22ffc9a25} 
+float get\+Ring\+Buf\+Latest\+\_\+f (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__f}{ringbuf\+\_\+f}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a3250513d3eed22cda2cdb86ad21f6d33}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!getRingBufLatest\_i@{getRingBufLatest\_i}}
+\index{getRingBufLatest\_i@{getRingBufLatest\_i}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{getRingBufLatest\_i()}{getRingBufLatest\_i()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a3250513d3eed22cda2cdb86ad21f6d33} 
+int32\+\_\+t get\+Ring\+Buf\+Latest\+\_\+i (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__i}{ringbuf\+\_\+i}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a937c4aecf04780432788e4246e608aba}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!getRingBufLatest\_ui@{getRingBufLatest\_ui}}
+\index{getRingBufLatest\_ui@{getRingBufLatest\_ui}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{getRingBufLatest\_ui()}{getRingBufLatest\_ui()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a937c4aecf04780432788e4246e608aba} 
+uint32\+\_\+t get\+Ring\+Buf\+Latest\+\_\+ui (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structringbuf__ui}{ringbuf\+\_\+ui}} \texorpdfstring{$\ast$}{*}}]{rb}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_ae16cc201dc57e9bdd2baac9216a41117}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUTupdateXY\_ff@{LUTupdateXY\_ff}}
+\index{LUTupdateXY\_ff@{LUTupdateXY\_ff}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUTupdateXY\_ff()}{LUTupdateXY\_ff()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_ae16cc201dc57e9bdd2baac9216a41117} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} LUTupdate\+XY\+\_\+ff (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{uint8\+\_\+t}]{n}{, }\item[{uint16\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a56b79483521fbb250662399de17dfc4c}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUTupdateXY\_if@{LUTupdateXY\_if}}
+\index{LUTupdateXY\_if@{LUTupdateXY\_if}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUTupdateXY\_if()}{LUTupdateXY\_if()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a56b79483521fbb250662399de17dfc4c} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} LUTupdate\+XY\+\_\+if (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{uint8\+\_\+t}]{n}{, }\item[{uint16\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a2feabc2b5c6b5726a8c6f2aa0ab0db6f}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!LUTupdateXY\_ii@{LUTupdateXY\_ii}}
+\index{LUTupdateXY\_ii@{LUTupdateXY\_ii}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{LUTupdateXY\_ii()}{LUTupdateXY\_ii()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a2feabc2b5c6b5726a8c6f2aa0ab0db6f} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} LUTupdate\+XY\+\_\+ii (\begin{DoxyParamCaption}\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{x}{, }\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{y}{, }\item[{uint8\+\_\+t}]{n}{, }\item[{uint16\+\_\+t}]{flags}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_ab614156a277020fc48946a14cd398973}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!xToY\_ff@{xToY\_ff}}
+\index{xToY\_ff@{xToY\_ff}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{xToY\_ff()}{xToY\_ff()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_ab614156a277020fc48946a14cd398973} 
+float x\+To\+Y\+\_\+ff (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lut}{, }\item[{float}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00486}{486}} of file \mbox{\hyperlink{uvfr__data__proccessing_8c_source}{uvfr\+\_\+data\+\_\+proccessing.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00072}{LUT\+\_\+ff\+\_\+t\+::flags}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00029}{LUT\+\_\+\+CAP\+\_\+\+AT\+\_\+\+MAX\+\_\+\+MIN}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00030}{LUT\+\_\+\+EXTRAPOLATE\+\_\+\+LINEAR}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00028}{LUT\+\_\+\+EXTRAPOLATION\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00032}{LUT\+\_\+\+INTERP\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00033}{LUT\+\_\+\+LINTERP}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00034}{LUT\+\_\+\+SPLINE}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00066}{LUT\+\_\+ff\+\_\+t\+::n}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00070}{LUT\+\_\+ff\+\_\+t\+::x}}, and \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00071}{LUT\+\_\+ff\+\_\+t\+::y}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_ae0dd44600368d9d4fc8fa0dee3879d7e}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!xToY\_if@{xToY\_if}}
+\index{xToY\_if@{xToY\_if}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{xToY\_if()}{xToY\_if()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_ae0dd44600368d9d4fc8fa0dee3879d7e} 
+float x\+To\+Y\+\_\+if (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lut}{, }\item[{int32\+\_\+t}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00407}{407}} of file \mbox{\hyperlink{uvfr__data__proccessing_8c_source}{uvfr\+\_\+data\+\_\+proccessing.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00061}{LUT\+\_\+if\+\_\+t\+::flags}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00029}{LUT\+\_\+\+CAP\+\_\+\+AT\+\_\+\+MAX\+\_\+\+MIN}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00030}{LUT\+\_\+\+EXTRAPOLATE\+\_\+\+LINEAR}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00028}{LUT\+\_\+\+EXTRAPOLATION\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00032}{LUT\+\_\+\+INTERP\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00033}{LUT\+\_\+\+LINTERP}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00034}{LUT\+\_\+\+SPLINE}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00055}{LUT\+\_\+if\+\_\+t\+::n}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00059}{LUT\+\_\+if\+\_\+t\+::x}}, and \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00060}{LUT\+\_\+if\+\_\+t\+::y}}.
+
+
+
+Referenced by \mbox{\hyperlink{motor__controller_8c_source_l00696}{lookup\+Motor\+Temp()}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_aeeff70be1fdcea90bfea4ad2378eec13}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!xToY\_ii@{xToY\_ii}}
+\index{xToY\_ii@{xToY\_ii}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{xToY\_ii()}{xToY\_ii()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_aeeff70be1fdcea90bfea4ad2378eec13} 
+int32\+\_\+t x\+To\+Y\+\_\+ii (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lut}{, }\item[{int32\+\_\+t}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{uvfr__data__proccessing_8c_source_l00341}{341}} of file \mbox{\hyperlink{uvfr__data__proccessing_8c_source}{uvfr\+\_\+data\+\_\+proccessing.\+c}}.
+
+
+
+References \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00047}{LUT\+\_\+ii\+\_\+t\+::flags}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00029}{LUT\+\_\+\+CAP\+\_\+\+AT\+\_\+\+MAX\+\_\+\+MIN}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00030}{LUT\+\_\+\+EXTRAPOLATE\+\_\+\+LINEAR}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00028}{LUT\+\_\+\+EXTRAPOLATION\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00032}{LUT\+\_\+\+INTERP\+\_\+\+MASK}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00033}{LUT\+\_\+\+LINTERP}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00034}{LUT\+\_\+\+SPLINE}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00041}{LUT\+\_\+ii\+\_\+t\+::n}}, \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00045}{LUT\+\_\+ii\+\_\+t\+::x}}, and \mbox{\hyperlink{uvfr__data__proccessing_8h_source_l00046}{LUT\+\_\+ii\+\_\+t\+::y}}.
+
+\Hypertarget{uvfr__data__proccessing_8h_a46b4fd34cd01160d91e4f9109137556c}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!yToX\_ff@{yToX\_ff}}
+\index{yToX\_ff@{yToX\_ff}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{yToX\_ff()}{yToX\_ff()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a46b4fd34cd01160d91e4f9109137556c} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} y\+To\+X\+\_\+ff (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_l_u_t__ff__t}{LUT\+\_\+ff\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lut}{, }\item[{float}]{x}{, }\item[{float \texorpdfstring{$\ast$}{*}}]{retval}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_a1e964aa376166966d8ebdb62decad6e4}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!yToX\_if@{yToX\_if}}
+\index{yToX\_if@{yToX\_if}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{yToX\_if()}{yToX\_if()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_a1e964aa376166966d8ebdb62decad6e4} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} y\+To\+X\+\_\+if (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_l_u_t__if__t}{LUT\+\_\+if\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lut}{, }\item[{float}]{x}{, }\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{retval}{}\end{DoxyParamCaption})}
+
+\Hypertarget{uvfr__data__proccessing_8h_ad4e6fcf2c46876fd13e5dc48226d7bcc}\index{uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}!yToX\_ii@{yToX\_ii}}
+\index{yToX\_ii@{yToX\_ii}!uvfr\_data\_proccessing.h@{uvfr\_data\_proccessing.h}}
+\doxysubsubsection{\texorpdfstring{yToX\_ii()}{yToX\_ii()}}
+{\footnotesize\ttfamily \label{uvfr__data__proccessing_8h_ad4e6fcf2c46876fd13e5dc48226d7bcc} 
+\mbox{\hyperlink{can_8h_aef3770e45bbacbf527fd93dd80eea9b9}{uv\+\_\+status}} y\+To\+X\+\_\+ii (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_l_u_t__ii__t}{LUT\+\_\+ii\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{lut}{, }\item[{int32\+\_\+t}]{x}{, }\item[{int32\+\_\+t \texorpdfstring{$\ast$}{*}}]{retval}{}\end{DoxyParamCaption})}
+

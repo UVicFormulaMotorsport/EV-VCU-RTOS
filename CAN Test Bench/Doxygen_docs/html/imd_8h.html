@@ -105,6 +105,8 @@ $(function(){initNavTree('imd_8h.html',''); initResizable(true); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="main_8h_source.html">main.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="uvfr__utils_8h_source.html">uvfr_utils.h</a>&quot;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for imd.h:</div>
 <div class="dyncontent">
@@ -144,18 +146,18 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="separator:acf7b0534a43397021a0e474a499218be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0710286ee4b87e83845bd90c76e5c26a" id="r_a0710286ee4b87e83845bd90c76e5c26a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0710286ee4b87e83845bd90c76e5c26a">imd_status_requests</a> { <br />
-&#160;&#160;<a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38">isolation_state</a> = 0xE0
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae">isolation_resistances</a> = 0xE1
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c">isolation_capacitances</a> = 0xE2
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1">voltages_Vp_and_Vn</a> = 0xE3
+&#160;&#160;<a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa9517b37939a8fd289b63d850cd89a5ad">uv_request_mux_isolation_state</a> = 0xE0
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa5fd5e6ed9f4d226348e9fbe3a5103d21">uv_request_mux_isolation_resistances</a> = 0xE1
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aacaf65c50e1ce279624f83a99588c3480">uv_request_mux_isolation_capacitances</a> = 0xE2
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aabae2b538110354e16930797738fcaf9d">uv_request_mux_voltages_Vp_and_Vn</a> = 0xE3
 , <br />
-&#160;&#160;<a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680">battery_voltage</a> = 0xE4
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf">Error_flags</a> = 0xE5
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504">safety_touch_energy</a> = 0xE6
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f">safety_touch_current</a> = 0xE7
+&#160;&#160;<a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa3adaf68c3a328875cd4e13ce4f27208d">uv_request_mux_battery_voltage</a> = 0xE4
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aaab89862464a2cd9470818cc416779da0">uv_request_mux_Error_flags</a> = 0xE5
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa3c1bb9c2d0002ab46493be9778f47aac">uv_request_mux_safety_touch_energy</a> = 0xE6
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aae774ec2da42a97a37f62c6ed1ff19694">uv_request_mux_safety_touch_current</a> = 0xE7
 , <br />
-&#160;&#160;<a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed">Max_battery_working_voltage</a> = 0xF0
-, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f">Temperature</a> = 0x80
+&#160;&#160;<a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa23e1ec06b6102cc8857163b6f538bd2c">uv_request_mux_Max_battery_working_voltage</a> = 0xF0
+, <a class="el" href="#a0710286ee4b87e83845bd90c76e5c26aa7fd2c8a3e62f4e0122747078b29afed3">uv_request_mux_Temperature</a> = 0x80
 <br />
  }</td></tr>
 <tr class="separator:a0710286ee4b87e83845bd90c76e5c26a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,42 +207,24 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1f6181c5ab49d963007eb9a212672bbd" id="r_a1f6181c5ab49d963007eb9a212672bbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1f6181c5ab49d963007eb9a212672bbd">IMD_Parse_Message</a> (int DLC, uint8_t Data[])</td></tr>
-<tr class="separator:a1f6181c5ab49d963007eb9a212672bbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4e8b5af19cc6d0b08ace9185a542b01" id="r_ab4e8b5af19cc6d0b08ace9185a542b01"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4e8b5af19cc6d0b08ace9185a542b01">IMD_Check_Status_Bits</a> (uint8_t Data)</td></tr>
-<tr class="separator:ab4e8b5af19cc6d0b08ace9185a542b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cfe9b1a6472c4a5d0ca154a4e9e7bb0" id="r_a0cfe9b1a6472c4a5d0ca154a4e9e7bb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0cfe9b1a6472c4a5d0ca154a4e9e7bb0">IMD_Check_Error_Flags</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a0cfe9b1a6472c4a5d0ca154a4e9e7bb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af81ff089b3fabafdfa49c3b816ded80e" id="r_af81ff089b3fabafdfa49c3b816ded80e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af81ff089b3fabafdfa49c3b816ded80e">IMD_Check_Isolation_State</a> (uint8_t Data[])</td></tr>
-<tr class="separator:af81ff089b3fabafdfa49c3b816ded80e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb4d085b7b1f3e5a860c45aa5a404294" id="r_adb4d085b7b1f3e5a860c45aa5a404294"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb4d085b7b1f3e5a860c45aa5a404294">IMD_Check_Isolation_Resistances</a> (uint8_t Data[])</td></tr>
-<tr class="separator:adb4d085b7b1f3e5a860c45aa5a404294"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a686301a85070c84e89af3e1cc0a159ae" id="r_a686301a85070c84e89af3e1cc0a159ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a686301a85070c84e89af3e1cc0a159ae">IMD_Check_Isolation_Capacitances</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a686301a85070c84e89af3e1cc0a159ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0fc857559d80dd701aec763dd6911383" id="r_a0fc857559d80dd701aec763dd6911383"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0fc857559d80dd701aec763dd6911383">IMD_Check_Voltages_Vp_and_Vn</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a0fc857559d80dd701aec763dd6911383"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac94e0b660190e6ce0d376d407627057e" id="r_ac94e0b660190e6ce0d376d407627057e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac94e0b660190e6ce0d376d407627057e">IMD_Check_Battery_Voltage</a> (uint8_t Data[])</td></tr>
-<tr class="separator:ac94e0b660190e6ce0d376d407627057e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc49be24256f1a93674e290546384348" id="r_abc49be24256f1a93674e290546384348"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc49be24256f1a93674e290546384348">IMD_Check_Safety_Touch_Energy</a> (uint8_t Data[])</td></tr>
-<tr class="separator:abc49be24256f1a93674e290546384348"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00c843b8f3e8cf4569ea9008cd7db9d2" id="r_a00c843b8f3e8cf4569ea9008cd7db9d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a00c843b8f3e8cf4569ea9008cd7db9d2">IMD_Check_Safety_Touch_Current</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a00c843b8f3e8cf4569ea9008cd7db9d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a18f8d11173ee691822b5a712cf1617" id="r_a1a18f8d11173ee691822b5a712cf1617"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1a18f8d11173ee691822b5a712cf1617">IMD_Check_Temperature</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a1a18f8d11173ee691822b5a712cf1617"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f6abcfa57cc41a7b1249c0157702a1c" id="r_a6f6abcfa57cc41a7b1249c0157702a1c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f6abcfa57cc41a7b1249c0157702a1c">IMD_Check_Max_Battery_Working_Voltage</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a6f6abcfa57cc41a7b1249c0157702a1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72a595e6320ceeb17de4f7ce2ec66d30" id="r_a72a595e6320ceeb17de4f7ce2ec66d30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a72a595e6320ceeb17de4f7ce2ec66d30">IMD_Check_Part_Name</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a72a595e6320ceeb17de4f7ce2ec66d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a16ede06a18addd7ef3e67be2aaaf3d" id="r_a4a16ede06a18addd7ef3e67be2aaaf3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4a16ede06a18addd7ef3e67be2aaaf3d">IMD_Check_Version</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a4a16ede06a18addd7ef3e67be2aaaf3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f1e850c527bdf0e1a7cfbc557b8501b" id="r_a6f1e850c527bdf0e1a7cfbc557b8501b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6f1e850c527bdf0e1a7cfbc557b8501b">IMD_Check_Serial_Number</a> (uint8_t Data[])</td></tr>
-<tr class="separator:a6f1e850c527bdf0e1a7cfbc557b8501b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0177fe52ae013a36014be506fd1fa93" id="r_ae0177fe52ae013a36014be506fd1fa93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae0177fe52ae013a36014be506fd1fa93">IMD_Check_Uptime</a> (uint8_t Data[])</td></tr>
-<tr class="separator:ae0177fe52ae013a36014be506fd1fa93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb7c937639c5385f5d2b4e3a4e60250f" id="r_aeb7c937639c5385f5d2b4e3a4e60250f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb7c937639c5385f5d2b4e3a4e60250f">IMD_Request_Status</a> (uint8_t Status)</td></tr>
-<tr class="separator:aeb7c937639c5385f5d2b4e3a4e60250f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80b26177d8aa0c0e803fac210eb456ac" id="r_a80b26177d8aa0c0e803fac210eb456ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a80b26177d8aa0c0e803fac210eb456ac">IMD_Startup</a> ()</td></tr>
-<tr class="separator:a80b26177d8aa0c0e803fac210eb456ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51b87d333c6d2e4f65d69fc2469b8a84" id="r_a51b87d333c6d2e4f65d69fc2469b8a84"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a51b87d333c6d2e4f65d69fc2469b8a84">IMD_IsOnline</a> (void)</td></tr>
+<tr class="separator:a51b87d333c6d2e4f65d69fc2469b8a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a399cfd70be8568850d2b394628e87d00" id="r_a399cfd70be8568850d2b394628e87d00"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a399cfd70be8568850d2b394628e87d00">IMD_GetStatusBits</a> (void)</td></tr>
+<tr class="separator:a399cfd70be8568850d2b394628e87d00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48eee67a59558632f01c8db100b376eb" id="r_a48eee67a59558632f01c8db100b376eb"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a48eee67a59558632f01c8db100b376eb">IMD_GetRpRaw</a> (void)</td></tr>
+<tr class="separator:a48eee67a59558632f01c8db100b376eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02e240beafca24a8549285c997caff60" id="r_a02e240beafca24a8549285c997caff60"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02e240beafca24a8549285c997caff60">IMD_GetRnRaw</a> (void)</td></tr>
+<tr class="separator:a02e240beafca24a8549285c997caff60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89de0e5f75445980baf98050bd35be09" id="r_a89de0e5f75445980baf98050bd35be09"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a89de0e5f75445980baf98050bd35be09">IMD_GetErrorFlagsRaw</a> (void)</td></tr>
+<tr class="separator:a89de0e5f75445980baf98050bd35be09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb492bbf450d62cc9056d75237f6d86e" id="r_adb492bbf450d62cc9056d75237f6d86e"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adb492bbf450d62cc9056d75237f6d86e">IMD_GetSerial0Valid</a> (void)</td></tr>
+<tr class="separator:adb492bbf450d62cc9056d75237f6d86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3810783b323bf7272662dc7d6ca3c2fb" id="r_a3810783b323bf7272662dc7d6ca3c2fb"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3810783b323bf7272662dc7d6ca3c2fb">IMD_GetSerial0Word</a> (void)</td></tr>
+<tr class="separator:a3810783b323bf7272662dc7d6ca3c2fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8858bdc2ca9ea141f65c868f347ac8d" id="r_ae8858bdc2ca9ea141f65c868f347ac8d"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae8858bdc2ca9ea141f65c868f347ac8d">IMD_GetSafetyTouchCurrent</a> (void)</td></tr>
+<tr class="separator:ae8858bdc2ca9ea141f65c868f347ac8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9885969a0404b7553faf52aff3e54d3a" id="r_a9885969a0404b7553faf52aff3e54d3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9885969a0404b7553faf52aff3e54d3a">IMD_CanRxHandler</a> (<a class="el" href="structuv___c_a_n__msg.html">uv_CAN_msg</a> *msg)</td></tr>
+<tr class="separator:a9885969a0404b7553faf52aff3e54d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19b4fd879f065cfe6e1b7bb3400cd0c3" id="r_a19b4fd879f065cfe6e1b7bb3400cd0c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19b4fd879f065cfe6e1b7bb3400cd0c3">initIMD</a> (void *args)</td></tr>
 <tr class="separator:a19b4fd879f065cfe6e1b7bb3400cd0c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -283,7 +267,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a4456d255c2ceb447ad52b68087531b61a806c4e5614221c8b239f6620ab7d5d50" name="a4456d255c2ceb447ad52b68087531b61a806c4e5614221c8b239f6620ab7d5d50"></a>Err_Vx2&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00075">75</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00076">76</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
 
 </div>
 </div>
@@ -306,7 +290,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="af8e85b806bce9c9cad944c261ff0aa0ca6d4bdc992b68f8ee4aea88056639af5d" name="af8e85b806bce9c9cad944c261ff0aa0ca6d4bdc992b68f8ee4aea88056639af5d"></a>Vpwr_hi_res&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00105">105</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00106">106</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
 
 </div>
 </div>
@@ -336,7 +320,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a975959819df682c9adec7c667028674eac87b1e30788367a709363dba4ad7f238" name="a975959819df682c9adec7c667028674eac87b1e30788367a709363dba4ad7f238"></a>Uptime_counter&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00089">89</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00090">90</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
 
 </div>
 </div>
@@ -362,7 +346,7 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="acf7b0534a43397021a0e474a499218bea48e3e4678c927a799f113e4688ab7886" name="acf7b0534a43397021a0e474a499218bea48e3e4678c927a799f113e4688ab7886"></a>Hardware_Error&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00016">16</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00017">17</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
 
 </div>
 </div>
@@ -378,438 +362,216 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38" name="a0710286ee4b87e83845bd90c76e5c26aabbce6aa84dd484b90a148c9893f29c38"></a>isolation_state&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae" name="a0710286ee4b87e83845bd90c76e5c26aac4f56ef8fddf7442d16abdcef0ee35ae"></a>isolation_resistances&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c" name="a0710286ee4b87e83845bd90c76e5c26aa1f57f433823678afb675a0118355b41c"></a>isolation_capacitances&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1" name="a0710286ee4b87e83845bd90c76e5c26aab731b0ae179fe84519337374868be1d1"></a>voltages_Vp_and_Vn&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680" name="a0710286ee4b87e83845bd90c76e5c26aa88e842a14bd3662858b52abbefad1680"></a>battery_voltage&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf" name="a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf"></a>Error_flags&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504" name="a0710286ee4b87e83845bd90c76e5c26aae62307414b8266d9beb9dcffc335f504"></a>safety_touch_energy&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f" name="a0710286ee4b87e83845bd90c76e5c26aa64c31deedf3ed7b386711c4c6825456f"></a>safety_touch_current&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed" name="a0710286ee4b87e83845bd90c76e5c26aa194e665f65c42e02190f2871ecfd3eed"></a>Max_battery_working_voltage&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f" name="a0710286ee4b87e83845bd90c76e5c26aa636f89bb3814dde8c07ec0446f72d28f"></a>Temperature&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa9517b37939a8fd289b63d850cd89a5ad" name="a0710286ee4b87e83845bd90c76e5c26aa9517b37939a8fd289b63d850cd89a5ad"></a>uv_request_mux_isolation_state&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa5fd5e6ed9f4d226348e9fbe3a5103d21" name="a0710286ee4b87e83845bd90c76e5c26aa5fd5e6ed9f4d226348e9fbe3a5103d21"></a>uv_request_mux_isolation_resistances&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aacaf65c50e1ce279624f83a99588c3480" name="a0710286ee4b87e83845bd90c76e5c26aacaf65c50e1ce279624f83a99588c3480"></a>uv_request_mux_isolation_capacitances&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aabae2b538110354e16930797738fcaf9d" name="a0710286ee4b87e83845bd90c76e5c26aabae2b538110354e16930797738fcaf9d"></a>uv_request_mux_voltages_Vp_and_Vn&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa3adaf68c3a328875cd4e13ce4f27208d" name="a0710286ee4b87e83845bd90c76e5c26aa3adaf68c3a328875cd4e13ce4f27208d"></a>uv_request_mux_battery_voltage&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aaab89862464a2cd9470818cc416779da0" name="a0710286ee4b87e83845bd90c76e5c26aaab89862464a2cd9470818cc416779da0"></a>uv_request_mux_Error_flags&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa3c1bb9c2d0002ab46493be9778f47aac" name="a0710286ee4b87e83845bd90c76e5c26aa3c1bb9c2d0002ab46493be9778f47aac"></a>uv_request_mux_safety_touch_energy&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aae774ec2da42a97a37f62c6ed1ff19694" name="a0710286ee4b87e83845bd90c76e5c26aae774ec2da42a97a37f62c6ed1ff19694"></a>uv_request_mux_safety_touch_current&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa23e1ec06b6102cc8857163b6f538bd2c" name="a0710286ee4b87e83845bd90c76e5c26aa23e1ec06b6102cc8857163b6f538bd2c"></a>uv_request_mux_Max_battery_working_voltage&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a0710286ee4b87e83845bd90c76e5c26aa7fd2c8a3e62f4e0122747078b29afed3" name="a0710286ee4b87e83845bd90c76e5c26aa7fd2c8a3e62f4e0122747078b29afed3"></a>uv_request_mux_Temperature&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00039">39</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8h_source.html#l00040">40</a> of file <a class="el" href="imd_8h_source.html">imd.h</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ac94e0b660190e6ce0d376d407627057e" name="ac94e0b660190e6ce0d376d407627057e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac94e0b660190e6ce0d376d407627057e">&#9670;&#160;</a></span>IMD_Check_Battery_Voltage()</h2>
+<a id="a9885969a0404b7553faf52aff3e54d3a" name="a9885969a0404b7553faf52aff3e54d3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9885969a0404b7553faf52aff3e54d3a">&#9670;&#160;</a></span>IMD_CanRxHandler()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Check_Battery_Voltage </td>
+          <td class="memname">void IMD_CanRxHandler </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
+          <td class="paramtype"><a class="el" href="structuv___c_a_n__msg.html">uv_CAN_msg</a> *</td>          <td class="paramname"><span class="paramname"><em>msg</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00356">356</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00198">198</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00081">imd_state_t::cn_nf</a>, <a class="el" href="imd_8c_source.html#l00080">imd_state_t::cp_nf</a>, <a class="el" href="uvfr__utils_8h_source.html#l00322">uv_CAN_msg::data</a>, <a class="el" href="uvfr__utils_8h_source.html#l00320">uv_CAN_msg::dlc</a>, <a class="el" href="imd_8c_source.html#l00083">imd_state_t::error_flags_raw</a>, <a class="el" href="uvfr__external__devices_8c_source.html#l00381">externalDeviceRxHandler()</a>, <a class="el" href="imd_8c_source.html#l00082">imd_state_t::glv_raw</a>, <a class="el" href="uvfr__utils_8h_source.html#l00229">IMD</a>, <a class="el" href="constants_8h_source.html#l00020">IMD_CAN_ID_Rx</a>, <a class="el" href="imd_8c_source.html#l00077">imd_state_t::iso_state_raw</a>, <a class="el" href="uvfr__utils_8h_source.html#l00321">uv_CAN_msg::msg_id</a>, <a class="el" href="imd_8c_source.html#l00071">imd_state_t::online</a>, <a class="el" href="imd_8c_source.html#l00079">imd_state_t::rn_raw</a>, <a class="el" href="imd_8c_source.html#l00078">imd_state_t::rp_raw</a>, <a class="el" href="imd_8c_source.html#l00085">imd_state_t::safety_touch_current</a>, <a class="el" href="imd_8c_source.html#l00089">imd_state_t::serial0_valid</a>, <a class="el" href="imd_8c_source.html#l00090">imd_state_t::serial0_word</a>, <a class="el" href="imd_8h_source.html#l00099">Serial_number_0</a>, <a class="el" href="imd_8c_source.html#l00074">imd_state_t::status_bits</a>, <a class="el" href="imd_8c_source.html#l00084">imd_state_t::temp_raw</a>, <a class="el" href="imd_8h_source.html#l00057">uv_request_mux_battery_voltage</a>, <a class="el" href="imd_8h_source.html#l00060">uv_request_mux_Error_flags</a>, <a class="el" href="imd_8h_source.html#l00051">uv_request_mux_isolation_capacitances</a>, <a class="el" href="imd_8h_source.html#l00046">uv_request_mux_isolation_resistances</a>, <a class="el" href="imd_8h_source.html#l00042">uv_request_mux_isolation_state</a>, <a class="el" href="imd_8h_source.html#l00066">uv_request_mux_safety_touch_current</a>, and <a class="el" href="imd_8h_source.html#l00072">uv_request_mux_Temperature</a>.</p>
 
-</div>
-</div>
-<a id="a0cfe9b1a6472c4a5d0ca154a4e9e7bb0" name="a0cfe9b1a6472c4a5d0ca154a4e9e7bb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cfe9b1a6472c4a5d0ca154a4e9e7bb0">&#9670;&#160;</a></span>IMD_Check_Error_Flags()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Error_Flags </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00262">262</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="imd_8h_source.html#l00083">Err_CH</a>, <a class="el" href="imd_8h_source.html#l00078">Err_clock</a>, <a class="el" href="imd_8h_source.html#l00077">Err_temp</a>, <a class="el" href="imd_8h_source.html#l00081">Err_Vexi</a>, <a class="el" href="imd_8h_source.html#l00080">Err_Vpwr</a>, <a class="el" href="imd_8h_source.html#l00084">Err_Vx1</a>, <a class="el" href="imd_8h_source.html#l00085">Err_Vx2</a>, <a class="el" href="imd_8h_source.html#l00082">Err_VxR</a>, and <a class="el" href="imd_8h_source.html#l00079">Err_Watchdog</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="a686301a85070c84e89af3e1cc0a159ae" name="a686301a85070c84e89af3e1cc0a159ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a686301a85070c84e89af3e1cc0a159ae">&#9670;&#160;</a></span>IMD_Check_Isolation_Capacitances()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Isolation_Capacitances </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00342">342</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="adb4d085b7b1f3e5a860c45aa5a404294" name="adb4d085b7b1f3e5a860c45aa5a404294"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb4d085b7b1f3e5a860c45aa5a404294">&#9670;&#160;</a></span>IMD_Check_Isolation_Resistances()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Isolation_Resistances </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00317">317</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00020">IMD_High_Uncertainty</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="af81ff089b3fabafdfa49c3b816ded80e" name="af81ff089b3fabafdfa49c3b816ded80e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af81ff089b3fabafdfa49c3b816ded80e">&#9670;&#160;</a></span>IMD_Check_Isolation_State()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Isolation_State </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00301">301</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00020">IMD_High_Uncertainty</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="a6f6abcfa57cc41a7b1249c0157702a1c" name="a6f6abcfa57cc41a7b1249c0157702a1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f6abcfa57cc41a7b1249c0157702a1c">&#9670;&#160;</a></span>IMD_Check_Max_Battery_Working_Voltage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Max_Battery_Working_Voltage </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00393">393</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="a72a595e6320ceeb17de4f7ce2ec66d30" name="a72a595e6320ceeb17de4f7ce2ec66d30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72a595e6320ceeb17de4f7ce2ec66d30">&#9670;&#160;</a></span>IMD_Check_Part_Name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Part_Name </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00406">406</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00026">IMD_Expected_Part_Name</a>, <a class="el" href="imd_8c_source.html#l00028">IMD_Part_Name_0_Set</a>, <a class="el" href="imd_8c_source.html#l00029">IMD_Part_Name_1_Set</a>, <a class="el" href="imd_8c_source.html#l00030">IMD_Part_Name_2_Set</a>, <a class="el" href="imd_8c_source.html#l00031">IMD_Part_Name_3_Set</a>, <a class="el" href="imd_8c_source.html#l00032">IMD_Part_Name_Set</a>, <a class="el" href="imd_8c_source.html#l00025">IMD_Read_Part_Name</a>, <a class="el" href="imd_8h_source.html#l00091">Part_name_0</a>, <a class="el" href="imd_8h_source.html#l00092">Part_name_1</a>, <a class="el" href="imd_8h_source.html#l00093">Part_name_2</a>, and <a class="el" href="imd_8h_source.html#l00094">Part_name_3</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="a00c843b8f3e8cf4569ea9008cd7db9d2" name="a00c843b8f3e8cf4569ea9008cd7db9d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00c843b8f3e8cf4569ea9008cd7db9d2">&#9670;&#160;</a></span>IMD_Check_Safety_Touch_Current()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Safety_Touch_Current </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00381">381</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="abc49be24256f1a93674e290546384348" name="abc49be24256f1a93674e290546384348"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc49be24256f1a93674e290546384348">&#9670;&#160;</a></span>IMD_Check_Safety_Touch_Energy()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Safety_Touch_Energy </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00374">374</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="a6f1e850c527bdf0e1a7cfbc557b8501b" name="a6f1e850c527bdf0e1a7cfbc557b8501b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f1e850c527bdf0e1a7cfbc557b8501b">&#9670;&#160;</a></span>IMD_Check_Serial_Number()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Serial_Number </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00488">488</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00046">IMD_Expected_Serial_Number</a>, <a class="el" href="imd_8c_source.html#l00045">IMD_Read_Serial_Number</a>, <a class="el" href="imd_8c_source.html#l00050">IMD_Serial_Number_0_Set</a>, <a class="el" href="imd_8c_source.html#l00051">IMD_Serial_Number_1_Set</a>, <a class="el" href="imd_8c_source.html#l00052">IMD_Serial_Number_2_Set</a>, <a class="el" href="imd_8c_source.html#l00053">IMD_Serial_Number_3_Set</a>, <a class="el" href="imd_8c_source.html#l00054">IMD_Serial_Number_Set</a>, <a class="el" href="imd_8h_source.html#l00098">Serial_number_0</a>, <a class="el" href="imd_8h_source.html#l00099">Serial_number_1</a>, <a class="el" href="imd_8h_source.html#l00100">Serial_number_2</a>, and <a class="el" href="imd_8h_source.html#l00101">Serial_number_3</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
-
-</div>
-</div>
-<a id="ab4e8b5af19cc6d0b08ace9185a542b01" name="ab4e8b5af19cc6d0b08ace9185a542b01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4e8b5af19cc6d0b08ace9185a542b01">&#9670;&#160;</a></span>IMD_Check_Status_Bits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IMD_Check_Status_Bits </td>
-          <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00218">218</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
-
-<p class="reference">References <a class="el" href="imd_8h_source.html#l00059">Error_flags</a>, <a class="el" href="imd_8h_source.html#l00026">Hardware_Error</a>, <a class="el" href="imd_8h_source.html#l00022">High_Battery_Voltage</a>, <a class="el" href="imd_8h_source.html#l00024">High_Uncertainty</a>, <a class="el" href="imd_8c_source.html#l00062">IMD_error_flags_requested</a>, <a class="el" href="imd_8c_source.html#l00020">IMD_High_Uncertainty</a>, <a class="el" href="imd_8c_source.html#l00185">IMD_Request_Status()</a>, <a class="el" href="imd_8h_source.html#l00019">Isolation_status_bit0</a>, <a class="el" href="imd_8h_source.html#l00020">Isolation_status_bit1</a>, and <a class="el" href="imd_8h_source.html#l00021">Low_Battery_Voltage</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00316">initIMD()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="imd_8h_ab4e8b5af19cc6d0b08ace9185a542b01_cgraph.png" border="0" usemap="#aimd_8h_ab4e8b5af19cc6d0b08ace9185a542b01_cgraph" alt=""/></div>
+<div class="center"><img src="imd_8h_a9885969a0404b7553faf52aff3e54d3a_cgraph.png" border="0" usemap="#aimd_8h_a9885969a0404b7553faf52aff3e54d3a_cgraph" alt=""/></div>
 </div>
 
 </div>
 </div>
-<a id="a1a18f8d11173ee691822b5a712cf1617" name="a1a18f8d11173ee691822b5a712cf1617"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a18f8d11173ee691822b5a712cf1617">&#9670;&#160;</a></span>IMD_Check_Temperature()</h2>
+<a id="a89de0e5f75445980baf98050bd35be09" name="a89de0e5f75445980baf98050bd35be09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89de0e5f75445980baf98050bd35be09">&#9670;&#160;</a></span>IMD_GetErrorFlagsRaw()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Check_Temperature </td>
+          <td class="memname">uint16_t IMD_GetErrorFlagsRaw </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00363">363</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00422">422</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00057">IMD_Temperature</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00083">imd_state_t::error_flags_raw</a>.</p>
 
 </div>
 </div>
-<a id="ae0177fe52ae013a36014be506fd1fa93" name="ae0177fe52ae013a36014be506fd1fa93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0177fe52ae013a36014be506fd1fa93">&#9670;&#160;</a></span>IMD_Check_Uptime()</h2>
+<a id="a02e240beafca24a8549285c997caff60" name="a02e240beafca24a8549285c997caff60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02e240beafca24a8549285c997caff60">&#9670;&#160;</a></span>IMD_GetRnRaw()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Check_Uptime </td>
+          <td class="memname">uint16_t IMD_GetRnRaw </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00529">529</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00418">418</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00079">imd_state_t::rn_raw</a>.</p>
 
 </div>
 </div>
-<a id="a4a16ede06a18addd7ef3e67be2aaaf3d" name="a4a16ede06a18addd7ef3e67be2aaaf3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a16ede06a18addd7ef3e67be2aaaf3d">&#9670;&#160;</a></span>IMD_Check_Version()</h2>
+<a id="a48eee67a59558632f01c8db100b376eb" name="a48eee67a59558632f01c8db100b376eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48eee67a59558632f01c8db100b376eb">&#9670;&#160;</a></span>IMD_GetRpRaw()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Check_Version </td>
+          <td class="memname">uint16_t IMD_GetRpRaw </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00448">448</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00414">414</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00036">IMD_Expected_Version</a>, <a class="el" href="imd_8c_source.html#l00035">IMD_Read_Version</a>, <a class="el" href="imd_8c_source.html#l00038">IMD_Version_0_Set</a>, <a class="el" href="imd_8c_source.html#l00039">IMD_Version_1_Set</a>, <a class="el" href="imd_8c_source.html#l00040">IMD_Version_2_Set</a>, <a class="el" href="imd_8c_source.html#l00041">IMD_Version_Set</a>, <a class="el" href="imd_8h_source.html#l00095">Version_0</a>, <a class="el" href="imd_8h_source.html#l00096">Version_1</a>, and <a class="el" href="imd_8h_source.html#l00097">Version_2</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00078">imd_state_t::rp_raw</a>.</p>
 
 </div>
 </div>
-<a id="a0fc857559d80dd701aec763dd6911383" name="a0fc857559d80dd701aec763dd6911383"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0fc857559d80dd701aec763dd6911383">&#9670;&#160;</a></span>IMD_Check_Voltages_Vp_and_Vn()</h2>
+<a id="ae8858bdc2ca9ea141f65c868f347ac8d" name="ae8858bdc2ca9ea141f65c868f347ac8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8858bdc2ca9ea141f65c868f347ac8d">&#9670;&#160;</a></span>IMD_GetSafetyTouchCurrent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Check_Voltages_Vp_and_Vn </td>
+          <td class="memname">uint16_t IMD_GetSafetyTouchCurrent </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]</td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00349">349</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00426">426</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00073">IMD_Parse_Message()</a>.</p>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00085">imd_state_t::safety_touch_current</a>.</p>
 
 </div>
 </div>
-<a id="a1f6181c5ab49d963007eb9a212672bbd" name="a1f6181c5ab49d963007eb9a212672bbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1f6181c5ab49d963007eb9a212672bbd">&#9670;&#160;</a></span>IMD_Parse_Message()</h2>
+<a id="adb492bbf450d62cc9056d75237f6d86e" name="adb492bbf450d62cc9056d75237f6d86e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb492bbf450d62cc9056d75237f6d86e">&#9670;&#160;</a></span>IMD_GetSerial0Valid()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Parse_Message </td>
+          <td class="memname">uint8_t IMD_GetSerial0Valid </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>DLC</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Data</em></span>[]&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00073">73</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00401">401</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="imd_8h_source.html#l00056">battery_voltage</a>, <a class="el" href="imd_8h_source.html#l00059">Error_flags</a>, <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, <a class="el" href="imd_8c_source.html#l00356">IMD_Check_Battery_Voltage()</a>, <a class="el" href="imd_8c_source.html#l00262">IMD_Check_Error_Flags()</a>, <a class="el" href="imd_8c_source.html#l00342">IMD_Check_Isolation_Capacitances()</a>, <a class="el" href="imd_8c_source.html#l00317">IMD_Check_Isolation_Resistances()</a>, <a class="el" href="imd_8c_source.html#l00301">IMD_Check_Isolation_State()</a>, <a class="el" href="imd_8c_source.html#l00393">IMD_Check_Max_Battery_Working_Voltage()</a>, <a class="el" href="imd_8c_source.html#l00406">IMD_Check_Part_Name()</a>, <a class="el" href="imd_8c_source.html#l00381">IMD_Check_Safety_Touch_Current()</a>, <a class="el" href="imd_8c_source.html#l00374">IMD_Check_Safety_Touch_Energy()</a>, <a class="el" href="imd_8c_source.html#l00488">IMD_Check_Serial_Number()</a>, <a class="el" href="imd_8c_source.html#l00218">IMD_Check_Status_Bits()</a>, <a class="el" href="imd_8c_source.html#l00363">IMD_Check_Temperature()</a>, <a class="el" href="imd_8c_source.html#l00448">IMD_Check_Version()</a>, <a class="el" href="imd_8c_source.html#l00349">IMD_Check_Voltages_Vp_and_Vn()</a>, <a class="el" href="imd_8h_source.html#l00050">isolation_capacitances</a>, <a class="el" href="imd_8h_source.html#l00045">isolation_resistances</a>, <a class="el" href="imd_8h_source.html#l00041">isolation_state</a>, <a class="el" href="imd_8h_source.html#l00068">Max_battery_working_voltage</a>, <a class="el" href="imd_8h_source.html#l00091">Part_name_0</a>, <a class="el" href="imd_8h_source.html#l00092">Part_name_1</a>, <a class="el" href="imd_8h_source.html#l00093">Part_name_2</a>, <a class="el" href="imd_8h_source.html#l00094">Part_name_3</a>, <a class="el" href="imd_8h_source.html#l00065">safety_touch_current</a>, <a class="el" href="imd_8h_source.html#l00062">safety_touch_energy</a>, <a class="el" href="imd_8h_source.html#l00098">Serial_number_0</a>, <a class="el" href="imd_8h_source.html#l00099">Serial_number_1</a>, <a class="el" href="imd_8h_source.html#l00100">Serial_number_2</a>, <a class="el" href="imd_8h_source.html#l00101">Serial_number_3</a>, <a class="el" href="imd_8h_source.html#l00071">Temperature</a>, <a class="el" href="imd_8h_source.html#l00102">Uptime_counter</a>, <a class="el" href="imd_8h_source.html#l00109">Vb_hi_res</a>, <a class="el" href="imd_8h_source.html#l00095">Version_0</a>, <a class="el" href="imd_8h_source.html#l00096">Version_1</a>, <a class="el" href="imd_8h_source.html#l00097">Version_2</a>, <a class="el" href="imd_8h_source.html#l00108">Vexc_hi_res</a>, <a class="el" href="imd_8h_source.html#l00106">Vn_hi_res</a>, <a class="el" href="imd_8h_source.html#l00053">voltages_Vp_and_Vn</a>, <a class="el" href="imd_8h_source.html#l00107">Vp_hi_res</a>, and <a class="el" href="imd_8h_source.html#l00110">Vpwr_hi_res</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="imd_8h_a1f6181c5ab49d963007eb9a212672bbd_cgraph.png" border="0" usemap="#aimd_8h_a1f6181c5ab49d963007eb9a212672bbd_cgraph" alt=""/></div>
-</div>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00089">imd_state_t::serial0_valid</a>.</p>
 
 </div>
 </div>
-<a id="aeb7c937639c5385f5d2b4e3a4e60250f" name="aeb7c937639c5385f5d2b4e3a4e60250f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb7c937639c5385f5d2b4e3a4e60250f">&#9670;&#160;</a></span>IMD_Request_Status()</h2>
+<a id="a3810783b323bf7272662dc7d6ca3c2fb" name="a3810783b323bf7272662dc7d6ca3c2fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3810783b323bf7272662dc7d6ca3c2fb">&#9670;&#160;</a></span>IMD_GetSerial0Word()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Request_Status </td>
+          <td class="memname">uint32_t IMD_GetSerial0Word </td>
           <td>(</td>
-          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>Status</em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00185">185</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00405">405</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="main_8c_source.html#l00365">Error_Handler()</a>, <a class="el" href="can_8c_source.html#l00153">hcan2</a>, <a class="el" href="constants_8h_source.html#l00019">IMD_CAN_ID_Tx</a>, <a class="el" href="constants_8c_source.html#l00010">TxData</a>, <a class="el" href="constants_8c_source.html#l00004">TxHeader</a>, and <a class="el" href="constants_8c_source.html#l00011">TxMailbox</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="imd_8c_source.html#l00218">IMD_Check_Status_Bits()</a>, and <a class="el" href="imd_8c_source.html#l00533">IMD_Startup()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="imd_8h_aeb7c937639c5385f5d2b4e3a4e60250f_cgraph.png" border="0" usemap="#aimd_8h_aeb7c937639c5385f5d2b4e3a4e60250f_cgraph" alt=""/></div>
-</div>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00090">imd_state_t::serial0_word</a>.</p>
 
 </div>
 </div>
-<a id="a80b26177d8aa0c0e803fac210eb456ac" name="a80b26177d8aa0c0e803fac210eb456ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80b26177d8aa0c0e803fac210eb456ac">&#9670;&#160;</a></span>IMD_Startup()</h2>
+<a id="a399cfd70be8568850d2b394628e87d00" name="a399cfd70be8568850d2b394628e87d00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a399cfd70be8568850d2b394628e87d00">&#9670;&#160;</a></span>IMD_GetStatusBits()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void IMD_Startup </td>
+          <td class="memname">uint8_t IMD_GetStatusBits </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00533">533</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00409">409</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="imd_8c_source.html#l00185">IMD_Request_Status()</a>, <a class="el" href="imd_8h_source.html#l00041">isolation_state</a>, <a class="el" href="imd_8h_source.html#l00068">Max_battery_working_voltage</a>, <a class="el" href="imd_8h_source.html#l00091">Part_name_0</a>, <a class="el" href="imd_8h_source.html#l00092">Part_name_1</a>, <a class="el" href="imd_8h_source.html#l00093">Part_name_2</a>, <a class="el" href="imd_8h_source.html#l00094">Part_name_3</a>, <a class="el" href="imd_8h_source.html#l00098">Serial_number_0</a>, <a class="el" href="imd_8h_source.html#l00099">Serial_number_1</a>, <a class="el" href="imd_8h_source.html#l00100">Serial_number_2</a>, <a class="el" href="imd_8h_source.html#l00101">Serial_number_3</a>, <a class="el" href="imd_8h_source.html#l00095">Version_0</a>, <a class="el" href="imd_8h_source.html#l00096">Version_1</a>, and <a class="el" href="imd_8h_source.html#l00097">Version_2</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="imd_8h_a80b26177d8aa0c0e803fac210eb456ac_cgraph.png" border="0" usemap="#aimd_8h_a80b26177d8aa0c0e803fac210eb456ac_cgraph" alt=""/></div>
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00074">imd_state_t::status_bits</a>.</p>
+
 </div>
+</div>
+<a id="a51b87d333c6d2e4f65d69fc2469b8a84" name="a51b87d333c6d2e4f65d69fc2469b8a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51b87d333c6d2e4f65d69fc2469b8a84">&#9670;&#160;</a></span>IMD_IsOnline()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t IMD_IsOnline </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00397">397</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+
+<p class="reference">References <a class="el" href="imd_8c_source.html#l00071">imd_state_t::online</a>.</p>
 
 </div>
 </div>
@@ -828,11 +590,16 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00559">559</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="imd_8c_source.html#l00316">316</a> of file <a class="el" href="imd_8c_source.html">imd.c</a>.</p>
 
-<p class="reference">References <a class="el" href="uvfr__utils_8h_source.html#l00214">IMD</a>, <a class="el" href="uvfr__utils_8h_source.html#l00343">uv_init_task_args::init_info_queue</a>, <a class="el" href="uvfr__utils_8h_source.html#l00344">uv_init_task_args::meta_task_handle</a>, and <a class="el" href="uvfr__utils_8h_source.html#l00174">UV_OK</a>.</p>
+<p class="reference">References <a class="el" href="daq_8c_source.html#l00143">associateDaqParamWithVar()</a>, <a class="el" href="imd_8c_source.html#l00081">imd_state_t::cn_nf</a>, <a class="el" href="imd_8c_source.html#l00080">imd_state_t::cp_nf</a>, <a class="el" href="uvfr__utils_8h_source.html#l00427">uv_init_task_response::device</a>, <a class="el" href="uvfr__utils_8h_source.html#l00429">uv_init_task_response::errmsg</a>, <a class="el" href="imd_8c_source.html#l00083">imd_state_t::error_flags_raw</a>, <a class="el" href="imd_8c_source.html#l00082">imd_state_t::glv_raw</a>, <a class="el" href="uvfr__utils_8h_source.html#l00229">IMD</a>, <a class="el" href="imd_8c_source.html#l00036">IMD_CAN_BUS</a>, <a class="el" href="imd_8c_source.html#l00029">IMD_CAN_ID_INFO_GENERAL</a>, <a class="el" href="imd_8c_source.html#l00027">IMD_CAN_ID_REQUEST</a>, <a class="el" href="imd_8c_source.html#l00198">IMD_CanRxHandler()</a>, <a class="el" href="daq_8h_source.html#l00089">IMD_CN_NF</a>, <a class="el" href="daq_8h_source.html#l00088">IMD_CP_NF</a>, <a class="el" href="daq_8h_source.html#l00083">IMD_ERRORS</a>, <a class="el" href="daq_8h_source.html#l00085">IMD_ISO_STATE</a>, <a class="el" href="daq_8h_source.html#l00087">IMD_RN_RAW</a>, <a class="el" href="daq_8h_source.html#l00086">IMD_RP_RAW</a>, <a class="el" href="daq_8h_source.html#l00084">IMD_SAFETOUCH</a>, <a class="el" href="daq_8h_source.html#l00082">IMD_STATUS</a>, <a class="el" href="daq_8h_source.html#l00090">IMD_TEMP_RAW</a>, <a class="el" href="daq_8h_source.html#l00081">IMD_VOLTAGE</a>, <a class="el" href="uvfr__utils_8h_source.html#l00401">uv_init_task_args::init_info_queue</a>, <a class="el" href="can_8c_source.html#l00659">insertCANMessageHandler()</a>, <a class="el" href="imd_8c_source.html#l00077">imd_state_t::iso_state_raw</a>, <a class="el" href="uvfr__utils_8h_source.html#l00402">uv_init_task_args::meta_task_handle</a>, <a class="el" href="uvfr__utils_8h_source.html#l00428">uv_init_task_response::nchar</a>, <a class="el" href="imd_8c_source.html#l00071">imd_state_t::online</a>, <a class="el" href="imd_8c_source.html#l00079">imd_state_t::rn_raw</a>, <a class="el" href="imd_8c_source.html#l00078">imd_state_t::rp_raw</a>, <a class="el" href="imd_8c_source.html#l00085">imd_state_t::safety_touch_current</a>, <a class="el" href="imd_8c_source.html#l00089">imd_state_t::serial0_valid</a>, <a class="el" href="imd_8c_source.html#l00090">imd_state_t::serial0_word</a>, <a class="el" href="imd_8h_source.html#l00099">Serial_number_0</a>, <a class="el" href="uvfr__utils_8h_source.html#l00426">uv_init_task_response::status</a>, <a class="el" href="imd_8c_source.html#l00084">imd_state_t::temp_raw</a>, <a class="el" href="uvfr__utils_8h_source.html#l00182">UV_ERROR</a>, <a class="el" href="uvfr__utils_8h_source.html#l00180">UV_OK</a>, and <a class="el" href="uvfr__external__devices_8c_source.html#l00060">uvWaitOnExternalDevice()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00050">uvInit()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="uvfr__utils_8c_source.html#l00073">uvInit()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="imd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3_cgraph.png" border="0" usemap="#aimd_8h_a19b4fd879f065cfe6e1b7bb3400cd0c3_cgraph" alt=""/></div>
+</div>
 
 </div>
 </div>

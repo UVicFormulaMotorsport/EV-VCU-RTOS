@@ -2,6 +2,7 @@ var daq_8c =
 [
     [ "daq_param_list_node", "structdaq__param__list__node.html", "structdaq__param__list__node" ],
     [ "daq_child_task", "structdaq__child__task.html", "structdaq__child__task" ],
+    [ "__UV_FILENAME__", "daq_8c.html#a368892c5fb38bdcdfae7b7e2a22602b4", null ],
     [ "_SRC_UVFR_DAQ", "daq_8c.html#a5a6490a76926af0287e58c4b1af260bd", null ],
     [ "INV_DAQ_P", "daq_8c.html#aba239cbf28dfdbe0359593717f8705d5", null ],
     [ "daq_child_task", "daq_8c.html#a2104fed000d8cb392baf5d14e06193c1", null ],
@@ -14,12 +15,11 @@ var daq_8c =
     [ "insertParamToRegister", "daq_8c.html#ab5fd6b7e1a2b15c2c834291f9386d1ef", null ],
     [ "startDaqSubTasks", "daq_8c.html#a65df75bcd76d421bf28fca5704c8ff95", null ],
     [ "stopDaqSubTasks", "daq_8c.html#ad3997ae047f3e30136b3f2b668c8030a", null ],
-    [ "constant_zero", "daq_8c.html#a08de9f1889def4ee8d79962e6044bb0f", null ],
+    [ "constant_zero", "daq_8c.html#a60a6b00299371412ec83fc5269adaefe", null ],
     [ "coolant_temp_adc", "daq_8c.html#a2273a53b295e470100af298a0be7d8d7", null ],
     [ "curr_daq_settings", "daq_8c.html#a5a9a97f4494923c066b5c4faaaaf8f88", null ],
     [ "default_daq_settings", "daq_8c.html#a22b4a1eccdbbbf445f1847cc3a49c3e0", null ],
     [ "default_datapoints", "daq_8c.html#af2240542724a20552b90fafa9642884d", null ],
-    [ "hadc1", "daq_8c.html#a22b804736f5648d52f639b2647d4ed13", null ],
     [ "motor_temp_adc", "daq_8c.html#a0611933f2919b8900cd5e667043747fe", null ],
     [ "tmp_daq_msg", "daq_8c.html#a46330ae75c3716f15677e104e8cced32", null ]
 ];

@@ -105,138 +105,582 @@ $(function(){initNavTree('uvfr__diagnostics_8c_source.html',''); initResizable(t
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> *  Created on: Jun 14, 2025</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> *      Author: byo10</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a368892c5fb38bdcdfae7b7e2a22602b4">    7</a></span><span class="preprocessor">#define __UV_FILENAME__ &quot;uvfr_diagnostics.c&quot;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="uvfr__utils_8h.html">uvfr_utils.h</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a1922faa9d814176f3c5aec2410d9eb10">   10</a></span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a1922faa9d814176f3c5aec2410d9eb10">uvEnterDiagnosticMode</a>(){</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
-</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a2e21bd6dc99f8d0a62381a4010e2e257">   14</a></span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a2e21bd6dc99f8d0a62381a4010e2e257">uvExitDiagnosticMode</a>(){</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
-</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8h.html#a7ad14988beab0a9306cabebf1525133f">   18</a></span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a7ad14988beab0a9306cabebf1525133f">uvInitDiagnostics</a>(){</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
-</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;<a class="code" href="bms_8h.html">bms.h</a>&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;<a class="code" href="imd_8h.html">imd.h</a>&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">extern</span> HeapStats_t <a class="code hl_variable" href="group__state__engine.html#gace30759073ddac097d29f042acc4142d">xHeapStats</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//TaskStatus_t task_stats[MAX_NUM_MANAGED_TASKS+5];</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">//#define DEBUG_PORT_GENERAL 0</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">//#define DEBUG_PORT_OS 1</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">//#define DEBUG_PORT_TRACTIVE_SYSTEM 2</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment">//#define DEBUG_PORT_XDEV 3</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">//#define DEBUG_PORT_CONIFER 4</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment">//#define DEBUG_PORT_STATE_ENGINE 5</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment">//#define DEBUG_PORT_CSV 6</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d">   24</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d">handleDiagnosticMsg</a>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>* msg){</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    uint8_t cmd_byte = msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>[0];</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">switch</span>(cmd_byte){</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869">ENTER_DIAGNOSTICS_MODE</a>:</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#acddb9dba4932eef5588df8dc2447ac8a">   23</a></span><span class="preprocessor">#define DEBUG_LOG_TASK_RUNTIME_STATS</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="};">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="structuv__print__request.html">   25</a></span><span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="structuv__print__request.html#a769884047201a22fc5e999b097ff5a6f">   26</a></span>    uint32_t <a class="code hl_variable" href="structuv__print__request.html#a769884047201a22fc5e999b097ff5a6f">port</a>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="structuv__print__request.html#a873bf7ada3313dc9dc699a23e7b1771b">   27</a></span>    <span class="keywordtype">char</span>* <a class="code hl_variable" href="structuv__print__request.html#a873bf7ada3313dc9dc699a23e7b1771b">str</a>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}<a class="code hl_struct" href="structuv__print__request.html">uv_print_request</a>;</div>
+</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c">EXIT_DIAGNOSTICS_MODE</a>:</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463">REQUEST_STATE_CHANGE</a>:</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="group__state__engine__api.html#gaa3ad3e8df75177c00265881c16563212">changeVehicleState</a>(msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>[1]&lt;&lt;8 | msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>[2]) != <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a382e3d75b33025ed95999fdddfd6fa21">   30</a></span>QueueHandle_t <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a382e3d75b33025ed95999fdddfd6fa21">print_queue</a>;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="comment">//Internal diagnostic global vars</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">   33</a></span>uint8_t <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">g_bms_fault</a>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">   34</a></span>uint8_t <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">g_imd_fault</a>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">   35</a></span>uint8_t <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">g_bspd_fault</a>;</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        }</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6">FORCE_STATE_CHANGE</a>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a511ab2530e985e898fc2fb417e86229d">   37</a></span>uint8_t <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a511ab2530e985e898fc2fb417e86229d">g_SDCR_tripped</a>;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a43a3cba08a8b1c9d79b2242e977e3894">   39</a></span>uint16_t <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a43a3cba08a8b1c9d79b2242e977e3894">digi_in_stat</a>;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c">dCLEAR_FAULTS</a>:</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">default</span>:</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
-</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a6573c897f7da39fd62ea8becc9580317">dispWheelSpeeds</a>();</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword">static</span> uint32_t ITM_SendCharToReg (<span class="keywordtype">char</span> ch,uint32_t port);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">static</span> <a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> __debugWriteInternal(<span class="keywordtype">char</span>* str,uint32_t port);</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="foldopen" id="foldopen00046" data-start="{" data-end="}">
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8h.html#a9104caf19d0d3f6239592daed7cebbb7">   46</a></span>int32_t <a class="code hl_function" href="uvfr__diagnostics_8c.html#a9104caf19d0d3f6239592daed7cebbb7">sprint_fixed_d</a>(<span class="keywordtype">char</span>* buf, <span class="keyword">const</span> <span class="keywordtype">char</span>* label, int32_t value, <span class="keywordtype">int</span> decimals, <span class="keyword">const</span> <span class="keywordtype">char</span>* unit)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>{</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    int32_t nchars_written = 0;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    int32_t tmp = 0;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    int32_t scale = 1;</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; decimals; i++) scale *= 10;</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#abf1701b70ec9b0030b205da2a1e20d17">   54</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#abf1701b70ec9b0030b205da2a1e20d17">uvEventLogDaemon</a>(<span class="keywordtype">void</span>* args){</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">for</span>(;;){</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    }</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
-</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="foldopen" id="foldopen00061" data-start="{" data-end="}">
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#afc0f4627210550225b0725b98850b03a">   61</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#afc0f4627210550225b0725b98850b03a">uvAssertFailed</a>(<span class="keywordtype">char</span>* file, uint16_t line, TaskHandle_t task, <span class="keywordtype">char</span>* condition){</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
-</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a54b14b665d04a631991869b21065bf90">   65</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a54b14b665d04a631991869b21065bf90">vApplicationStackOverflowHook</a>( TaskHandle_t xTask, <span class="keywordtype">char</span> *pcTaskName ){</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="comment">//This is where we end up if one of the tasks has a stack overflow</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="comment">//STOP THE CAR</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="comment">//LOG WHAT HAPPENED</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="comment">//What task did it</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="comment">//How badly did it overflow?</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="comment">//Try to get a trace!</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="comment">//Hang:</span></div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">for</span>(;;){</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
-</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    int32_t whole = value / scale;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    int32_t frac  = value % scale;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">if</span>(frac &lt; 0) frac = -frac;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    tmp = sprintf(buf,<span class="stringliteral">&quot;%s: %ld&quot;</span>, label, (<span class="keywordtype">long</span>)whole);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">if</span>(tmp &lt; 0){</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        nchars_written += tmp;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        buf += tmp;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordflow">if</span>(decimals &gt; 0){</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        tmp = sprintf(buf,<span class="stringliteral">&quot;.%0*ld&quot;</span>, decimals, (<span class="keywordtype">long</span>)frac);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keywordflow">if</span>(tmp &lt; 0){</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        nchars_written += tmp;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        buf += tmp;</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">if</span>(unit){</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        tmp = sprintf(buf,<span class="stringliteral">&quot; %s&quot;</span>, unit);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">if</span>(tmp &lt; 0){</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        nchars_written += tmp;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        buf += tmp;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    tmp = sprintf(buf,<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    nchars_written += tmp;</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    buf += tmp;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a73f6aa45470ada02a5d6f3a522d8f13c">   85</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a73f6aa45470ada02a5d6f3a522d8f13c">vApplicationMallocFailedHook</a>(){</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="comment">//pvPortMalloc has failed</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">return</span> nchars_written;</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>}</div>
+</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="comment">//STOP THE CAR</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="comment">//LOG WHAT HAPPENED</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="comment">//What task did it</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="comment">//Hang</span></div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
-</div>
+<div class="foldopen" id="foldopen00088" data-start="{" data-end="}">
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8h.html#a8077f10c4f50545bbd309f1e1fe6122f">   88</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a8077f10c4f50545bbd309f1e1fe6122f">print_fixed_d</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* label, int32_t value, <span class="keywordtype">int</span> decimals, <span class="keyword">const</span> <span class="keywordtype">char</span>* unit)</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>{</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    int32_t scale = 1;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0; i &lt; decimals; i++) scale *= 10;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    int32_t whole = value / scale;</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    int32_t frac  = value % scale;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">if</span>(frac &lt; 0) frac = -frac;</div>
 <div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="foldopen" id="foldopen00098" data-start="{" data-end="}">
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a9ca051aa77e17583aa5a85d5de5c199a">   98</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a9ca051aa77e17583aa5a85d5de5c199a">vApplicationTickHook</a>( <span class="keywordtype">void</span> ){</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="comment">//This is not used but it makes the compiler STFU</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    printf(<span class="stringliteral">&quot;%s: %ld&quot;</span>, label, (<span class="keywordtype">long</span>)whole);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">if</span>(decimals &gt; 0){</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        printf(<span class="stringliteral">&quot;.%0*ld&quot;</span>, decimals, (<span class="keywordtype">long</span>)frac);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    }</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">if</span>(unit){</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        printf(<span class="stringliteral">&quot; %s&quot;</span>, unit);</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    }</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    printf(<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>}</div>
 </div>
-<div class="ttc" id="acan_8h_html_aef3770e45bbacbf527fd93dd80eea9b9"><div class="ttname"><a href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a></div><div class="ttdeci">enum uv_status_t uv_status</div><div class="ttdoc">This is meant to be a return type from functions that indicates what is actually going on.</div><div class="ttdef"><b>Definition</b> <a href="can_8h_source.html#l00046">can.h:46</a></div></div>
-<div class="ttc" id="agroup__state__engine__api_html_gaa3ad3e8df75177c00265881c16563212"><div class="ttname"><a href="group__state__engine__api.html#gaa3ad3e8df75177c00265881c16563212">changeVehicleState</a></div><div class="ttdeci">uv_status changeVehicleState(uint16_t state)</div><div class="ttdoc">Function for changing the state of the vehicle, as well as the list of active + inactive tasks.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l00092">uvfr_state_engine.c:92</a></div></div>
-<div class="ttc" id="astructuv___c_a_n__msg_html"><div class="ttname"><a href="structuv___c_a_n__msg.html">uv_CAN_msg</a></div><div class="ttdoc">Representative of a CAN message.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00282">uvfr_utils.h:282</a></div></div>
-<div class="ttc" id="astructuv___c_a_n__msg_html_aec63cc112176da7895d0cfc8b32e6935"><div class="ttname"><a href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">uv_CAN_msg::data</a></div><div class="ttdeci">uint8_t data[8]</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00289">uvfr_utils.h:289</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_a1922faa9d814176f3c5aec2410d9eb10"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a1922faa9d814176f3c5aec2410d9eb10">uvEnterDiagnosticMode</a></div><div class="ttdeci">uv_status uvEnterDiagnosticMode()</div><div class="ttdef"><b>Definition</b> <a href="#l00010">uvfr_diagnostics.c:10</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_a2e21bd6dc99f8d0a62381a4010e2e257"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a2e21bd6dc99f8d0a62381a4010e2e257">uvExitDiagnosticMode</a></div><div class="ttdeci">uv_status uvExitDiagnosticMode()</div><div class="ttdef"><b>Definition</b> <a href="#l00014">uvfr_diagnostics.c:14</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_a54b14b665d04a631991869b21065bf90"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a54b14b665d04a631991869b21065bf90">vApplicationStackOverflowHook</a></div><div class="ttdeci">void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)</div><div class="ttdef"><b>Definition</b> <a href="#l00065">uvfr_diagnostics.c:65</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_a73f6aa45470ada02a5d6f3a522d8f13c"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a73f6aa45470ada02a5d6f3a522d8f13c">vApplicationMallocFailedHook</a></div><div class="ttdeci">void vApplicationMallocFailedHook()</div><div class="ttdef"><b>Definition</b> <a href="#l00085">uvfr_diagnostics.c:85</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_a7ad14988beab0a9306cabebf1525133f"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a7ad14988beab0a9306cabebf1525133f">uvInitDiagnostics</a></div><div class="ttdeci">uv_status uvInitDiagnostics()</div><div class="ttdef"><b>Definition</b> <a href="#l00018">uvfr_diagnostics.c:18</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_a9ca051aa77e17583aa5a85d5de5c199a"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a9ca051aa77e17583aa5a85d5de5c199a">vApplicationTickHook</a></div><div class="ttdeci">void vApplicationTickHook(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00098">uvfr_diagnostics.c:98</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_abf1701b70ec9b0030b205da2a1e20d17"><div class="ttname"><a href="uvfr__diagnostics_8c.html#abf1701b70ec9b0030b205da2a1e20d17">uvEventLogDaemon</a></div><div class="ttdeci">void uvEventLogDaemon(void *args)</div><div class="ttdef"><b>Definition</b> <a href="#l00054">uvfr_diagnostics.c:54</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_ac227fb16a61fc925f514f8b28a854c3d"><div class="ttname"><a href="uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d">handleDiagnosticMsg</a></div><div class="ttdeci">void handleDiagnosticMsg(uv_CAN_msg *msg)</div><div class="ttdef"><b>Definition</b> <a href="#l00024">uvfr_diagnostics.c:24</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8c_html_afc0f4627210550225b0725b98850b03a"><div class="ttname"><a href="uvfr__diagnostics_8c.html#afc0f4627210550225b0725b98850b03a">uvAssertFailed</a></div><div class="ttdeci">void uvAssertFailed(char *file, uint16_t line, TaskHandle_t task, char *condition)</div><div class="ttdef"><b>Definition</b> <a href="#l00061">uvfr_diagnostics.c:61</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869">ENTER_DIAGNOSTICS_MODE</a></div><div class="ttdeci">@ ENTER_DIAGNOSTICS_MODE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00032">uvfr_diagnostics.h:32</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c">EXIT_DIAGNOSTICS_MODE</a></div><div class="ttdeci">@ EXIT_DIAGNOSTICS_MODE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00033">uvfr_diagnostics.h:33</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6">FORCE_STATE_CHANGE</a></div><div class="ttdeci">@ FORCE_STATE_CHANGE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00035">uvfr_diagnostics.h:35</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c">dCLEAR_FAULTS</a></div><div class="ttdeci">@ dCLEAR_FAULTS</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00037">uvfr_diagnostics.h:36</a></div></div>
-<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463">REQUEST_STATE_CHANGE</a></div><div class="ttdeci">@ REQUEST_STATE_CHANGE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00034">uvfr_diagnostics.h:34</a></div></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="keyword">static</span> <span class="keywordtype">void</span> dispBMSStatus(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>{</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    printf(<span class="stringliteral">&quot;\nBMS STATUS\n&quot;</span>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    printf(<span class="stringliteral">&quot;----------\n&quot;</span>);</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">// From bms.c:</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="comment">// pack_voltage_dV is 0.1V</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="comment">// pack_current_dA is 0.1A (signed)</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="comment">// soc_pct is % int</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    <span class="comment">// min/max temps in C</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <a class="code hl_function" href="uvfr__diagnostics_8c.html#a8077f10c4f50545bbd309f1e1fe6122f">print_fixed_d</a>(<span class="stringliteral">&quot;Pack Voltage&quot;</span>, (int32_t)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#a56a00f8fc18b0ea4f2818e6f02b94775">pack_voltage_dV</a>, 1, <span class="stringliteral">&quot;V&quot;</span>);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <a class="code hl_function" href="uvfr__diagnostics_8c.html#a8077f10c4f50545bbd309f1e1fe6122f">print_fixed_d</a>(<span class="stringliteral">&quot;Pack Current&quot;</span>, (int32_t)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#a5f562e3713009e636aa71f076b9854a6">pack_current_dA</a>, 1, <span class="stringliteral">&quot;A&quot;</span>);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    printf(<span class="stringliteral">&quot;SOC: %u %%\n&quot;</span>, (<span class="keywordtype">unsigned</span>)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#ae14b31f9d6a2b3b66340b25dd0ba66d1">soc_pct</a>);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    printf(<span class="stringliteral">&quot;Min Cell Temp: %d C\n&quot;</span>, (<span class="keywordtype">int</span>)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#adbf4c6c6a62d90353abff928ed9dfcbf">min_cell_temp</a>);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    printf(<span class="stringliteral">&quot;Max Cell Temp: %d C\n&quot;</span>, (<span class="keywordtype">int</span>)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#aa67cb7fac22f36f2a9876b3462b1a88a">max_cell_temp</a>);</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    printf(<span class="stringliteral">&quot;Relay State: 0x%04X\n&quot;</span>, (<span class="keywordtype">unsigned</span>)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#aafa9d07dac634207a9a61a1ee0f40bd1">relayState</a>);</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    printf(<span class="stringliteral">&quot;MSG1 Corrupt: %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#a448230d0f8f6d17144c3c3cc74dfd68d">msg1corrupt</a>);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    printf(<span class="stringliteral">&quot;MSG2 Corrupt: %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)<a class="code hl_variable" href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a>.<a class="code hl_variable" href="structbms__state__t.html#a929e6bb5b650f4c0fa6a8442bf76c90a">msg2corrupt</a>);</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>}</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="keyword">static</span> <span class="keywordtype">void</span> dispIMDStatus(<span class="keywordtype">void</span>)</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>{</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordtype">char</span> buf[256] = {0};</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    printf(<span class="stringliteral">&quot;\nIMD STATUS\n&quot;</span>);</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    printf(<span class="stringliteral">&quot;----------\n&quot;</span>);</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    uint8_t serial_ok = <a class="code hl_function" href="imd_8h.html#adb492bbf450d62cc9056d75237f6d86e">IMD_GetSerial0Valid</a>(); <span class="comment">// get vailidity</span></div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    uint32_t serial_word = <a class="code hl_function" href="imd_8h.html#a3810783b323bf7272662dc7d6ca3c2fb">IMD_GetSerial0Word</a>(); <span class="comment">// return serial</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    uint8_t get_status_bits = <a class="code hl_function" href="imd_8h.html#a399cfd70be8568850d2b394628e87d00">IMD_GetStatusBits</a>(); <span class="comment">// from enum imd_status_bits</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    uint16_t get_rp_raw = <a class="code hl_function" href="imd_8h.html#a48eee67a59558632f01c8db100b376eb">IMD_GetRpRaw</a>(); <span class="comment">// resistance positive (request_mux_isolation_resistances bytes 2-3</span></div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    uint16_t get_rn_raw = <a class="code hl_function" href="imd_8h.html#a02e240beafca24a8549285c997caff60">IMD_GetRnRaw</a>(); <span class="comment">// resistance negative (request_mux_isolation_resistences bytes 5-6)</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    uint16_t get_errors = <a class="code hl_function" href="imd_8h.html#a89de0e5f75445980baf98050bd35be09">IMD_GetErrorFlagsRaw</a>(); <span class="comment">// error flags (request_mux_error_flags bytes 2-3)</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    uint16_t get_safety_touch_current = <a class="code hl_function" href="imd_8h.html#ae8858bdc2ca9ea141f65c868f347ac8d">IMD_GetSafetyTouchCurrent</a>(); <span class="comment">//</span></div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    printf(<span class="stringliteral">&quot;Serial Valid: %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)serial_ok);</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    printf(<span class="stringliteral">&quot;Serial Word:  0x%08lX\n&quot;</span>, (<span class="keywordtype">unsigned</span> <span class="keywordtype">long</span>)serial_word);</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    printf(<span class="stringliteral">&quot;Isolation Resistance (Rp): %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)get_rp_raw);</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    printf(<span class="stringliteral">&quot;Isolation Resistance (Rn): %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)get_rn_raw);</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    printf(<span class="stringliteral">&quot;Error Flags: %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)get_errors);</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>    printf(<span class="stringliteral">&quot;Safe to touch? (Current Value): %u\n&quot;</span>, (<span class="keywordtype">unsigned</span>)get_safety_touch_current);</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    printf(<span class="stringliteral">&quot;IMD ONLINE: %s\n&quot;</span>, <a class="code hl_function" href="imd_8h.html#a51b87d333c6d2e4f65d69fc2469b8a84">IMD_IsOnline</a>() ? <span class="stringliteral">&quot;YES&quot;</span> : <span class="stringliteral">&quot;NO&quot;</span>);</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>}</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span> </div>
+<div class="foldopen" id="foldopen00157" data-start="{" data-end="}">
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a089663ae36d10c88291aefbe7376542f">  157</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a089663ae36d10c88291aefbe7376542f">dispStateEngineStatus</a>(){</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
+</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
+<div class="foldopen" id="foldopen00162" data-start="{" data-end="}">
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#aaa320c94b4b67f56acfb450d544240b4">  162</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#aaa320c94b4b67f56acfb450d544240b4">dispExtDeviceStatus</a>(){</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="comment">//BMS</span></div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    dispBMSStatus();</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    <span class="comment">//IMD</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    dispIMDStatus();</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="comment">//PDU</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span> </div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="comment">//Motor Controller</span></div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="comment">//DCDC</span></div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="comment">//Steering wheel</span></div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="comment">//Whatever else</span></div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
+</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="foldopen" id="foldopen00180" data-start="{" data-end="}">
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#ae6f49734fe7f5fbcd3e9e734f4a4dd18">  180</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#ae6f49734fe7f5fbcd3e9e734f4a4dd18">dispTractiveSystemStatus</a>(){</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    printf(<span class="stringliteral">&quot;TRACTIVE SYSTEM STATUS\n&quot;</span>);</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    printf(<span class="stringliteral">&quot;----------------------\n&quot;</span>);</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    printf(<span class="stringliteral">&quot;Contactor Status:\n&quot;</span>);</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    printf(<span class="stringliteral">&quot;Pack Voltage: %d.%d&quot;</span>,0,0);</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    printf(<span class="stringliteral">&quot;Pack Current: %d.%d\n&quot;</span>,0,0);</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="comment">//printf(&quot;MC Warning + ERRORS: %d\n&quot;,0,0);</span></div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    printf(<span class="stringliteral">&quot;Motor RPM: %d.%d RPM&quot;</span>,0,0);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    printf(<span class="stringliteral">&quot;Motor Phase current: %d.%d A \n&quot;</span>,0,0);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    printf(<span class="stringliteral">&quot;Motor Temp: %d.%d&quot;</span>,0,0);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    printf(<span class="stringliteral">&quot;Inverter Temp: %d.%d \n&quot;</span>,0,0);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    printf(<span class="stringliteral">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;</span>);</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>}</div>
+</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
+<div class="foldopen" id="foldopen00197" data-start="{" data-end="}">
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a61a3d749b05196082fa09d98d6f4508d">  197</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a61a3d749b05196082fa09d98d6f4508d">dispVehicleStatusReport</a>(){</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    uint32_t systime = xTaskGetTickCount();</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordtype">char</span>* str = NULL;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    str = <a class="code hl_function" href="uvfr__state__engine_8h.html#a0ef324c9c88a50704c0604cd13da2717">uvGetStateString</a>();</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    printf(<span class="stringliteral">&quot;VEHICLE_STATUS:\n --------------------------------------- \n&quot;</span>);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    printf(<span class="stringliteral">&quot;System Time: [ %d ] \t&quot;</span>,systime);</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    printf(<span class="stringliteral">&quot;Vehicle State %s \n&quot;</span>,str);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <a class="code hl_function" href="uvfr__diagnostics_8c.html#aaa320c94b4b67f56acfb450d544240b4">dispExtDeviceStatus</a>();</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">//dispTractiveSystemStatus();</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="comment">//dispStateEngineStatus();</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>}</div>
+</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a5fc9e31e7b03d4d9a54d2f581cb8da87">  216</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a5fc9e31e7b03d4d9a54d2f581cb8da87">uvGetSDCStat</a>(){</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="comment">//IMD - 0 on pin is bad</span></div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">if</span>(!HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_1)){</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">g_imd_fault</a> = 1;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">g_imd_fault</a> = 0;</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="comment">//BMS - Open drain -&gt; 1 bad</span></div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">if</span>(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2)){</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">g_bms_fault</a> = 1;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">g_bms_fault</a> = 0;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="comment">//BSPD - Open drain -&gt; 1 bad</span></div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">if</span>(HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_3)){</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">g_bspd_fault</a> = 1;</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    }<span class="keywordflow">else</span>{</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">g_bspd_fault</a> = 0;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    }</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a511ab2530e985e898fc2fb417e86229d">g_SDCR_tripped</a> = <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">g_bms_fault</a> || <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">g_bspd_fault</a> || <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">g_imd_fault</a>;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>}</div>
+</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="foldopen" id="foldopen00241" data-start="{" data-end="}">
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a6a0def2ee39777c5c1d9df3ef2e1848e">  241</a></span>uint16_t <a class="code hl_function" href="uvfr__diagnostics_8c.html#a6a0def2ee39777c5c1d9df3ef2e1848e">uvGetDigiInStat</a>(){</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">return</span> (uint16_t)GPIOD-&gt;IDR;</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
+</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="foldopen" id="foldopen00248" data-start="{" data-end="}">
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a302351be7e0283cdaf7e74f28befee4b">  248</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a302351be7e0283cdaf7e74f28befee4b">uvBackgroundDiagnosticsDaemon</a>(<span class="keywordtype">void</span>* args){</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <a class="code hl_struct" href="structuv__task__info.html">uv_task_info</a>* params = (<a class="code hl_struct" href="structuv__task__info.html">uv_task_info</a>*) args;</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordtype">int</span> k = 0;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    UBaseType_t n_active_tasks = 0;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">for</span>(;;){</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        vTaskDelay(10);</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>        <a class="code hl_function" href="uvfr__diagnostics_8c.html#a5fc9e31e7b03d4d9a54d2f581cb8da87">uvGetSDCStat</a>();</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <a class="code hl_variable" href="uvfr__diagnostics_8c.html#a43a3cba08a8b1c9d79b2242e977e3894">digi_in_stat</a> = <a class="code hl_function" href="uvfr__diagnostics_8c.html#a6a0def2ee39777c5c1d9df3ef2e1848e">uvGetDigiInStat</a>();</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordflow">if</span>(k%100 == 0){</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="comment">//dispVehicleStatusReport();</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    }</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>    <span class="keywordflow">if</span>(k%10 == 0){</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        vPortGetHeapStats(&amp;<a class="code hl_variable" href="group__state__engine.html#gace30759073ddac097d29f042acc4142d">xHeapStats</a>);</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    }</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="comment">//dispWheelSpeeds();</span></div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>        k = (k + 1)%100;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        <span class="keywordflow">if</span>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">cmd_data</a> == <a class="code hl_enumvalue" href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6">UV_KILL_CMD</a>){</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            <a class="code hl_function" href="group__state__engine__backend.html#ga5f35b34432afed7f18f91fb8607f096f">killSelf</a>(params);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(params-&gt;<a class="code hl_variable" href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">cmd_data</a> == <a class="code hl_enumvalue" href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077">UV_SUSPEND_CMD</a>){</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            <a class="code hl_function" href="group__state__engine__backend.html#gad6117850b55ad52be51d93915bcc313c">suspendSelf</a>(params);</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        }</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    }</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>}</div>
+</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
+<div class="foldopen" id="foldopen00281" data-start="{" data-end="}">
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a1922faa9d814176f3c5aec2410d9eb10">  281</a></span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a1922faa9d814176f3c5aec2410d9eb10">uvEnterDiagnosticMode</a>(){</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>}</div>
+</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="foldopen" id="foldopen00285" data-start="{" data-end="}">
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a2e21bd6dc99f8d0a62381a4010e2e257">  285</a></span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a2e21bd6dc99f8d0a62381a4010e2e257">uvExitDiagnosticMode</a>(){</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>}</div>
+</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span> </div>
+<div class="foldopen" id="foldopen00292" data-start="{" data-end="}">
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8h.html#a7ad14988beab0a9306cabebf1525133f">  292</a></span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a7ad14988beab0a9306cabebf1525133f">uvInitDiagnostics</a>(){</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        printf(<span class="stringliteral">&quot;Initializing Diagnostics\n&quot;</span>);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    uint32_t var = 0;</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <a class="code hl_struct" href="structuv__task__info.html">uv_task_info</a>* diag_task = <a class="code hl_function" href="group__state__engine__backend.html#ga43cdd5f23929fee4ba86d4fd0b60d6ad">uvCreateServiceTask</a>();</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    diag_task-&gt;<a class="code hl_variable" href="structuv__task__info.html#afcd240d2b6b01b4acea600ef4dfe8fbc">task_function</a> = <a class="code hl_function" href="uvfr__diagnostics_8c.html#a302351be7e0283cdaf7e74f28befee4b">uvBackgroundDiagnosticsDaemon</a>;</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    diag_task-&gt;<a class="code hl_variable" href="structuv__task__info.html#ab24dea3bde4de2d839bf15e65c2df0d6">active_states</a> = 0xFFFF;</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    diag_task-&gt;<a class="code hl_variable" href="structuv__task__info.html#ad24b438130bb3098ee5e855222dff21d">task_name</a> = <span class="stringliteral">&quot;diagDaemon&quot;</span>;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    diag_task-&gt;<a class="code hl_variable" href="structuv__task__info.html#a353ec6bf2c42ab0920f3d1e671e568a3">stack_size</a> = 1024;</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    diag_task-&gt;<a class="code hl_variable" href="structuv__task__info.html#aff45751f7189980589d55379d1d5a355">task_priority</a> = 1;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span> </div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_function" href="daq_8h.html#a56ca1193de01115c27ceb3768994017f">associateDaqParamWithVar</a>(<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a5d713a1bf783e0de4316a965ad3c7181">DIGI_IN_STAT</a>,&amp;<a class="code hl_variable" href="uvfr__diagnostics_8c.html#a43a3cba08a8b1c9d79b2242e977e3894">digi_in_stat</a>);</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <a class="code hl_function" href="daq_8h.html#a56ca1193de01115c27ceb3768994017f">associateDaqParamWithVar</a>(<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ac794e48e12c4523157296fe8e3892e77">IMD_FAULT_HW</a>,&amp;<a class="code hl_variable" href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">g_bms_fault</a>);</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <a class="code hl_function" href="daq_8h.html#a56ca1193de01115c27ceb3768994017f">associateDaqParamWithVar</a>(<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a913de4cb2f5eb86cb2aba86f6dbe333d">BMS_FAULT_HW</a>,&amp;<a class="code hl_variable" href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">g_imd_fault</a>);</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <a class="code hl_function" href="daq_8h.html#a56ca1193de01115c27ceb3768994017f">associateDaqParamWithVar</a>(<a class="code hl_enumvalue" href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ab576652d69f95fc200616c41ada8c611">BSPD_FAULT_HW</a>,&amp;<a class="code hl_variable" href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">g_bspd_fault</a>);</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span> </div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span> </div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>    <span class="comment">//TestPorts lol;</span></div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>    <span class="keywordflow">if</span>(__debugWriteInternal(<span class="stringliteral">&quot;Testing Port 0\n \0&quot;</span>,0)!=<a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        uvPanic(<span class="stringliteral">&quot;ITM_FAIL&quot;</span>,0);</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    }</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span> </div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordflow">if</span>(__debugWriteInternal(<span class="stringliteral">&quot;Testing Port 1\n \0&quot;</span>,1)!=<a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        uvPanic(<span class="stringliteral">&quot;ITM_FAIL&quot;</span>,0);</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    }</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <span class="keywordflow">if</span>(__debugWriteInternal(<span class="stringliteral">&quot;Testing Port 2\n \0&quot;</span>,2)!=<a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            uvPanic(<span class="stringliteral">&quot;ITM_FAIL&quot;</span>,0);</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>    }</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>    <span class="keywordflow">if</span>(__debugWriteInternal(<span class="stringliteral">&quot;Testing Port 3\n \0&quot;</span>,3)!=<a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>                uvPanic(<span class="stringliteral">&quot;ITM_FAIL&quot;</span>,0);</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    }</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <a class="code hl_function" href="group__state__engine__backend.html#ga15cdf09b5625c2ba29a6c6d5c96214dc">uvStartTask</a>(&amp;var,diag_task);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span> </div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>}</div>
+</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span> </div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
+<div class="foldopen" id="foldopen00340" data-start="{" data-end="}">
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d">  340</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d">handleDiagnosticMsg</a>(<a class="code hl_struct" href="structuv___c_a_n__msg.html">uv_CAN_msg</a>* msg){</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span> </div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>    uint8_t cmd_byte = msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>[0];</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    <span class="keywordflow">switch</span>(cmd_byte){</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869">ENTER_DIAGNOSTICS_MODE</a>:</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span> </div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c">EXIT_DIAGNOSTICS_MODE</a>:</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463">REQUEST_STATE_CHANGE</a>:</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>        <span class="keywordflow">if</span>(<a class="code hl_function" href="group__state__engine__api.html#gaa3ad3e8df75177c00265881c16563212">changeVehicleState</a>(msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>[1]&lt;&lt;8 | msg-&gt;<a class="code hl_variable" href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">data</a>[2]) != <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>){</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span> </div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>        }</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6">FORCE_STATE_CHANGE</a>:</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c">dCLEAR_FAULTS</a>:</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span> </div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>        <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    }</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>}</div>
+</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
+<div class="foldopen" id="foldopen00372" data-start="{" data-end="}">
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno"><a class="line" href="syscalls_8c.html#aa53ed4b191897a1bfc205aa1da005d24">  372</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#abc513dd972081ae765b6949a62872eb7">__io_putchar</a>(<span class="keywordtype">int</span> ch){</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    ITM_SendChar(ch);</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>    <span class="keywordflow">return</span> ch;</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>}</div>
+</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="preprocessor">#ifdef DEBUG</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span><span class="preprocessor">#define MAX_DEBUGSTRING_LENGTH 256</span></div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span><span class="comment">//Basically like ITM_SendChar, however you can send to one of several registers</span></div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span><span class="keyword">static</span> uint32_t ITM_SendCharToReg (<span class="keywordtype">char</span> ch, uint32_t port)</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>{</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keywordflow">if</span> (port &lt; 32) { <span class="comment">// ITM has 32 ports (0-31)</span></div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>        <span class="comment">// Check if ITM is enabled and port stimulus is enabled</span></div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>        <span class="keywordflow">if</span> ((ITM-&gt;TCR &amp; ITM_TCR_ITMENA_Msk) &amp;&amp; (ITM-&gt;TER &amp; (1UL &lt;&lt; port))) {</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>            <span class="keywordflow">while</span> (ITM-&gt;PORT[port].u32 == 0); <span class="comment">// Wait for port to be ready</span></div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>            ITM-&gt;PORT[port].u8 = (uint8_t)ch;</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>        }</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>    }</div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>}</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span> </div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span><span class="keyword">static</span> <a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> __debugWriteInternal(<span class="keywordtype">char</span>* str,uint32_t port){</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>    <span class="keywordtype">int</span> i = 0;</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>    <span class="keywordflow">while</span>(i&lt;MAX_DEBUGSTRING_LENGTH){</div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span>        <span class="keywordflow">if</span>(ITM_SendCharToReg(str[i],port)!=str[i]){</div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span>            <span class="comment">//UHH OHH</span></div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span>        }</div>
+<div class="line"><a id="l00397" name="l00397"></a><span class="lineno">  397</span> </div>
+<div class="line"><a id="l00398" name="l00398"></a><span class="lineno">  398</span>        <span class="keywordflow">if</span>(str[i] == <span class="charliteral">&#39;\0&#39;</span>){</div>
+<div class="line"><a id="l00399" name="l00399"></a><span class="lineno">  399</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00400" name="l00400"></a><span class="lineno">  400</span>        }</div>
+<div class="line"><a id="l00401" name="l00401"></a><span class="lineno">  401</span> </div>
+<div class="line"><a id="l00402" name="l00402"></a><span class="lineno">  402</span>        i++;</div>
+<div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    }</div>
+<div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span> </div>
+<div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>    <span class="keywordflow">return</span> <a class="code hl_enumvalue" href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a>;</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>}</div>
+<div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span> </div>
+<div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span><span class="comment">//TODO RTOSiffy this to delegate printing to the actual task responsible for that</span></div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span><a class="code hl_typedef" href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a> <a class="code hl_function" href="uvfr__diagnostics_8h.html#a64dff9d9d8bbd70e50ee6d5657b0fc70">__debugWrite</a>(<span class="keywordtype">char</span>* str, uint32_t port){</div>
+<div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    <span class="keywordflow">return</span> __debugWriteInternal(str,port);</div>
+<div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span>}</div>
+<div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span> </div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span> </div>
+<div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span><span class="keywordtype">void</span> uvAssertFailed(<span class="keywordtype">char</span>* file, uint16_t line, TaskHandle_t task, <span class="keywordtype">char</span>* condition){</div>
+<div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
+<div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>}</div>
+<div class="line"><a id="l00417" name="l00417"></a><span class="lineno">  417</span> </div>
+<div class="line"><a id="l00418" name="l00418"></a><span class="lineno">  418</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00419" name="l00419"></a><span class="lineno">  419</span> </div>
+<div class="foldopen" id="foldopen00420" data-start="{" data-end="}">
+<div class="line"><a id="l00420" name="l00420"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a54b14b665d04a631991869b21065bf90">  420</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a54b14b665d04a631991869b21065bf90">vApplicationStackOverflowHook</a>( TaskHandle_t xTask, <span class="keywordtype">char</span> *pcTaskName ){</div>
+<div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span>    <span class="comment">//This is where we end up if one of the tasks has a stack overflow</span></div>
+<div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span> </div>
+<div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>    <span class="comment">//STOP THE CAR</span></div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>    uvPanic(<span class="stringliteral">&quot;Stack_overflow&quot;</span>,0);</div>
+<div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>    <span class="comment">//LOG WHAT HAPPENED</span></div>
+<div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span> </div>
+<div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    <span class="comment">//What task did it</span></div>
+<div class="line"><a id="l00428" name="l00428"></a><span class="lineno">  428</span> </div>
+<div class="line"><a id="l00429" name="l00429"></a><span class="lineno">  429</span>    <span class="comment">//How badly did it overflow?</span></div>
+<div class="line"><a id="l00430" name="l00430"></a><span class="lineno">  430</span> </div>
+<div class="line"><a id="l00431" name="l00431"></a><span class="lineno">  431</span>    <span class="comment">//Try to get a trace!</span></div>
+<div class="line"><a id="l00432" name="l00432"></a><span class="lineno">  432</span> </div>
+<div class="line"><a id="l00433" name="l00433"></a><span class="lineno">  433</span>    <span class="comment">//Hang:</span></div>
+<div class="line"><a id="l00434" name="l00434"></a><span class="lineno">  434</span> </div>
+<div class="line"><a id="l00435" name="l00435"></a><span class="lineno">  435</span>    <span class="keywordflow">for</span>(;;){</div>
+<div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span> </div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno">  437</span>    }</div>
+<div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>}</div>
+</div>
+<div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span> </div>
+<div class="foldopen" id="foldopen00440" data-start="{" data-end="}">
+<div class="line"><a id="l00440" name="l00440"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a73f6aa45470ada02a5d6f3a522d8f13c">  440</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a73f6aa45470ada02a5d6f3a522d8f13c">vApplicationMallocFailedHook</a>(){</div>
+<div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>    <span class="comment">//pvPortMalloc has failed</span></div>
+<div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span> </div>
+<div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>    <span class="comment">//STOP THE CAR</span></div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    uvPanic(<span class="stringliteral">&quot;Failed Malloc&quot;</span>,0);</div>
+<div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>    <span class="comment">//LOG WHAT HAPPENED</span></div>
+<div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span> </div>
+<div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>    <span class="comment">//What task did it</span></div>
+<div class="line"><a id="l00448" name="l00448"></a><span class="lineno">  448</span> </div>
+<div class="line"><a id="l00449" name="l00449"></a><span class="lineno">  449</span>    <span class="comment">//Hang</span></div>
+<div class="line"><a id="l00450" name="l00450"></a><span class="lineno">  450</span> </div>
+<div class="line"><a id="l00451" name="l00451"></a><span class="lineno">  451</span>    <span class="keywordflow">for</span>(;;){</div>
+<div class="line"><a id="l00452" name="l00452"></a><span class="lineno">  452</span> </div>
+<div class="line"><a id="l00453" name="l00453"></a><span class="lineno">  453</span>    }</div>
+<div class="line"><a id="l00454" name="l00454"></a><span class="lineno">  454</span>}</div>
+</div>
+<div class="line"><a id="l00455" name="l00455"></a><span class="lineno">  455</span> </div>
+<div class="line"><a id="l00456" name="l00456"></a><span class="lineno">  456</span> </div>
+<div class="foldopen" id="foldopen00457" data-start="{" data-end="}">
+<div class="line"><a id="l00457" name="l00457"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8c.html#a9ca051aa77e17583aa5a85d5de5c199a">  457</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a9ca051aa77e17583aa5a85d5de5c199a">vApplicationTickHook</a>( <span class="keywordtype">void</span> ){</div>
+<div class="line"><a id="l00458" name="l00458"></a><span class="lineno">  458</span>    <span class="comment">//This is not used but it makes the compiler STFU</span></div>
+<div class="line"><a id="l00459" name="l00459"></a><span class="lineno">  459</span>}</div>
+</div>
+<div class="line"><a id="l00460" name="l00460"></a><span class="lineno">  460</span> </div>
+<div class="line"><a id="l00461" name="l00461"></a><span class="lineno">  461</span><span class="keyword">static</span> uint32_t tictime_us = 0xFFFFFFFF;</div>
+<div class="line"><a id="l00462" name="l00462"></a><span class="lineno">  462</span> </div>
+<div class="foldopen" id="foldopen00463" data-start="{" data-end="}">
+<div class="line"><a id="l00463" name="l00463"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8h.html#a179d6919fb5c2b4c4a661b4cd44a0a5e">  463</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="uvfr__diagnostics_8c.html#a179d6919fb5c2b4c4a661b4cd44a0a5e">__tic</a>(){</div>
+<div class="line"><a id="l00464" name="l00464"></a><span class="lineno">  464</span>    tictime_us = __HAL_TIM_GET_COUNTER(&amp;<a class="code hl_variable" href="tim_8h.html#acefaeaaa3856ddddae7083b2d220fe4b">htim5</a>);</div>
+<div class="line"><a id="l00465" name="l00465"></a><span class="lineno">  465</span>}</div>
+</div>
+<div class="line"><a id="l00466" name="l00466"></a><span class="lineno">  466</span> </div>
+<div class="foldopen" id="foldopen00467" data-start="{" data-end="}">
+<div class="line"><a id="l00467" name="l00467"></a><span class="lineno"><a class="line" href="uvfr__diagnostics_8h.html#ac9fe4d1d452b9db892bbd430e4aeb2e1">  467</a></span>uint32_t <a class="code hl_function" href="uvfr__diagnostics_8c.html#ac9fe4d1d452b9db892bbd430e4aeb2e1">__toc</a>(){</div>
+<div class="line"><a id="l00468" name="l00468"></a><span class="lineno">  468</span>    uint32_t now = __HAL_TIM_GET_COUNTER(&amp;<a class="code hl_variable" href="tim_8h.html#acefaeaaa3856ddddae7083b2d220fe4b">htim5</a>);</div>
+<div class="line"><a id="l00469" name="l00469"></a><span class="lineno">  469</span>    <span class="keywordflow">if</span> (tictime_us &gt; now) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00470" name="l00470"></a><span class="lineno">  470</span>    <span class="keywordflow">return</span> now - tictime_us;</div>
+<div class="line"><a id="l00471" name="l00471"></a><span class="lineno">  471</span>}</div>
+</div>
+<div class="ttc" id="abms_8h_html"><div class="ttname"><a href="bms_8h.html">bms.h</a></div></div>
+<div class="ttc" id="abms_8h_html_acd394543f05f280e0ffead84f5380215"><div class="ttname"><a href="bms_8h.html#acd394543f05f280e0ffead84f5380215">g_bms_state</a></div><div class="ttdeci">volatile bms_state_t g_bms_state</div><div class="ttdef"><b>Definition</b> <a href="bms_8c_source.html#l00035">bms.c:35</a></div></div>
+<div class="ttc" id="acan_8h_html_aef3770e45bbacbf527fd93dd80eea9b9"><div class="ttname"><a href="can_8h.html#aef3770e45bbacbf527fd93dd80eea9b9">uv_status</a></div><div class="ttdeci">enum uv_status_t uv_status</div><div class="ttdoc">This is meant to be a return type from functions that indicates what is actually going on.</div><div class="ttdef"><b>Definition</b> <a href="can_8h_source.html#l00049">can.h:49</a></div></div>
+<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a5d713a1bf783e0de4316a965ad3c7181"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a5d713a1bf783e0de4316a965ad3c7181">DIGI_IN_STAT</a></div><div class="ttdeci">@ DIGI_IN_STAT</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00035">daq.h:35</a></div></div>
+<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9a913de4cb2f5eb86cb2aba86f6dbe333d"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9a913de4cb2f5eb86cb2aba86f6dbe333d">BMS_FAULT_HW</a></div><div class="ttdeci">@ BMS_FAULT_HW</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00058">daq.h:58</a></div></div>
+<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9ab576652d69f95fc200616c41ada8c611"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ab576652d69f95fc200616c41ada8c611">BSPD_FAULT_HW</a></div><div class="ttdeci">@ BSPD_FAULT_HW</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00073">daq.h:73</a></div></div>
+<div class="ttc" id="adaq_8h_html_a5249d5d3ad44df9d4479b814028469a9ac794e48e12c4523157296fe8e3892e77"><div class="ttname"><a href="daq_8h.html#a5249d5d3ad44df9d4479b814028469a9ac794e48e12c4523157296fe8e3892e77">IMD_FAULT_HW</a></div><div class="ttdeci">@ IMD_FAULT_HW</div><div class="ttdef"><b>Definition</b> <a href="daq_8h_source.html#l00091">daq.h:91</a></div></div>
+<div class="ttc" id="adaq_8h_html_a56ca1193de01115c27ceb3768994017f"><div class="ttname"><a href="daq_8h.html#a56ca1193de01115c27ceb3768994017f">associateDaqParamWithVar</a></div><div class="ttdeci">uv_status associateDaqParamWithVar(uint16_t paramID, void *var)</div><div class="ttdef"><b>Definition</b> <a href="daq_8c_source.html#l00143">daq.c:143</a></div></div>
+<div class="ttc" id="agroup__state__engine__api_html_gaa3ad3e8df75177c00265881c16563212"><div class="ttname"><a href="group__state__engine__api.html#gaa3ad3e8df75177c00265881c16563212">changeVehicleState</a></div><div class="ttdeci">uv_status changeVehicleState(uint16_t state)</div><div class="ttdoc">Function for changing the state of the vehicle, as well as the list of active + inactive tasks.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l00094">uvfr_state_engine.c:94</a></div></div>
+<div class="ttc" id="agroup__state__engine__api_html_ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6"><div class="ttname"><a href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6">UV_KILL_CMD</a></div><div class="ttdeci">@ UV_KILL_CMD</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00105">uvfr_state_engine.h:105</a></div></div>
+<div class="ttc" id="agroup__state__engine__api_html_ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077"><div class="ttname"><a href="group__state__engine__api.html#ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077">UV_SUSPEND_CMD</a></div><div class="ttdeci">@ UV_SUSPEND_CMD</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00106">uvfr_state_engine.h:106</a></div></div>
+<div class="ttc" id="agroup__state__engine__backend_html_ga15cdf09b5625c2ba29a6c6d5c96214dc"><div class="ttname"><a href="group__state__engine__backend.html#ga15cdf09b5625c2ba29a6c6d5c96214dc">uvStartTask</a></div><div class="ttdeci">uv_status uvStartTask(uint32_t *tracker, struct uv_task_info *t)</div><div class="ttdoc">: This is a function that starts tasks which are already registered in the system</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l00449">uvfr_state_engine.c:449</a></div></div>
+<div class="ttc" id="agroup__state__engine__backend_html_ga43cdd5f23929fee4ba86d4fd0b60d6ad"><div class="ttname"><a href="group__state__engine__backend.html#ga43cdd5f23929fee4ba86d4fd0b60d6ad">uvCreateServiceTask</a></div><div class="ttdeci">struct uv_task_info * uvCreateServiceTask()</div><div class="ttdoc">Create a new service task, because fuck you, thats why.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l01266">uvfr_state_engine.c:1266</a></div></div>
+<div class="ttc" id="agroup__state__engine__backend_html_ga5f35b34432afed7f18f91fb8607f096f"><div class="ttname"><a href="group__state__engine__backend.html#ga5f35b34432afed7f18f91fb8607f096f">killSelf</a></div><div class="ttdeci">void killSelf(struct uv_task_info *t)</div><div class="ttdoc">This function is called by a task to nuke itself. Is a wrapper function that is used to do all the di...</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l00773">uvfr_state_engine.c:773</a></div></div>
+<div class="ttc" id="agroup__state__engine__backend_html_gad6117850b55ad52be51d93915bcc313c"><div class="ttname"><a href="group__state__engine__backend.html#gad6117850b55ad52be51d93915bcc313c">suspendSelf</a></div><div class="ttdeci">void suspendSelf(struct uv_task_info *t)</div><div class="ttdoc">Called by a task that needs to suspend itself, once the task has determined it is safe to do so.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l00814">uvfr_state_engine.c:814</a></div></div>
+<div class="ttc" id="agroup__state__engine_html_gace30759073ddac097d29f042acc4142d"><div class="ttname"><a href="group__state__engine.html#gace30759073ddac097d29f042acc4142d">xHeapStats</a></div><div class="ttdeci">HeapStats_t xHeapStats</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l00013">uvfr_state_engine.c:13</a></div></div>
+<div class="ttc" id="aimd_8h_html"><div class="ttname"><a href="imd_8h.html">imd.h</a></div></div>
+<div class="ttc" id="aimd_8h_html_a02e240beafca24a8549285c997caff60"><div class="ttname"><a href="imd_8h.html#a02e240beafca24a8549285c997caff60">IMD_GetRnRaw</a></div><div class="ttdeci">uint16_t IMD_GetRnRaw(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00418">imd.c:418</a></div></div>
+<div class="ttc" id="aimd_8h_html_a3810783b323bf7272662dc7d6ca3c2fb"><div class="ttname"><a href="imd_8h.html#a3810783b323bf7272662dc7d6ca3c2fb">IMD_GetSerial0Word</a></div><div class="ttdeci">uint32_t IMD_GetSerial0Word(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00405">imd.c:405</a></div></div>
+<div class="ttc" id="aimd_8h_html_a399cfd70be8568850d2b394628e87d00"><div class="ttname"><a href="imd_8h.html#a399cfd70be8568850d2b394628e87d00">IMD_GetStatusBits</a></div><div class="ttdeci">uint8_t IMD_GetStatusBits(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00409">imd.c:409</a></div></div>
+<div class="ttc" id="aimd_8h_html_a48eee67a59558632f01c8db100b376eb"><div class="ttname"><a href="imd_8h.html#a48eee67a59558632f01c8db100b376eb">IMD_GetRpRaw</a></div><div class="ttdeci">uint16_t IMD_GetRpRaw(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00414">imd.c:414</a></div></div>
+<div class="ttc" id="aimd_8h_html_a51b87d333c6d2e4f65d69fc2469b8a84"><div class="ttname"><a href="imd_8h.html#a51b87d333c6d2e4f65d69fc2469b8a84">IMD_IsOnline</a></div><div class="ttdeci">uint8_t IMD_IsOnline(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00397">imd.c:397</a></div></div>
+<div class="ttc" id="aimd_8h_html_a89de0e5f75445980baf98050bd35be09"><div class="ttname"><a href="imd_8h.html#a89de0e5f75445980baf98050bd35be09">IMD_GetErrorFlagsRaw</a></div><div class="ttdeci">uint16_t IMD_GetErrorFlagsRaw(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00422">imd.c:422</a></div></div>
+<div class="ttc" id="aimd_8h_html_adb492bbf450d62cc9056d75237f6d86e"><div class="ttname"><a href="imd_8h.html#adb492bbf450d62cc9056d75237f6d86e">IMD_GetSerial0Valid</a></div><div class="ttdeci">uint8_t IMD_GetSerial0Valid(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00401">imd.c:401</a></div></div>
+<div class="ttc" id="aimd_8h_html_ae8858bdc2ca9ea141f65c868f347ac8d"><div class="ttname"><a href="imd_8h.html#ae8858bdc2ca9ea141f65c868f347ac8d">IMD_GetSafetyTouchCurrent</a></div><div class="ttdeci">uint16_t IMD_GetSafetyTouchCurrent(void)</div><div class="ttdef"><b>Definition</b> <a href="imd_8c_source.html#l00426">imd.c:426</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_a448230d0f8f6d17144c3c3cc74dfd68d"><div class="ttname"><a href="structbms__state__t.html#a448230d0f8f6d17144c3c3cc74dfd68d">bms_state_t::msg1corrupt</a></div><div class="ttdeci">bool msg1corrupt</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00024">bms.h:24</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_a56a00f8fc18b0ea4f2818e6f02b94775"><div class="ttname"><a href="structbms__state__t.html#a56a00f8fc18b0ea4f2818e6f02b94775">bms_state_t::pack_voltage_dV</a></div><div class="ttdeci">uint16_t pack_voltage_dV</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00021">bms.h:21</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_a5f562e3713009e636aa71f076b9854a6"><div class="ttname"><a href="structbms__state__t.html#a5f562e3713009e636aa71f076b9854a6">bms_state_t::pack_current_dA</a></div><div class="ttdeci">uint16_t pack_current_dA</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00020">bms.h:20</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_a929e6bb5b650f4c0fa6a8442bf76c90a"><div class="ttname"><a href="structbms__state__t.html#a929e6bb5b650f4c0fa6a8442bf76c90a">bms_state_t::msg2corrupt</a></div><div class="ttdeci">bool msg2corrupt</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00029">bms.h:29</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_aa67cb7fac22f36f2a9876b3462b1a88a"><div class="ttname"><a href="structbms__state__t.html#aa67cb7fac22f36f2a9876b3462b1a88a">bms_state_t::max_cell_temp</a></div><div class="ttdeci">uint16_t max_cell_temp</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00028">bms.h:28</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_aafa9d07dac634207a9a61a1ee0f40bd1"><div class="ttname"><a href="structbms__state__t.html#aafa9d07dac634207a9a61a1ee0f40bd1">bms_state_t::relayState</a></div><div class="ttdeci">uint16_t relayState</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00023">bms.h:23</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_adbf4c6c6a62d90353abff928ed9dfcbf"><div class="ttname"><a href="structbms__state__t.html#adbf4c6c6a62d90353abff928ed9dfcbf">bms_state_t::min_cell_temp</a></div><div class="ttdeci">uint16_t min_cell_temp</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00027">bms.h:27</a></div></div>
+<div class="ttc" id="astructbms__state__t_html_ae14b31f9d6a2b3b66340b25dd0ba66d1"><div class="ttname"><a href="structbms__state__t.html#ae14b31f9d6a2b3b66340b25dd0ba66d1">bms_state_t::soc_pct</a></div><div class="ttdeci">uint16_t soc_pct</div><div class="ttdef"><b>Definition</b> <a href="bms_8h_source.html#l00022">bms.h:22</a></div></div>
+<div class="ttc" id="astructuv___c_a_n__msg_html"><div class="ttname"><a href="structuv___c_a_n__msg.html">uv_CAN_msg</a></div><div class="ttdoc">Representative of a CAN message.</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00315">uvfr_utils.h:315</a></div></div>
+<div class="ttc" id="astructuv___c_a_n__msg_html_aec63cc112176da7895d0cfc8b32e6935"><div class="ttname"><a href="structuv___c_a_n__msg.html#aec63cc112176da7895d0cfc8b32e6935">uv_CAN_msg::data</a></div><div class="ttdeci">uint8_t data[8]</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00322">uvfr_utils.h:322</a></div></div>
+<div class="ttc" id="astructuv__print__request_html"><div class="ttname"><a href="structuv__print__request.html">uv_print_request</a></div><div class="ttdef"><b>Definition</b> <a href="#l00025">uvfr_diagnostics.c:25</a></div></div>
+<div class="ttc" id="astructuv__print__request_html_a769884047201a22fc5e999b097ff5a6f"><div class="ttname"><a href="structuv__print__request.html#a769884047201a22fc5e999b097ff5a6f">uv_print_request::port</a></div><div class="ttdeci">uint32_t port</div><div class="ttdef"><b>Definition</b> <a href="#l00026">uvfr_diagnostics.c:26</a></div></div>
+<div class="ttc" id="astructuv__print__request_html_a873bf7ada3313dc9dc699a23e7b1771b"><div class="ttname"><a href="structuv__print__request.html#a873bf7ada3313dc9dc699a23e7b1771b">uv_print_request::str</a></div><div class="ttdeci">char * str</div><div class="ttdef"><b>Definition</b> <a href="#l00027">uvfr_diagnostics.c:27</a></div></div>
+<div class="ttc" id="astructuv__task__info_html"><div class="ttname"><a href="structuv__task__info.html">uv_task_info</a></div><div class="ttdoc">This struct is designed to hold neccessary information about an RTOS task that will be managed by uvf...</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00227">uvfr_state_engine.h:227</a></div></div>
+<div class="ttc" id="astructuv__task__info_html_a353ec6bf2c42ab0920f3d1e671e568a3"><div class="ttname"><a href="structuv__task__info.html#a353ec6bf2c42ab0920f3d1e671e568a3">uv_task_info::stack_size</a></div><div class="ttdeci">uint32_t stack_size</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00238">uvfr_state_engine.h:238</a></div></div>
+<div class="ttc" id="astructuv__task__info_html_ab24dea3bde4de2d839bf15e65c2df0d6"><div class="ttname"><a href="structuv__task__info.html#ab24dea3bde4de2d839bf15e65c2df0d6">uv_task_info::active_states</a></div><div class="ttdeci">uint16_t active_states</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00258">uvfr_state_engine.h:258</a></div></div>
+<div class="ttc" id="astructuv__task__info_html_ad24b438130bb3098ee5e855222dff21d"><div class="ttname"><a href="structuv__task__info.html#ad24b438130bb3098ee5e855222dff21d">uv_task_info::task_name</a></div><div class="ttdeci">char * task_name</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00229">uvfr_state_engine.h:229</a></div></div>
+<div class="ttc" id="astructuv__task__info_html_af532b5031cd6a168a3ec45ab9ead4f23"><div class="ttname"><a href="structuv__task__info.html#af532b5031cd6a168a3ec45ab9ead4f23">uv_task_info::cmd_data</a></div><div class="ttdeci">uv_task_cmd cmd_data</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00248">uvfr_state_engine.h:248</a></div></div>
+<div class="ttc" id="astructuv__task__info_html_afcd240d2b6b01b4acea600ef4dfe8fbc"><div class="ttname"><a href="structuv__task__info.html#afcd240d2b6b01b4acea600ef4dfe8fbc">uv_task_info::task_function</a></div><div class="ttdeci">TaskFunction_t task_function</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00234">uvfr_state_engine.h:234</a></div></div>
+<div class="ttc" id="astructuv__task__info_html_aff45751f7189980589d55379d1d5a355"><div class="ttname"><a href="structuv__task__info.html#aff45751f7189980589d55379d1d5a355">uv_task_info::task_priority</a></div><div class="ttdeci">osPriority task_priority</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8h_source.html#l00235">uvfr_state_engine.h:235</a></div></div>
+<div class="ttc" id="atim_8h_html_acefaeaaa3856ddddae7083b2d220fe4b"><div class="ttname"><a href="tim_8h.html#acefaeaaa3856ddddae7083b2d220fe4b">htim5</a></div><div class="ttdeci">TIM_HandleTypeDef htim5</div><div class="ttdef"><b>Definition</b> <a href="tim_8c_source.html#l00043">tim.c:43</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a00173fda32a1efb6830e940fd8e6ce10"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a00173fda32a1efb6830e940fd8e6ce10">g_imd_fault</a></div><div class="ttdeci">uint8_t g_imd_fault</div><div class="ttdef"><b>Definition</b> <a href="#l00034">uvfr_diagnostics.c:34</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a070644ee820f64ab630858353841cf86"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a070644ee820f64ab630858353841cf86">g_bms_fault</a></div><div class="ttdeci">uint8_t g_bms_fault</div><div class="ttdef"><b>Definition</b> <a href="#l00033">uvfr_diagnostics.c:33</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a089663ae36d10c88291aefbe7376542f"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a089663ae36d10c88291aefbe7376542f">dispStateEngineStatus</a></div><div class="ttdeci">void dispStateEngineStatus()</div><div class="ttdef"><b>Definition</b> <a href="#l00157">uvfr_diagnostics.c:157</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a179d6919fb5c2b4c4a661b4cd44a0a5e"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a179d6919fb5c2b4c4a661b4cd44a0a5e">__tic</a></div><div class="ttdeci">void __tic()</div><div class="ttdef"><b>Definition</b> <a href="#l00463">uvfr_diagnostics.c:463</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a1922faa9d814176f3c5aec2410d9eb10"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a1922faa9d814176f3c5aec2410d9eb10">uvEnterDiagnosticMode</a></div><div class="ttdeci">uv_status uvEnterDiagnosticMode()</div><div class="ttdef"><b>Definition</b> <a href="#l00281">uvfr_diagnostics.c:281</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a2e21bd6dc99f8d0a62381a4010e2e257"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a2e21bd6dc99f8d0a62381a4010e2e257">uvExitDiagnosticMode</a></div><div class="ttdeci">uv_status uvExitDiagnosticMode()</div><div class="ttdef"><b>Definition</b> <a href="#l00285">uvfr_diagnostics.c:285</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a302351be7e0283cdaf7e74f28befee4b"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a302351be7e0283cdaf7e74f28befee4b">uvBackgroundDiagnosticsDaemon</a></div><div class="ttdeci">void uvBackgroundDiagnosticsDaemon(void *args)</div><div class="ttdoc">Background task responsible for much of our live telemtry and fault detection capabilies.</div><div class="ttdef"><b>Definition</b> <a href="#l00248">uvfr_diagnostics.c:248</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a382e3d75b33025ed95999fdddfd6fa21"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a382e3d75b33025ed95999fdddfd6fa21">print_queue</a></div><div class="ttdeci">QueueHandle_t print_queue</div><div class="ttdef"><b>Definition</b> <a href="#l00030">uvfr_diagnostics.c:30</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a43a3cba08a8b1c9d79b2242e977e3894"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a43a3cba08a8b1c9d79b2242e977e3894">digi_in_stat</a></div><div class="ttdeci">uint16_t digi_in_stat</div><div class="ttdef"><b>Definition</b> <a href="#l00039">uvfr_diagnostics.c:39</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a511ab2530e985e898fc2fb417e86229d"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a511ab2530e985e898fc2fb417e86229d">g_SDCR_tripped</a></div><div class="ttdeci">uint8_t g_SDCR_tripped</div><div class="ttdef"><b>Definition</b> <a href="#l00037">uvfr_diagnostics.c:37</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a54b14b665d04a631991869b21065bf90"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a54b14b665d04a631991869b21065bf90">vApplicationStackOverflowHook</a></div><div class="ttdeci">void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)</div><div class="ttdef"><b>Definition</b> <a href="#l00420">uvfr_diagnostics.c:420</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a5fc9e31e7b03d4d9a54d2f581cb8da87"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a5fc9e31e7b03d4d9a54d2f581cb8da87">uvGetSDCStat</a></div><div class="ttdeci">void uvGetSDCStat()</div><div class="ttdef"><b>Definition</b> <a href="#l00216">uvfr_diagnostics.c:216</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a61a3d749b05196082fa09d98d6f4508d"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a61a3d749b05196082fa09d98d6f4508d">dispVehicleStatusReport</a></div><div class="ttdeci">void dispVehicleStatusReport()</div><div class="ttdef"><b>Definition</b> <a href="#l00197">uvfr_diagnostics.c:197</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a6573c897f7da39fd62ea8becc9580317"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a6573c897f7da39fd62ea8becc9580317">dispWheelSpeeds</a></div><div class="ttdeci">void dispWheelSpeeds()</div><div class="ttdef"><b>Definition</b> <a href="tim_8c_source.html#l00292">tim.c:292</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a6a0def2ee39777c5c1d9df3ef2e1848e"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a6a0def2ee39777c5c1d9df3ef2e1848e">uvGetDigiInStat</a></div><div class="ttdeci">uint16_t uvGetDigiInStat()</div><div class="ttdef"><b>Definition</b> <a href="#l00241">uvfr_diagnostics.c:241</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a73f6aa45470ada02a5d6f3a522d8f13c"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a73f6aa45470ada02a5d6f3a522d8f13c">vApplicationMallocFailedHook</a></div><div class="ttdeci">void vApplicationMallocFailedHook()</div><div class="ttdef"><b>Definition</b> <a href="#l00440">uvfr_diagnostics.c:440</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a7ad14988beab0a9306cabebf1525133f"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a7ad14988beab0a9306cabebf1525133f">uvInitDiagnostics</a></div><div class="ttdeci">uv_status uvInitDiagnostics()</div><div class="ttdoc">Initialize the diagnostics of the vehicle.</div><div class="ttdef"><b>Definition</b> <a href="#l00292">uvfr_diagnostics.c:292</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a7fc8cba7be317c29ecd0b2946679bba6"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a7fc8cba7be317c29ecd0b2946679bba6">g_bspd_fault</a></div><div class="ttdeci">uint8_t g_bspd_fault</div><div class="ttdef"><b>Definition</b> <a href="#l00035">uvfr_diagnostics.c:35</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a8077f10c4f50545bbd309f1e1fe6122f"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a8077f10c4f50545bbd309f1e1fe6122f">print_fixed_d</a></div><div class="ttdeci">void print_fixed_d(const char *label, int32_t value, int decimals, const char *unit)</div><div class="ttdef"><b>Definition</b> <a href="#l00088">uvfr_diagnostics.c:88</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a9104caf19d0d3f6239592daed7cebbb7"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a9104caf19d0d3f6239592daed7cebbb7">sprint_fixed_d</a></div><div class="ttdeci">int32_t sprint_fixed_d(char *buf, const char *label, int32_t value, int decimals, const char *unit)</div><div class="ttdef"><b>Definition</b> <a href="#l00046">uvfr_diagnostics.c:46</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_a9ca051aa77e17583aa5a85d5de5c199a"><div class="ttname"><a href="uvfr__diagnostics_8c.html#a9ca051aa77e17583aa5a85d5de5c199a">vApplicationTickHook</a></div><div class="ttdeci">void vApplicationTickHook(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00457">uvfr_diagnostics.c:457</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_aaa320c94b4b67f56acfb450d544240b4"><div class="ttname"><a href="uvfr__diagnostics_8c.html#aaa320c94b4b67f56acfb450d544240b4">dispExtDeviceStatus</a></div><div class="ttdeci">void dispExtDeviceStatus()</div><div class="ttdef"><b>Definition</b> <a href="#l00162">uvfr_diagnostics.c:162</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_abc513dd972081ae765b6949a62872eb7"><div class="ttname"><a href="uvfr__diagnostics_8c.html#abc513dd972081ae765b6949a62872eb7">__io_putchar</a></div><div class="ttdeci">int __io_putchar(int ch)</div><div class="ttdef"><b>Definition</b> <a href="#l00372">uvfr_diagnostics.c:372</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_ac227fb16a61fc925f514f8b28a854c3d"><div class="ttname"><a href="uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d">handleDiagnosticMsg</a></div><div class="ttdeci">void handleDiagnosticMsg(uv_CAN_msg *msg)</div><div class="ttdef"><b>Definition</b> <a href="#l00340">uvfr_diagnostics.c:340</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_ac9fe4d1d452b9db892bbd430e4aeb2e1"><div class="ttname"><a href="uvfr__diagnostics_8c.html#ac9fe4d1d452b9db892bbd430e4aeb2e1">__toc</a></div><div class="ttdeci">uint32_t __toc()</div><div class="ttdef"><b>Definition</b> <a href="#l00467">uvfr_diagnostics.c:467</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8c_html_ae6f49734fe7f5fbcd3e9e734f4a4dd18"><div class="ttname"><a href="uvfr__diagnostics_8c.html#ae6f49734fe7f5fbcd3e9e734f4a4dd18">dispTractiveSystemStatus</a></div><div class="ttdeci">void dispTractiveSystemStatus()</div><div class="ttdef"><b>Definition</b> <a href="#l00180">uvfr_diagnostics.c:180</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a4759f8a2a03479b1010f9b74eeba1869">ENTER_DIAGNOSTICS_MODE</a></div><div class="ttdeci">@ ENTER_DIAGNOSTICS_MODE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00044">uvfr_diagnostics.h:44</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c">EXIT_DIAGNOSTICS_MODE</a></div><div class="ttdeci">@ EXIT_DIAGNOSTICS_MODE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00045">uvfr_diagnostics.h:45</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6">FORCE_STATE_CHANGE</a></div><div class="ttdeci">@ FORCE_STATE_CHANGE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00047">uvfr_diagnostics.h:47</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4aa317138e8d2399198e96a02f627e842c">dCLEAR_FAULTS</a></div><div class="ttdeci">@ dCLEAR_FAULTS</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00049">uvfr_diagnostics.h:48</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8h_html_a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4ac45f584981b402c4ebbcbd534d942463">REQUEST_STATE_CHANGE</a></div><div class="ttdeci">@ REQUEST_STATE_CHANGE</div><div class="ttdef"><b>Definition</b> <a href="uvfr__diagnostics_8h_source.html#l00046">uvfr_diagnostics.h:46</a></div></div>
+<div class="ttc" id="auvfr__diagnostics_8h_html_a64dff9d9d8bbd70e50ee6d5657b0fc70"><div class="ttname"><a href="uvfr__diagnostics_8h.html#a64dff9d9d8bbd70e50ee6d5657b0fc70">__debugWrite</a></div><div class="ttdeci">uv_status __debugWrite(char *str, uint32_t port)</div></div>
+<div class="ttc" id="auvfr__state__engine_8h_html_a0ef324c9c88a50704c0604cd13da2717"><div class="ttname"><a href="uvfr__state__engine_8h.html#a0ef324c9c88a50704c0604cd13da2717">uvGetStateString</a></div><div class="ttdeci">char * uvGetStateString()</div><div class="ttdef"><b>Definition</b> <a href="uvfr__state__engine_8c_source.html#l01557">uvfr_state_engine.c:1557</a></div></div>
 <div class="ttc" id="auvfr__utils_8h_html"><div class="ttname"><a href="uvfr__utils_8h.html">uvfr_utils.h</a></div></div>
-<div class="ttc" id="auvfr__utils_8h_html_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9"><div class="ttname"><a href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a></div><div class="ttdeci">@ UV_OK</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00174">uvfr_utils.h:174</a></div></div>
+<div class="ttc" id="auvfr__utils_8h_html_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9"><div class="ttname"><a href="uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9">UV_OK</a></div><div class="ttdeci">@ UV_OK</div><div class="ttdef"><b>Definition</b> <a href="uvfr__utils_8h_source.html#l00180">uvfr_utils.h:180</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

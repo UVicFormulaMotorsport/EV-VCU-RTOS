@@ -7,7 +7,8 @@ var uvfr__utils_8h =
     [ "uv_CAN_msg", "structuv___c_a_n__msg.html", "structuv___c_a_n__msg" ],
     [ "uv_init_struct", "structuv__init__struct.html", "structuv__init__struct" ],
     [ "uv_task_msg_t", "structuv__task__msg__t.html", "structuv__task__msg__t" ],
-    [ "p_status", "structp__status.html", "structp__status" ],
+    [ "xdev_poll_msg", "structxdev__poll__msg.html", "structxdev__poll__msg" ],
+    [ "xdev_info", "structxdev__info.html", "structxdev__info" ],
     [ "uv_init_task_args", "structuv__init__task__args.html", "structuv__init__task__args" ],
     [ "uv_internal_params", "structuv__internal__params.html", "structuv__internal__params" ],
     [ "uv_init_task_response", "structuv__init__task__response.html", "structuv__init__task__response" ],
@@ -30,6 +31,7 @@ var uvfr__utils_8h =
     [ "isPowerOfTwo", "group__utility__macros.html#gade3043fb92536f8e1a616ba8aaef4ab9", null ],
     [ "MAX_INIT_TIME", "uvfr__utils_8h.html#a40d625666ff5a3c5918ec7591f0628ed", null ],
     [ "safePtrRead", "group__utility__macros.html#gaac2f65c6267d74d5d5136f82bf217efa", null ],
+    [ "safePtrReadStrict", "group__utility__macros.html#ga567d932a836c0e17b2ffaa5cf7f9e0ee", null ],
     [ "safePtrWrite", "group__utility__macros.html#gaf506fac19ab4ad3f5b7ddd00643e0b46", null ],
     [ "serializeBigE16", "group__utility__macros.html#ga505ca43923e2bb2162e218c3b8484357", null ],
     [ "serializeBigE32", "group__utility__macros.html#ga053aa19e84e50fd8c74f8d4bb0d7820f", null ],
@@ -42,12 +44,19 @@ var uvfr__utils_8h =
     [ "UV_CAN1", "uvfr__utils_8h.html#abdad0cac69564db7eec85ef103281130", null ],
     [ "UV_CAN2", "uvfr__utils_8h.html#a0b946cc6e8a3f7995d65c1921cfe989d", null ],
     [ "UV_CAN_CHANNEL_MASK", "uvfr__utils_8h.html#a3c2758e5f0e3f8d8e1470616418f60c8", null ],
+    [ "UV_CAN_CRIT_MSG_BIT", "uvfr__utils_8h.html#ac590a020ad2536a45523159c2a0b2ec3", null ],
     [ "UV_CAN_DYNAMIC_MEM", "uvfr__utils_8h.html#aa6688039909b8ed4eca05ab7a36fa8bd", null ],
     [ "UV_CAN_EXTENDED_ID", "uvfr__utils_8h.html#aa55012016c572366a0747ff7298c7fec", null ],
+    [ "UV_IDE_BIT", "uvfr__utils_8h.html#a90892b469893e2a5514916e359c7c31f", null ],
+    [ "XDEV_CHECK_TIMEOUT_BIT", "uvfr__utils_8h.html#a8271d45830bcd3a81c516ec8a0d306f8", null ],
+    [ "XDEV_DEVICE_EXPECTED", "uvfr__utils_8h.html#a53250f7129ac531af318ca80b2369b35", null ],
+    [ "XDEV_NO_PANIC_TIMEOUT", "uvfr__utils_8h.html#a63b77ac4096c81d5243fd00d5fd69f15", null ],
+    [ "XDEV_POLLED_LAST_CYCLE", "uvfr__utils_8h.html#a819809feda3eb4b28960b42b4ce59e18", null ],
+    [ "XDEV_POLLING_REQUIRED", "uvfr__utils_8h.html#ab5fd3260b5d96c52e32b7956090db6b3", null ],
+    [ "XDEV_UHH_UHH_DUHH", "uvfr__utils_8h.html#ab02afdf3bf6c137c551e9398ff1522b4", null ],
     [ "access_control_info", "uvfr__utils_8h.html#a93fd2ffb9029bc071a783fbfe4e3fcc9", null ],
     [ "access_control_type", "uvfr__utils_8h.html#a25c322a5b050bc1ab514e6d3e47c56a5", null ],
-    [ "bool", "uvfr__utils_8h.html#a0ecf26b576b9a54eca656b9be7ba6a06", null ],
-    [ "p_status", "uvfr__utils_8h.html#a861993718f780fec899b00c842bae43b", null ],
+    [ "uv_ecode", "uvfr__utils_8h.html#ac978a59e81f7ec0f72dd80aa2b5b3cbd", null ],
     [ "uv_ext_device_id", "uvfr__utils_8h.html#a96651e94773864de5bcf9028ab64ad19", null ],
     [ "uv_init_struct", "uvfr__utils_8h.html#a43d8765a7826292bdbd7d5d9f6b865fd", null ],
     [ "uv_init_task_args", "uvfr__utils_8h.html#a22371cac9dbfb95de19acc59e359d3df", null ],
@@ -55,6 +64,10 @@ var uvfr__utils_8h =
     [ "uv_internal_params", "uvfr__utils_8h.html#ab92fc0d70c77e3d9bf8b15b5f9cb91a8", null ],
     [ "uv_msg_type", "uvfr__utils_8h.html#ae0e8ee9ac0315ecdd228d9358e395c3d", null ],
     [ "uv_task_msg", "uvfr__utils_8h.html#af54e76be0a4de86596cdf342473361e3", null ],
+    [ "xdev_handle", "uvfr__utils_8h.html#aa725aa58161b6b07033c2e9b9a9a2797", null ],
+    [ "xdev_id", "uvfr__utils_8h.html#a31a6e863b4ff66aa77b33f46482d344b", null ],
+    [ "xdev_info", "uvfr__utils_8h.html#a407a67bfb773b045f6f52d16ce316803", null ],
+    [ "xdev_poll_msg", "uvfr__utils_8h.html#a093b46f3f7624fe0f361a27096c08f4c", null ],
     [ "access_control_t", "uvfr__utils_8h.html#ac4bac060238ca2be3b3b3ca25c77cc8c", [
       [ "UV_NONE", "uvfr__utils_8h.html#ac4bac060238ca2be3b3b3ca25c77cc8cafa7de31bfd82966f6473ed632aaf4358", null ],
       [ "UV_DUMB_FLAG", "uvfr__utils_8h.html#ac4bac060238ca2be3b3b3ca25c77cc8ca2b6a5d6871e45de18fab3b20d5eb415b", null ],
@@ -81,11 +94,19 @@ var uvfr__utils_8h =
       [ "econ", "uvfr__utils_8h.html#acd907d24ac9b557d684429bb0cd1ddb1a6e980d942af313712cd3ac6e66c002a5", null ],
       [ "limp", "uvfr__utils_8h.html#acd907d24ac9b557d684429bb0cd1ddb1af5d257c586a4a993f56fac4a77d35531", null ]
     ] ],
+    [ "uv_ecode", "uvfr__utils_8h.html#aee50bd719ce69c2638de571a36510d61", [
+      [ "UV_GENERIC_ERR", "uvfr__utils_8h.html#aee50bd719ce69c2638de571a36510d61ac4a93693a1a6357b80da8a6cf7ef2ea5", null ],
+      [ "UV_VCU_SW_ERR", "uvfr__utils_8h.html#aee50bd719ce69c2638de571a36510d61a78eb326a7d1f584ecc4e26d8573492d6", null ]
+    ] ],
     [ "uv_external_device", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0", [
       [ "MOTOR_CONTROLLER", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a9c632ecb370b78547a390d1b5cf59671", null ],
       [ "BMS", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e", null ],
       [ "IMD", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a8c41c05a63a15c5d188d02f6f4db4303", null ],
-      [ "PDU", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a5c9bd57c4115223d6c0954b9c2438262", null ]
+      [ "PDU", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a5c9bd57c4115223d6c0954b9c2438262", null ],
+      [ "STEERING_WHEEL", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a0a3531bb853b2c1fb97286d742391c5f", null ],
+      [ "TMS", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161", null ],
+      [ "DCDC", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0ab070bcb8a351c40c831a02a8ef48e29e", null ],
+      [ "FINAL_XDEV", "uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a158a2b7ccff2a495995ef42873b4b786", null ]
     ] ],
     [ "uv_msg_type_t", "uvfr__utils_8h.html#ab1a7ab8d68287c5f3027a59e355d32e0", [
       [ "UV_TASK_START_COMMAND", "uvfr__utils_8h.html#ab1a7ab8d68287c5f3027a59e355d32e0a177375f17a35e857332eaa8257d69828", null ],
@@ -107,6 +128,14 @@ var uvfr__utils_8h =
       [ "UV_WARNING", "uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea87c01f9029276637a8c9568fd67efcac", null ],
       [ "UV_ERROR", "uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0", null ],
       [ "UV_ABORTED", "uvfr__utils_8h.html#a71c52c44be11d0980910401cb9b5fb9ea6aa86f67f1dcd70789b27731c3ac4e7a", null ]
+    ] ],
+    [ "uv_xdev_status", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43", [
+      [ "XDEV_OK", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43a22cbfe561cbaea8cb7e9031251fe313c", null ],
+      [ "XDEV_WARNING", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43adfd3f190523f5f6f61c4f6ee1d8d02ab", null ],
+      [ "XDEV_ERROR", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43a536b537c779bea9d98f23f8fc75f5dac", null ],
+      [ "XDEV_VCU_ERROR", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43ae5465c64160cbacf99d396ff1a6d0c14", null ],
+      [ "XDEV_TIMEOUT", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43a5c0d8edf82f0e99b05a14aaa8925cc02", null ],
+      [ "XDEV_NC", "uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43aa673787feb285434560fb395179f9b3a", null ]
     ] ],
     [ "__uvInitPanic", "uvfr__utils_8h.html#a92b5ac44171d49acd084c274385a043a", null ],
     [ "uvInit", "uvfr__utils_8h.html#a6d40598f9d8daa89ca159a2e87f4fd01", null ],

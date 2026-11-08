@@ -31,5 +31,6 @@ var pdu_8h =
       [ "U19_PDU_20A_8", "pdu_8h.html#a3e9aefba16c71c51565c8017e53ae6eaa38b8dcce90f69fdc50dae802d9f4cc8e", null ]
     ] ],
     [ "initPDU", "pdu_8h.html#a1fe919a957b7055fcd240d738195d529", null ],
+    [ "u19getChFbck", "pdu_8h.html#a788b8bbb4f88093d2c4a895f1bf78f90", null ],
     [ "u19updatePduChannel", "pdu_8h.html#a3d05c1a1776f19cc1437baf3c93c39e0", null ]
 ];

@@ -16,11 +16,8 @@ var searchData=
   ['err_5fvx2_13',['Err_Vx2',['../imd_8h.html#a4456d255c2ceb447ad52b68087531b61a806c4e5614221c8b239f6620ab7d5d50',1,'imd.h']]],
   ['err_5fvxr_14',['Err_VxR',['../imd_8h.html#a4456d255c2ceb447ad52b68087531b61aeccbe530442099dab4642a4dc399666f',1,'imd.h']]],
   ['err_5fwatchdog_15',['Err_Watchdog',['../imd_8h.html#a4456d255c2ceb447ad52b68087531b61aec0ab5944a70662e09e795646e5987ca',1,'imd.h']]],
-  ['erroneous_16',['Erroneous',['../driving__loop_8h.html#adef4571b048b5b1f2b712713741296c7abb3086179f14a3715ce589bd10c3ec98',1,'driving_loop.h']]],
-  ['error_5fflags_17',['Error_flags',['../imd_8h.html#a0710286ee4b87e83845bd90c76e5c26aa86fdcb1bb1742680706316d50c9b8fcf',1,'imd.h']]],
-  ['exc_5foff_18',['Exc_off',['../imd_8h.html#acf7b0534a43397021a0e474a499218bea8e572e8f9a6be9d801c0db642ece2c2a',1,'imd.h']]],
-  ['exit_5fdiagnostics_5fmode_19',['EXIT_DIAGNOSTICS_MODE',['../uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c',1,'uvfr_diagnostics.h']]],
-  ['exp_5fspeed_5fmap_20',['exp_speed_map',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800a260f2e914699db0b53b3cb852559b40f',1,'driving_loop.h']]],
-  ['exp_5ftorque_5fmap_21',['exp_torque_map',['../driving__loop_8h.html#a9d8fd287924cbb6baa4afd1c585da800a22ffbb99cbb49917aac9c53aba81df32',1,'driving_loop.h']]],
-  ['ext_5fbin_5fch_22',['EXT_BIN_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993aa1ef59a90bc9e284f163246e9317464b',1,'uvfr_conifer.h']]]
+  ['erroneous_16',['Erroneous',['../driving__loop_8h.html#aa02e34d3fd76cf32fb21aef41ba695faabb3086179f14a3715ce589bd10c3ec98',1,'driving_loop.h']]],
+  ['exc_5foff_17',['Exc_off',['../imd_8h.html#acf7b0534a43397021a0e474a499218bea8e572e8f9a6be9d801c0db642ece2c2a',1,'imd.h']]],
+  ['exit_5fdiagnostics_5fmode_18',['EXIT_DIAGNOSTICS_MODE',['../uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a480af6ae97a3898fe5600dc2a57e598c',1,'uvfr_diagnostics.h']]],
+  ['ext_5fbin_5fch_19',['EXT_BIN_CH',['../uvfr__conifer_8h.html#af92dfd0488124cef581d8e910350c993aa1ef59a90bc9e284f163246e9317464b',1,'uvfr_conifer.h']]]
 ];

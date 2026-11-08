@@ -23,5 +23,6 @@ var searchData=
   ['conifer_5fparams_20',['conifer_params',['../uvfr__conifer_8h.html#a5a8b2a4b56cf0bc4a64f3948d3e23519',1,'uvfr_conifer.h']]],
   ['crc_5fmgroup1_21',['CRC_MGROUP1',['../uvfr__settings_8h.html#a81e1cb9c94a204763cd52c4c2ce47428',1,'uvfr_settings.h']]],
   ['crc_5fmgroup2_22',['CRC_MGROUP2',['../uvfr__settings_8h.html#a4d5340ff37ab779b3a6acf7c523a6f72',1,'uvfr_settings.h']]],
-  ['crc_5fpoly_23',['CRC_POLY',['../uvfr__settings_8h.html#a3a57af5c3275b2f53fa64274b11e8d52',1,'uvfr_settings.h']]]
+  ['crc_5fpoly_23',['CRC_POLY',['../uvfr__settings_8h.html#a3a57af5c3275b2f53fa64274b11e8d52',1,'uvfr_settings.h']]],
+  ['curr_5fbms_5fsettings_24',['curr_bms_settings',['../bms_8c.html#ae935abd17f88e90a92b656e66e2f6395',1,'bms.c']]]
 ];

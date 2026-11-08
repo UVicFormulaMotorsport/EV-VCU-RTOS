@@ -431,7 +431,7 @@ uv_status uvConfigSettingTask(void* args){
  *
  */
 
-uv_status uvSettingsInit() PRIVILEGED_FUNCTION{
+uv_status uvSettingsInit() PRIVILEGED_FUNCTION{ //check ur priviledge (MPU)
 #ifdef DEBUG
 	printf("Initializing Settings\n");
 #endif

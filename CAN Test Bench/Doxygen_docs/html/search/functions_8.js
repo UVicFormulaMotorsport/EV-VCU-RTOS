@@ -8,7 +8,7 @@ var searchData=
   ['hal_5fcan_5fmspinit_5',['HAL_CAN_MspInit',['../can_8c.html#a2778ce7f3a2de42769b6de9fec4cedb9',1,'can.c']]],
   ['hal_5fcan_5frxfifo0msgpendingcallback_6',['HAL_CAN_RxFifo0MsgPendingCallback',['../can_8h.html#a4e0742fef0f265347a75b7fa12012229',1,'HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan2):&#160;can.c'],['../can_8c.html#a7368d39e78009c017d6f81ccf33b9b2c',1,'HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan):&#160;can.c']]],
   ['hal_5fcan_5frxfifo1msgpendingcallback_7',['HAL_CAN_RxFifo1MsgPendingCallback',['../can_8h.html#a4c51ef84434a42d4c5f9524d361c0703',1,'HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan2):&#160;can.c'],['../can_8c.html#af6dd58034ec0e0a887b1c36317c4c64b',1,'HAL_CAN_RxFifo1MsgPendingCallback(CAN_HandleTypeDef *hcan):&#160;can.c']]],
-  ['hal_5fgpio_5fexti_5fcallback_8',['HAL_GPIO_EXTI_Callback',['../main_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f',1,'main.c']]],
+  ['hal_5fgpio_5fexti_5fcallback_8',['HAL_GPIO_EXTI_Callback',['../tim_8c.html#a0cd91fd3a9608559c2a87a8ba6cba55f',1,'tim.c']]],
   ['hal_5finittick_9',['HAL_InitTick',['../stm32f4xx__hal__timebase__tim_8c.html#a879cdb21ef051eb81ec51c18147397d5',1,'stm32f4xx_hal_timebase_tim.c']]],
   ['hal_5fmspinit_10',['HAL_MspInit',['../stm32f4xx__hal__msp_8c.html#ae4fb8e66865c87d0ebab74a726a6891f',1,'stm32f4xx_hal_msp.c']]],
   ['hal_5fresumetick_11',['HAL_ResumeTick',['../stm32f4xx__hal__timebase__tim_8c.html#a24e0ee9dae1ec0f9d19200f5575ff790',1,'stm32f4xx_hal_timebase_tim.c']]],
@@ -16,8 +16,9 @@ var searchData=
   ['hal_5ftim_5fbase_5fmspdeinit_13',['HAL_TIM_Base_MspDeInit',['../tim_8c.html#adee8ed7d3ebb3a217c27ac10af86ce2f',1,'tim.c']]],
   ['hal_5ftim_5fbase_5fmspinit_14',['HAL_TIM_Base_MspInit',['../tim_8c.html#a59716af159bfbbb6023b31354fb23af8',1,'tim.c']]],
   ['hal_5ftim_5fperiodelapsedcallback_15',['HAL_TIM_PeriodElapsedCallback',['../main_8c.html#a8a3b0ad512a6e6c6157440b68d395eac',1,'main.c']]],
-  ['handlecanbuserror_16',['handleCANbusError',['../can_8c.html#aff5c4caa2b4968b309deaffdc58f1e92',1,'can.c']]],
-  ['handlediagnosticmsg_17',['handleDiagnosticMsg',['../uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d',1,'uvfr_diagnostics.c']]],
-  ['handleincominglaptopmsg_18',['handleIncomingLaptopMsg',['../uvfr__settings_8c.html#afa15631878f6d936a1143656f88f3620',1,'uvfr_settings.c']]],
-  ['hardfault_5fhandler_19',['HardFault_Handler',['../stm32f4xx__it_8h.html#a2bffc10d5bd4106753b7c30e86903bea',1,'HardFault_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#a2bffc10d5bd4106753b7c30e86903bea',1,'HardFault_Handler(void):&#160;stm32f4xx_it.c']]]
+  ['handle_5fwheel_5finterrupt_16',['handle_wheel_interrupt',['../tim_8c.html#a1d31a8f81dd9cbec0d926fe94fba5a7f',1,'tim.c']]],
+  ['handlecanbuserror_17',['handleCANbusError',['../can_8c.html#aff5c4caa2b4968b309deaffdc58f1e92',1,'can.c']]],
+  ['handlediagnosticmsg_18',['handleDiagnosticMsg',['../uvfr__diagnostics_8c.html#ac227fb16a61fc925f514f8b28a854c3d',1,'uvfr_diagnostics.c']]],
+  ['handleincominglaptopmsg_19',['handleIncomingLaptopMsg',['../uvfr__settings_8c.html#afa15631878f6d936a1143656f88f3620',1,'uvfr_settings.c']]],
+  ['hardfault_5fhandler_20',['HardFault_Handler',['../stm32f4xx__it_8h.html#a2bffc10d5bd4106753b7c30e86903bea',1,'HardFault_Handler(void):&#160;stm32f4xx_it.c'],['../stm32f4xx__it_8c.html#a2bffc10d5bd4106753b7c30e86903bea',1,'HardFault_Handler(void):&#160;stm32f4xx_it.c']]]
 ];

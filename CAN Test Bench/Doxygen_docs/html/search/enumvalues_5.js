@@ -14,8 +14,9 @@ var searchData=
   ['feedback_5fsignal_5ferror_11',['feedback_signal_error',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffa2a16f371b0570edeeb17214a398e4bfc',1,'motor_controller.h']]],
   ['feedback_5fsignal_5fproblem_12',['feedback_signal_problem',['../motor__controller_8h.html#a5e2fbf1b4105e76b330bcb6547533dffab6733322e6c8c5197b108e853a58ad13',1,'motor_controller.h']]],
   ['final_5fconifer_5foutput_13',['FINAL_CONIFER_OUTPUT',['../uvfr__conifer_8h.html#a01a3838c8a1056886c2ded0b14270a82afcc4cca0feb14b44de8986d5f182f583',1,'uvfr_conifer.h']]],
-  ['finish_5fcalibration_5fseq_14',['FINISH_CALIBRATION_SEQ',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a10613c20ea71795b71b7c09c36de7d74',1,'uvfr_settings.h']]],
-  ['firmware_5fversion_15',['firmware_version',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2',1,'motor_controller.h']]],
-  ['force_5frestore_5ffactory_5fdefault_16',['FORCE_RESTORE_FACTORY_DEFAULT',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258',1,'uvfr_settings.h']]],
-  ['force_5fstate_5fchange_17',['FORCE_STATE_CHANGE',['../uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6',1,'uvfr_diagnostics.h']]]
+  ['final_5fxdev_14',['FINAL_XDEV',['../uvfr__utils_8h.html#ad70cbc8929c4ad7a5901cd9eef5ca9b0a158a2b7ccff2a495995ef42873b4b786',1,'uvfr_utils.h']]],
+  ['finish_5fcalibration_5fseq_15',['FINISH_CALIBRATION_SEQ',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a10613c20ea71795b71b7c09c36de7d74',1,'uvfr_settings.h']]],
+  ['firmware_5fversion_16',['firmware_version',['../motor__controller_8h.html#a0376dfd1eed1d027d96561fd24e48242aed26e85027514bcd1ca8c3c17c03bef2',1,'motor_controller.h']]],
+  ['force_5frestore_5ffactory_5fdefault_17',['FORCE_RESTORE_FACTORY_DEFAULT',['../uvfr__settings_8h.html#aeee8696051cb8180af8de030b0927694a302a39661f2460e559645419a2ac8258',1,'uvfr_settings.h']]],
+  ['force_5fstate_5fchange_18',['FORCE_STATE_CHANGE',['../uvfr__diagnostics_8h.html#a3b2b204ae896d9984f6a6d1f2c0aefc4a532bacc86bddf58ee0fc926bfcfdc5c6',1,'uvfr_diagnostics.h']]]
 ];

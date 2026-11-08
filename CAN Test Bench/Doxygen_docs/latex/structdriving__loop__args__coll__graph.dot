@@ -5,8 +5,16 @@ digraph "driving_loop_args"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   Node1 [id="Node000001",label="driving_loop_args",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
-  Node2 -> Node1 [id="edge3_Node000001_Node000002",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" dmodes",fontcolor="grey" ];
-  Node2 [id="Node000002",label="drivingMode",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structdriving_mode.html",tooltip="This is where the driving mode and the drivingModeParams are at."];
-  Node3 -> Node2 [id="edge4_Node000002_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" map_fn_params",fontcolor="grey" ];
-  Node3 [id="Node000003",label="drivingModeParams",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$uniondriving_mode_params.html",tooltip="this struct is designed to hold information about each drivingmode's map params"];
+  Node2 -> Node1 [id="edge7_Node000001_Node000002",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" dmodes",fontcolor="grey" ];
+  Node2 [id="Node000002",label="drivingMode",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structdriving_mode.html",tooltip=" "];
+  Node3 -> Node2 [id="edge8_Node000002_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" adaptive_settings",fontcolor="grey" ];
+  Node3 [id="Node000003",label="adaptive_torque_map_args",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structadaptive__torque__map__args.html",tooltip="Adaptive map parameters."];
+  Node4 -> Node2 [id="edge9_Node000002_Node000004",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" map_fn_params",fontcolor="grey" ];
+  Node4 [id="Node000004",label="drivingModeParams",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$uniondriving_mode_params.html",tooltip="Union holding whichever map params are active for a driving mode."];
+  Node5 -> Node4 [id="edge10_Node000004_Node000005",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" linear",fontcolor="grey" ];
+  Node5 [id="Node000005",label="linear_torque_map_args",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structlinear__torque__map__args.html",tooltip="Parameters for a linear torque map: y = m x + b."];
+  Node6 -> Node4 [id="edge11_Node000004_Node000006",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" exp",fontcolor="grey" ];
+  Node6 [id="Node000006",label="exponential_map_args",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structexponential__map__args.html",tooltip=" "];
+  Node7 -> Node4 [id="edge12_Node000004_Node000007",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" scurve",fontcolor="grey" ];
+  Node7 [id="Node000007",label="scurve_map_args",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$structscurve__map__args.html",tooltip=" "];
 }

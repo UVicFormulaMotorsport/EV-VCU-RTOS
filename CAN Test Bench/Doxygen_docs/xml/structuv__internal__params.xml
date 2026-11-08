@@ -16,7 +16,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="354" column="16" bodyfile="Core/Inc/uvfr_utils.h" bodystart="354" bodyend="-1"/>
+        <location file="Core/Inc/uvfr_utils.h" line="412" column="16" bodyfile="Core/Inc/uvfr_utils.h" bodystart="412" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structuv__internal__params_1ae2718f795900eeef5b28e3696c96a675" prot="public" static="no" mutable="no">
         <type><ref refid="structuv__vehicle__settings" kindref="compound">uv_vehicle_settings</ref> *</type>
@@ -30,11 +30,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="355" column="21" bodyfile="Core/Inc/uvfr_utils.h" bodystart="355" bodyend="-1"/>
+        <location file="Core/Inc/uvfr_utils.h" line="413" column="21" bodyfile="Core/Inc/uvfr_utils.h" bodystart="413" bodyend="-1"/>
       </memberdef>
-      <memberdef kind="variable" id="structuv__internal__params_1a89db87ec62e0afc9c0ef6a9c327df2c3" prot="public" static="no" mutable="no">
-        <type><ref refid="structp__status" kindref="compound">p_status</ref></type>
-        <definition>p_status uv_internal_params::peripheral_status[8]</definition>
+      <memberdef kind="variable" id="structuv__internal__params_1af4fd147143f0b7fdd6d19efc59baea28" prot="public" static="no" mutable="no">
+        <type><ref refid="uvfr__external__devices_8h_1a020dd8b6190bb717ee7db7df6a9467a8" kindref="member">xdev_status</ref></type>
+        <definition>xdev_status uv_internal_params::peripheral_status[8]</definition>
         <argsstring>[8]</argsstring>
         <name>peripheral_status</name>
         <qualifiedname>uv_internal_params::peripheral_status</qualifiedname>
@@ -44,7 +44,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="356" column="10" bodyfile="Core/Inc/uvfr_utils.h" bodystart="356" bodyend="-1"/>
+        <location file="Core/Inc/uvfr_utils.h" line="414" column="13" bodyfile="Core/Inc/uvfr_utils.h" bodystart="414" bodyend="-1"/>
       </memberdef>
       <memberdef kind="variable" id="structuv__internal__params_1a12f5abffdd80a5b28d8bbfaf9e310336" prot="public" static="no" mutable="no">
         <type>uint16_t</type>
@@ -58,7 +58,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/uvfr_utils.h" line="357" column="10" bodyfile="Core/Inc/uvfr_utils.h" bodystart="357" bodyend="-1"/>
+        <location file="Core/Inc/uvfr_utils.h" line="415" column="10" bodyfile="Core/Inc/uvfr_utils.h" bodystart="415" bodyend="-1"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -68,33 +68,37 @@
 <para>This is a global variable that is initialized at some point at launch </para>
     </detaileddescription>
     <collaborationgraph>
-      <node id="16">
+      <node id="20">
         <label>abstract_conifer_channel</label>
         <link refid="structabstract__conifer__channel"/>
       </node>
-      <node id="11">
+      <node id="9">
+        <label>adaptive_torque_map_args</label>
+        <link refid="structadaptive__torque__map__args"/>
+      </node>
+      <node id="15">
         <label>bms_settings_t</label>
         <link refid="structbms__settings__t"/>
       </node>
-      <node id="15">
+      <node id="19">
         <label>conifer_ch_setting</label>
         <link refid="structconifer__ch__setting"/>
-        <childnode refid="16" relation="usage">
+        <childnode refid="20" relation="usage">
           <edgelabel>ch_dat</edgelabel>
         </childnode>
       </node>
-      <node id="14">
+      <node id="18">
         <label>conifer_settings</label>
         <link refid="structconifer__settings"/>
-        <childnode refid="15" relation="usage">
+        <childnode refid="19" relation="usage">
           <edgelabel>ch_list</edgelabel>
         </childnode>
       </node>
-      <node id="12">
+      <node id="16">
         <label>daq_loop_args</label>
         <link refid="structdaq__loop__args"/>
       </node>
-      <node id="13">
+      <node id="17">
         <label>daq_msg</label>
         <link refid="structdaq__msg"/>
       </node>
@@ -102,12 +106,24 @@
         <label>drivingMode</label>
         <link refid="structdriving_mode"/>
         <childnode refid="9" relation="usage">
+          <edgelabel>adaptive_settings</edgelabel>
+        </childnode>
+        <childnode refid="10" relation="usage">
           <edgelabel>map_fn_params</edgelabel>
         </childnode>
       </node>
-      <node id="9">
+      <node id="10">
         <label>drivingModeParams</label>
         <link refid="uniondriving_mode_params"/>
+        <childnode refid="11" relation="usage">
+          <edgelabel>linear</edgelabel>
+        </childnode>
+        <childnode refid="12" relation="usage">
+          <edgelabel>exp</edgelabel>
+        </childnode>
+        <childnode refid="13" relation="usage">
+          <edgelabel>scurve</edgelabel>
+        </childnode>
       </node>
       <node id="7">
         <label>driving_loop_args</label>
@@ -116,15 +132,23 @@
           <edgelabel>dmodes</edgelabel>
         </childnode>
       </node>
+      <node id="12">
+        <label>exponential_map_args</label>
+        <link refid="structexponential__map__args"/>
+      </node>
+      <node id="11">
+        <label>linear_torque_map_args</label>
+        <link refid="structlinear__torque__map__args"/>
+      </node>
       <node id="6">
         <label>motor_controller_settings</label>
         <link refid="structmotor__controller__settings"/>
       </node>
-      <node id="17">
-        <label>p_status</label>
-        <link refid="structp__status"/>
+      <node id="13">
+        <label>scurve_map_args</label>
+        <link refid="structscurve__map__args"/>
       </node>
-      <node id="10">
+      <node id="14">
         <label>uv_imd_settings</label>
         <link refid="structuv__imd__settings"/>
       </node>
@@ -140,9 +164,6 @@
         </childnode>
         <childnode refid="3" relation="usage">
           <edgelabel>vehicle_settings</edgelabel>
-        </childnode>
-        <childnode refid="17" relation="usage">
-          <edgelabel>peripheral_status</edgelabel>
         </childnode>
       </node>
       <node id="5">
@@ -164,19 +185,19 @@
         <childnode refid="7" relation="usage">
           <edgelabel>driving_loop_settings</edgelabel>
         </childnode>
-        <childnode refid="10" relation="usage">
+        <childnode refid="14" relation="usage">
           <edgelabel>imd_settings</edgelabel>
         </childnode>
-        <childnode refid="11" relation="usage">
+        <childnode refid="15" relation="usage">
           <edgelabel>bms_settings</edgelabel>
         </childnode>
-        <childnode refid="12" relation="usage">
+        <childnode refid="16" relation="usage">
           <edgelabel>daq_settings</edgelabel>
         </childnode>
-        <childnode refid="13" relation="usage">
+        <childnode refid="17" relation="usage">
           <edgelabel>daq_param_list</edgelabel>
         </childnode>
-        <childnode refid="14" relation="usage">
+        <childnode refid="18" relation="usage">
           <edgelabel>conifer_settings</edgelabel>
         </childnode>
       </node>
@@ -185,11 +206,11 @@
         <link refid="structveh__gen__info"/>
       </node>
     </collaborationgraph>
-    <location file="Core/Inc/uvfr_utils.h" line="353" column="1" bodyfile="Core/Inc/uvfr_utils.h" bodystart="353" bodyend="358"/>
+    <location file="Core/Inc/uvfr_utils.h" line="411" column="1" bodyfile="Core/Inc/uvfr_utils.h" bodystart="411" bodyend="416"/>
     <listofallmembers>
       <member refid="structuv__internal__params_1a12f5abffdd80a5b28d8bbfaf9e310336" prot="public" virt="non-virtual"><scope>uv_internal_params</scope><name>e_code</name></member>
       <member refid="structuv__internal__params_1a2d9661461ade0854d6f1082af72efb62" prot="public" virt="non-virtual"><scope>uv_internal_params</scope><name>init_params</name></member>
-      <member refid="structuv__internal__params_1a89db87ec62e0afc9c0ef6a9c327df2c3" prot="public" virt="non-virtual"><scope>uv_internal_params</scope><name>peripheral_status</name></member>
+      <member refid="structuv__internal__params_1af4fd147143f0b7fdd6d19efc59baea28" prot="public" virt="non-virtual"><scope>uv_internal_params</scope><name>peripheral_status</name></member>
       <member refid="structuv__internal__params_1ae2718f795900eeef5b28e3696c96a675" prot="public" virt="non-virtual"><scope>uv_internal_params</scope><name>vehicle_settings</name></member>
     </listofallmembers>
   </compounddef>

@@ -5,7 +5,6 @@ var searchData=
   ['daq_5fmsg_2',['daq_msg',['../structdaq__msg.html',1,'']]],
   ['daq_5fparam_5flist_5fnode_3',['daq_param_list_node',['../structdaq__param__list__node.html',1,'']]],
   ['driving_5floop_5fargs_4',['driving_loop_args',['../structdriving__loop__args.html',1,'']]],
-  ['drivingloopargs_5',['drivingLoopArgs',['../structdriving_loop_args.html',1,'']]],
-  ['drivingmode_6',['drivingMode',['../structdriving_mode.html',1,'']]],
-  ['drivingmodeparams_7',['drivingModeParams',['../uniondriving_mode_params.html',1,'']]]
+  ['drivingmode_5',['drivingMode',['../structdriving_mode.html',1,'']]],
+  ['drivingmodeparams_6',['drivingModeParams',['../uniondriving_mode_params.html',1,'']]]
 ];

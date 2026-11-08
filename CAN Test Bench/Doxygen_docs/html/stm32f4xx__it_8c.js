@@ -1,5 +1,7 @@
 var stm32f4xx__it_8c =
 [
+    [ "__manually_get_ch_info", "stm32f4xx__it_8c.html#a9bb736556d4ab4ff80895b07b18eb88f", null ],
+    [ "__uvCANtxCritSectionFromISR", "stm32f4xx__it_8c.html#a02d2cfad2b35b838e1cb8e547d11ce84", null ],
     [ "ADC_IRQHandler", "stm32f4xx__it_8c.html#a06406eadf297fa89a6eaf9586b227a69", null ],
     [ "BusFault_Handler", "stm32f4xx__it_8c.html#a850cefb17a977292ae5eb4cafa9976c3", null ],
     [ "CAN1_RX0_IRQHandler", "stm32f4xx__it_8c.html#a4dcf621094d563287c456f7aa751e86b", null ],
@@ -19,6 +21,7 @@ var stm32f4xx__it_8c =
     [ "MemManage_Handler", "stm32f4xx__it_8c.html#a3150f74512510287a942624aa9b44cc5", null ],
     [ "NMI_Handler", "stm32f4xx__it_8c.html#a6ad7a5e3ee69cb6db6a6b9111ba898bc", null ],
     [ "PendSV_Handler", "stm32f4xx__it_8c.html#a27e01c2c3e61bcc3dffd74f506002306", null ],
+    [ "safelyDisableVehicleFromISR", "stm32f4xx__it_8c.html#a9f8e9e1c56f2b1a22244f4e67b4f6550", null ],
     [ "SVC_Handler", "stm32f4xx__it_8c.html#a419352fd2993e5af0be52510ad0fb2e3", null ],
     [ "SysTick_Handler", "stm32f4xx__it_8c.html#ab894b5e9fe1586f1e7b812e29593cc23", null ],
     [ "TIM1_UP_TIM10_IRQHandler", "stm32f4xx__it_8c.html#ad1fd361bc5ad89facee67c76d1ff8dc0", null ],

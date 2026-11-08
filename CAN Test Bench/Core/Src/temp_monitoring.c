@@ -22,7 +22,9 @@ extern int16_t mc_motor_temp;
 extern int16_t mc_igbt_temp;
 
 
-
+/** @brief Me when we initialize temperature monitoring
+ *
+ */
 uv_status initTempMonitor(void * arguments){
 	uv_task_info* tm_task = uvCreateTask();
 

@@ -9,7 +9,8 @@
     <includes refid="can_8h" local="yes">can.h</includes>
     <includes refid="tim_8h" local="yes">tim.h</includes>
     <includes refid="dash_8h" local="yes">dash.h</includes>
-    <includes refid="uvfr__utils_8h" local="yes">uvfr_utils.h</includes>
+    <includes local="no">string.h</includes>
+    <includes local="no">stdint.h</includes>
     <incdepgraph>
       <node id="7">
         <label>adc.h</label>
@@ -17,12 +18,14 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="22">
         <label>bms.h</label>
         <link refid="bms_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="8">
@@ -32,51 +35,61 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="9">
+      <node id="11">
         <label>constants.h</label>
         <link refid="constants_8h"/>
       </node>
-      <node id="17">
+      <node id="20">
         <label>daq.h</label>
         <link refid="daq_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="32">
         <label>dash.h</label>
         <link refid="dash_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="12">
         <label>dma.h</label>
         <link refid="dma_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="18">
         <label>driving_loop.h</label>
         <link refid="driving__loop_8h"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="19" relation="include">
+        </childnode>
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="14">
         <label>gpio.h</label>
         <link refid="gpio_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="33">
         <label>imd.h</label>
         <link refid="imd_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -89,27 +102,27 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="17">
         <label>motor_controller.h</label>
         <link refid="motor__controller_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="39">
         <label>odometer.h</label>
         <link refid="odometer_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="32">
+      <node id="34">
         <label>pdu.h</label>
         <link refid="pdu_8h"/>
         <childnode refid="2" relation="include">
@@ -117,72 +130,84 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="18">
+      <node id="21">
         <label>rb_tree.h</label>
         <link refid="rb__tree_8h"/>
       </node>
-      <node id="37">
+      <node id="38">
         <label>temp_monitoring.h</label>
         <link refid="temp__monitoring_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>tim.h</label>
         <link refid="tim_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="33">
+      <node id="35">
         <label>uvfr_conifer.h</label>
         <link refid="uvfr__conifer_8h"/>
-        <childnode refid="34" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="15">
+        <label>uvfr_data_proccessing.h</label>
+        <link refid="uvfr__data__proccessing_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="28">
         <label>uvfr_diagnostics.h</label>
         <link refid="uvfr__diagnostics_8h"/>
-        <childnode refid="28" relation="include">
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="31">
+        <label>uvfr_external_devices.h</label>
+        <link refid="uvfr__external__devices_8h"/>
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>uvfr_global_config.h</label>
         <link refid="uvfr__global__config_8h"/>
       </node>
-      <node id="13">
+      <node id="16">
         <label>uvfr_settings.h</label>
         <link refid="uvfr__settings_8h"/>
-        <childnode refid="14" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="17" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="20">
+      <node id="23">
         <label>uvfr_state_engine.h</label>
         <link refid="uvfr__state__engine_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -196,60 +221,70 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
         <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
         <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
         <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
         <childnode refid="39" relation="include">
         </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="41" relation="include">
         </childnode>
         <childnode refid="26" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="30">
         <label>uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
         <childnode refid="6" relation="include">
@@ -257,14 +292,14 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="37">
         <label>uvfr_vehicle_logger.h</label>
         <link refid="uvfr__vehicle__logger_8h"/>
-        <childnode refid="35" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="23" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -272,276 +307,117 @@
         <link refid="bms_8c"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-        <childnode refid="32" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="32" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="19" relation="include">
         </childnode>
       </node>
-      <node id="21">
+      <node id="9">
         <label>FreeRTOS.h</label>
       </node>
-      <node id="39">
+      <node id="40">
         <label>FreeRTOSConfig.h</label>
       </node>
-      <node id="25">
+      <node id="26">
         <label>cmsis_os.h</label>
       </node>
-      <node id="15">
-        <label>freeRTOS.h</label>
-      </node>
-      <node id="26">
+      <node id="27">
         <label>message_buffer.h</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>queue.h</label>
       </node>
-      <node id="24">
+      <node id="25">
         <label>semphr.h</label>
       </node>
       <node id="4">
         <label>stdarg.h</label>
       </node>
-      <node id="35">
+      <node id="19">
         <label>stdint.h</label>
       </node>
-      <node id="34">
+      <node id="41">
+        <label>stdio.h</label>
+      </node>
+      <node id="36">
         <label>stdlib.h</label>
       </node>
       <node id="3">
         <label>stm32f4xx_hal.h</label>
       </node>
-      <node id="28">
+      <node id="29">
         <label>string.h</label>
       </node>
-      <node id="22">
+      <node id="10">
         <label>task.h</label>
       </node>
     </incdepgraph>
     <sectiondef kind="define">
-      <memberdef kind="define" id="bms_8c_1a79f5e585e6fa5d54c855cf1a3b16ff88" prot="public" static="no">
-        <name>bms_settings</name>
-        <initializer><ref refid="uvfr__settings_8h_1a03566822d1b8893362970a459bd67daf" kindref="member">current_vehicle_settings</ref>-&gt;bms_settings</initializer>
+      <memberdef kind="define" id="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" prot="public" static="no">
+        <name>curr_bms_settings</name>
+        <initializer>(*(<ref refid="uvfr__settings_8h_1a03566822d1b8893362970a459bd67daf" kindref="member">current_vehicle_settings</ref>-&gt;bms_settings))</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/bms.c" line="12" column="9" bodyfile="Core/Src/bms.c" bodystart="12" bodyend="-1"/>
-        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="100" endline="140">BMS_Init</referencedby>
+        <location file="Core/Src/bms.c" line="38" column="9" bodyfile="Core/Src/bms.c" bodystart="38" bodyend="-1"/>
+        <referencedby refid="bms_8h_1a6f635739f7b278e5898f59e0e370c183" compoundref="bms_8c" startline="77" endline="148">BMS_CANRxHandler_msg1</referencedby>
+        <referencedby refid="bms_8h_1a7cbdb3a6f5bd9870c175fc6d88131465" compoundref="bms_8c" startline="150" endline="230">BMS_CANRxHandler_msg2</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="var">
+      <memberdef kind="variable" id="bms_8c_1acd394543f05f280e0ffead84f5380215" prot="public" static="no" mutable="no">
+        <type>volatile <ref refid="structbms__state__t" kindref="compound">bms_state_t</ref></type>
+        <definition>volatile bms_state_t g_bms_state</definition>
+        <argsstring></argsstring>
+        <name>g_bms_state</name>
+        <initializer>= {0}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Src/bms.c" line="35" column="22" bodyfile="Core/Src/bms.c" bodystart="35" bodyend="35"/>
+        <referencedby refid="bms_8h_1a6f635739f7b278e5898f59e0e370c183" compoundref="bms_8c" startline="77" endline="148">BMS_CANRxHandler_msg1</referencedby>
+        <referencedby refid="bms_8h_1a7cbdb3a6f5bd9870c175fc6d88131465" compoundref="bms_8c" startline="150" endline="230">BMS_CANRxHandler_msg2</referencedby>
+      </memberdef>
       <memberdef kind="variable" id="bms_8c_1a28e4314b233b9140e73e4fd0bab7e354" prot="public" static="no" mutable="no">
         <type><ref refid="structbms__settings__t" kindref="compound">bms_settings_t</ref></type>
         <definition>bms_settings_t default_bms_settings</definition>
         <argsstring></argsstring>
         <name>default_bms_settings</name>
-        <initializer>= {
-.BMS_CAN_timeout = 200, 
-.max_cell_temp = 500,
-.min_cell_temp = -200,
-.min_soc = 10,
-.min_cell_voltage = 2.5,
-.max_cell_voltage = 4.2,
-.max_pack_voltage = 5000,
-.max_variance_between_cells = 1
-}</initializer>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/bms.c" line="14" column="16" bodyfile="Core/Src/bms.c" bodystart="14" bodyend="23"/>
-        <referencedby refid="uvfr__settings_8h_1add1ebdaa7f93f2a43ca6afc6e05fdd44" compoundref="uvfr__settings_8c" startline="250" endline="275">setupDefaultSettings</referencedby>
-        <referencedby refid="uvfr__settings_8c_1a5f5ab3b99bc259455a2ec79144422450" compoundref="uvfr__settings_8c" startline="1155" endline="1236">uvResetFlashToDefault</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a4081f615c3b206c0996bb9a22516f115" prot="public" static="no" mutable="no">
-        <type>TickType_t</type>
-        <definition>TickType_t bms_last_msg_time</definition>
-        <argsstring></argsstring>
-        <name>bms_last_msg_time</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="31" column="12" bodyfile="Core/Src/bms.c" bodystart="31" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" prot="public" static="no" mutable="no">
-        <type>uint8_t</type>
-        <definition>uint8_t is_bms_connected</definition>
-        <argsstring></argsstring>
-        <name>is_bms_connected</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="32" column="9" bodyfile="Core/Src/bms.c" bodystart="32" bodyend="-1"/>
-        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="100" endline="140">BMS_Init</referencedby>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a2ef021ab39a98f64902d656ac099f8a9" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t packCurrent</definition>
-        <argsstring></argsstring>
-        <name>packCurrent</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="34" column="10" bodyfile="Core/Src/bms.c" bodystart="34" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a178a2c12bb1a2c720fcde0ef2cd6f1f1" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t packVoltage</definition>
-        <argsstring></argsstring>
-        <name>packVoltage</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="35" column="10" bodyfile="Core/Src/bms.c" bodystart="35" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t stateOfCharge</definition>
-        <argsstring></argsstring>
-        <name>stateOfCharge</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="36" column="10" bodyfile="Core/Src/bms.c" bodystart="36" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a2bd3e52b9f7bb249a6c7a1108efb1995" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t relayState</definition>
-        <argsstring></argsstring>
-        <name>relayState</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="37" column="10" bodyfile="Core/Src/bms.c" bodystart="37" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a3db3406866b37db013bd594d7588ed00" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t msg1corrupt</definition>
-        <argsstring></argsstring>
-        <name>msg1corrupt</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="38" column="10" bodyfile="Core/Src/bms.c" bodystart="38" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a5b12ba8d86d6649ab8b4a0967484f3ec" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t packDCL</definition>
-        <argsstring></argsstring>
-        <name>packDCL</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="40" column="10" bodyfile="Core/Src/bms.c" bodystart="40" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t lowTemp</definition>
-        <argsstring></argsstring>
-        <name>lowTemp</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="41" column="10" bodyfile="Core/Src/bms.c" bodystart="41" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a30221826d03df3708444924f408282c6" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t highTemp</definition>
-        <argsstring></argsstring>
-        <name>highTemp</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="42" column="10" bodyfile="Core/Src/bms.c" bodystart="42" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
-      </memberdef>
-      <memberdef kind="variable" id="bms_8c_1a8fa7b800b072c0c1449c7be149c703ba" prot="public" static="no" mutable="no">
-        <type>uint16_t</type>
-        <definition>uint16_t msg2corrupt</definition>
-        <argsstring></argsstring>
-        <name>msg2corrupt</name>
-        <initializer>= 0</initializer>
-        <briefdescription>
-        </briefdescription>
-        <detaileddescription>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="Core/Src/bms.c" line="43" column="10" bodyfile="Core/Src/bms.c" bodystart="43" bodyend="-1"/>
-        <referencedby refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</referencedby>
+        <location file="Core/Src/bms.c" line="40" column="16" bodyfile="Core/Src/bms.c" bodystart="40" bodyend="76"/>
+        <referencedby refid="uvfr__settings_8h_1add1ebdaa7f93f2a43ca6afc6e05fdd44" compoundref="uvfr__settings_8c" startline="325" endline="350">setupDefaultSettings</referencedby>
+        <referencedby refid="uvfr__settings_8c_1a5f5ab3b99bc259455a2ec79144422450" compoundref="uvfr__settings_8c" startline="1373" endline="1471">uvResetFlashToDefault</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="func">
-      <memberdef kind="function" id="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="bms_8c_1a6f635739f7b278e5898f59e0e370c183" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void BMS_msg1</definition>
+        <definition>void BMS_CANRxHandler_msg1</definition>
         <argsstring>(uv_CAN_msg *msg)</argsstring>
-        <name>BMS_msg1</name>
+        <name>BMS_CANRxHandler_msg1</name>
         <param>
           <type><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref> *</type>
           <declname>msg</declname>
@@ -552,22 +428,24 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/bms.c" line="47" column="6" bodyfile="Core/Src/bms.c" bodystart="47" bodyend="72"/>
-        <references refid="bms_8c_1a4081f615c3b206c0996bb9a22516f115" compoundref="bms_8c" startline="31">bms_last_msg_time</references>
-        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="289">uv_CAN_msg::data</references>
-        <references refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" compoundref="bms_8c" startline="32">is_bms_connected</references>
-        <references refid="bms_8c_1a3db3406866b37db013bd594d7588ed00" compoundref="bms_8c" startline="38">msg1corrupt</references>
-        <references refid="bms_8c_1a2ef021ab39a98f64902d656ac099f8a9" compoundref="bms_8c" startline="34">packCurrent</references>
-        <references refid="bms_8c_1a178a2c12bb1a2c720fcde0ef2cd6f1f1" compoundref="bms_8c" startline="35">packVoltage</references>
-        <references refid="bms_8c_1a2bd3e52b9f7bb249a6c7a1108efb1995" compoundref="bms_8c" startline="37">relayState</references>
-        <references refid="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" compoundref="bms_8c" startline="36">stateOfCharge</references>
-        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="100" endline="140">BMS_Init</referencedby>
+        <location file="Core/Src/bms.c" line="77" column="6" bodyfile="Core/Src/bms.c" bodystart="77" bodyend="148"/>
+        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="228">BMS</references>
+        <references refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" compoundref="bms_8c" startline="38">curr_bms_settings</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="uvfr__external__devices_8h_1abeba1577d0e5f860f687d6dfaa57c877" compoundref="uvfr__external__devices_8c" startline="381" endline="412">externalDeviceRxHandler</references>
+        <references refid="bms_8c_1acd394543f05f280e0ffead84f5380215" compoundref="bms_8c" startline="35" endline="35">g_bms_state</references>
+        <references refid="structbms__state__t_1a448230d0f8f6d17144c3c3cc74dfd68d" compoundref="bms_8h" startline="24">bms_state_t::msg1corrupt</references>
+        <references refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" compoundref="bms_8h" startline="20">bms_state_t::pack_current_dA</references>
+        <references refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" compoundref="bms_8h" startline="21">bms_state_t::pack_voltage_dV</references>
+        <references refid="structbms__state__t_1aafa9d07dac634207a9a61a1ee0f40bd1" compoundref="bms_8h" startline="23">bms_state_t::relayState</references>
+        <references refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" compoundref="bms_8h" startline="22">bms_state_t::soc_pct</references>
+        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="248" endline="271">BMS_Init</referencedby>
       </memberdef>
-      <memberdef kind="function" id="bms_8c_1a554435738960054c897ed84e3f5b1edf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="bms_8c_1a7cbdb3a6f5bd9870c175fc6d88131465" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
-        <definition>void BMS_msg2</definition>
+        <definition>void BMS_CANRxHandler_msg2</definition>
         <argsstring>(uv_CAN_msg *msg)</argsstring>
-        <name>BMS_msg2</name>
+        <name>BMS_CANRxHandler_msg2</name>
         <param>
           <type><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref> *</type>
           <declname>msg</declname>
@@ -578,15 +456,33 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/bms.c" line="75" column="6" bodyfile="Core/Src/bms.c" bodystart="75" bodyend="98"/>
-        <references refid="bms_8c_1a4081f615c3b206c0996bb9a22516f115" compoundref="bms_8c" startline="31">bms_last_msg_time</references>
-        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="289">uv_CAN_msg::data</references>
-        <references refid="bms_8c_1a30221826d03df3708444924f408282c6" compoundref="bms_8c" startline="42">highTemp</references>
-        <references refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" compoundref="bms_8c" startline="32">is_bms_connected</references>
-        <references refid="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" compoundref="bms_8c" startline="41">lowTemp</references>
-        <references refid="bms_8c_1a8fa7b800b072c0c1449c7be149c703ba" compoundref="bms_8c" startline="43">msg2corrupt</references>
-        <references refid="bms_8c_1a5b12ba8d86d6649ab8b4a0967484f3ec" compoundref="bms_8c" startline="40">packDCL</references>
-        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="100" endline="140">BMS_Init</referencedby>
+        <location file="Core/Src/bms.c" line="150" column="6" bodyfile="Core/Src/bms.c" bodystart="150" bodyend="230"/>
+        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="228">BMS</references>
+        <references refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" compoundref="bms_8c" startline="38">curr_bms_settings</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="structbms__state__t_1a506a41501c632fb90fecd0ffa61321d9" compoundref="bms_8h" startline="26">bms_state_t::dcl_dA</references>
+        <references refid="uvfr__external__devices_8h_1abeba1577d0e5f860f687d6dfaa57c877" compoundref="uvfr__external__devices_8c" startline="381" endline="412">externalDeviceRxHandler</references>
+        <references refid="bms_8c_1acd394543f05f280e0ffead84f5380215" compoundref="bms_8c" startline="35" endline="35">g_bms_state</references>
+        <references refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" compoundref="bms_8h" startline="28">bms_state_t::max_cell_temp</references>
+        <references refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" compoundref="bms_8h" startline="27">bms_state_t::min_cell_temp</references>
+        <references refid="structbms__state__t_1a929e6bb5b650f4c0fa6a8442bf76c90a" compoundref="bms_8h" startline="29">bms_state_t::msg2corrupt</references>
+        <referencedby refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" compoundref="bms_8c" startline="248" endline="271">BMS_Init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="bms_8c_1a6b6b7969ee9842095da2ab7ed96d0a50" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref></type>
+        <definition>static uv_status BMS_RegisterWithXDevMon</definition>
+        <argsstring>(void)</argsstring>
+        <name>BMS_RegisterWithXDevMon</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Src/bms.c" line="234" column="18" bodyfile="Core/Src/bms.c" bodystart="234" bodyend="245"/>
       </memberdef>
       <memberdef kind="function" id="bms_8c_1aa9af83736568f74c94d41f3f16adf513" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -603,18 +499,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Src/bms.c" line="100" column="6" bodyfile="Core/Src/bms.c" bodystart="100" bodyend="140"/>
-        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="213">BMS</references>
-        <references refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" compoundref="bms_8c" startline="47" endline="72">BMS_msg1</references>
-        <references refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" compoundref="bms_8c" startline="75" endline="98">BMS_msg2</references>
-        <references refid="bms_8c_1a79f5e585e6fa5d54c855cf1a3b16ff88" compoundref="bms_8c" startline="12">bms_settings</references>
-        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="271">CAN_BUS_1</references>
-        <references refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" compoundref="uvfr__utils_8h" startline="343">uv_init_task_args::init_info_queue</references>
-        <references refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" compoundref="can_8c" startline="652" endline="767">insertCANMessageHandler</references>
-        <references refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" compoundref="bms_8c" startline="32">is_bms_connected</references>
-        <references refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" compoundref="uvfr__utils_8h" startline="344">uv_init_task_args::meta_task_handle</references>
-        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="174">UV_OK</references>
-        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="50" endline="311">uvInit</referencedby>
+        <location file="Core/Src/bms.c" line="248" column="6" bodyfile="Core/Src/bms.c" bodystart="248" bodyend="271"/>
+        <references refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" compoundref="uvfr__utils_8h" startline="228">BMS</references>
+        <references refid="bms_8c_1a6f635739f7b278e5898f59e0e370c183" compoundref="bms_8c" startline="77" endline="148">BMS_CANRxHandler_msg1</references>
+        <references refid="bms_8c_1a7cbdb3a6f5bd9870c175fc6d88131465" compoundref="bms_8c" startline="150" endline="230">BMS_CANRxHandler_msg2</references>
+        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="301">CAN_BUS_1</references>
+        <references refid="structuv__init__task__response_1af29fdddeaddc456d2028cc1ad471bae1" compoundref="uvfr__utils_8h" startline="429">uv_init_task_response::errmsg</references>
+        <references refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" compoundref="uvfr__utils_8h" startline="401">uv_init_task_args::init_info_queue</references>
+        <references refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" compoundref="can_8c" startline="659" endline="774">insertCANMessageHandler</references>
+        <references refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" compoundref="uvfr__utils_8h" startline="402">uv_init_task_args::meta_task_handle</references>
+        <references refid="structuv__init__task__response_1a56b3df74c10cdc59e8e1b9d4c1f36af7" compoundref="uvfr__utils_8h" startline="426">uv_init_task_response::status</references>
+        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" compoundref="uvfr__utils_8h" startline="182">UV_ERROR</references>
+        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="180">UV_OK</references>
+        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="73" endline="418">uvInit</referencedby>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -623,150 +520,278 @@
     </detaileddescription>
     <programlisting>
 <codeline lineno="1"><highlight class="comment">//<sp/>This<sp/>where<sp/>the<sp/>code<sp/>to<sp/>handle<sp/>BMS<sp/>errors<sp/>and<sp/>such<sp/>will<sp/>go</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="2"><highlight class="normal"></highlight></codeline>
-<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="main_8h" kindref="compound">main.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="bms_8h" kindref="compound">bms.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="constants_8h" kindref="compound">constants.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pdu_8h" kindref="compound">pdu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="can_8h" kindref="compound">can.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="tim_8h" kindref="compound">tim.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dash_8h" kindref="compound">dash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="uvfr__utils_8h" kindref="compound">uvfr_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="11"><highlight class="normal"></highlight></codeline>
-<codeline lineno="12" refid="bms_8c_1a79f5e585e6fa5d54c855cf1a3b16ff88" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>bms_settings<sp/>current_vehicle_settings-&gt;bms_settings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//Quazi<sp/>Heider</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="main_8h" kindref="compound">main.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="bms_8h" kindref="compound">bms.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="constants_8h" kindref="compound">constants.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="pdu_8h" kindref="compound">pdu.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="can_8h" kindref="compound">can.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="tim_8h" kindref="compound">tim.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="dash_8h" kindref="compound">dash.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="13"><highlight class="normal"></highlight></codeline>
-<codeline lineno="14" refid="bms_8c_1a28e4314b233b9140e73e4fd0bab7e354" refkind="member"><highlight class="normal"><ref refid="structbms__settings__t" kindref="compound">bms_settings_t</ref><sp/><ref refid="bms_8c_1a28e4314b233b9140e73e4fd0bab7e354" kindref="member">default_bms_settings</ref><sp/>=<sp/>{</highlight></codeline>
-<codeline lineno="15"><highlight class="normal">.BMS_CAN_timeout<sp/>=<sp/>200,<sp/></highlight><highlight class="comment">//ms</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="16"><highlight class="normal">.max_cell_temp<sp/>=<sp/>500,</highlight></codeline>
-<codeline lineno="17"><highlight class="normal">.min_cell_temp<sp/>=<sp/>-200,</highlight></codeline>
-<codeline lineno="18"><highlight class="normal">.min_soc<sp/>=<sp/>10,</highlight></codeline>
-<codeline lineno="19"><highlight class="normal">.min_cell_voltage<sp/>=<sp/>2.5,</highlight></codeline>
-<codeline lineno="20"><highlight class="normal">.max_cell_voltage<sp/>=<sp/>4.2,</highlight></codeline>
-<codeline lineno="21"><highlight class="normal">.max_pack_voltage<sp/>=<sp/>5000,</highlight></codeline>
-<codeline lineno="22"><highlight class="normal">.max_variance_between_cells<sp/>=<sp/>1</highlight></codeline>
-<codeline lineno="23"><highlight class="normal">};</highlight></codeline>
-<codeline lineno="24"><highlight class="normal"></highlight></codeline>
-<codeline lineno="25"><highlight class="normal"></highlight></codeline>
-<codeline lineno="26"><highlight class="normal"></highlight></codeline>
-<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//two<sp/>IDs<sp/>for<sp/>bms<sp/>can<sp/>message</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x6B0</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x6B1</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="30"><highlight class="normal"></highlight></codeline>
-<codeline lineno="31" refid="bms_8c_1a4081f615c3b206c0996bb9a22516f115" refkind="member"><highlight class="normal">TickType_t<sp/><ref refid="bms_8c_1a4081f615c3b206c0996bb9a22516f115" kindref="member">bms_last_msg_time</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="32" refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" kindref="member">is_bms_connected</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight></codeline>
-<codeline lineno="34" refid="bms_8c_1a2ef021ab39a98f64902d656ac099f8a9" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a2ef021ab39a98f64902d656ac099f8a9" kindref="member">packCurrent</ref><sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>logged</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35" refid="bms_8c_1a178a2c12bb1a2c720fcde0ef2cd6f1f1" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a178a2c12bb1a2c720fcde0ef2cd6f1f1" kindref="member">packVoltage</ref><sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>logged</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="36" refid="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" kindref="member">stateOfCharge</ref><sp/>=<sp/>0;<sp/></highlight><highlight class="comment">//<sp/>used<sp/>for<sp/>toggling<sp/>regen<sp/>braking<sp/>/<sp/>low<sp/>charge<sp/>warning</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="37" refid="bms_8c_1a2bd3e52b9f7bb249a6c7a1108efb1995" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a2bd3e52b9f7bb249a6c7a1108efb1995" kindref="member">relayState</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="38" refid="bms_8c_1a3db3406866b37db013bd594d7588ed00" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a3db3406866b37db013bd594d7588ed00" kindref="member">msg1corrupt</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//two<sp/>IDs<sp/>for<sp/>bms<sp/>can<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//<sp/>0x6B1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>IGNORE_BMS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="structbms__state__t" kindref="compound">bms_state_t</ref><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.pack_current_dA<sp/>=<sp/>0,<sp/></highlight><highlight class="comment">//<sp/>0.1<sp/>A<sp/>units</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.pack_voltage_dV<sp/>=<sp/>4790,<sp/></highlight><highlight class="comment">//<sp/>0.1<sp/>V<sp/>units</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.soc_pct<sp/>=<sp/>60,<sp/></highlight><highlight class="comment">//<sp/>0-100%</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.relayState<sp/>=<sp/>1,</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.msg1corrupt<sp/>=<sp/>0,<sp/></highlight><highlight class="comment">//checksum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.dcl_dA<sp/>=<sp/>110,</highlight><highlight class="comment">//<sp/>0.1<sp/>A<sp/>max<sp/>discharge<sp/>current<sp/>limit</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.min_cell_temp<sp/>=<sp/>22,<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.max_cell_temp<sp/>=<sp/>26,<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.msg2corrupt<sp/>=<sp/>0,</highlight><highlight class="comment">//<sp/>checksum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="bms_8h_1acd394543f05f280e0ffead84f5380215" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/><ref refid="structbms__state__t" kindref="compound">bms_state_t</ref><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref><sp/>=<sp/>{0};</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>curr_bms_settings<sp/>(*(current_vehicle_settings-&gt;bms_settings))</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40" refid="bms_8c_1a5b12ba8d86d6649ab8b4a0967484f3ec" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a5b12ba8d86d6649ab8b4a0967484f3ec" kindref="member">packDCL</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="41" refid="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" kindref="member">lowTemp</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="42" refid="bms_8c_1a30221826d03df3708444924f408282c6" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a30221826d03df3708444924f408282c6" kindref="member">highTemp</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="43" refid="bms_8c_1a8fa7b800b072c0c1449c7be149c703ba" refkind="member"><highlight class="normal">uint16_t<sp/><ref refid="bms_8c_1a8fa7b800b072c0c1449c7be149c703ba" kindref="member">msg2corrupt</ref><sp/>=<sp/>0;</highlight></codeline>
-<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//<sp/>extern<sp/>uint16_t<sp/>(var<sp/>name)<sp/>to<sp/>call<sp/>outside<sp/>this<sp/>file</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="bms_8c_1a28e4314b233b9140e73e4fd0bab7e354" refkind="member"><highlight class="normal"><ref refid="structbms__settings__t" kindref="compound">bms_settings_t</ref><sp/><ref refid="bms_8c_1a28e4314b233b9140e73e4fd0bab7e354" kindref="member">default_bms_settings</ref><sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.BMS_CAN_timeout<sp/>=<sp/>100,</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Temp<sp/>ranges</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.discharge_cold_fault_c<sp/>=<sp/>-20,</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.discharge_cold_warn_c<sp/><sp/>=<sp/>-10,</highlight></codeline>
 <codeline lineno="46"><highlight class="normal"></highlight></codeline>
-<codeline lineno="47" refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" kindref="member">BMS_msg1</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>msg){<sp/></highlight><highlight class="comment">//<sp/>msg<sp/>is<sp/>raw<sp/>CAN<sp/>msg,<sp/>gets<sp/>processed<sp/>in<sp/>voltageCANdata</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>msg1<sp/>can<sp/>handle<sp/>current,<sp/>voltage,<sp/>charge,<sp/>relay,<sp/>checksum<sp/>(corruption)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a2ef021ab39a98f64902d656ac099f8a9" kindref="member">packCurrent</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[0]&lt;&lt;8<sp/>|<sp/>msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[1]);<sp/></highlight><highlight class="comment">//<sp/>x<sp/>0.1A</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a178a2c12bb1a2c720fcde0ef2cd6f1f1" kindref="member">packVoltage</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[2]&lt;&lt;8<sp/>|<sp/>msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[3]);<sp/></highlight><highlight class="comment">//<sp/>x<sp/>0.1V</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight></codeline>
-<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" kindref="member">stateOfCharge</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[4])/2;<sp/></highlight><highlight class="comment">//<sp/>x2;<sp/>this<sp/>is<sp/>an<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.charge_cold_fault_c<sp/><sp/><sp/><sp/>=<sp/>0,</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.charge_hot_fault_c<sp/><sp/><sp/><sp/><sp/>=<sp/>45,</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.discharge_hot_warn_c<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>50,</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.discharge_hot_derate_c<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>55,</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.discharge_hot_fault_c<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>60,</highlight></codeline>
 <codeline lineno="53"><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a2bd3e52b9f7bb249a6c7a1108efb1995" kindref="member">relayState</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[5]&lt;&lt;8<sp/>|<sp/>msg<sp/>-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[6]);</highlight></codeline>
-<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a3db3406866b37db013bd594d7588ed00" kindref="member">msg1corrupt</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[7]);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a4081f615c3b206c0996bb9a22516f115" kindref="member">bms_last_msg_time</ref><sp/>=<sp/>xTaskGetTickCount();</highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" kindref="member">is_bms_connected</ref><sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" kindref="member">stateOfCharge</ref><sp/>&lt;<sp/>20)<sp/>{</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>flash<sp/>low<sp/>battery<sp/>warning<sp/>to<sp/>screen</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1a4fe005c273fb4a65d7f0ae7fb04b850e" kindref="member">stateOfCharge</ref><sp/>&gt;=<sp/>95)<sp/>{</highlight></codeline>
-<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>disable<sp/>regenerative<sp/>breaking</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>in<sp/>all<sp/>other<sp/>cases<sp/>battery<sp/>should<sp/>be<sp/>functioning<sp/>as<sp/>normal</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>would<sp/>make<sp/>sense<sp/>for<sp/>voltageCANdata<sp/>to<sp/>turn<sp/>into<sp/>float</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//log<sp/>voltage<sp/>data<sp/>to<sp/>where,<sp/>maybe<sp/>setting<sp/>global<sp/>variable</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>temp<sp/>sensor<sp/>plausibility<sp/>checks</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.temp_plaus_min_c<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>-40,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.temp_plaus_max_c<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>100,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SOC<sp/>threshoolds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.soc_low_warn_pct<sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>20,</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.soc_regen_disable_pct<sp/><sp/>=<sp/>95,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//derate<sp/>start<sp/>point</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.derate_start_c<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>=<sp/>55,</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Plausibility<sp/>ranges</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>These<sp/>values<sp/>may<sp/>need<sp/>to<sp/>be<sp/>changed</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.current_plaus_min_dA<sp/><sp/><sp/><sp/>=<sp/>-20000,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>-2000<sp/>A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.current_plaus_max_dA<sp/><sp/><sp/><sp/>=<sp/><sp/>20000,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>+2000<sp/>A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.voltage_plaus_min_dV<sp/><sp/><sp/><sp/>=<sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>0<sp/>V</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.voltage_plaus_max_dV<sp/><sp/><sp/><sp/>=<sp/>8000,<sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>800<sp/>V<sp/>(adjust<sp/>to<sp/>your<sp/>pack)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Temps<sp/>(need<sp/>to<sp/>be<sp/>tuned<sp/>to<sp/>cell<sp/>datasheet<sp/>and<sp/>comp-specific<sp/>rules)</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="74"><highlight class="normal"></highlight></codeline>
-<codeline lineno="75" refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" kindref="member">BMS_msg2</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>msg){</highlight></codeline>
-<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>msg2<sp/>can<sp/>handle<sp/>DCL<sp/>(Max<sp/>current<sp/>output),<sp/>tempurature,<sp/>checksum</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a5b12ba8d86d6649ab8b4a0967484f3ec" kindref="member">packDCL</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[0]&lt;&lt;8<sp/>|<sp/>msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[3]);</highlight></codeline>
-<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" kindref="member">lowTemp</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[4]);<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a30221826d03df3708444924f408282c6" kindref="member">highTemp</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[5]);<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a8fa7b800b072c0c1449c7be149c703ba" kindref="member">msg2corrupt</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[7]);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="77" refid="bms_8h_1a6f635739f7b278e5898f59e0e370c183" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8c_1a6f635739f7b278e5898f59e0e370c183" kindref="member">BMS_CANRxHandler_msg1</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>msg){<sp/></highlight><highlight class="comment">//<sp/>msg<sp/>is<sp/>raw<sp/>CAN<sp/>msg,<sp/>gets<sp/>processed<sp/>in<sp/>voltageCANdata</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>msg1<sp/>can<sp/>handle<sp/>current,<sp/>voltage,<sp/>charge,<sp/>relay,<sp/>checksum<sp/>(corruption)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" kindref="member">pack_current_dA</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[0]&lt;&lt;8<sp/>|<sp/>msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[1]);<sp/></highlight><highlight class="comment">//<sp/>x<sp/>0.1A</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" kindref="member">pack_voltage_dV</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[2]&lt;&lt;8<sp/>|<sp/>msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[3]);<sp/></highlight><highlight class="comment">//<sp/>x<sp/>0.1V</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="81"><highlight class="normal"></highlight></codeline>
-<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1a4081f615c3b206c0996bb9a22516f115" kindref="member">bms_last_msg_time</ref><sp/>=<sp/>xTaskGetTickCount();</highlight></codeline>
-<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" kindref="member">is_bms_connected</ref><sp/>=<sp/>1;</highlight></codeline>
-<codeline lineno="84"><highlight class="normal"></highlight></codeline>
-<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" kindref="member">lowTemp</ref><sp/>&lt;=<sp/>-5<sp/>)<sp/>{</highlight></codeline>
-<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>warning<sp/>-<sp/>temp<sp/>is<sp/>too<sp/>low</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>stop<sp/>operability?</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="88"><highlight class="normal"></highlight></codeline>
-<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1a09f4da3365fb5890a0fd8c5f5871d25e" kindref="member">lowTemp</ref><sp/>&gt;<sp/>-5<sp/>&amp;&amp;<sp/><ref refid="bms_8c_1a30221826d03df3708444924f408282c6" kindref="member">highTemp</ref><sp/>&lt;<sp/>55){</highlight></codeline>
-<codeline lineno="91"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/>normal<sp/>operating<sp/>tempurature<sp/>range</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="92"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/>drive<sp/>as<sp/>normal</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1a30221826d03df3708444924f408282c6" kindref="member">highTemp</ref><sp/>&gt;=<sp/>55.0)<sp/>{</highlight></codeline>
-<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flash<sp/>warning<sp/>-<sp/>approaching<sp/>max<sp/>temp</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>maybe<sp/>enable<sp/>cooling<sp/>fan/devices<sp/>here</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="98"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="99"><highlight class="normal"></highlight></codeline>
-<codeline lineno="100" refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8c_1aa9af83736568f74c94d41f3f16adf513" kindref="member">BMS_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args){</highlight></codeline>
-<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__init__task__args" kindref="compound">uv_init_task_args</ref>*<sp/>params<sp/>=<sp/>(<ref refid="structuv__init__task__args" kindref="compound">uv_init_task_args</ref>*)<sp/>args;</highlight></codeline>
-<codeline lineno="102"><highlight class="normal"></highlight></codeline>
-<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>osDelay(200);</highlight></codeline>
-<codeline lineno="104"><highlight class="normal"></highlight></codeline>
-<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__init__task__response" kindref="compound">uv_init_task_response</ref><sp/>response<sp/>=<sp/>{<ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>,<ref refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" kindref="member">BMS</ref>,0,NULL};</highlight></codeline>
-<codeline lineno="106"><highlight class="normal"></highlight></codeline>
-<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>TickType_t<sp/>bms_init_time<sp/>=<sp/>xTaskGetTickCount();</highlight></codeline>
-<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>TickType_t<sp/>init_deadline<sp/>=<sp/>bms_init_time<sp/>+<sp/><ref refid="bms_8c_1a79f5e585e6fa5d54c855cf1a3b16ff88" kindref="member">bms_settings</ref>-&gt;BMS_CAN_timeout;</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"></highlight></codeline>
-<codeline lineno="110"><highlight class="normal"></highlight></codeline>
-<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kindref="member">insertCANMessageHandler</ref>(0x6B0,<sp/><ref refid="bms_8c_1a7a70ee75f60730eaf8489c863fceea7d" kindref="member">BMS_msg1</ref>,<sp/><ref refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" kindref="member">CAN_BUS_1</ref>);</highlight></codeline>
-<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kindref="member">insertCANMessageHandler</ref>(0x6B1,<sp/><ref refid="bms_8c_1a554435738960054c897ed84e3f5b1edf" kindref="member">BMS_msg2</ref>,<sp/><ref refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" kindref="member">CAN_BUS_1</ref>);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" kindref="member">soc_pct</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[4])<sp/>/<sp/>2;<sp/></highlight><highlight class="comment">//<sp/>was<sp/>off<sp/>by<sp/>factor<sp/>of<sp/>4,<sp/>showed<sp/>200%<sp/>when<sp/>real<sp/>was<sp/>50%</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aafa9d07dac634207a9a61a1ee0f40bd1" kindref="member">relayState</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[5]&lt;&lt;8<sp/>|<sp/>msg<sp/>-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[6]);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a448230d0f8f6d17144c3c3cc74dfd68d" kindref="member">msg1corrupt</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[7]);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="89"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Chatgpt<sp/>suggested<sp/>code<sp/>for<sp/>handling<sp/>corrupt<sp/>byte</highlight></codeline>
+<codeline lineno="90"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/>//<sp/>CRC<sp/>/<sp/>corruption<sp/>(example<sp/>XOR;<sp/>replace<sp/>with<sp/>real<sp/>CRC<sp/>if<sp/>you<sp/>have<sp/>one)</highlight></codeline>
+<codeline lineno="91"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>rx_crc<sp/>=<sp/>msg-&gt;data[7];</highlight></codeline>
+<codeline lineno="92"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>calc<sp/><sp/><sp/>=<sp/>crc8_simple(msg-&gt;data,<sp/>7);</highlight></codeline>
+<codeline lineno="93"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="94"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//current<sp/>and<sp/>voltage<sp/>plausibility<sp/>checks</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//corrupt<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a448230d0f8f6d17144c3c3cc74dfd68d" kindref="member">msg1corrupt</ref>){</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//uvPanic?<sp/>corrupt<sp/>bms<sp/>message</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//return;<sp/>//<sp/>kill<sp/>process<sp/>as<sp/>bad<sp/>msg</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>PLAUSIBILITY<sp/>CHECKS<sp/>---</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Current<sp/>plausibility<sp/>-<sp/>verify<sp/>we<sp/>are<sp/>getting<sp/>clean<sp/>values<sp/>before<sp/>they<sp/>get<sp/>used</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>values<sp/>like<sp/>amp,<sp/>voltage<sp/>to<sp/>compute<sp/>power<sp/>will<sp/>be<sp/>needed<sp/>when<sp/>creating<sp/>torque<sp/>reduction<sp/>system<sp/>for<sp/>TCS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" kindref="member">pack_current_dA</ref><sp/>&lt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.current_plaus_min_dA<sp/>||</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a5f562e3713009e636aa71f076b9854a6" kindref="member">pack_current_dA</ref><sp/>&gt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.current_plaus_max_dA)<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>raise<sp/>fault<sp/>for<sp/>sensor<sp/>range</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>log<sp/>warning<sp/>for<sp/>implausible<sp/>amp<sp/>range</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="113"><highlight class="normal"></highlight></codeline>
-<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(;;){</highlight></codeline>
-<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(init_deadline<sp/>&lt;<sp/>xTaskGetTickCount()){</highlight></codeline>
-<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//BMS<sp/>not<sp/>connected<sp/>lol</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//uvPanic(&quot;BMS<sp/>Not<sp/>Detected&quot;,<sp/>0);</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="118"><highlight class="normal"></highlight></codeline>
-<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//TODO<sp/>re-enable<sp/>this<sp/>if<sp/>for<sp/>whatever<sp/>reason<sp/>we<sp/>have<sp/>this<sp/>thing<sp/>again</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="120"><highlight class="normal"></highlight></codeline>
-<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//response.status<sp/>=<sp/>UV_ERROR;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(<ref refid="bms_8c_1ab9364948a7d6cbb869d63a78be56501d" kindref="member">is_bms_connected</ref><sp/>==<sp/>1){</highlight></codeline>
-<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight></codeline>
-<codeline lineno="130"><highlight class="normal"></highlight></codeline>
-<codeline lineno="131"><highlight class="normal"></highlight></codeline>
-<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Kill<sp/>yourself</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"></highlight></codeline>
-<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(xQueueSendToBack(params-&gt;<ref refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" kindref="member">init_info_queue</ref>,&amp;response,100)<sp/>!=<sp/>pdPASS){</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//OOPS</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
-<codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/>vTaskSuspend(params-&gt;<ref refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" kindref="member">meta_task_handle</ref>);</highlight></codeline>
-<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Voltage<sp/>plausibility</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" kindref="member">pack_voltage_dV</ref><sp/>&lt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.voltage_plaus_min_dV<sp/>||</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a56a00f8fc18b0ea4f2818e6f02b94775" kindref="member">pack_voltage_dV</ref><sp/>&gt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.voltage_plaus_max_dV)<sp/>{</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>raise<sp/>fault<sp/>for<sp/>sensor<sp/>range</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>log<sp/>warning<sp/>for<sp/>implausible<sp/>voltage<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>SOC<sp/>checks</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Optional:<sp/>SOC<sp/>plausibility<sp/>(0–100%)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" kindref="member">soc_pct</ref><sp/>&gt;<sp/>100)<sp/>{</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>raise<sp/>fault<sp/>for<sp/>sensor<sp/>range</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>log<sp/>warning<sp/>for<sp/>implausible<sp/>SOC</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//chatgpt<sp/>says<sp/>we<sp/>should<sp/>clamp<sp/>this<sp/>value<sp/>but<sp/>i<sp/>dont<sp/>think<sp/>we<sp/>should<sp/>because<sp/>the<sp/>battery<sp/>should<sp/>never<sp/>reach<sp/>over<sp/>100%<sp/>anyway</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>it<sp/>does<sp/>reach<sp/>over<sp/>100<sp/>this<sp/>condition<sp/>will<sp/>hit<sp/>and<sp/>we<sp/>will<sp/>just<sp/>reset<sp/>the<sp/>pct<sp/>value,<sp/>does<sp/>not<sp/>make<sp/>sense<sp/>to<sp/>me</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>its<sp/>over<sp/>100<sp/>its<sp/>bad</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//g_bms_state.soc_pct<sp/>=<sp/>100;<sp/>clamp<sp/>it<sp/>instead<sp/>of<sp/>using<sp/>invalid<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" kindref="member">soc_pct</ref><sp/>&lt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.soc_low_warn_pct)<sp/>{<sp/></highlight><highlight class="comment">//<sp/>if<sp/>battery<sp/>pct<sp/>is<sp/>lower<sp/>than<sp/>settings<sp/>warning<sp/>threshold</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>flash<sp/>low<sp/>battery<sp/>warning<sp/>to<sp/>screen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1ae14b31f9d6a2b3b66340b25dd0ba66d1" kindref="member">soc_pct</ref><sp/>&gt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.soc_regen_disable_pct)<sp/>{<sp/></highlight><highlight class="comment">//<sp/>if<sp/>battery<sp/>pct<sp/>is<sp/>higher<sp/>than<sp/>regen<sp/>warning<sp/>thresholh</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>disable<sp/>regenerative<sp/>breaking</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>regenerative<sp/>braking<sp/>should<sp/>be<sp/>on<sp/>as<sp/>battery<sp/>within<sp/>conditionsw</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>in<sp/>all<sp/>other<sp/>cases<sp/>battery<sp/>should<sp/>be<sp/>functioning<sp/>as<sp/>normal</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="144"><highlight class="normal"></highlight></codeline>
 <codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__external__devices_8h_1abeba1577d0e5f860f687d6dfaa57c877" kindref="member">externalDeviceRxHandler</ref>(<ref refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" kindref="member">BMS</ref>);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="bms_8h_1a7cbdb3a6f5bd9870c175fc6d88131465" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8c_1a7cbdb3a6f5bd9870c175fc6d88131465" kindref="member">BMS_CANRxHandler_msg2</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>*<sp/>msg){</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>msg2<sp/>can<sp/>handle<sp/>DCL<sp/>(Max<sp/>current<sp/>output),<sp/>tempurature,<sp/>checksum</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//g_bms_state.dcl_dA<sp/>=<sp/>(msg-&gt;data[0]&lt;&lt;8<sp/>|<sp/>msg-&gt;data[3]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a506a41501c632fb90fecd0ffa61321d9" kindref="member">dcl_dA</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[0]&lt;&lt;8<sp/>|<sp/>msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[1]);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>is<sp/>the<sp/>derate<sp/>current<sp/>limit<sp/>-<sp/>how<sp/>much<sp/>power<sp/>is<sp/>the<sp/>motor<sp/>allowed<sp/>to<sp/>send<sp/>out<sp/>at<sp/>this<sp/>given<sp/>moment</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>determined<sp/>within<sp/>the<sp/>incoming<sp/>msg??<sp/>i<sp/>actually<sp/>dont<sp/>understand<sp/>why,<sp/>shouldnt<sp/>we<sp/>be<sp/>the<sp/>one<sp/>telling<sp/>the<sp/>battery<sp/>how<sp/>much<sp/>it<sp/>can<sp/>ouput</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>value<sp/>would<sp/>be<sp/>useful<sp/>in<sp/>creating<sp/>limp<sp/>mode,<sp/>can<sp/>be<sp/>static</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>could<sp/>also<sp/>be<sp/>useful<sp/>in<sp/>creating<sp/>TCS<sp/>but<sp/>would<sp/>have<sp/>to<sp/>be<sp/>dynamic<sp/>(gradually<sp/>allow<sp/>more<sp/>power<sp/>respective<sp/>to<sp/>tire<sp/>slip)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>might<sp/>need<sp/>to<sp/>extern<sp/>this<sp/>to<sp/>use<sp/>in<sp/>msg1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>however<sp/>right<sp/>now<sp/>i<sp/>have<sp/>no<sp/>clue<sp/>what<sp/>to<sp/>do<sp/>with<sp/>this<sp/>lol</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" kindref="member">min_cell_temp</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[4]);<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[5]);<sp/></highlight><highlight class="comment">//<sp/>celsius</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a929e6bb5b650f4c0fa6a8442bf76c90a" kindref="member">msg2corrupt</ref><sp/>=<sp/>(msg-&gt;<ref refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" kindref="member">data</ref>[7]);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="167"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>Chatgpt<sp/>suggested<sp/>code<sp/>for<sp/>handling<sp/>corrupt<sp/>byte</highlight></codeline>
+<codeline lineno="168"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/><sp/><sp/><sp/><sp/>//<sp/>CRC<sp/>/<sp/>corruption<sp/>(example<sp/>XOR;<sp/>replace<sp/>with<sp/>real<sp/>CRC<sp/>if<sp/>you<sp/>have<sp/>one)</highlight></codeline>
+<codeline lineno="169"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>rx_crc<sp/>=<sp/>msg-&gt;data[7];</highlight></codeline>
+<codeline lineno="170"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uint8_t<sp/>calc<sp/><sp/><sp/>=<sp/>crc8_simple(msg-&gt;data,<sp/>7);</highlight></codeline>
+<codeline lineno="171"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*</highlight></codeline>
+<codeline lineno="172"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>incoming<sp/>can<sp/>msg<sp/>plausibility</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1a929e6bb5b650f4c0fa6a8442bf76c90a" kindref="member">msg2corrupt</ref>){</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//uvPanic?</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//return;<sp/>-<sp/>commented<sp/>out<sp/>because<sp/>unsure<sp/>how<sp/>checksom<sp/>works</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//tempurature<sp/>value<sp/>plausibilty<sp/>checks</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" kindref="member">min_cell_temp</ref><sp/>&lt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.temp_plaus_min_c<sp/>||<sp/><ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref><sp/>&gt;<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.temp_plaus_max_c)<sp/>{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="184"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>checking<sp/>validity<sp/>of<sp/>sensor<sp/>values</highlight></codeline>
+<codeline lineno="185"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*<sp/>if<sp/>out<sp/>of<sp/>range<sp/>then<sp/>raise<sp/>error<sp/>(sensor/comms<sp/>fault)</highlight></codeline>
+<codeline lineno="186"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//charger<sp/>sanity<sp/>checks<sp/>(only<sp/>need<sp/>to<sp/>run<sp/>when<sp/>charger<sp/>is<sp/>connected</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref><sp/>&gt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.charge_hot_fault_c){</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//STOP<sp/>charging<sp/>-<sp/>battery<sp/>is<sp/>too<sp/>hot<sp/>to<sp/>accept<sp/>charge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" kindref="member">min_cell_temp</ref><sp/>&lt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.charge_cold_fault_c){</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//STOP<sp/>charging<sp/>-<sp/>battery<sp/>is<sp/>too<sp/>cold<sp/>to<sp/>accept<sp/>charge</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>HOT<sp/>SIDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref><sp/>&gt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.discharge_hot_fault_c)<sp/>{</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//hot<sp/>temp<sp/>hard<sp/>fault</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref><sp/>&gt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.discharge_hot_derate_c){</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>approaching<sp/>hot<sp/>temps,<sp/>derate<sp/>motor<sp/>or<sp/>do<sp/>something<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>okay<sp/>to<sp/>keep<sp/>running</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>derate<sp/>limit<sp/>amps<sp/>/<sp/>power<sp/>output<sp/>(like<sp/>a<sp/>limp<sp/>mode<sp/>in<sp/>a<sp/>real<sp/>car)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1aa67cb7fac22f36f2a9876b3462b1a88a" kindref="member">max_cell_temp</ref><sp/>&gt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.discharge_hot_warn_c){</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>dont<sp/>need<sp/>to<sp/>do<sp/>anything<sp/>crazy<sp/>here<sp/>just<sp/>flash<sp/>dash<sp/>warning<sp/>that<sp/>pack<sp/>is<sp/>hot</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clear<sp/>any<sp/>warnings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>normal<sp/>operability</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>reset<sp/>any<sp/>invoked<sp/>conditions<sp/>(eg<sp/>limp<sp/>mode<sp/>-<sp/>make<sp/>sure<sp/>car<sp/>does<sp/>not<sp/>stay<sp/>in<sp/>limp<sp/>mode<sp/>after<sp/>throwing<sp/>it<sp/>and<sp/>recovering)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>COLD<sp/>SIDE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" kindref="member">min_cell_temp</ref><sp/>&lt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.discharge_cold_fault_c){</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//cold<sp/>temp<sp/>hard<sp/>fault</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="bms_8c_1acd394543f05f280e0ffead84f5380215" kindref="member">g_bms_state</ref>.<ref refid="structbms__state__t_1adbf4c6c6a62d90353abff928ed9dfcbf" kindref="member">min_cell_temp</ref><sp/>&lt;=<sp/><ref refid="bms_8c_1ae935abd17f88e90a92b656e66e2f6395" kindref="member">curr_bms_settings</ref>.discharge_cold_warn_c){</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//cold<sp/>temp<sp/>warning</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>need<sp/>to<sp/>derate<sp/>battery<sp/>here<sp/>too<sp/>as<sp/>overpowering<sp/>the<sp/>battery<sp/>at<sp/>too<sp/>low<sp/>temps<sp/>is<sp/>harmful</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221"><highlight class="normal"></highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clear<sp/>any<sp/>warnings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//normal<sp/>operation</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="uvfr__external__devices_8h_1abeba1577d0e5f860f687d6dfaa57c877" kindref="member">externalDeviceRxHandler</ref>(<ref refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" kindref="member">BMS</ref>);</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"></highlight><highlight class="comment">//<sp/>adding<sp/>registration<sp/>with<sp/>XDevMon<sp/>for<sp/>BMS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Need<sp/>to<sp/>go<sp/>through<sp/>datasheets<sp/>to<sp/>see<sp/>if<sp/>it<sp/>is<sp/>structured<sp/>similarly<sp/>in<sp/>terms<sp/>of<sp/>can<sp/>request<sp/>mux</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/>BMS_RegisterWithXDevMon(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">){</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/>TickType_t<sp/>period_ms<sp/>=<sp/>100;<sp/></highlight><highlight class="comment">//<sp/>poll<sp/>every<sp/>100<sp/>ms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"></highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>flags<sp/>=<sp/><ref refid="uvfr__utils_8h_1a53250f7129ac531af318ca80b2369b35" kindref="member">XDEV_DEVICE_EXPECTED</ref><sp/>|<sp/><ref refid="uvfr__utils_8h_1a8271d45830bcd3a81c516ec8a0d306f8" kindref="member">XDEV_CHECK_TIMEOUT_BIT</ref>;</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="uvfr__external__devices_8h_1a2490d2062300642b604d6b04e3aef26e" kindref="member">uvRegisterExternalDevice</ref>(<ref refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" kindref="member">BMS</ref>,<sp/>period_ms,<sp/>flags,<sp/></highlight><highlight class="stringliteral">&quot;BMS&quot;</highlight><highlight class="normal">)<sp/>!=<sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;<sp/></highlight><highlight class="comment">//<sp/>error<sp/>when<sp/>registering<sp/>device</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>here<sp/>we<sp/>dont<sp/>need<sp/>to<sp/>ask<sp/>the<sp/>BMS<sp/>to<sp/>send<sp/>us<sp/>messages<sp/>because<sp/>if<sp/>i<sp/>remember<sp/>correctly</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>bms<sp/>is<sp/>always<sp/>transmitting<sp/>messages</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="245"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="bms_8h_1aa9af83736568f74c94d41f3f16adf513" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="bms_8c_1aa9af83736568f74c94d41f3f16adf513" kindref="member">BMS_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args){</highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__init__task__args" kindref="compound">uv_init_task_args</ref>*<sp/>params<sp/>=<sp/>(<ref refid="structuv__init__task__args" kindref="compound">uv_init_task_args</ref>*)<sp/>args;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/>vTaskDelay(20);</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structuv__init__task__response" kindref="compound">uv_init_task_response</ref><sp/>response<sp/>=<sp/>{<ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>,<ref refid="uvfr__utils_8h_1ad70cbc8929c4ad7a5901cd9eef5ca9b0aca1b897aad8f93e76df69c23bc732f2e" kindref="member">BMS</ref>,0,NULL};</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kindref="member">insertCANMessageHandler</ref>(0x6B0,<sp/><ref refid="bms_8c_1a6f635739f7b278e5898f59e0e370c183" kindref="member">BMS_CANRxHandler_msg1</ref>,<sp/><ref refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" kindref="member">CAN_BUS_1</ref>);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kindref="member">insertCANMessageHandler</ref>(0x6B1,<sp/><ref refid="bms_8c_1a7cbdb3a6f5bd9870c175fc6d88131465" kindref="member">BMS_CANRxHandler_msg2</ref>,<sp/><ref refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" kindref="member">CAN_BUS_1</ref>);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(BMS_RegisterWithXDevMon()<sp/>!=<ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" kindref="member">UV_OK</ref>){</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>response.<ref refid="structuv__init__task__response_1a56b3df74c10cdc59e8e1b9d4c1f36af7" kindref="member">status</ref><sp/>=<sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea480ef4e56d17703f0629bfe1e06bc4f0" kindref="member">UV_ERROR</ref>;</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>response.<ref refid="structuv__init__task__response_1af29fdddeaddc456d2028cc1ad471bae1" kindref="member">errmsg</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>register<sp/>BMS<sp/>with<sp/>XDEVMON&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(xQueueSendToBack(params-&gt;<ref refid="structuv__init__task__args_1adec47e7a54822cacfb8fcfc35a22157f" kindref="member">init_info_queue</ref>,&amp;response,100)<sp/>!=<sp/>pdPASS){</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//OOPS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Kill<sp/>yourself</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/>vTaskSuspend(params-&gt;<ref refid="structuv__init__task__args_1a3b81430245e7f832dc1112e53b0ef7ad" kindref="member">meta_task_handle</ref>);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="Core/Src/bms.c"/>
   </compounddef>

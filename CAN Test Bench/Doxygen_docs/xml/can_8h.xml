@@ -3,6 +3,8 @@
   <compounddef id="can_8h" kind="file" language="C++">
     <compoundname>can.h</compoundname>
     <includes refid="main_8h" local="yes">main.h</includes>
+    <includes local="yes">FreeRTOS.h</includes>
+    <includes local="yes">task.h</includes>
     <includes refid="constants_8h" local="yes">constants.h</includes>
     <includes refid="uvfr__utils_8h" local="yes">uvfr_utils.h</includes>
     <includedby refid="motor__controller_8h" local="yes">Core/Inc/motor_controller.h</includedby>
@@ -13,9 +15,9 @@
     <includedby refid="driving__loop_8c" local="yes">Core/Src/driving_loop.c</includedby>
     <includedby refid="imd_8c" local="yes">Core/Src/imd.c</includedby>
     <includedby refid="main_8c" local="yes">Core/Src/main.c</includedby>
-    <includedby refid="motor__controller_8c" local="yes">Core/Src/motor_controller.c</includedby>
     <includedby refid="pdu_8c" local="yes">Core/Src/pdu.c</includedby>
     <includedby refid="temp__monitoring_8c" local="yes">Core/Src/temp_monitoring.c</includedby>
+    <includedby refid="tms_8c" local="yes">Core/Src/tms.c</includedby>
     <includedby refid="uvfr__vehicle__logger_8c" local="yes">Core/Src/uvfr_vehicle_logger.c</includedby>
     <incdepgraph>
       <node id="7">
@@ -24,12 +26,14 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="19">
         <label>bms.h</label>
         <link refid="bms_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -37,24 +41,28 @@
         <link refid="can_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="38" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="40" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="40">
         <label>constants.h</label>
         <link refid="constants_8h"/>
       </node>
-      <node id="15">
+      <node id="17">
         <label>daq.h</label>
         <link refid="daq_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
       </node>
-      <node id="28">
+      <node id="30">
         <label>dash.h</label>
         <link refid="dash_8h"/>
         <childnode refid="2" relation="include">
@@ -66,10 +74,12 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="15">
         <label>driving_loop.h</label>
         <link refid="driving__loop_8h"/>
-        <childnode refid="12" relation="include">
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
@@ -80,10 +90,14 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="29">
+      <node id="31">
         <label>imd.h</label>
         <link refid="imd_8h"/>
         <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -96,27 +110,27 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="12">
+      <node id="13">
         <label>motor_controller.h</label>
         <link refid="motor__controller_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="37">
         <label>odometer.h</label>
         <link refid="odometer_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="30">
+      <node id="32">
         <label>pdu.h</label>
         <link refid="pdu_8h"/>
         <childnode refid="2" relation="include">
@@ -124,11 +138,11 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="18">
         <label>rb_tree.h</label>
         <link refid="rb__tree_8h"/>
       </node>
-      <node id="35">
+      <node id="36">
         <label>temp_monitoring.h</label>
         <link refid="temp__monitoring_8h"/>
         <childnode refid="5" relation="include">
@@ -140,48 +154,58 @@
         <childnode refid="2" relation="include">
         </childnode>
       </node>
-      <node id="31">
+      <node id="33">
         <label>uvfr_conifer.h</label>
         <link refid="uvfr__conifer_8h"/>
-        <childnode refid="32" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
       </node>
-      <node id="25">
+      <node id="11">
+        <label>uvfr_data_proccessing.h</label>
+        <link refid="uvfr__data__proccessing_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="26">
         <label>uvfr_diagnostics.h</label>
         <link refid="uvfr__diagnostics_8h"/>
-        <childnode refid="26" relation="include">
+        <childnode refid="27" relation="include">
+        </childnode>
+      </node>
+      <node id="29">
+        <label>uvfr_external_devices.h</label>
+        <link refid="uvfr__external__devices_8h"/>
+        <childnode refid="5" relation="include">
         </childnode>
       </node>
       <node id="6">
         <label>uvfr_global_config.h</label>
         <link refid="uvfr__global__config_8h"/>
       </node>
-      <node id="11">
+      <node id="12">
         <label>uvfr_settings.h</label>
         <link refid="uvfr__settings_8h"/>
-        <childnode refid="12" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
         <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="19" relation="include">
+        </childnode>
       </node>
-      <node id="18">
+      <node id="20">
         <label>uvfr_state_engine.h</label>
         <link refid="uvfr__state__engine_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
-        </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="21" relation="include">
         </childnode>
@@ -190,6 +214,8 @@
         <childnode refid="23" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -211,52 +237,62 @@
         </childnode>
         <childnode refid="11" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
-        </childnode>
-        <childnode refid="25" relation="include">
-        </childnode>
-        <childnode refid="16" relation="include">
-        </childnode>
-        <childnode refid="27" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
         <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="20" relation="include">
+        </childnode>
+        <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="28" relation="include">
         </childnode>
         <childnode refid="29" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="34" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="17" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="35" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="36" relation="include">
         </childnode>
         <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="34" relation="include">
         </childnode>
-        <childnode refid="19" relation="include">
+        <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="24" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="22" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
         </childnode>
       </node>
-      <node id="27">
+      <node id="28">
         <label>uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
         <childnode refid="6" relation="include">
@@ -264,63 +300,63 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="35">
         <label>uvfr_vehicle_logger.h</label>
         <link refid="uvfr__vehicle__logger_8h"/>
-        <childnode refid="33" relation="include">
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="14">
         <label>FreeRTOS.h</label>
       </node>
-      <node id="37">
+      <node id="38">
         <label>FreeRTOSConfig.h</label>
       </node>
-      <node id="23">
+      <node id="24">
         <label>cmsis_os.h</label>
       </node>
-      <node id="13">
-        <label>freeRTOS.h</label>
-      </node>
-      <node id="24">
+      <node id="25">
         <label>message_buffer.h</label>
       </node>
-      <node id="21">
+      <node id="22">
         <label>queue.h</label>
       </node>
-      <node id="22">
+      <node id="23">
         <label>semphr.h</label>
       </node>
       <node id="4">
         <label>stdarg.h</label>
       </node>
-      <node id="33">
+      <node id="16">
         <label>stdint.h</label>
       </node>
-      <node id="32">
+      <node id="39">
+        <label>stdio.h</label>
+      </node>
+      <node id="34">
         <label>stdlib.h</label>
       </node>
       <node id="3">
         <label>stm32f4xx_hal.h</label>
       </node>
-      <node id="26">
+      <node id="27">
         <label>string.h</label>
       </node>
-      <node id="20">
+      <node id="21">
         <label>task.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="13">
+      <node id="17">
         <label>Core/Inc/adc.h</label>
         <link refid="adc_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="18" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -338,6 +374,8 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>Core/Inc/can.h</label>
@@ -350,34 +388,36 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="25" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>Core/Inc/daq.h</label>
         <link refid="daq_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="15">
+      <node id="19">
         <label>Core/Inc/dash.h</label>
         <link refid="dash_8h"/>
         <childnode refid="5" relation="include">
@@ -386,17 +426,17 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="17">
+      <node id="21">
         <label>Core/Inc/dma.h</label>
         <link refid="dma_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="18" relation="include">
+        <childnode refid="22" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
@@ -408,55 +448,59 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
       </node>
-      <node id="19">
+      <node id="23">
         <label>Core/Inc/gpio.h</label>
         <link refid="gpio_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="20" relation="include">
+        <childnode refid="24" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="21" relation="include">
+        <childnode refid="25" relation="include">
         </childnode>
       </node>
-      <node id="22">
+      <node id="14">
         <label>Core/Inc/imd.h</label>
         <link refid="imd_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
       </node>
-      <node id="12">
+      <node id="16">
         <label>Core/Inc/main.h</label>
         <link refid="main_8h"/>
-        <childnode refid="13" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
-        <childnode refid="17" relation="include">
-        </childnode>
         <childnode refid="19" relation="include">
         </childnode>
-        <childnode refid="22" relation="include">
+        <childnode refid="21" relation="include">
+        </childnode>
+        <childnode refid="23" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
         <childnode refid="26" relation="include">
+        </childnode>
+        <childnode refid="28" relation="include">
+        </childnode>
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
@@ -466,23 +510,25 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="28" relation="include">
+        <childnode refid="32" relation="include">
         </childnode>
-        <childnode refid="16" relation="include">
+        <childnode refid="20" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="15" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
-        <childnode refid="30" relation="include">
+        <childnode refid="34" relation="include">
+        </childnode>
+        <childnode refid="35" relation="include">
         </childnode>
         <childnode refid="31" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
       </node>
       <node id="2">
@@ -496,20 +542,18 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="29" relation="include">
+        <childnode refid="33" relation="include">
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
-        </childnode>
       </node>
-      <node id="33">
+      <node id="37">
         <label>Core/Inc/odometer.h</label>
         <link refid="odometer_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="24">
+      <node id="26">
         <label>Core/Inc/pdu.h</label>
         <link refid="pdu_8h"/>
         <childnode refid="5" relation="include">
@@ -518,20 +562,18 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="23" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="27" relation="include">
         </childnode>
       </node>
-      <node id="34">
+      <node id="38">
         <label>Core/Inc/temp_monitoring.h</label>
         <link refid="temp__monitoring_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="26">
+      <node id="28">
         <label>Core/Inc/tim.h</label>
         <link refid="tim_8h"/>
         <childnode refid="5" relation="include">
@@ -540,7 +582,31 @@
         </childnode>
         <childnode refid="9" relation="include">
         </childnode>
-        <childnode refid="27" relation="include">
+        <childnode refid="29" relation="include">
+        </childnode>
+      </node>
+      <node id="30">
+        <label>Core/Inc/tms.h</label>
+        <link refid="tms_8h"/>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+      </node>
+      <node id="39">
+        <label>Core/Inc/uvfr_data_proccessing.h</label>
+        <link refid="uvfr__data__proccessing_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="40">
+        <label>Core/Inc/uvfr_external_devices.h</label>
+        <link refid="uvfr__external__devices_8h"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -550,17 +616,19 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="39" relation="include">
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
-      <node id="35">
+      <node id="41">
         <label>Core/Inc/uvfr_state_engine.h</label>
         <link refid="uvfr__state__engine_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
+        <childnode refid="42" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -570,84 +638,100 @@
         </childnode>
         <childnode refid="1" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
+        <childnode refid="14" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
         </childnode>
         <childnode refid="2" relation="include">
         </childnode>
-        <childnode refid="33" relation="include">
+        <childnode refid="37" relation="include">
         </childnode>
-        <childnode refid="24" relation="include">
-        </childnode>
-        <childnode refid="34" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="35" relation="include">
+        <childnode refid="26" relation="include">
         </childnode>
         <childnode refid="38" relation="include">
         </childnode>
-        <childnode refid="36" relation="include">
-        </childnode>
-        <childnode refid="14" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="11" relation="include">
-        </childnode>
-        <childnode refid="29" relation="include">
-        </childnode>
-        <childnode refid="23" relation="include">
+        <childnode refid="30" relation="include">
         </childnode>
         <childnode refid="39" relation="include">
         </childnode>
         <childnode refid="40" relation="include">
         </childnode>
-        <childnode refid="25" relation="include">
+        <childnode refid="4" relation="include">
         </childnode>
         <childnode refid="41" relation="include">
         </childnode>
-        <childnode refid="42" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-        <childnode refid="43" relation="include">
-        </childnode>
         <childnode refid="44" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="42" relation="include">
+        </childnode>
+        <childnode refid="18" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="33" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="45" relation="include">
+        </childnode>
+        <childnode refid="27" relation="include">
         </childnode>
         <childnode refid="46" relation="include">
         </childnode>
         <childnode refid="47" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="48" relation="include">
+        </childnode>
+        <childnode refid="25" relation="include">
+        </childnode>
+        <childnode refid="29" relation="include">
+        </childnode>
+        <childnode refid="31" relation="include">
+        </childnode>
+        <childnode refid="49" relation="include">
+        </childnode>
+        <childnode refid="50" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="51" relation="include">
+        </childnode>
+        <childnode refid="36" relation="include">
+        </childnode>
+        <childnode refid="52" relation="include">
+        </childnode>
+        <childnode refid="53" relation="include">
+        </childnode>
+        <childnode refid="54" relation="include">
+        </childnode>
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
-      <node id="38">
+      <node id="44">
         <label>Core/Inc/uvfr_vehicle_commands.h</label>
         <link refid="uvfr__vehicle__commands_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="36">
+      <node id="42">
         <label>Core/Inc/uvfr_vehicle_logger.h</label>
         <link refid="uvfr__vehicle__logger_8h"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="32" relation="include">
+        <childnode refid="36" relation="include">
         </childnode>
-        <childnode refid="37" relation="include">
+        <childnode refid="43" relation="include">
         </childnode>
       </node>
-      <node id="14">
+      <node id="18">
         <label>Core/Src/adc.c</label>
         <link refid="adc_8c"/>
       </node>
@@ -659,31 +743,31 @@
         <label>Core/Src/can.c</label>
         <link refid="can_8c"/>
       </node>
-      <node id="28">
+      <node id="32">
         <label>Core/Src/constants.c</label>
         <link refid="constants_8c"/>
       </node>
-      <node id="11">
+      <node id="12">
         <label>Core/Src/daq.c</label>
         <link refid="daq_8c"/>
       </node>
-      <node id="16">
+      <node id="20">
         <label>Core/Src/dash.c</label>
         <link refid="dash_8c"/>
       </node>
-      <node id="18">
+      <node id="22">
         <label>Core/Src/dma.c</label>
         <link refid="dma_8c"/>
       </node>
-      <node id="29">
+      <node id="33">
         <label>Core/Src/driving_loop.c</label>
         <link refid="driving__loop_8c"/>
       </node>
-      <node id="20">
+      <node id="24">
         <label>Core/Src/gpio.c</label>
         <link refid="gpio_8c"/>
       </node>
-      <node id="23">
+      <node id="15">
         <label>Core/Src/imd.c</label>
         <link refid="imd_8c"/>
       </node>
@@ -691,71 +775,88 @@
         <label>Core/Src/main.c</label>
         <link refid="main_8c"/>
       </node>
-      <node id="39">
+      <node id="13">
         <label>Core/Src/motor_controller.c</label>
         <link refid="motor__controller_8c"/>
       </node>
-      <node id="40">
+      <node id="45">
         <label>Core/Src/odometer.c</label>
         <link refid="odometer_8c"/>
       </node>
-      <node id="25">
+      <node id="27">
         <label>Core/Src/pdu.c</label>
         <link refid="pdu_8c"/>
       </node>
-      <node id="41">
+      <node id="46">
         <label>Core/Src/rb_tree.c</label>
         <link refid="rb__tree_8c"/>
       </node>
-      <node id="42">
+      <node id="47">
         <label>Core/Src/ready_to_drive.c</label>
         <link refid="ready__to__drive_8c"/>
       </node>
-      <node id="30">
+      <node id="34">
         <label>Core/Src/stm32f4xx_hal_msp.c</label>
         <link refid="stm32f4xx__hal__msp_8c"/>
       </node>
-      <node id="31">
+      <node id="35">
         <label>Core/Src/stm32f4xx_it.c</label>
         <link refid="stm32f4xx__it_8c"/>
       </node>
-      <node id="21">
+      <node id="48">
+        <label>Core/Src/syscalls.c</label>
+        <link refid="syscalls_8c"/>
+      </node>
+      <node id="25">
         <label>Core/Src/temp_monitoring.c</label>
         <link refid="temp__monitoring_8c"/>
       </node>
-      <node id="27">
+      <node id="29">
         <label>Core/Src/tim.c</label>
         <link refid="tim_8c"/>
       </node>
-      <node id="43">
+      <node id="31">
+        <label>Core/Src/tms.c</label>
+        <link refid="tms_8c"/>
+      </node>
+      <node id="49">
         <label>Core/Src/uvfr_conifer.c</label>
         <link refid="uvfr__conifer_8c"/>
       </node>
-      <node id="44">
+      <node id="50">
+        <label>Core/Src/uvfr_data_proccessing.c</label>
+        <link refid="uvfr__data__proccessing_8c"/>
+      </node>
+      <node id="10">
         <label>Core/Src/uvfr_diagnostics.c</label>
         <link refid="uvfr__diagnostics_8c"/>
       </node>
-      <node id="32">
+      <node id="51">
+        <label>Core/Src/uvfr_external_devices.c</label>
+        <link refid="uvfr__external__devices_8c"/>
+      </node>
+      <node id="36">
         <label>Core/Src/uvfr_settings.c</label>
         <link refid="uvfr__settings_8c"/>
       </node>
-      <node id="45">
+      <node id="52">
         <label>Core/Src/uvfr_state_engine.c</label>
         <link refid="uvfr__state__engine_8c"/>
       </node>
-      <node id="46">
+      <node id="53">
         <label>Core/Src/uvfr_utils.c</label>
         <link refid="uvfr__utils_8c"/>
       </node>
-      <node id="47">
+      <node id="54">
         <label>Core/Src/uvfr_vehicle_commands.c</label>
         <link refid="uvfr__vehicle__commands_8c"/>
       </node>
-      <node id="37">
+      <node id="43">
         <label>Core/Src/uvfr_vehicle_logger.c</label>
         <link refid="uvfr__vehicle__logger_8c"/>
       </node>
     </invincdepgraph>
+    <innerclass refid="structuv___c_a_n__driver" prot="public">uv_CAN_driver</innerclass>
     <sectiondef kind="define">
       <memberdef kind="define" id="can_8h_1a8258cafd2b5e0bfb1e4228e7a45750bf" prot="public" static="no">
         <name>CAN_TX_DAEMON_NAME</name>
@@ -766,8 +867,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="42" column="9" bodyfile="Core/Inc/can.h" bodystart="42" bodyend="-1"/>
-        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="50" endline="311">uvInit</referencedby>
+        <location file="Core/Inc/can.h" line="45" column="9" bodyfile="Core/Inc/can.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="can_8h_1ada0e781042e59a78cf629006f050e4b6" compoundref="can_8c" startline="1159" endline="1191">uvCanDriverInit</referencedby>
       </memberdef>
       <memberdef kind="define" id="can_8h_1a3cb7727094f40357f18ece08758738cc" prot="public" static="no">
         <name>CAN_RX_DAEMON_NAME</name>
@@ -778,8 +879,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="43" column="9" bodyfile="Core/Inc/can.h" bodystart="43" bodyend="-1"/>
-        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="50" endline="311">uvInit</referencedby>
+        <location file="Core/Inc/can.h" line="46" column="9" bodyfile="Core/Inc/can.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="can_8h_1ada0e781042e59a78cf629006f050e4b6" compoundref="can_8c" startline="1159" endline="1191">uvCanDriverInit</referencedby>
       </memberdef>
     </sectiondef>
     <sectiondef kind="typedef">
@@ -795,7 +896,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="45" column="25" bodyfile="Core/Inc/can.h" bodystart="45" bodyend="-1"/>
+        <location file="Core/Inc/can.h" line="48" column="25" bodyfile="Core/Inc/can.h" bodystart="48" bodyend="-1"/>
       </memberdef>
       <memberdef kind="typedef" id="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" prot="public" static="no">
         <type>enum <ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9e" kindref="member">uv_status_t</ref></type>
@@ -810,7 +911,20 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="46" column="25" bodyfile="Core/Inc/can.h" bodystart="46" bodyend="-1"/>
+        <location file="Core/Inc/can.h" line="49" column="25" bodyfile="Core/Inc/can.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="can_8h_1aec39fe0f62c8ca81d1cff23e82a47b77" prot="public" static="no">
+        <type>struct uv_CAN_driver</type>
+        <definition>typedef struct uv_CAN_driver uv_CAN_driver</definition>
+        <argsstring></argsstring>
+        <name>uv_CAN_driver</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/can.h" line="56" column="14"/>
       </memberdef>
     </sectiondef>
     <sectiondef kind="var">
@@ -825,7 +939,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="36" column="26" bodyfile="Core/Src/can.c" bodystart="152" bodyend="-1" declfile="Core/Inc/can.h" declline="36" declcolumn="26"/>
+        <location file="Core/Inc/can.h" line="39" column="26" bodyfile="Core/Src/can.c" bodystart="159" bodyend="-1" declfile="Core/Inc/can.h" declline="39" declcolumn="26"/>
       </memberdef>
       <memberdef kind="variable" id="can_8h_1ab77168d14df04ccca5d48612ee21ced8" prot="public" static="no" extern="yes" mutable="no">
         <type>CAN_HandleTypeDef</type>
@@ -838,9 +952,8 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="38" column="26" bodyfile="Core/Src/can.c" bodystart="153" bodyend="-1" declfile="Core/Inc/can.h" declline="38" declcolumn="26"/>
-        <referencedby refid="imd_8h_1aeb7c937639c5385f5d2b4e3a4e60250f" compoundref="imd_8c" startline="185" endline="196">IMD_Request_Status</referencedby>
-        <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="111" endline="230">main</referencedby>
+        <location file="Core/Inc/can.h" line="41" column="26" bodyfile="Core/Src/can.c" bodystart="160" bodyend="-1" declfile="Core/Inc/can.h" declline="41" declcolumn="26"/>
+        <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="112" endline="218">main</referencedby>
         <referencedby refid="dash_8h_1a66f84461e5c75202d12edfd8ea7c7f62" compoundref="dash_8c" startline="29" endline="45">Update_Batt_Temp</referencedby>
         <referencedby refid="dash_8h_1ab26e477047a5166efc8f2b34dbd38872" compoundref="dash_8c" startline="9" endline="26">Update_RPM</referencedby>
         <referencedby refid="dash_8h_1a30155b58ef3801f5693e953d4139d55f" compoundref="dash_8c" startline="48" endline="64">Update_State_Of_Charge</referencedby>
@@ -861,11 +974,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="50" column="6" bodyfile="Core/Src/can.c" bodystart="156" bodyend="230" declfile="Core/Inc/can.h" declline="50" declcolumn="6"/>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="365" endline="375">Error_Handler</references>
-        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="152">hcan1</references>
+        <location file="Core/Inc/can.h" line="60" column="6" bodyfile="Core/Src/can.c" bodystart="163" bodyend="237" declfile="Core/Inc/can.h" declline="60" declcolumn="6"/>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="345" endline="355">Error_Handler</references>
+        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="159">hcan1</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
-        <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="111" endline="230">main</referencedby>
+        <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="112" endline="218">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8h_1a1ee5cd592134235b6c07f676784d47c3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -881,11 +994,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="51" column="6" bodyfile="Core/Src/can.c" bodystart="232" bodyend="308" declfile="Core/Inc/can.h" declline="51" declcolumn="6"/>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="365" endline="375">Error_Handler</references>
-        <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="153">hcan2</references>
+        <location file="Core/Inc/can.h" line="61" column="6" bodyfile="Core/Src/can.c" bodystart="239" bodyend="315" declfile="Core/Inc/can.h" declline="61" declcolumn="6"/>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="345" endline="355">Error_Handler</references>
+        <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="160">hcan2</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
-        <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="111" endline="230">main</referencedby>
+        <referencedby refid="main_8c_1a840291bc02cba5474a4cb46a9b9566fe" compoundref="main_8c" startline="112" endline="218">main</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8h_1a4e0742fef0f265347a75b7fa12012229" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -902,19 +1015,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="55" column="6" bodyfile="Core/Src/can.c" bodystart="456" bodyend="509" declfile="Core/Inc/can.h" declline="55" declcolumn="6"/>
-        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="271">CAN_BUS_1</references>
-        <references refid="uvfr__utils_8h_1a047afdfa657d338c07ee38629d3c9b0a" compoundref="uvfr__utils_8h" startline="272">CAN_BUS_2</references>
-        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="289">uv_CAN_msg::data</references>
-        <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="287">uv_CAN_msg::dlc</references>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="365" endline="375">Error_Handler</references>
-        <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="283">uv_CAN_msg::flags</references>
-        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="152">hcan1</references>
-        <references refid="group__state__engine__backend_1ga321624ab262c6eeb560495e0e4833966" compoundref="can_8c" startline="74">is_can_ok</references>
-        <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="288">uv_CAN_msg::msg_id</references>
+        <location file="Core/Inc/can.h" line="65" column="6" bodyfile="Core/Src/can.c" bodystart="463" bodyend="516" declfile="Core/Inc/can.h" declline="65" declcolumn="6"/>
+        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="301">CAN_BUS_1</references>
+        <references refid="uvfr__utils_8h_1a047afdfa657d338c07ee38629d3c9b0a" compoundref="uvfr__utils_8h" startline="302">CAN_BUS_2</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="320">uv_CAN_msg::dlc</references>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="345" endline="355">Error_Handler</references>
+        <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="316">uv_CAN_msg::flags</references>
+        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="159">hcan1</references>
+        <references refid="group__state__engine__backend_1ga321624ab262c6eeb560495e0e4833966" compoundref="can_8c" startline="81">is_can_ok</references>
+        <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="321">uv_CAN_msg::msg_id</references>
         <references refid="constants_8h_1a6ee6e13063b860648180eea65852cc71" compoundref="constants_8c" startline="6">RxHeader</references>
         <references refid="constants_8h_1a8f5077b3cfe923f607bbeb35706a4c70" compoundref="constants_8c" startline="7">RxHeader2</references>
-        <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="269">UV_CAN_EXTENDED_ID</references>
+        <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="298">UV_CAN_EXTENDED_ID</references>
       </memberdef>
       <memberdef kind="function" id="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -931,19 +1044,19 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="56" column="6" bodyfile="Core/Src/can.c" bodystart="512" bodyend="565" declfile="Core/Inc/can.h" declline="56" declcolumn="6"/>
-        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="271">CAN_BUS_1</references>
-        <references refid="uvfr__utils_8h_1a047afdfa657d338c07ee38629d3c9b0a" compoundref="uvfr__utils_8h" startline="272">CAN_BUS_2</references>
-        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="289">uv_CAN_msg::data</references>
-        <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="287">uv_CAN_msg::dlc</references>
-        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="365" endline="375">Error_Handler</references>
-        <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="283">uv_CAN_msg::flags</references>
-        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="152">hcan1</references>
-        <references refid="group__state__engine__backend_1ga321624ab262c6eeb560495e0e4833966" compoundref="can_8c" startline="74">is_can_ok</references>
-        <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="288">uv_CAN_msg::msg_id</references>
+        <location file="Core/Inc/can.h" line="66" column="6" bodyfile="Core/Src/can.c" bodystart="519" bodyend="572" declfile="Core/Inc/can.h" declline="66" declcolumn="6"/>
+        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="301">CAN_BUS_1</references>
+        <references refid="uvfr__utils_8h_1a047afdfa657d338c07ee38629d3c9b0a" compoundref="uvfr__utils_8h" startline="302">CAN_BUS_2</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="320">uv_CAN_msg::dlc</references>
+        <references refid="main_8h_1a1730ffe1e560465665eb47d9264826f9" compoundref="main_8c" startline="345" endline="355">Error_Handler</references>
+        <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="316">uv_CAN_msg::flags</references>
+        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="159">hcan1</references>
+        <references refid="group__state__engine__backend_1ga321624ab262c6eeb560495e0e4833966" compoundref="can_8c" startline="81">is_can_ok</references>
+        <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="321">uv_CAN_msg::msg_id</references>
         <references refid="constants_8h_1a6ee6e13063b860648180eea65852cc71" compoundref="constants_8c" startline="6">RxHeader</references>
         <references refid="constants_8h_1a8f5077b3cfe923f607bbeb35706a4c70" compoundref="constants_8c" startline="7">RxHeader2</references>
-        <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="269">UV_CAN_EXTENDED_ID</references>
+        <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="298">UV_CAN_EXTENDED_ID</references>
       </memberdef>
       <member refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" kind="function"><name>uvSendCanMSG</name></member>
       <memberdef kind="function" id="can_8h_1a2357e197a9ac26277eec808769fe409f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
@@ -964,25 +1077,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="60" column="6" bodyfile="Core/Src/can.c" bodystart="920" bodyend="1036" declfile="Core/Inc/can.h" declline="60" declcolumn="6"/>
-        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="271">CAN_BUS_1</references>
+        <location file="Core/Inc/can.h" line="70" column="6" bodyfile="Core/Src/can.c" bodystart="997" bodyend="1113" declfile="Core/Inc/can.h" declline="70" declcolumn="6"/>
+        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="301">CAN_BUS_1</references>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="248">uv_task_info::cmd_data</references>
-        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="289">uv_CAN_msg::data</references>
-        <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="287">uv_CAN_msg::dlc</references>
-        <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="283">uv_CAN_msg::flags</references>
-        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="152">hcan1</references>
-        <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="153">hcan2</references>
-        <references refid="group__state__engine__backend_1ga321624ab262c6eeb560495e0e4833966" compoundref="can_8c" startline="74">is_can_ok</references>
-        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="724" endline="757">killSelf</references>
-        <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="288">uv_CAN_msg::msg_id</references>
-        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="765" endline="796">suspendSelf</references>
+        <references refid="structuv___c_a_n__msg_1aec63cc112176da7895d0cfc8b32e6935" compoundref="uvfr__utils_8h" startline="322">uv_CAN_msg::data</references>
+        <references refid="structuv___c_a_n__msg_1aa74af3745c8b56910d7c309245541d37" compoundref="uvfr__utils_8h" startline="320">uv_CAN_msg::dlc</references>
+        <references refid="structuv___c_a_n__msg_1a3a3fdc7fed06a631fefa58ea44052d8d" compoundref="uvfr__utils_8h" startline="316">uv_CAN_msg::flags</references>
+        <references refid="can_8c_1a1618d731d18d69e906e8a357b7cd3c8d" compoundref="can_8c" startline="159">hcan1</references>
+        <references refid="can_8c_1ab77168d14df04ccca5d48612ee21ced8" compoundref="can_8c" startline="160">hcan2</references>
+        <references refid="group__state__engine__backend_1ga321624ab262c6eeb560495e0e4833966" compoundref="can_8c" startline="81">is_can_ok</references>
+        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="773" endline="806">killSelf</references>
+        <references refid="structuv___c_a_n__msg_1aae369fbabe3cc5b71a89bb641c24aace" compoundref="uvfr__utils_8h" startline="321">uv_CAN_msg::msg_id</references>
+        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="814" endline="845">suspendSelf</references>
         <references refid="constants_8h_1a3e35a666d459f2ac92fc7c35334ff0ff" compoundref="constants_8c" startline="4">TxHeader</references>
         <references refid="can_8c_1a5a72324e39bf00fcdbefc7081bb3d600" compoundref="constants_8c" startline="5">TxHeader2</references>
         <references refid="constants_8h_1aedd1e4ac418a9697f9f41a2713d49569" compoundref="constants_8c" startline="11">TxMailbox</references>
-        <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="269">UV_CAN_EXTENDED_ID</references>
+        <references refid="uvfr__utils_8h_1aa55012016c572366a0747ff7298c7fec" compoundref="uvfr__utils_8h" startline="298">UV_CAN_EXTENDED_ID</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" compoundref="uvfr__state__engine_8h" startline="105">UV_KILL_CMD</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" compoundref="uvfr__state__engine_8h" startline="106">UV_SUSPEND_CMD</references>
-        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="50" endline="311">uvInit</referencedby>
+        <referencedby refid="can_8h_1ada0e781042e59a78cf629006f050e4b6" compoundref="can_8c" startline="1159" endline="1191">uvCanDriverInit</referencedby>
       </memberdef>
       <memberdef kind="function" id="can_8h_1a2b32305988f51945b7c220ca60ab68e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1001,42 +1114,55 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="61" column="6" bodyfile="Core/Src/can.c" bodystart="1045" bodyend="1083" declfile="Core/Inc/can.h" declline="61" declcolumn="6"/>
-        <references refid="can_8c_1ad97471d0f87ac27ca228619bfb52d2db" compoundref="can_8c" startline="70">callback_table_1_mutex</references>
-        <references refid="can_8c_1a3786873632329fd3819f63a7324f8710" compoundref="can_8c" startline="71">callback_table_2_mutex</references>
+        <location file="Core/Inc/can.h" line="71" column="6" bodyfile="Core/Src/can.c" bodystart="1122" bodyend="1157" declfile="Core/Inc/can.h" declline="71" declcolumn="6"/>
         <references refid="structuv__task__info_1af532b5031cd6a168a3ec45ab9ead4f23" compoundref="uvfr__state__engine_8h" startline="248">uv_task_info::cmd_data</references>
-        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="724" endline="757">killSelf</references>
-        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="765" endline="796">suspendSelf</references>
+        <references refid="group__state__engine__backend_1ga5f35b34432afed7f18f91fb8607f096f" compoundref="uvfr__state__engine_8c" startline="773" endline="806">killSelf</references>
+        <references refid="group__state__engine__backend_1gad6117850b55ad52be51d93915bcc313c" compoundref="uvfr__state__engine_8c" startline="814" endline="845">suspendSelf</references>
         <references refid="structuv__task__info_1a5347f41c4b15b2d6b039c339613fde43" compoundref="uvfr__state__engine_8h" startline="246">uv_task_info::task_handle</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca0e75e398c2bbcb663eaeb98684ca69d6" compoundref="uvfr__state__engine_8h" startline="105">UV_KILL_CMD</references>
-        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="174">UV_OK</references>
+        <references refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9" compoundref="uvfr__utils_8h" startline="180">UV_OK</references>
         <references refid="group__state__engine__api_1ggaf11e8677926913f2dd803fabbed3455ca5f389a67f2a45fe1f51492b3b8f04077" compoundref="uvfr__state__engine_8h" startline="106">UV_SUSPEND_CMD</references>
-        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="50" endline="311">uvInit</referencedby>
+        <referencedby refid="can_8h_1ada0e781042e59a78cf629006f050e4b6" compoundref="can_8c" startline="1159" endline="1191">uvCanDriverInit</referencedby>
       </memberdef>
       <member refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kind="function"><name>insertCANMessageHandler</name></member>
-      <memberdef kind="function" id="can_8h_1af6b10418988114bc5b82f13501b99bdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>void</type>
-        <definition>void nuke_hash_table</definition>
-        <argsstring>(int can_num)</argsstring>
-        <name>nuke_hash_table</name>
-        <param>
-          <type>int</type>
-          <declname>can_num</declname>
-        </param>
+      <memberdef kind="function" id="can_8h_1ada0e781042e59a78cf629006f050e4b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref></type>
+        <definition>uv_status uvCanDriverInit</definition>
+        <argsstring>()</argsstring>
+        <name>uvCanDriverInit</name>
         <briefdescription>
         </briefdescription>
         <detaileddescription>
-<para>Function to free all malloced memory Index through the hash table and free all the malloced memory at each index </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="Core/Inc/can.h" line="66" column="6" bodyfile="Core/Src/can.c" bodystart="773" bodyend="822" declfile="Core/Inc/can.h" declline="66" declcolumn="6"/>
-        <references refid="uvfr__utils_8h_1a68cc2bdb140f7959b6090b771f3358a9" compoundref="uvfr__utils_8h" startline="271">CAN_BUS_1</references>
-        <references refid="uvfr__utils_8h_1a047afdfa657d338c07ee38629d3c9b0a" compoundref="uvfr__utils_8h" startline="272">CAN_BUS_2</references>
-        <references refid="can_8c_1ac0a447cc951ac5c4ac2c50291d64fe44" compoundref="can_8c" startline="66" endline="66">CAN_callback_table_1</references>
-        <references refid="can_8c_1afc3b8fa78d569b412fa9e7b56f5f6a62" compoundref="can_8c" startline="68" endline="68">CAN_callback_table_2</references>
-        <references refid="struct_c_a_n___callback_1ace8db41695ac99095f81f37c97056076" compoundref="can_8c" startline="58">CAN_Callback::next</references>
-        <references refid="can_8c_1a286ec093b36200ab124adf66d0671198" compoundref="can_8c" startline="51">table_size</references>
+        <location file="Core/Inc/can.h" line="77" column="11" bodyfile="Core/Src/can.c" bodystart="1159" bodyend="1191" declfile="Core/Inc/can.h" declline="77" declcolumn="11"/>
+        <references refid="structuv__task__info_1ab24dea3bde4de2d839bf15e65c2df0d6" compoundref="uvfr__state__engine_8h" startline="258">uv_task_info::active_states</references>
+        <references refid="can_8c_1ad97471d0f87ac27ca228619bfb52d2db" compoundref="can_8c" startline="77">callback_table_1_mutex</references>
+        <references refid="can_8c_1a3786873632329fd3819f63a7324f8710" compoundref="can_8c" startline="78">callback_table_2_mutex</references>
+        <references refid="can_8h_1a3cb7727094f40357f18ece08758738cc" compoundref="can_8h" startline="46">CAN_RX_DAEMON_NAME</references>
+        <references refid="can_8h_1a8258cafd2b5e0bfb1e4228e7a45750bf" compoundref="can_8h" startline="45">CAN_TX_DAEMON_NAME</references>
+        <references refid="can_8c_1a2b32305988f51945b7c220ca60ab68e8" compoundref="can_8c" startline="1122" endline="1157">CANbusRxSvcDaemon</references>
+        <references refid="can_8c_1a2357e197a9ac26277eec808769fe409f" compoundref="can_8c" startline="997" endline="1113">CANbusTxSvcDaemon</references>
+        <references refid="structuv__task__info_1a353ec6bf2c42ab0920f3d1e671e568a3" compoundref="uvfr__state__engine_8h" startline="238">uv_task_info::stack_size</references>
+        <references refid="structuv__task__info_1afcd240d2b6b01b4acea600ef4dfe8fbc" compoundref="uvfr__state__engine_8h" startline="234">uv_task_info::task_function</references>
+        <references refid="structuv__task__info_1ad24b438130bb3098ee5e855222dff21d" compoundref="uvfr__state__engine_8h" startline="229">uv_task_info::task_name</references>
+        <references refid="group__state__engine__backend_1ga43cdd5f23929fee4ba86d4fd0b60d6ad" compoundref="uvfr__state__engine_8c" startline="1266" endline="1301">uvCreateServiceTask</references>
+        <references refid="group__state__engine__backend_1ga15cdf09b5625c2ba29a6c6d5c96214dc" compoundref="uvfr__state__engine_8c" startline="449" endline="516">uvStartTask</references>
+        <referencedby refid="uvfr__utils_8h_1a6d40598f9d8daa89ca159a2e87f4fd01" compoundref="uvfr__utils_8c" startline="73" endline="418">uvInit</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="can_8h_1a1369407ea9efacfb19ce5a919feaac57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref></type>
+        <definition>uv_status uvCanDriverDeInit</definition>
+        <argsstring>()</argsstring>
+        <name>uvCanDriverDeInit</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="Core/Inc/can.h" line="78" column="11" declfile="Core/Inc/can.h" declline="78" declcolumn="11"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -1079,49 +1205,62 @@ Copyright (c) 2023 STMicroelectronics. All rights reserved.</para>
 <codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="main_8h" kindref="compound">main.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="30"><highlight class="normal"></highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>BEGIN<sp/>Includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="constants_8h" kindref="compound">constants.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="uvfr__utils_8h" kindref="compound">uvfr_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="35"><highlight class="normal"></highlight></codeline>
-<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>CAN_HandleTypeDef<sp/><ref refid="can_8h_1a1618d731d18d69e906e8a357b7cd3c8d" kindref="member">hcan1</ref>;</highlight></codeline>
-<codeline lineno="37"><highlight class="normal"></highlight></codeline>
-<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>CAN_HandleTypeDef<sp/><ref refid="can_8h_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>;</highlight></codeline>
-<codeline lineno="39"><highlight class="normal"></highlight></codeline>
-<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>BEGIN<sp/>Private<sp/>defines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="41"><highlight class="normal"></highlight></codeline>
-<codeline lineno="42" refid="can_8h_1a8258cafd2b5e0bfb1e4228e7a45750bf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CAN_TX_DAEMON_NAME<sp/>&quot;CanTxDaemon&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="43" refid="can_8h_1a3cb7727094f40357f18ece08758738cc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CAN_RX_DAEMON_NAME<sp/>&quot;CanRxDaemon&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;FreeRTOS.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;task.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="constants_8h" kindref="compound">constants.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="uvfr__utils_8h" kindref="compound">uvfr_utils.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>CAN_HandleTypeDef<sp/><ref refid="can_8h_1a1618d731d18d69e906e8a357b7cd3c8d" kindref="member">hcan1</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>CAN_HandleTypeDef<sp/><ref refid="can_8h_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>BEGIN<sp/>Private<sp/>defines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="44"><highlight class="normal"></highlight></codeline>
-<codeline lineno="45" refid="can_8h_1ad857192b5d0529e73642f1293d6bed75" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref><sp/><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>;</highlight></codeline>
-<codeline lineno="46" refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9e" kindref="member">uv_status_t</ref><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref>;</highlight></codeline>
+<codeline lineno="45" refid="can_8h_1a8258cafd2b5e0bfb1e4228e7a45750bf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CAN_TX_DAEMON_NAME<sp/>&quot;CanTxDaemon&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="can_8h_1a3cb7727094f40357f18ece08758738cc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CAN_RX_DAEMON_NAME<sp/>&quot;CanRxDaemon&quot;</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="47"><highlight class="normal"></highlight></codeline>
-<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Private<sp/>defines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="49"><highlight class="normal"></highlight></codeline>
-<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a030a62a0956ab83394eb8354a0e97902" kindref="member">MX_CAN1_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a1ee5cd592134235b6c07f676784d47c3" kindref="member">MX_CAN2_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="52"><highlight class="normal"></highlight></codeline>
-<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>BEGIN<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="54"><highlight class="normal"></highlight></codeline>
-<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a4e0742fef0f265347a75b7fa12012229" kindref="member">HAL_CAN_RxFifo0MsgPendingCallback</ref>(CAN_HandleTypeDef<sp/>*<ref refid="can_8h_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>);</highlight></codeline>
-<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" kindref="member">HAL_CAN_RxFifo1MsgPendingCallback</ref>(CAN_HandleTypeDef<sp/>*<ref refid="can_8h_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>);</highlight></codeline>
+<codeline lineno="48" refid="can_8h_1ad857192b5d0529e73642f1293d6bed75" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref><sp/><ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref>;</highlight></codeline>
+<codeline lineno="49" refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="uvfr__utils_8h_1a71c52c44be11d0980910401cb9b5fb9e" kindref="member">uv_status_t</ref><sp/><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="structuv___c_a_n__driver" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structuv___c_a_n__driver" kindref="compound">uv_CAN_driver</ref>{</highlight></codeline>
+<codeline lineno="52" refid="structuv___c_a_n__driver_1acfa835a74c8e36892f64bf9d6c14fc24" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><ref refid="structuv___c_a_n__driver_1acfa835a74c8e36892f64bf9d6c14fc24" kindref="member">tx_task</ref>;</highlight></codeline>
+<codeline lineno="53" refid="structuv___c_a_n__driver_1a4a547e4e9b7853af258702c80071a55c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>TaskHandle_t<sp/><ref refid="structuv___c_a_n__driver_1a4a547e4e9b7853af258702c80071a55c" kindref="member">rx_task</ref>;</highlight></codeline>
+<codeline lineno="54" refid="structuv___c_a_n__driver_1ab1ddf12e09139316100424c7cfa774b5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structuv___c_a_n__driver_1ab1ddf12e09139316100424c7cfa774b5" kindref="member">num_msg_tx</ref>;</highlight></codeline>
+<codeline lineno="55" refid="structuv___c_a_n__driver_1a53bf0cce78662e2ee8ceb11fe77b47ba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structuv___c_a_n__driver_1a53bf0cce78662e2ee8ceb11fe77b47ba" kindref="member">num_msg_rx</ref>;</highlight></codeline>
+<codeline lineno="56" refid="can_8h_1aec39fe0f62c8ca81d1cff23e82a47b77" refkind="member"><highlight class="normal">}<ref refid="can_8h_1aec39fe0f62c8ca81d1cff23e82a47b77" kindref="member">uv_CAN_driver</ref>;</highlight></codeline>
 <codeline lineno="57"><highlight class="normal"></highlight></codeline>
-<codeline lineno="58"><highlight class="normal"><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" kindref="member">uvSendCanMSG</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref><sp/>*<sp/>msg);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Private<sp/>defines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
-<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a2357e197a9ac26277eec808769fe409f" kindref="member">CANbusTxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args);</highlight></codeline>
-<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a2b32305988f51945b7c220ca60ab68e8" kindref="member">CANbusRxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a030a62a0956ab83394eb8354a0e97902" kindref="member">MX_CAN1_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a1ee5cd592134235b6c07f676784d47c3" kindref="member">MX_CAN2_Init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
 <codeline lineno="62"><highlight class="normal"></highlight></codeline>
-<codeline lineno="63"><highlight class="normal"></highlight></codeline>
-<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//int<sp/>callFunctionFromCANid(uint32_t<sp/>CAN_id,<sp/>uint8_t*<sp/>data,<sp/>uint8_t<sp/>length);</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kindref="member">insertCANMessageHandler</ref>(uint32_t<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>handlerfunc,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>can_num);</highlight></codeline>
-<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1af6b10418988114bc5b82f13501b99bdd" kindref="member">nuke_hash_table</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>can_num);</highlight></codeline>
-<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="68"><highlight class="normal"></highlight></codeline>
-<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>BEGIN<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a4e0742fef0f265347a75b7fa12012229" kindref="member">HAL_CAN_RxFifo0MsgPendingCallback</ref>(CAN_HandleTypeDef<sp/>*<ref refid="can_8h_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a4c51ef84434a42d4c5f9524d361c0703" kindref="member">HAL_CAN_RxFifo1MsgPendingCallback</ref>(CAN_HandleTypeDef<sp/>*<ref refid="can_8h_1ab77168d14df04ccca5d48612ee21ced8" kindref="member">hcan2</ref>);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="group__uvfr__can__api_1ga62414944c3b631f57fdd08e467bcf5a4" kindref="member">uvSendCanMSG</ref>(<ref refid="structuv___c_a_n__msg" kindref="compound">uv_CAN_msg</ref><sp/>*<sp/>msg);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a2357e197a9ac26277eec808769fe409f" kindref="member">CANbusTxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="can_8h_1a2b32305988f51945b7c220ca60ab68e8" kindref="member">CANbusRxSvcDaemon</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>args);</highlight></codeline>
 <codeline lineno="72"><highlight class="normal"></highlight></codeline>
-<codeline lineno="73"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__CAN_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">//int<sp/>callFunctionFromCANid(uint32_t<sp/>CAN_id,<sp/>uint8_t*<sp/>data,<sp/>uint8_t<sp/>length);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__uvfr__can__api_1gafadde3418edf4017889c4c6ec160a2f6" kindref="member">insertCANMessageHandler</ref>(uint32_t<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*<sp/>handlerfunc,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>can_num);</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="can_8h_1ada0e781042e59a78cf629006f050e4b6" kindref="member">uvCanDriverInit</ref>();</highlight></codeline>
+<codeline lineno="78" refid="can_8h_1a1369407ea9efacfb19ce5a919feaac57" refkind="member"><highlight class="normal"><ref refid="can_8h_1aef3770e45bbacbf527fd93dd80eea9b9" kindref="member">uv_status</ref><sp/><ref refid="can_8h_1a1369407ea9efacfb19ce5a919feaac57" kindref="member">uvCanDriverDeInit</ref>();</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>nuke_hash_table(int<sp/>can_num);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>USER<sp/>CODE<sp/>END<sp/>Prototypes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>__CAN_H__<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="Core/Inc/can.h"/>
   </compounddef>

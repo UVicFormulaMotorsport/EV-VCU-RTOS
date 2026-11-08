@@ -1,0 +1,78 @@
+\doxysection{tms.\+c}
+\hypertarget{tms_8c_source}{}\label{tms_8c_source}\index{Core/Src/tms.c@{Core/Src/tms.c}}
+\mbox{\hyperlink{tms_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00001}00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00002}00002\ \textcolor{comment}{\ *\ tms.c}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00003}00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00004}00004\ \textcolor{comment}{\ *\ VCU-\/side\ Thermal\ Management\ System\ (TMS)\ tap.\ See\ tms.h\ for\ the\ full\ rundown.}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00005}00005\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00006}00006\ \textcolor{comment}{\ *\ In\ short:\ the\ TMS\ broadcasts\ battery-\/pack\ temperatures\ as\ a\ J1939\ thermistor}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00007}00007\ \textcolor{comment}{\ *\ frame\ (0x1839F380)\ aimed\ at\ the\ BMS,\ but\ mirrored\ onto\ both\ buses.\ The\ BMS}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00008}00008\ \textcolor{comment}{\ *\ handles\ its\ own\ copy;\ we\ just\ listen\ in\ on\ the\ dash\ bus,\ sanity-\/check\ the}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00009}00009\ \textcolor{comment}{\ *\ frame,\ and\ drop\ the\ numbers\ into\ g\_tms\_state\ so\ the\ dash/DAQ\ can\ display\ them.}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00010}00010\ \textcolor{comment}{\ *\ Nothing\ here\ is\ safety-\/critical\ -\/-\/\ it\ is\ display/telemetry\ only.}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00011}00011\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00013}\mbox{\hyperlink{tms_8c_a368892c5fb38bdcdfae7b7e2a22602b4}{00013}}\ \textcolor{preprocessor}{\#define\ \_\_UV\_FILENAME\_\_\ "{}tms.c"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00015}00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{main_8h}{main.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00016}00016\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{tms_8h}{tms.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00017}00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{can_8h}{can.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00018}00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__utils_8h}{uvfr\_utils.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00019}00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uvfr__external__devices_8h}{uvfr\_external\_devices.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00020}00020\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00022}\mbox{\hyperlink{tms_8h_a7f12bf1bf90abd5b4d59a773b75ac548}{00022}}\ \textcolor{keyword}{volatile}\ \mbox{\hyperlink{structtms__state__t}{tms\_state\_t}}\ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00030}\mbox{\hyperlink{tms_8h_af9c90cf037b8c47099adae4f37c26dd9}{00030}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tms_8c_af9c90cf037b8c47099adae4f37c26dd9}{TMS\_CANRxHandler}}(\mbox{\hyperlink{structuv___c_a_n__msg}{uv\_CAN\_msg}}*\ msg)\{}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{if}(msg\ ==\ NULL)\{}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00033}00033\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00034}00034\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00035}00035\ \ \ \ \ \textcolor{comment}{/*\ Checksum:\ byte7\ =\ low\ 8\ bits\ of\ (sum\ of\ bytes\ 0..6\ +\ 0x39\ +\ DLC(8)).}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00036}00036\ \textcolor{comment}{\ \ \ \ \ *\ This\ mirrors\ can\_tms\_send\_module\_data()\ on\ the\ TMS\ side\ exactly.\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00037}00037\ \ \ \ \ uint16\_t\ sum\ =\ (uint16\_t)msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[0]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2]}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5]\ +\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[6]}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ 0x39u\ +\ 0x08u;}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00041}00041\ \ \ \ \ \textcolor{keywordflow}{if}((uint8\_t)(sum\ \&\ 0xFFu)\ !=\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[7])\{}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_a2ef9af568b7b663852bbac33422f4649}{msg\_corrupt}}\ =\ 1;\ \textcolor{comment}{//\ keep\ the\ last\ good\ values,\ drop\ this\ frame}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00046}00046\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_a2ef9af568b7b663852bbac33422f4649}{msg\_corrupt}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00047}00047\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_a157e7196dbcdb312cc8b59178cc503ca}{low\_c}}\ \ \ \ \ \ \ =\ (int8\_t)msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[1];}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00048}00048\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_ac8512b48efcf8d30a54da4dd20ccd263}{high\_c}}\ \ \ \ \ \ =\ (int8\_t)msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[2];}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00049}00049\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_af993436cf0c53db50fc804d716166c7b}{avg\_c}}\ \ \ \ \ \ \ =\ (int8\_t)msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[3];}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00050}00050\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_a6a65381aec2e3101004d541f7ca9dd86}{therm\_count}}\ =\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[4];}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00051}00051\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_aa268b03cbaeebe513b1b3ab09dfc9529}{high\_id}}\ \ \ \ \ =\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[5];}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00052}00052\ \ \ \ \ \mbox{\hyperlink{tms_8c_a7f12bf1bf90abd5b4d59a773b75ac548}{g\_tms\_state}}.\mbox{\hyperlink{structtms__state__t_a4a4bf4a7a956739b708dc4c155196e5c}{low\_id}}\ \ \ \ \ \ =\ msg-\/>\mbox{\hyperlink{structuv___c_a_n__msg_aec63cc112176da7895d0cfc8b32e6935}{data}}[6];}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00054}00054\ \ \ \ \ \textcolor{comment}{/*\ Let\ XDEVMON\ know\ the\ TMS\ is\ alive\ (freshness\ tracking\ only).\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00055}00055\ \ \ \ \ \mbox{\hyperlink{uvfr__external__devices_8h_abeba1577d0e5f860f687d6dfaa57c877}{externalDeviceRxHandler}}(\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161}{TMS}});}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00056}00056\ \}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00064}\mbox{\hyperlink{tms_8h_adcffe6d6f50f8c5d2e87e9474007072b}{00064}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{tms_8c_adcffe6d6f50f8c5d2e87e9474007072b}{TMS\_Init}}(\textcolor{keywordtype}{void}*\ args)\{}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00065}00065\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*\ params\ =\ (\mbox{\hyperlink{structuv__init__task__args}{uv\_init\_task\_args}}*)\ args;}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00067}00067\ \ \ \ \ vTaskDelay(20);}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00069}00069\ \ \ \ \ \mbox{\hyperlink{structuv__init__task__response}{uv\_init\_task\_response}}\ response\ =\ \{\mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}},\ \mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161}{TMS}},\ 0,\ NULL\};}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00070}00070\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00071}00071\ \ \ \ \ \mbox{\hyperlink{group__uvfr__can__api_gafadde3418edf4017889c4c6ec160a2f6}{insertCANMessageHandler}}(\mbox{\hyperlink{tms_8h_a7e8d6e291d86213a2644794d06153c8d}{TMS\_THERM\_DATA\_CAN\_ID}},\ \mbox{\hyperlink{tms_8c_af9c90cf037b8c47099adae4f37c26dd9}{TMS\_CANRxHandler}},\ \mbox{\hyperlink{tms_8h_a0b7d7d27b5b6d10189924220ed27aca9}{TMS\_CAN\_BUS}});}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{uvfr__external__devices_8h_a2490d2062300642b604d6b04e3aef26e}{uvRegisterExternalDevice}}(\mbox{\hyperlink{uvfr__utils_8h_ad70cbc8929c4ad7a5901cd9eef5ca9b0a8ab7d2437fdcb262d58574673056f161}{TMS}},\ 200,\ \mbox{\hyperlink{uvfr__utils_8h_a8271d45830bcd3a81c516ec8a0d306f8}{XDEV\_CHECK\_TIMEOUT\_BIT}},\ \textcolor{stringliteral}{"{}TMS"{}})\ !=\ \mbox{\hyperlink{uvfr__utils_8h_a71c52c44be11d0980910401cb9b5fb9ea93b7493f003cb72e7b6138f2794b58e9}{UV\_OK}})\{}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Display-\/only\ device:\ carry\ on\ regardless.\ The\ RX\ handler\ is\ already}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00075}00075\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ installed,\ so\ temps\ will\ still\ flow\ even\ without\ xdev\ monitoring.\ */}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00076}00076\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00077}00077\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00078}00078\ \ \ \ \ \textcolor{keywordflow}{if}(xQueueSendToBack(params-\/>\mbox{\hyperlink{structuv__init__task__args_adec47e7a54822cacfb8fcfc35a22157f}{init\_info\_queue}},\ \&response,\ 100)\ !=\ pdPASS)\{}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{comment}{//OOPS}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00080}00080\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00082}00082\ \ \ \ \ \textcolor{comment}{//Kill\ yourself}}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00083}00083\ \ \ \ \ vTaskSuspend(params-\/>\mbox{\hyperlink{structuv__init__task__args_a3b81430245e7f832dc1112e53b0ef7ad}{meta\_task\_handle}});}
+\DoxyCodeLine{\Hypertarget{tms_8c_source_l00084}00084\ \}}
+
+\end{DoxyCode}

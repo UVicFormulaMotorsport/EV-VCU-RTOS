@@ -1,4 +1,32 @@
 var searchData=
 [
-  ['xheapstats_0',['xHeapStats',['../group__state__engine.html#gace30759073ddac097d29f042acc4142d',1,'uvfr_state_engine.c']]]
+  ['x_0',['x',['../struct_l_u_t__ii__t.html#a6532e190501baf1360131216399837f1',1,'LUT_ii_t::x'],['../struct_l_u_t__if__t.html#aeb5170a7265c2502f12b2d08aa2c2aa6',1,'LUT_if_t::x'],['../struct_l_u_t__ff__t.html#a6fc2845d9ec415fe4da907577f3a2b0a',1,'LUT_ff_t::x']]],
+  ['xdev_5fcheck_5ftimeout_5fbit_1',['XDEV_CHECK_TIMEOUT_BIT',['../uvfr__utils_8h.html#a8271d45830bcd3a81c516ec8a0d306f8',1,'uvfr_utils.h']]],
+  ['xdev_5fdevice_5fexpected_2',['XDEV_DEVICE_EXPECTED',['../uvfr__utils_8h.html#a53250f7129ac531af318ca80b2369b35',1,'uvfr_utils.h']]],
+  ['xdev_5ferror_3',['XDEV_ERROR',['../uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43a536b537c779bea9d98f23f8fc75f5dac',1,'uvfr_utils.h']]],
+  ['xdev_5fhandle_4',['xdev_handle',['../uvfr__utils_8h.html#aa725aa58161b6b07033c2e9b9a9a2797',1,'uvfr_utils.h']]],
+  ['xdev_5fid_5',['xdev_id',['../uvfr__utils_8h.html#a31a6e863b4ff66aa77b33f46482d344b',1,'uvfr_utils.h']]],
+  ['xdev_5finfo_6',['xdev_info',['../structxdev__info.html',1,'xdev_info'],['../uvfr__utils_8h.html#a407a67bfb773b045f6f52d16ce316803',1,'xdev_info:&#160;uvfr_utils.h']]],
+  ['xdev_5fmutex_7',['xdev_mutex',['../structxdev__info.html#af24cb974bf8eb2ef0492e5b23421e1c4',1,'xdev_info']]],
+  ['xdev_5fnc_8',['XDEV_NC',['../uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43aa673787feb285434560fb395179f9b3a',1,'uvfr_utils.h']]],
+  ['xdev_5fno_5fpanic_5ftimeout_9',['XDEV_NO_PANIC_TIMEOUT',['../uvfr__utils_8h.html#a63b77ac4096c81d5243fd00d5fd69f15',1,'uvfr_utils.h']]],
+  ['xdev_5fok_10',['XDEV_OK',['../uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43a22cbfe561cbaea8cb7e9031251fe313c',1,'uvfr_utils.h']]],
+  ['xdev_5fpoll_5fmsg_11',['xdev_poll_msg',['../structxdev__poll__msg.html',1,'xdev_poll_msg'],['../uvfr__utils_8h.html#a093b46f3f7624fe0f361a27096c08f4c',1,'xdev_poll_msg:&#160;uvfr_utils.h']]],
+  ['xdev_5fpoll_5fmsgs_12',['xdev_poll_msgs',['../structxdev__info.html#aa74fe5d2ee7b4c1f2f3cc908186f2cd4',1,'xdev_info']]],
+  ['xdev_5fpolled_5flast_5fcycle_13',['XDEV_POLLED_LAST_CYCLE',['../uvfr__utils_8h.html#a819809feda3eb4b28960b42b4ce59e18',1,'uvfr_utils.h']]],
+  ['xdev_5fpolling_5frequired_14',['XDEV_POLLING_REQUIRED',['../uvfr__utils_8h.html#ab5fd3260b5d96c52e32b7956090db6b3',1,'uvfr_utils.h']]],
+  ['xdev_5frx_5fack_5fdata_15',['xdev_rx_ack_data',['../structxdev__rx__ack__data.html',1,'xdev_rx_ack_data'],['../uvfr__external__devices_8c.html#ad04985266f2147fac4f7a2c335d8a839',1,'xdev_rx_ack_data:&#160;uvfr_external_devices.c']]],
+  ['xdev_5frx_5fsmphr_16',['xdev_rx_smphr',['../structxdev__info.html#ab431b3a236e62f77c9e4a7ff3f03c937',1,'xdev_info']]],
+  ['xdev_5fstatus_17',['xdev_status',['../uvfr__external__devices_8h.html#a020dd8b6190bb717ee7db7df6a9467a8',1,'uvfr_external_devices.h']]],
+  ['xdev_5ftimeout_18',['XDEV_TIMEOUT',['../uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43a5c0d8edf82f0e99b05a14aaa8925cc02',1,'uvfr_utils.h']]],
+  ['xdev_5fuhh_5fuhh_5fduhh_19',['XDEV_UHH_UHH_DUHH',['../uvfr__utils_8h.html#ab02afdf3bf6c137c551e9398ff1522b4',1,'uvfr_utils.h']]],
+  ['xdev_5fvcu_5ferror_20',['XDEV_VCU_ERROR',['../uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43ae5465c64160cbacf99d396ff1a6d0c14',1,'uvfr_utils.h']]],
+  ['xdev_5fwarning_21',['XDEV_WARNING',['../uvfr__utils_8h.html#a03579d31f8c403a3efb1b96fa13eac43adfd3f190523f5f6f61c4f6ee1d8d02ab',1,'uvfr_utils.h']]],
+  ['xdevmon_22',['xDevMon',['../uvfr__external__devices_8c.html#a2eb6437b2086686f5a86eebb3ccd782a',1,'uvfr_external_devices.c']]],
+  ['xdevmon_5fimplementation_23',['XDEVMON_IMPLEMENTATION',['../uvfr__external__devices_8c.html#aafc2637c055e7794d594c21eb5780cca',1,'uvfr_external_devices.c']]],
+  ['xheapstats_24',['xHeapStats',['../group__state__engine.html#gace30759073ddac097d29f042acc4142d',1,'xHeapStats:&#160;uvfr_state_engine.c'],['../group__state__engine.html#gace30759073ddac097d29f042acc4142d',1,'xHeapStats:&#160;uvfr_state_engine.c']]],
+  ['xtickcount_25',['xTickCount',['../group__state__engine.html#gaaa88969a9b48aea401dbb1ff2b0ef4de',1,'uvfr_state_engine.c']]],
+  ['xtoy_5fff_26',['xToY_ff',['../uvfr__data__proccessing_8h.html#ab614156a277020fc48946a14cd398973',1,'xToY_ff(LUT_ff_t *lut, float x):&#160;uvfr_data_proccessing.c'],['../uvfr__data__proccessing_8c.html#ab614156a277020fc48946a14cd398973',1,'xToY_ff(LUT_ff_t *lut, float x):&#160;uvfr_data_proccessing.c']]],
+  ['xtoy_5fif_27',['xToY_if',['../uvfr__data__proccessing_8h.html#ae0dd44600368d9d4fc8fa0dee3879d7e',1,'xToY_if(LUT_if_t *lut, int32_t x):&#160;uvfr_data_proccessing.c'],['../uvfr__data__proccessing_8c.html#ae0dd44600368d9d4fc8fa0dee3879d7e',1,'xToY_if(LUT_if_t *lut, int32_t x):&#160;uvfr_data_proccessing.c']]],
+  ['xtoy_5fii_28',['xToY_ii',['../uvfr__data__proccessing_8h.html#aeeff70be1fdcea90bfea4ad2378eec13',1,'xToY_ii(LUT_ii_t *lut, int32_t x):&#160;uvfr_data_proccessing.c'],['../uvfr__data__proccessing_8c.html#aeeff70be1fdcea90bfea4ad2378eec13',1,'xToY_ii(LUT_ii_t *lut, int32_t x):&#160;uvfr_data_proccessing.c']]]
 ];
