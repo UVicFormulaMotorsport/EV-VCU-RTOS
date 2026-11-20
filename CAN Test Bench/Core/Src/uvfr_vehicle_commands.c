@@ -306,4 +306,6 @@ uv_status uvDeEnergizeTractiveSystem(){
 	MC_setErrorMask(mains_voltage_min_limit|
 				rotate_field_enable_not_present_run|
 				AC_current_offset_fault);
+
+	uvSetTractiveStatus(TS_OFF);
 }

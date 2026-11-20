@@ -122,7 +122,8 @@ static void IMD_SendRequest(uint8_t mux_code) {
 static uv_status IMD_RegisterWithXDevMon(void) {
 	TickType_t period_ms = 100;
 
-	uint16_t flags = XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT | XDEV_POLLING_REQUIRED;
+	//uint16_t flags = XDEV_DEVICE_EXPECTED | XDEV_CHECK_TIMEOUT_BIT | XDEV_POLLING_REQUIRED;
+	uint16_t flags = 0;
 
 	if (uvRegisterExternalDevice(IMD, period_ms, flags, "IMD") != UV_OK) {
 		return UV_ERROR;
