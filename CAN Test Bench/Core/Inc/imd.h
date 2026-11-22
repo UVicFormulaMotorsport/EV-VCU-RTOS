@@ -8,23 +8,18 @@
 #include "uvfr_utils.h"
 #include <stdint.h>
 
-// ---------------------------------------------------------------
-// Bender ISOMETER iso175 - Status: Warnings_and_Alarms
-// Source: iso175 operating manual, iso175_D00415_03_M_XXEN (07.2025)
-// The manual has NO single table for these bits. Each bit is mentioned in the
-// section listed next to it (page numbers = printed page numbers in the manual).
+
 
 // Bender-Standard default IDs from iso175 manual chapter 4.11.2 (11-bit standard IDs)
 enum imd_can_ids{
-	IMD_CAN_ID_response        = 0x22, 
-	IMD_CAN_ID_request         = 0x23,
-	IMD_CAN_ID_Info_General    = 0x37, // broadcast every 100 ms by default
-	IMD_CAN_ID_Info_IsoDetaul  = 0x38, // off by default
-	IMD_CAN_ID_Info_Temperature = 0x39  // off by default
-	
-
-
-}
+	IMD_CAN_ID_Request        = 0x22,
+	IMD_CAN_ID_Response       = 0x23,
+	IMD_CAN_ID_Info_General   = 0x37, // sent every 100 ms by default (sec 4.11.1 "Cycle time periodic messages", p.22)
+	IMD_CAN_ID_Info_IsoDetail = 0x38, // off by default (sec 4.11.1, p.22)
+	IMD_CAN_ID_Info_Voltage   = 0x39, // off by default. NOTE: sec 10.1 table, p.32 lists this as 0x38 - looks like a
+	                                  // typo since 0x38 is IsoDetail (sec 4.11.2 says 0x39). Confirm on the bus
+	IMD_CAN_ID_INFO_ITSystem  = 0x3A, // off by default (sec 4.11.1, p.22)
+};
 
 
 //
@@ -52,6 +47,14 @@ enum imd_warnings_alarms{
 	WA_Earthlift_open   = 0x0400, // bit 10 - sec 4.10.2 "'Earth' disconnector open", p.21
 };
 
+enum imd_r_iso_status{
+	Riso_estimate = 0xFC, // sec 4.3.4 "Fast start measurement", p.13 ("estimated insulation value during startup")
+	Riso_first_measured  = 0xFD, // ONLY appears in the tolerance table, sec 10.2 "Tabular data", p.34 - meaning is NOT
+	                      // described in the manual. Name "interim" is a guess; confirm with the CAN spec
+	Riso_normal   = 0xFE, // sec 4.3.1, p.12 + sec 4.4.2, p.15 ("normal insulation measurement")
+
+	Riso_SNV   = 0xFF    // sec 4.3.1, p.12 + sec 4.4.2, p.15 ("no insulation measurement possible")
+};
 // ---------------------------------------------------------------
 // Function declarations
 uint8_t  IMD_IsOnline(void);

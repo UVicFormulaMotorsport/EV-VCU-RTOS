@@ -1,6 +1,8 @@
 // This where the code to handle IMD errors and such will go
 // Jan 2026
 // Rachan Grewal and Quazi Heider
+// Oct 2026
+// Bidhan and Quazi
 //
 // personal note for myself: this does NOT handle logic for actually shutting down car
 // it logs data specifically for something like "What happened RIGHT BEFORE we shut down"
